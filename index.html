@@ -6292,6 +6292,11 @@ function calculateNetTakeHome() {
 // Populate the specific Tax Country dropdown
 $(document).ready(function() {
     const $taxDrop = $('#taxCountry');
+
+
+ $taxDrop.empty(); 
+
+
     Object.keys(taxEngineStore).sort().forEach(k => {
         $taxDrop.append(`<option value="${k}">${k.toUpperCase()}</option>`);
     });
