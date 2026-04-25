@@ -639,9 +639,49 @@
 </div>
 
 
+
+<!-- SECTION 7: GLOBAL TAX & TAKE-HOME ENGINE -->
+<div class="section-card" id="tax-module">
+    <div class="section-title">7. How much do i earn after taxes?</div>
+    
+    <div class="comp-wrapper" style="text-align: left; gap: 25px;">
+        <!-- INPUT COLUMN -->
+        <div class="engine-block">
+            <label style="font-size: 0.7rem; font-weight: 900; color: #666; text-transform: uppercase;">1. Target Country</label>
+            <select id="taxCountry" class="country-drop" onchange="initTaxCalculator()"></select>
+
+            <label style="font-size: 0.7rem; font-weight: 900; color: #666; text-transform: uppercase;">2. Average Salary Earned (Market Avg)</label>
+            <div id="avgSalaryDisplay" style="padding: 15px; background: #f9f9f9; border: 2px solid #eee; border-radius: 12px; font-weight: 900; text-align: center; margin: 10px 0; color: var(--black);"> - </div>
+
+            <label style="font-size: 0.7rem; font-weight: 900; color: #666; text-transform: uppercase;">3. My Salary (Annual Gross)</label>
+            <input type="number" id="userSalaryInput" placeholder="Enter Amount" oninput="calculateNetTakeHome()"
+                   style="width: 100%; padding: 18px; margin: 10px 0; border-radius: 15px; border: 2px solid var(--black); font-family: inherit; font-weight: 700; text-align: center; box-shadow: 4px 4px 0px var(--aqua); outline: none;">
+        </div>
+
+        <!-- OUTPUT COLUMN -->
+        <div class="result-panel" style="display: block; border-left: 10px solid var(--black); padding: 25px;">
+            <div class="res-line"><b>4. Annual Tax Amount</b><span id="resTax" style="color: #ff4757; font-weight: 900;">-</span></div>
+            <div class="res-line"><b>5. Salary After Tax</b><span id="resNet" style="color: #2ed573; font-weight: 900;">-</span></div>
+            
+            <div style="margin-top: 25px; background: var(--black); color: var(--aqua); padding: 20px; border-radius: 15px; text-align: center;">
+                <div style="font-size: 0.65rem; text-transform: uppercase; font-weight: 900; margin-bottom: 5px; letter-spacing: 1px;">6. NET Monthly Salary in INR</div>
+                <div id="resINR" style="font-size: 2rem; font-weight: 900; color: var(--white);">₹ 0</div>
+            </div>
+            <p style="font-size: 0.55rem; color: #999; margin-top: 15px; font-style: italic; line-height: 1.4;">
+                *Includes Progressive Income Tax, Social Security/National Insurance, and local levies. Calculated using April 2026 projected FX rates.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
 <!-- THE TRANSPARENCY PORTAL -->
 <details class="transparency-details">
-    <summary class="transparency-summary">⚠ 7. UNCOVER THE MIGRATION GREY MARKET: TRUTH REPORT ⚠</summary>
+    <summary class="transparency-summary">⚠ 8. UNCOVER THE MIGRATION GREY MARKET: TRUTH REPORT ⚠</summary>
     
     <div class="transparency-content">
         <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase; border-bottom: 8px solid var(--aqua);">THE ₹25 LAKH ILLUSION</h2>
@@ -757,7 +797,7 @@
 
 <!-- THE IMMIGRATION ENCYCLOPEDIA -->
 <details class="glossary-details">
-    <summary class="glossary-summary">📖 8. IMMIGRATION ENCYCLOPEDIA: 50 KEY TERMS DECODED</summary>
+    <summary class="glossary-summary">📖 9. IMMIGRATION ENCYCLOPEDIA: 50 KEY TERMS DECODED</summary>
     
     <div class="transparency-content">
         <input type="text" id="termSearch" class="glossary-search" placeholder="🔍 SEARCH FOR A TERM (e.g. 'Green Card', 'Sponsor', 'PCC')...">
@@ -1093,7 +1133,7 @@
 
 <!-- THE IMMIGRATION GLOSSARY -->
 <details class="glossary-details">
-    <summary class="glossary-summary">📚 9. MASTER THE TERMINOLOGY: DECODING VISA JARGON</summary>
+    <summary class="glossary-summary">📚 10. MASTER THE TERMINOLOGY: DECODING VISA JARGON</summary>
     
     <div class="glossary-content">
         <!-- Term 1 -->
@@ -6158,6 +6198,105 @@ function openNexaModal(key) {
 function closeNexaModal() {
     $('#nexaModal').fadeOut(200);
 }
+
+
+
+
+
+
+
+
+
+// --- COMPLETE TAX ENGINE DATA (25 COUNTRIES) ---
+const taxEngineStore = {
+    usa: { avg: 95000, cur: "USD", fx: 94, slabs: [[11600,0.1],[47150,0.12],[100525,0.22],[191950,0.24]], social: 0.0765 },
+    uk: { avg: 70000, cur: "GBP", fx: 118, slabs: [[12570,0],[50270,0.20],[125140,0.40]], ni: 0.08 },
+    canada: { avg: 120000, cur: "CAD", fx: 69, slabs: [[55867,0.15],[111733,0.205],[173205,0.26]], prov: 0.09, cpp: 0.07 },
+    australia: { avg: 95000, cur: "AUD", fx: 62, slabs: [[18200,0],[45000,0.16],[135000,0.30],[190000,0.37]], medicare: 0.02 },
+    "new zealand": { avg: 96000, cur: "NZD", fx: 57, slabs: [[14000,0.105],[48000,0.175],[70000,0.30]], acc: 0.015, kiwi: 0.03 },
+    china: { avg: 350000, cur: "CNY", fx: 13, slabs: [[36000,0.03],[144000,0.10],[300000,0.20]], exemption: 60000, social: 0.22 },
+    russia: { avg: 1250000, cur: "RUB", fx: 1.05, slabs: [[2400000,0.13],[5000000,0.15]], social: 0.05 },
+    "south africa": { avg: 373000, cur: "ZAR", fx: 5.0, slabs: [[237100,0.18],[370500,0.26],[512800,0.31]], rebate: 17235, uif: 0.01 },
+    japan: { avg: 6200000, cur: "JPY", fx: 0.63, slabs: [[1950000,0.05],[3300000,0.10],[6950000,0.20]], resident: 0.10, social: 0.15, exempt: 480000 },
+    "south korea": { avg: 47000000, cur: "KRW", fx: 0.07, slabs: [[14000000,0.06],[50000000,0.15],[88000000,0.24]], surtax: 0.10, social: 0.10 },
+    malaysia: { avg: 79000, cur: "MYR", fx: 20, slabs: [[5000,0],[20000,0.01],[35000,0.03],[50000,0.06]], epf: 0.11 },
+    singapore: { avg: 103000, cur: "SGD", fx: 70, slabs: [[20000,0],[30000,0.02],[40000,0.035],[80000,0.07]], cpf: 0.20, cap: 102000 },
+    luxembourg: { avg: 58500, cur: "EUR", fx: 101, slabs: [[12438,0],[22575,0.08],[42396,0.14]], social: 0.13 },
+    germany: { avg: 46000, cur: "EUR", fx: 101, slabs: [[11604,0],[66760,0.25]], social: 0.21 },
+    france: { avg: 50000, cur: "EUR", fx: 101, slabs: [[11294,0],[28797,0.11]], social: 0.23 },
+    italy: { avg: 45000, cur: "EUR", fx: 101, slabs: [[28000,0.23],[50000,0.35]], social: 0.095 },
+    poland: { avg: 92000, cur: "PLN", fx: 24.5, slabs: [[30000,0],[120000,0.12]], social: 0.22 },
+    romania: { avg: 107000, cur: "RON", fx: 20, slabs: [[Infinity, 0.10]], social: 0.35 },
+    netherlands: { avg: 59000, cur: "EUR", fx: 101, slabs: [[75518, 0.3697]], social: 0.05 },
+    uae: { avg: 234000, cur: "AED", fx: 25.6, slabs: [[Infinity, 0]] },
+    "saudi arabia": { avg: 200000, cur: "SAR", fx: 25, slabs: [[Infinity, 0]] },
+    qatar: { avg: 190000, cur: "QAR", fx: 25.8, slabs: [[Infinity, 0]] },
+    kuwait: { avg: 17000, cur: "KWD", fx: 305, slabs: [[Infinity, 0]] },
+    bahrain: { avg: 17900, cur: "BHD", fx: 248, slabs: [[Infinity, 0]] },
+    oman: { avg: 22000, cur: "OMR", fx: 244, slabs: [[Infinity, 0]] }
+};
+
+function calculateSlabs(income, slabs) {
+    let tax = 0; let prevLimit = 0;
+    for (const [limit, rate] of slabs) {
+        if (income > prevLimit) {
+            tax += (Math.min(income, limit) - prevLimit) * rate;
+            prevLimit = limit;
+        } else break;
+    }
+    return tax;
+}
+
+function initTaxCalculator() {
+    const c = $('#taxCountry').val();
+    const d = taxEngineStore[c];
+    $('#avgSalaryDisplay').text(`${d.avg.toLocaleString()} ${d.cur}`);
+    $('#userSalaryInput').val(d.avg);
+    calculateNetTakeHome();
+}
+
+function calculateNetTakeHome() {
+    const c = $('#taxCountry').val();
+    const salary = parseFloat($('#userSalaryInput').val()) || 0;
+    const config = taxEngineStore[c];
+    let tax = 0; let extras = 0;
+
+    // 1. Income Tax Calculation
+    let taxable = config.exemption ? Math.max(0, salary - config.exemption) : (config.exempt ? Math.max(0, salary - config.exempt) : salary);
+    tax = calculateSlabs(taxable, config.slabs);
+
+    // 2. Add Country-Specific Social / Payroll / Surtaxes
+    if (config.social) extras += (salary * config.social);
+    if (config.ni) extras += Math.max(0, salary - 12570) * config.ni;
+    if (config.medicare) extras += (salary * config.medicare);
+    if (config.acc) extras += (salary * config.acc);
+    if (config.kiwi) extras += (salary * config.kiwi);
+    if (config.prov) extras += (salary * config.prov);
+    if (config.cpp) extras += Math.min(4500, salary * config.cpp);
+    if (config.resident) extras += (salary * config.resident);
+    if (config.surtax) tax += (tax * config.surtax);
+    if (config.epf) extras += (salary * config.epf);
+    if (config.cpf) extras += Math.min(22000, salary * config.cpf);
+    if (config.rebate) tax = Math.max(0, tax - config.rebate);
+    if (config.uif) extras += (salary * config.uif);
+
+    let totalDeduction = tax + extras;
+    let net = salary - totalDeduction;
+    let monthlyINR = (net * config.fx) / 12;
+
+    $('#resTax').text(`${Math.ceil(totalDeduction).toLocaleString()} ${config.cur}`);
+    $('#resNet').text(`${Math.ceil(net).toLocaleString()} ${config.cur}`);
+    $('#resINR').text(`₹ ${Math.ceil(monthlyINR).toLocaleString('en-IN')}`);
+}
+
+// Populate the specific Tax Country dropdown
+$(document).ready(function() {
+    const $taxDrop = $('#taxCountry');
+    Object.keys(taxEngineStore).sort().forEach(k => {
+        $taxDrop.append(`<option value="${k}">${k.toUpperCase()}</option>`);
+    });
+    $taxDrop.val('usa').trigger('change');
+});
 </script>
 
 
