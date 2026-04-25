@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* Kuwait Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }  
+</style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+    <label>Select Country</label>
+<label>Select Country</label>
+<select id="country">
+    <option value="CHINA">CHINA</option>
+</select>
+
+<label style="margin-top: 15px; display: block;">Select Visa Type</label>
+<select id="visaType">
+    <optgroup label="1. Visitor & Business">
+        <option value="ChinaTouristVisaL">Tourist Visa (L)</option>
+        <option value="ChinaBusinessVisaM">Business Visa (M)</option>
+        <option value="ChinaNonCommercialVisitVisaF">Non-Commercial Visit (F)</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Talent">
+        <option value="ChinaWorkVisaZ">Work Visa (Z)</option>
+        <option value="ChinaTalentVisaR">High-Level Talent Visa (R)</option>
+    </optgroup>
+
+    <optgroup label="3. Student Visas">
+        <option value="ChinaStudentVisaX1">Long-term Student (X1)</option>
+        <option value="ChinaStudentVisaX2">Short-term Student (X2)</option>
+    </optgroup>
+
+    <optgroup label="4. Family Visas">
+        <option value="ChinaFamilyReunionVisaQ1">Family Reunion (Q1)</option>
+        <option value="ChinaFamilyVisitVisaQ2">Family Visit (Q2)</option>
+        <option value="ChinaPrivateVisitVisaS1">Private Visit (S1)</option>
+        <option value="ChinaPrivateVisitVisaS2">Private Visit (S2)</option>
+    </optgroup>
+
+    <optgroup label="5. Transit, Crew & Media">
+        <option value="ChinaTransitVisaG">Transit Visa (G)</option>
+        <option value="ChinaCrewVisaC">Crew Visa (C)</option>
+        <option value="ChinaJournalistVisaJ1">Journalist (J1)</option>
+        <option value="ChinaJournalistVisaJ2">Journalist (J2)</option>
+    </optgroup>
+
+    <optgroup label="6. Diplomatic & Residence">
+        <option value="ChinaDiplomaticVisaD">Diplomatic Visa (D)</option>
+        <option value="ChinaCourtesyVisaLQ">Courtesy Visa (LQ)</option>
+        <option value="ChinaPermanentResidenceGreenCard">Permanent Residence (D)</option>
+    </optgroup>
+    
+    <optgroup label="7. Special Regions">
+        <option value="HongKongSARVisa">Hong Kong SAR Visa</option>
+        <option value="MacauSARVisa">Macau SAR Visa</option>
+    </optgroup>
+
+    <optgroup label="8. Extras">
+        <option value="ChinaTransitWithoutVisa144h">TWOV</option>
+        <option value="ChinaTransitWithoutVisa24h">General TWOV</option>
+        <option value="ChinaShenzhenSpecialZoneVisa">VOB</option>
+   <option value="ChinaPortVisaEmergency">Port Visa</option>
+        <option value="ChinaHainanVisaFreePolicy">30-Day visa free</option>
+        <option value="ChinaApecBusinessTravelCard">ABTC</option>
+
+ <option value="ChinaGroupTouristVisa">Group Tourist</option>
+        <option value="ChinaWorkResidencePermitFWP">Foreign Workers</option>
+    </optgroup>
+</select>
+</div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF CHINA MASTER PROCESS COLLAPSIBLE -->
+<!-- START OF CHINA MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇨🇳 VIEW CHINA IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇨🇳 CHINA IMMIGRATION – GENERAL PROCESS (2026)</h1>
+
+        <h2>🧭 1. CHOOSE YOUR VISA TYPE</h2>
+        <p>Purpose must match visa exactly: Tourist (L), Business (M), Work (Z), Student (X), Family (Q/S), or Talent (R).</p>
+
+        <h2>📩 2. GET REQUIRED INVITATION / PERMIT</h2>
+        <p>Most China visas require a sponsor. Obtain a Work Permit Notification (Work), JW201/JW202 forms (Student), or a formal Invitation Letter from a Chinese company or resident.</p>
+
+        <h2>📄 3 & 4. PREPARE DOCUMENTS & FILL COVA FORM</h2>
+        <p>Complete the <strong>China Online Visa Application (COVA)</strong> form. Prepare passport, biometric photos, and financial proof.</p>
+
+        <h2>📅 5 & 6. SUBMIT APPLICATION & BIOMETRICS</h2>
+        <p>Submit at the Chinese Embassy or Visa Application Service Center (CVASC). <strong>Fingerprints are mandatory</strong> for most applicants.</p>
+
+        <h2>⏳ 7 & 8. PROCESSING & DECISION</h2>
+        <p>Authorities verify invitation and background. If approved, a visa sticker is affixed to your passport.</p>
+
+        <h2>✅ 9 & 10. TRAVEL & POST-ARRIVAL REGISTRATION</h2>
+        <p>Register your address within 24 hours of entry. For Z and X1 visas, convert the visa into a <strong>Residence Permit within 30 days</strong>.</p>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL CHINA IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Visa Application (COVA):</strong> <a href="https://cova.mfa.gov.cn" target="_blank">cova.mfa.gov.cn</a></p>
+            <p><strong>2. Visa Service Center (CVASC):</strong> <a href="https://www.visaforchina.cn" target="_blank">www.visaforchina.cn</a></p>
+            <p><strong>3. National Immigration Administration:</strong> <a href="https://www.nia.gov.cn" target="_blank">www.nia.gov.cn</a></p>
+            <p><strong>4. Study in China Portal:</strong> <a href="http://www.campuschina.org" target="_blank">www.campuschina.org</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: USE ONLY OFFICIAL GOVERNMENT WEBSITES. AVOID UNAUTHORIZED THIRD-PARTY AGENTS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "CHINA": {
+"ChinaTouristVisaL": {
+    name: "Tourist Visa (L Visa – China)",
+
+    validity: "Usually single-entry or double-entry valid for 3–6 months. Each stay typically allows 30–60 days depending on consulate approval.",
+
+    cost: "Approx $30–$90 (~₹2,500–₹7,500) for Indian citizens. Express service may cost more.",
+
+    time: "Processing time usually 4–10 working days. Express processing can take 2–3 days.",
+
+    age: "No strict age limit. Applicable to all tourists including minors (with guardians).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required (generally bank balance of ~₹80,000–₹2,00,000 recommended depending on trip length).",
+
+    docs: "Valid passport, visa application form, passport photos, confirmed flight tickets, hotel bookings or invitation letter, bank statements (last 3–6 months), travel itinerary, travel insurance (sometimes required).",
+
+    whom: "Foreign tourists (including Indian citizens) visiting China for tourism, sightseeing, leisure, or visiting landmarks.",
+
+    rules: "No employment allowed. Must leave before visa expiry. Must follow registered travel itinerary in some cases. Extensions are limited and require approval.",
+
+    prosCons: "Pros: Easy entry for tourism, relatively low cost, short processing time. Cons: No work rights, limited stay duration, strict documentation.",
+
+    terms: "L Visa: Tourist category visa; Invitation Letter: Sponsor document; Entry Type: Single/double/multiple entry permission; Overstay: Staying beyond permitted duration (illegal).",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China.",
+
+    process: `1. Prepare travel itinerary ->
+              2. Book flights and accommodation ->
+              3. Gather financial documents ->
+              4. Submit visa application at Chinese Embassy/VFS ->
+              5. Provide biometrics if required ->
+              6. Pay visa fee ->
+              7. Embassy reviews application ->
+              8. Visa approval issued ->
+              9. Travel to China ->
+              10. Immigration clearance at entry point`
+},
+
+"ChinaBusinessVisaM": {
+    name: "Business Visa (M Visa – China)",
+
+    validity: "Usually 3 months to 1 year depending on trade relationship and invitation letter. Can be single, double, or multiple-entry with stays of 30–90 days per visit.",
+
+    cost: "Approx $50–$120 (~₹4,000–₹10,000) depending on entry type and processing speed.",
+
+    time: "Processing time usually 4–7 working days. Express service may take 2–3 days.",
+
+    age: "No strict age limit. Typically issued to working-age business professionals (18+).",
+
+    education: "Not mandatory, but business background or company affiliation is required.",
+
+    funds: "Proof of sufficient funds required (bank statements, company financials, or sponsor guarantee depending on case).",
+
+    docs: "Valid passport, visa application form, passport photos, invitation letter from Chinese company, Chinese business license copy of inviting company, employment proof or company registration, bank statements, travel itinerary, accommodation details, business correspondence.",
+
+    whom: "Foreign business travelers (including Indian citizens) visiting China for trade, meetings, negotiations, exhibitions, or commercial activities.",
+
+    rules: "No direct employment in China allowed. Must only conduct approved business activities. Must exit before visa expiry. Multiple-entry usage must follow visa conditions.",
+
+    prosCons: "Pros: Easy access for trade, multiple-entry options, supports long-term business relations. Cons: Strict invitation requirement, no local employment rights, documentation-heavy.",
+
+    terms: "M Visa: Business travel category; Invitation Letter: Official business invite; Trade Activities: Permitted commercial interactions; Entry Type: Single/double/multiple entry classification.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China.",
+
+    process: `1. Obtain invitation letter from Chinese company ->
+              2. Collect business documents ->
+              3. Fill visa application form ->
+              4. Submit application to Chinese Embassy/VFS ->
+              5. Attend biometrics if required ->
+              6. Pay visa fee ->
+              7. Embassy verification of business purpose ->
+              8. Visa approval issued ->
+              9. Travel to China ->
+              10. Entry and immigration clearance`
+},
+
+"ChinaNonCommercialVisitVisaF": {
+    name: "Non-Commercial Visit Visa (F Visa – China)",
+
+    validity: "Usually 3 months to 1 year depending on invitation and purpose. Typically single or multiple entry with stays of 30–90 days per visit.",
+
+    cost: "Approx $30–$90 (~₹2,500–₹7,500) for Indian applicants depending on entry type and processing speed.",
+
+    time: "Processing time usually 4–7 working days. Express service may take 2–3 days.",
+
+    age: "No strict age limit. Applicable to adults and students/professionals involved in non-commercial exchange.",
+
+    education: "Not mandatory, but often required for academic, cultural, or research-related visits.",
+
+    funds: "Proof of sufficient funds required (bank statements or sponsor guarantee depending on visit purpose).",
+
+    docs: "Valid passport, visa application form, passport photos, invitation letter from Chinese organization/institution, travel itinerary, bank statements, accommodation proof, supporting documents for academic/cultural/research activity.",
+
+    whom: "Foreign nationals (including Indian citizens) visiting China for non-commercial purposes such as academic exchange, cultural programs, study tours, research cooperation, or training (non-paid activities).",
+
+    rules: "No paid employment allowed. Must strictly follow stated non-commercial purpose. Must exit before visa expiry. Cannot convert directly into work visa without proper process.",
+
+    prosCons: "Pros: Flexible for academic/cultural exchange, relatively easy approval with invitation. Cons: No work rights, limited duration, strict purpose control.",
+
+    terms: "F Visa: Non-commercial visit category; Invitation Letter: Official host document; Exchange Program: Academic/cultural cooperation; Non-commercial Activity: No paid work allowed.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China.",
+
+    process: `1. Obtain invitation from Chinese institution ->
+              2. Prepare supporting documents ->
+              3. Fill visa application form ->
+              4. Submit at Chinese Embassy/VFS ->
+              5. Attend biometrics if required ->
+              6. Pay visa fee ->
+              7. Application review ->
+              8. Visa approval issued ->
+              9. Travel to China ->
+              10. Entry immigration clearance`
+},
+
+"ChinaWorkVisaZ": {
+    name: "Work Visa (Z Visa – China Employment Visa)",
+
+    validity: "Usually issued for 30 days initially. Must be converted into a residence permit within China valid for 1–5 years depending on contract.",
+
+    cost: "Approx $60–$150 (~₹5,000–₹12,000) depending on entry type and processing category. Residence permit fees apply after arrival.",
+
+    time: "Processing time usually 5–15 working days depending on work permit approval and employer documentation.",
+
+    age: "Typically 18–60 years depending on job type and employer requirements.",
+
+    education: "Required. Usually Bachelor’s degree or higher plus relevant work experience. Some skilled trades may accept certifications instead.",
+
+    funds: "No personal funds required in most cases. Employer provides salary and sponsorship.",
+
+    docs: "Valid passport, visa application form, work permit notification letter (issued by Chinese authorities), employment contract, employer business license, academic certificates, work experience proof, medical examination report, passport photos.",
+
+    whom: "Foreign professionals (including Indian citizens) hired by Chinese companies, schools, or institutions for full-time paid employment in China.",
+
+    rules: "Must work only for sponsoring employer. Must obtain residence permit within 30 days of entry. Job changes require approval. Must comply with Chinese labor laws.",
+
+    prosCons: "Pros: Legal employment in China, long-term stay option, stable income. Cons: Strict qualification requirements, employer dependency, complex documentation.",
+
+    terms: "Z Visa: Work entry visa; Work Permit: Employment authorization in China; Residence Permit: Long-term stay document; Employer Sponsorship: Required company support.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China and foreign work permit regulations.",
+
+    process: `1. Employer applies for work permit in China ->
+              2. Receive work permit notification letter ->
+              3. Submit Z visa application at embassy ->
+              4. Attend biometrics and medical tests ->
+              5. Pay visa fee ->
+              6. Visa approval issued ->
+              7. Travel to China ->
+              8. Complete medical examination (if required) ->
+              9. Apply for residence permit within 30 days ->
+              10. Begin employment legally`
+},
+
+"ChinaStudentVisaX1": {
+    name: "Student Visa (X1 Visa – China Long-Term Study Visa)",
+
+    validity: "Issued for studies longer than 180 days. Initially valid for entry, then converted into a residence permit in China valid for 1–5 years depending on course duration.",
+
+    cost: "Approx $30–$90 (~₹2,500–₹7,500) for visa application. Residence permit after arrival may cost additional fees (~₹5,000–₹10,000 equivalent depending on duration).",
+
+    time: "Processing time usually 4–10 working days. Express service may take 2–3 days.",
+
+    age: "No strict age limit. Commonly issued to university students (18+), but applicable to all long-term education levels.",
+
+    education: "Required admission from a recognized Chinese university or institution.",
+
+    funds: "Proof of sufficient funds required (~₹3–10 lakhs recommended depending on course and city). Sponsor support or scholarship letters also accepted.",
+
+    docs: "Valid passport, JW201 or JW202 form (study permit issued by China), university admission letter, visa application form, passport photos, financial proof or scholarship letter, medical examination report, academic transcripts.",
+
+    whom: "Foreign students (including Indian citizens) pursuing long-term degree programs, diplomas, or academic studies in China for more than 6 months.",
+
+    rules: "Must register with university. Must convert visa into residence permit within 30 days of entry. Cannot work without authorization. Must maintain academic enrollment.",
+
+    prosCons: "Pros: Long-term study stay, access to Chinese universities, pathway to research/work opportunities. Cons: Strict documentation, limited work rights, must maintain enrollment.",
+
+    terms: "X1 Visa: Long-term study visa; JW201/JW202: Official study admission forms; Residence Permit: Post-entry legal stay; Student Status: Enrollment requirement.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China.",
+
+    process: `1. Apply and get admission from Chinese university ->
+              2. Receive JW201/JW202 form ->
+              3. Prepare financial and academic documents ->
+              4. Submit X1 visa application ->
+              5. Attend biometrics and medical test ->
+              6. Pay visa fee ->
+              7. Visa approval issued ->
+              8. Travel to China ->
+              9. Complete medical check if required ->
+              10. Apply for residence permit within 30 days ->
+              11. Begin studies`
+},
+
+"ChinaStudentVisaX2": {
+    name: "Short-Term Student Visa (X2 Visa – China Short Study Visa)",
+
+    validity: "Valid for study programs up to 180 days. Usually single-entry with fixed duration based on course length.",
+
+    cost: "Approx $30–$80 (~₹2,500–₹6,500) depending on processing speed and embassy fees.",
+
+    time: "Processing time usually 4–7 working days. Express processing may take 2–3 days.",
+
+    age: "No strict age limit. Common for short courses, exchange programs, and training programs.",
+
+    education: "Required admission or enrollment in a recognized short-term course or exchange program.",
+
+    funds: "Proof of sufficient funds required (~₹1–5 lakhs depending on duration and program type).",
+
+    docs: "Valid passport, admission/acceptance letter from Chinese institution, visa application form, passport photos, financial proof, travel itinerary, accommodation details, academic documents (if required).",
+
+    whom: "Foreign nationals (including Indian citizens) attending short-term courses, language programs, exchange programs, or training in China for less than 6 months.",
+
+    rules: "Cannot work in China. Must follow course duration strictly. Cannot convert to work visa directly while in China in most cases. Must exit upon completion of course.",
+
+    prosCons: "Pros: Quick processing, ideal for short courses/exchange programs, simple requirements. Cons: No long-term stay, no work rights, limited flexibility.",
+
+    terms: "X2 Visa: Short-term study visa; Exchange Program: Academic short course; Enrollment Proof: Admission confirmation; Duration Limit: Maximum 180 days stay.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China.",
+
+    process: `1. Apply for short-term course or exchange program ->
+              2. Receive admission/acceptance letter ->
+              3. Prepare documents and financial proof ->
+              4. Submit X2 visa application ->
+              5. Attend biometrics if required ->
+              6. Pay visa fee ->
+              7. Visa approval issued ->
+              8. Travel to China ->
+              9. Attend program ->
+              10. Exit China before visa expiry`
+},
+
+
+
+"ChinaCrewVisaC": {
+    name: "Crew Visa (C Visa – China)",
+
+    validity: "Usually short-term, valid for the duration of the specific duty/assignment. Typically allows stays of a few days to several weeks per entry depending on transport schedule.",
+
+    cost: "Approx $30–$80 (~₹2,500–₹7,000). Often covered by employer or transport company for airline, shipping, or train crew.",
+
+    time: "Processing time usually 3–7 working days depending on crew schedule and embassy verification.",
+
+    age: "No strict age limit. Typically issued to working-age crew members (18+) such as airline staff, ship crew, train crew, and vehicle operators.",
+
+    education: "Not mandatory, but relevant professional certification/training required (aviation, maritime, logistics, etc.).",
+
+    funds: "Usually not required from applicant. Employer or transport company covers travel, accommodation, and expenses.",
+
+    docs: "Valid passport, crew ID card or seafarer/airline employment certificate, crew list issued by company, transport schedule (flight/ship/train details), visa application form, passport photos, employer letter, travel insurance (if required).",
+
+    whom: "Foreign nationals (including Indian citizens) working as airline crew, ship crew, train staff, or cross-border transport operators entering China for duty purposes.",
+
+    rules: "Must only perform assigned crew duties. Cannot engage in local employment. Must leave with assigned transport schedule or return as per duty roster.",
+
+    prosCons: "Pros: Fast processing, employer-sponsored travel, multiple entry for regular routes. Cons: Strictly work-bound, no settlement rights, limited to duty schedule.",
+
+    terms: "Crew Member: Transport staff; Crew List: Official team manifest; Layover: Short stay between routes; Duty Schedule: Assigned transport timetable.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China and international transport regulations (ICAO/IMO standards).",
+
+    process: `1. Employer assigns transport duty ->
+              2. Prepare crew list and schedule ->
+              3. Submit C visa application ->
+              4. Provide crew identification documents ->
+              5. Embassy verifies transport operation ->
+              6. Visa issued (fast-track processing) ->
+              7. Travel to China ->
+              8. Entry as crew member ->
+              9. Perform duty ->
+              10. Exit or continue next assignment`
+},
+
+"ChinaTransitVisaG": {
+    name: "Transit Visa (G Visa – China)",
+
+    validity: "Usually valid for short transit stays up to 24–144 hours (5–6 days) depending on city and transit policy. Single entry only.",
+
+    cost: "Approx $30–$60 (~₹2,500–₹5,000). Often lower cost or waived for eligible transit passengers under visa-free transit policies.",
+
+    time: "Processing time usually 2–5 working days. Some eligible travelers may not require advance visa under transit exemption rules.",
+
+    age: "No strict age limit. Applicable to all transit passengers including minors with guardians.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds for transit stay may be required (hotel, meals, onward travel expenses).",
+
+    docs: "Valid passport, confirmed onward ticket to a third country, visa for destination country (if required), visa application form (if needed), passport photos, travel itinerary, proof of funds, hotel booking (if overnight stay).",
+
+    whom: "Foreign travelers (including Indian citizens) transiting through China to a third country with confirmed onward travel arrangements.",
+
+    rules: "Must remain within allowed transit cities and duration. Cannot work or extend stay beyond permitted transit window. Must hold valid onward ticket.",
+
+    prosCons: "Pros: Simple short stay for layovers, sometimes visa-free transit options available, quick processing. Cons: Very limited duration, no mobility beyond transit, strict entry conditions.",
+
+    terms: "Transit Visa: Short stay entry permit; Visa-Free Transit: Exemption policy; Layover: Stopover between flights; Onward Ticket: Confirmed next destination travel proof.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China and China’s visa-free transit policies.",
+
+    process: `1. Book confirmed onward international ticket ->
+              2. Check transit visa or visa-free eligibility ->
+              3. Prepare travel documents ->
+              4. Submit G visa application (if required) ->
+              5. Pay visa fee ->
+              6. Visa approval issued (if applicable) ->
+              7. Travel via China ->
+              8. Immigration clearance ->
+              9. Stay within permitted transit duration ->
+              10. Continue onward journey`
+},
+
+
+"ChinaFamilyReunionVisaQ1": {
+    name: "Family Reunion Visa (Q1 Visa – China Long-Term Family Reunion)",
+
+    validity: "Usually issued for long-term stay exceeding 180 days. After entry, must be converted into a residence permit valid for 1–5 years depending on family status.",
+
+    cost: "Approx $30–$90 (~₹2,500–₹7,500) for visa application. Residence permit after arrival costs additional ~₹5,000–₹10,000 equivalent.",
+
+    time: "Processing time usually 5–10 working days. Residence permit processing after arrival may take additional 1–4 weeks.",
+
+    age: "No strict age limit. Applicable to spouses, parents, children, and dependent family members.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in China must show sufficient financial support or stable income to support family member.",
+
+    docs: "Valid passport, visa application form, invitation letter from family member in China, proof of relationship (marriage/birth certificates), sponsor’s residence permit or Chinese ID, proof of accommodation, financial support documents, passport photos, health certificate (sometimes required).",
+
+    whom: "Foreign nationals (including Indian citizens) joining Chinese citizens or foreign residents in China for long-term family living (spouse, parents, children, or dependents).",
+
+    rules: "Must register after arrival. Must convert visa into residence permit within 30 days. Cannot work without authorization. Must maintain valid family relationship status.",
+
+    prosCons: "Pros: Long-term family stay, access to residence rights, pathway to permanent residence. Cons: Strict documentation, dependency on sponsor, no immediate work rights.",
+
+    terms: "Q1 Visa: Long-term family reunion visa; Sponsor: Family member in China; Residence Permit: Post-entry legal stay document; Dependent: Eligible family member.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China.",
+
+    process: `1. Obtain invitation from family member in China ->
+              2. Prepare proof of relationship documents ->
+              3. Submit Q1 visa application ->
+              4. Attend biometrics if required ->
+              5. Pay visa fee ->
+              6. Visa approval issued ->
+              7. Travel to China ->
+              8. Apply for residence permit within 30 days ->
+              9. Register with local authorities ->
+              10. Begin long-term family stay`
+},
+
+"ChinaFamilyVisitVisaQ2": {
+    name: "Short-term Family Visit Visa (Q2 Visa – China Short Family Visit)",
+
+    validity: "Usually valid for 30–180 days depending on invitation and entry type. Single or multiple entry possible.",
+
+    cost: "Approx $30–$80 (~₹2,500–₹7,000) depending on entry type and processing speed.",
+
+    time: "Processing time usually 4–7 working days.",
+
+    age: "No strict age limit. Applicable to all family members including minors and elderly.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds or sponsor financial support may be required.",
+
+    docs: "Valid passport, visa application form, invitation letter from family member in China, proof of relationship, sponsor ID/residence proof, travel itinerary, passport photos, accommodation proof, financial documents if required.",
+
+    whom: "Foreign nationals (including Indian citizens) visiting close family members in China for short stays such as holidays, weddings, or personal visits.",
+
+    rules: "No employment allowed. Must leave before visa expiry. Must follow duration and entry limits strictly.",
+
+    prosCons: "Pros: Easy short-term family visits, quick processing, flexible entry types. Cons: No work rights, limited stay duration, requires invitation.",
+
+    terms: "Q2 Visa: Short-term family visit visa; Invitation Letter: Family sponsor document; Dependent Visit: Temporary family stay; Entry Type: Single/double/multiple entry permission.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China.",
+
+    process: `1. Obtain invitation from family member ->
+              2. Prepare relationship documents ->
+              3. Submit Q2 visa application ->
+              4. Attend biometrics if required ->
+              5. Pay visa fee ->
+              6. Visa approval issued ->
+              7. Travel to China ->
+              8. Entry immigration clearance ->
+              9. Visit family member ->
+              10. Exit before visa expiry`
+},
+
+"ChinaPrivateVisitVisaS1": {
+    name: "Private Visit Visa (S1 Visa – China Long-Term Private Visit)",
+
+    validity: "Usually issued for stays longer than 180 days. After entry, must be converted into a residence permit valid for 1–5 years depending on relationship and sponsor status.",
+
+    cost: "Approx $30–$90 (~₹2,500–₹7,500). Residence permit after arrival may cost ~₹5,000–₹10,000 equivalent.",
+
+    time: "Processing time usually 5–10 working days. Residence permit processing after arrival may take 1–4 weeks.",
+
+    age: "No strict age limit. Commonly used for spouses, parents, children, or dependent relatives requiring long-term stay.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in China must show sufficient financial ability to support the applicant during stay.",
+
+    docs: "Valid passport, visa application form, invitation letter from relative/friend in China, proof of relationship or dependency, sponsor ID or residence permit, financial support proof, accommodation proof, passport photos, health certificate (if required).",
+
+    whom: "Foreign nationals (including Indian citizens) visiting close relatives or persons with residence in China for long-term private stays (not employment).",
+
+    rules: "Must convert visa into residence permit within 30 days of arrival. Cannot work without authorization. Must maintain declared relationship. Must register with local authorities.",
+
+    prosCons: "Pros: Long-term private stay, family bonding, access to residence rights after conversion. Cons: Strict documentation, dependency on sponsor, no immediate work rights.",
+
+    terms: "S1 Visa: Long-term private visit visa; Sponsor: Host in China; Residence Permit: Post-entry legal stay document; Dependent: Eligible relative/family member.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China.",
+
+    process: `1. Obtain invitation from relative/friend in China ->
+              2. Prepare proof of relationship ->
+              3. Submit S1 visa application ->
+              4. Attend biometrics if required ->
+              5. Pay visa fee ->
+              6. Visa approval issued ->
+              7. Travel to China ->
+              8. Apply for residence permit within 30 days ->
+              9. Register with local authorities ->
+              10. Begin long-term stay`
+},
+
+"ChinaPrivateVisitVisaS2": {
+    name: "Short-term Private Visit Visa (S2 Visa – China Short Private Visit)",
+
+    validity: "Usually 30–180 days depending on invitation. Can be single or multiple entry with short stay duration per entry.",
+
+    cost: "Approx $30–$80 (~₹2,500–₹7,000) depending on entry type and processing speed.",
+
+    time: "Processing time usually 4–7 working days.",
+
+    age: "No strict age limit. Applicable to all age groups including minors and elderly.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds or sponsor financial support may be required depending on case.",
+
+    docs: "Valid passport, visa application form, invitation letter from host in China, proof of relationship or reason for visit, sponsor ID/residence proof, travel itinerary, accommodation proof, passport photos, financial proof if required.",
+
+    whom: "Foreign nationals (including Indian citizens) visiting relatives, friends, or personal contacts in China for short-term private purposes such as holidays, events, or visits.",
+
+    rules: "No employment allowed. Must leave before visa expiry. Must strictly follow stated visit purpose. Extension is limited and requires approval.",
+
+    prosCons: "Pros: Quick processing, flexible short stays, suitable for personal visits. Cons: No work rights, limited duration, requires invitation.",
+
+    terms: "S2 Visa: Short-term private visit visa; Invitation Letter: Host document; Private Visit: Non-commercial family/friend visit; Entry Type: Single/double/multiple entry classification.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China.",
+
+    process: `1. Obtain invitation from host in China ->
+              2. Prepare relationship or visit documents ->
+              3. Submit S2 visa application ->
+              4. Attend biometrics if required ->
+              5. Pay visa fee ->
+              6. Visa approval issued ->
+              7. Travel to China ->
+              8. Entry immigration clearance ->
+              9. Complete visit ->
+              10. Exit before visa expiry`
+},
+
+"ChinaTalentVisaR": {
+    name: "Talent Visa (R Visa – China High-Level Talent Visa)",
+
+    validity: "Usually issued for multiple entries with long validity (often 5–10 years). Each stay duration varies but can allow extended residence depending on talent category and permit conditions.",
+
+    cost: "Approx $50–$150 (~₹4,000–₹12,500) depending on entry type and processing category. Some high-level talent categories may have reduced or facilitated fees.",
+
+    time: "Processing time usually 5–10 working days, often faster for officially recognized high-level talent applicants.",
+
+    age: "No strict age limit. Typically issued to highly skilled professionals, researchers, and exceptional talent (usually 18–65).",
+
+    education: "Required. Usually bachelor’s degree or higher plus exceptional skills, awards, or recognized expertise in science, technology, arts, or other priority fields.",
+
+    funds: "No strict personal funds requirement in most cases. Employer or institution provides salary or guarantee.",
+
+    docs: "Valid passport, visa application form, invitation or talent confirmation letter issued by Chinese government/authorized institution, work/talent qualification proof, academic certificates, CV, passport photos, employment or research agreement, recommendation letters (if applicable).",
+
+    whom: "Foreign high-level professionals (including Indian citizens) recognized as skilled experts, scientists, entrepreneurs, or outstanding talents invited by Chinese government, institutions, or key industries.",
+
+    rules: "Must work only in approved field or institution. Cannot change employer or role without approval. Must comply with Chinese talent program conditions. Residence registration required after arrival.",
+
+    prosCons: "Pros: Long validity, fast-track entry, multiple entry rights, favorable immigration treatment. Cons: Strict eligibility, limited to high-skilled individuals, requires official recognition.",
+
+    terms: "R Visa: High-level talent visa; Talent Recognition: Official qualification approval; Key Industry: Priority sectors in China; Invitation Letter: Government-approved document.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China and national high-level talent policies.",
+
+    process: `1. Obtain talent recognition or invitation ->
+              2. Prepare academic and professional credentials ->
+              3. Submit R visa application ->
+              4. Attend biometrics if required ->
+              5. Pay visa fee ->
+              6. Fast-track government review ->
+              7. Visa approval issued ->
+              8. Travel to China ->
+              9. Register with local authorities ->
+              10. Begin assigned work or research`
+},
+
+"ChinaJournalistVisaJ1": {
+    name: "Journalist Visa (J1 Visa – China Long-Term Journalist Assignment)",
+
+    validity: "Issued for stays exceeding 180 days. After entry, must be converted into a residence permit typically valid for the duration of assignment (often 1 year or more, renewable).",
+
+    cost: "Approx $30–$80 (~₹2,500–₹7,000). Residence permit after arrival may involve additional administrative fees.",
+
+    time: "Processing time usually 5–15 working days depending on media accreditation and government approval.",
+
+    age: "No strict age limit. Typically issued to professional journalists and media staff (18+).",
+
+    education: "Usually required in journalism, mass communication, or related media fields, or proven professional journalism experience.",
+
+    funds: "Usually covered by employing media organization or news agency.",
+
+    docs: "Valid passport, visa application form, official media accreditation from Chinese authorities, employer letter from media organization, assignment details, press credentials, passport photos, travel itinerary, employment contract, government press authorization documents.",
+
+    whom: "Foreign journalists (including Indian citizens) assigned to work in China for long-term reporting or media coverage under recognized news organizations.",
+
+    rules: "Must work only for accredited media organization. Must not engage in unauthorized reporting activities. Must obtain permission for assignments and reporting zones. Must register after arrival and follow press regulations.",
+
+    prosCons: "Pros: Legal authorization for journalism in China, structured media access, long-term reporting capability. Cons: Strict government monitoring, limited reporting freedom in some regions, heavy compliance requirements.",
+
+    terms: "J1 Visa: Long-term journalist visa; Press Accreditation: Official media approval; Media Organization: Employer newsroom or agency; Residence Permit: Post-entry legal stay document.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China and Chinese press/media regulations.",
+
+    process: `1. Obtain media assignment and accreditation ->
+              2. Apply for journalist authorization in China ->
+              3. Submit J1 visa application ->
+              4. Attend biometrics if required ->
+              5. Pay visa fee ->
+              6. Government reviews media credentials ->
+              7. Visa approval issued ->
+              8. Travel to China ->
+              9. Apply for residence permit within 30 days ->
+              10. Begin journalistic assignment`
+},
+
+"ChinaJournalistVisaJ2": {
+    name: "Short-term Journalist Visa (J2 Visa – China)",
+
+    validity: "Usually issued for short assignments up to 90 days per entry. Typically single or double entry depending on reporting schedule.",
+
+    cost: "Approx $30–$80 (~₹2,500–₹7,000) depending on entry type and processing speed. Sometimes covered by media organization.",
+
+    time: "Processing time usually 4–10 working days depending on media approval and embassy verification.",
+
+    age: "No strict age limit. Typically issued to professional journalists and media personnel (18+).",
+
+    education: "Usually journalism or media background required, or proven professional experience in reporting or broadcasting.",
+
+    funds: "Usually covered by employer or media organization (news agency, TV network, or press company).",
+
+    docs: "Valid passport, visa application form, media accreditation or press authorization, employer letter from media organization, assignment details, passport photos, travel itinerary, temporary reporting plan, press credentials.",
+
+    whom: "Foreign journalists (including Indian citizens) traveling to China for short-term reporting assignments, interviews, or media coverage.",
+
+    rules: "Must only perform assigned journalistic activities. Cannot engage in unauthorized reporting or commercial work. Must exit before visa expiry or extend with approval.",
+
+    prosCons: "Pros: Fast processing, suitable for short assignments, official press access. Cons: Strict restrictions, no long-term stay, limited press freedom in certain regions.",
+
+    terms: "J2 Visa: Short-term journalist visa; Press Accreditation: Official permission to report; Assignment: Temporary reporting task; Media Organization: Employer entity.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China and Chinese press regulations.",
+
+    process: `1. Receive short-term reporting assignment ->
+              2. Obtain press authorization/accreditation ->
+              3. Submit J2 visa application ->
+              4. Attend biometrics if required ->
+              5. Pay visa fee ->
+              6. Embassy verifies media credentials ->
+              7. Visa approval issued ->
+              8. Travel to China ->
+              9. Conduct reporting assignment ->
+              10. Exit China before visa expiry`
+},
+
+"ChinaDiplomaticVisaD": {
+    name: "Diplomatic Visa (D Visa – China)",
+
+    validity: "Issued for duration of diplomatic mission or posting. Can range from short-term official visits to multi-year assignments aligned with posting period.",
+
+    cost: "€0 / $0 (~₹0). Diplomatic visas are fee-exempt under international diplomatic conventions.",
+
+    time: "Processing time usually 2–7 working days due to priority diplomatic handling.",
+
+    age: "No strict age limit. Applicable to accredited diplomats and official government representatives.",
+
+    education: "Not required. Based on government diplomatic appointment.",
+
+    funds: "Not required from applicant. Expenses are covered by sending government (salary, allowances, accommodation).",
+
+    docs: "Diplomatic passport, note verbale from Ministry of Foreign Affairs, official posting order, diplomatic accreditation documents, assignment details, passport photos, travel itinerary, visa application form if required.",
+
+    whom: "Foreign diplomats (including embassy staff, consular officers, and government representatives) posted to China for official diplomatic missions.",
+
+    rules: "Must perform only diplomatic duties. Must comply with Vienna Convention rules. Cannot engage in commercial or private employment. Must respect diplomatic protocol and exit upon completion of assignment unless extended.",
+
+    prosCons: "Pros: Fast-track entry, diplomatic immunity (as applicable), fee exemption, official privileges. Cons: Strict eligibility, limited to government postings, no private work rights.",
+
+    terms: "D Visa: Diplomatic visa category; Note Verbale: Official diplomatic communication; Accreditation: Formal recognition by host country; Mission Posting: Official assignment.",
+
+    legal: "Regulated under the Vienna Convention on Diplomatic Relations (1961) and Chinese diplomatic regulations.",
+
+    process: `1. Government assigns diplomatic posting ->
+              2. Ministry of Foreign Affairs issues note verbale ->
+              3. Submit diplomatic visa request ->
+              4. Host country verifies credentials ->
+              5. Fast-track processing ->
+              6. Visa approval issued ->
+              7. Travel to China ->
+              8. Diplomatic accreditation completed ->
+              9. Begin mission ->
+              10. Maintain status until posting ends`
+},
+
+"ChinaCourtesyVisaLQ": {
+    name: "Courtesy Visa (LQ Visa / Special Courtesy Diplomatic Category – China)",
+
+    validity: "Usually short-term to medium-term depending on the nature of the official courtesy visit. Typically ranges from a few days to several months, and may be aligned with the official invitation period.",
+
+    cost: "€0 / $0 (~₹0). Courtesy visas are generally fee-exempt for invited government guests, VIPs, or special delegations.",
+
+    time: "Processing time usually 2–10 working days depending on diplomatic coordination and invitation verification.",
+
+    age: "No strict age limit. Issued to invited dignitaries, senior officials, or special guests.",
+
+    education: "Not required. Based on official status or invitation.",
+
+    funds: "Usually covered by inviting Chinese government, institution, or host organization.",
+
+    docs: "Valid passport, official invitation letter from Chinese government or authorized institution, note verbale (if government delegation), diplomatic/official clearance documents, travel itinerary, passport photos, visa application form if required.",
+
+    whom: "Foreign dignitaries, senior officials, VIP guests, or special invitees (including Indian government guests or delegations) visiting China for official courtesy or protocol-related purposes.",
+
+    rules: "Must follow official itinerary only. Cannot engage in private or commercial activities. Must respect diplomatic protocol and exit after completion of visit unless extended by authorities.",
+
+    prosCons: "Pros: Fast-track processing, fee exemption, VIP treatment, simplified entry procedures. Cons: Strictly limited to official purpose, no personal travel or work rights.",
+
+    terms: "Courtesy Visa: Special diplomatic hospitality visa; Note Verbale: Official diplomatic communication; VIP Delegation: High-level invited group; Protocol Visit: Official ceremonial visit.",
+
+    legal: "Regulated under Chinese diplomatic protocol rules and Vienna Convention principles.",
+
+    process: `1. Receive official invitation from Chinese authority ->
+              2. Government issues note verbale or invitation letter ->
+              3. Submit courtesy visa request through diplomatic channel ->
+              4. Host authority verifies status ->
+              5. Fast-track approval process ->
+              6. Visa issued ->
+              7. Travel to China ->
+              8. Official reception and protocol clearance ->
+              9. Complete visit as per itinerary ->
+              10. Exit after mission`
+},
+
+"ChinaPermanentResidenceGreenCard": {
+    name: "Permanent Residence Permit (China Green Card – Foreign Permanent Resident Status)",
+
+    validity: "Long-term or indefinite residence status. The physical card is usually valid for 5–10 years and renewable. Status itself is permanent unless revoked.",
+
+    cost: "Approx $100–$300 (~₹8,000–₹25,000) depending on category and processing. Additional administrative fees may apply.",
+
+    time: "Processing time usually 6–24 months depending on category (investment, employment, family reunion, or talent-based applications).",
+
+    age: "No strict age limit. Commonly granted to long-term investors, highly skilled professionals, spouses of Chinese citizens, or long-term residents.",
+
+    education: "Not mandatory, but required for talent-based categories (high skills, research, or senior professionals).",
+
+    funds: "Must demonstrate strong financial stability or investment (varies widely: employment history, high income, or significant investment in China).",
+
+    docs: "Valid passport, long-term residence history in China, work permits or investment proof, tax records, marriage/family documents (if applicable), police clearance certificate, health examination report, recommendation letters, application form, proof of integration.",
+
+    whom: "Foreign nationals (including Indian citizens in rare cases) who are long-term residents, investors, highly skilled professionals, or family members of Chinese citizens eligible for permanent residency.",
+
+    rules: "Must comply with Chinese laws at all times. Must report changes in residence or employment. Long absences may affect status. Revocation possible for legal violations.",
+
+    prosCons: "Pros: Permanent residence rights, easier banking/property access, long-term stability in China. Cons: Very strict eligibility, long processing time, difficult approval process.",
+
+    terms: "Green Card: China Permanent Resident ID; Residency Status: Long-term legal stay; Eligibility Categories: Investment, talent, family, employment; PR Approval: Final immigration authorization.",
+
+    legal: "Regulated under Exit and Entry Administration Law of the People's Republic of China and national permanent residence regulations.",
+
+    process: `1. Determine eligibility category (investment, work, family, talent) ->
+              2. Meet long-term residence requirement (usually 3–5+ years) ->
+              3. Prepare documentation and financial proof ->
+              4. Submit permanent residence application ->
+              5. Undergo background, tax, and security checks ->
+              6. Attend interviews if required ->
+              7. Government review (can take months) ->
+              8. Approval issued ->
+              9. Receive China Green Card ->
+              10. Maintain compliance for renewal`
+},
+
+"HongKongSARVisa": {
+    name: "Hong Kong SAR Visa / Entry Permit (Special Administrative Region Entry System)",
+
+    validity: "Usually 14 days to 90 days for tourists depending on nationality. Multiple-entry visas can be valid for 6 months to 10 years in some cases.",
+
+    cost: "Approx HKD 160–HKD 450 (~₹1,700–₹4,800) depending on visa type and nationality. Some nationalities are visa-free.",
+
+    time: "Processing time usually 4–10 working days. Some applications may take longer depending on category.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with guardians).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required (bank statements or sponsor proof depending on stay duration).",
+
+    docs: "Valid passport, visa application form (if required), passport photos, flight tickets, hotel booking, financial proof, invitation letter (if applicable), travel itinerary.",
+
+    whom: "Foreign nationals (including Indian citizens) requiring visa/entry permit to enter Hong Kong for tourism, business, study, or work (depending on category).",
+
+    rules: "No employment on tourist entry. Must respect stay duration. Separate immigration system from mainland China. Overstay penalties apply strictly.",
+
+    prosCons: "Pros: Easy access for many nationalities, fast processing, multiple entry options. Cons: Separate visa system from mainland China, strict overstay enforcement.",
+
+    terms: "SAR: Special Administrative Region; Entry Permit: Hong Kong immigration authorization; Visa-Free Access: Nationality-based exemption; Multiple Entry Visa: Repeated visits allowed.",
+
+    legal: "Regulated under Hong Kong Immigration Ordinance (Cap. 115).",
+
+    process: `1. Check visa requirement based on nationality ->
+              2. Prepare travel documents ->
+              3. Submit visa/entry permit application (if required) ->
+              4. Pay visa fee ->
+              5. Immigration processing ->
+              6. Visa approval issued ->
+              7. Travel to Hong Kong ->
+              8. Immigration clearance at entry ->
+              9. Stay within permitted duration ->
+              10. Exit before expiry`
+},
+
+"ChinaTransitWithoutVisa144h": {
+    name: "144-Hour Transit Without Visa (TWOV – China)",
+
+    validity: "Maximum 144 hours (6 days). You must stay within the specific administrative area of entry (e.g., if entering via Shanghai, you can only travel in Shanghai, Jiangsu, and Zhejiang).",
+
+    cost: "Free (₹0). There is no government fee for the 144-hour stay permit issued at the port of entry.",
+
+    time: "Immediate processing. Upon landing at an eligible airport, travelers proceed to the dedicated '24/144-Hour Transit' counter before reaching regular immigration.",
+
+    age: "No age restriction. Minors must be accompanied by an adult traveling on the same itinerary.",
+
+    education: "No requirement.",
+
+    funds: "Travelers must demonstrate the ability to cover their 6-day stay. This is usually verified via a confirmed hotel booking and possession of sufficient cash or international credit cards.",
+
+    docs: "Valid passport from one of 54 eligible countries (6+ months validity), a confirmed onward ticket to a THIRD country or region (e.g., New York -> Beijing -> London) with a confirmed seat and date within 144 hours, a valid visa for that third country (if required), and a completed Arrival/Departure Card.",
+
+    whom: "Citizens of 54 countries (including USA, UK, Canada, Australia, and most of the EU) who are transiting through China to another destination. Note: Indian passport holders are NOT currently eligible for the 144-hour version, only the 24-hour version.",
+
+    rules: "The 'A -> B (China) -> C' rule is strict. Country A and Country C must be different. Hong Kong, Macau, and Taiwan are considered 'Third Countries' for this purpose. You cannot leave the designated travel area (e.g., if you enter via Beijing, you cannot go to Shanghai). You must depart from an approved port within the same region.",
+
+    prosCons: "Pros: No visa fee; no need to visit an embassy; allows for a significant 6-day exploration of major Chinese cities. Cons: Extremely restricted geography; requires a third-country ticket; high penalties for overstaying even by one hour.",
+
+    terms: "TWOV: Transit Without Visa; Port of Entry: The specific airport/seaport where you land; Third Country: A destination different from the country you flew from.",
+
+    legal: "National Immigration Administration (NIA) of the People's Republic of China Transit Policy.",
+
+    process: `1. Confirm your nationality is on the 54-country list -> 
+              2. Book an international flight with a layover in an eligible Chinese city (e.g., Beijing, Shanghai, Guangzhou) -> 
+              3. Ensure your next flight is to a country different from your origin -> 
+              4. Inform your airline at the departure airport that you are using the 144-hour TWOV -> 
+              5. Upon arrival in China, follow the blue signs to the '24/144-Hour Transit' desk -> 
+              6. Present your passport, arrival card, and onward flight itinerary -> 
+              7. Receive a temporary stay permit sticker -> 
+              8. Pass through the dedicated immigration lane and enter the city.`
+},
+
+"ChinaTransitWithoutVisa24h": {
+    name: "24-Hour Transit Without Visa (General TWOV)",
+
+    validity: "24 hours maximum. Valid at almost all international airports in China. Allows for a short stay or airport transfer.",
+
+    cost: "Free (₹0).",
+
+    time: "Immediate. Processed at the transit desk upon arrival.",
+
+    age: "No age limit.",
+
+    education: "No requirement.",
+
+    funds: "Confirmed onward travel is usually sufficient proof of funds.",
+
+    docs: "Valid passport, confirmed onward ticket to any third country within 24 hours, and a valid visa for the destination country.",
+
+    whom: "Almost all nationalities (including Indian citizens) who have a layover in a Chinese city and need to clear immigration to collect baggage, change airports, or stay in a hotel overnight.",
+
+    rules: "You must have a confirmed seat on a flight departing within 24 hours. You must obtain a 'Temporary Stay Permit' if you wish to leave the airport. Some ports (like Shenzhen/Urumqi) have more restrictive 24-hour rules.",
+
+    prosCons: "Pros: Universally available for most travelers; essential for airport transfers. Cons: Very short duration; you are often confined to the city of arrival.",
+
+    process: `1. Arrive at the Chinese international airport -> 2. Go to the 24-hour transit counter -> 3. Show your onward ticket and passport -> 4. Receive a 24-hour stay stamp -> 5. Clear immigration and exit the airport if permitted.`
+},
+
+
+
+"ChinaShenzhenSpecialZoneVisa": {
+    name: "Shenzhen 5-Day Special Economic Zone Visa (VOB)",
+
+    validity: "5 days (120 hours). Strictly limited to the administrative area of Shenzhen. You cannot enter other cities (like Guangzhou or Dongguan).",
+
+    cost: "Variable by nationality: Approx. 168 RMB (~₹2,000) for many; however, it is approx. 300 RMB for Australians, and significantly higher for UK (approx. 800 RMB) and US citizens (approx. 900+ RMB). For Indian citizens, approval is discretionary and subject to daily quotas.",
+
+    time: "Immediate. Processed at the border crossing point. Total time usually 1–3 hours including queueing.",
+
+    age: "No specific limit, but usually for independent travelers.",
+
+    education: "No requirement.",
+
+    funds: "Proof of a return ticket to Hong Kong or an onward ticket is required. Cash (RMB) or digital payment (AliPay/WeChat) for the fee is mandatory.",
+
+    docs: "Valid passport and a completed 'Special Economic Zone Visa' application form. Photos are taken digitally at the border desk for free.",
+
+    whom: "Travelers currently in Hong Kong who want to make a quick 5-day visit to Shenzhen for business, shopping, or tourism without applying for a visa at an embassy.",
+
+    rules: "You must enter via specific land borders (Luohu/Lo Wu, Huanggang, Shekou, or Fuyong). You MUST exit back to Hong Kong or to a third country directly from Shenzhen. You are prohibited from traveling to any other part of mainland China.",
+
+    prosCons: "Pros: No pre-arrival paperwork; very fast; convenient for spontaneous trips from HK. Cons: Geographic restriction is absolute; high cost for certain nationalities; risk of rejection at the border.",
+
+    terms: "VOB: Visa on arrival at the Border; SEZ: Special Economic Zone; Luohu: The most common land border crossing.",
+
+    legal: "Special Economic Zone Immigration Regulations of the PRC.",
+
+    process: `1. Take the MTR to the Lo Wu (Luohu) or Lok Ma Chau (Huanggang) station in Hong Kong -> 
+              2. Clear Hong Kong exit immigration -> 
+              3. Walk toward the China entry point and look for the 'Port Visa' or 'Visa Office' sign before the China immigration counters -> 
+              4. Fill out the specific application form and take a queue number -> 
+              5. Submit your passport and have your photo taken -> 
+              6. Pay the fee (Note: Some offices only accept cards or digital pay, others accept RMB cash) -> 
+              7. Receive the 5-day visa sticker -> 
+              8. Proceed to the regular China immigration line to enter Shenzhen.`
+},
+
+"ChinaPortVisaEmergency": {
+    name: "Port Visa (Landing Visa / Kou An Qian Zheng)",
+
+    validity: "Usually 30 days (single entry). It is designed for emergency or highly urgent entry and cannot be extended.",
+
+    cost: "Standard visa fees apply plus an 'urgent processing fee' (Total approx. $40 – $150 depending on nationality).",
+
+    time: "Processed upon arrival at the port (airport or land border). Usually takes 30–60 minutes once at the window.",
+
+    age: "No age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must show proof of ability to support the stay and a confirmed return ticket.",
+
+    docs: "Valid passport, a 'Port Visa Notification' (pre-approval letter) from a Chinese inviter, a formal invitation letter detailing the emergency, and (for medical) hospital letters or (for business) factory/contract proof.",
+
+    whom: "Indian and international individuals who need to enter China on less than 24-hour notice for: 1. Urgent business (e.g., fixing broken machinery, signing a time-sensitive contract). 2. Humanitarian reasons (e.g., funeral of a relative or visiting a critically ill person).",
+
+    rules: "You cannot simply fly to China and ask for this. A Chinese entity (company or person) must have already contacted the local Port Visa Authority to obtain a 'Visa Notification' for you. This notification must be presented to the airline to board your flight.",
+
+    prosCons: "Pros: The only way to enter China in a true emergency without waiting days for an embassy appointment. Cons: Extremely high risk if documents aren't perfect; required 'Notification' is difficult to get.",
+
+    terms: "Kou An: Port/Entry point; Notification: The pre-approval letter from the Chinese government.",
+
+    legal: "Article 20 of the Exit and Entry Administration Law of the PRC.",
+
+    process: `1. The Chinese host (company or individual) applies at the local Port Visa Office in the city of arrival -> 
+              2. The host submits the emergency reason and traveler's details -> 
+              3. If approved, the authority issues an official 'Port Visa Notification' (PDF) -> 
+              4. The traveler flies to China with a copy of this notification -> 
+              5. Upon landing, follow the 'Port Visa' signs before immigration -> 
+              6. Present the notification, passport, and pay the fee -> 
+              7. Visa is issued on the spot and entry is granted.`
+},
+
+"ChinaHainanVisaFreePolicy": {
+    name: "Hainan 30-Day Visa-Free Policy",
+
+    validity: "30 days. Strictly limited to the Hainan Island province (Haikou, Sanya).",
+
+    cost: "Free (₹0). No visa fee is required.",
+
+    time: "Immediate. Processed at the immigration desk in Haikou (HAK) or Sanya (SYX) airports.",
+
+    whom: "Citizens of 59 countries (including USA, UK, Canada, Australia, France, Germany, etc.). Note: Indian passport holders are not currently on the 59-country list and still require a visa for Hainan.",
+
+    rules: "You must fly DIRECTLY to Hainan from outside Mainland China (e.g., Singapore -> Sanya). If you stop in Shanghai first, this policy does not apply. You cannot leave Hainan to visit other Chinese provinces.",
+
+    process: `1. Fly from a foreign city directly to Hainan Island -> 2. Present your passport at the immigration counter -> 3. Inform the officer you are using the 30-day visa-free policy -> 4. Enter the island.`
+},
+
+
+
+"ChinaApecBusinessTravelCard": {
+    name: "APEC Business Travel Card (ABTC – China Entry)",
+
+    validity: "5 years. Allows for unlimited multiple entries. Each individual stay is valid for 60 to 90 days (depending on the specific economy agreement).",
+
+    cost: "Varies by the country that issues the card. (In India, the application for the 5-year card is approx. ₹10,000 via the Ministry of Commerce). No fee is paid to China.",
+
+    time: "Processing takes 2 to 6 months. This is because all 21 APEC economies must perform a security background check on the applicant.",
+
+    age: "Must be an adult (18+) and an active business professional.",
+
+    education: "No specific degree, but must be a 'bona fide' business person from a major company.",
+
+    funds: "No personal funds requirement; eligibility is based on the applicant's business standing and the company’s international trade volume.",
+
+    docs: "The physical ABTC card (or virtual card on the app) and a valid passport from an APEC member economy.",
+
+    whom: "Business travelers who are citizens of APEC economies (e.g., Australia, USA, Singapore, Japan, etc.). Note: While India is NOT an APEC member, this is critical for Indian businessmen with dual citizenship or those working for MNCs from APEC nations.",
+
+    rules: "The card must list 'CHN' (China) on the back under the valid economies section. The stay must be for business purposes only. The card allows the holder to use the fast-track 'APEC' lanes at all major Chinese international airports.",
+
+    prosCons: "Pros: No need for a visa for 5 years; fast-track immigration; massive time saver for frequent travelers. Cons: Long and difficult application process; limited to APEC citizens only.",
+
+    terms: "APEC: Asia-Pacific Economic Cooperation; ABTC: Business Travel Card; Virtual ABTC: The digital version of the card.",
+
+    legal: "APEC Business Travel Card Operating Framework.",
+
+    process: `1. Apply for the ABTC in your home APEC member economy -> 
+              2. Select 'China' as one of the economies you wish to visit -> 
+              3. The application is forwarded to China's National Immigration Administration (NIA) -> 
+              4. NIA performs a background check (this takes several weeks) -> 
+              5. Once 'CHN' appears as approved on your card status, your card is issued -> 
+              6. Travel to China without a visa, presenting only your passport and the card.`
+},
+
+"ChinaGroupTouristVisa": {
+    name: "Group Tourist Visa (For 5+ Travelers)",
+
+    validity: "Up to 30 days. Strictly for a single entry and a fixed itinerary.",
+
+    cost: "Approx. $20 – $40 per person (~₹1,700 – ₹3,400). This is usually the cheapest way for a family or group to enter China.",
+
+    whom: "Indian and international tour groups of 5 or more people traveling on a pre-planned package through an authorized travel agency.",
+
+    rules: "The group is issued a 'Group List' instead of individual stickers. The entire group must enter and exit China at the same time and through the same port. Individual members cannot detach from the group.",
+
+    process: `1. Join a tour group through an authorized agency -> 2. Agency submits the 'Group List' to the Chinese Consulate -> 3. Consulate issues an official sheet with all names -> 4. Group presents the sheet at the border for entry.`
+},
+
+"ChinaWorkResidencePermitFWP": {
+    name: "Foreigner’s Work Residence Permit (The 'Final' Work Status)",
+
+    validity: "1 year to 5 years (Multiple Entry). This is the 'Master Document' that allows you to live and work in China long-term. It completely replaces the Z-Visa.",
+
+    cost: "Residency fee: 400 RMB (~₹4,500) for 1 year; 800 RMB (~₹9,000) for 1-3 years. Medical exam in China: approx. 600 RMB (~₹7,000). Total approx. ₹15,000 per year.",
+
+    time: "The process must be completed within 30 days of landing. The local PSB (Police) takes 7–15 working days to issue the physical permit.",
+
+    age: "Usually 18 to 60 years (for men) and 18 to 55 years (for women), though HQS talent can be older.",
+
+    education: "Must have the degree used for the initial Z-visa application (authenticated/notarized).",
+
+    funds: "No personal funds required; the employer’s payroll is the legal basis.",
+
+    docs: "Valid passport with Z-visa, Arrival Migration Card, the physical 'Foreigner's Work Permit' (card) issued by the Labor Bureau, a medical certificate from a designated health center in China, and a 'Registration of Accommodation' from the local police station.",
+
+    whom: "Indian professionals, teachers, and executives who have entered China on a Z-visa and need to finalize their legal stay.",
+
+    rules: "MANDATORY: If you do not apply for this within 30 days of arrival, your Z-visa expires and you are staying in China illegally. The Residence Permit allows you to leave and re-enter China as many times as you want without a new visa.",
+
+    prosCons: "Pros: Long-term security; unrestricted travel; no need for a 're-entry' visa; path to a Chinese Green Card after several years. Cons: Involves multiple trips to the police and immigration offices in the first month; requires a thorough medical exam inside China.",
+
+    terms: "PSB: Public Security Bureau (The police immigration office); FWP: Foreigner Work Permit; Exit-Entry Bureau: The office that issues the residency sticker.",
+
+    legal: "Exit and Entry Administration Law of the PRC, Section on Residence Permits.",
+
+    process: `1. Enter China on a Z-visa -> 
+              2. Visit a designated 'Health Center for International Travel' for a full medical check -> 
+              3. Go to the local police station to register your housing address and get a 'Registration Form' -> 
+              4. Your employer collects the physical 'Work Permit Card' from the Labor Bureau -> 
+              5. Take your passport, medical report, housing registration, and Work Permit card to the local PSB Exit-Entry Bureau -> 
+              6. Submit fingerprints and biometrics -> 
+              7. The PSB replaces your Z-visa with a full-page 'Residence Permit' sticker -> 
+              8. You are now a legal long-term resident of China.`
+},
+
+"MacauSARVisa": {
+    name: "Macau SAR Visa / Entry Permit (Special Administrative Region Entry System)",
+
+    validity: "Typically 30 to 90 days for tourism. Some visas allow multiple entry depending on nationality and approval.",
+
+    cost: "Approx MOP 100–MOP 200 (~₹1,000–₹2,200). Some nationalities are visa-free for short stays.",
+
+    time: "Processing time usually 3–7 working days depending on application type.",
+
+    age: "No strict age limit. Applicable to all travelers including minors with guardians.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required depending on duration and purpose of stay.",
+
+    docs: "Valid passport, visa application form (if required), passport photos, flight booking, hotel reservation, financial proof, invitation letter (if applicable), travel itinerary.",
+
+    whom: "Foreign nationals (including Indian citizens) requiring visa or entry permit to enter Macau for tourism, business, or short-term visits.",
+
+    rules: "No employment allowed on tourist entry. Must leave before visa expiry. Macau has separate immigration system from mainland China.",
+
+    prosCons: "Pros: Simple entry process, visa-free access for many countries, short processing time. Cons: Separate system from China, limited stay duration, strict enforcement of overstay rules.",
+
+    terms: "SAR: Special Administrative Region; Entry Permit: Macau immigration authorization; Visa-Free Entry: Nationality-based exemption; Stay Duration: Maximum permitted visit period.",
+
+    legal: "Regulated under Macau Immigration Law (Law No. 4/2003 and related regulations).",
+
+    process: `1. Check visa requirement based on nationality ->
+              2. Prepare travel documents ->
+              3. Submit application if required ->
+              4. Pay visa fee ->
+              5. Immigration processing ->
+              6. Visa approval issued ->
+              7. Travel to Macau ->
+              8. Entry clearance at border ->
+              9. Stay within permitted duration ->
+              10. Exit before expiry`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

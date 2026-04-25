@@ -1,0 +1,2428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* USA Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="MALAYSIA">MALAYSIA</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+         
+<select id="visaType">
+    <optgroup label="1. Visitor & Transit">
+        <option value="MalaysiaTouristVisaSocialVisit">Tourist (Social Visit) Visa</option>
+        <option value="MalaysiaEVisa">Electronic Visa (eVisa)</option>
+        <option value="MalaysiaENTRIVisa">eNTRI Visa (Registration)</option>
+        <option value="MalaysiaTransitVisa">Transit Visa</option>
+        <option value="MalaysiaMultipleEntryVisa">Multiple Entry Visa (MEV)</option>
+        <option value="MalaysiaSingleEntryVisa">Single Entry Visa (SEV)</option>
+        <option value="MalaysiaVisaOnArrival">Visa on Arrival (VOA)</option>
+        <option value="MalaysiaTransitPass">Transit Pass (Airport)</option>
+        <option value="MalaysiaVisaFreeTransitFacilityVFTF">Visa-Free Transit (VFTF)</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Professional">
+        <option value="MalaysiaEmploymentPass">Employment Pass (I, II, III)</option>
+        <option value="MalaysiaExpatriateEmploymentPass">Expatriate Employment Pass</option>
+        <option value="MalaysiaProfessionalVisitPass">Professional Visit Pass (PVP)</option>
+        <option value="MalaysiaProfessionalVisitPassBusiness">PVP (Business Assignments)</option>
+        <option value="MalaysiaTemporaryEmploymentPass">Temporary Employment Pass</option>
+        <option value="MalaysiaForeignWorkerPermit">Foreign Worker Permit</option>
+    </optgroup>
+
+    <optgroup label="3. Student & Exchange">
+        <option value="MalaysiaStudentPass">Student Pass (General)</option>
+        <option value="MalaysiaInternationalStudentLongTermPass">International Student Pass</option>
+        <option value="MalaysiaExchangeStudentVisa">Exchange Student Visa</option>
+        <option value="MalaysiaDependentPassStudent">Dependent Pass (Student Family)</option>
+        <option value="MalaysiaInternshipIndustrialTrainingPass">Internship / Training Pass</option>
+        <option value="MalaysiaResearchAcademicVisitorPass">Research / Academic Pass</option>
+        <option value="MalaysiaCulturalExchangeVisa">Cultural Exchange Visa</option>
+    </optgroup>
+
+    <optgroup label="4. Residency & PR Pathways">
+        <option value="MalaysiaPermanentResidenceVisa">Permanent Residence (PR)</option>
+        <option value="MalaysiaMySecondHomeMM2H">My Second Home (MM2H)</option>
+        <option value="MalaysiaResidencePassTalent">Residence Pass - Talent (RP-T)</option>
+    </optgroup>
+
+    <optgroup label="5. Family & Dependents">
+        <option value="MalaysiaSpouseVisaMarriageVisa">Spouse / Marriage Visa</option>
+        <option value="MalaysiaSpouseVisaForeignSpouse">Foreign Spouse Visa</option>
+        <option value="MalaysiaDependentPassGeneral">Dependent Pass (General)</option>
+        <option value="MalaysiaDependentPassExpatriates">Dependent Pass (Expatriates)</option>
+        <option value="MalaysiaLongTermSocialVisitPass">Long-Term Social Visit Pass</option>
+        <option value="MalaysiaLongTermSocialVisitPassFamilyReunion">Family Reunion LTSVP</option>
+    </optgroup>
+
+    <optgroup label="6. Business & Entrepreneurship">
+        <option value="MalaysiaBusinessVisa">Business Visa</option>
+        <option value="MalaysiaInvestorVisa">Investor Visa</option>
+        <option value="MalaysiaEntrepreneurPass">Entrepreneur Pass</option>
+        <option value="MalaysiaStartupVisaSpecialProgram">Startup Visa</option>
+    </optgroup>
+
+    <optgroup label="7. Skilled Labor & Domestic">
+        <option value="MalaysiaForeignDomesticHelperPass">Foreign Domestic Helper (FDH)</option>
+        <option value="MalaysiaConstructionWorkerPass">Construction Worker Pass</option>
+        <option value="MalaysiaPlantationWorkerPass">Plantation Worker Pass</option>
+        <option value="MalaysiaSecurityGuardPass">Security Guard Pass</option>
+    </optgroup>
+
+    <optgroup label="8. Specialized & Humanitarian">
+        <option value="MalaysiaMedicalTreatmentVisa">Medical Treatment Visa</option>
+        <option value="MalaysiaHumanitarianVisa">Humanitarian Visa</option>
+        <option value="MalaysiaRefugeeAsylumUNHCRLinkedStatus">Refugee / UNHCR Status</option>
+        <option value="MalaysiaReligiousWorkerVisa">Religious Worker Visa</option>
+        <option value="MalaysiaMissionaryVisa">Missionary Visa</option>
+    </optgroup>
+
+    <optgroup label="9. Official & Legal">
+        <option value="MalaysiaSpecialPass">Special Pass (Extension)</option>
+        <option value="MalaysiaExitPassExitReEntryVisa">Exit / Re-Entry Pass</option>
+        <option value="MalaysiaDiplomaticVisa">Diplomatic Visa</option>
+        <option value="MalaysiaOfficialVisa">Official Visa</option>
+        <option value="MalaysiaGovernmentServiceVisa">Government Service Visa</option>
+    </optgroup>
+
+
+
+ <optgroup label="10. Extras">
+        <option value="MalaysiaDeRantauNomadPass">Digital nomad</option>
+        <option value="MalaysiaPvpSocialMediaFilming">Professional visit pass</option>
+        <option value="MalaysiaStudentInternshipPass">Student internship</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF MALAYSIA MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇲🇾 VIEW MALAYSIA IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇲🇾 GENERAL PROCESS FOR MALAYSIA IMMIGRATION</h1>
+
+        <h2>🧭 1. IDENTIFY PURPOSE & CATEGORY</h2>
+        <p>Decide your entry reason: Tourist (Social Visit), Work (Employment Pass), Study (Student Pass via EMGS), or Long-term (MM2H). This decides your visa type and document requirements.</p>
+
+        <h2>📄 2 & 3. CHECK VISA & SPONSORSHIP</h2>
+        <p>Check if you need an <strong>eVisa</strong> or <strong>eNTRI</strong>. For Work or Study, your employer or university must apply for your approval through the <strong>ESD</strong> or <strong>EMGS</strong> portals first.</p>
+
+        <h2>📑 4 & 5. SUBMISSION & APPROVAL</h2>
+        <p>Submit documents: Passport (6+ months), photos, offer letters, and financial proof. The Immigration Department reviews background, security, and employer validity. Approval is usually issued electronically.</p>
+
+        <h2>✈️ 6. ENTRY INTO MALAYSIA</h2>
+        <p>At the airport, present your passport and visa approval. The immigration officer verifies eligibility and issues your entry stamp.</p>
+
+        <h2>🛡️ 7. POST-ARRIVAL REQUIREMENTS</h2>
+        <ul>
+            <li><strong>Medical:</strong> Mandatory check-up for workers/students.</li>
+            <li><strong>Endorsement:</strong> Collecting your physical pass sticker or card at the immigration office.</li>
+            <li><strong>Registration:</strong> Reporting presence to EMGS or the employer.</li>
+        </ul>
+
+        <h2>🔄 8. STAY, RENEWAL & EXIT</h2>
+        <p>Renew passes before expiry. Ensure compliance with stay rules. Overstaying results in heavy fines and possible entry bans from Malaysia.</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black); margin-top: 15px;">
+            🧠 SUMMARY FLOW: Choose Visa → Apply Online/Sponsor → Submit Docs → Approval → Travel → Entry Stamp → Post-Arrival Medical → Renew/Exit
+        </div>
+
+        <div class="official-box">
+            <h1>🇲🇾 OFFICIAL MALAYSIA IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Main Immigration Department:</strong> <a href="https://www.imi.gov.sg" target="_blank">www.imi.gov.my</a></p>
+            <p><strong>2. Malaysia eVisa Portal:</strong> <a href="https://malaysiavisa.imi.gov.my" target="_blank">malaysiavisa.imi.gov.my</a></p>
+            <p><strong>3. Student Pass (EMGS):</strong> <a href="https://www.educationmalaysia.gov.my" target="_blank">www.educationmalaysia.gov.my</a></p>
+            <p><strong>4. Expatriate/Work Portal (ESD):</strong> <a href="https://esd.imi.gov.my" target="_blank">esd.imi.gov.my</a></p>
+            <p><strong>5. MM2H Portal:</strong> <a href="https://www.mm2h.gov.my" target="_blank">www.mm2h.gov.my</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: ONLY USE OFFICIAL .GOV.MY WEBSITES. BEWARE OF UNAUTHORIZED THIRD-PARTY AGENTS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "MALAYSIA": {
+"MalaysiaTouristVisaSocialVisit": {
+    name: "Tourist Visa (Social Visit Visa) – Malaysia",
+
+    validity: "Usually 30 to 90 days per entry depending on nationality. Single-entry or multiple-entry options available. Extension possible in limited cases (subject to immigration approval).",
+
+    cost: "₹2,500 – ₹6,000 (approx. RM 100–300 visa fee depending on type). Additional ₹500–₹2,000 for service charges, photos, insurance, and documentation.",
+
+    time: "Processing time 2 to 7 working days for eVisa; embassy applications may take 3 to 10 working days depending on workload.",
+
+    age: "No official age restriction. Minors must apply with parent/guardian consent and documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds recommended (bank balance or statements). Typical expectation: ₹50,000–₹1,00,000+ equivalent for short stays.",
+
+    docs: "Valid passport (6+ months validity), passport-size photo, confirmed return ticket, hotel booking or accommodation proof, bank statement (3–6 months), visa application form, travel insurance (recommended).",
+
+    whom: "Tourists, family visitors, and short-term social visitors entering Malaysia for leisure, sightseeing, visiting friends/relatives, or casual non-business purposes.",
+
+    rules: "No employment allowed. No business activities permitted. Must leave before visa expiry. Overstay penalties apply. Extension only in exceptional cases approved by Malaysian Immigration Department.",
+
+    prosCons: "Pros: Simple application process, fast approval (especially eVisa), affordable, multiple entry option available for some nationalities. Cons: No work rights, limited stay duration, strict immigration checks, extension not guaranteed.",
+
+    terms: "Social Visit Visa: Short-term entry for tourism or social purposes; Single Entry: One-time entry only; Multiple Entry: Allows repeated entry within validity period; eVisa: Electronic visa system applied online.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Visit official Malaysia eVisa portal or authorized agent  
+              2. Fill online application form  
+              3. Upload passport and photo  
+              4. Submit travel details (ticket + accommodation)  
+              5. Pay visa fee online  
+              6. Wait for processing (2–7 days typically)  
+              7. Receive eVisa approval via email  
+              8. Print eVisa copy  
+              9. Travel to Malaysia and present documents at immigration  
+              10. Get entry stamp with permitted stay duration`
+},
+"MalaysiaEVisa": {
+    name: "eVisa (Electronic Visa) – Malaysia",
+
+    validity: "Typically 3 months validity from date of issuance to enter Malaysia. Stay duration usually 30 days per entry. Single-entry only in most cases.",
+
+    cost: "₹2,500 – ₹5,500 (approx. USD 25–50 visa fee). Additional ₹500–₹2,000 may apply for service charges, photo, insurance, and document handling.",
+
+    time: "Processing time usually 2 to 5 working days. In some cases, may take up to 7 working days depending on verification load.",
+
+    age: "No official age limit. Minors must apply with parent/guardian documentation.",
+
+    education: "Not required.",
+
+    funds: "Recommended proof of sufficient funds (bank statement for last 3–6 months). Typically ₹50,000+ equivalent balance is expected for short stays.",
+
+    docs: "Valid passport (minimum 6 months validity), recent passport-size photo, return flight ticket, hotel booking or accommodation proof, bank statement, completed online application form, travel insurance (recommended).",
+
+    whom: "Tourists and social visitors from eligible countries (including India in most cases) traveling to Malaysia for leisure, sightseeing, visiting family/friends, or short non-business visits.",
+
+    rules: "Strictly no work or employment allowed. No business activities permitted. Single-entry use only. Must exit before expiry. Overstay leads to penalties or entry ban. Immigration officers have final entry approval at border.",
+
+    prosCons: "Pros: Fully online application, fast processing, no embassy visit required, convenient for Indian travelers, widely accepted entry method. Cons: Single-entry only, short stay duration, strict immigration checks, no guarantee of entry even with visa approval.",
+
+    terms: "eVisa: Electronic visa issued online; Single Entry: One-time entry only; Validity Window: Time allowed to enter Malaysia after issuance; Stay Period: Maximum allowed days per visit (usually 30 days).",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) – Official eVisa System.",
+
+    process: `1. Visit official Malaysia eVisa portal  
+              2. Create user account and login  
+              3. Fill online visa application form  
+              4. Upload passport copy and photo  
+              5. Upload travel documents (ticket + hotel booking)  
+              6. Pay visa fee online  
+              7. Submit application for processing  
+              8. Wait 2–5 working days for approval  
+              9. Download approved eVisa  
+              10. Print eVisa and present at Malaysia immigration checkpoint`
+},
+"MalaysiaENTRIVisa": {
+    name: "eNTRI Visa (Electronic Travel Registration & Information) – Malaysia",
+
+    validity: "Valid for 3 months from issuance. Maximum stay is up to 15 days per entry. Single-entry only. No extension allowed under any circumstances.",
+
+    cost: "₹1,500 – ₹3,000 (approx. RM 50–150 processing fee depending on agent/service channel). Additional ₹500–₹1,500 for documentation, photo, and service charges.",
+
+    time: "Very fast processing: usually 24 hours to 3 working days. In most cases, approval is issued within 24–48 hours.",
+
+    age: "No official age restriction. Minors must apply with guardian details and consent.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds is recommended (bank statement for 3–6 months). Suggested minimum: ₹30,000–₹50,000 equivalent for short stay.",
+
+    docs: "Valid passport (6+ months validity), recent passport-size photo, return flight ticket, confirmed travel itinerary, proof of accommodation, basic financial proof (bank statement recommended), completed online eNTRI registration form.",
+
+    whom: "Citizens of selected eligible countries (including India under specific bilateral arrangements at times) traveling to Malaysia for short-term tourism only.",
+
+    rules: "Strictly for tourism only. No business or work allowed. Single-entry only. Maximum stay 15 days. No extension or conversion allowed. Must enter and exit from India–Malaysia direct route (no third-country transit misuse in some cases). Immigration officers have final entry authority.",
+
+    prosCons: "Pros: Extremely fast approval, very low cost, fully online process, simple documentation, ideal for short vacations. Cons: Very short stay (15 days), single-entry only, limited eligibility, no extension, strict usage conditions.",
+
+    terms: "eNTRI: Electronic Travel Registration system; Visa Waiver: Pre-approved travel authorization instead of traditional visa; Single Entry: One-time entry only; Validity Window: 3 months to enter Malaysia after approval.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) – eNTRI Program (when active for eligible countries).",
+
+    process: `1. Visit official Malaysia eNTRI/eVisa portal  
+              2. Select eNTRI application (if eligible)  
+              3. Fill online registration form  
+              4. Upload passport and photo  
+              5. Enter travel details (flight + accommodation)  
+              6. Submit application  
+              7. Pay processing fee online  
+              8. Receive approval (usually within 24–48 hours)  
+              9. Print eNTRI note/confirmation  
+              10. Travel to Malaysia and present documents at immigration checkpoint`
+},
+
+"MalaysiaTransitVisa": {
+    name: "Transit Visa – Malaysia",
+
+    validity: "Short-term validity of up to 24 to 120 hours (1 to 5 days) depending on nationality, airport, and onward travel conditions. Single transit entry only.",
+
+    cost: "₹1,000 – ₹3,000 (approx. RM 50–150). Additional service charges ₹500–₹1,500 may apply depending on processing channel.",
+
+    time: "Processing time usually 2 to 5 working days. In some cases, airport transit visa decisions may be faster if applied through airline/consulate system.",
+
+    age: "No official age restriction. Minors must travel with guardian documentation if required.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds for transit stay is recommended (generally minimal requirement since stay is short).",
+
+    docs: "Valid passport (minimum 6 months validity), confirmed onward flight ticket, valid visa for destination country (if required), transit visa application form, passport-size photo, travel itinerary, and sometimes proof of accommodation if overnight transit is involved.",
+
+    whom: "Travelers passing through Malaysia en route to a third country, especially at major airports like Kuala Lumpur International Airport (KLIA), who are not eligible for visa-free transit.",
+
+    rules: "Strictly for transit purposes only. No employment or tourism outside transit area allowed (unless eligible for visa-free transit programs). Must not leave airport transit zone unless explicitly permitted. Overstay or misuse may lead to penalties or entry bans.",
+
+    prosCons: "Pros: Allows short stopover in Malaysia, useful for connecting flights, simple documentation, sometimes no visa needed for eligible nationalities under visa-free transit facility. Cons: Very short duration, restricted movement, no extension, limited eligibility depending on nationality and travel route.",
+
+    terms: "Transit Visa: Short entry permission for layovers; Transit Zone: Restricted airport area for connecting passengers; Visa-Free Transit Facility (VFTF): Special allowance for certain travelers to leave airport temporarily; Single Transit Entry: One-time entry for connecting travel only.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and airport immigration authorities at Kuala Lumpur International Airport (KLIA).",
+
+    process: `1. Check eligibility for Malaysia transit visa or visa-free transit  
+              2. Book confirmed onward flight ticket  
+              3. Apply for transit visa if required via embassy/online system  
+              4. Submit passport and travel documents  
+              5. Pay visa fee if applicable  
+              6. Receive transit approval (if required)  
+              7. Travel to Malaysia and present documents at airport immigration  
+              8. Stay within permitted transit duration  
+              9. Proceed to onward destination flight within allowed time`
+},
+"MalaysiaMultipleEntryVisa": {
+    name: "Multiple Entry Visa (MEV) – Malaysia",
+
+    validity: "Typically valid for 3 to 12 months depending on applicant profile and issuing authority. Each stay is usually up to 30 days per entry. Multiple entries allowed within validity period.",
+
+    cost: "₹5,000 – ₹12,000 (approx. RM 250–600). Additional ₹1,000–₹3,000 may apply for service charges, documentation, insurance, and processing fees.",
+
+    time: "Processing time usually 3 to 10 working days depending on embassy workload and applicant category.",
+
+    age: "No official age restriction. Minors must apply with guardian consent and supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Stronger financial proof required compared to tourist visa. Typically bank statements of last 3–6 months showing stable balance (₹1,00,000+ equivalent recommended).",
+
+    docs: "Valid passport (6+ months validity), passport-size photo, completed visa application form, return ticket or onward travel proof, bank statements (3–6 months), invitation letter (if applicable), proof of accommodation, travel insurance (recommended).",
+
+    whom: "Frequent travelers, business visitors, investors, or tourists who need to enter Malaysia multiple times within a short period for tourism, meetings, or short business-related visits.",
+
+    rules: "Each stay limited to approximately 30 days (may vary). No employment allowed. Visa does not guarantee entry—final approval is at immigration checkpoint. Must comply with entry conditions on every visit. Overstays can affect future approvals.",
+
+    prosCons: "Pros: Multiple entries allowed, convenient for frequent travelers, flexible travel planning, avoids repeated visa applications. Cons: Higher cost than single-entry visas, requires stronger financial proof, strict immigration checks, still no work rights.",
+
+    terms: "Multiple Entry Visa (MEV): Visa allowing repeated entry within validity period; Entry Duration: Maximum stay per visit; Validity Period: Time frame MEV can be used; Immigration Approval: Final entry decision made at border control.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Malaysian Embassy/Consulates abroad.",
+
+    process: `1. Determine eligibility for Multiple Entry Visa  
+              2. Visit Malaysian Embassy or authorized visa center  
+              3. Fill visa application form  
+              4. Prepare financial and travel documents  
+              5. Submit passport and supporting documents  
+              6. Pay visa fee  
+              7. Attend interview (if required)  
+              8. Wait for processing (3–10 days typical)  
+              9. Receive MEV approval sticker/visa  
+              10. Use visa for multiple entries into Malaysia within validity period`
+},
+"MalaysiaSingleEntryVisa": {
+    name: "Single Entry Visa (SEV) – Malaysia",
+
+    validity: "Usually valid for 3 months from date of issuance to enter Malaysia. Allows one-time entry only. Stay duration typically 30 days per visit (can vary by nationality and immigration approval).",
+
+    cost: "₹2,500 – ₹6,000 (approx. RM 100–300 visa fee). Additional ₹500–₹2,000 for service charges, documentation, photo, and insurance.",
+
+    time: "Processing time usually 2 to 7 working days depending on embassy/consulate workload and applicant nationality.",
+
+    age: "No official age restriction. Minors must apply with parent/guardian consent and supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds recommended (bank statements for last 3–6 months). Suggested minimum: ₹50,000–₹1,00,000+ equivalent depending on stay duration.",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, completed visa application form, return flight ticket, hotel booking or accommodation proof, bank statements (3–6 months), travel insurance (recommended), invitation letter (if applicable).",
+
+    whom: "Tourists, short-term visitors, and individuals entering Malaysia for one-time leisure trips, family visits, or short non-business purposes.",
+
+    rules: "Single entry only. Must exit before visa expiry. No employment or business activities allowed. Extension is not guaranteed and only allowed in exceptional cases by Malaysian Immigration. Entry is subject to immigration officer approval at the port of entry.",
+
+    prosCons: "Pros: Simple application process, widely accepted, affordable, suitable for short trips. Cons: Only one entry allowed, no flexibility for re-entry, no work permission, strict compliance required.",
+
+    terms: "Single Entry Visa (SEV): Visa allowing one-time entry into Malaysia; Validity Window: Time allowed to enter after visa issuance; Stay Period: Maximum allowed days per visit; Immigration Approval: Final entry decision at border control.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Malaysian diplomatic missions abroad.",
+
+    process: `1. Visit Malaysian Embassy or authorized visa application center  
+              2. Fill Single Entry Visa application form  
+              3. Prepare required documents (passport, photos, itinerary, funds proof)  
+              4. Submit application  
+              5. Pay visa fee  
+              6. Attend interview if required  
+              7. Wait for processing (2–7 working days typical)  
+              8. Receive SEV sticker visa in passport  
+              9. Travel to Malaysia within validity period  
+              10. Enter once and comply with stay conditions`
+},
+"MalaysiaVisaOnArrival": {
+    name: "Visa on Arrival (VOA – Limited Eligibility) – Malaysia",
+
+    validity: "Valid for up to 7 days per entry. Single-entry only. Issued only at designated entry points and under strict eligibility conditions.",
+
+    cost: "RM 200 total (approx. ₹3,500–₹4,000), usually consisting of RM 100 visa fee + RM 100 security deposit (deposit may be refundable upon departure if conditions are met). Additional minor service charges may apply.",
+
+    time: "Issued immediately on arrival at designated entry points if eligibility criteria are satisfied and documents are in order.",
+
+    age: "No official age restriction. Minors must travel with guardian documentation and meet eligibility conditions.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required (commonly at least USD 500 or equivalent in cash/credit card).",
+
+    docs: "Valid passport (minimum 6 months validity), confirmed onward/return ticket, proof of visa from eligible third country (if required), proof of sufficient funds, completed arrival forms, passport-size photo (sometimes required), hotel booking or accommodation proof.",
+
+    whom: "Limited to eligible nationals (notably India and China in specific cases) who are arriving into Malaysia directly from certain countries such as Thailand, Singapore, or Indonesia and holding valid visas from those countries (if required under current rules).",
+
+    rules: "Strictly limited eligibility. Must enter through designated entry points only (selected airports/border points). Stay limited to 7 days only. Non-extendable and non-convertible. Must comply with onward travel requirement. Immigration officer has final authority to grant or deny entry.",
+
+    prosCons: "Pros: Issued instantly on arrival, useful for last-minute travel, no prior visa application needed if eligible. Cons: Very strict eligibility rules, short stay duration, higher cost than eVisa, risk of denial at border, limited entry points.",
+
+    terms: "Visa on Arrival (VOA): Entry visa issued at border; Security Deposit: Refundable amount ensuring compliance with visa rules; Designated Entry Point: Approved airports/border posts; Single Entry: One-time entry only.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) – VOA scheme under controlled entry regulations.",
+
+    process: `1. Travel to Malaysia through eligible VOA entry point  
+              2. Ensure eligibility (nationality + prior travel visa conditions if required)  
+              3. Fill arrival/immigration forms at entry port  
+              4. Present passport, onward ticket, and financial proof  
+              5. Pay VOA fee and deposit at immigration counter  
+              6. Undergo document verification by immigration officer  
+              7. Receive Visa on Arrival stamp if approved  
+              8. Enter Malaysia for up to 7 days  
+              9. Exit Malaysia before expiry (deposit may be refunded upon compliance)`
+},
+"MalaysiaEmploymentPass": {
+    name: "Employment Pass (Category I, II, III) – Malaysia",
+
+    validity: "Category I: Up to 5 years (renewable). Category II: Up to 2 years (renewable). Category III: Up to 12 months (renewable up to 2 years in limited cases). Duration depends on contract and employer approval.",
+
+    cost: "₹8,000 – ₹25,000 (approx. RM 400–1,500) excluding employer administrative costs, levy, and processing charges. Most costs are borne by the employer.",
+
+    time: "Processing time typically 2 to 8 weeks depending on employer submission, job category, and Immigration Department approval.",
+
+    age: "No official age limit, but typically issued to working-age professionals (usually 18–60 years).",
+
+    education: "Required. Degree/diploma or relevant professional qualifications are usually mandatory (especially for Category I & II). Category III may allow lower qualifications with approval.",
+
+    funds: "Not required from applicant directly. Salary thresholds apply instead:",
+    
+    salaryRules: 
+      "Category I: RM 10,000+ monthly (high-skilled professionals). " +
+      "Category II: RM 5,000 – RM 9,999 monthly. " +
+      "Category III: RM 3,000 – RM 4,999 monthly (restricted roles).",
+
+    docs: "Valid passport, employment contract, employer sponsorship letter, company registration documents, job offer letter, educational certificates, resume/CV, passport-size photo, medical report (if required), security clearance (if required).",
+
+    whom: "Foreign professionals, skilled workers, managers, executives, and technical experts employed by Malaysian companies or multinational corporations operating in Malaysia.",
+
+    rules: "Must be sponsored by a Malaysian employer. Cannot change employer without new approval. Category III has stricter conditions and limited renewals. Employment must match approved job title. Work without valid EP is illegal.",
+
+    prosCons: "Pros: Legal long-term work authorization, pathway to residence permits, high salary potential, includes family dependent options (Category I & II). Cons: Employer-dependent, strict approval process, salary thresholds required, Category III has limitations.",
+
+    terms: "Employment Pass: Work permit for skilled foreign professionals; Category I/II/III: Salary-based classification system; Sponsor: Malaysian employer responsible for application; Dependent Pass: Visa for family members.",
+
+    legal: "Expatriate Services Division (ESD), Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Secure job offer from Malaysian company  
+              2. Employer registers with Expatriate Services Division (ESD)  
+              3. Employer submits Employment Pass application online  
+              4. Upload required documents (contract, qualifications, passport)  
+              5. Pay processing fees (usually by employer)  
+              6. Wait for Immigration Department approval (2–8 weeks)  
+              7. Receive approval letter (Visa Approval Letter – VAL)  
+              8. Apply for entry visa if required  
+              9. Travel to Malaysia and complete endorsement  
+              10. Employment Pass sticker issued in passport`
+},
+"MalaysiaTemporaryEmploymentPass": {
+    name: "Temporary Employment Pass – Malaysia",
+
+    validity: "Usually valid up to 2 years depending on sector and contract. Renewable subject to employer approval and immigration conditions. Often issued for short-term or semi-skilled employment roles.",
+
+    cost: "₹5,000 – ₹15,000 (approx. RM 250–900). Additional costs (levies, medical tests, insurance, processing fees) are generally paid by the employer.",
+
+    time: "Processing time typically 2 to 6 weeks depending on employer documentation, sector approval, and Immigration Department workload.",
+
+    age: "Typically 18 to 45 years preferred for most roles, though no strict official upper limit if employer justifies requirement.",
+
+    education: "Not always required. Depends on job sector (construction, plantation, manufacturing, services). Basic skills certification may be needed for some roles.",
+
+    funds: "Not required from the applicant. Employer is responsible for salary and maintenance. Workers must meet minimum salary/levy conditions set by Malaysian authorities.",
+
+    docs: "Valid passport, employment contract, employer sponsorship documents, passport-size photo, medical check-up report (mandatory), security clearance if required, work permit application form, and relevant skill certificates (if applicable).",
+
+    whom: "Foreign semi-skilled and unskilled workers employed in sectors such as construction, manufacturing, plantation, agriculture, and certain service industries in Malaysia.",
+
+    rules: "Must be fully sponsored by an approved Malaysian employer. Cannot change employer without permission. Work restricted strictly to approved job and sector. Strict quota system applies. Must undergo medical screening. Overstay or unauthorized work is illegal.",
+
+    prosCons: "Pros: Enables legal employment for semi-skilled workers, high demand in Malaysia labor market, employer handles most costs. Cons: Strict quotas, limited job mobility, dependent on employer, no pathway to permanent residency in many cases.",
+
+    terms: "Temporary Employment Pass: Work authorization for semi-skilled/short-term labor; Employer Sponsor: Licensed Malaysian company responsible for worker; Levy System: Government-imposed worker tax; Quota System: Limits number of foreign workers per sector.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Ministry of Human Resources (Kementerian Sumber Manusia).",
+
+    process: `1. Employer applies for foreign worker quota approval  
+              2. Employer selects eligible foreign worker  
+              3. Submit Temporary Employment Pass application to Immigration Department  
+              4. Upload required documents (passport, contract, medical requirements)  
+              5. Pay government levy and processing fees (usually employer-paid)  
+              6. Wait for approval (2–6 weeks typical)  
+              7. Obtain Visa with Reference (VDR) approval letter if required  
+              8. Worker enters Malaysia legally  
+              9. Undergo medical screening upon arrival  
+              10. Employment Pass sticker issued for approved job role`
+},
+"MalaysiaForeignWorkerPermit": {
+    name: "Foreign Worker Permit (General Work Permit) – Malaysia",
+
+    validity: "Typically 1 to 2 years per issuance, renewable based on employer demand, quota availability, and sector regulations. Duration depends on job sector and government approval.",
+
+    cost: "₹5,000 – ₹20,000 (approx. RM 250–1,200). Most major costs (levy, insurance, medical tests, processing fees) are borne by the Malaysian employer.",
+
+    time: "Processing time usually 3 to 8 weeks depending on quota approval, employer documentation, and Immigration Department workload.",
+
+    age: "Generally 18 to 45 years preferred for most sectors (construction, plantation, manufacturing), though not strictly fixed if employer justifies need.",
+
+    education: "Not required for most general labor roles. Some sectors may require basic skill certification or training depending on job type.",
+
+    funds: "Not required from applicant. Employer is responsible for salary, accommodation, and levy payments under Malaysian labor regulations.",
+
+    docs: "Valid passport, employment contract, employer sponsorship letter, foreign worker quota approval, medical examination report (FOMEMA test in many cases), passport-size photos, work permit application form, security clearance (if required).",
+
+    whom: "Foreign unskilled and semi-skilled workers employed in sectors like construction, plantations, agriculture, manufacturing, cleaning services, and certain approved service industries in Malaysia.",
+
+    rules: "Strict employer sponsorship required. Workers cannot change employer freely. Employment limited to approved sector only. Subject to government quota system. Mandatory medical screening required. Illegal employment is punishable by law.",
+
+    prosCons: "Pros: Provides legal job opportunity in Malaysia’s high-demand labor sectors, employer handles most costs, stable employment contracts available. Cons: Highly restricted job mobility, dependent on employer, limited long-term settlement pathway, strict quota controls.",
+
+    terms: "Foreign Worker Permit: Authorization for low-skilled/semi-skilled foreign labor; Quota System: Government limit on foreign workers per sector; Levy: Mandatory employer tax for hiring foreign workers; FOMEMA: Mandatory foreign worker medical screening program.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Ministry of Human Resources (Kementerian Sumber Manusia).",
+
+    process: `1. Malaysian employer applies for foreign worker quota approval  
+              2. Employer recruits eligible foreign worker  
+              3. Submit Foreign Worker Permit application to Immigration Department  
+              4. Upload required documents (passport, contract, quota approval)  
+              5. Employer pays levy and processing fees  
+              6. Immigration reviews application (3–8 weeks typical)  
+              7. Receive Visa with Reference (VDR) approval if applicable  
+              8. Worker enters Malaysia legally  
+              9. Undergo mandatory medical screening (FOMEMA)  
+              10. Work permit issued and worker assigned to approved job sector`
+},
+"MalaysiaProfessionalVisitPass": {
+    name: "Professional Visit Pass (PVP) – Malaysia",
+
+    validity: "Typically up to 12 months per issuance. Renewable in limited cases depending on project duration and approval by Immigration Department of Malaysia.",
+
+    cost: "₹5,000 – ₹12,000 (approx. RM 250–700). Additional employer/host company costs may apply for processing, documentation, and insurance.",
+
+    time: "Processing time usually 2 to 6 weeks depending on employer submission, project complexity, and Immigration Department approval.",
+
+    age: "No official age restriction, but typically issued to working-age professionals (18–60 years).",
+
+    education: "Required in most cases. Professional qualifications, technical expertise, or specialized skills must be proven through certificates or experience.",
+
+    funds: "Not required from applicant. Host organization or Malaysian company is responsible for financial support, salary, and stay arrangements.",
+
+    docs: "Valid passport, employment or service contract, invitation letter from Malaysian host company, CV/resume, professional qualification certificates, passport-size photo, project details, and sometimes security clearance or medical report.",
+
+    whom: "Foreign professionals who are employed by overseas companies but temporarily assigned to Malaysia to provide specialized services such as consulting, training, installation, technical support, or project-based work.",
+
+    rules: "Strictly temporary and project-based. Cannot be used for permanent employment in Malaysia. Must be sponsored by a Malaysian company or host organization. No direct job switching allowed. Activities must match approved purpose only.",
+
+    prosCons: "Pros: Allows skilled professionals to work in Malaysia temporarily without full Employment Pass, flexible for short-term assignments, suitable for consultants and experts. Cons: Not a pathway to permanent residency, strictly time-limited, requires strong employer sponsorship, limited scope of work.",
+
+    terms: "Professional Visit Pass (PVP): Temporary work authorization for foreign experts; Host Company: Malaysian organization sponsoring the professional; Project-Based Work: Limited-duration assignment; Immigration Approval: Final authorization by Malaysian Immigration Department.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Expatriate Services Division (ESD).",
+
+    process: `1. Malaysian host company identifies need for foreign expert  
+              2. Submit Professional Visit Pass application through ESD system  
+              3. Provide contract or project agreement details  
+              4. Upload required documents (passport, CV, certificates)  
+              5. Immigration reviews application (2–6 weeks typical)  
+              6. Receive approval letter if successful  
+              7. Apply for entry visa if required  
+              8. Enter Malaysia and report to host organization  
+              9. Work only on approved project scope  
+              10. Exit Malaysia upon completion or visa expiry`
+},
+"MalaysiaResidencePassTalent": {
+    name: "Residence Pass – Talent (RP-T) – Malaysia",
+
+    validity: "Up to 10 years per issuance. Renewable. Designed for high-skilled foreign professionals seeking long-term residence in Malaysia.",
+
+    cost: "₹10,000 – ₹25,000 (approx. RM 500–1,500) application/processing fees. Additional costs may include medical tests, documentation, and administrative charges. (Employer sponsorship not mandatory but may assist in some cases.)",
+
+    time: "Processing time typically 8 to 16 weeks depending on eligibility assessment, document verification, and Immigration Department approval.",
+
+    age: "No strict age limit, but typically issued to working professionals aged 23–60 with strong career experience.",
+
+    education: "Required. Generally a bachelor’s degree or higher plus strong professional experience in a critical skill sector.",
+
+    funds: "Not strictly required as a fixed bank balance, but applicant must show stable income history. Typical requirement includes minimum monthly salary history of around RM 15,000+ (varies by case).",
+
+    docs: "Valid passport, detailed CV, educational certificates, employment history, current employment contract, salary slips, tax records, recommendation letters (if any), passport-size photo, application form, and proof of work experience in high-skilled field.",
+
+    whom: "Highly skilled foreign professionals already working in Malaysia (or eligible to move) in sectors such as engineering, IT, finance, oil & gas, healthcare, education, and senior management roles.",
+
+    rules: "Must meet strict talent criteria assessed by Malaysian authorities. Allows job mobility between employers within Malaysia without reapplying for a new pass. Must maintain high-skilled employment status. Misrepresentation leads to cancellation.",
+
+    prosCons: "Pros: Long-term residency (up to 10 years), job flexibility within Malaysia, pathway toward permanent residency, family inclusion benefits (dependents allowed), stable immigration status. Cons: Strict eligibility requirements, high skill and salary threshold, competitive selection process, not easily accessible for entry-level workers.",
+
+    terms: "Residence Pass – Talent (RP-T): Long-term residence permit for skilled professionals; TalentCorp: Malaysian agency managing RP-T program; High-Skilled Category: Jobs requiring advanced qualifications and experience; Mobility Rights: Ability to change employers without new visa.",
+
+    legal: "Talent Corporation Malaysia (TalentCorp) and Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Check eligibility under RP-T high-skilled criteria  
+              2. Submit online application via TalentCorp portal  
+              3. Upload documents (CV, passport, certificates, employment proof)  
+              4. Pay application fee  
+              5. Application reviewed by TalentCorp and Immigration Department  
+              6. Attend interview if required  
+              7. Receive approval in principle (if successful)  
+              8. Complete final immigration endorsement in Malaysia  
+              9. RP-T sticker issued in passport  
+              10. Enjoy long-term residence and work flexibility in Malaysia`
+},
+"MalaysiaExpatriateEmploymentPass": {
+    name: "Expatriate Employment Pass (Company-Sponsored) – Malaysia",
+
+    validity: "Typically 1 to 5 years depending on job contract, EP category (I, II, III), and employer approval. Renewable as long as employment continues.",
+
+    cost: "₹8,000 – ₹25,000 (approx. RM 400–1,500). Most costs such as levy, processing fees, and insurance are usually paid by the Malaysian employer.",
+
+    time: "Processing time usually 2 to 8 weeks depending on employer submission, job category, and Immigration Department approval.",
+
+    age: "No official age limit, but generally issued to working professionals aged 21–60 years.",
+
+    education: "Required. Minimum diploma/degree for most expatriate roles. Senior roles require higher qualifications and relevant experience.",
+
+    funds: "Not required from applicant. Salary threshold applies instead based on EP category:",
+    
+    salaryRules: 
+      "Category I: RM 10,000+ per month (senior executives, specialists). " +
+      "Category II: RM 5,000 – RM 9,999 per month (mid-level professionals). " +
+      "Category III: RM 3,000 – RM 4,999 per month (restricted roles with limited renewals).",
+
+    docs: "Valid passport, job offer letter, employment contract, employer sponsorship documents, company registration details, CV/resume, educational certificates, passport-size photo, medical report (if required), and EP application form via ESD system.",
+
+    whom: "Foreign professionals, managers, executives, and technical specialists employed by Malaysian companies or multinational corporations operating in Malaysia under a formal sponsorship arrangement.",
+
+    rules: "Must be fully sponsored by a registered Malaysian employer. Employment is restricted to approved job role and company. Job changes require new approval. Category III has stricter limits and shorter validity. Must comply with Malaysian immigration and labor laws.",
+
+    prosCons: "Pros: Legal high-skilled employment, pathway to long-term residence, family dependent passes available (for eligible categories), stable career opportunities in Malaysia. Cons: Employer-dependent, strict salary thresholds, approval process can be lengthy, limited flexibility in lower categories.",
+
+    terms: "Expatriate Employment Pass: Work permit for foreign professionals; Sponsor: Malaysian employer responsible for application; ESD: Expatriate Services Division managing approvals; Dependent Pass: Visa for spouse and children; Category System: Salary-based classification of EP types.",
+
+    legal: "Expatriate Services Division (ESD), Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Secure job offer from Malaysian company  
+              2. Employer registers with Expatriate Services Division (ESD)  
+              3. Employer submits Employment Pass application online  
+              4. Upload required documents (contract, passport, qualifications)  
+              5. Pay processing fees (usually by employer)  
+              6. Immigration reviews application (2–8 weeks typical)  
+              7. Receive Visa Approval Letter (VAL) if approved  
+              8. Apply for entry visa if required  
+              9. Travel to Malaysia and complete endorsement  
+              10. Employment Pass sticker issued in passport`
+},
+"MalaysiaStudentPass": {
+    name: "Student Pass – Malaysia",
+
+    validity: "Valid for the duration of the academic program (usually 1–5 years). Must be renewed annually based on academic progress and institution approval.",
+
+    cost: "₹8,000 – ₹25,000 (approx. RM 500–1,500) government and processing fees. Additional costs include medical check-up, insurance, visa processing, and university administrative charges.",
+
+    time: "Processing time typically 4 to 8 weeks after acceptance from a Malaysian educational institution.",
+
+    age: "No strict age limit. Commonly issued to students aged 16–35, but mature students are also eligible if accepted by institutions.",
+
+    education: "Required. Must have admission offer from a recognized Malaysian school, college, or university.",
+
+    funds: "Proof of sufficient funds required (bank statement or sponsor letter). Typical requirement: RM 7,000–RM 15,000+ per year for living expenses plus tuition fees.",
+
+    docs: "Valid passport, university/college acceptance letter, completed student visa application form, academic certificates, passport-size photos, medical examination report, proof of financial support, health insurance, and accommodation details.",
+
+    whom: "Foreign students admitted to Malaysian universities, colleges, language schools, or technical institutions for full-time study programs.",
+
+    rules: "Must maintain full-time student status. Limited part-time work allowed (subject to immigration approval, typically max 20 hours/week during holidays). Cannot switch course or institution without approval. Must maintain attendance and academic performance.",
+
+    prosCons: "Pros: Access to quality education in Malaysia, relatively affordable tuition, opportunity for cultural exposure, possible pathway to work visas after graduation. Cons: Work restrictions, renewal required annually, strict attendance and academic rules, dependent on institution sponsorship.",
+
+    terms: "Student Pass: Long-term study visa; EMGS: Education Malaysia Global Services (processing body); Institution Sponsor: University responsible for student visa; Visa Approval Letter (VAL): Pre-entry approval required before arrival.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Education Malaysia Global Services (EMGS).",
+
+    process: `1. Apply and receive admission offer from Malaysian institution  
+              2. Institution submits student visa application via EMGS  
+              3. Upload required documents (passport, certificates, photo)  
+              4. Medical screening in home country or Malaysia  
+              5. Wait for Visa Approval Letter (VAL)  
+              6. Apply for entry visa (if required for nationality)  
+              7. Travel to Malaysia with VAL  
+              8. Undergo medical check-up in Malaysia (if required)  
+              9. Student Pass sticker issued in passport  
+              10. Maintain enrollment and renew annually`
+},
+"MalaysiaDependentPassStudent": {
+    name: "Dependent Pass for Student (Family of Students) – Malaysia",
+
+    validity: "Aligned with the main Student Pass holder’s validity. Typically 1 year at a time and renewable as long as the student remains enrolled in an approved institution.",
+
+    cost: "₹5,000 – ₹15,000 (approx. RM 250–900). Additional costs may include processing fees, insurance, medical check-ups, and administrative charges.",
+
+    time: "Processing time usually 2 to 6 weeks, depending on the student’s institution, Immigration Department approval, and document completeness.",
+
+    age: "No fixed age limit for dependents. Applies to eligible family members regardless of age (subject to relationship proof).",
+
+    education: "Not required for dependents. Only the main applicant (student) must meet education requirements.",
+
+    funds: "Proof of sufficient financial support required, usually shown by the main student’s bank statements or sponsor documents. Estimated additional support: RM 7,000–RM 15,000 per dependent per year recommended.",
+
+    docs: "Valid passports of dependents, student’s Student Pass copy, marriage certificate (for spouse), birth certificates (for children), proof of relationship, student’s admission/registration letter, financial proof, passport-size photos, and completed Dependent Pass application form.",
+
+    whom: "Spouses and children of international students studying in Malaysia at recognized universities, colleges, or institutions under a valid Student Pass.",
+
+    rules: "Dependents cannot work in Malaysia unless they obtain a separate work authorization. Must maintain valid relationship with the main Student Pass holder. Dependent Pass validity is strictly tied to the student’s enrollment status. Any change in student status may cancel dependent rights.",
+
+    prosCons: "Pros: Allows family members to live together during studies, renewable with student visa, legal residence status in Malaysia. Cons: No automatic work rights, dependent on student’s visa status, requires continuous documentation updates, renewal needed annually.",
+
+    terms: "Dependent Pass: Visa for family members of visa holders; Student Pass Holder: Primary visa holder (student); Sponsor: Educational institution responsible for student visa; Immigration Approval: Final approval by Malaysian authorities.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Education Malaysia Global Services (EMGS).",
+
+    process: `1. Student receives valid Student Pass approval  
+              2. Submit Dependent Pass application via institution or immigration system  
+              3. Provide proof of relationship (marriage/birth certificates)  
+              4. Submit passports and supporting documents  
+              5. Institution sponsors application through EMGS (if applicable)  
+              6. Immigration reviews application (2–6 weeks typical)  
+              7. Receive Dependent Pass approval  
+              8. Enter Malaysia or complete endorsement (if already in country)  
+              9. Dependent Pass sticker issued in passport  
+              10. Renew annually along with student visa`
+},
+"MalaysiaExchangeStudentVisa": {
+    name: "Exchange Student Visa – Malaysia",
+
+    validity: "Valid for the duration of the exchange program, typically 3 months to 1 year. Usually aligned with the academic exchange period and renewable only if the program is extended and approved.",
+
+    cost: "₹6,000 – ₹18,000 (approx. RM 350–1,000). Additional costs may include EMGS processing fees, insurance, medical check-ups, and university administrative charges.",
+
+    time: "Processing time typically 4 to 8 weeks after acceptance into an approved exchange program and submission through the host institution.",
+
+    age: "No strict age limit. Commonly issued to university-level students aged 18–30, but depends on exchange program eligibility.",
+
+    education: "Required. Must be enrolled in a recognized home-country university and accepted into a Malaysian partner institution under an official exchange agreement.",
+
+    funds: "Proof of sufficient funds required, usually RM 7,000–RM 15,000+ per year (or sponsor/parent support letter). Some exchange programs may include scholarships or stipends.",
+
+    docs: "Valid passport, exchange program acceptance letter, home university enrollment proof, host Malaysian university invitation letter, academic transcripts, financial proof or sponsorship letter, passport-size photos, medical examination report, health insurance, and visa application form.",
+
+    whom: "International students participating in official academic exchange programs between their home university and Malaysian universities under bilateral or institutional agreements.",
+
+    rules: "Must remain enrolled in the approved exchange program. Cannot change institution or program without approval. Limited or no work rights allowed (subject to immigration approval). Must comply with academic attendance and program requirements.",
+
+    prosCons: "Pros: Opportunity to study in Malaysia through exchange agreements, cultural exposure, international academic experience, simplified admission process through universities. Cons: Short-term stay, restricted work rights, dependent on exchange agreement, limited extension options.",
+
+    terms: "Exchange Student Visa: Short-term academic exchange permit; EMGS: Education Malaysia Global Services managing student visas; Host Institution: Malaysian university receiving exchange student; Home Institution: Student’s original university; Visa Approval Letter (VAL): Pre-entry approval document.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Education Malaysia Global Services (EMGS).",
+
+    process: `1. Apply through home university exchange program  
+              2. Get acceptance from Malaysian partner university  
+              3. Host institution submits visa application via EMGS  
+              4. Upload required documents (passport, transcripts, acceptance letters)  
+              5. Complete medical screening and insurance requirements  
+              6. Wait for Visa Approval Letter (VAL)  
+              7. Apply for entry visa if required  
+              8. Travel to Malaysia with VAL  
+              9. Complete registration at host university  
+              10. Receive Student/Exchange Pass endorsement in passport`
+},
+"MalaysiaInternationalStudentLongTermPass": {
+    name: "International Student Long-Term Pass – Malaysia",
+
+    validity: "Valid for the full duration of the academic program (typically 1 to 5 years), with annual renewal based on academic progress and institutional compliance.",
+
+    cost: "₹8,000 – ₹25,000 (approx. RM 500–1,500) government and processing fees. Additional costs include EMGS processing charges, medical screening, insurance, and university administrative fees.",
+
+    time: "Processing time usually 4 to 10 weeks depending on institution, EMGS clearance, and Immigration Department approval.",
+
+    age: "No strict age limit. Commonly issued to students aged 17–35, but mature students are also eligible if accepted by recognized institutions.",
+
+    education: "Required. Must have admission into a recognized Malaysian higher education institution (university, college, or accredited training center).",
+
+    funds: "Proof of sufficient financial resources required. Typically RM 7,000–RM 15,000+ per year for living expenses plus tuition fees. Sponsor or scholarship proof is accepted.",
+
+    docs: "Valid passport, university acceptance letter, Visa Approval Letter (VAL), academic transcripts, passport-size photos, medical examination report, proof of financial support, health insurance coverage, completed Student Pass application form, and accommodation details.",
+
+    whom: "International students enrolled in full-time diploma, undergraduate, postgraduate, or professional programs at recognized Malaysian educational institutions.",
+
+    rules: "Must maintain full-time enrollment status. Annual renewal required based on academic performance and attendance. Limited part-time work allowed (subject to Immigration approval, usually max 20 hours/week during holidays). Cannot change course or institution without permission.",
+
+    prosCons: "Pros: Long-term legal stay in Malaysia for education, access to quality universities, opportunity for cultural exposure, pathway to work visas after graduation. Cons: Work restrictions, strict academic requirements, annual renewal process, dependent on institution sponsorship.",
+
+    terms: "Student Pass: Long-term study visa; EMGS: Education Malaysia Global Services managing student visas; Visa Approval Letter (VAL): Pre-entry approval; Institution Sponsor: University responsible for visa application; Immigration Compliance: Rules governing student stay in Malaysia.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Education Malaysia Global Services (EMGS).",
+
+    process: `1. Apply and receive admission from Malaysian institution  
+              2. Institution submits application via EMGS  
+              3. Upload required documents (passport, academic records, photo)  
+              4. Complete medical screening and insurance requirements  
+              5. Receive Visa Approval Letter (VAL)  
+              6. Apply for entry visa if required based on nationality  
+              7. Travel to Malaysia with VAL  
+              8. Undergo additional medical check-up (if required)  
+              9. Student Pass endorsed in passport upon arrival  
+              10. Renew annually until program completion`
+},
+"MalaysiaMySecondHomeMM2H": {
+    name: "Malaysia My Second Home (MM2H Program) – Malaysia",
+
+    validity: "Long-term renewable residence pass. Typically issued for 5, 10, or 20 years depending on the program tier and applicant category. Renewable upon meeting conditions.",
+
+    cost: "₹50,000 – ₹2,00,000+ (approx. RM 3,000–12,000+) including application fees, processing charges, medical insurance, and agent/service fees (if used). Higher tiers may require fixed deposits/investments in Malaysia.",
+
+    time: "Processing time typically 2 to 6 months depending on background checks, financial verification, and program category (Silver, Gold, Platinum tiers).",
+
+    age: "Generally 35 years and above preferred (varies by updated MM2H rules). Some categories allow younger applicants if they meet financial/investment criteria.",
+
+    education: "Not required.",
+
+    funds: "Strong financial proof required. Typically includes offshore income and liquid assets. Common requirements may include: RM 1–5 million+ in assets and monthly offshore income (varies by tier and updated policy).",
+
+    docs: "Valid passport, application form, financial statements (bank/investment proof), income proof, medical report, health insurance, police clearance certificate, passport-size photos, and supporting documents for dependents if applicable.",
+
+    whom: "Foreign retirees, long-term investors, expatriates, and high-net-worth individuals who wish to reside in Malaysia long-term without full employment-based immigration.",
+
+    rules: "No full-time employment allowed under standard MM2H (some limited work/business activity may be permitted under revised schemes). Must maintain fixed deposit/investment requirements in Malaysia. Must maintain minimum stay conditions depending on category. Compliance with financial and reporting rules is mandatory.",
+
+    prosCons: "Pros: Long-term residence (up to 20 years), renewable, family inclusion allowed, stable residency status, attractive for retirement in Malaysia. Cons: High financial requirements, strict eligibility rules, limited work rights, policy changes may affect conditions.",
+
+    terms: "MM2H: Malaysia My Second Home program; Fixed Deposit: Required bank deposit in Malaysia; Tier System: Different eligibility levels (Silver/Gold/Platinum); Sponsor: Licensed MM2H agent in some cases; Immigration Approval: Final approval by Malaysian authorities.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Ministry of Tourism, Arts and Culture (MOTAC) overseeing MM2H policy framework.",
+
+    process: `1. Check eligibility under MM2H financial criteria  
+              2. Appoint licensed MM2H agent (if required)  
+              3. Prepare financial documents and background certificates  
+              4. Submit application to MM2H One Stop Centre  
+              5. Undergo financial and background verification  
+              6. Receive conditional approval  
+              7. Open Malaysian bank account and place fixed deposit  
+              8. Complete medical screening and insurance requirements  
+              9. Receive MM2H visa endorsement  
+              10. Reside in Malaysia under long-term renewable status`
+},
+"MalaysiaLongTermSocialVisitPass": {
+    name: "Long-Term Social Visit Pass – Malaysia",
+
+    validity: "Typically 6 months to 5 years depending on category (spouse, dependent, family member, or special approval). Renewable subject to Immigration Department approval and continued eligibility.",
+
+    cost: "₹3,000 – ₹10,000 (approx. RM 150–600). Additional costs may include medical screening, insurance, and administrative fees depending on category.",
+
+    time: "Processing time usually 2 to 8 weeks depending on relationship category, documentation, and Immigration Department workload.",
+
+    age: "No strict age limit. Applies to spouses, children, parents, or dependents of Malaysian citizens or long-term residents.",
+
+    education: "Not required.",
+
+    funds: "Proof of financial support required from sponsor (Malaysian citizen or resident). Applicant may also need to show basic financial dependency or support arrangements.",
+
+    docs: "Valid passport, completed application form, passport-size photos, proof of relationship (marriage certificate, birth certificate, etc.), sponsor’s Malaysian IC/passport copy, sponsor’s income proof, accommodation details, medical report (if required), and supporting letters.",
+
+    whom: "Foreign spouses, children, parents, or close family members of Malaysian citizens or long-term residents who wish to stay in Malaysia for extended periods without employment rights.",
+
+    rules: "No employment allowed unless separate work authorization is obtained. Must maintain valid relationship with sponsor. Subject to periodic renewal and Immigration approval. Misuse or false documentation may lead to cancellation.",
+
+    prosCons: "Pros: Allows long-term family reunification, renewable stay, stable legal residence, easier integration for families. Cons: No automatic work rights, dependent on sponsor status, requires continuous proof of relationship, renewal required.",
+
+    terms: "Social Visit Pass: Temporary stay permit for social/family reasons; Long-Term Category: Extended duration version of social visit pass; Sponsor: Malaysian citizen or resident supporting the application; Immigration Approval: Final authority for issuance and renewal.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Sponsor (Malaysian citizen/resident) submits application  
+              2. Provide proof of relationship and supporting documents  
+              3. Submit application to Immigration Department  
+              4. Attach financial and accommodation proof  
+              5. Undergo verification and background checks  
+              6. Attend interview if required  
+              7. Receive approval for Long-Term Social Visit Pass  
+              8. Visa endorsed in passport  
+              9. Stay in Malaysia under approved duration  
+              10. Renew before expiry if eligible`
+},
+"MalaysiaPermanentResidenceVisa": {
+    name: "Permanent Residence (PR) Visa – Malaysia",
+
+    validity: "Indefinite residency status once granted. PR card/endorsement must be renewed periodically (administrative renewal, not re-approval).",
+
+    cost: "₹10,000 – ₹50,000+ (approx. RM 500–3,000+) including application fees, processing charges, document verification, and legal/agent fees if used.",
+
+    time: "Processing time typically 6 months to 2+ years depending on category, background checks, and Immigration Department approval.",
+
+    age: "No fixed age limit, but applicants are usually working professionals, investors, or long-term residents (commonly 21+).",
+
+    education: "Not mandatory, but higher education or professional qualifications strongly improve eligibility for skilled categories.",
+
+    funds: "Strong financial stability required. Applicants must show stable income, assets, or long-term economic contribution in Malaysia (exact thresholds vary by category).",
+
+    docs: "Valid passport, PR application form, long-term residence proof, employment/income records, tax documents, bank statements, police clearance certificate, medical report, marriage/birth certificates (if family-based), sponsor/employer documents (if applicable), and passport-size photos.",
+
+    whom: "Foreign nationals who have lived and contributed to Malaysia for a long period, including skilled workers, investors, spouses of Malaysian citizens, and selected points-based applicants.",
+
+    rules: "PR is granted under strict discretion of Malaysian authorities. Applicants must demonstrate long-term contribution, clean legal record, and strong ties to Malaysia. PR status can be revoked for criminal activity or long absence. Some categories may still have work restrictions depending on approval terms.",
+
+    prosCons: "Pros: Permanent stay in Malaysia, stability without visa renewals, access to more rights (work, education, healthcare access), easier travel within Malaysia. Cons: Highly difficult to obtain, long processing time, not guaranteed, strict eligibility requirements, limited quotas.",
+
+    terms: "Permanent Residence (PR): Long-term immigration status; PR Card: Identification document for residents; Immigration Approval: Final decision by Malaysian authorities; Category-Based PR: Different routes (Points System, Spouse, Investor, Expert).",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) under Ministry of Home Affairs (Kementerian Dalam Negeri).",
+
+    process: `1. Determine eligibility category (Points, Spouse, Investor, Expert)  
+              2. Accumulate required years of legal residence in Malaysia (usually 5+ years for most routes)  
+              3. Prepare financial, employment, and background documents  
+              4. Submit PR application to Immigration Department  
+              5. Undergo background and security checks  
+              6. Attend interview (if required)  
+              7. Wait for evaluation (6–24 months typical)  
+              8. Receive PR approval (if successful)  
+              9. Complete PR endorsement and registration  
+              10. Maintain compliance to retain PR status`
+},
+"MalaysiaSpouseVisaMarriageVisa": {
+    name: "Spouse Visa / Marriage Visa (Foreign Spouse of Malaysian Citizen) – Malaysia",
+
+    validity: "Initially 6 months to 5 years under Long-Term Social Visit Pass (Spouse). Renewable as long as the marriage is valid and recognized by Malaysian authorities. May lead to Permanent Residence (PR) eligibility after long-term stay.",
+
+    cost: "₹3,000 – ₹10,000 (approx. RM 150–600). Additional costs may include medical check-up, insurance, document certification, and administrative charges.",
+
+    time: "Processing time typically 2 to 8 weeks for Long-Term Social Visit Pass approval. PR pathway (if applied later) may take 6 months to 2+ years.",
+
+    age: "No official age limit. Applicant must be legally married to a Malaysian citizen and marriage must be legally recognized.",
+
+    education: "Not required.",
+
+    funds: "Sponsor (Malaysian spouse) must show financial stability. Bank statements, income proof, or employment proof may be required to demonstrate ability to support spouse.",
+
+    docs: "Valid passport, marriage certificate (legally registered and often attested), Malaysian spouse IC (identity card), sponsor income proof, joint photos or relationship proof, completed application form, medical report, passport-size photos, and accommodation proof.",
+
+    whom: "Foreign nationals legally married to Malaysian citizens who wish to live in Malaysia with their spouse under family reunification provisions.",
+
+    rules: "Marriage must be legally registered and recognized in Malaysia. Applicant cannot work unless a separate work authorization is granted. Immigration authorities may conduct interviews or background checks to verify genuine relationship. Misrepresentation leads to cancellation or deportation.",
+
+    prosCons: "Pros: Enables long-term family reunification, renewable residency status, potential pathway to Permanent Residence (PR), stable living with spouse in Malaysia. Cons: No automatic work rights, strict documentation requirements, marriage authenticity checks, dependent on sponsor’s status.",
+
+    terms: "Spouse Visa: Long-Term Social Visit Pass for married partners; Marriage Visa: Common term for spouse-based residency; Sponsor: Malaysian citizen spouse supporting application; Long-Term Social Visit Pass (LTSVP): Official visa category used for spouses.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Register marriage legally in Malaysia or recognized jurisdiction  
+              2. Malaysian spouse submits application to Immigration Department  
+              3. Provide proof of genuine relationship and financial stability  
+              4. Submit required documents (passport, marriage certificate, IC, photos)  
+              5. Attend interview if requested by immigration authorities  
+              6. Application reviewed and processed (2–8 weeks typical)  
+              7. Receive Long-Term Social Visit Pass approval  
+              8. Visa endorsed in passport  
+              9. Reside in Malaysia with spouse under approved conditions  
+              10. Apply for PR eligibility after qualifying period (if applicable)`
+},
+
+"MalaysiaDependentPassGeneral": {
+    name: "Dependent Pass (for Family Members of Workers/Students) – Malaysia",
+
+    validity: "Usually aligned with the main pass holder (Employment Pass or Student Pass). Typically 1–5 years, renewable as long as the primary pass remains valid.",
+
+    cost: "₹3,000 – ₹12,000 (approx. RM 150–700). Additional costs may include processing fees, insurance, medical check-up, and administrative charges.",
+
+    time: "Processing time usually 2 to 6 weeks depending on the main applicant’s visa type, employer/institution processing, and Immigration Department approval.",
+
+    age: "No strict age limit. Applies to eligible dependents such as spouse, children, and sometimes parents (subject to approval).",
+
+    education: "Not required for dependents. Only the main pass holder (worker/student) must meet education or job/study requirements.",
+
+    funds: "Proof of financial support required from main pass holder. Typical expectation is sufficient monthly income (for workers) or sponsor proof (for students/employees) to support dependents.",
+
+    docs: "Valid passports of dependents, main pass holder’s Employment Pass or Student Pass copy, marriage certificate (for spouse), birth certificates (for children), proof of relationship, passport-size photos, sponsor’s income/employment proof, accommodation proof, and completed Dependent Pass application form.",
+
+    whom: "Spouses, children, and in some cases parents of foreign workers (Employment Pass holders) or international students studying in Malaysia.",
+
+    rules: "Dependents cannot work in Malaysia unless they obtain separate work authorization. Dependent Pass validity is strictly tied to the main pass holder’s status. If the main pass is cancelled or expires, dependent passes become invalid. Must comply with Malaysian immigration regulations.",
+
+    prosCons: "Pros: Enables families to stay together in Malaysia, renewable with main visa, legal long-term residence, stable family unity. Cons: No automatic work rights, fully dependent on main visa holder, requires continuous documentation updates, renewal required with main pass.",
+
+    terms: "Dependent Pass: Visa for family members of valid visa holders; Main Pass Holder: Worker or student sponsoring dependents; Sponsor: Employer or institution responsible for main applicant; Immigration Approval: Final authority for issuance.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Education Malaysia Global Services (EMGS) for student-related dependents.",
+
+    process: `1. Main pass holder (worker/student) obtains valid Employment or Student Pass  
+              2. Submit Dependent Pass application through employer or institution  
+              3. Provide proof of relationship (marriage/birth certificates)  
+              4. Upload passports and supporting documents  
+              5. Sponsor submits application to Immigration Department  
+              6. Application reviewed (2–6 weeks typical)  
+              7. Receive Dependent Pass approval  
+              8. Visa endorsed in passport or issued electronically  
+              9. Dependents enter or remain in Malaysia legally  
+              10. Renew alongside main pass holder`
+},
+"MalaysiaSpouseVisaForeignSpouse": {
+    name: "Spouse Visa (Foreign Spouse of Malaysian Citizen) – Malaysia",
+
+    validity: "Initially issued under the Long-Term Social Visit Pass (Spouse) typically for 6 months to 5 years. Renewable as long as the marriage remains valid and recognized by Malaysian authorities. May lead to Permanent Residence (PR) eligibility over time.",
+
+    cost: "₹3,000 – ₹10,000 (approx. RM 150–600). Additional costs may include medical screening, insurance, document attestation, and administrative fees.",
+
+    time: "Processing time usually 2 to 8 weeks for Long-Term Social Visit Pass approval. PR pathway (if applied later) may take 6 months to 2+ years depending on eligibility and background checks.",
+
+    age: "No official age limit. Applicant must be legally married to a Malaysian citizen under a recognized marriage.",
+
+    education: "Not required.",
+
+    funds: "Malaysian spouse must show financial capability to support the foreign spouse through income proof, bank statements, or employment records.",
+
+    docs: "Valid passport, legally registered marriage certificate (attested if foreign), Malaysian spouse IC (MyKad), sponsor income/employment proof, joint photos or relationship evidence, completed application form, medical report, passport-size photos, and accommodation proof.",
+
+    whom: "Foreign nationals legally married to Malaysian citizens who wish to reside in Malaysia for long-term family life and residency under spouse-based immigration provisions.",
+
+    rules: "Marriage must be genuine and legally recognized. Immigration authorities may conduct interviews or background verification to confirm relationship authenticity. No automatic work rights—separate work authorization is required. Misrepresentation or fake marriage leads to cancellation or deportation.",
+
+    prosCons: "Pros: Enables long-term family reunification, renewable residency status, potential pathway to Permanent Residence (PR), stable legal stay in Malaysia. Cons: No automatic employment rights, strict documentation checks, relationship verification process, dependent on spouse’s status.",
+
+    terms: "Spouse Visa: Long-Term Social Visit Pass for foreign spouses; LTSVP: Official category used for spouse residence; Sponsor: Malaysian citizen spouse supporting application; Immigration Approval: Final decision authority by Malaysian Immigration Department.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Register marriage legally in Malaysia or obtain recognition of foreign marriage  
+              2. Malaysian spouse submits application to Immigration Department  
+              3. Provide proof of genuine relationship and financial stability  
+              4. Submit required documents (passport, marriage certificate, IC, photos)  
+              5. Attend interview if requested by Immigration  
+              6. Application processed (2–8 weeks typical)  
+              7. Receive Long-Term Social Visit Pass (Spouse) approval  
+              8. Visa endorsed in passport  
+              9. Reside in Malaysia under spouse visa conditions  
+              10. Apply for PR after qualifying period if eligible`
+},
+"MalaysiaDependentPassExpatriates": {
+    name: "Dependent Pass (Children, Spouse, Parents of Expatriates) – Malaysia",
+
+    validity: "Typically aligned with the main Expatriate Employment Pass validity (1–5 years). Renewable as long as the primary Employment Pass holder remains valid and employed in Malaysia.",
+
+    cost: "₹3,000 – ₹12,000 (approx. RM 150–700). Additional costs may include medical check-up, insurance, processing fees, and administrative charges.",
+
+    time: "Processing time usually 2 to 6 weeks depending on employer submission, Expatriate Services Division (ESD) approval, and document completeness.",
+
+    age: "No strict age limit. Applies to spouse, unmarried children (typically under 18 or dependent students), and in some cases dependent parents (subject to approval).",
+
+    education: "Not required for dependents. Only the main expatriate (Employment Pass holder) must meet professional and qualification requirements.",
+
+    funds: "Proof of financial capability is required from the main Employment Pass holder (salary and employment contract). Typical EP Category I/II income levels are expected to support dependents.",
+
+    docs: "Valid passports of dependents, main Employment Pass copy, marriage certificate (spouse), birth certificates (children), proof of relationship, expatriate’s employment contract, salary proof, company sponsorship letter, passport-size photos, accommodation proof, and completed Dependent Pass application form.",
+
+    whom: "Family members (spouse, children, and sometimes parents) of foreign expatriates holding valid Employment Passes in Malaysia under company sponsorship.",
+
+    rules: "Dependent Pass holders cannot work unless they obtain separate work authorization. Validity is strictly tied to the expatriate’s Employment Pass. If the main pass is cancelled or expires, dependent passes become invalid. Must comply with Malaysian immigration rules at all times.",
+
+    prosCons: "Pros: Enables family reunification in Malaysia, renewable alongside expatriate work visa, stable long-term stay, access to education for children. Cons: No automatic work rights, fully dependent on expatriate’s visa status, requires continuous documentation updates, renewal tied to employer sponsorship.",
+
+    terms: "Dependent Pass: Visa for family members of Employment Pass holders; Expatriate: Foreign skilled worker in Malaysia; Sponsor: Employer supporting main EP holder; ESD: Expatriate Services Division managing approvals; Immigration Approval: Final authority by Malaysian Immigration Department.",
+
+    legal: "Expatriate Services Division (ESD) and Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Expatriate obtains valid Employment Pass (EP)  
+              2. Employer applies for Dependent Pass via ESD system  
+              3. Submit proof of relationship (marriage/birth certificates)  
+              4. Upload passports and supporting documents  
+              5. Employer sponsors application to Immigration Department  
+              6. Application reviewed (2–6 weeks typical)  
+              7. Receive Dependent Pass approval  
+              8. Visa endorsed in passport or issued electronically  
+              9. Dependents enter or remain in Malaysia legally  
+              10. Renew Dependent Pass along with EP renewal`
+},
+"MalaysiaLongTermSocialVisitPassFamilyReunion": {
+    name: "Long-Term Social Visit Pass (Family Reunion) – Malaysia",
+
+    validity: "Typically 6 months to 5 years depending on sponsor category and Immigration Department approval. Renewable as long as eligibility and relationship conditions are maintained.",
+
+    cost: "₹3,000 – ₹10,000 (approx. RM 150–600). Additional costs may include medical screening, insurance, document attestation, and administrative fees.",
+
+    time: "Processing time usually 2 to 8 weeks depending on application type, relationship proof, and Immigration Department workload.",
+
+    age: "No strict age limit. Applies to spouses, children, parents, and in some cases other dependent family members of Malaysian citizens or long-term residents.",
+
+    education: "Not required.",
+
+    funds: "Sponsor (Malaysian citizen or resident) must show financial ability to support the family member(s) through income proof, bank statements, or employment records.",
+
+    docs: "Valid passport, completed application form, passport-size photos, proof of relationship (marriage certificate, birth certificate, etc.), sponsor Malaysian IC/passport copy, sponsor income/employment proof, accommodation proof, medical report (if required), and supporting letters if applicable.",
+
+    whom: "Foreign family members (spouse, children, parents, and dependent relatives) of Malaysian citizens or long-term residents who wish to live together in Malaysia under family reunification arrangements.",
+
+    rules: "No employment allowed unless separate work authorization is granted. Must maintain valid relationship with sponsor. Immigration may request interviews or additional documents to verify authenticity. Misuse or false information can result in cancellation or deportation.",
+
+    prosCons: "Pros: Enables family reunification, long-term renewable stay, legal residence in Malaysia, stability for families. Cons: No automatic work rights, fully dependent on sponsor, strict documentation requirements, renewal required periodically.",
+
+    terms: "Long-Term Social Visit Pass (LTSVP): Extended stay permit for family members; Family Reunion: Immigration category for maintaining family unity; Sponsor: Malaysian citizen or resident supporting application; Immigration Approval: Final authority by Malaysian Immigration Department.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Sponsor (Malaysian citizen/resident) initiates application  
+              2. Submit proof of family relationship and supporting documents  
+              3. Provide financial and accommodation proof  
+              4. Apply to Immigration Department  
+              5. Attend interview if required for verification  
+              6. Application reviewed (2–8 weeks typical)  
+              7. Receive Long-Term Social Visit Pass approval  
+              8. Visa endorsed in passport  
+              9. Reside in Malaysia under family reunion category  
+              10. Renew before expiry if eligible`
+},
+"MalaysiaBusinessVisa": {
+    name: "Business Visa – Malaysia",
+
+    validity: "Typically 3 months to 12 months depending on issuance type. Usually allows short stays of 30–90 days per entry. Can be single-entry or multiple-entry depending on approval.",
+
+    cost: "₹3,000 – ₹10,000 (approx. RM 150–600). Additional service charges may apply for documentation, visa center fees, insurance, and processing support.",
+
+    time: "Processing time usually 2 to 7 working days for eVisa/business entry permits; embassy applications may take 3 to 10 working days.",
+
+    age: "No official age limit. Generally issued to working-age professionals (18+).",
+
+    education: "Not mandatory, but business background, company profile, or professional experience may be required.",
+
+    funds: "Proof of sufficient funds recommended. Bank statements for 3–6 months or company financial proof may be required depending on business purpose.",
+
+    docs: "Valid passport (6+ months validity), business invitation letter from Malaysian company, company registration documents (Malaysia host), applicant’s company documents (if self-employed), bank statements, travel itinerary, return ticket, passport-size photo, completed visa application form.",
+
+    whom: "Foreign nationals traveling to Malaysia for business-related activities such as meetings, conferences, negotiations, site visits, trade discussions, or exploring investment opportunities (not employment).",
+
+    rules: "Strictly no employment allowed under Business Visa. Cannot engage in paid work or labor. Must exit before visa expiry. Activities limited to meetings, business discussions, and short-term corporate visits. Immigration officer has final entry approval.",
+
+    prosCons: "Pros: Easy access for business meetings, supports trade and investment activities, quick processing, flexible short-term entry. Cons: No work authorization, limited stay duration, requires invitation letter, strict compliance rules.",
+
+    terms: "Business Visa: Short-term entry for commercial activities; Invitation Letter: Formal document from Malaysian company; Single Entry: One-time entry only; Multiple Entry: Allows repeated visits; Immigration Approval: Final decision at port of entry.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Obtain business invitation from Malaysian company or event organizer  
+              2. Prepare required business and financial documents  
+              3. Apply via Malaysian eVisa portal or embassy/consulate  
+              4. Submit passport and supporting documents  
+              5. Pay visa processing fee  
+              6. Wait for approval (2–7 working days typical)  
+              7. Receive business visa approval (eVisa or sticker)  
+              8. Travel to Malaysia with required documents  
+              9. Present documents at immigration checkpoint  
+              10. Conduct approved business activities within visa validity`
+},
+"MalaysiaInvestorVisa": {
+    name: "Investor Visa – Malaysia",
+
+    validity: "Typically long-term (1–5 years initially depending on program). Renewable based on continued investment compliance and approval by Malaysian authorities. In some cases may lead to Permanent Residence eligibility.",
+
+    cost: "₹25,000 – ₹1,00,000+ (approx. RM 1,500–6,000+). Additional investment capital requirement is separate and significantly higher (varies by program).",
+
+    time: "Processing time usually 2 to 6 months depending on investment verification, background checks, and government approval process.",
+
+    age: "No strict age limit. Generally targeted at adults (21+) with financial capacity.",
+
+    education: "Not required, but business or investment background is beneficial.",
+
+    funds: "High financial requirement. Typically requires significant investment in Malaysia (e.g., fixed deposit, business investment, or approved financial instruments). Amount varies by program tier and policy updates.",
+
+    docs: "Valid passport, investment proof, bank statements, business/investment plan, company incorporation documents (if applicable), financial audit reports, source of funds declaration, police clearance certificate, medical report, passport-size photos.",
+
+    whom: "Foreign investors, entrepreneurs, and high-net-worth individuals intending to invest in Malaysia through business setup, capital investment, or government-approved investment schemes.",
+
+    rules: "Must maintain approved investment throughout visa validity. Funds may need to be locked in Malaysian banks or approved instruments. No employment allowed unless separately permitted. Investment must comply with Malaysian regulations. Failure to maintain investment can result in cancellation.",
+
+    prosCons: "Pros: Long-term residence potential, business opportunities in Malaysia, pathway to Permanent Residence (PR), family inclusion options in many cases. Cons: High financial requirement, strict compliance rules, investment risk, policy changes may affect eligibility.",
+
+    terms: "Investor Visa: Residency based on capital investment; Fixed Deposit Requirement: Mandatory bank deposit in some programs; Investment Threshold: Minimum capital requirement set by government; Immigration Approval: Final decision authority.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and related investment promotion agencies such as MIDA (Malaysian Investment Development Authority).",
+
+    process: `1. Identify eligible investment program (government-approved scheme)  
+              2. Prepare investment plan and financial documentation  
+              3. Submit investor visa application through Immigration/approved agency  
+              4. Provide proof of funds and source of wealth  
+              5. Undergo background and financial verification  
+              6. Approve investment placement in Malaysia (bank/business)  
+              7. Receive conditional visa approval  
+              8. Complete investment requirements  
+              9. Visa endorsement issued  
+              10. Maintain investment for renewal or PR eligibility`
+},
+"MalaysiaEntrepreneurPass": {
+    name: "Entrepreneur Pass – Malaysia",
+
+    validity: "Typically 1 to 5 years depending on business performance, approval category, and immigration decision. Renewable if business remains active and compliant.",
+
+    cost: "₹10,000 – ₹50,000 (approx. RM 600–3,000) excluding business setup and capital investment costs. Additional fees may apply for registration, licensing, and processing.",
+
+    time: "Processing time usually 2 to 6 months depending on business proposal evaluation, approvals from agencies, and Immigration Department verification.",
+
+    age: "No strict age limit. Generally issued to applicants aged 21+ with viable business plans.",
+
+    education: "Not mandatory, but business knowledge, entrepreneurial experience, or relevant qualifications significantly improve approval chances.",
+
+    funds: "Strong financial requirement. Applicants must show proof of business capital and operational funds (varies widely; often RM 100,000+ recommended depending on sector).",
+
+    docs: "Valid passport, business plan, company incorporation documents (if available), bank statements, proof of investment funds, CV/resume, educational certificates (if any), police clearance certificate, passport-size photos, and business registration approvals.",
+
+    whom: "Foreign entrepreneurs who intend to start or operate a business in Malaysia, including startups, SMEs, franchise owners, and innovation-based business founders.",
+
+    rules: "Business must be legally registered in Malaysia. Must actively operate the approved business. Cannot work outside approved business activities. Must comply with Malaysian corporate and immigration laws. Failure to maintain business activity may lead to visa cancellation.",
+
+    prosCons: "Pros: Enables business ownership in Malaysia, potential pathway to long-term residency and PR, access to growing ASEAN market, opportunity to bring dependents. Cons: High approval scrutiny, business risk involved, capital requirement, ongoing compliance obligations.",
+
+    terms: "Entrepreneur Pass: Visa for business founders; Startup Visa (related concept): Innovation-based entry schemes; Business Registration: Company incorporation in Malaysia; Immigration Approval: Final decision authority.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia), Companies Commission of Malaysia (SSM), and investment-related agencies like MIDA (depending on sector).",
+
+    process: `1. Develop a viable business plan for Malaysia  
+              2. Register company or prepare incorporation documents  
+              3. Submit Entrepreneur Pass application with business proposal  
+              4. Provide financial proof and source of funds  
+              5. Obtain approvals from relevant Malaysian agencies  
+              6. Immigration reviews application (2–6 months typical)  
+              7. Attend interview or business presentation (if required)  
+              8. Receive conditional approval  
+              9. Set up and activate business in Malaysia  
+              10. Visa endorsement issued and renewable based on business performance`
+},
+"MalaysiaStartupVisaSpecialProgram": {
+    name: "Startup Visa (Under Special Programs) – Malaysia",
+
+    validity: "Typically 1 to 5 years depending on program approval, startup performance, and participation in recognized incubator/accelerator schemes. Renewable subject to business progress and compliance.",
+
+    cost: "₹10,000 – ₹50,000 (approx. RM 600–3,000) excluding startup capital. Additional costs may include incubator fees, registration, legal setup, and visa processing charges.",
+
+    time: "Processing time usually 2 to 6 months depending on startup evaluation, incubator acceptance, and Immigration Department approval.",
+
+    age: "No strict age limit. Typically targeted at entrepreneurs aged 18–45, but older founders may qualify if startup is strong.",
+
+    education: "Not mandatory, but background in entrepreneurship, technology, or business innovation improves approval chances.",
+
+    funds: "Moderate to high financial requirement. Proof of startup funding, seed capital, or investor backing is usually required (varies by program; often RM 50,000–RM 500,000+ depending on scale).",
+
+    docs: "Valid passport, startup business plan or pitch deck, company incorporation documents (if any), proof of funding or investor support, CV/resume, academic certificates (optional), incubator/accelerator acceptance letter (if applicable), bank statements, and passport-size photos.",
+
+    whom: "Foreign startup founders, co-founders, and innovators participating in Malaysian government-approved startup ecosystems, incubators, or tech accelerator programs.",
+
+    rules: "Must be part of a recognized Malaysian startup ecosystem or approved program. Business must be innovative or high-growth oriented. Must actively operate and report business progress. Cannot work outside startup activities. Compliance with program milestones is required for renewal.",
+
+    prosCons: "Pros: Access to Malaysia’s startup ecosystem, potential funding and mentorship, pathway to long-term residency, opportunity to scale business in ASEAN region. Cons: Highly selective, dependent on startup performance, requires funding proof, not guaranteed long-term approval.",
+
+    terms: "Startup Visa: Special entry visa for entrepreneurs; Incubator Program: Approved startup support ecosystem; Accelerator: Growth-stage business support program; Milestone-Based Renewal: Visa extension depends on business performance targets.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia), Malaysia Digital Economy Corporation (MDEC), and approved incubator/accelerator partners.",
+
+    process: `1. Develop innovative startup idea or business model  
+              2. Apply to approved Malaysian incubator/accelerator program  
+              3. Submit startup visa application with pitch deck and funding proof  
+              4. Receive endorsement from incubator/agency  
+              5. Immigration reviews application (2–6 months typical)  
+              6. Attend interview or pitch evaluation (if required)  
+              7. Receive conditional approval  
+              8. Enter Malaysia and register startup officially  
+              9. Operate business under approved program  
+              10. Visa renewed based on startup milestones and performance`
+},
+"MalaysiaProfessionalVisitPassBusiness": {
+    name: "Professional Visit Pass (Business Activities / Short Assignments) – Malaysia",
+
+    validity: "Typically up to 12 months per issuance. May be granted for shorter durations (1–12 months) depending on project scope. Renewable in limited cases subject to Immigration approval.",
+
+    cost: "₹5,000 – ₹12,000 (approx. RM 250–700). Additional costs may include employer/host fees, documentation charges, insurance, and administrative processing fees.",
+
+    time: "Processing time usually 2 to 6 weeks depending on application completeness, employer/host approval, and Immigration Department workload.",
+
+    age: "No strict age limit. Typically issued to professionals aged 21–60 engaged in specialized assignments.",
+
+    education: "Usually required. Applicants must have professional qualifications, technical expertise, or proven industry experience relevant to the assignment.",
+
+    funds: "Not required from applicant. Host company or sponsoring organization is responsible for financial support, travel, and stay arrangements.",
+
+    docs: "Valid passport, invitation letter from Malaysian company/host organization, employment contract or assignment letter, CV/resume, professional qualification certificates, project details, passport-size photos, and sometimes security clearance or medical report.",
+
+    whom: "Foreign professionals sent by overseas companies or organizations to Malaysia for short-term assignments such as training, consulting, technical support, installation, audits, or specialized business services.",
+
+    rules: "Strictly temporary and assignment-based. Cannot be used for long-term employment in Malaysia. Must be sponsored by a Malaysian company or host entity. Work limited strictly to approved scope. No job switching allowed. Must exit after assignment completion or visa expiry.",
+
+    prosCons: "Pros: Enables quick deployment of skilled professionals, no need for full Employment Pass, suitable for short-term business projects, flexible for consultants and experts. Cons: No pathway to permanent residency, limited duration, strict scope restrictions, requires strong sponsorship.",
+
+    terms: "Professional Visit Pass (PVP): Short-term work authorization; Host Company: Malaysian organization receiving the professional; Assignment-Based Work: Time-limited project work; Immigration Approval: Final authorization by Malaysian Immigration Department.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Expatriate Services Division (ESD).",
+
+    process: `1. Malaysian host company identifies need for foreign specialist  
+              2. Submit PVP application via Expatriate Services Division (ESD)  
+              3. Provide assignment contract and project details  
+              4. Upload applicant documents (passport, CV, certificates)  
+              5. Immigration reviews application (2–6 weeks typical)  
+              6. Attend interview if required  
+              7. Receive approval letter for PVP  
+              8. Apply for entry visa if necessary  
+              9. Enter Malaysia and begin assignment  
+              10. Complete assignment and exit upon visa expiry`
+},
+"MalaysiaSpecialPass": {
+    name: "Special Pass (Temporary Legal Stay Extension) – Malaysia",
+
+    validity: "Short-term extension only, usually 14 to 90 days depending on case type and Immigration Department approval. Issued on a case-by-case basis and not a standard long-term visa.",
+
+    cost: "₹1,000 – ₹5,000 (approx. RM 50–300). Additional administrative or penalty charges may apply depending on overstay situation or case category.",
+
+    time: "Processing time usually same day to 7 working days depending on urgency and Immigration Department workload.",
+
+    age: "No age restriction. Applicable to any foreign national with valid reason for temporary stay extension.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required to support extended stay. Sponsor support letter may also be needed in some cases.",
+
+    docs: "Valid passport, expired/expiring visa or pass, completed Special Pass application form, reason for extension (medical report, court case, emergency letter, etc.), supporting documents, passport-size photo, and any immigration notices (if applicable).",
+
+    whom: "Foreign nationals in Malaysia who need temporary legal stay extension due to special circumstances such as visa expiry issues, pending visa approvals, medical emergencies, legal cases, or travel restrictions.",
+
+    rules: "Strictly temporary and conditional. Not a replacement for a valid visa. Issued only at Immigration Department discretion. Must not be misused to overstay continuously. Applicant must leave Malaysia or obtain proper visa once situation is resolved.",
+
+    prosCons: "Pros: Prevents illegal overstay status, allows temporary legal stay during emergencies or processing delays, flexible case-based approval. Cons: Very short duration, not renewable in most cases, not a permanent solution, approval is discretionary.",
+
+    terms: "Special Pass: Temporary legal stay permit; Overstay Regularization: Process of legalizing stay after visa expiry; Immigration Discretion: Case-by-case approval authority; Emergency Extension: Short-term stay due to valid urgent reasons.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Report to Malaysian Immigration Department before or immediately after visa expiry  
+              2. Submit reason for stay extension (medical, legal, administrative, etc.)  
+              3. Provide supporting documents and passport  
+              4. Fill Special Pass application form  
+              5. Immigration reviews case and verifies documents  
+              6. Pay applicable fees or penalties if required  
+              7. Receive Special Pass approval (if granted)  
+              8. Stay legally for approved short duration  
+              9. Resolve underlying visa issue or prepare for exit  
+              10. Exit Malaysia or apply for proper visa before Special Pass expiry`
+},
+"MalaysiaExitPassExitReEntryVisa": {
+    name: "Exit Pass / Exit Re-Entry Visa – Malaysia",
+
+    validity: "Short-term authorization, typically valid for a single exit or a limited re-entry period (commonly 30 days to 6 months depending on pass type and approval conditions).",
+
+    cost: "₹1,000 – ₹6,000 (approx. RM 50–350). Additional administrative fees may apply depending on visa category and urgency.",
+
+    time: "Processing time usually same day to 5 working days depending on Immigration Department workload and pass type (Employment Pass, Student Pass, PR, etc.).",
+
+    age: "No age restriction. Applicable to all foreign nationals holding valid Malaysian passes who need to exit or re-enter Malaysia legally.",
+
+    education: "Not required.",
+
+    funds: "Not specifically required, but applicant must show valid ongoing pass status and sometimes proof of ability to return (for re-entry cases).",
+
+    docs: "Valid passport, current Malaysian visa/pass (Employment Pass, Student Pass, Dependent Pass, PR, etc.), completed exit/re-entry application form, employer or institution approval letter (if applicable), travel itinerary, passport-size photos, and supporting documents depending on category.",
+
+    whom: "Foreign nationals in Malaysia holding valid long-term passes who need permission to exit temporarily or re-enter Malaysia without losing visa status. Common for students, expatriates, and dependent pass holders.",
+
+    rules: "Must be applied before exiting Malaysia in most cases (especially for Employment Pass, Student Pass, PR holders). Failure to obtain required re-entry approval may result in cancellation of visa status. Re-entry must be within approved validity period. Misuse may lead to pass cancellation.",
+
+    prosCons: "Pros: Maintains legal visa status during travel, allows temporary exit without losing residency rights, essential for long-term visa holders. Cons: Strict timing rules, requires approval before travel in many cases, missing validity window can invalidate visa status.",
+
+    terms: "Exit Pass: Permission to leave Malaysia temporarily; Re-Entry Visa: Authorization to return without losing visa status; Single Exit: One-time departure approval; Multiple Exit/Entry: Repeated travel authorization; Immigration Approval: Final authorization by Malaysian authorities.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Check requirement based on current visa type  
+              2. Submit exit or re-entry application to Immigration Department or employer/institution  
+              3. Provide passport and current pass details  
+              4. Attach employer/institution approval (if required)  
+              5. Pay applicable fees  
+              6. Immigration reviews application (same day to 5 days typical)  
+              7. Receive Exit Pass or Re-Entry endorsement  
+              8. Travel out of Malaysia within approved timeframe  
+              9. Re-enter Malaysia within validity period (if re-entry visa issued)  
+              10. Maintain valid pass status after return`
+},
+"MalaysiaForeignDomesticHelperPass": {
+    name: "Pass for Foreign Domestic Helper (FDH) – Malaysia",
+
+    validity: "Typically 1–2 years per issuance, aligned with the employer’s work permit validity. Renewable subject to employer approval, quota conditions, and Immigration Department regulations.",
+
+    cost: "₹5,000 – ₹15,000 (approx. RM 300–900). Most major costs such as levy, insurance, medical screening, and processing fees are borne by the Malaysian employer.",
+
+    time: "Processing time usually 2 to 6 weeks depending on employer documentation, quota approval, and Immigration Department processing.",
+
+    age: "Typically 21–45 years old preferred. Some cases may allow up to 50 depending on nationality and employer approval.",
+
+    education: "Not required. Basic domestic work experience is preferred (cleaning, childcare, elderly care, housekeeping).",
+
+    funds: "Not required from applicant. Employer must demonstrate financial ability to hire and maintain a foreign domestic helper under Malaysian regulations.",
+
+    docs: "Valid passport, employment contract, employer application form, medical examination report (mandatory), passport-size photos, security clearance (if required), insurance documents, and employer identification (MyKad/passport copy).",
+
+    whom: "Foreign women employed as live-in domestic helpers in Malaysia to perform household duties such as cleaning, cooking, childcare, and elderly care under a registered Malaysian employer.",
+
+    rules: "Must work only for the approved employer and residence. Cannot change employer without Immigration approval. Live-in arrangement is mandatory. Must pass medical screening. Employment is strictly regulated under quota system. Misuse or illegal employment is punishable.",
+
+    prosCons: "Pros: Legal employment opportunity in Malaysia, employer covers major costs, stable income, accommodation provided. Cons: Restricted mobility, dependent on employer, limited rights, strict regulations, no pathway to permanent residency in most cases.",
+
+    terms: "Foreign Domestic Helper (FDH): Domestic worker employed in household; Quota System: Government limit on FDH hiring per family; Levy: Employer tax for hiring foreign workers; Live-in Requirement: Mandatory residence at employer’s home; Immigration Approval: Final authorization by Malaysian Immigration Department.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Ministry of Human Resources (Kementerian Sumber Manusia).",
+
+    process: `1. Employer applies for FDH quota approval  
+              2. Select and recruit eligible foreign domestic helper  
+              3. Submit FDH work permit application to Immigration Department  
+              4. Provide required documents (passport, contract, employer details)  
+              5. Employer pays levy and processing fees  
+              6. Immigration reviews application (2–6 weeks typical)  
+              7. Receive Visa with Reference (VDR) approval if required  
+              8. Worker enters Malaysia legally  
+              9. Undergo mandatory medical examination  
+              10. FDH pass issued and worker begins domestic employment`
+},
+"MalaysiaConstructionWorkerPass": {
+    name: "Construction Worker Pass – Malaysia",
+
+    validity: "Typically 1–2 years per issuance, renewable based on employer contract, quota approval, and Immigration Department conditions.",
+
+    cost: "₹5,000 – ₹20,000 (approx. RM 300–1,200). Most costs such as levy, insurance, medical tests, and processing fees are usually paid by the Malaysian employer.",
+
+    time: "Processing time usually 3 to 8 weeks depending on quota approval, employer documentation, and Immigration Department workload.",
+
+    age: "Generally 18–45 years preferred. Some flexibility may exist up to 50 depending on employer need and medical fitness.",
+
+    education: "Not required. Basic construction skills or prior experience is preferred (masonry, carpentry, welding, general labor).",
+
+    funds: "Not required from applicant. Employer must demonstrate financial capability and quota approval for hiring foreign construction workers.",
+
+    docs: "Valid passport, employment contract, employer application form, quota approval letter, medical examination report, passport-size photos, insurance coverage, and security clearance (if required).",
+
+    whom: "Foreign semi-skilled and unskilled workers employed in Malaysia’s construction sector including building sites, infrastructure projects, civil works, and related labor-intensive jobs.",
+
+    rules: "Must work only for approved employer and construction site. Cannot change employer without Immigration approval. Subject to strict quota system. Mandatory medical screening required. Live-in or site-based work conditions may apply. Illegal employment is punishable.",
+
+    prosCons: "Pros: Legal job opportunity in high-demand construction sector, employer covers major costs, stable employment contracts. Cons: Limited job mobility, physically demanding work, dependent on employer, no pathway to permanent residency in most cases.",
+
+    terms: "Construction Worker Pass: Work permit for foreign labor in construction; Quota System: Government limit on foreign construction workers; Levy: Employer tax for hiring foreign workers; VDR (Visa with Reference): Entry approval document; Immigration Approval: Final authorization by Malaysian authorities.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Ministry of Human Resources (Kementerian Sumber Manusia).",
+
+    process: `1. Employer applies for foreign worker quota approval  
+              2. Select eligible construction worker from approved countries  
+              3. Submit Construction Worker Pass application  
+              4. Provide required documents (passport, contract, quota approval)  
+              5. Employer pays levy and related fees  
+              6. Immigration reviews application (3–8 weeks typical)  
+              7. Receive Visa with Reference (VDR) approval  
+              8. Worker enters Malaysia legally  
+              9. Undergo mandatory medical screening  
+              10. Construction Worker Pass issued and employment begins`
+},
+"MalaysiaPlantationWorkerPass": {
+    name: "Plantation Worker Pass – Malaysia",
+
+    validity: "Typically 1–2 years per issuance, renewable based on employer contract, quota availability, and Immigration Department approval.",
+
+    cost: "₹5,000 – ₹18,000 (approx. RM 300–1,100). Most costs such as levy, insurance, medical screening, and processing fees are borne by the employer.",
+
+    time: "Processing time usually 3 to 8 weeks depending on quota approval, employer documentation, and Immigration Department workload.",
+
+    age: "Generally 18–45 years preferred. Some flexibility up to 50 may be allowed depending on health and employer requirements.",
+
+    education: "Not required. Basic agricultural or plantation experience is preferred (oil palm harvesting, rubber tapping, field maintenance).",
+
+    funds: "Not required from applicant. Employer must prove financial ability and obtain foreign worker quota approval from Malaysian authorities.",
+
+    docs: "Valid passport, employment contract, employer application form, quota approval letter, medical examination report, passport-size photos, insurance coverage, and security clearance (if required).",
+
+    whom: "Foreign semi-skilled and unskilled workers employed in Malaysia’s plantation sector such as oil palm estates, rubber plantations, and agricultural farms.",
+
+    rules: "Must work only for approved plantation employer and site. Cannot change employer without Immigration approval. Subject to strict quota system. Mandatory medical screening required. Living conditions may be on-site or employer-provided accommodation. Illegal employment is punishable.",
+
+    prosCons: "Pros: Legal employment in high-demand plantation sector, employer covers major costs, stable job availability. Cons: Physically demanding work, restricted job mobility, dependent on employer, no pathway to permanent residency in most cases.",
+
+    terms: "Plantation Worker Pass: Work permit for agricultural/plantation labor; Quota System: Government limit on foreign workers per sector; Levy: Employer tax for hiring foreign workers; VDR (Visa with Reference): Entry approval document; Immigration Approval: Final authorization by Malaysian authorities.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Ministry of Human Resources (Kementerian Sumber Manusia).",
+
+    process: `1. Employer applies for foreign worker quota approval  
+              2. Recruit eligible plantation worker  
+              3. Submit Plantation Worker Pass application  
+              4. Provide required documents (passport, contract, quota approval)  
+              5. Employer pays levy and processing fees  
+              6. Immigration reviews application (3–8 weeks typical)  
+              7. Receive Visa with Reference (VDR) approval  
+              8. Worker enters Malaysia legally  
+              9. Undergo mandatory medical screening  
+              10. Plantation Worker Pass issued and employment begins`
+},
+"MalaysiaSecurityGuardPass": {
+    name: "Security Guard Pass – Malaysia",
+
+    validity: "Typically 1–2 years per issuance, renewable based on employer contract, security license validity, and Immigration Department approval.",
+
+    cost: "₹5,000 – ₹15,000 (approx. RM 300–900). Most costs such as levy, training, medical tests, and processing fees are generally borne by the employer/security agency.",
+
+    time: "Processing time usually 2 to 6 weeks depending on quota approval, security agency licensing, and Immigration Department processing.",
+
+    age: "Generally 21–45 years preferred. Some cases may allow up to 50 depending on fitness and employer requirements.",
+
+    education: "Minimum basic education required (often secondary schooling preferred). Security training certification may be required in Malaysia or home country.",
+
+    funds: "Not required from applicant. Employer/security agency must show financial capacity and obtain approval for foreign security personnel hiring.",
+
+    docs: "Valid passport, employment contract, security agency license, training certificate (if applicable), medical examination report, passport-size photos, security clearance, employer application form, and quota approval documents.",
+
+    whom: "Foreign workers employed as security guards in Malaysia by licensed private security companies, guarding residential buildings, commercial properties, factories, or institutions.",
+
+    rules: "Must work only for approved security agency and assigned location. Cannot change employer without Immigration approval. Must complete required security training and pass background checks. Subject to strict licensing and quota regulations. Misuse or illegal work is punishable.",
+
+    prosCons: "Pros: Legal employment in stable security industry, employer covers major costs, steady job demand. Cons: Limited job mobility, shift-based and physically demanding work, dependent on employer, no direct pathway to permanent residency in most cases.",
+
+    terms: "Security Guard Pass: Work permit for foreign security personnel; Licensed Security Agency: Approved employer company; Quota System: Government limit on foreign workers per sector; Training Certification: Mandatory security training requirement; Immigration Approval: Final authorization by Malaysian authorities.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Ministry of Home Affairs (Kementerian Dalam Negeri) overseeing security licensing regulations.",
+
+    process: `1. Licensed security agency applies for foreign worker quota approval  
+              2. Recruit eligible foreign security guard  
+              3. Submit Security Guard Pass application  
+              4. Provide required documents (passport, training certificate, contract)  
+              5. Employer pays levy and processing fees  
+              6. Immigration reviews application (2–6 weeks typical)  
+              7. Receive Visa with Reference (VDR) approval  
+              8. Worker enters Malaysia legally  
+              9. Undergo mandatory medical and security screening  
+              10. Security Guard Pass issued and assignment begins`
+},
+"MalaysiaTransitPass": {
+    name: "Transit Pass – Malaysia",
+
+    validity: "Very short-term, typically up to 24–120 hours (1 to 5 days) depending on nationality, airport rules, and onward travel schedule. Valid only for transit purposes.",
+
+    cost: "₹0 – ₹3,000 (approx. RM 0–200). In many cases, it is free if eligible. Some administrative or visa-on-arrival related charges may apply depending on nationality.",
+
+    time: "Usually issued immediately upon arrival at the airport or within a few hours during immigration processing.",
+
+    age: "No age restriction. Applicable to all travelers in transit through Malaysia.",
+
+    education: "Not required.",
+
+    funds: "Proof of onward travel and sufficient funds for transit stay may be required in some cases.",
+
+    docs: "Valid passport, confirmed onward flight ticket within allowed transit period, visa for final destination (if required), transit visa application form (if applicable), passport-size photo (rarely required), and supporting travel documents.",
+
+    whom: "Foreign travelers passing through Malaysia en route to another country who need to stay temporarily in the international transit area or briefly enter Malaysia before onward travel.",
+
+    rules: "Strictly for transit purposes only. No employment or study allowed. Must leave Malaysia within approved transit period. Cannot be extended or converted into another visa in most cases. Immigration officers have final entry discretion.",
+
+    prosCons: "Pros: Simple and fast processing, often free, allows short stopover in Malaysia. Cons: Extremely short duration, limited use, strict eligibility, no extension or conversion allowed.",
+
+    terms: "Transit Pass: Short stay permit for connecting flights; Layover: Temporary stop between flights; Onward Ticket: Proof of exit from Malaysia; Immigration Control: Entry approval at airport checkpoint.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Arrive at Malaysian airport with valid onward ticket  
+              2. Present passport and travel documents to immigration  
+              3. Apply for Transit Pass (if required based on nationality)  
+              4. Immigration verifies onward journey and eligibility  
+              5. Receive transit permission (stamp or electronic approval)  
+              6. Stay within allowed transit area or short-term entry zone  
+              7. Depart Malaysia within 24–120 hours as permitted`
+},
+"MalaysiaVisaFreeTransitFacilityVFTF": {
+    name: "Visa-Free Transit Facility (VFTF – Kuala Lumpur Airport, Selected Nationals) – Malaysia",
+
+    validity: "Short stay up to 120 hours (5 days) during transit at Kuala Lumpur International Airport (KLIA/KLIA2), subject to eligibility and immigration approval.",
+
+    cost: "₹0 (free of charge). No visa fee is charged, but standard travel and airport-related costs apply.",
+
+    time: "Issued on-arrival at immigration checkpoint (instant to a few hours depending on verification).",
+
+    age: "No age restriction. Applicable to eligible travelers of approved nationalities.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds for transit stay may be required (cash, card, or bank proof).",
+
+    docs: "Valid passport, confirmed onward flight ticket within 120 hours, valid visa (or long-term visa) for destination country (e.g., US, UK, Schengen, Japan, Australia, New Zealand if required), Malaysian entry/exit tickets, passport-size photo (rare cases), and immigration arrival card.",
+
+    whom: "Selected nationals transiting through Kuala Lumpur International Airport who hold valid visas for countries like USA, UK, Schengen Area, Japan, Australia, or New Zealand and are continuing travel within 120 hours.",
+
+    rules: "Strictly applies only for transit via Kuala Lumpur International Airport. Must have onward flight within 120 hours. Must hold valid visa for third-country destination. Cannot be used for employment, study, or long-term stay. Entry is at immigration officer’s discretion. Cannot be extended or converted.",
+
+    prosCons: "Pros: No visa required, free of cost, allows short stopover in Malaysia, quick airport processing. Cons: Very limited eligibility (selected nationals only), strict conditions, short stay duration, cannot extend or change status.",
+
+    terms: "VFTF: Visa-Free Transit Facility; KLIA: Kuala Lumpur International Airport; Onward Ticket: Confirmed flight to next destination; Third-Country Visa: Valid visa for destination country; Immigration Discretion: Final entry decision by Malaysian officers.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Arrive at Kuala Lumpur International Airport (KLIA/KLIA2)  
+              2. Present passport, onward ticket, and valid third-country visa  
+              3. Apply for Visa-Free Transit Facility at immigration counter  
+              4. Immigration verifies eligibility and documents  
+              5. Receive transit entry permission (stamp/approval)  
+              6. Stay in Malaysia for up to 120 hours  
+              7. Depart Malaysia within permitted transit window`
+},
+"MalaysiaMedicalTreatmentVisa": {
+    name: "Medical Treatment Visa – Malaysia",
+
+    validity: "Typically 30 to 90 days per entry. May be extended based on medical necessity and hospital recommendation with Immigration Department approval.",
+
+    cost: "₹3,000 – ₹10,000 (approx. RM 150–600). Additional costs include hospital deposits, treatment charges, insurance, and administrative fees.",
+
+    time: "Processing time usually 2 to 7 working days for visa approval, depending on medical documentation and hospital confirmation.",
+
+    age: "No age restriction. Applicable to patients of all ages, including minors and elderly patients.",
+
+    education: "Not required.",
+
+    funds: "Strong proof of funds required to cover medical treatment and stay. Bank statements, sponsor letter, or hospital payment guarantees may be needed.",
+
+    docs: "Valid passport, medical report from home country doctor, acceptance letter from Malaysian hospital, treatment plan, estimated cost of treatment, financial proof, passport-size photos, completed visa application form, and travel itinerary.",
+
+    whom: "Foreign nationals traveling to Malaysia for medical treatment in recognized hospitals for procedures such as surgery, specialist consultation, chronic illness treatment, or follow-up care.",
+
+    rules: "Must be treated at approved Malaysian medical facilities. Cannot engage in employment or study. Stay is limited to treatment duration. Extensions require hospital and Immigration approval. Must maintain valid medical insurance in many cases.",
+
+    prosCons: "Pros: Access to high-quality and affordable healthcare, fast visa processing, possible extension for ongoing treatment, well-developed hospital system in Malaysia. Cons: Limited to medical purpose only, requires strong financial proof, no work rights, dependent on hospital confirmation.",
+
+    terms: "Medical Treatment Visa: Short-term visa for healthcare; Approved Hospital: Recognized Malaysian medical facility; Treatment Plan: Official medical document outlining care; Immigration Approval: Final authorization by Malaysian authorities.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Ministry of Health Malaysia.",
+
+    process: `1. Consult doctor in home country and obtain medical report  
+              2. Get acceptance letter and treatment plan from Malaysian hospital  
+              3. Prepare financial and travel documents  
+              4. Apply for Medical Treatment Visa  
+              5. Submit medical and hospital documents  
+              6. Immigration reviews application (2–7 days typical)  
+              7. Receive visa approval  
+              8. Travel to Malaysia for treatment  
+              9. Undergo treatment at approved hospital  
+              10. Apply for extension if further treatment is required`
+},
+"MalaysiaHumanitarianVisa": {
+    name: "Humanitarian Visa (Case-Based Approval) – Malaysia",
+
+    validity: "Short-term stay, typically 30 to 90 days initially. Extensions may be granted based on case severity and Immigration Department approval.",
+
+    cost: "₹0 – ₹5,000 (approx. RM 0–300). In most humanitarian cases, fees may be waived or minimized depending on circumstances.",
+
+    time: "Processing time varies widely, typically 1 day to 2 weeks depending on urgency, documentation, and case evaluation by Immigration authorities.",
+
+    age: "No age restriction. Applicable to individuals of all ages based on humanitarian need.",
+
+    education: "Not required.",
+
+    funds: "May not be required in emergency cases. However, proof of financial support or sponsor/NGO assistance may be requested in some cases.",
+
+    docs: "Valid passport, explanation letter or emergency statement, supporting evidence (medical emergency, disaster impact, conflict situation, family emergency proof), sponsor/NGO letter (if applicable), passport-size photos, and any prior visa or travel documents.",
+
+    whom: "Foreign nationals entering Malaysia for urgent humanitarian reasons such as medical emergencies, family crisis, natural disaster displacement, conflict evacuation, or other exceptional compassionate grounds.",
+
+    rules: "Issued strictly on a case-by-case basis at Immigration discretion. Cannot be used for employment or study. Duration is limited and strictly monitored. Must leave Malaysia once situation is resolved or convert to appropriate visa if eligible.",
+
+    prosCons: "Pros: Flexible emergency entry option, fast or immediate approval in urgent cases, compassionate allowance for critical situations. Cons: Highly discretionary, short validity, no guaranteed approval, no work rights, requires strong supporting evidence.",
+
+    terms: "Humanitarian Visa: Emergency entry permit; Case-Based Approval: Immigration decision based on individual circumstances; Compassionate Grounds: Emergency or hardship situations; Immigration Discretion: Final approval authority by Malaysian officials.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia).",
+
+    process: `1. Submit emergency or humanitarian request to Immigration Department  
+              2. Provide detailed explanation of situation (medical, disaster, family emergency, etc.)  
+              3. Attach supporting documents and evidence  
+              4. Submit passport and identification details  
+              5. Immigration conducts urgent case review  
+              6. Approval granted based on humanitarian grounds (if accepted)  
+              7. Visa/entry permission issued  
+              8. Enter Malaysia under humanitarian status  
+              9. Receive temporary stay authorization  
+              10. Exit or convert visa once situation is resolved`
+},
+"MalaysiaRefugeeAsylumUNHCRLinkedStatus": {
+    name: "Refugee / Asylum-related Passes (UNHCR-linked status in some cases) – Malaysia",
+
+    validity: "Not a standard immigration visa. Status is typically temporary and case-based. UNHCR registration may be valid until resettlement, repatriation, or status review. No fixed expiry like regular visas.",
+
+    cost: "₹0 (free registration with UNHCR). Some indirect costs may apply for documentation, travel, or medical needs depending on personal situation.",
+
+    time: "Initial registration with UNHCR can take weeks to months depending on case backlog. Asylum assessment and resettlement processes may take months to years.",
+
+    age: "No age restriction. Applicable to individuals and families, including minors, elderly, and vulnerable persons.",
+
+    education: "Not required.",
+
+    funds: "Not required. Refugees and asylum seekers are generally not required to show financial proof due to humanitarian protection status.",
+
+    docs: "Valid passport (if available), identity documents (if available), personal statement of asylum claim, proof of persecution or risk in home country, UNHCR registration documents (if issued), photographs, and supporting evidence such as reports, witness statements, or legal documents.",
+
+    whom: "Foreign nationals in Malaysia seeking protection from persecution, conflict, war, or serious human rights violations. Includes asylum seekers (pending status) and recognized refugees registered with UNHCR (United Nations High Commissioner for Refugees).",
+
+    rules: "Malaysia is not a signatory to the 1951 Refugee Convention; therefore, refugees are not granted formal immigration status. UNHCR registration does not automatically grant legal work or residency rights. Refugees must comply with Malaysian laws. Resettlement to third countries is handled through UNHCR processes.",
+
+    prosCons: "Pros: Humanitarian protection from deportation to unsafe countries (in practice), access to UNHCR assistance, pathway to third-country resettlement, basic humanitarian aid support. Cons: No formal legal immigration status in Malaysia, no guaranteed work rights, long processing times, uncertain long-term outcome.",
+
+    terms: "Refugee: Person fleeing persecution or conflict; Asylum Seeker: Person awaiting refugee status determination; UNHCR: United Nations High Commissioner for Refugees; Resettlement: Transfer to a third safe country; Non-Refoulement: Principle of not returning individuals to danger.",
+
+    legal: "United Nations High Commissioner for Refugees (UNHCR) Malaysia Office and Malaysian immigration authorities (policy-based cooperation, not formal refugee law framework).",
+
+    process: `1. Arrive in Malaysia and approach UNHCR for registration (if eligible)  
+              2. Submit asylum claim and personal details  
+              3. Attend UNHCR interview and screening process  
+              4. Receive asylum seeker documentation (if accepted for processing)  
+              5. Case evaluation for refugee status determination  
+              6. If recognized, obtain UNHCR refugee card  
+              7. Access limited humanitarian assistance  
+              8. Await resettlement processing to third country (if approved)  
+              9. Undergo security and medical screening for resettlement  
+              10. Relocation to resettlement country (if successful)`
+},
+"MalaysiaReligiousWorkerVisa": {
+    name: "Religious Worker Visa – Malaysia",
+
+    validity: "Typically 1–2 years per issuance, renewable subject to approval from Immigration Department and relevant religious authorities.",
+
+    cost: "₹3,000 – ₹12,000 (approx. RM 150–700). Additional costs may include processing fees, organization sponsorship fees, and administrative charges.",
+
+    time: "Processing time usually 2 to 8 weeks depending on sponsorship approval, documentation, and Immigration Department review.",
+
+    age: "Generally 21–60 years preferred. No strict official age limit, but suitability is assessed based on role and health.",
+
+    education: "Required depending on role. Religious qualifications, theological training, or certification from recognized religious institutions is usually needed.",
+
+    funds: "Not required from applicant. Sponsoring religious organization or institution must provide financial support, accommodation, and maintenance.",
+
+    docs: "Valid passport, invitation letter from Malaysian religious organization, proof of religious qualification or ordination, CV/resume, organization registration documents, passport-size photos, medical report, police clearance certificate, and completed visa application form.",
+
+    whom: "Foreign religious teachers, clergy, missionaries, monks, imams, pastors, or other religious workers invited by registered religious organizations in Malaysia for religious duties or teaching.",
+
+    rules: "Must work only for approved religious institution and role. Cannot engage in commercial employment. Must comply with Malaysian religious and immigration regulations. Activities must align strictly with approved religious purpose. Visa is non-transferable.",
+
+    prosCons: "Pros: Legal stay for religious service, sponsored support from institutions, opportunity for cultural and religious exchange. Cons: Restricted to religious activities only, no general employment rights, dependent on sponsoring organization, renewable but not permanent in most cases.",
+
+    terms: "Religious Worker Visa: Permit for religious service roles; Sponsoring Institution: Registered religious body in Malaysia; Non-Commercial Activity: Work limited to religious duties; Immigration Approval: Final authorization by Malaysian authorities.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and relevant state Islamic/religious councils or authorities depending on faith group.",
+
+    process: `1. Receive invitation from registered Malaysian religious institution  
+              2. Sponsoring organization submits visa application  
+              3. Provide required documents (passport, religious qualification, invitation letter)  
+              4. Immigration and relevant religious authority review application  
+              5. Background and security checks conducted  
+              6. Approval granted if criteria met (2–8 weeks typical)  
+              7. Visa issued and endorsed in passport  
+              8. Enter Malaysia under religious worker status  
+              9. Perform approved religious duties only  
+              10. Renew visa based on continued sponsorship`
+},
+"MalaysiaMissionaryVisa": {
+    name: "Missionary Visa – Malaysia",
+
+    validity: "Typically short to medium-term (3 months to 2 years depending on approval). Renewable subject to Immigration Department approval and sponsoring organization support.",
+
+    cost: "₹3,000 – ₹12,000 (approx. RM 150–700). Additional costs may include sponsorship fees, documentation, medical screening, and administrative charges.",
+
+    time: "Processing time usually 2 to 8 weeks depending on sponsoring organization approval, security screening, and Immigration Department review.",
+
+    age: "Generally 21–60 years preferred. No strict age limit, but suitability is assessed based on role, health, and mission requirements.",
+
+    education: "Required in many cases. Theological training, religious studies qualification, or certification from a recognized missionary or religious institution is usually expected.",
+
+    funds: "Not required from applicant. Must be fully supported by sponsoring religious or missionary organization, including living expenses, accommodation, and mission costs.",
+
+    docs: "Valid passport, invitation letter from registered Malaysian religious/missionary organization, proof of missionary assignment, theological/religious qualification certificates, CV/resume, organization registration documents, passport-size photos, medical report, police clearance certificate, and completed visa application form.",
+
+    whom: "Foreign missionaries appointed by recognized religious organizations to carry out religious outreach, teaching, community service, or faith-based humanitarian activities in Malaysia.",
+
+    rules: "Strictly limited to approved missionary and religious outreach activities. Cannot engage in commercial work or employment outside approved scope. Must comply with Malaysian laws and religious regulations. Activities are closely monitored and subject to approval by authorities.",
+
+    prosCons: "Pros: Legal authorization for missionary work, institutional sponsorship, opportunity for cultural and community engagement. Cons: Restricted to religious/missionary activities only, no employment rights, dependent on sponsoring organization, temporary and review-based approval.",
+
+    terms: "Missionary Visa: Permit for religious outreach activities; Sponsoring Organization: Registered religious body in Malaysia; Non-Commercial Religious Work: Activities limited to mission work; Immigration Approval: Final authority by Malaysian Immigration Department.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and relevant religious authorities depending on faith group and state jurisdiction.",
+
+    process: `1. Receive formal appointment from recognized missionary/religious organization  
+              2. Sponsoring body submits visa application to Immigration Department  
+              3. Provide required documents (passport, mission letter, qualifications)  
+              4. Background and security screening conducted  
+              5. Immigration and religious authorities review application  
+              6. Approval granted if criteria are met (2–8 weeks typical)  
+              7. Visa issued and endorsed in passport  
+              8. Enter Malaysia under missionary status  
+              9. Conduct approved missionary activities only  
+              10. Renewal based on continued sponsorship and compliance`
+},
+"MalaysiaCulturalExchangeVisa": {
+    name: "Cultural Exchange Visa – Malaysia",
+
+    validity: "Typically 3 months to 1 year depending on program duration. Renewable only if the cultural exchange program is extended and approved by relevant authorities.",
+
+    cost: "₹3,000 – ₹10,000 (approx. RM 150–600). Additional costs may include program fees, sponsorship charges, insurance, and administrative processing fees.",
+
+    time: "Processing time usually 2 to 6 weeks depending on sponsoring institution, program approval, and Immigration Department review.",
+
+    age: "No strict age limit. Commonly issued to participants aged 18–40, but depends on program eligibility.",
+
+    education: "Not always required, but basic education or relevant cultural/arts background may be needed depending on the exchange program.",
+
+    funds: "Proof of sufficient funds may be required unless fully sponsored. Sponsor institutions or exchange programs may cover living costs, travel, or stipends.",
+
+    docs: "Valid passport, invitation letter from Malaysian host institution, cultural exchange program approval letter, CV/resume, portfolio (if applicable), passport-size photos, financial proof or sponsorship letter, medical report (if required), and completed visa application form.",
+
+    whom: "Foreign participants in approved cultural exchange programs including artists, performers, students, educators, and cultural ambassadors participating in Malaysian-hosted cultural, artistic, or educational exchange initiatives.",
+
+    rules: "Must strictly participate only in approved cultural exchange activities. Cannot engage in paid employment unless separately authorized. Must comply with program guidelines and Malaysian immigration laws. Visa is non-transferable and time-limited.",
+
+    prosCons: "Pros: Opportunity for cultural exposure, international collaboration, structured exchange programs, possible sponsorship support. Cons: Short-term stay, limited work rights, dependent on program approval, no pathway to permanent residency.",
+
+    terms: "Cultural Exchange Visa: Permit for cultural participation programs; Host Institution: Malaysian organization conducting exchange; Program Approval: Official authorization for exchange activity; Immigration Approval: Final visa decision authority.",
+
+    legal: "Immigration Department of Malaysia (Jabatan Imigresen Malaysia) and Ministry of Tourism, Arts and Culture (MOTAC) depending on program type.",
+
+    process: `1. Apply to approved cultural exchange program  
+              2. Receive invitation from Malaysian host institution  
+              3. Submit visa application with program approval documents  
+              4. Provide supporting documents (passport, CV, portfolio if needed)  
+              5. Immigration reviews application (2–6 weeks typical)  
+              6. Approval granted if requirements are met  
+              7. Visa issued and endorsed in passport  
+              8. Travel to Malaysia and register with host organization  
+              9. Participate only in approved cultural activities  
+              10. Exit Malaysia or extend visa if program is extended`
+},
+"MalaysiaDiplomaticVisa": {
+    name: "Diplomatic Visa – Malaysia",
+
+    validity: "Usually aligned with official assignment duration. Typically 1–5 years or as specified in diplomatic posting. Renewable based on continued diplomatic assignment.",
+
+    cost: "₹0 (no visa fee for official diplomatic passport holders). Administrative or documentation costs may be handled by the sending government.",
+
+    time: "Processing time usually 2 to 10 working days depending on diplomatic clearance, note submission, and Ministry of Foreign Affairs coordination.",
+
+    age: "No age restriction. Applicable to appointed diplomatic personnel.",
+
+    education: "Not required by visa rules, but diplomatic appointment usually requires relevant government service background.",
+
+    funds: "Not required from individual applicant. All financial support is provided by the sending government or diplomatic mission.",
+
+    docs: "Diplomatic passport, official note verbale from sending country’s Ministry of Foreign Affairs, appointment/assignment letter, passport-size photos, accreditation documents, and any security clearance required by Malaysia.",
+
+    whom: "Foreign diplomats, ambassadors, consular officers, and accredited government representatives assigned to embassies, consulates, or official missions in Malaysia.",
+
+    rules: "Must strictly perform official diplomatic duties only. Must respect Vienna Convention on Diplomatic Relations. Cannot engage in commercial or private employment. Immunities and privileges apply only within diplomatic scope and accreditation.",
+
+    prosCons: "Pros: Diplomatic immunity privileges, legal protection under international law, official residence status, facilitated entry and exit procedures. Cons: Restricted strictly to official duties, requires government posting, not applicable for private individuals.",
+
+    terms: "Diplomatic Visa: Entry permit for government representatives; Note Verbale: Official diplomatic communication; Accreditation: Formal recognition by host country; Vienna Convention: International treaty governing diplomatic relations.",
+
+    legal: "Ministry of Foreign Affairs Malaysia (Wisma Putra) and Immigration Department of Malaysia, governed under the Vienna Convention on Diplomatic Relations (1961).",
+
+    process: `1. Sending country issues diplomatic appointment  
+              2. Ministry of Foreign Affairs submits note verbale to Malaysia  
+              3. Malaysia reviews diplomatic accreditation request  
+              4. Security and background clearance conducted  
+              5. Approval granted by Ministry of Foreign Affairs  
+              6. Diplomatic visa issued  
+              7. Entry into Malaysia under diplomatic status  
+              8. Accreditation completed with host government  
+              9. Diplomatic duties commence  
+              10. Visa validity maintained during posting`
+},
+"MalaysiaOfficialVisa": {
+    name: "Official Visa – Malaysia",
+
+    validity: "Typically aligned with duration of official government assignment. Usually 3 months to 5 years depending on the posting and government agreement. Renewable based on continued assignment.",
+
+    cost: "₹0 (generally free of charge for official passport holders). Administrative expenses are usually borne by the sending government.",
+
+    time: "Processing time usually 2 to 10 working days depending on verification by the Ministry of Foreign Affairs and Immigration Department.",
+
+    age: "No age restriction. Applicable to government officials and assigned personnel.",
+
+    education: "Not required by visa rules, but applicants are typically government employees with relevant administrative or technical qualifications.",
+
+    funds: "Not required from applicant. All expenses are covered by the sending government or official department.",
+
+    docs: "Official passport, note verbale from sending country’s Ministry of Foreign Affairs, official assignment/transfer letter, passport-size photos, accreditation details, and security clearance documents if required.",
+
+    whom: "Foreign government officials, administrative staff, and public servants traveling to Malaysia for official duties such as meetings, training programs, bilateral cooperation, or government assignments.",
+
+    rules: "Strictly limited to official duties only. Cannot engage in private employment or business activities. Must comply with Malaysian laws and international protocols. Status is tied to official assignment only.",
+
+    prosCons: "Pros: Facilitates government-to-government cooperation, visa fee exemption, smooth official travel process, recognition under international protocols. Cons: Restricted to official duties, dependent on government posting, not applicable for personal travel or employment.",
+
+    terms: "Official Visa: Entry permit for government assignments; Note Verbale: Formal diplomatic/government communication; Accreditation: Official recognition by host country; Sending Government: Applicant’s home country authority.",
+
+    legal: "Ministry of Foreign Affairs Malaysia (Wisma Putra) and Immigration Department of Malaysia.",
+
+    process: `1. Government department assigns official duty to applicant  
+              2. Sending Ministry of Foreign Affairs issues note verbale  
+              3. Submission of official visa request to Malaysian authorities  
+              4. Verification by Ministry of Foreign Affairs Malaysia  
+              5. Immigration Department processes application  
+              6. Approval granted for official entry  
+              7. Official visa issued  
+              8. Entry into Malaysia for assigned duty  
+              9. Completion of official assignment  
+              10. Exit or renewal based on continued government assignment`
+},
+
+"MalaysiaDeRantauNomadPass": {
+    name: "DE Rantau Nomad Pass (Digital Nomad Visa – Malaysia)",
+
+    validity: "3 to 12 months initially. It is renewable for an additional 12 months, allowing for a total of 2 years stay in Malaysia.",
+
+    cost: "Main Applicant: RM 1,000 (~₹19,000). Dependent: RM 500 (~₹9,500) per person. This includes the processing fee and the pass fee. Note: Medical insurance and personal bond are extra.",
+
+    time: "Processing time: 4 to 8 weeks. Applications are handled digitally via the MDEC (Malaysia Digital Economy Corporation) portal.",
+
+    age: "Must be 18 years or older.",
+
+    education: "No specific degree required, but must prove professional status in a digital/IT field or as a remote worker for a foreign company.",
+
+    funds: "Mandatory Income Threshold: 1. Digital Freelancer/Independent Contractor: USD $24,000 (~₹20 Lakhs) per year. 2. Remote Worker (Employees): USD $24,000 per year. For non-IT/Digital roles, the threshold is significantly higher at USD $60,000 per year.",
+
+    docs: "Valid passport (all pages), employment contract (min 3 months duration), latest 3 months' bank statements, updated CV, latest 3 months' payslips, clean criminal record (PCC) from home country, and medical insurance valid in Malaysia.",
+
+    whom: "Indian software developers, digital marketers, content creators, and remote corporate employees who work for companies outside Malaysia and want to live in hubs like Kuala Lumpur or Penang.",
+
+    rules: "The employer/client must be based outside of Malaysia. You are NOT allowed to take up local employment or provide services to Malaysian companies on this pass. You can bring your spouse and children as dependents.",
+
+    prosCons: "Pros: No local sponsor or 'Kafeel' needed; legal right to live in Malaysia while working for global clients; access to 'DE Rantau' hubs and coworking spaces. Cons: High income requirement; limited to 2 years total; no path to Permanent Residency.",
+
+    terms: "DE Rantau: Malaysia's digital nomad ecosystem; MDEC: Malaysia Digital Economy Corporation; Remote Worker: An employee working via telecommunications.",
+
+    legal: "Governed by the Immigration Department of Malaysia in collaboration with MDEC.",
+
+    process: `1. Verify that your annual income exceeds USD $24,000 -> 
+              2. Register an account on the MDEC DE Rantau portal -> 
+              3. Upload your employment contract, payslips, and bank statements -> 
+              4. Pay the RM 1,000 application fee online -> 
+              5. Wait for the MDEC and Immigration security vetting (approx. 6 weeks) -> 
+              6. Receive the 'In-Principle Approval' (IPA) letter -> 
+              7. Apply for a single-entry visa at the Malaysian Embassy/VFS if needed -> 
+              8. Travel to Malaysia and visit an immigration office to get the nomad pass sticker.`
+},
+
+
+"MalaysiaPvpSocialMediaFilming": {
+    name: "Professional Visit Pass (PVP – Filming & Social Media)",
+
+    validity: "Up to 12 months. This pass is strictly for the duration of the specific filming project or media assignment. It is non-renewable unless a new project is approved.",
+
+    cost: "Pass Fee: RM 800 – RM 1,200 (~₹15,000 – ₹22,000) depending on the duration. Note: Requires a security bond (RM 2,000 - ₹38,000) which is refundable.",
+
+    time: "Processing: 3 to 6 weeks. Requires mandatory pre-approval from PUSPAL (Central Committee for Application for Filming and Performance by Foreign Artists).",
+
+    education: "No specific academic degree; requires proven professional standing in the media/entertainment industry.",
+
+    whom: "Indian actors, film crews, documentary filmmakers, and high-profile social media influencers coming to shoot content or attend professional media events in Malaysia.",
+
+    rules: "You must have a local Malaysian sponsor (usually a local production house or media agency). You are NOT allowed to engage in any other work outside the approved project. All outdoor filming requires specific permits from local state councils.",
+
+    docs: "Passport, PUSPAL approval letter, filming schedule/itinerary, sponsorship letter from a Malaysian media company, and a contract detailing the assignment.",
+
+    prosCons: "Pros: Direct legal route for media professionals; allows for large-scale equipment import. Cons: Strict government monitoring of content; requires a local business sponsor.",
+
+    terms: "PUSPAL: The central agency for foreign artists; PVP: Professional Visit Pass; Local Sponsor: The Malaysian firm guaranteeing your stay.",
+
+    legal: "Immigration Act 1959/63 + PUSPAL Guidelines.",
+
+    process: `1. Secure a contract with a Malaysian host or media agency -> 2. The local sponsor applies for PUSPAL approval -> 3. Once PUSPAL approves, the sponsor applies for the PVP via the ESD portal -> 4. Receive the approval letter -> 5. Applicant applies for entry visa in India -> 6. Enter Malaysia and get the PVP sticker.`
+},
+
+
+
+"MalaysiaStudentInternshipPass": {
+    name: "Student Internship Pass (Short-Term Training)",
+
+    validity: "Strictly up to 3 months (90 days). This is a one-time pass for short-term industrial attachments.",
+
+    cost: "Processing fee: Approx. RM 500 (~₹9,500). Visa stamping fees separate (~₹2,000).",
+
+    time: "Processing: 2 to 4 weeks.",
+
+    age: "Must be a currently enrolled university student.",
+
+    education: "Mandatory: Must be currently pursuing a degree at a recognized university in India (or abroad) and the internship must be a requirement of the course.",
+
+    funds: "Must show a bank balance of at least USD $1,000 (~₹84,000) or a sponsorship letter from the host company providing a stipend.",
+
+    docs: "Passport, university recommendation letter (NOC), internship offer letter from the Malaysian company, academic transcripts, and a detailed internship training plan.",
+
+    whom: "Indian university students in engineering, hospitality, or business who want to complete a 3-month mandatory internship in a Malaysian firm.",
+
+    rules: "The internship must be unpaid or provide only a basic allowance/stipend. You cannot be treated as a regular salaried employee. You must return to your home university after the 90 days to complete your degree.",
+
+    prosCons: "Pros: Valuable international corporate exposure; easier to get than a full work permit. Cons: Strictly limited to 3 months; no path to switch to a job visa while onshore.",
+
+    process: `1. Secure an internship offer in Malaysia -> 2. Obtain an NOC from your Indian university -> 3. Malaysian company applies for the Internship Pass via the Immigration Department -> 4. Receive approval -> 5. Travel to Malaysia and begin training.`
+},
+"MalaysiaGovernmentServiceVisa": {
+    name: "Government Service Visa – Malaysia",
+
+    validity: "Typically aligned with duration of government service assignment or contract. Usually 1–5 years depending on posting, renewable based on continued government employment or intergovernmental agreement.",
+
+    cost: "₹0 (generally no visa fee for government service applicants). Administrative costs are usually covered by the sending or receiving government.",
+
+    time: "Processing time usually 2 to 10 working days depending on verification by the Ministry of Foreign Affairs and Immigration Department coordination.",
+
+    age: "No strict age limit. Applicable to appointed government personnel or service staff.",
+
+    education: "Not required by visa rules, but applicants are typically government employees with relevant qualifications for administrative, technical, or service roles.",
+
+    funds: "Not required from the applicant. Financial support is provided by the sending government or employing government authority in Malaysia.",
+
+    docs: "Official passport, government appointment or transfer letter, note verbale from sending country (if applicable), employment/service contract, passport-size photos, security clearance (if required), and supporting intergovernmental documentation.",
+
+    whom: "Foreign government employees or service personnel assigned to Malaysia under government-to-government arrangements, technical cooperation programs, public service deployments, or official bilateral projects.",
+
+    rules: "Strictly limited to assigned government service duties only. Cannot engage in private employment or commercial activities. Must comply with Malaysian laws and intergovernmental agreements. Visa status is tied to official service duration.",
+
+    prosCons: "Pros: Legal framework for government cooperation, visa fee exemption, smooth official deployment process, recognition under state agreements. Cons: Restricted to official duties only, no private work rights, dependent on government posting, temporary and assignment-based.",
+
+    terms: "Government Service Visa: Entry permit for foreign government employees; Intergovernmental Agreement: Official cooperation between countries; Note Verbale: Formal diplomatic/government communication; Posting: Official assignment location.",
+
+    legal: "Ministry of Foreign Affairs Malaysia (Wisma Putra) and Immigration Department of Malaysia under applicable bilateral or multilateral government agreements.",
+
+    process: `1. Sending government assigns official service role  
+              2. Official request submitted via Ministry of Foreign Affairs (note verbale)  
+              3. Malaysian authorities review intergovernmental request  
+              4. Security and background verification conducted  
+              5. Immigration Department processes application  
+              6. Approval granted under government service category  
+              7. Visa issued for official entry  
+              8. Entry into Malaysia under government service status  
+              9. Perform assigned duties  
+              10. Visa renewal or exit based on completion of assignment`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

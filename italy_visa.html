@@ -1,0 +1,2639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* USA Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="ITALY">ITALY</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+     <select id="visaType">
+    <optgroup label="1. Short Stay (Schengen Type C)">
+        <option value="ItalyTouristVisa">Tourist Visa</option>
+        <option value="ItalyBusinessVisa">Business Visa</option>
+        <option value="ItalyFamilyFriendsVisitVisa">Family / Friends Visit</option>
+        <option value="ItalyShortTransitVisa">Short-Stay Transit</option>
+        <option value="ItalyAirportTransitVisaTypeA">Airport Transit (Type A)</option>
+        <option value="ItalyMedicalTreatmentVisa">Medical Treatment Visa</option>
+        <option value="ItalyCulturalSportsReligiousEventVisa">Cultural / Sports / Religious Event</option>
+        <option value="ItalyOfficialGovernmentDelegationVisa">Official Delegation Visa</option>
+        <option value="ItalyShortStudyTrainingVisa">Short-term Study/Training (<90 Days)</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Highly Skilled (Type D)">
+        <option value="ItalyEmployeeWorkVisaSubordinateEmployment">Work Visa (Subordinate Employment)</option>
+        <option value="ItalyEUBlueCardHighlySkilledWorker">EU Blue Card</option>
+        <option value="ItalyIntraCompanyTransferVisaICT">Intra-Company Transfer (ICT)</option>
+        <option value="ItalySeasonalWorkVisaAgricultureTourism">Seasonal Work Visa</option>
+        <option value="ItalyDigitalNomadVisa">Digital Nomad Visa</option>
+    </optgroup>
+
+    <optgroup label="3. Study & Education (Type D)">
+        <option value="ItalyStudentVisaUniversityDegree">University Degree Student Visa</option>
+        <option value="ItalyLanguageCourseVisa">Language Course Visa</option>
+        <option value="ItalyResearchPhDVisa">Research / PhD Visa</option>
+        <option value="ItalyInternshipTraineeshipVisa">Internship / Traineeship Visa</option>
+        <option value="ItalyTrainingVisaProfessionalCourses">Professional Training Visa</option>
+        <option value="ItalyExchangeProgramVisaErasmusAcademic">Erasmus / Exchange Program</option>
+        <option value="ItalyResearcherMobilityVisaEUDirective">Researcher Mobility (EU Directive)</option>
+    </optgroup>
+
+    <optgroup label="4. Business & Investment">
+        <option value="ItalyInvestorVisaGoldenVisaProgram">Investor Visa (Golden Visa)</option>
+        <option value="ItalyStartupVisaInnovativeFounders">Startup Visa (Innovative Founders)</option>
+        <option value="ItalySelfEmploymentVisaAutonomousWork">Self-Employment Visa</option>
+        <option value="ItalyBusinessEstablishmentVisaSelfEmployedEntrepreneurs">Business Establishment Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Family & Dependents">
+        <option value="ItalyFamilyReunificationVisa">Family Reunification</option>
+        <option value="ItalySpouseVisaItalianCitizenOrResident">Spouse Visa</option>
+        <option value="ItalyChildDependentVisa">Child / Dependent Visa</option>
+        <option value="ItalyLongTermFamilyResidenceVisa">Long-Term Family Residence</option>
+    </optgroup>
+
+    <optgroup label="6. Residence Permits (Post-Arrival)">
+        <option value="ItalyWorkResidencePermit">Work Residence Permit</option>
+        <option value="ItalyStudyResidencePermit">Study Residence Permit</option>
+        <option value="ItalyFamilyResidencePermit">Family Residence Permit</option>
+        <option value="ItalyElectiveResidenceVisa">Elective Residence (Passive Income)</option>
+        <option value="ItalyLongTermStayVisaTypeD">Long-Term Stay Visa (General)</option>
+    </optgroup>
+
+    <optgroup label="7. Permanent & Long-Term">
+        <option value="ItalyPermanentResidencePermitAfter5Years">Permanent Residence (5 Years)</option>
+        <option value="ItalyEULongTermResidencePermit">EU Long-Term Residence Permit</option>
+    </optgroup>
+
+    <optgroup label="8. Protection & Humanitarian">
+        <option value="ItalyAsylumRefugeeVisa">Asylum / Refugee Visa</option>
+        <option value="ItalySubsidiaryProtectionVisa">Subsidiary Protection</option>
+        <option value="ItalyHumanitarianProtectionVisa">Humanitarian Protection</option>
+        <option value="ItalyMedicalEmergencyHumanitarianVisa">Medical Emergency Humanitarian</option>
+    </optgroup>
+
+
+
+
+ <optgroup label="9. Extras">
+        <option value="ItalyDecretoFlussiClickDay">Labour quota</option>
+        <option value="ItalyReligiousStudyVisa">Religious study</option>
+        <option value="ItalyProfessionalSportVisa">Sports activities</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF ITALY MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇮🇹 VIEW ITALY IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇮🇹 GENERAL PROCESS FOR ITALY IMMIGRATION</h1>
+
+        <h2>🎯 PHASE 1: DECIDE VISA TYPE</h2>
+        <p>Identify your purpose: Work (Salaried/Blue Card), Study (University), Business (Entrepreneur), or Family. This decides if you need a <strong>National Visa Type D</strong> (long stay) or <strong>Schengen Type C</strong> (short stay).</p>
+
+        <h2>🛡️ PHASE 2: GET PRE-APPROVAL (NULLA OSTA)</h2>
+        <p>For most long-stay visas (especially Work and Family), you must obtain the <strong>Nulla Osta (Authorization)</strong>. Your employer or family member in Italy must apply for this at the <strong>Sportello Unico per l’Immigrazione (SUI)</strong> before you apply for the visa.</p>
+
+        <h2>🧾 PHASE 3 & 4: DOCUMENTATION & APPOINTMENT</h2>
+        <p>Prepare your core file: Passport, application form, financial proof, and your Nulla Osta. Book your biometric and submission appointment through <strong>VFS Global Italy</strong> in India.</p>
+
+        <h2>🧬 PHASE 5 & 6: APPLICATION & PROCESSING</h2>
+        <p>Attend your appointment at VFS. The Italian Embassy verifies documents and may call for an interview. Processing takes <strong>2 weeks to 3 months</strong> depending on the category.</p>
+
+        <h2>✈️ PHASE 7 & 8: DECISION & TRAVEL</h2>
+        <p>If approved, a <strong>Type D visa</strong> sticker is issued. Travel to Italy and ensure you carry all original documents, especially the Nulla Osta.</p>
+
+        <h2>🏠 PHASE 9 & 10: RESIDENCE PERMIT (PERMESSO DI SOGGIORNO)</h2>
+        <p><strong>CRITICAL:</strong> Within <strong>8 days of arrival</strong>, you must apply for your residence permit at a local <strong>Poste Italiane</strong> (Yellow post office). You will then receive an appointment at the <strong>Questura (Police HQ)</strong> for fingerprints.</p>
+
+        <h2>🪪 PHASE 11 & 12: TAX ID & RENEWAL</h2>
+        <p>Obtain your <strong>Codice Fiscale (Tax ID)</strong> to open a bank account and register for healthcare. Renew your permit before it expires. After <strong>5 years</strong> of legal stay, you can apply for <strong>PR (EU Long-Term Residence)</strong>.</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black); margin-top: 15px;">
+            🧠 SUMMARY FLOW: Choose Visa → Get Nulla Osta (if needed) → VFS Application → Get Visa → Travel → Apply Residence Permit at Post Office → Questura Appointment → Start Work/Study
+        </div>
+
+        <div class="official-box">
+            <h1>🇮🇹 OFFICIAL ITALY IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Main Visa Information:</strong> <a href="https://vistoperitalia.esteri.it" target="_blank">vistoperitalia.esteri.it</a></p>
+            <p><strong>2. Ministry of Interior (SUI):</strong> <a href="https://www.interno.gov.it" target="_blank">www.interno.gov.it</a></p>
+            <p><strong>3. VFS Global India (Apply):</strong> <a href="https://visa.vfsglobal.com/ind/en/ita" target="_blank">visa.vfsglobal.com/india</a></p>
+            <p><strong>4. Study in Italy Portal:</strong> <a href="https://studyinitaly.esteri.it" target="_blank">studyinitaly.esteri.it</a></p>
+            <p><strong>5. Universitaly (Student Portal):</strong> <a href="https://www.universitaly.it" target="_blank">www.universitaly.it</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: ONLY OFFICIAL EMBASSY SOURCES ARE VALID. AVOID SCAMS REGARDING DECRETO FLUSSI WORK QUOTAS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "ITALY": {
+"ItalyTouristVisa": {
+    name: "Tourist Visa (Schengen Short-Stay Visa – Italy, Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Can be issued as single-entry, double-entry, or multiple-entry depending on travel history and consulate decision.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 3–4 weeks during peak travel seasons.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with guardian consent documents).",
+
+    education: "Not required.",
+
+    funds: "Must show sufficient funds for stay. Typically €50–€100 per day (~₹4,500–₹9,000/day) depending on accommodation and itinerary.",
+
+    docs: "Valid passport, Schengen visa application form, passport photos, confirmed flight reservation (round trip), hotel booking or invitation letter, travel insurance (minimum €30,000 coverage), bank statements (last 3–6 months), income proof (salary slips/ITR if applicable), cover letter explaining travel purpose, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) traveling to Italy for tourism, sightseeing, leisure travel, or visiting tourist attractions within the Schengen area.",
+
+    rules: "Must not exceed 90 days in any 180-day period. Cannot work or engage in business activities. Must follow itinerary and visa conditions. Travel insurance is mandatory.",
+
+    prosCons: "Pros: Easy access to Italy and Schengen countries, quick processing, multiple-country travel allowed. Cons: Strict financial proof required, no work rights, short duration only.",
+
+    terms: "Schengen Area: European travel zone; Type C Visa: Short-stay visa; 90/180 Rule: Maximum stay limit; Travel Insurance: Mandatory coverage; Visa Sticker: Entry authorization in passport.",
+
+    legal: "Regulated under Schengen Visa Code and Italian immigration law, administered by Italian consulates and VFS Global.",
+
+    process: `1. Plan travel itinerary for Italy ->
+              2. Book flights and accommodation ->
+              3. Arrange travel insurance ->
+              4. Prepare financial documents (bank statements, income proof) ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa decision ->
+              11. Travel to Italy and Schengen area`
+},
+
+"ItalyBusinessVisa": {
+    name: "Business Visa (Schengen Short-Stay Visa – Italy, Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Can be issued as single-entry, double-entry, or multiple-entry depending on business purpose and applicant profile.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 3–4 weeks depending on verification of documents and invitation.",
+
+    age: "No strict age limit. Typically 18+ for business travelers.",
+
+    education: "Not mandatory, but relevant business experience or professional background is preferred.",
+
+    funds: "Must show sufficient funds for stay in Italy. Typically €50–€120 per day (~₹4,500–₹11,000/day) depending on accommodation and travel plan.",
+
+    docs: "Valid passport, Schengen visa application form, passport photos, business invitation letter from Italian company/organization, company registration details (both sides if applicable), travel itinerary, hotel booking or accommodation proof, travel insurance (minimum €30,000 coverage), bank statements (last 3–6 months), income tax returns or salary slips (if applicable), and cover letter explaining business purpose.",
+
+    whom: "Foreign nationals (including Indians) traveling to Italy for business meetings, conferences, trade fairs, negotiations, or corporate visits.",
+
+    rules: "No employment or paid work allowed in Italy. Must only attend meetings, conferences, or business-related activities. Must leave before visa expiry (max 90/180 rule applies).",
+
+    prosCons: "Pros: Easy access for international business, allows Schengen-wide travel, quick processing. Cons: No work rights, short stay only, strong documentation required.",
+
+    terms: "Schengen Visa: Short-stay European visa; Type C Visa: Business/tourism category; Invitation Letter: Proof from Italian company; 90/180 Rule: Maximum stay limit; Travel Insurance: Mandatory coverage.",
+
+    legal: "Regulated under Schengen Visa Code and Italian immigration law, administered by Italian consulates and VFS Global.",
+
+    process: `1. Receive business invitation from Italian company ->
+              2. Prepare company and financial documents ->
+              3. Arrange travel insurance and itinerary ->
+              4. Fill Schengen visa application form ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate verifies business purpose ->
+              9. Receive visa decision ->
+              10. Travel to Italy for business activities`
+},
+"ItalyFamilyFriendsVisitVisa": {
+    name: "Family / Friends Visit Visa (Schengen Short-Stay Visa – Italy, Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Can be issued as single-entry or multiple-entry depending on invitation and travel history.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May take 3–4 weeks if additional verification is required.",
+
+    age: "No strict age limit. Applicable to all applicants including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Must show sufficient funds for stay, typically €50–€100 per day (~₹4,500–₹9,000/day) depending on accommodation and duration.",
+
+    docs: "Valid passport, Schengen visa application form, passport photos, invitation letter from family/friend in Italy, proof of relationship (birth/marriage certificates or photos/messages if applicable), host’s ID/residence permit in Italy, accommodation proof, travel insurance (minimum €30,000 coverage), bank statements (last 3–6 months), cover letter, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) visiting family members or friends legally residing in Italy for short stays.",
+
+    rules: "Must not exceed 90 days within 180-day period. Cannot work or engage in business activities. Must follow invitation purpose and return before visa expiry.",
+
+    prosCons: "Pros: Easy access for family reunions, allows travel across Schengen area, relatively simple process with strong invitation. Cons: No work rights, short stay only, strict proof of relationship required.",
+
+    terms: "Schengen Area: European travel zone; Type C Visa: Short-stay category; Invitation Letter: Host confirmation; 90/180 Rule: Stay limitation; Travel Insurance: Mandatory coverage.",
+
+    legal: "Regulated under Schengen Visa Code and Italian immigration law, processed by Italian consulates and VFS Global.",
+
+    process: `1. Obtain invitation letter from family/friend in Italy ->
+              2. Gather relationship and identity documents ->
+              3. Arrange travel insurance and financial proof ->
+              4. Book travel itinerary (flight/hotel or host stay) ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate verifies invitation and relationship ->
+              10. Receive visa decision ->
+              11. Travel to Italy and visit family/friends`
+},
+"ItalyAirportTransitVisaTypeA": {
+    name: "Airport Transit Visa (Type A – Italy / Schengen)",
+
+    validity: "Valid only for airport transit in Italy/Schengen airports. Usually allows stay in international transit area for up to 24 hours per transit. Does not permit entry into Italy or Schengen territory.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 7–15 working days depending on nationality and documentation.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "No specific financial requirement for transit, but proof of onward journey and valid visa for destination country is mandatory.",
+
+    docs: "Valid passport, Schengen visa application form, passport photos, confirmed onward flight tickets, valid visa for final destination (if required), travel itinerary, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians in specific cases) transiting through an Italian airport en route to a non-Schengen country without entering Italy.",
+
+    rules: "Must remain inside international transit zone of airport. Entry into Italy or Schengen area is not allowed. Must have confirmed onward ticket and valid entry permission for destination country.",
+
+    prosCons: "Pros: Simple transit process, allows airport connection in Italy. Cons: No entry into Italy, limited use, required only for specific nationalities/routes.",
+
+    terms: "Transit Zone: International airport area; Schengen Area: European travel zone; Type A Visa: Airport transit category; Onward Ticket: Confirmed next flight; Entry Restriction: No immigration clearance allowed.",
+
+    legal: "Regulated under Schengen Visa Code and Italian immigration law, administered by Italian consulates and airport authorities.",
+
+    process: `1. Check if Airport Transit Visa is required based on nationality ->
+              2. Book confirmed onward flight ->
+              3. Ensure valid visa for destination country (if required) ->
+              4. Fill Schengen visa application form ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews application ->
+              9. Receive visa approval ->
+              10. Travel and remain in airport transit area only`
+},
+
+"ItalyTransitVisaShortStayTypeC": {
+    name: "Transit Visa (Short Stay – Schengen Type C, Italy)",
+
+    validity: "Up to 90 days within a 180-day period. Can be single-entry, double-entry, or multiple-entry depending on travel plan and visa approval.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 3–4 weeks depending on verification of travel documents.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Must show sufficient funds for transit stay if exiting airport, typically €50–€100 per day (~₹4,500–₹9,000/day).",
+
+    docs: "Valid passport, Schengen visa application form, passport photos, confirmed onward and return tickets, visa for final destination (if required), travel itinerary, hotel booking (if leaving airport), travel insurance (minimum €30,000 coverage), bank statements (last 3–6 months), and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians in specific cases) transiting through Italy/Schengen area who may leave the airport for a short stay or continue travel to another country.",
+
+    rules: "Must not exceed 90 days within 180-day period. No employment or business allowed. Must follow declared transit route and exit before visa expiry. Travel insurance is mandatory.",
+
+    prosCons: "Pros: Allows short stay in Italy during transit, flexibility for multi-country travel, Schengen access. Cons: Limited duration, strict documentation, no work rights.",
+
+    terms: "Schengen Area: European travel zone; Type C Visa: Short-stay visa; Transit: Passing through country; 90/180 Rule: Maximum stay limit; Travel Insurance: Mandatory coverage.",
+
+    legal: "Regulated under Schengen Visa Code and Italian immigration law, administered by Italian consulates and VFS Global.",
+
+    process: `1. Plan transit route through Italy ->
+              2. Book confirmed flights and itinerary ->
+              3. Arrange travel insurance ->
+              4. Prepare financial and visa documents ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate verifies transit purpose ->
+              10. Receive visa decision ->
+              11. Travel and follow transit rules`
+},
+"ItalyMedicalTreatmentVisa": {
+    name: "Medical Treatment Visa (Schengen Short-Stay / Long-Stay Visa – Italy)",
+
+    validity: "Usually issued for up to 90 days (short-stay Type C) or longer under Type D for extended medical treatment. Duration depends on medical condition and treatment plan.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500). In long-stay cases, residence permit fee after arrival may apply (~€100–€200 / ₹9,000–₹18,000).",
+
+    time: "Processing time usually 10–20 working days. Emergency medical cases may be prioritized depending on documentation.",
+
+    age: "No strict age limit. Applicable to all patients including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Must show sufficient funds or sponsor support for medical treatment, hospital stay, and living expenses. Often €50–€150 per day (~₹4,500–₹13,500/day) depending on treatment and hospital.",
+
+    docs: "Valid passport, Schengen visa application form, passport photos, medical reports from home country doctor, invitation/acceptance letter from Italian hospital/clinic, treatment plan with duration and cost estimate, proof of advance payment (if any), financial proof or sponsor letter, travel insurance covering medical emergencies, accommodation details, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) traveling to Italy for medical treatment, surgery, specialist consultation, or ongoing medical care.",
+
+    rules: "Must travel only for approved medical treatment. Duration is linked to medical certificate. Extension possible only with hospital confirmation. Cannot work during stay.",
+
+    prosCons: "Pros: Access to advanced medical care in Italy, priority processing in urgent cases, possibility of long-stay extension. Cons: High financial requirement, strict documentation, dependent on medical approval.",
+
+    terms: "Medical Invitation Letter: Hospital confirmation; Treatment Plan: Medical schedule and cost; Schengen Visa Type C/D: Short or long stay category; Sponsor: Person or organization funding treatment; Medical Insurance: Mandatory coverage.",
+
+    legal: "Regulated under Schengen Visa Code and Italian immigration laws, administered by Italian consulates and approved medical institutions.",
+
+    process: `1. Consult doctor in home country ->
+              2. Obtain medical reports and recommendation ->
+              3. Contact hospital/clinic in Italy ->
+              4. Receive treatment acceptance and cost estimate ->
+              5. Arrange funds or sponsorship ->
+              6. Fill visa application form ->
+              7. Book appointment via VFS Italy ->
+              8. Submit biometrics and documents ->
+              9. Pay visa fee ->
+              10. Consulate reviews medical case ->
+              11. Receive visa approval ->
+              12. Travel to Italy ->
+              13. Undergo treatment and extend visa if needed`
+},
+"ItalyCulturalSportsReligiousEventVisa": {
+    name: "Cultural / Sports / Religious Event Visa (Schengen Short-Stay Visa – Italy, Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Can be single-entry or multiple-entry depending on event schedule and invitation.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 3–4 weeks depending on verification of event and documents.",
+
+    age: "No strict age limit. Applicable to all participants including minors (with guardian consent for minors).",
+
+    education: "Not required.",
+
+    funds: "Must show sufficient funds for stay or sponsorship from event organizer. Typically €50–€100 per day (~₹4,500–₹9,000/day).",
+
+    docs: "Valid passport, Schengen visa application form, passport photos, invitation letter from event organizer (sports federation, cultural body, or religious institution), event registration/participation proof, travel itinerary, accommodation proof, travel insurance (minimum €30,000 coverage), bank statements or sponsor letter, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) participating in cultural festivals, sports competitions, religious gatherings, conferences, or artistic events in Italy.",
+
+    rules: "Must attend only approved event. No employment or paid work allowed unless specifically authorized. Must exit before visa expiry. Travel insurance is mandatory.",
+
+    prosCons: "Pros: Easy access for global events, allows participation in international festivals and competitions, Schengen travel allowed. Cons: Short stay only, strict documentation, no work rights.",
+
+    terms: "Schengen Area: European travel zone; Type C Visa: Short-stay visa; Invitation Letter: Event confirmation; Sponsor: Organizing body; Travel Insurance: Mandatory coverage.",
+
+    legal: "Regulated under Schengen Visa Code and Italian immigration law, administered by Italian consulates and VFS Global.",
+
+    process: `1. Receive official invitation from event organizer ->
+              2. Register for cultural/sports/religious event ->
+              3. Prepare financial and travel documents ->
+              4. Fill Schengen visa application form ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate verifies event participation ->
+              9. Receive visa approval ->
+              10. Travel to Italy and attend event`
+},
+"ItalyOfficialGovernmentDelegationVisa": {
+    name: "Official / Government Delegation Visa (Schengen Short-Stay Visa – Italy, Type C)",
+
+    validity: "Up to 90 days within a 180-day period. May be single-entry or multiple-entry depending on official assignment and diplomatic requirements.",
+
+    cost: "Usually free or exempted for official government delegations. VFS service charges may still apply (~₹1,500–₹2,500) unless exempted under diplomatic arrangements.",
+
+    time: "Processing time usually 3–10 working days. Often prioritized for official or urgent government missions.",
+
+    age: "No strict age limit. Applicable to government officials, diplomats, and delegation members.",
+
+    education: "Not required, but applicants are typically government officers or officially nominated representatives.",
+
+    funds: "Usually covered by government or sponsoring institution. No personal financial requirement in most cases.",
+
+    docs: "Valid passport, official government letter or diplomatic note (Verbal Note), delegation invitation from Italian government/organization, travel itinerary, accommodation details, list of delegation members, official assignment order, travel insurance (if required), and any additional documents requested by embassy.",
+
+    whom: "Government officials, diplomats, parliament members, and authorized delegation members traveling to Italy for official meetings, bilateral talks, conferences, or state functions.",
+
+    rules: "Must travel only for approved official purpose. Cannot engage in personal or private activities outside assignment. Must follow diplomatic protocol and return after assignment completion.",
+
+    prosCons: "Pros: Fast processing, fee exemption in many cases, priority handling, official protocol support. Cons: Restricted to official purpose only, requires government authorization.",
+
+    terms: "Diplomatic Note: Official government communication; Delegation: Group of official representatives; Schengen Type C Visa: Short-stay category; Protocol: Diplomatic procedures; Embassy Clearance: Official approval process.",
+
+    legal: "Regulated under Schengen Visa Code, diplomatic agreements, and Italian Ministry of Foreign Affairs protocols.",
+
+    process: `1. Government nominates delegation ->
+              2. Prepare official travel order and documents ->
+              3. Obtain diplomatic note (Verbal Note) ->
+              4. Submit visa request via embassy channel ->
+              5. Embassy prioritizes application ->
+              6. Submit biometrics if required ->
+              7. Visa processed on fast-track basis ->
+              8. Receive visa approval ->
+              9. Travel to Italy on official mission`
+},
+"ItalyShortStudyTrainingVisa": {
+    name: "Study (Short Course / Training ≤ 90 days) Visa – Italy (Schengen Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Can be single-entry or multiple-entry depending on course schedule.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 3–4 weeks during peak academic or travel seasons.",
+
+    age: "No strict age limit. Commonly 16+ or 18+ depending on institute rules and course type.",
+
+    education: "Minimum education depends on course. Basic schooling is sufficient for short training; specialized courses may require prior qualifications.",
+
+    funds: "Must show sufficient funds for stay, typically €50–€100 per day (~₹4,500–₹9,000/day), or sponsorship/host institution support.",
+
+    docs: "Valid passport, Schengen visa application form, passport photos, admission/acceptance letter from Italian institute, course details (duration and syllabus), proof of payment (if any), accommodation proof, travel insurance (minimum €30,000 coverage), bank statements (last 3–6 months), cover letter, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) attending short-term study programs, training courses, workshops, or certification programs in Italy lasting up to 90 days.",
+
+    rules: "Must attend only approved course or training. No employment allowed. Must leave before visa expiry. Must follow course schedule and institution rules.",
+
+    prosCons: "Pros: Easy access for short academic exposure, opportunity to study in Italy, Schengen travel allowed. Cons: No work rights, short duration only, strict documentation required.",
+
+    terms: "Schengen Area: European travel zone; Type C Visa: Short-stay visa; Admission Letter: Course acceptance proof; Travel Insurance: Mandatory coverage; 90/180 Rule: Maximum stay limit.",
+
+    legal: "Regulated under Schengen Visa Code and Italian immigration law, administered by Italian consulates and VFS Global.",
+
+    process: `1. Apply and get acceptance from Italian institute ->
+              2. Pay course fees (if required) ->
+              3. Arrange accommodation and insurance ->
+              4. Prepare financial documents ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to Italy and attend course`
+},
+
+"ItalyStudentVisaUniversityDegree": {
+    name: "Student Visa (University Degree Programs – Italy, Type D Long-Stay Visa)",
+
+    validity: "Long-stay visa (Type D) usually issued for 6–12 months initially. Can be renewed annually in Italy for the duration of the degree program.",
+
+    cost: "Visa fee: €50–€80 (~₹4,500–₹7,500). Residence permit (Permesso di Soggiorno) after arrival: ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–8 weeks depending on university admission, documents, and consulate workload.",
+
+    age: "No strict age limit. Commonly 17+ or 18+ for undergraduate and postgraduate students.",
+
+    education: "Must have completed required previous education (12th for bachelor’s, bachelor’s for master’s, etc.). Admission from an Italian university is mandatory.",
+
+    funds: "Must show minimum financial support of around €6,000–€10,000 per year (~₹5–9 lakh) depending on university and city, plus proof of accommodation and tuition payment (if applicable).",
+
+    docs: "Valid passport, visa application form, passport photos, university admission letter, pre-enrolment via Universitaly portal, proof of funds (bank statements/scholarship), accommodation proof, academic transcripts and certificates, travel insurance, language proficiency proof (if required), and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) admitted to Italian universities for bachelor’s, master’s, PhD, or equivalent degree programs.",
+
+    rules: "Must enroll and attend full-time course. Part-time work allowed (limited hours as per Italian law). Must renew residence permit annually. Must maintain academic progress.",
+
+    prosCons: "Pros: Access to Italian universities, work rights (limited), pathway to PR, EU exposure, scholarships available. Cons: Requires admission and financial proof, bureaucratic renewal process, cost of living varies by city.",
+
+    terms: "Type D Visa: Long-stay visa; Universitaly: Official admission portal; Permesso di Soggiorno: Residence permit; ANVUR: Academic recognition body; 90/180 Rule: Not applicable once residence permit is issued.",
+
+    legal: "Regulated under Italian immigration law and EU student mobility directives, administered by Italian consulates and universities.",
+
+    process: `1. Apply to Italian university ->
+              2. Receive admission letter ->
+              3. Complete Universitaly pre-enrolment ->
+              4. Prepare financial and academic documents ->
+              5. Fill national (Type D) visa application ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Apply for residence permit (Permesso di Soggiorno) ->
+              13. Begin studies and renew annually`
+},
+
+"ItalyLanguageCourseVisa": {
+    name: "Student Visa (Language Course Visa – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 3–12 months depending on the duration of the language course. Renewable if the course is extended.",
+
+    cost: "Visa fee: €50–€80 (~₹4,500–₹7,500). Residence permit (Permesso di Soggiorno) after arrival: ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks depending on consulate workload and documentation completeness.",
+
+    age: "No strict age limit. Commonly 16+ or 18+ depending on institute requirements.",
+
+    education: "No strict academic requirement, but basic schooling is generally expected. Some institutes may require prior education certificates.",
+
+    funds: "Must show sufficient funds for living expenses, typically €6,000–€10,000 per year (~₹5–9 lakh) or proof of sponsorship/scholarship.",
+
+    docs: "Valid passport, visa application form, passport photos, admission letter from Italian language institute, course details and duration, proof of payment (if applicable), financial proof (bank statements/sponsor letter), accommodation proof, travel insurance, academic certificates (if requested), and supporting documents required by consulate.",
+
+    whom: "Foreign nationals (including Indians) who want to study Italian language in Italy through certified language schools or cultural institutes.",
+
+    rules: "Must attend enrolled language course regularly. Cannot work full-time (only limited part-time work if permitted under residence permit rules). Must renew residence permit if course continues.",
+
+    prosCons: "Pros: Immersion in Italian language and culture, pathway to further studies or work visas, EU experience. Cons: Limited work rights, must maintain course attendance, requires financial proof.",
+
+    terms: "Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Language Institute: Accredited school; Study Enrollment: Course registration proof; Renewal: Extension of stay authorization.",
+
+    legal: "Regulated under Italian immigration law and EU long-stay student regulations, administered by Italian consulates and VFS Global.",
+
+    process: `1. Enroll in Italian language course ->
+              2. Receive admission letter from institute ->
+              3. Prepare financial and accommodation documents ->
+              4. Fill Type D visa application form ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews application ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit ->
+              12. Attend language course in Italy`
+},
+"ItalyResearchPhDVisa": {
+    name: "Research / PhD Visa (Type D Long-Stay Visa – Italy)",
+
+    validity: "Usually issued for 6–12 months initially. Renewable annually for the entire duration of the PhD or research program (typically 3–4 years).",
+
+    cost: "Visa fee: €50–€80 (~₹4,500–₹7,500). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–8 weeks depending on university/research institute approval and consulate workload.",
+
+    age: "No strict age limit. Commonly 21+ for PhD/research applicants, but depends on academic profile.",
+
+    education: "Master’s degree is usually required for PhD. For research roles, equivalent academic qualifications or strong research background is required.",
+
+    funds: "Must show sufficient financial support, typically €6,000–€12,000 per year (~₹5–10 lakh) or scholarship/funding proof from university or research institution.",
+
+    docs: "Valid passport, visa application form, passport photos, admission/acceptance letter from Italian university or research institute, research/PhD proposal, funding/scholarship proof, academic transcripts and degrees, CV, accommodation proof, travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) accepted into Italian universities or research institutions for PhD programs, postdoctoral research, or academic research projects.",
+
+    rules: "Must be enrolled or affiliated with a recognized research institution. Must maintain academic progress. Limited part-time work allowed (as per Italian law). Residence permit must be renewed annually.",
+
+    prosCons: "Pros: High academic exposure, scholarships available, research funding opportunities, pathway to EU long-term residence. Cons: Requires strong academic profile, bureaucratic renewal process, funding dependency.",
+
+    terms: "Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; PhD Program: Doctoral study; Research Grant: Funding support; Università: Italian university.",
+
+    legal: "Regulated under Italian immigration law and EU research mobility directives, administered by Italian consulates and universities/research institutes.",
+
+    process: `1. Apply to Italian university or research institute ->
+              2. Receive acceptance/admission letter ->
+              3. Secure funding or scholarship ->
+              4. Prepare academic documents and research proposal ->
+              5. Fill Type D visa application form ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Apply for residence permit ->
+              13. Begin PhD or research work in Italy`
+},
+
+"ItalyInternshipTraineeshipVisa": {
+    name: "Internship / Traineeship Visa (Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for the duration of the internship or traineeship, typically 3–12 months. Can be extended only in limited cases depending on program rules.",
+
+    cost: "Visa fee: €50–€80 (~₹4,500–₹7,500). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks depending on internship approval and consulate workload.",
+
+    age: "Typically 18–30 years, but can vary depending on internship program and institution rules.",
+
+    education: "Must have completed or be currently enrolled in relevant education (university/college). Some internships require specific qualifications.",
+
+    funds: "Must show sufficient funds or stipend support, typically €500–€1,000 per month (~₹45,000–₹90,000) or proof of sponsorship by host company/program.",
+
+    docs: "Valid passport, visa application form, passport photos, internship/traineeship agreement, invitation letter from Italian host company/organization, training plan, proof of stipend or financial support, academic certificates, enrollment proof (if student), accommodation proof, travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) participating in structured internships, traineeships, or professional training programs in Italy.",
+
+    rules: "Must follow internship/training program only. No unrelated employment allowed. Must comply with host organization rules. Residence permit required after arrival for long stays.",
+
+    prosCons: "Pros: Professional exposure in Italy, EU work experience, networking opportunities, pathway to job visa. Cons: Limited income, strict program conditions, no full employment rights.",
+
+    terms: "Type D Visa: Long-stay visa; Internship Agreement: Training contract; Permesso di Soggiorno: Residence permit; Host Organization: Italian company/institution; Traineeship: Structured training program.",
+
+    legal: "Regulated under Italian immigration law and EU traineeship directives, administered by Italian consulates and host organizations.",
+
+    process: `1. Apply for internship/traineeship program ->
+              2. Receive acceptance and agreement from host organization ->
+              3. Prepare academic and financial documents ->
+              4. Fill Type D visa application form ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews application ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit ->
+              12. Begin internship/traineeship`
+},
+
+"ItalyTrainingVisaProfessionalCourses": {
+    name: "Training Visa (Professional Courses – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for the duration of the training program, typically 3–12 months. Can be renewed only if the course is extended and approved.",
+
+    cost: "Visa fee: €50–€80 (~₹4,500–₹7,500). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks depending on training institution approval and consulate workload.",
+
+    age: "No strict age limit. Commonly 18+ for professional training applicants.",
+
+    education: "Basic qualification required depending on course type. Some professional training programs require prior diploma or degree.",
+
+    funds: "Must show sufficient funds or sponsorship, typically €500–€1,000 per month (~₹45,000–₹90,000), or proof that training institute provides stipend/accommodation support.",
+
+    docs: "Valid passport, visa application form, passport photos, admission letter from Italian training institute, detailed course/training program, proof of payment (if applicable), financial proof or sponsorship letter, accommodation proof, travel insurance, academic/professional certificates, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) attending professional training programs, vocational courses, skill development programs, or certified training in Italy.",
+
+    rules: "Must attend only enrolled training program. No unrelated employment allowed. Must comply with institute rules. Residence permit must be obtained after arrival for stays longer than 90 days.",
+
+    prosCons: "Pros: Skill development in Italy, exposure to European professional environment, potential pathway to internship or job visa. Cons: Limited work rights, depends on program approval, short to medium duration only.",
+
+    terms: "Type D Visa: Long-stay visa; Training Institute: Authorized organization; Permesso di Soggiorno: Residence permit; Vocational Training: Skill-based education; Sponsorship: Financial support by institution.",
+
+    legal: "Regulated under Italian immigration law and EU vocational training regulations, administered by Italian consulates and approved training institutes.",
+
+    process: `1. Enroll in professional training course in Italy ->
+              2. Receive admission letter from institute ->
+              3. Arrange financial and accommodation proof ->
+              4. Fill Type D visa application form ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews application ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit ->
+              12. Attend training program`
+},
+"ItalyExchangeProgramVisaErasmusAcademic": {
+    name: "Exchange Program Visa (Erasmus / Academic Exchange – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for the duration of the exchange program, typically 3–12 months. Can be extended if the academic exchange program continues.",
+
+    cost: "Visa fee: €50–€80 (~₹4,500–₹7,500). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks depending on university coordination and consulate workload.",
+
+    age: "No strict age limit. Commonly 18–30 years for Erasmus and academic exchange students.",
+
+    education: "Must be enrolled in a recognized university/college in home country and selected for exchange by partner institution in Italy.",
+
+    funds: "Must show sufficient funds or scholarship support, typically €500–€1,000 per month (~₹45,000–₹90,000) or Erasmus/university funding covering expenses.",
+
+    docs: "Valid passport, visa application form, passport photos, Erasmus/academic exchange acceptance letter, agreement between home and Italian university, proof of enrollment in home institution, scholarship/funding proof, accommodation proof, travel insurance, academic transcripts, and supporting documents requested by consulate.",
+
+    whom: "Foreign students (including Indians) selected for Erasmus+, university exchange programs, or bilateral academic exchange agreements in Italy.",
+
+    rules: "Must participate only in approved exchange program. Must remain enrolled in home and host universities. Limited part-time work allowed as per student visa rules. Residence permit required after arrival for stays over 90 days.",
+
+    prosCons: "Pros: Study in multiple EU countries, funded scholarships available, strong academic exposure, cultural experience. Cons: Strict eligibility, limited duration, dependent on university nomination.",
+
+    terms: "Erasmus+: EU education exchange program; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Exchange Agreement: University partnership; Mobility Program: Academic exchange scheme.",
+
+    legal: "Regulated under Italian immigration law and EU Erasmus+ framework, administered by Italian consulates and universities.",
+
+    process: `1. Get selected by home university for exchange ->
+              2. Receive acceptance from Italian partner university ->
+              3. Obtain Erasmus/exchange agreement ->
+              4. Prepare financial and academic documents ->
+              5. Fill Type D visa application form ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Apply for residence permit ->
+              13. Attend exchange program`
+},
+"ItalyEmployeeWorkVisaSubordinateEmployment": {
+    name: "Employee Work Visa (Subordinate Employment – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 6–12 months initially. Renewable in Italy based on employment contract duration. Can lead to multi-year residence permit.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000) depending on nationality and category. Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–3 months due to work authorization approval (Nulla Osta) plus consulate processing.",
+
+    age: "No strict age limit. Typically 18–60 years for employment-based migration.",
+
+    education: "Depends on job role. Skilled jobs require relevant qualifications; unskilled jobs may not require higher education but need employer sponsorship.",
+
+    funds: "Employer must guarantee salary as per Italian labor laws. Minimum salary varies by sector but must be sufficient for legal living standards in Italy.",
+
+    docs: "Valid passport, visa application form, passport photos, employment contract, work authorization (Nulla Osta) issued by Italian authorities, company registration details, CV, educational/professional certificates (if required), accommodation proof, travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who have a confirmed job offer from an Italian employer under a formal employment contract.",
+
+    rules: "Must work only for sponsoring employer. Cannot switch jobs without authorization. Must obtain residence permit after arrival. Must follow Italian labor laws and contract conditions.",
+
+    prosCons: "Pros: Stable employment in Italy, legal work rights, pathway to long-term residence and PR, family reunification possible. Cons: Employer-dependent visa, lengthy approval process, limited job mobility initially.",
+
+    terms: "Nulla Osta: Work authorization approval; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Subordinate Employment: Employer-sponsored job; Contract of Employment: Legal job agreement.",
+
+    legal: "Regulated under Italian immigration law and labor quota system (Decreto Flussi), administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Employer in Italy applies for work authorization (Nulla Osta) ->
+              2. Approval issued by Italian authorities ->
+              3. Job contract signed ->
+              4. Prepare personal documents ->
+              5. Fill Type D work visa application form ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate verifies work authorization ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Apply for residence permit ->
+              13. Begin employment in Italy`
+},
+
+"ItalySeasonalWorkVisaAgricultureTourism": {
+    name: "Seasonal Work Visa (Agriculture / Tourism – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 3–9 months depending on the seasonal job contract (agriculture or tourism sector). Can be renewed only in specific cases under new seasonal contracts.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months due to work authorization (Nulla Osta) plus embassy processing.",
+
+    age: "Typically 18–50 years, depending on employer and job type. No strict legal upper limit but physical work suitability matters.",
+
+    education: "Not mandatory. Basic education is sufficient. Skills or prior experience in farming, harvesting, hospitality, or tourism is preferred.",
+
+    funds: "No personal funds required in most cases. Employer must guarantee salary as per Italian seasonal labor agreements and provide working conditions.",
+
+    docs: "Valid passport, visa application form, passport photos, seasonal work contract, work authorization (Nulla Osta) issued by Italian authorities, employer details, accommodation proof (provided by employer or host), travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) employed in Italy for seasonal jobs in agriculture (harvesting, farming) or tourism (hotels, resorts, hospitality services).",
+
+    rules: "Must work only for sponsoring employer and in approved seasonal sector. Cannot switch jobs freely. Must leave Italy after contract ends unless renewed or converted to another visa type.",
+
+    prosCons: "Pros: Easy entry for seasonal employment, no high education required, employer provides support, opportunity for repeated seasonal contracts. Cons: Temporary work only, limited job rights, must leave after contract ends.",
+
+    terms: "Nulla Osta: Work authorization; Decreto Flussi: Seasonal quota system; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Seasonal Employment: Time-bound job contract.",
+
+    legal: "Regulated under Italian immigration law and annual immigration quota system (Decreto Flussi), administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Employer applies for seasonal work quota (Decreto Flussi) ->
+              2. Receive work authorization (Nulla Osta) ->
+              3. Sign seasonal employment contract ->
+              4. Prepare personal documents ->
+              5. Fill Type D visa application form ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate verifies job approval ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Apply for residence permit ->
+              13. Perform seasonal work and return after contract`
+},
+"ItalyEUBlueCardHighlySkilledWorker": {
+    name: "EU Blue Card (Highly Skilled Worker Visa – Italy)",
+
+    validity: "Issued for 1–2 years initially, renewable. After 5 years of legal residence in the EU (including Italy), eligible for long-term EU residence permit.",
+
+    cost: "Visa fee: €100–€116 (~₹9,000–₹11,000). Residence permit (Permesso di Soggiorno UE Blue Card): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months, including work authorization (Nulla Osta) and visa approval stages.",
+
+    age: "No strict age limit. Typically 21–60 years for skilled professionals.",
+
+    education: "Must have higher education qualification (Bachelor’s degree or higher) or equivalent professional experience in highly skilled fields.",
+
+    funds: "Must meet minimum salary threshold set by Italy (generally around €24,000–€35,000+ per year, depending on sector and regulation updates).",
+
+    docs: "Valid passport, visa application form, passport photos, employment contract (at least 6–12 months), work authorization (Nulla Osta), proof of qualifications (degree certificates), CV, salary details, employer company documents, accommodation proof, travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Highly skilled foreign professionals (including Indians) such as IT experts, engineers, doctors, researchers, finance professionals, and other qualified specialists hired by Italian employers.",
+
+    rules: "Must work only for sponsoring employer initially. Job change allowed after certain conditions. Must maintain minimum salary requirement. Residence permit required after arrival. Can bring family members under reunification rules.",
+
+    prosCons: "Pros: Fast-track residence, high salary opportunities, EU-wide mobility benefits, pathway to permanent residency and citizenship. Cons: High eligibility criteria, employer sponsorship required, strict salary threshold.",
+
+    terms: "EU Blue Card: Skilled worker residence permit; Nulla Osta: Work authorization; Type D Visa: Long-stay visa; Highly Skilled Employment: Qualified professional job; Permesso di Soggiorno UE: EU residence permit.",
+
+    legal: "Regulated under EU Blue Card Directive and Italian immigration law, administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Secure high-skilled job offer in Italy ->
+              2. Employer applies for work authorization (Nulla Osta) ->
+              3. Receive approval ->
+              4. Sign employment contract meeting salary threshold ->
+              5. Prepare academic and professional documents ->
+              6. Fill EU Blue Card visa application ->
+              7. Book appointment via VFS Italy ->
+              8. Submit biometrics and documents ->
+              9. Pay visa fee ->
+              10. Consulate verifies eligibility ->
+              11. Receive visa approval ->
+              12. Travel to Italy ->
+              13. Apply for EU Blue Card residence permit ->
+              14. Work and renew or upgrade to long-term EU residence`
+},
+"ItalyIntraCompanyTransferVisaICT": {
+    name: "Intra-Company Transfer Visa (ICT – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 1–3 years depending on assignment. Renewable based on project duration and corporate transfer conditions.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months due to work authorization (Nulla Osta) plus consulate processing.",
+
+    age: "No strict age limit. Typically 21–60 years for corporate transferees.",
+
+    education: "Relevant professional qualifications or corporate experience required, usually 1+ year employment in the parent company.",
+
+    funds: "Salary is provided by the company and must comply with Italian labor standards. No personal fund requirement in most cases.",
+
+    docs: "Valid passport, visa application form, passport photos, intra-company transfer letter, employment contract with parent company, work assignment letter in Italy, work authorization (Nulla Osta), company registration documents (both countries), CV, proof of qualifications, accommodation proof, travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign employees (including Indians) transferred from multinational companies to their branch, subsidiary, or affiliate in Italy.",
+
+    rules: "Must work only for the transferring company. Role and duration are fixed. Must obtain residence permit after arrival. Family members can accompany under dependent visa rules.",
+
+    prosCons: "Pros: Stable corporate transfer, continued employment with same company, family relocation allowed, pathway to EU long-term stay. Cons: Employer-dependent, limited job flexibility, temporary assignment nature.",
+
+    terms: "ICT: Intra-Company Transfer; Nulla Osta: Work authorization; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Multinational Transfer: Corporate relocation.",
+
+    legal: "Regulated under EU ICT Directive and Italian immigration law, administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Employer initiates intra-company transfer ->
+              2. Apply for work authorization (Nulla Osta) ->
+              3. Approval from Italian authorities ->
+              4. Issue transfer/assignment letter ->
+              5. Prepare employee documents ->
+              6. Fill Type D ICT visa application ->
+              7. Book appointment via VFS Italy ->
+              8. Submit biometrics and documents ->
+              9. Pay visa fee ->
+              10. Consulate verifies transfer ->
+              11. Receive visa approval ->
+              12. Travel to Italy ->
+              13. Apply for residence permit ->
+              14. Continue assignment in Italy`
+},
+"ItalySelfEmploymentVisaAutonomousWork": {
+    name: "Self-Employment Visa (Autonomous Work Visa – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 1–2 years initially. Renewable in Italy based on continuation of business activity or freelance work.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–4 months due to quota approval (Decreto Flussi) and work authorization requirements.",
+
+    age: "No strict age limit. Typically 18–60 years for independent professionals and entrepreneurs.",
+
+    education: "Not mandatory, but relevant professional qualifications, business skills, or experience in chosen field are strongly preferred.",
+
+    funds: "Must show sufficient financial resources (often €8,000–€20,000+ depending on activity), plus proof of income sustainability and ability to support living expenses in Italy.",
+
+    docs: "Valid passport, visa application form, passport photos, detailed business plan or freelance activity plan, proof of qualifications or professional experience, financial proof (bank statements), accommodation proof, work authorization (Nulla Osta per lavoro autonomo), tax documents (if applicable), travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who want to work independently in Italy as freelancers, consultants, artists, or small business owners.",
+
+    rules: "Must perform only declared self-employment activity. Must comply with Italian tax laws and registration requirements. Must obtain residence permit after arrival. Business activity must remain viable for renewal.",
+
+    prosCons: "Pros: Full independence, no employer required, opportunity to start business in Italy, pathway to PR. Cons: Strict approval process, quota limitations, high financial proof requirement, complex documentation.",
+
+    terms: "Autonomous Work: Independent employment; Nulla Osta: Work authorization; Decreto Flussi: Immigration quota system; Partita IVA: Italian tax ID for self-employed; Permesso di Soggiorno: Residence permit.",
+
+    legal: "Regulated under Italian immigration law and annual immigration quotas (Decreto Flussi), administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Prepare business or freelance plan ->
+              2. Apply under annual quota (Decreto Flussi) ->
+              3. Obtain work authorization (Nulla Osta) ->
+              4. Gather financial and professional documents ->
+              5. Fill Type D self-employment visa application ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Register tax ID (Partita IVA) if required ->
+              13. Apply for residence permit ->
+              14. Start self-employed activity in Italy`
+},
+"ItalyDigitalNomadVisa": {
+    name: "Digital Nomad Visa (Remote Workers Visa – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 1 year initially. Renewable annually depending on continued remote employment or freelance income compliance.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time typically 1–3 months depending on verification of income, employment, and remote work eligibility.",
+
+    age: "No strict age limit. Commonly 21+ for professional remote workers.",
+
+    education: "Not mandatory, but relevant professional background or higher education is usually expected for skilled remote roles.",
+
+    funds: "Must show stable remote income, typically €2,500–€3,500+ per month (~₹2.2–₹3.2 lakh/month), plus savings proof and financial stability.",
+
+    docs: "Valid passport, visa application form, passport photos, proof of remote employment or freelance contracts, income proof (bank statements/salary slips/invoices), tax documents, accommodation proof in Italy, health insurance covering Italy, CV, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who work remotely for foreign companies or clients and wish to live in Italy while continuing online/remote work.",
+
+    rules: "Must not work for Italian employers. Must maintain minimum income requirement. Must maintain valid health insurance. Must comply with tax/residency rules. Residence permit required after arrival.",
+
+    prosCons: "Pros: Live in Italy while working remotely, flexible lifestyle, access to Schengen travel, renewable stay. Cons: No local employment allowed, strict income proof, still developing visa framework in Italy.",
+
+    terms: "Digital Nomad: Remote worker; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Remote Employment: Work for foreign employer; Tax Residency: Potential Italian tax obligations if stay is long-term.",
+
+    legal: "Regulated under Italian immigration reforms for remote workers and EU digital mobility policies, administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Secure remote job or freelance contracts ->
+              2. Prove stable monthly income ->
+              3. Gather tax and employment documents ->
+              4. Arrange accommodation and insurance in Italy ->
+              5. Fill Type D digital nomad visa application ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate verifies remote work eligibility ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Apply for residence permit ->
+              13. Begin remote living in Italy`
+},
+"ItalyInvestorVisaGoldenVisaProgram": {
+    name: "Investor Visa for Italy (Golden Visa Program – Investor Visa for Italy)",
+
+    validity: "Initial residence permit valid for 2 years, renewable for 3 more years if investment is maintained. Can lead to long-term residence after 5 years and citizenship after eligibility period.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit: ~€100–€200 (~₹9,000–₹18,000). Total investment requirement starts from €250,000 to €2,000,000 depending on category.",
+
+    time: "Processing time usually 1–3 months after approval of investment eligibility and documentation verification.",
+
+    age: "No strict age limit. Typically 18+ for individual investors.",
+
+    education: "Not required.",
+
+    funds: `Minimum investment required (one of the options below):  
+             • €250,000+ in innovative startup  
+             • €500,000+ in Italian company  
+             • €1,000,000+ philanthropic donation  
+             • €2,000,000+ government bonds`,
+
+    docs: "Valid passport, visa application form, passport photos, proof of investment funds, investment commitment declaration, bank statements, CV/profile, clean criminal record certificate, accommodation proof in Italy, health insurance, and approval certificate from Italian Investor Visa Committee (Comitato Investitori).",
+
+    whom: "High-net-worth foreign investors (including Indians) who want to invest in Italy and obtain residency through approved investment channels.",
+
+    rules: "Investment must be maintained for the duration of residence permit. Withdrawal of investment can lead to cancellation of permit. Must comply with Italian financial and immigration regulations.",
+
+    prosCons: "Pros: Fast-track residency, no language requirement initially, family inclusion allowed, pathway to PR and citizenship. Cons: Very high investment requirement, capital risk depending on investment type.",
+
+    terms: "Golden Visa: Investment-based residency; Investor Visa Committee: Approval authority; Residence Permit: Legal stay authorization; Investment Categories: Approved financial routes; Renewal: Extension of permit based on investment retention.",
+
+    legal: "Regulated under Italian Investor Visa program by Ministry of Economic Development and Ministry of Interior, aligned with EU investment migration rules.",
+
+    process: `1. Select eligible investment route ->
+              2. Prepare financial and background documents ->
+              3. Submit application to Italian Investor Visa Committee ->
+              4. Receive eligibility certificate ->
+              5. Apply for investor visa at consulate ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Complete investment within required timeframe ->
+              12. Apply for residence permit ->
+              13. Maintain investment and renew permit`
+},
+"ItalyStartupVisaInnovativeFounders": {
+    name: "Startup Visa (Innovative Startup Founders – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 1–2 years initially. Renewable based on startup progress and business activity. Can lead to long-term residence after continuous stay.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months including evaluation by Startup Visa Committee and consular processing.",
+
+    age: "No strict age limit. Typically 18–50 years for founders and entrepreneurs.",
+
+    education: "Not mandatory, but strong preference for higher education, entrepreneurial experience, or technical expertise.",
+
+    funds: "Must show minimum financial resources of around €50,000+ (~₹45–50 lakh) for startup operations, plus personal living funds (~€6,000–€10,000 per year).",
+
+    docs: "Valid passport, visa application form, passport photos, detailed innovative startup business plan, approval certificate from Italian Startup Visa Committee, proof of funds, CV, academic/professional background, market analysis, accommodation proof, health insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign entrepreneurs (including Indians) who want to create an innovative startup in Italy in sectors like technology, fintech, AI, biotech, or digital services.",
+
+    rules: "Startup must be innovative and registered in Italy. Founder must actively manage the business. Must maintain required funding and business activity. Residence permit required after arrival.",
+
+    prosCons: "Pros: Fast-track entry for entrepreneurs, access to EU startup ecosystem, possibility of funding and incubators, pathway to PR. Cons: High business risk, strict evaluation, ongoing compliance requirements.",
+
+    terms: "Startup Visa Committee: Approval authority; Innovative Startup: High-tech or scalable business; Nulla Osta: Authorization certificate; Type D Visa: Long-stay visa; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under Italian Startup Act and Ministry of Economic Development policies, aligned with EU entrepreneurship migration rules.",
+
+    process: `1. Develop innovative startup idea ->
+              2. Prepare detailed business plan ->
+              3. Submit application to Startup Visa Committee ->
+              4. Obtain approval certificate ->
+              5. Apply for Type D visa at consulate ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Register startup in Italy ->
+              12. Apply for residence permit ->
+              13. Operate and grow startup`
+},
+"ItalyBusinessEstablishmentVisaSelfEmployedEntrepreneurs": {
+    name: "Business Establishment Visa (Self-Employed Entrepreneurs – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 1–2 years initially. Renewable based on continuation and performance of business activity in Italy.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–4 months due to quota approval (Decreto Flussi) and business authorization requirements.",
+
+    age: "No strict age limit. Typically 18–60 years for entrepreneurs.",
+
+    education: "Not mandatory, but business experience, professional background, or relevant qualifications are strongly preferred.",
+
+    funds: "Must show sufficient capital to establish and run business in Italy, typically €10,000–€50,000+ depending on business type, plus living expenses (~€6,000–€10,000 per year).",
+
+    docs: "Valid passport, visa application form, passport photos, detailed business plan, proof of funds, work authorization (Nulla Osta per lavoro autonomo), company registration plan, financial statements, tax records (if applicable), accommodation proof, health insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who want to establish a small business, consultancy, shop, or independent commercial activity in Italy.",
+
+    rules: "Must operate only declared business activity. Must register for Italian tax ID (Partita IVA) after arrival. Must comply with Italian commercial and tax laws. Renewal depends on business viability.",
+
+    prosCons: "Pros: Opportunity to start business in Italy, independent work rights, pathway to PR, access to EU market. Cons: Strict approval process, quota limitations, financial risk, administrative complexity.",
+
+    terms: "Autonomous Work: Self-employment; Nulla Osta: Work authorization; Decreto Flussi: Immigration quota system; Partita IVA: Italian VAT/tax ID; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit.",
+
+    legal: "Regulated under Italian immigration law and annual quota system (Decreto Flussi), administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Prepare detailed business plan ->
+              2. Apply under annual quota (Decreto Flussi) ->
+              3. Obtain work authorization (Nulla Osta) ->
+              4. Gather financial and business documents ->
+              5. Fill Type D self-employment visa application ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Register business and tax ID (Partita IVA) ->
+              13. Apply for residence permit ->
+              14. Operate business in Italy`
+},
+"ItalyFamilyReunificationVisa": {
+    name: "Family Reunification Visa (Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 1–2 years initially depending on sponsor’s residence permit. Renewable in Italy and can lead to long-term residence.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months depending on family permit authorization (Nulla Osta) and consulate workload.",
+
+    age: "No strict age limit. Applicable to spouses, children, and dependent family members.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in Italy must show sufficient income to support dependents as per Italian legal thresholds (varies by number of family members; typically stable annual income proof is required).",
+
+    docs: "Valid passport, visa application form, passport photos, family relationship proof (marriage/birth certificates), Nulla Osta for family reunification issued by Italian authorities, sponsor’s residence permit in Italy, proof of income and accommodation in Italy, health insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who are legally related to a person residing in Italy (citizen or legal resident) and want to join them permanently or long-term.",
+
+    rules: "Must join only the declared family member. Must live with sponsor in Italy. Must apply for residence permit after arrival. Work rights may be granted depending on residence status.",
+
+    prosCons: "Pros: Legal family settlement in Italy, access to healthcare and education, pathway to permanent residence and citizenship. Cons: Dependent on sponsor’s financial and legal status, documentation-heavy process.",
+
+    terms: "Nulla Osta: Family authorization certificate; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Sponsor: Family member in Italy; Reunification: Legal joining of family members.",
+
+    legal: "Regulated under Italian immigration law and EU Family Reunification Directive, administered by Italian consulates and immigration offices.",
+
+    process: `1. Sponsor applies for family reunification authorization in Italy ->
+              2. Obtain Nulla Osta for family reunification ->
+              3. Prepare relationship and financial documents ->
+              4. Fill Type D visa application form ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate verifies family relationship ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit ->
+              12. Join family and settle in Italy`
+},
+"ItalySpouseVisaItalianCitizenOrResident": {
+    name: "Spouse Visa (of Italian Citizen or Legal Resident – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 1–2 years initially depending on sponsor’s status. Renewable in Italy and can lead to permanent residence and citizenship eligibility.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months depending on marriage verification and family reunification authorization (Nulla Osta).",
+
+    age: "No strict age limit. Applicant must be legally married (generally 18+ for both spouses).",
+
+    education: "Not required.",
+
+    funds: "Italian spouse or resident must show sufficient and stable income to support the household as per Italian legal thresholds, along with accommodation proof.",
+
+    docs: "Valid passport, visa application form, passport photos, marriage certificate (legally registered and translated/apostilled if required), proof of genuine relationship (photos, communication, cohabitation proof if available), Nulla Osta for family reunification, sponsor’s Italian residence permit or citizenship proof, income and tax documents of sponsor, accommodation proof, health insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign spouses (including Indians) legally married to Italian citizens or legal residents who wish to live together in Italy.",
+
+    rules: "Marriage must be legally valid and recognized. Must live with spouse in Italy. Must apply for residence permit after arrival. Work rights are usually granted once residence permit is issued.",
+
+    prosCons: "Pros: Strong pathway to permanent residence and citizenship, access to healthcare and education, legal right to live and work in Italy. Cons: Strict marriage verification, dependency on sponsor’s financial stability, documentation-heavy process.",
+
+    terms: "Nulla Osta: Family reunification authorization; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Family Reunification: Legal process of joining spouse; Civil Marriage Recognition: Legal validation of marriage.",
+
+    legal: "Regulated under Italian immigration law and EU Family Reunification Directive, administered by Italian consulates and immigration authorities.",
+
+    process: `1. Ensure marriage is legally registered and recognized ->
+              2. Italian spouse applies for Nulla Osta in Italy ->
+              3. Obtain family reunification authorization ->
+              4. Prepare marriage and financial documents ->
+              5. Fill Type D spouse visa application ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate verifies relationship authenticity ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Apply for residence permit ->
+              13. Begin cohabitation in Italy`
+},
+"ItalyChildDependentVisa": {
+    name: "Child / Dependent Visa (Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 1–2 years initially depending on sponsor’s residence permit or citizenship status. Renewable in Italy and can lead to long-term residence.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months depending on family reunification authorization (Nulla Osta) and document verification.",
+
+    age: "For children typically under 18 years. Dependent adult children may be considered only in special cases (e.g., disability or full dependency).",
+
+    education: "Not required for visa issuance. School admission may be required after arrival for school-aged children.",
+
+    funds: "Sponsor in Italy must show sufficient stable income to support dependent children, as per Italian family reunification income thresholds, plus adequate housing proof.",
+
+    docs: "Valid passport, visa application form, passport photos, birth certificate proving parent-child relationship (translated and legalized if required), Nulla Osta for family reunification, sponsor’s residence permit or Italian citizenship proof, sponsor’s income and tax documents, accommodation proof in Italy, health insurance, and any additional documents requested by consulate.",
+
+    whom: "Foreign children (including Indian nationals) joining their parent(s) who are Italian citizens or legal residents in Italy.",
+
+    rules: "Child must be legally dependent on sponsoring parent. Must live with parent/guardian in Italy. Must obtain residence permit after arrival. School attendance is mandatory for minors.",
+
+    prosCons: "Pros: Family unity, access to education and healthcare, pathway to long-term residence and citizenship. Cons: Dependent on sponsor’s financial stability and legal status, strict documentation requirements.",
+
+    terms: "Nulla Osta: Family reunification approval; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Dependent Child: Legally supported minor; Reunification: Family joining process.",
+
+    legal: "Regulated under Italian immigration law and EU Family Reunification Directive, administered by Italian consulates and immigration offices.",
+
+    process: `1. Parent/sponsor applies for family reunification (Nulla Osta) in Italy ->
+              2. Obtain authorization for child dependency ->
+              3. Prepare birth and identity documents ->
+              4. Fill Type D dependent visa application ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate verifies relationship and dependency ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit ->
+              12. Enroll child in school and settle in Italy`
+},
+"ItalyLongTermFamilyResidenceVisa": {
+    name: "Long-Term Family Residence Visa (Italy – Type D Long-Stay)",
+
+    validity: "Usually issued for 1–2 years initially depending on sponsor’s legal status. Renewable in Italy and can lead to long-term EU residence permit after continuous stay.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months depending on family reunification authorization (Nulla Osta) and consulate processing workload.",
+
+    age: "No strict age limit. Applicable to spouses, children, and other dependent family members.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in Italy must show stable and sufficient annual income as per Italian legal thresholds, along with adequate housing to support family members.",
+
+    docs: "Valid passport, visa application form, passport photos, family relationship proof (marriage/birth certificates), Nulla Osta for family reunification, sponsor’s residence permit or citizenship proof, income tax documents and salary proof, accommodation proof in Italy, health insurance, and any additional documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) joining close family members who are Italian citizens or legally residing in Italy for long-term or permanent residence.",
+
+    rules: "Must reside with sponsoring family member in Italy. Must apply for residence permit after arrival. Must maintain legal dependency status. Work rights may be granted depending on residence permit type.",
+
+    prosCons: "Pros: Long-term settlement option, access to healthcare and education, pathway to permanent residence and citizenship, family unity. Cons: Strict financial and documentation requirements, dependent on sponsor’s legal status.",
+
+    terms: "Nulla Osta: Family reunification authorization; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Family Reunification: Legal process of joining relatives; Long-Term Residence: Extended legal stay in Italy.",
+
+    legal: "Regulated under Italian immigration law and EU Family Reunification Directive, administered by Italian consulates and immigration authorities.",
+
+    process: `1. Sponsor applies for family reunification authorization in Italy ->
+              2. Obtain Nulla Osta for family entry ->
+              3. Prepare relationship and financial documents ->
+              4. Fill Type D long-term family visa application ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate verifies eligibility ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit ->
+              12. Continue long-term stay with family`
+},
+"ItalyWorkResidencePermit": {
+    name: "Work Residence Permit (Permesso di Soggiorno per Lavoro – Italy)",
+
+    validity: "Usually issued for 1–2 years depending on employment contract. Renewable as long as employment continues. Can lead to long-term EU residence after 5 years of continuous legal stay.",
+
+    cost: "Application fee: ~€100–€200 (~₹9,000–₹18,000). Additional costs include postal kit (~€30–€50) and tax stamps (~€16).",
+
+    time: "Processing time usually 2–4 months after arrival in Italy (visa + residence permit combined process).",
+
+    age: "Typically 18–60 years for employment-based residence. No strict legal limit.",
+
+    education: "Depends on job type. Skilled jobs require relevant qualifications; unskilled jobs may not require formal education.",
+
+    funds: "Salary provided by employer must meet Italian labor standards. No separate personal fund requirement once employment is established.",
+
+    docs: "Valid passport, entry visa (Type D work visa), employment contract, work authorization (Nulla Osta), tax code (Codice Fiscale), accommodation proof in Italy, passport photos, health insurance (if required initially), and application form for residence permit.",
+
+    whom: "Foreign workers (including Indians) who have entered Italy with a valid employment visa (subordinate employment, seasonal work, EU Blue Card, ICT, etc.).",
+
+    rules: "Must apply within 8 days of arrival in Italy. Must work only for authorized employer (initially). Must comply with Italian labor laws. Renewal depends on continued employment.",
+
+    prosCons: "Pros: Legal right to live and work in Italy, access to healthcare, pathway to permanent residence and citizenship. Cons: Employer-dependent initially, strict renewal rules, bureaucratic processing.",
+
+    terms: "Permesso di Soggiorno: Residence permit; Nulla Osta: Work authorization; Type D Visa: Entry visa; Codice Fiscale: Italian tax ID; Questura: Immigration police office.",
+
+    legal: "Regulated under Italian immigration law and Ministry of Interior policies, aligned with EU residence permit directives.",
+
+    process: `1. Obtain work visa and enter Italy ->
+              2. Apply for residence permit within 8 days at Poste Italiane ->
+              3. Submit application kit and documents ->
+              4. Attend fingerprinting appointment at Questura ->
+              5. Receive residence permit card ->
+              6. Work legally in Italy ->
+              7. Renew permit before expiry ->
+              8. Apply for long-term EU residence after 5 years`
+},
+"ItalyStudyResidencePermit": {
+    name: "Study Residence Permit (Permesso di Soggiorno per Studio – Italy)",
+
+    validity: "Usually valid for 1 year and renewable annually for the duration of the study program (degree, language course, PhD, etc.).",
+
+    cost: "Application fee: ~€100–€200 (~₹9,000–₹18,000). Additional costs include postal kit (~€30–€50) and tax stamps (~€16).",
+
+    time: "Processing time usually 1–3 months after arrival in Italy, depending on Questura appointment availability.",
+
+    age: "No strict age limit. Commonly issued to students aged 17+ for higher education and 16+ in some cases.",
+
+    education: "Must be enrolled in a recognized Italian educational institution (university, language school, or training institute).",
+
+    funds: "Must show sufficient financial means, typically ~€6,000–€10,000 per year (~₹5–9 lakh), or proof of scholarship/sponsorship.",
+
+    docs: "Valid passport, entry student visa (Type D), university/institute admission letter, proof of accommodation in Italy, financial proof, health insurance, passport photos, tax code (Codice Fiscale), and residence permit application kit.",
+
+    whom: "Foreign students (including Indians) studying in Italy for degree programs, PhD, language courses, exchange programs, or professional training longer than 90 days.",
+
+    rules: "Must apply within 8 days of arrival in Italy. Must maintain full-time study enrollment. Limited part-time work allowed (up to 20 hours/week under Italian rules). Must renew annually.",
+
+    prosCons: "Pros: Legal stay for studies, part-time work rights, access to healthcare, pathway to EU residence. Cons: Renewal required yearly, strict documentation, limited work hours.",
+
+    terms: "Permesso di Soggiorno: Residence permit; Type D Visa: Entry visa; Codice Fiscale: Tax identification number; Questura: Immigration office; Università: Italian university.",
+
+    legal: "Regulated under Italian immigration law and EU student mobility directives, administered by Italian Ministry of Interior and local Questura offices.",
+
+    process: `1. Enter Italy with student visa ->
+              2. Apply for residence permit within 8 days at Poste Italiane ->
+              3. Submit application kit and documents ->
+              4. Receive appointment at Questura ->
+              5. Provide biometrics (fingerprints) ->
+              6. Receive residence permit card ->
+              7. Continue studies in Italy ->
+              8. Renew permit annually until course completion`
+},
+"ItalyFamilyResidencePermit": {
+    name: "Family Residence Permit (Permesso di Soggiorno per Motivi Familiari – Italy)",
+
+    validity: "Usually issued for 1–2 years depending on sponsor’s residence permit or citizenship status. Renewable and can lead to long-term EU residence after continuous legal stay.",
+
+    cost: "Application fee: ~€100–€200 (~₹9,000–₹18,000). Additional costs: postal kit (~€30–€50) and tax stamps (~€16).",
+
+    time: "Processing time usually 1–3 months after arrival in Italy, depending on Questura appointment availability and document verification.",
+
+    age: "No strict age limit. Applicable to spouses, minor children, and dependent family members.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in Italy must demonstrate stable and sufficient income and adequate housing to support family members as per Italian legal thresholds.",
+
+    docs: "Valid passport, entry family visa (Type D), Nulla Osta for family reunification, proof of family relationship (marriage/birth certificates), sponsor’s residence permit or citizenship proof, income and tax documents of sponsor, accommodation proof, health insurance (if required), passport photos, and residence permit application kit.",
+
+    whom: "Foreign nationals (including Indians) who have joined their spouse, parent, or children legally residing in Italy.",
+
+    rules: "Must apply within 8 days of arrival in Italy. Must live with sponsoring family member. Must maintain valid family dependency status. Work rights may be granted depending on permit type.",
+
+    prosCons: "Pros: Legal family settlement in Italy, access to healthcare and education, pathway to permanent residence and citizenship, work rights often included. Cons: Dependent on sponsor’s legal and financial status, strict documentation requirements.",
+
+    terms: "Permesso di Soggiorno: Residence permit; Nulla Osta: Family authorization; Questura: Immigration office; Family Reunification: Legal joining process; Codice Fiscale: Tax identification number.",
+
+    legal: "Regulated under Italian immigration law and EU Family Reunification Directive, administered by Italian Ministry of Interior and Questura offices.",
+
+    process: `1. Enter Italy with family visa ->
+              2. Apply for residence permit within 8 days at Poste Italiane ->
+              3. Submit application kit and documents ->
+              4. Attend Questura appointment ->
+              5. Provide biometrics (fingerprints) ->
+              6. Receive residence permit card ->
+              7. Live with family in Italy ->
+              8. Renew permit as required`
+},
+
+"ItalyEULongTermResidencePermit": {
+    name: "EU Long-Term Residence Permit (Permesso di Soggiorno UE per Soggiornanti di Lungo Periodo – Italy)",
+
+    validity: "Permanent/indefinite residence status once granted. The physical card is usually valid for 5 years and renewable without losing status.",
+
+    cost: "Application fee: ~€100–€200 (~₹9,000–₹18,000). Additional costs include postal kit (~€30–€50) and tax stamps (~€16).",
+
+    time: "Processing time usually 3–6 months after application submission, depending on Questura workload and document verification.",
+
+    age: "No strict age limit. Must meet long-term residency requirements (typically adults who have legally lived in Italy for 5 continuous years).",
+
+    education: "Not required.",
+
+    funds: "Must show stable and sufficient income (employment, business, or other legal sources) to support self and family without relying on social assistance.",
+
+    docs: "Valid passport, current residence permit, proof of 5 years continuous legal residence in Italy, income tax returns (last years), employment or business documents, accommodation proof, criminal record certificate, health insurance (if applicable), and application kit from Poste Italiane.",
+
+    whom: "Foreign nationals (including Indians) who have legally and continuously resided in Italy for at least 5 years with valid residence permits (work, study, family, etc.).",
+
+    rules: "Must have continuous legal residence for 5 years without long absences (generally no more than 6 consecutive months or 10 months total outside Italy). Must have stable income and integration conditions.",
+
+    prosCons: "Pros: Permanent EU residence rights in Italy, freedom to live and work, stronger stability, easier mobility within EU compared to temporary permits. Cons: Strict eligibility (5-year rule), documentation-heavy process, income requirement must be stable.",
+
+    terms: "Permesso di Soggiorno UE: EU long-term residence permit; Questura: Immigration police office; Continuous Residence: Uninterrupted legal stay; Integration Requirement: Language and social integration conditions; Poste Italiane: Application submission center.",
+
+    legal: "Regulated under EU Long-Term Residence Directive (2003/109/EC) and Italian immigration law, administered by Ministry of Interior and Questura offices.",
+
+    process: `1. Complete 5 years of continuous legal residence in Italy ->
+              2. Gather income, tax, and residence documents ->
+              3. Obtain criminal record certificate ->
+              4. Fill EU long-term residence application kit ->
+              5. Submit at Poste Italiane ->
+              6. Attend Questura appointment for verification ->
+              7. Pay fees and submit biometrics ->
+              8. Application review by authorities ->
+              9. Receive EU Long-Term Residence Permit card ->
+              10. Enjoy long-term residence rights in Italy and EU`
+},
+"ItalyPermanentResidencePermitAfter5Years": {
+    name: "Permanent Residence Permit (Italy – After 5 Years Legal Stay)",
+
+    validity: "Permanent residence status in Italy. The physical residence card is typically valid for 5 years and renewable indefinitely without losing permanent status.",
+
+    cost: "Application fee: ~€100–€200 (~₹9,000–₹18,000). Additional costs: postal kit (~€30–€50) and tax stamps (~€16).",
+
+    time: "Processing time usually 3–6 months after submission of application, depending on Questura workload and verification.",
+
+    age: "No strict age limit. Must be adult and meet long-term residence eligibility criteria.",
+
+    education: "Not required.",
+
+    funds: "Must show stable and sufficient income from legal sources (employment, business, pension, or other income) to support self without public assistance.",
+
+    docs: "Valid passport, current residence permit(s), proof of 5 years continuous legal residence in Italy, tax returns (last 3–5 years), employment or business records, accommodation proof, criminal record certificate, health insurance (if required), integration proof (language/social requirements in some cases), and application kit from Poste Italiane.",
+
+    whom: "Foreign nationals (including Indians) who have legally lived in Italy for at least 5 continuous years under valid residence permits (work, study, family, etc.).",
+
+    rules: "Must have continuous legal residence for 5 years (limited absences allowed). Must demonstrate stable income and integration into Italian society. Must apply after meeting eligibility conditions.",
+
+    prosCons: "Pros: Permanent right to live and work in Italy, strong legal security, access to public services, pathway to citizenship, no need for regular visa renewals. Cons: Strict 5-year requirement, documentation-heavy process, must maintain stable income.",
+
+    terms: "Permanent Residence: Indefinite legal stay; Questura: Immigration office; Continuous Residence: Uninterrupted stay period; Integration Requirements: Language/social adaptation conditions; EU Mobility: Limited rights to move within EU under certain rules.",
+
+    legal: "Regulated under Italian immigration law and EU Long-Term Residence Directive (2003/109/EC), administered by the Ministry of Interior and local Questura offices.",
+
+    process: `1. Complete 5 years of continuous legal residence in Italy ->
+              2. Gather tax, income, and residence history documents ->
+              3. Obtain criminal record certificate ->
+              4. Fill permanent residence application kit ->
+              5. Submit application at Poste Italiane ->
+              6. Attend Questura appointment ->
+              7. Provide biometrics and pay fees ->
+              8. Authorities verify eligibility ->
+              9. Receive Permanent Residence Permit card ->
+              10. Enjoy long-term settlement rights in Italy`
+},
+"ItalyAsylumRefugeeVisa": {
+    name: "Asylum / Refugee Visa (International Protection – Italy)",
+
+    validity: `Refugee status: 5-year residence permit (renewable).  
+               Subsidiary protection: 5-year residence permit (renewable).  
+               Humanitarian/special protection (if granted): shorter-term permit depending on case`,
+
+    cost: "No visa fee for asylum application. Residence permit is generally free or minimal administrative charges may apply.",
+
+    time: "Processing time varies widely (several months to 1–2 years) depending on case complexity and authority review.",
+
+    age: "No age limit. Applicable to individuals, families, and unaccompanied minors.",
+
+    education: "Not required.",
+
+    funds: "No financial requirement. Applicants may receive state support (housing, food, basic assistance) during processing.",
+
+    docs: "Valid passport (if available), identity documents, evidence of persecution or risk (police reports, medical records, personal statements), travel history, photographs, and any supporting proof of asylum claim.",
+
+    whom: "Foreign nationals (including Indians, though rare) who cannot return to their home country due to persecution based on race, religion, nationality, political opinion, or membership in a particular social group.",
+
+    rules: "Must apply for asylum after entering Italy (at border or within the country). Cannot apply from outside Italy as a standard visa. Must cooperate with authorities during interview and verification process.",
+
+    prosCons: "Pros: Protection from deportation, legal stay, access to healthcare, education, and work rights after approval. Cons: Long processing time, uncertain outcome, strict verification, limited mobility during application stage.",
+
+    terms: "Asylum: Protection request; Refugee Status: Full protection under Geneva Convention; Subsidiary Protection: Protection for serious harm risk; International Protection: Combined asylum categories; Questura: Immigration office; Commissione Territoriale: Asylum decision authority.",
+
+    legal: "Regulated under Geneva Convention, EU Asylum Directives, and Italian immigration law, administered by the Ministry of Interior and Territorial Commissions.",
+
+    process: `1. Enter Italy (legally or at border) ->
+              2. Apply for asylum at border police or Questura ->
+              3. Provide fingerprints and identity details ->
+              4. Receive temporary permit (asylum seeker permit) ->
+              5. Stay in reception center (if required) ->
+              6. Attend interview with Territorial Commission ->
+              7. Authorities review claim and evidence ->
+              8. Decision issued (refugee/subsidiary/rejection) ->
+              9. If approved, receive residence permit ->
+              10. If rejected, option to appeal decision`
+},
+"ItalySubsidiaryProtectionVisa": {
+    name: "Subsidiary Protection Visa (International Protection – Italy)",
+
+    validity: "Residence permit usually valid for 5 years. Renewable if protection conditions still exist.",
+
+    cost: "No visa fee. Residence permit is generally free or minimal administrative charges may apply.",
+
+    time: "Processing time varies (several months to 1–2 years) as part of the asylum/international protection procedure.",
+
+    age: "No age limit. Applicable to individuals, families, and minors.",
+
+    education: "Not required.",
+
+    funds: "No financial requirement. Applicants may receive state assistance (housing, food, and basic needs) during processing.",
+
+    docs: "Identity documents (if available), passport (if available), personal statement explaining risk, evidence of serious harm (conflict reports, medical records, police documents), photographs, and any supporting documents requested by authorities.",
+
+    whom: "Foreign nationals (including Indians, though rare) who do not qualify as refugees but would face serious harm (war, violence, death penalty, torture) if returned to their home country.",
+
+    rules: "Cannot be applied as a regular visa from outside. Must request protection after entering Italy. Applicant must cooperate with authorities and attend interviews.",
+
+    prosCons: "Pros: Legal protection in Italy, residence rights, access to healthcare, education, and work. Cons: Long processing time, strict verification, temporary nature compared to full refugee status.",
+
+    terms: "Subsidiary Protection: Protection for serious harm risk; International Protection: EU asylum framework; Questura: Immigration office; Territorial Commission: Decision authority; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under EU Qualification Directive and Italian immigration law, administered by Ministry of Interior and Territorial Commissions.",
+
+    process: `1. Enter Italy ->
+              2. Apply for international protection at Questura ->
+              3. Submit fingerprints and identity details ->
+              4. Receive temporary asylum seeker permit ->
+              5. Stay in reception system (if required) ->
+              6. Attend interview with Territorial Commission ->
+              7. Authorities assess risk of serious harm ->
+              8. If eligible, granted subsidiary protection ->
+              9. Receive 5-year residence permit ->
+              10. Renew permit if conditions persist`
+},
+"ItalyHumanitarianProtectionVisa": {
+    name: "Humanitarian Protection Visa (Special Protection – Italy)",
+
+    validity: "Usually issued for 1–2 years initially (sometimes longer depending on case). Renewable if humanitarian conditions continue.",
+
+    cost: "No visa fee. Residence permit generally has minimal administrative charges (~€100–€200 / ₹9,000–₹18,000 in standard permit processing cases).",
+
+    time: "Processing time varies widely (several months up to 1–2 years) depending on case complexity and authorities’ evaluation.",
+
+    age: "No age limit. Applicable to individuals, families, and vulnerable persons.",
+
+    education: "Not required.",
+
+    funds: "No financial requirement. Applicants may receive temporary state assistance depending on accommodation and protection system placement.",
+
+    docs: "Valid identity documents (if available), passport (if available), personal statement explaining humanitarian grounds, medical reports, evidence of vulnerability (serious illness, trafficking, domestic violence, environmental disaster impact, etc.), police or legal documents (if applicable), photographs, and any supporting evidence requested by authorities.",
+
+    whom: "Foreign nationals (including Indians in rare cases) who do not qualify for refugee or subsidiary protection but cannot be returned due to serious humanitarian, medical, or exceptional personal conditions.",
+
+    rules: "Must apply for protection after entering Italy. Cannot be applied as a standard visa from outside. Must cooperate with immigration authorities and attend interviews or hearings.",
+
+    prosCons: "Pros: Legal stay in Italy under protection, access to healthcare and basic services, temporary residence rights, possible pathway to other residence permits. Cons: Uncertain outcome, temporary status, strict case-by-case approval.",
+
+    terms: "Humanitarian Protection: Special stay permission for vulnerable cases; Special Protection: Italian legal category replacing older humanitarian permits; Questura: Immigration office; Territorial Commission: Decision authority; Residence Permit: Legal stay document.",
+
+    legal: "Regulated under Italian immigration law reforms and EU human rights frameworks, administered by Ministry of Interior and immigration authorities.",
+
+    process: `1. Enter Italy ->
+              2. Request protection at Questura ->
+              3. Provide fingerprints and identity details ->
+              4. Submit humanitarian evidence ->
+              5. Receive temporary protection permit (if granted during review) ->
+              6. Attend interviews/hearings ->
+              7. Authorities assess humanitarian grounds ->
+              8. Decision issued (approval or rejection) ->
+              9. If approved, receive residence permit ->
+              10. Renew permit if humanitarian need continues`
+},
+"ItalyMedicalEmergencyHumanitarianVisa": {
+    name: "Medical Emergency Humanitarian Visa (Italy – Short/Long Stay depending on case)",
+
+    validity: "Usually issued as short-stay (up to 90 days) or long-stay Type D visa depending on severity and duration of medical treatment. Extensions may be granted if treatment continues.",
+
+    cost: "Visa fee: generally €0–€116 (~₹0–₹11,000) depending on urgency and category. In many emergency humanitarian cases, fees may be waived or reduced. Residence permit costs apply if long stay is granted (~€100–€200 / ₹9,000–₹18,000).",
+
+    time: "Fast-tracked processing (few days to 2–4 weeks) depending on medical urgency and hospital confirmation.",
+
+    age: "No age limit. Applicable to patients of any age including minors and elderly.",
+
+    education: "Not required.",
+
+    funds: "Must show proof of funding for medical treatment (self-funded, insurance, sponsor, NGO, or hospital guarantee letter). Some emergency cases may receive partial support.",
+
+    docs: "Valid passport, visa application form, passport photos, medical reports from home country doctor, acceptance letter from Italian hospital/medical institution, treatment plan, estimated cost of treatment, proof of payment or financial guarantee, health insurance (if applicable), accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who require urgent or specialized medical treatment in Italy that is not available or is difficult to access in their home country.",
+
+    rules: "Must travel strictly for approved medical treatment. Cannot engage in employment or unrelated activities. Must follow treatment schedule and hospital authorization. Extensions require updated medical reports.",
+
+    prosCons: "Pros: Access to advanced Italian healthcare, fast-track processing in emergencies, possibility of life-saving treatment. Cons: High medical costs, strict documentation, limited scope to medical purpose only.",
+
+    terms: "Humanitarian Visa: Compassion-based entry permit; Medical Visa: Treatment-based entry; Hospital Guarantee Letter: Treatment acceptance proof; Type D Visa: Long-stay visa; Emergency Admission: Urgent medical acceptance.",
+
+    legal: "Regulated under Italian immigration law and EU humanitarian entry provisions, administered by Italian consulates and Ministry of Health/Interior coordination.",
+
+    process: `1. Obtain medical diagnosis in home country ->
+              2. Contact Italian hospital for treatment acceptance ->
+              3. Receive medical invitation and treatment plan ->
+              4. Prepare financial/insurance guarantee ->
+              5. Submit emergency visa application ->
+              6. Consulate fast-tracks review ->
+              7. Provide biometrics (if required urgently) ->
+              8. Receive visa approval ->
+              9. Travel to Italy for treatment ->
+              10. Register with hospital and begin treatment ->
+              11. Apply for residence permit if stay exceeds visa duration`
+},
+"ItalyReligiousWorkerVisa": {
+    name: "Religious Worker Visa (Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 1–2 years initially depending on assignment duration. Renewable if the religious mission continues.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months depending on authorization from Italian authorities and consulate workload.",
+
+    age: "No strict age limit. Typically 18+ for religious clergy, missionaries, or workers.",
+
+    education: "Religious training or theological qualification may be required depending on the denomination and role.",
+
+    funds: "Must show financial support from the religious organization or proof that accommodation and living expenses are covered by sponsoring religious institution.",
+
+    docs: "Valid passport, visa application form, passport photos, official invitation/appointment letter from recognized religious organization in Italy, proof of religious role (ordination or membership certificate), work authorization (Nulla Osta), accommodation proof, financial support letter from religious institution, health insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who are clergy, missionaries, monks, nuns, or religious workers invited by recognized religious organizations in Italy.",
+
+    rules: "Must work only for the sponsoring religious institution. Must respect Italian laws and visa conditions. Must obtain residence permit after arrival. Cannot take unrelated employment.",
+
+    prosCons: "Pros: Legal stay for religious mission, accommodation often provided, cultural and community integration, renewable status. Cons: Restricted to religious duties, limited employment flexibility, dependent on sponsoring organization.",
+
+    terms: "Religious Visa: Faith-based entry permit; Nulla Osta: Work authorization; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Religious Institution: Sponsoring organization.",
+
+    legal: "Regulated under Italian immigration law and agreements with recognized religious bodies, administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Receive invitation from recognized religious organization ->
+              2. Obtain work authorization (Nulla Osta) ->
+              3. Prepare religious and identity documents ->
+              4. Fill Type D religious visa application ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews religious assignment ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit ->
+              12. Begin religious duties in Italy`
+},
+"ItalyNGOVolunteerVisa": {
+    name: "NGO / Volunteer Visa (Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for 3–12 months depending on the volunteering project. Renewable only if the NGO project is extended and approved.",
+
+    cost: "Visa fee: €0–€116 (~₹0–₹11,000), depending on agreement and humanitarian program. Some volunteer programs are fee-exempt. Residence permit: ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–8 weeks depending on NGO authorization and consulate workload.",
+
+    age: "Typically 18–35 years for most volunteer programs, but no strict legal limit in all cases.",
+
+    education: "Not mandatory, but basic education or relevant skills may be preferred depending on the NGO project.",
+
+    funds: "In many cases no personal funds required. NGO often covers accommodation, food, and local expenses or provides stipend. Otherwise proof of minimal financial support (~€300–€600/month) may be required.",
+
+    docs: "Valid passport, visa application form, passport photos, official invitation letter from recognized Italian NGO, volunteer agreement, project description, proof of accommodation, financial support letter (if applicable), health insurance, background check (if required), and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) participating in officially recognized NGO projects, humanitarian missions, environmental work, or social volunteer programs in Italy.",
+
+    rules: "Must work only in assigned volunteer project. No paid employment allowed. Must follow NGO and Italian immigration rules. Residence permit required for stays beyond 90 days.",
+
+    prosCons: "Pros: Cultural exposure, humanitarian experience, low-cost entry, accommodation often provided. Cons: No salary, limited duration, strict project dependency.",
+
+    terms: "NGO: Non-Governmental Organization; Volunteer Agreement: Project contract; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Humanitarian Project: Approved social mission.",
+
+    legal: "Regulated under Italian immigration law and EU voluntary service frameworks, administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Apply to recognized NGO project ->
+              2. Receive volunteer acceptance letter ->
+              3. NGO submits project authorization ->
+              4. Prepare personal documents ->
+              5. Fill Type D volunteer visa application ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee (if applicable) ->
+              9. Consulate reviews NGO project ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Apply for residence permit ->
+              13. Begin volunteer assignment`
+},
+"ItalyCulturalExchangeVisa": {
+    name: "Cultural Exchange Visa (Italy, Type C / Type D depending on duration)",
+
+    validity: "Short-term (Type C: up to 90 days) or long-term (Type D: 3–12 months) depending on the cultural exchange program duration.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹8,000) for short stay; €116 (~₹10,000–₹11,000) for long stay. Residence permit (if Type D): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks for short-term and 1–3 months for long-term cultural exchange programs.",
+
+    age: "Typically 18–30 years for youth exchange programs, but no strict legal limit for cultural professionals or artists.",
+
+    education: "Not mandatory, but may be required depending on exchange type (students, artists, educators, cultural professionals).",
+
+    funds: "Must show proof of sufficient funds (~€500–€1,000/month) or sponsorship by exchange organization covering accommodation and living expenses.",
+
+    docs: "Valid passport, visa application form, passport photos, invitation letter from Italian cultural institution or exchange organization, exchange program agreement, proof of accommodation, financial support proof or sponsorship letter, travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) participating in official cultural exchange programs, youth exchange initiatives, artistic residencies, or intercultural cooperation programs in Italy.",
+
+    rules: "Must participate only in approved cultural exchange activities. No unrelated employment allowed. Must comply with program rules and immigration conditions. Residence permit required for stays over 90 days.",
+
+    prosCons: "Pros: Cultural exposure, networking opportunities, international experience, often partially funded. Cons: Limited duration, strict program dependency, no full employment rights.",
+
+    terms: "Cultural Exchange: Structured intercultural program; Type C Visa: Short-stay visa; Type D Visa: Long-stay visa; Sponsoring Organization: Exchange institution; Permesso di Soggiorno: Residence permit.",
+
+    legal: "Regulated under Italian immigration law and EU cultural mobility programs, administered by Italian consulates and Ministry of Foreign Affairs.",
+
+    process: `1. Apply for cultural exchange program ->
+              2. Receive acceptance letter from Italian institution ->
+              3. Prepare financial and identity documents ->
+              4. Fill visa application form (Type C or D) ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews exchange program ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit (if long stay) ->
+              12. Participate in cultural exchange program`
+},
+"ItalyArtistPerformerVisa": {
+    name: "Artist / Performer Visa (Italy, Type C or Type D Long-Stay)",
+
+    validity: "Short-term (Type C: up to 90 days) for events/tours, or long-term (Type D: 3–12 months or more) for extended contracts, residencies, or performance seasons.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹8,000) for short stay; €116 (~₹10,000–₹11,000) for long stay. Residence permit (if Type D): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks for short-term performances and 1–3 months for long-term artistic contracts.",
+
+    age: "No strict age limit. Typically 18+ for professional artists and performers.",
+
+    education: "Not mandatory. Artistic portfolio, experience, or professional recognition is more important than formal education.",
+
+    funds: "Must show proof of income from performance contract, sponsorship, or cultural institution. For unpaid performances, proof of financial support (~€500–€1,000/month) or organizer coverage is required.",
+
+    docs: "Valid passport, visa application form, passport photos, invitation letter from Italian cultural institution, performance contract or event schedule, artist portfolio (videos, press, certificates), proof of accommodation, financial proof or sponsorship letter, travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who are musicians, dancers, theatre artists, filmmakers, visual artists, or performers invited for shows, festivals, tours, or artistic residencies in Italy.",
+
+    rules: "Must perform only for approved events or contracts. No unauthorized employment allowed. Must comply with immigration and event regulations. Residence permit required for stays longer than 90 days.",
+
+    prosCons: "Pros: Opportunity to perform in international festivals, cultural exposure, networking with European arts industry, possible sponsorships. Cons: Limited duration, income depends on contracts, strict event-based approval.",
+
+    terms: "Artist Visa: Performance-based entry permit; Cultural Institution: Sponsoring organization; Type C Visa: Short-stay visa; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit.",
+
+    legal: "Regulated under Italian immigration law and EU cultural mobility provisions, administered by Italian consulates and Ministry of Culture.",
+
+    process: `1. Receive invitation from Italian event organizer or cultural institution ->
+              2. Sign performance or residency contract ->
+              3. Prepare artistic portfolio and documents ->
+              4. Fill visa application form (Type C or D) ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews artistic engagement ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit (if long stay) ->
+              12. Perform at scheduled events or programs`
+},
+"ItalyJournalistVisa": {
+    name: "Journalist Visa (Italy, Type C or Type D)",
+
+    validity: "Short-term (Type C: up to 90 days) for assignments/events, or long-term (Type D: 3–12 months or more) for extended media postings or correspondents.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹8,000) for short stay; €116 (~₹10,000–₹11,000) for long stay. Residence permit (if Type D): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks for short-term assignments and 1–3 months for long-term media postings.",
+
+    age: "No strict age limit. Typically 21+ for professional journalists.",
+
+    education: "Not strictly required, but journalism/media qualifications or professional experience is expected.",
+
+    funds: "Must show proof of income or salary from media organization. Sponsoring news agency usually covers travel, accommodation, and expenses.",
+
+    docs: "Valid passport, visa application form, passport photos, official letter from employer/news agency, press accreditation or journalist ID card, assignment letter or purpose of visit, proof of accommodation, financial proof or sponsor letter, travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) working as journalists, reporters, correspondents, or media professionals traveling to Italy for news coverage, events, or long-term assignments.",
+
+    rules: "Must perform only journalistic activities. Must comply with Italian laws and media regulations. Accreditation may be required for certain events. Residence permit required for stays beyond 90 days.",
+
+    prosCons: "Pros: Legal access for media coverage, flexibility for assignments, opportunity to work in European media environment. Cons: Limited to professional journalism activities, strict documentation, sometimes requires accreditation.",
+
+    terms: "Journalist Visa: Media work permit; Press Accreditation: Official journalist recognition; Type C Visa: Short-stay visa; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit.",
+
+    legal: "Regulated under Italian immigration law and EU media mobility provisions, administered by Italian consulates and Ministry of Foreign Affairs.",
+
+    process: `1. Receive assignment from media organization ->
+              2. Obtain official employer letter and press ID ->
+              3. Prepare travel and accommodation details ->
+              4. Fill visa application form (Type C or D) ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews media purpose ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit (if long stay) ->
+              12. Carry out journalistic work`
+},
+"ItalyAirportTransitVisaTypeA": {
+    name: "Airport Transit Visa (Type A – Italy)",
+
+    validity: "Valid only for transit through the international transit area of an Italian airport. Usually single or double entry, valid for the specific travel itinerary.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹8,000).",
+
+    time: "Processing time usually 10–15 working days.",
+
+    age: "No strict age limit.",
+
+    education: "Not required.",
+
+    funds: "No major financial proof required, but must show confirmed onward travel and ability to complete journey.",
+
+    docs: "Valid passport, visa application form, passport photos, confirmed onward flight tickets, visa for final destination country (if required), travel itinerary, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians in certain cases depending on travel route) who need to transit through an Italian airport without entering the Schengen Area.",
+
+    rules: "Cannot leave the international transit area of the airport. Not allowed to enter Italy or Schengen zone. Must continue journey to final destination within transit time.",
+
+    prosCons: "Pros: Allows smooth airport transit through Italy. Cons: No entry into Italy, very limited movement, only for specific transit purposes.",
+
+    terms: "Type A Visa: Airport transit visa; Schengen Area: European travel zone; Transit Zone: Restricted airport area; Onward Travel: Next destination flight.",
+
+    legal: "Regulated under Schengen Visa Code and Italian immigration law, administered by Italian consulates.",
+
+    process: `1. Plan international travel route via Italy ->
+              2. Check if transit visa is required ->
+              3. Obtain visa for final destination country ->
+              4. Fill Schengen Type A visa application ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews transit itinerary ->
+              9. Receive visa approval ->
+              10. Transit through Italian airport without entering Schengen`
+},
+"ItalySchengenTransitVisaTypeC": {
+    name: "Schengen Transit Visa (Type C Short Transit – Italy)",
+
+    validity: "Short-stay visa valid for up to 90 days within a 180-day period. Usually issued for single or double entry specifically for transit purposes through Italy/Schengen area.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹8,000).",
+
+    time: "Processing time usually 10–15 working days.",
+
+    age: "No strict age limit.",
+
+    education: "Not required.",
+
+    funds: "Must show sufficient funds for transit stay (short duration), typically €50–€100/day (~₹4,500–₹9,000/day), along with confirmed travel arrangements.",
+
+    docs: "Valid passport, visa application form, passport photos, confirmed onward travel tickets, visa for final destination (if required), travel itinerary, proof of accommodation (if overnight stay needed), travel insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians when required) who need to pass through Italy or another Schengen country by land/air/sea while traveling to a non-Schengen destination.",
+
+    rules: "Transit must be genuine and short. Limited stay allowed only for transit purpose. Cannot engage in work or long-term stay. Must exit Schengen area within allowed duration.",
+
+    prosCons: "Pros: Allows short entry into Schengen area during transit, flexibility compared to airport-only transit. Cons: Limited duration, strict purpose restriction, requires full documentation.",
+
+    terms: "Type C Visa: Short-stay Schengen visa; Transit: Passing through a country en route; Schengen Area: European travel zone; Travel Insurance: Mandatory coverage for Schengen visa.",
+
+    legal: "Regulated under Schengen Visa Code and Italian immigration law, administered by Italian consulates and VFS centers.",
+
+    process: `1. Plan travel route through Schengen area ->
+              2. Confirm onward journey and destination visa ->
+              3. Arrange travel insurance and accommodation (if needed) ->
+              4. Fill Schengen Type C visa application ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews transit purpose ->
+              9. Receive visa approval ->
+              10. Transit through Italy/Schengen within allowed period`
+},
+"ItalyEUBlueCardHighlySkilledWorkers": {
+    name: "EU Blue Card (Highly Skilled Workers – Italy, Type D Long-Stay)",
+
+    validity: "Issued for 1–2 years initially based on employment contract. Renewable. Eligible for EU long-term residence after 5 years of legal stay (including time in other EU states under certain conditions).",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (EU Blue Card): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months including work authorization (Nulla Osta) and consulate processing.",
+
+    age: "No strict age limit. Typically 21–60 years for skilled professionals.",
+
+    education: "Must have higher education qualification (Bachelor’s degree or higher) or at least 5 years of relevant professional experience in a highly skilled field.",
+
+    funds: "Must meet minimum salary threshold set by Italy (generally €24,000–€35,000+ per year or higher depending on sector and updates).",
+
+    docs: "Valid passport, visa application form, passport photos, employment contract (minimum 6–12 months), work authorization (Nulla Osta), proof of qualifications (degree certificates or experience letters), CV, salary details, employer company documents, accommodation proof, health insurance, and supporting documents requested by consulate.",
+
+    whom: "Highly skilled foreign professionals (including Indians) such as IT specialists, engineers, doctors, researchers, finance professionals, and other qualified experts recruited by Italian companies.",
+
+    rules: "Must work for sponsoring employer initially. Job change allowed after certain conditions. Must maintain salary threshold. Residence permit required after arrival. Family reunification allowed.",
+
+    prosCons: "Pros: High-paying job opportunities, EU mobility benefits, fast-track route to long-term residence, family inclusion, career growth. Cons: Strict eligibility criteria, employer sponsorship required, salary threshold must be met.",
+
+    terms: "EU Blue Card: Skilled worker permit; Nulla Osta: Work authorization; Type D Visa: Long-stay visa; Highly Skilled Employment: Professional job category; Permesso di Soggiorno UE: EU residence permit.",
+
+    legal: "Regulated under EU Blue Card Directive and Italian immigration law, administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Secure high-skilled job offer in Italy ->
+              2. Employer applies for work authorization (Nulla Osta) ->
+              3. Receive approval ->
+              4. Sign employment contract meeting salary threshold ->
+              5. Prepare academic/professional documents ->
+              6. Fill EU Blue Card visa application ->
+              7. Book appointment via VFS Italy ->
+              8. Submit biometrics and documents ->
+              9. Pay visa fee ->
+              10. Consulate verifies eligibility ->
+              11. Receive visa approval ->
+              12. Travel to Italy ->
+              13. Apply for EU Blue Card residence permit ->
+              14. Work and renew or upgrade to long-term EU residence`
+},
+"ItalyErasmusEUExchangeProgramsVisa": {
+    name: "Erasmus / EU Exchange Programs Visa (Italy, Type C / Type D)",
+
+    validity: "Short-term (Type C: up to 90 days) or long-term (Type D: 3–12 months or more) depending on the duration of the Erasmus or EU exchange program.",
+
+    cost: "Visa fee: €0–€80 (~₹0–₹7,000) for short stay (often waived for Erasmus participants); €0–€116 (~₹0–₹11,000) for long stay (frequently reduced/waived). Residence permit (if Type D): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks for short-term and 1–2 months for long-term exchange programs.",
+
+    age: "Typically 18–35 years for Erasmus+ participants, but no strict legal limit for academic or research exchanges.",
+
+    education: "Must be enrolled in a recognized educational institution participating in Erasmus+ or an EU-approved exchange program.",
+
+    funds: "Proof of Erasmus scholarship, grant, or financial support covering living expenses (~€600–€1,200/month), or sponsor funding.",
+
+    docs: "Valid passport, visa application form, passport photos, Erasmus/exchange acceptance letter, learning agreement or training agreement, proof of enrollment in home institution, financial support proof (scholarship letter), accommodation proof in Italy, health insurance, and supporting documents requested by consulate.",
+
+    whom: "Students, trainees, researchers, and academic participants (including Indians through partner institutions) taking part in Erasmus+ or EU exchange programs in Italy.",
+
+    rules: "Must participate only in the approved exchange program. Limited part-time work allowed under student rules (for long stay). Must apply for residence permit if stay exceeds 90 days.",
+
+    prosCons: "Pros: Funded or partially funded study abroad, international exposure, academic credits transfer, networking across Europe. Cons: Limited duration, strict program compliance, paperwork-heavy process.",
+
+    terms: "Erasmus+: EU education exchange program; Learning Agreement: Study plan between institutions; Type C Visa: Short-stay visa; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit.",
+
+    legal: "Regulated under EU Erasmus+ framework and Italian immigration law, administered by Italian consulates and Ministry of Education/Foreign Affairs.",
+
+    process: `1. Apply and get selected for Erasmus/exchange program ->
+              2. Receive acceptance and learning agreement ->
+              3. Arrange financial proof or scholarship ->
+              4. Fill visa application (Type C or D) ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee (often waived) ->
+              8. Consulate reviews exchange program ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit (if long stay) ->
+              12. Participate in Erasmus/exchange program`
+},
+"ItalyResearcherMobilityVisaEUDirective": {
+    name: "Researcher Mobility Visa (EU Directive – Italy, Type D Long-Stay)",
+
+    validity: "Usually issued for the duration of the research project (6 months to 2 years). Renewable depending on continuation of research activity. Allows short-term mobility within EU member states.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (researcher permit): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–2 months depending on research hosting agreement approval and consulate processing.",
+
+    age: "No strict age limit. Typically 21+ for researchers and academic professionals.",
+
+    education: "Must have a higher education qualification (Master’s degree or PhD) relevant to the research field.",
+
+    funds: "Must show proof of financial support through research grant, salary, or funding from host institution (usually €1,000–€2,500/month or as per contract).",
+
+    docs: "Valid passport, visa application form, passport photos, hosting agreement with Italian research institution, research project details, proof of qualifications (degrees), CV, funding or salary proof, accommodation proof, health insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign researchers, scientists, and academics (including Indians) invited by recognized Italian universities or research institutions under EU researcher mobility programs.",
+
+    rules: "Must conduct research only under approved hosting agreement. Limited teaching or academic activities allowed. Must apply for residence permit after arrival. Mobility to other EU countries allowed under directive conditions.",
+
+    prosCons: "Pros: Access to European research ecosystem, mobility within EU, funded positions, pathway to long-term residence. Cons: Restricted to research activities, dependent on hosting institution, documentation requirements.",
+
+    terms: "Hosting Agreement: Contract with research institution; EU Directive: Research mobility law; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Research Mobility: Movement across EU for research purposes.",
+
+    legal: "Regulated under EU Directive (2016/801) for researchers and students and Italian immigration law, administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Obtain research invitation from Italian institution ->
+              2. Sign hosting agreement ->
+              3. Arrange funding or salary proof ->
+              4. Prepare academic and identity documents ->
+              5. Fill Type D researcher visa application ->
+              6. Book appointment via VFS Italy ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate verifies research agreement ->
+              10. Receive visa approval ->
+              11. Travel to Italy ->
+              12. Apply for residence permit ->
+              13. Begin research work with EU mobility rights`
+},
+
+"ItalyElectiveResidenceVisa": {
+    name: "Elective Residence Visa (Italy, Type D Long-Stay – Passive Income / Retiree Visa)",
+
+    validity: "Usually issued for 1 year initially. Renewable annually as long as passive income and residence conditions are maintained. Can lead to long-term residence after 5 years.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months depending on financial verification and consulate workload.",
+
+    age: "No strict age limit, but commonly used by retirees (40+ or 50+).",
+
+    education: "Not required.",
+
+    funds: "Must show stable passive income (not employment-based), typically €31,000+ per year (~₹27–30 lakh/year) for individuals, higher for couples/families. Income sources may include pensions, rental income, dividends, or investments.",
+
+    docs: "Valid passport, visa application form, passport photos, proof of passive income (bank statements, pension documents, investment proofs), tax returns, proof of accommodation in Italy (owned or rented property), health insurance covering Italy, personal declaration of not working in Italy, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) with sufficient passive income who wish to reside in Italy without engaging in employment or business activities.",
+
+    rules: "No employment or active business allowed in Italy. Must maintain passive income. Must reside primarily in Italy. Residence permit required after arrival.",
+
+    prosCons: "Pros: Peaceful long-term stay, ideal for retirees, access to healthcare and lifestyle benefits, pathway to permanent residence. Cons: No work rights, high income requirement, strict financial verification.",
+
+    terms: "Elective Residence: Non-working residence permit; Passive Income: Non-employment income; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Financial Stability: Proof of independent income.",
+
+    legal: "Regulated under Italian immigration law for non-working residents, administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Arrange sufficient passive income sources ->
+              2. Secure accommodation in Italy ->
+              3. Prepare financial and tax documents ->
+              4. Fill Type D elective residence visa application ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate verifies financial stability ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit ->
+              12. Reside in Italy without employment`
+},
+"ItalyDigitalNomadVisa": {
+    name: "Digital Nomad Visa (Italy, Type D Long-Stay – Remote Workers)",
+
+    validity: "Usually issued for 1 year initially. Renewable based on continued remote work and income eligibility. Can lead to long-term residence after continuous stay.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Residence permit (Permesso di Soggiorno): ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months depending on document verification and consulate workload.",
+
+    age: "Typically 18+ for remote professionals.",
+
+    education: "Generally requires a university degree OR proven professional experience (3–5+ years) in a skilled field.",
+
+    funds: "Must show stable remote income (usually €28,000–€32,000+ per year or as updated by authorities), earned from non-Italian companies/clients.",
+
+    docs: "Valid passport, visa application form, passport photos, proof of remote employment or freelance contracts, income proof (bank statements, salary slips, client agreements), CV, qualification or experience proof, accommodation proof in Italy, health insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign professionals (including Indians) working remotely for companies or clients outside Italy, such as IT professionals, designers, marketers, consultants, freelancers, etc.",
+
+    rules: "Must work only for non-Italian employers/clients. Cannot enter local Italian job market. Must maintain required income and apply for residence permit after arrival.",
+
+    prosCons: "Pros: Live in Italy while working remotely, flexible lifestyle, pathway to long-term residence, access to EU living standards. Cons: No local employment allowed, income threshold requirement, documentation-heavy process.",
+
+    terms: "Digital Nomad: Remote worker; Type D Visa: Long-stay visa; Permesso di Soggiorno: Residence permit; Remote Work: Work for foreign employer; Income Threshold: Minimum earning requirement.",
+
+    legal: "Regulated under Italian immigration law updates for remote workers and EU mobility trends, administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Secure remote job or freelance clients outside Italy ->
+              2. Ensure income meets threshold ->
+              3. Prepare professional and financial documents ->
+              4. Fill Type D digital nomad visa application ->
+              5. Book appointment via VFS Italy ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate verifies remote work eligibility ->
+              9. Receive visa approval ->
+              10. Travel to Italy ->
+              11. Apply for residence permit ->
+              12. Continue remote work while living in Italy`
+},
+
+"ItalyDecretoFlussiClickDay": {
+    name: "Decreto Flussi (Annual Labor Quota & 'Click Day')",
+
+    validity: "This is a mandatory pre-visa process. If a quota is secured, it leads to a 90-day Entry Visa, followed by a 1 to 2-year Work Residence Permit (Permesso di Soggiorno) after arrival.",
+
+    cost: "Employer Application Fee: €16 (Revenue stamp). Total visa costs if quota is won: ~€116 (~₹10,500). Legal/Agency fees for the 'click' submission often range from ₹50,000 to ₹1.5L in India.",
+
+    time: "The 'Click Day' happens once a year (usually in March or December). Processing of the 'Nulla Osta' after a successful click takes 2 to 6 months.",
+
+    age: "Minimum 18 years. No strict upper limit, but must be of working age.",
+
+    education: "Depends on the job category. No degree needed for seasonal/unskilled; specific degrees required for 'Extra-quota' or highly skilled roles.",
+
+    funds: "No personal funds required; the employer must prove company turnover and ability to pay the worker’s salary and social security.",
+
+    docs: "For the 'Click': Employer's tax returns, company registration, and worker's passport copy. For the Visa: Approved Nulla Osta, employment contract, and housing suitability (Idoneità alloggiativa).",
+
+    whom: "Indian workers seeking standard 'Subordinate' (Salaried) work, Seasonal work (Agriculture/Tourism), or Self-Employment in Italy.",
+
+    rules: "Applications can ONLY be submitted during the specific minutes of 'Click Day'. Quotas are 'first-come, first-served'. Once the national limit (e.g., 151,000 for 2024) is hit, the portal closes. Indians have a dedicated quota under bilateral agreements.",
+
+    prosCons: "Pros: Primary legal route for non-degree workers; dedicated slots for Indian nationals. Cons: Extremely high competition (slots fill in seconds); total dependency on the employer’s speed and tech; open only once a year.",
+
+    terms: "Decreto Flussi: The 'Flow Decree' setting quotas; Click Day: The moment the online portal opens for submissions; SUI: Sportello Unico per l’Immigrazione (Immigration Office).",
+
+    legal: "Legislative Decree No. 286/1998 (Testo Unico Immigrazione) + Annual Prime Ministerial Decree.",
+
+    process: `1. Italian employer identifies an Indian worker -> 
+              2. Employer prepares the application on the Ministry of Interior portal weeks before -> 
+              3. On 'Click Day' at exactly 9:00 AM CET, the employer 'clicks' to submit -> 
+              4. If the timestamp is within the quota limit, the SUI verifies the company -> 
+              5. SUI issues a 'Nulla Osta' (Work Authorization) -> 
+              6. The worker takes the Nulla Osta to VFS Global India to get the visa -> 
+              7. Worker travels to Italy and applies for residency within 8 days.`
+},
+
+
+"ItalyReligiousStudyVisa": {
+    name: "Religious Study Visa (Theology & Ecclesiastical Studies)",
+
+    validity: "1 year initially. Renewable annually for the entire duration of the religious course/degree (e.g., Bachelor of Divinity or Masters in Canon Law).",
+
+    cost: "Visa Fee: €50 (~₹4,500). Residence Permit fee: ~€100. Total approx. ₹15,000 per year.",
+
+    time: "Processing: 2 to 6 weeks. Usually faster than secular student visas due to institutional backing.",
+
+    age: "Must be 18 years or older.",
+
+    education: "Mandatory: Must have a secondary school diploma (10+2) and a recommendation letter from a religious authority (Bishop/Superior).",
+
+    funds: "Mandatory: Must show at least €6,000 per year, often provided via a 'Guarantee Letter' from the religious order or a scholarship from the Vatican.",
+
+    docs: "Admission letter from a Pontifical University or Seminary in Rome/Italy, Letter of Presentation from a religious superior, proof of health insurance, and evidence of free accommodation (usually in a convent or college).",
+
+    whom: "Indian priests, nuns, seminarians, or laypeople traveling to Rome to study theology, philosophy, or other church-related sciences at Vatican-linked institutes.",
+
+    rules: "Cannot work in a secular job. Must attend classes at the specific religious institute. The visa is strictly for 'Studio - Motivi Religiosi'.",
+
+    prosCons: "Pros: Lower financial bar if the church sponsors; simplified residency process in Rome. Cons: Strictly limited to ecclesiastical studies; cannot easily switch to a work visa.",
+
+    terms: "Pontifical University: A university established by the Holy See; Ecclesiastical Degree: Degrees like STB, STL, or STD.",
+
+    legal: "Inter-ministerial Decree No. 850/2011 regarding study visas.",
+
+    process: `1. Secure admission to a recognized Pontifical University (e.g., Gregorian, Urbaniana) -> 
+              2. Obtain a 'Letter of Support' from your local Bishop in India -> 
+              3. Get a 'Letter of Acceptance' from the college in Rome -> 
+              4. Apply for the Type D Study Visa at the Italian Embassy -> 
+              5. Receive the visa and travel to Italy -> 
+              6. Apply for the 'Permesso di Soggiorno per Studio' at the Post Office within 8 days.`
+},
+
+
+"ItalyProfessionalSportVisa": {
+    name: "Sporting Activities Visa (Long-Term Professional)",
+
+    validity: "Duration of the sports contract (usually 1 to 2 years). Renewable for the length of the professional engagement.",
+
+    cost: "Visa Fee: €116 (~₹10,500). Plus biometrics and residency permit fees (~€150).",
+
+    time: "Processing: 3 to 8 weeks. Depends on the speed of the CONI clearance in Italy.",
+
+    age: "Minimum 18 years (or 16 with high-level professional contracts).",
+
+    education: "No specific academic degree; requires proven professional athletic standing.",
+
+    funds: "No personal funds required; the sports club must guarantee a salary that meets the legal minimum and provides full insurance.",
+
+    docs: "Valid passport, professional sports contract, 'Nulla Osta' from CONI (Italian National Olympic Committee), and proof of high-level sporting CV.",
+
+    whom: "Professional Indian athletes (footballers, cricketers, etc.) or coaches signed by an Italian professional sports club or federation.",
+
+    rules: "The athlete must work ONLY for the club that sponsored the visa. The club is responsible for the athlete's housing and medical care. Must be a recognized professional sport.",
+
+    prosCons: "Pros: Full residency rights; allows family to accompany; fast-track for elite athletes. Cons: Totally dependent on the sports contract; if released from the club, the visa is cancelled.",
+
+    terms: "CONI: Comitato Olimpico Nazionale Italiano; Nulla Osta per Sport: Specific athletic work authorization.",
+
+    legal: "Article 27, paragraph 1, letter 'p' of the Italian Immigration Act.",
+
+    process: `1. Sign a contract with an Italian sports club -> 
+              2. The club applies to the relevant Sports Federation and then to CONI for a 'Nulla Osta' -> 
+              3. CONI sends the authorization to the Italian Embassy -> 
+              4. Athlete applies for the visa at VFS Global India -> 
+              5. Visa is granted -> 
+              6. Athlete enters Italy and registers with the local Questura (Police HQ).`
+},
+
+"ItalyLongTermStayVisaTypeD": {
+    name: "Long-Term Stay Visa (Type D – Italy, National Visa)",
+
+    validity: "Valid for stays longer than 90 days, typically issued for 3 months up to 1 year depending on purpose (work, study, family, etc.). Must be converted into a residence permit after arrival.",
+
+    cost: "Visa fee: €116 (~₹10,000–₹11,000). Additional residence permit cost: ~€100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 1–3 months depending on visa category and consulate workload.",
+
+    age: "Varies by purpose. Generally 18+ for most categories.",
+
+    education: "Depends on purpose (required for study/research visas, not required for family or other categories).",
+
+    funds: "Depends on visa type. Must show sufficient financial means to support stay (employment salary, student funds, sponsor income, etc.).",
+
+    docs: "Valid passport, visa application form, passport photos, purpose-specific documents (job contract, university admission, family proof, etc.), financial proof, accommodation proof, health insurance, and any additional documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) planning to stay in Italy for more than 90 days for purposes such as work, study, family reunification, research, or long-term residence.",
+
+    rules: "Must apply for a residence permit (Permesso di Soggiorno) within 8 days of arrival in Italy. Must follow conditions of specific visa category. Cannot change purpose without legal procedure.",
+
+    prosCons: "Pros: Gateway to long-term stay in Italy, allows conversion into residence permit, multiple pathways (work, study, family, etc.). Cons: Requires strict documentation, must convert to residence permit quickly, depends on specific category rules.",
+
+    terms: "Type D Visa: National long-stay visa; Permesso di Soggiorno: Residence permit; National Visa: Country-specific long stay; Purpose of Stay: Reason for immigration (work/study/family).",
+
+    legal: "Regulated under Italian immigration law and EU long-stay visa framework, administered by Italian consulates and Ministry of Interior.",
+
+    process: `1. Determine purpose of long-term stay ->
+              2. Gather category-specific documents ->
+              3. Fill Type D visa application form ->
+              4. Book appointment via VFS Italy ->
+              5. Submit biometrics and documents ->
+              6. Pay visa fee ->
+              7. Consulate reviews application ->
+              8. Receive visa approval ->
+              9. Travel to Italy ->
+              10. Apply for residence permit within 8 days ->
+              11. Begin long-term stay based on visa purpose`
+}
+
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

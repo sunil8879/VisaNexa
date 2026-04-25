@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* Saudi Arabia Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+    <label>Select Country</label>
+    <select id="country">
+        <!-- Value must exactly match the JavaScript key "SAUDI ARABIA" -->
+        <option value="SAUDI ARABIA">SAUDI ARABIA</option>
+    </select>
+
+    <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+    <select id="visaType">
+        <optgroup label="Tourist & Visit">
+            <option value="SaudiTouristVisaEvisa">Tourist eVisa</option>
+            <option value="SaudiVisitVisa">Personal Visit Visa</option>
+            <option value="SaudiFamilyVisitVisa">Family Visit Visa</option>
+            <option value="SaudiGCCResidentVisa">GCC Resident Visa</option>
+            <option value="SaudiTransitVisa">Transit Visa</option>
+        </optgroup>
+
+        <optgroup label="Work & Employment">
+            <option value="SaudiWorkVisaEmploymentVisa">Work Visa (Employment)</option>
+            <option value="SaudiTemporaryWorkVisa">Temporary Work Visa</option>
+            <option value="SaudiSeasonalWorkVisa">Seasonal Work Visa</option>
+            <option value="SaudiDomesticWorkerVisa">Domestic Worker Visa</option>
+            <option value="SaudiHouseholdServiceWorkerVisa">Household Service Worker</option>
+        </optgroup>
+
+        <optgroup label="Pilgrimage">
+            <option value="SaudiHajjVisa">Hajj Visa</option>
+            <option value="SaudiUmrahVisa">Umrah Visa</option>
+        </optgroup>
+
+        <optgroup label="Business & Investment">
+            <option value="SaudiBusinessVisitVisa">Business Visit Visa</option>
+            <option value="SaudiInvestorVisa">Investor Visa</option>
+            <option value="SaudiPremiumResidencyVisa">Premium Residency (Green Card)</option>
+            <option value="SaudiStartupVisa">Startup Visa</option>
+        </optgroup>
+
+        <optgroup label="Family & Residency">
+            <option value="SaudiFamilyResidenceVisa">Family Residence Visa</option>
+            <option value="SaudiDependentVisa">Dependent Visa</option>
+        </optgroup>
+
+        <optgroup label="Education & Talent">
+            <option value="SaudiStudentVisa">Student Visa</option>
+            <option value="SaudiSpecialTalentVisa">Special Talent Visa</option>
+            <option value="SaudiCulturalVisa">Cultural Visa</option>
+            <option value="SaudiEventVisa">Event Visa</option>
+        </optgroup>
+
+        <optgroup label="Diplomatic & Specialized">
+            <option value="SaudiDiplomaticVisa">Diplomatic Visa</option>
+            <option value="SaudiOfficialVisa">Official Visa</option>
+            <option value="SaudiGovernmentVisa">Government Visa</option>
+            <option value="SaudiMedicalTreatmentVisa">Medical Treatment Visa</option>
+        </optgroup>
+
+
+  <optgroup label="Extras">
+            <option value="SaudiDiplomaticDomesticWorkerA3G5">Domestic worker Visa</option>
+            <option value="SaudiMedicalCompanionVisa">Medical companion visa</option>
+            <option value="SaudiEducationalStudentDependentVisa">Educational student dependent Visa</option>
+            <option value="SaudiTruckDriverTransitVisa">Truck driver Visa</option>
+<option value="SaudiReturningResidentVisa">Returning resident Visa</option>
+        </optgroup>
+    </select>
+</div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF SAUDI ARABIA MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇸🇦 VIEW SAUDI ARABIA IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇸🇦 GENERAL IMMIGRATION PROCESS FOR SAUDI ARABIA (2026)</h1>
+        <p>Saudi Arabia immigration is largely sponsor-based (employer, family, government, or institution) except for eVisa categories like tourism, transit, and some special visas. Most long-term visas lead to Iqama (residency permit).</p>
+
+        <h2>🟢 THE STEP-BY-STEP PROCESS</h2>
+        <ul>
+            <li><strong>1. Identify Visa Type:</strong> Work, family, student, investor, visit, pilgrimage, or special category. Determine if a sponsor is required.</li>
+            <li><strong>2. Sponsorship / Invitation:</strong> Employer, family member, university, or government applies for approval inside Saudi systems (MOFA, Jawazat, MHRSD, MISA).</li>
+            <li><strong>3. Visa Authorization:</strong> Saudi authority issues a visa authorization number or invitation approval. This is mandatory before embassy application.</li>
+            <li><strong>4. Document Preparation:</strong> Passport (6+ months), photos, attested certificates (education, marriage, birth), GAMCA medical report, PCC, and sponsor documents.</li>
+            <li><strong>5. Application Submission:</strong> Apply via Saudi embassy/consulate in India, the online eVisa platform, or approved agents.</li>
+            <li><strong>6. Verification & Checks:</strong> Document verification, security clearance, and medical fitness validation.</li>
+            <li><strong>7. Visa Issuance / Stamping:</strong> Visa stamped on passport or issued as an eVisa. Includes visa number, validity, and entry type.</li>
+            <li><strong>8. Travel:</strong> Book flight and carry passport, visa, insurance, sponsor details, and tickets.</li>
+            <li><strong>9. Entry Clearance:</strong> Passport control, biometric verification (fingerprints/face scan), and entry stamp.</li>
+            <li><strong>10. Post-Arrival Formalities:</strong> Medical test, biometrics registration, issuance of Iqama (residence ID), and insurance activation.</li>
+            <li><strong>11. Residency Rules:</strong> Follow conditions strictly. No unauthorized work. Sponsor is responsible for compliance.</li>
+            <li><strong>12. Renewal / Exit:</strong> Visa renewal based on category, or final exit visa required for permanent departure.</li>
+        </ul>
+
+        <h2>🏛️ KEY AUTHORITIES</h2>
+        <table class="master-table">
+            <thead>
+                <tr><th>Authority</th><th>Purpose</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>MOFA</strong></td><td>Ministry of Foreign Affairs – visa issuance & approvals</td></tr>
+                <tr><td><strong>Jawazat</strong></td><td>General Directorate of Passports – immigration & residency</td></tr>
+                <tr><td><strong>MHRSD</strong></td><td>Ministry of Human Resources – labor/work visas</td></tr>
+                <tr><td><strong>MISA</strong></td><td>Ministry of Investment – investor visas</td></tr>
+                <tr><td><strong>MOH</strong></td><td>Ministry of Health – medical approvals</td></tr>
+                <tr><td><strong>MOE</strong></td><td>Ministry of Education – student visas</td></tr>
+            </tbody>
+        </table>
+
+        <h2>🧠 CORE CONCEPTS</h2>
+        <ul>
+            <li><strong>Sponsor System:</strong> Most Saudi visas require a sponsor responsible for the applicant.</li>
+            <li><strong>Iqama:</strong> Saudi residence permit issued after entry for long-term visas.</li>
+            <li><strong>Visa Block Number:</strong> Authorization number issued before embassy stamping.</li>
+            <li><strong>eVisa:</strong> Electronic visa system for eligible short-term categories.</li>
+            <li><strong>Exit Re-Entry Visa:</strong> Permission for residents to leave and return.</li>
+        </ul>
+
+        <div class="official-box">
+            <h1>🇸🇦 OFFICIAL SAUDI ARABIA VISA WEBSITES</h1>
+            <p><strong>1. Official eVisa Portal (Tourism/Umrah):</strong> <a href="https://visa.visitsaudi.com" target="_blank">visa.visitsaudi.com</a></p>
+            <p><strong>2. MOFA Portal (Work/Family/Business):</strong> <a href="https://visa.mofa.gov.sa" target="_blank">visa.mofa.gov.sa</a></p>
+            <p><strong>3. Absher Portal (Residency Management):</strong> <a href="https://www.absher.sa" target="_blank">www.absher.sa</a></p>
+            <p><strong>4. Qiwa Platform (Employment/Work Permits):</strong> <a href="https://qiwa.sa" target="_blank">qiwa.sa</a></p>
+            <p><strong>5. Premium Residency (Green Card):</strong> <a href="https://pr.gov.sa" target="_blank">pr.gov.sa</a></p>
+            <p><strong>6. Nusuk Platform (Pilgrimage Management):</strong> <a href="https://www.nusuk.sa" target="_blank">www.nusuk.sa</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: SAUDI ARABIA USES MULTIPLE PORTALS. ALWAYS ENSURE YOU ARE ON A .GOV.SA DOMAIN.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "SAUDI ARABIA": {
+"SaudiTouristVisaEvisa": {
+    name: "Tourist Visa (eVisa – Saudi Arabia)",
+
+    validity: "Usually 1 year multiple-entry visa. Each stay allows up to 90 days total (tourism, family visits, events, Umrah outside Hajj season).",
+
+    cost: "Approx USD 80–120 (~₹7,000–₹10,000) including visa fee + mandatory medical insurance. Final cost may vary based on insurance plan and exchange rate.",
+
+    time: "Very fast processing: usually 24 hours to 72 hours if documents are correct. In some cases instant approval is possible under automated systems.",
+
+    age: "No strict age limit. Minors must apply with parent/guardian.",
+
+    education: "No requirement.",
+
+    funds: "No fixed bank balance rule officially published, but applicant must show ability to support travel expenses (hotel, food, return ticket may be checked).",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, online application form, email ID, debit/credit card for payment, travel insurance (auto-included in most cases), accommodation details (hotel booking or address if staying with family), return flight ticket (recommended).",
+
+    whom: "Indian tourists, family visitors, event travellers, and Umrah pilgrims (outside Hajj period) who want short-term entry into Saudi Arabia for leisure or personal visits.",
+
+    rules: "Cannot work or do employment activities. Must leave before visa expiry. Must follow Saudi laws and cultural rules. Separate visa required for Hajj. Overstay leads to fines and bans.",
+
+    prosCons: "Pros: Fully online application, very fast approval, multiple entry option, includes insurance, easy access for Indians since reforms. Cons: No work rights, strict travel purpose limitation, cannot perform Hajj, rules may change during pilgrimage seasons.",
+
+    terms: "eVisa: Electronic visa issued online; Multiple Entry: Can enter several times within validity; Insurance: Mandatory medical coverage included; Umrah Permission: Allowed only outside Hajj restrictions; MOFA: Ministry of Foreign Affairs Saudi Arabia; Visa Portal: Official online application system.",
+
+    legal: "Issued under Saudi Ministry of Foreign Affairs (MOFA) via official Saudi eVisa platform and governed by Saudi tourism and immigration regulations.",
+
+    process: `1. Visit official Saudi eVisa portal ->
+              2. Create account using email ->
+              3. Fill application form (passport details, travel purpose) ->
+              4. Upload required information (if requested) ->
+              5. Pay visa + insurance fee online ->
+              6. Automatic background verification ->
+              7. Visa approval issued via email (PDF) ->
+              8. Download and print eVisa ->
+              9. Travel to Saudi Arabia ->
+              10. Immigration verification on arrival ->
+              11. Stay up to 90 days per visit ->
+              12. Exit before visa expiry or re-enter if multiple entry visa is active.`
+},
+
+"SaudiVisitVisa": {
+    name: "Visit Visa (Saudi Arabia)",
+
+    validity: "Usually 30 days to 90 days per visit depending on visa type. Some visit visas can be single-entry or multiple-entry (valid 6 months to 1 year).",
+
+    cost: "Approx SAR 300–800 (~₹6,500–₹18,000) excluding mandatory medical insurance and service charges. Multiple-entry visas cost higher.",
+
+    time: "Processing time usually 1–5 working days depending on application type (family or business invitation) and verification speed.",
+
+    age: "No strict age limit. Minors must apply with parents/guardians.",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds to support stay in Saudi Arabia. Bank statements may be required in some embassy-based applications.",
+
+    docs: "Valid passport (minimum 6 months), passport-size photo, invitation letter from Saudi host (family or sponsor), proof of relationship (for family visit), visa application form, travel insurance, return flight ticket, accommodation details, bank statement (if required).",
+
+    whom: "Indians visiting Saudi Arabia to meet family members, relatives, friends, or attend personal events such as weddings, emergencies, or short private visits.",
+
+    rules: "Cannot work or take employment. Must leave before visa expiry. Must strictly follow visit purpose. Overstay results in fines and possible bans. Sponsor in Saudi Arabia is responsible for visitor compliance.",
+
+    prosCons: "Pros: Easy family reunification, flexible short stay, multiple entry options available, relatively fast processing. Cons: No work rights, dependent on Saudi sponsor invitation, strict purpose limitation, overstaying penalties apply.",
+
+    terms: "Visit Visa: Short-term entry permit for personal visits; Sponsor: Saudi citizen or resident inviting applicant; Single Entry: One-time entry allowed; Multiple Entry: Re-entry allowed within validity; MOFA: Saudi Ministry of Foreign Affairs; Absher: Saudi government platform for residents.",
+
+    legal: "Regulated by Saudi Ministry of Foreign Affairs (MOFA) and General Directorate of Passports (Jawazat).",
+
+    process: `1. Obtain invitation letter from Saudi resident/citizen ->
+              2. Apply online or through Saudi embassy/agent ->
+              3. Fill visa application form with passport details ->
+              4. Submit supporting documents (relationship proof, invitation) ->
+              5. Pay visa and insurance fees ->
+              6. Background and eligibility verification ->
+              7. Visa approval issued (electronic or stamped) ->
+              8. Travel to Saudi Arabia ->
+              9. Immigration clearance at entry point ->
+              10. Stay for allowed duration (30–90 days) ->
+              11. Exit before visa expiry or apply for extension if eligible.`
+},
+
+
+"SaudiBusinessVisitVisa": {
+    name: "Business Visit Visa (Saudi Arabia)",
+
+    validity: "Usually 30 to 90 days per visit. Can be issued as single-entry or multiple-entry (valid up to 6 months or 1 year depending on invitation and approval).",
+
+    cost: "Approx SAR 500–1,200 (~₹11,000–₹27,000) excluding medical insurance and service charges. Multiple-entry visas cost higher.",
+
+    time: "Processing time usually 1–7 working days depending on invitation approval and verification by Saudi authorities or embassy.",
+
+    age: "No strict age limit. Applicant must be legally adult (18+).",
+
+    education: "No mandatory requirement, but business purpose may require professional or industry background proof.",
+
+    funds: "Must show sufficient financial stability to support travel and stay. Bank statements may be required in embassy-based applications.",
+
+    docs: "Valid passport (6+ months), passport-size photo, business invitation letter from Saudi company, company registration documents (if applicable), applicant’s business profile or CV, travel insurance, visa application form, return flight ticket, bank statements (if required).",
+
+    whom: "Indian entrepreneurs, business professionals, investors, consultants, and company representatives visiting Saudi Arabia for meetings, trade discussions, exhibitions, or short-term business activities.",
+
+    rules: "Cannot take up employment or salary-based work in Saudi Arabia. Must only engage in approved business activities mentioned in invitation. Must exit before visa expiry. Overstay leads to penalties and bans.",
+
+    prosCons: "Pros: Easy access for trade and business networking, multiple entry option available, quick processing, strengthens international business relations. Cons: No employment rights, depends on Saudi company invitation, limited stay duration, strict compliance with business purpose.",
+
+    terms: "Business Visit Visa: Short-term visa for commercial activities; Invitation Letter: Official request from Saudi company; Single Entry: One-time entry permit; Multiple Entry: Reusable visa within validity; MOFA: Ministry of Foreign Affairs Saudi Arabia; Chamber of Commerce: Business verification authority.",
+
+    legal: "Regulated by Saudi Ministry of Foreign Affairs (MOFA) and Saudi Chamber of Commerce in coordination with General Directorate of Passports (Jawazat).",
+
+    process: `1. Receive business invitation letter from Saudi company ->
+              2. Invitation attested by Saudi Chamber of Commerce ->
+              3. Apply online or via Saudi embassy/visa agent ->
+              4. Fill application form with business details ->
+              5. Submit passport and supporting documents ->
+              6. Pay visa and insurance fees ->
+              7. Verification by Saudi authorities ->
+              8. Visa approval issued (electronic or stamped) ->
+              9. Travel to Saudi Arabia ->
+              10. Immigration clearance on arrival ->
+              11. Attend business meetings/activities ->
+              12. Exit before visa expiry or apply for extension if permitted.`
+},
+
+"SaudiWorkVisaEmploymentVisa": {
+    name: "Work Visa (Employment Visa – Saudi Arabia)",
+
+    validity: "Usually 1–2 years initially. Renewable based on employment contract and sponsor (employer) approval.",
+
+    cost: "Approx SAR 2,000–5,000 (~₹45,000–₹1.1 lakh) excluding medical test, visa stamping, insurance, and recruitment agency charges. In most cases, employer bears major costs.",
+
+    time: "Processing time usually 2–8 weeks depending on employer approval, quota availability, and embassy processing speed in India.",
+
+    age: "Generally 21–60 years depending on job category and employer requirements.",
+
+    education: "Depends on job role. Skilled jobs require degree/diploma; semi-skilled roles require experience certificates; labor roles may require basic qualification.",
+
+    funds: "No personal financial requirement. Employer (Saudi sponsor) is responsible for salary, visa cost, accommodation (often), and insurance.",
+
+    docs: "Valid passport (minimum 6–12 months), passport-size photos, job offer letter, employment contract, educational certificates (attested by MEA + Saudi Embassy), experience letters, medical fitness report (GAMCA approved), police clearance certificate, visa authorization number (from Saudi employer), visa application form.",
+
+    whom: "Indian professionals, engineers, technicians, healthcare workers, construction workers, and skilled/semi-skilled employees recruited by Saudi companies for long-term employment.",
+
+    rules: "Must work only for sponsoring employer. Cannot change job without official transfer (kafala system procedures or updated labor reforms). Must follow Saudi labor laws. Must exit or renew visa when contract ends. Overstay or unauthorized work is illegal.",
+
+    prosCons: "Pros: Stable employment in Saudi Arabia, tax-free salary (generally), employer covers major costs, long-term career opportunity, family sponsorship possible in many cases. Cons: Employer-dependent visa, limited job mobility, strict compliance rules, medical and documentation process is strict.",
+
+    terms: "Employment Visa: Work authorization in Saudi Arabia; Sponsor: Saudi employer responsible for visa; Iqama: Saudi residence permit card; Kafala System: Sponsorship-based employment system; GAMCA: Medical screening authority; MOFA: Ministry of Foreign Affairs; MOL: Ministry of Labor Saudi Arabia.",
+
+    legal: "Regulated by Saudi Ministry of Human Resources and Social Development (MHRSD), Ministry of Foreign Affairs (MOFA), and General Directorate of Passports (Jawazat).",
+
+    process: `1. Employer in Saudi Arabia issues job offer ->
+              2. Employment contract signed ->
+              3. Employer applies for work visa authorization (MOFA) ->
+              4. Visa block number issued ->
+              5. Indian applicant submits documents (passport, certificates) ->
+              6. Medical test (GAMCA approved center) ->
+              7. Police clearance certificate obtained ->
+              8. Visa stamping at Saudi Embassy in India ->
+              9. Travel to Saudi Arabia ->
+              10. Immigration entry clearance ->
+              11. Iqama (residence permit) issued ->
+              12. Begin employment under sponsor ->
+              13. Renewal based on contract continuation.`
+},
+
+
+"SaudiTemporaryWorkVisa": {
+    name: "Temporary Work Visa (Saudi Arabia)",
+
+    validity: "Usually 30 to 90 days for short-term assignments. Can be extended in limited cases depending on project needs and employer approval.",
+
+    cost: "Approx SAR 1,000–3,000 (~₹22,000–₹67,000) excluding insurance, medical test (if required), and agency fees. Typically paid by employer or project sponsor.",
+
+    time: "Processing time usually 3–10 working days depending on employer documentation and government approval speed.",
+
+    age: "Generally 21–60 years depending on job role and contract type.",
+
+    education: "Depends on assignment. Skilled technical roles require degree/diploma; project-based roles require relevant experience or certifications.",
+
+    funds: "No personal financial requirement. Employer or project sponsor is responsible for salary, accommodation (if provided), and visa costs.",
+
+    docs: "Valid passport (6+ months), passport-size photo, temporary employment contract, sponsor invitation letter, project assignment letter, professional qualifications or experience certificates, medical test (if required), visa application form.",
+
+    whom: "Foreign workers hired for short-term projects such as construction, oil & gas shutdowns, consultancy assignments, technical installations, or urgent workforce needs in Saudi Arabia.",
+
+    rules: "Must work only for specified employer and project. Cannot switch employer or extend role without approval. Must exit Saudi Arabia after contract completion unless visa is extended or converted. Must comply with Saudi labor and immigration laws.",
+
+    prosCons: "Pros: Quick entry for short-term work, employer covers costs, ideal for project-based income, opportunity to gain Saudi work experience. Cons: Very limited duration, no long-term residency benefits, strictly job/project bound, requires exit after completion.",
+
+    terms: "Temporary Work Visa: Short-term employment authorization; Sponsor: Saudi employer or project company; Project-Based Work: Defined assignment role; MOFA: Ministry of Foreign Affairs; Iqama: Residence permit (not always issued for very short contracts); Jawazat: Immigration authority.",
+
+    legal: "Regulated by Saudi Ministry of Human Resources and Social Development (MHRSD), Ministry of Foreign Affairs (MOFA), and General Directorate of Passports (Jawazat).",
+
+    process: `1. Employer identifies short-term project need ->
+              2. Issues temporary contract or assignment letter ->
+              3. Applies for visa authorization via MOFA ->
+              4. Receives visa block/approval number ->
+              5. Applicant submits passport and documents ->
+              6. Medical test if required (GAMCA approved) ->
+              7. Visa stamping at Saudi Embassy ->
+              8. Travel to Saudi Arabia ->
+              9. Immigration entry clearance ->
+              10. Begin temporary work assignment ->
+              11. Complete project within visa validity ->
+              12. Exit Saudi Arabia or extend visa if approved.`
+},
+
+"SaudiSeasonalWorkVisa": {
+    name: "Seasonal Work Visa (Saudi Arabia)",
+
+    validity: "Short-term visa typically valid for 30 to 180 days depending on sector (especially Hajj, Umrah services, hospitality, agriculture, retail peak seasons).",
+
+    cost: "Approx SAR 1,000–3,500 (~₹22,000–₹78,000) excluding medical test, insurance, and recruitment fees. Usually fully or mostly covered by employer.",
+
+    time: "Processing time usually 3–15 working days depending on manpower demand, employer approval, and seasonal quota availability.",
+
+    age: "Generally 21–60 years depending on job type and sector requirements.",
+
+    education: "Not always required. Hospitality, logistics, and service roles may require basic qualifications or prior experience.",
+
+    funds: "No personal financial requirement. Employer is responsible for salary, visa costs, and often accommodation and food during contract period.",
+
+    docs: "Valid passport (6+ months), passport-size photo, seasonal employment contract, sponsor invitation letter, medical fitness certificate (if required), experience proof (if needed), visa application form.",
+
+    whom: "Foreign workers (including Indians) hired for seasonal demand jobs such as Hajj/Umrah services, airport handling, hotel staff, retail surge periods, construction peaks, and agricultural harvesting.",
+
+    rules: "Must work only during specified seasonal contract period. Cannot switch employer or extend employment without approval. Must exit Saudi Arabia after contract completion unless renewed or converted. Must follow Saudi labor and immigration laws.",
+
+    prosCons: "Pros: Fast employment opportunity, employer covers costs, good for short-term income, high demand during peak seasons, entry point for future Saudi employment. Cons: Temporary job only, no long-term residency benefits, physically demanding work in many roles, strict exit requirement after season ends.",
+
+    terms: "Seasonal Work Visa: Short-term employment permit for peak demand periods; Sponsor: Saudi employer or service provider; Hajj Season: Pilgrimage period requiring large workforce; Umrah Season: Religious tourism period; MOHRSD: Ministry of Human Resources and Social Development; Jawazat: Immigration authority.",
+
+    legal: "Regulated by Saudi Ministry of Human Resources and Social Development (MHRSD), Ministry of Foreign Affairs (MOFA), and General Directorate of Passports (Jawazat).",
+
+    process: `1. Employer identifies seasonal workforce requirement ->
+              2. Applies for seasonal work quota approval ->
+              3. Receives visa authorization from MOFA ->
+              4. Issues employment contract for seasonal period ->
+              5. Applicant submits passport and documents ->
+              6. Medical test (if required, GAMCA approved) ->
+              7. Visa stamping at Saudi Embassy ->
+              8. Travel to Saudi Arabia ->
+              9. Immigration entry clearance ->
+              10. Begin seasonal work assignment ->
+              11. Complete contract during peak season ->
+              12. Exit Saudi Arabia after contract ends or season concludes.`
+},
+
+"SaudiHajjVisa": {
+    name: "Hajj Visa (Saudi Arabia)",
+
+    validity: "Very short-term visa, valid only for the Hajj pilgrimage period. Typically issued for 30–45 days depending on official Hajj calendar and travel group schedule.",
+
+    cost: "Approx SAR 10,000–25,000+ (~₹2.2 lakh–₹5.5 lakh) depending on package (government quota, travel operator, accommodation, transport, and service level). Visa fee itself is usually included in package.",
+
+    time: "Processing time usually 7–30 days depending on quota allocation, group registration, and verification by Saudi authorities and approved Hajj operators.",
+
+    age: "Generally 18–65 years. Elderly applicants may be allowed based on health condition and group rules. Some restrictions may apply during high-demand years.",
+
+    education: "No requirement.",
+
+    funds: "Must show ability to pay full Hajj package cost. Financial requirement is generally covered through approved Hajj tour operators or government quota systems.",
+
+    docs: "Valid passport (minimum 6–12 months), passport-size photos, confirmed Hajj package booking, vaccination certificate (mandatory vaccines such as meningitis), visa application form, biometric data (if required), Mahram proof for women (in some cases), travel insurance, confirmed return ticket.",
+
+    whom: "Muslim pilgrims from India and other countries who wish to perform Hajj pilgrimage in Mecca during the annual Hajj season under Saudi government quota or approved travel agencies.",
+
+    rules: "Strictly for Hajj pilgrimage only. Cannot work or perform any non-religious activity. Must travel only through approved Hajj operators or government quota. Must leave Saudi Arabia after Hajj period ends. Overstay is strictly prohibited and penalized.",
+
+    prosCons: "Pros: Enables one of the most important religious obligations in Islam, structured and organized government-managed system, includes full travel and accommodation arrangements in most packages. Cons: Very expensive, limited quota system, strict scheduling, physically demanding pilgrimage, no flexibility in travel dates.",
+
+    terms: "Hajj: Annual Islamic pilgrimage to Mecca; Quota System: Government-controlled pilgrim allocation; Nusuk Platform: Official Saudi Hajj/Umrah digital system; Mahram: Male guardian requirement for female pilgrims (condition-based); MOH: Saudi Ministry of Hajj and Umrah; MOFA: Ministry of Foreign Affairs.",
+
+    legal: "Regulated by Saudi Ministry of Hajj and Umrah, Ministry of Foreign Affairs (MOFA), and General Directorate of Passports (Jawazat) under strict annual Hajj regulations.",
+
+    process: `1. Register through authorized Hajj operator or Nusuk platform ->
+              2. Apply for Hajj quota allocation ->
+              3. Submit passport and personal details ->
+              4. Complete vaccination and health requirements ->
+              5. Select Hajj package (economy to premium) ->
+              6. Pay full package cost ->
+              7. Receive visa approval through Saudi authorities ->
+              8. Visa issued and travel itinerary confirmed ->
+              9. Travel to Saudi Arabia in Hajj group ->
+              10. Perform Hajj rituals in Mecca and Medina ->
+              11. Return to home country after pilgrimage period ends.`
+},
+
+"SaudiUmrahVisa": {
+    name: "Umrah Visa (Saudi Arabia)",
+
+    validity: "Typically 90 days (3 months). Some cases allow multiple entry validity depending on package and platform rules (e.g., Nusuk-based permits). Stay is strictly within visa validity.",
+
+    cost: "Approx SAR 700–2,500 (~₹15,000–₹55,000) excluding travel, hotel, food, and transport. Total cost varies widely based on package quality and season.",
+
+    time: "Processing time usually 24 hours to 7 days depending on application channel (eVisa, travel agent, or Nusuk platform).",
+
+    age: "No strict age limit. Minors must travel with guardians. Elderly pilgrims may require medical clearance in some cases.",
+
+    education: "No requirement.",
+
+    funds: "Must show ability to cover travel and stay expenses. Usually managed through travel packages or approved agents; no fixed bank balance rule.",
+
+    docs: "Valid passport (minimum 6 months), passport-size photos, confirmed return ticket, hotel booking or package confirmation, vaccination certificate (especially meningitis), travel insurance, visa application form, biometric data (if required), Mahram proof for women (depending on updated rules and country guidelines).",
+
+    whom: "Muslim pilgrims from India and worldwide who wish to perform Umrah (minor pilgrimage) in Mecca and Medina outside the Hajj season.",
+
+    rules: "Must strictly perform Umrah and related travel only. Cannot work or overstay. Must exit Saudi Arabia before visa expiry. Must follow Saudi religious and immigration rules. Separate permission required during Hajj season restrictions.",
+
+    prosCons: "Pros: Easy online application (eVisa/Nusuk), flexible travel dates, spiritually significant pilgrimage, multiple entry options in some cases, faster processing than Hajj visa. Cons: No employment rights, restricted duration, seasonal crowding, cost varies significantly based on package and season.",
+
+    terms: "Umrah: Non-mandatory Islamic pilgrimage; Nusuk Platform: Official Saudi pilgrimage booking system; eVisa: Electronic visa issued online; Haram: Sacred mosque area in Mecca; Miqat: Entry boundary for pilgrims; MOH: Ministry of Hajj and Umrah; MOFA: Ministry of Foreign Affairs.",
+
+    legal: "Regulated by Saudi Ministry of Hajj and Umrah, Ministry of Foreign Affairs (MOFA), and General Directorate of Passports (Jawazat) under Saudi pilgrimage regulations.",
+
+    process: `1. Choose Umrah package or apply via Nusuk/eVisa portal ->
+              2. Fill online application with passport details ->
+              3. Upload required documents (passport, photo, vaccination) ->
+              4. Select travel dates and accommodation ->
+              5. Pay visa and package fees ->
+              6. Background verification and approval ->
+              7. Receive Umrah visa (electronic or stamped) ->
+              8. Travel to Saudi Arabia ->
+              9. Perform Umrah rituals in Mecca and Medina ->
+              10. Stay within permitted duration (up to 90 days) ->
+              11. Exit Saudi Arabia before visa expiry.`
+},
+
+"SaudiTransitVisa": {
+    name: "Transit Visa (Saudi Arabia)",
+
+    validity: "Usually 24 hours to 96 hours (1 to 4 days) depending on airline, route, and visa type. It is strictly short-stay for layovers.",
+
+    cost: "Approx SAR 50–150 (~₹1,100–₹3,300) in many cases, sometimes free when issued via airline promotions or bundled with ticket. Insurance may be included.",
+
+    time: "Very fast processing: often instant to 24–48 hours when applied through airlines or online systems.",
+
+    age: "No strict age limit. Minors must travel with guardians.",
+
+    education: "No requirement.",
+
+    funds: "No strict financial requirement, but traveler must have confirmed onward ticket and valid visa for destination country.",
+
+    docs: "Valid passport (minimum 6 months), confirmed onward flight ticket, visa for destination country (if required), passport-size photo, transit visa application form (if applicable), travel insurance (sometimes included by airline).",
+
+    whom: "Indian and other international passengers transiting through Saudi Arabia en route to another country, especially via Saudi airlines (Saudia or Flynas) or connecting flights.",
+
+    rules: "Cannot leave transit area unless visa permits entry. Must continue journey within validity period. No employment or business activity allowed. Must hold confirmed onward ticket. Overstay is strictly prohibited.",
+
+    prosCons: "Pros: Very low cost or free, fast processing, allows short stopover in Saudi Arabia, useful for long-haul travel routes. Cons: Extremely short duration, limited movement rights, cannot be extended, strictly transit-only purpose.",
+
+    terms: "Transit Visa: Short layover entry permit; Stopover: Short stay between connecting flights; Layover Time: Allowed transit duration; MOFA: Ministry of Foreign Affairs Saudi Arabia; Airport Transit Zone: Restricted immigration area; Stopover Program: Airline-supported short visit option.",
+
+    legal: "Regulated by Saudi Ministry of Foreign Affairs (MOFA) and General Directorate of Passports (Jawazat) under international transit travel rules.",
+
+    process: `1. Book international flight with Saudi transit route ->
+              2. Check eligibility for transit visa (airline or MOFA rules) ->
+              3. Apply online or via airline system (if required) ->
+              4. Submit passport and onward ticket details ->
+              5. Pay visa fee (if applicable) ->
+              6. Receive transit visa approval (often electronic) ->
+              7. Travel to Saudi Arabia ->
+              8. Clear immigration (if exiting transit zone) ->
+              9. Stay within allowed transit duration (24–96 hours) ->
+              10. Board onward flight to final destination before expiry.`
+},
+
+"SaudiFamilyVisitVisa": {
+    name: "Family Visit Visa (Saudi Arabia)",
+
+    validity: "Usually 30 to 90 days per visit. Can be single-entry or multiple-entry (valid up to 6 months or 1 year depending on approval). Extensions may be possible in some cases.",
+
+    cost: "Approx SAR 300–800 (~₹6,500–₹18,000) excluding medical insurance and service fees. Multiple-entry visas cost higher.",
+
+    time: "Processing time usually 1–7 working days depending on sponsor approval and Ministry of Foreign Affairs (MOFA) verification.",
+
+    age: "No strict age limit. Minors must apply with parent/guardian sponsorship.",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds for stay. Sponsor in Saudi Arabia may also be required to provide financial support or invitation confirmation.",
+
+    docs: "Valid passport (minimum 6 months), passport-size photo, invitation letter from Saudi resident/citizen (family member), proof of relationship (birth/marriage certificate), visa application form, travel insurance, return flight ticket, sponsor’s Iqama copy and passport.",
+
+    whom: "Indian nationals visiting close family members (spouse, parents, children, siblings) residing in Saudi Arabia for short-term personal visits.",
+
+    rules: "Must not work or engage in employment. Must stay only for family visit purpose. Must leave before visa expiry. Overstay leads to fines and legal penalties. Sponsor is responsible for visitor compliance.",
+
+    prosCons: "Pros: Easy family reunification, multiple entry option available, relatively fast processing, allows extended family bonding. Cons: No work rights, depends on Saudi sponsor invitation, strict duration limits, overstaying penalties apply.",
+
+    terms: "Family Visit Visa: Short-term visa for visiting relatives; Sponsor: Saudi resident inviting family member; Iqama: Saudi residence permit of sponsor; MOFA: Ministry of Foreign Affairs Saudi Arabia; Jawazat: General Directorate of Passports; Single/Multiple Entry: Visa entry type options.",
+
+    legal: "Regulated by Saudi Ministry of Foreign Affairs (MOFA) and General Directorate of Passports (Jawazat).",
+
+    process: `1. Sponsor (family member in Saudi Arabia) submits invitation via MOFA ->
+              2. Invitation approved and attested ->
+              3. Applicant fills online visa application form ->
+              4. Upload passport and relationship documents ->
+              5. Pay visa and insurance fees ->
+              6. Verification by Saudi authorities ->
+              7. Visa approval issued (electronic or stamped) ->
+              8. Travel to Saudi Arabia ->
+              9. Immigration clearance at entry point ->
+              10. Stay for permitted duration (30–90 days) ->
+              11. Exit before visa expiry or apply for extension if allowed.`
+},
+
+"SaudiFamilyResidenceVisa": {
+    name: "Family Residence Visa (Saudi Arabia)",
+
+    validity: "Usually 1 to 2 years initially, renewable as long as sponsor (resident worker or expatriate) maintains valid Iqama and employment status.",
+
+    cost: "Approx SAR 2,000–5,000 (~₹45,000–₹1.1 lakh) excluding medical test, insurance, Iqama issuance, and dependent fees. Sponsor typically bears costs.",
+
+    time: "Processing time usually 5–20 working days depending on documentation, employer approval, and Ministry of Interior verification.",
+
+    age: "No strict age limit. Children can be sponsored; adult dependents (like parents) may require special approval.",
+
+    education: "No requirement.",
+
+    funds: "Sponsor must meet minimum salary requirement (generally SAR 3,000–5,000+ depending on family size and housing conditions). Proof of accommodation is required.",
+
+    docs: "Valid passport (dependents), passport-size photos, sponsor’s Iqama copy, employment contract, salary certificate, marriage certificate (attested), birth certificates (attested for children), tenancy agreement, medical fitness certificate (for adults), visa application form.",
+
+    whom: "Foreign workers in Saudi Arabia (including Indians) who want to bring spouse, children, and sometimes parents to live with them in Saudi Arabia.",
+
+    rules: "Sponsor must maintain valid employment and Iqama. Dependents cannot work unless they obtain separate work authorization. Must maintain valid residency and insurance. Visa becomes invalid if sponsor loses job or leaves Saudi Arabia. All documents must be properly attested.",
+
+    prosCons: "Pros: Family reunification, long-term stay rights, access to healthcare and education for dependents, stable residency linked to sponsor employment. Cons: Fully dependent on sponsor’s job status, strict income and documentation requirements, renewal tied to employer and Iqama validity.",
+
+    terms: "Iqama: Saudi residence permit card; Sponsor: Primary visa holder (employee); Dependent: Family member under sponsorship; MOI: Ministry of Interior Saudi Arabia; Jawazat: General Directorate of Passports; Attestation: Legal verification of documents.",
+
+    legal: "Regulated by Saudi Ministry of Interior (MOI) and General Directorate of Passports (Jawazat) under Saudi residency and sponsorship laws.",
+
+    process: `1. Sponsor checks eligibility (salary + job + accommodation) ->
+              2. Prepare attested marriage/birth certificates ->
+              3. Submit family residence application via Absher/MOI system ->
+              4. Pay dependent visa fees ->
+              5. Immigration verification and approval ->
+              6. Issue entry permit for dependents (if outside Saudi Arabia) ->
+              7. Dependents travel to Saudi Arabia ->
+              8. Undergo medical test (for adults) ->
+              9. Apply for Iqama issuance ->
+              10. Biometrics registration ->
+              11. Residence visa issued (1–2 years) ->
+              12. Renew visa based on sponsor’s Iqama validity.`
+},
+
+"SaudiDependentVisa": {
+    name: "Dependent Visa (Saudi Arabia)",
+
+    validity: "Usually 1 to 2 years, aligned with sponsor’s Iqama (residence permit) validity. Renewable as long as sponsor remains eligible.",
+
+    cost: "Approx SAR 2,000–5,000 (~₹45,000–₹1.1 lakh) excluding medical test, insurance, and dependent fees. Typically paid by the sponsor.",
+
+    time: "Processing time usually 5–15 working days depending on documentation, employer approval, and immigration processing.",
+
+    age: "No strict age limit. Children can be sponsored; adult dependents may require additional approvals depending on category.",
+
+    education: "No requirement.",
+
+    funds: "Sponsor must meet minimum salary requirements (generally SAR 3,000–5,000+ depending on number of dependents and housing conditions). Proof of accommodation is required.",
+
+    docs: "Valid passport of dependent, passport-size photos, sponsor’s Iqama copy, employment contract, salary certificate, attested marriage certificate (spouse), attested birth certificates (children), tenancy contract, medical fitness certificate (for adults), visa application form.",
+
+    whom: "Foreign nationals (spouse, children, and sometimes parents) of Saudi residents who want to legally live with the primary visa holder in Saudi Arabia.",
+
+    rules: "Dependents cannot work without separate work authorization. Must remain under sponsor’s legal responsibility. Visa validity depends on sponsor’s Iqama and employment status. All documents must be properly attested. Must maintain valid insurance and residency status.",
+
+    prosCons: "Pros: Family unity in Saudi Arabia, legal long-term stay, access to healthcare and education for dependents, renewable residency. Cons: Fully dependent on sponsor’s job and residency status, strict documentation requirements, no independent work rights.",
+
+    terms: "Dependent: Family member under sponsorship; Sponsor: Primary Iqama holder; Iqama: Saudi residence permit; MOI: Ministry of Interior; Jawazat: General Directorate of Passports; Attestation: Legal validation of documents from home country and Saudi embassy.",
+
+    legal: "Regulated by Saudi Ministry of Interior (MOI) and General Directorate of Passports (Jawazat) under Saudi sponsorship (kafala) residency regulations.",
+
+    process: `1. Sponsor confirms eligibility (salary, job, housing) ->
+              2. Prepare and attest required documents ->
+              3. Submit dependent visa application via Absher/MOI system ->
+              4. Pay dependent visa fees ->
+              5. Immigration review and approval ->
+              6. Issue entry permit for dependents (if outside Saudi Arabia) ->
+              7. Dependents travel to Saudi Arabia ->
+              8. Medical examination for adults ->
+              9. Apply for Iqama issuance ->
+              10. Biometrics registration ->
+              11. Residence permit issued (1–2 years) ->
+              12. Renew dependent visa with sponsor’s Iqama renewal.`
+},
+
+"SaudiStudentVisa": {
+    name: "Student Visa (Saudi Arabia)",
+
+    validity: "Usually valid for 1 year initially and renewable annually for the duration of the academic program (degree, diploma, or research course).",
+
+    cost: "Approx SAR 2,000–5,000 (~₹45,000–₹1.1 lakh) excluding tuition fees, medical insurance, residence permit (Iqama for students), and university charges. Many cases have partial fee waivers or sponsorships.",
+
+    time: "Processing time usually 2–6 weeks depending on university admission approval, scholarship status, and Saudi embassy verification.",
+
+    age: "No strict upper age limit. Typically 17–35 years for undergraduate programs; higher age accepted for postgraduate/research programs.",
+
+    education: `Mandatory:  
+    - Undergraduate: 12th grade equivalent  
+    - Postgraduate: Bachelor’s degree  
+    - Doctorate/Research: Master’s degree + research proposal (if required)`,
+
+    funds: "Either proof of financial support (bank statements, sponsor letter) OR scholarship approval from Saudi government/university covering tuition and living expenses.",
+
+    docs: "Valid passport (6+ months), passport-size photo, university admission letter, scholarship letter (if applicable), academic transcripts, attested certificates, medical fitness report, police clearance certificate, financial proof or sponsorship letter, visa application form.",
+
+    whom: "Indian students admitted to Saudi universities for higher education, Islamic studies, engineering, medical fields, research programs, or scholarship-based government education programs.",
+
+    rules: "Must study full-time at approved institution. Cannot work without permission (limited part-time work allowed under specific conditions). Must maintain academic performance. Visa is linked to university enrollment. Must leave or change status after completion of studies.",
+
+    prosCons: "Pros: Access to scholarships (full/partial), modern universities and research centers, cultural and religious environment, possibility of long-term residency transition in some cases. Cons: Limited part-time work rights, strict academic requirements, visa dependent on enrollment status, limited PR pathways compared to Western countries.",
+
+    terms: "Student Visa: Education-based residency permit; Iqama: Student residence card; Scholarship: Government-funded education support; MOE: Ministry of Education Saudi Arabia; MOFA: Ministry of Foreign Affairs; University Sponsorship: Institution-backed visa support.",
+
+    legal: "Regulated by Saudi Ministry of Education (MOE), Ministry of Foreign Affairs (MOFA), and General Directorate of Passports (Jawazat).",
+
+    process: `1. Apply to Saudi university or scholarship program ->
+              2. Receive admission letter ->
+              3. University applies for student visa approval ->
+              4. Submit academic and passport documents ->
+              5. Apply via Saudi embassy or e-visa system (if applicable) ->
+              6. Medical examination and police clearance ->
+              7. Visa approval issued ->
+              8. Travel to Saudi Arabia ->
+              9. University registration and orientation ->
+              10. Apply for student Iqama (residence permit) ->
+              11. Begin studies ->
+              12. Renew visa annually based on academic progress.`
+},
+
+"SaudiInvestorVisa": {
+    name: "Investor Visa (Saudi Arabia)",
+
+    validity: "Usually 1–5 years initially depending on investment category. Renewable as long as investment is maintained and business remains active/compliant.",
+
+    cost: "Approx SAR 4,000–10,000 (~₹90,000–₹2.2 lakh) excluding investment capital, company formation costs, licensing fees, and medical/iqama charges.",
+
+    time: "Processing time usually 2–8 weeks depending on business approval, Ministry of Investment (MISA) clearance, and documentation verification.",
+
+    age: "No strict age limit. Applicant must be a legal adult (18+).",
+
+    education: "Not mandatory, but business background or relevant experience may strengthen approval chances.",
+
+    funds: "Minimum investment requirement typically starts from SAR 500,000 to several million SAR depending on business type, sector, and Saudization requirements. Proof of lawful source of funds is required.",
+
+    docs: "Valid passport, passport-size photo, business plan, investment license (MISA approval), company registration documents, bank statements, proof of funds, commercial registration (CR), tax documents (if applicable), visa application form.",
+
+    whom: "Foreign investors (including Indians) who want to start, own, or partner in a Saudi business, company, or project in sectors approved by the Saudi government (trade, industry, technology, services, etc.).",
+
+    rules: "Investment must remain active and compliant with Saudi regulations. Business must follow Saudization rules (local employment quotas). Investor must maintain valid license and capital requirements. Misuse of funds or inactive business may lead to visa cancellation.",
+
+    prosCons: "Pros: Business ownership in Saudi Arabia, potential pathway to long-term residency, access to growing GCC market, ability to sponsor family in many cases. Cons: High capital requirement, strict regulatory compliance, business risk, ongoing licensing and operational obligations.",
+
+    terms: "Investor Visa: Residency based on capital investment; MISA: Ministry of Investment Saudi Arabia; Commercial Registration (CR): Business license document; Saudization: Requirement to hire local Saudi employees; Shareholder Visa: Visa linked to company ownership.",
+
+    legal: "Regulated by Saudi Ministry of Investment (MISA), Ministry of Commerce, and General Directorate of Passports (Jawazat) under Saudi investment and residency laws.",
+
+    process: `1. Choose business sector and investment structure ->
+              2. Apply for investment license via MISA ->
+              3. Submit business plan and financial documents ->
+              4. Obtain commercial registration (CR) ->
+              5. Open Saudi business bank account ->
+              6. Apply for investor visa via MOFA/Jawazat ->
+              7. Background and financial verification ->
+              8. Visa approval issued ->
+              9. Travel to Saudi Arabia ->
+              10. Obtain residency permit (Iqama) ->
+              11. Start and operate business ->
+              12. Renew visa based on business performance and compliance.`
+},
+
+"SaudiPremiumResidencyVisa": {
+    name: "Premium Residency Visa (Saudi Green Card)",
+
+    validity: `Available in two main types:  
+    - Permanent Premium Residency (indefinite stay)  
+    - Renewable Premium Residency (1-year or 5-year renewable option)",
+
+    cost: "Approx SAR 4,000–800,000 (~₹90,000–₹1.8 crore) depending on type:  
+    - Limited duration (1 year): ~SAR 100,000/year  
+    - Permanent residency: ~SAR 800,000 one-time fee`,
+
+    time: "Processing time usually 2–8 weeks depending on background verification, financial eligibility, and category approval.",
+
+    age: "No strict age limit. Applicant must be 21+ in most cases.",
+
+    education: "Not mandatory. However, skilled professionals or investors with strong background have higher approval chances.",
+
+    funds: "Must show strong financial stability. For investor category: high net worth (typically millions of SAR in assets/investments). Proof of legal source of wealth is required.",
+
+    docs: "Valid passport, passport-size photo, proof of income/wealth, bank statements, investment documents (if applicable), medical report, police clearance certificate, CV or professional profile (if skilled category), application form.",
+
+    whom: "High-net-worth individuals, investors, entrepreneurs, highly skilled professionals, scientists, and foreigners who want long-term or permanent residency in Saudi Arabia without traditional sponsorship (kafala system).",
+
+    rules: "Must maintain financial or professional eligibility criteria. Must comply with Saudi laws. Some categories allow family sponsorship. No sponsor (kafala) required. Misrepresentation or illegal activity leads to cancellation.",
+
+    prosCons: "Pros: No employer sponsor required, long-term or permanent residency, ability to own property in many cases, business flexibility, family inclusion, high stability. Cons: Very expensive for permanent option, strict financial scrutiny, limited availability, not a citizenship pathway.",
+
+    terms: "Premium Residency: Saudi equivalent of Green Card system; Permanent Residency: Indefinite stay permit; Renewable Residency: Fixed-term residency option; SPV Center: Saudi Premium Residency Center; Kafala-free: No employer sponsorship required; MISA: Ministry of Investment Saudi Arabia.",
+
+    legal: "Regulated by Saudi Premium Residency Center under the Council of Economic and Development Affairs, in coordination with Ministry of Interior and Ministry of Investment.",
+
+    process: `1. Check eligibility (investor, skilled, property, or special category) ->
+              2. Prepare financial and identity documents ->
+              3. Apply via Saudi Premium Residency online platform ->
+              4. Pay application and category fee ->
+              5. Background and financial verification ->
+              6. Security clearance check ->
+              7. Approval decision by Saudi authorities ->
+              8. Pay residency issuance fee ->
+              9. Receive Premium Residency permit ->
+              10. Enter Saudi Arabia or convert status if already inside ->
+              11. Obtain residency rights and benefits ->
+              12. Renew (if renewable category) or maintain permanent status.`
+},
+
+"SaudiSpecialTalentVisa": {
+    name: "Special Talent Visa (Saudi Arabia)",
+
+    validity: "Usually 1 to 5 years initially, renewable depending on continued achievement, endorsement, or contribution. Some exceptional cases may lead to long-term or permanent residency pathways.",
+
+    cost: "Approx SAR 2,000–10,000 (~₹45,000–₹2.2 lakh) excluding endorsement fees, medical test, insurance, and residency issuance charges. Some government-supported cases may be partially subsidized.",
+
+    time: "Processing time usually 2–8 weeks depending on nomination, expert review, and approval by Saudi authorities.",
+
+    age: "No strict age limit. Typically applicants are 18+; emphasis is on achievement rather than age.",
+
+    education: "Not mandatory for all categories. Scientists, doctors, and researchers usually require formal degrees, while artists, athletes, and innovators may qualify based on proven work and recognition.",
+
+    funds: "No fixed income requirement. However, applicants must show financial stability or institutional/government endorsement in some cases.",
+
+    docs: "Valid passport, passport-size photo, CV or professional profile, awards/recognition certificates, publications or patents (if applicable), portfolio of work (artists/creators), recommendation letters, proof of achievements, medical certificate, police clearance, visa application form.",
+
+    whom: "Exceptional individuals in fields such as science, technology, medicine, engineering, arts, culture, sports, innovation, and research who have demonstrated outstanding talent or contribution.",
+
+    rules: "Must continue active contribution in the recognized field. Must comply with Saudi laws and regulations. Endorsement from approved Saudi institutions or authorities is usually required. Visa may be revoked if achievements or eligibility criteria are not maintained.",
+
+    prosCons: "Pros: No employer dependency, long-term residency potential, high prestige status, possible pathway to Premium Residency, ability to bring family, strong career opportunities in Saudi initiatives. Cons: Highly selective, requires strong proof of excellence, nomination-based system, documentation-heavy process.",
+
+    terms: "Special Talent Visa: Merit-based residency for exceptional individuals; Endorsement: Official recognition by Saudi authority; Qualification Committee: Expert evaluation panel; MISA: Ministry of Investment Saudi Arabia; MOFA: Ministry of Foreign Affairs; Human Capability Program: Saudi talent development initiative.",
+
+    legal: "Regulated by Saudi Ministry of Human Resources and Social Development, Ministry of Investment (MISA), and specialized Saudi talent programs under Vision 2030 framework.",
+
+    process: `1. Identify eligible talent category (science, arts, sports, innovation) ->
+              2. Prepare portfolio of achievements and evidence ->
+              3. Obtain endorsement or nomination from Saudi-recognized body ->
+              4. Apply through official Saudi talent or visa platform ->
+              5. Submit documents (passport, CV, achievements) ->
+              6. Expert committee evaluation ->
+              7. Security and background verification ->
+              8. Approval decision issued ->
+              9. Pay issuance fees ->
+              10. Visa granted (1–5 years validity) ->
+              11. Obtain residency permit if required ->
+              12. Maintain contribution and renew if eligible.`
+},
+
+"SaudiStartupVisa": {
+    name: "Startup Visa (Saudi Arabia)",
+
+    validity: "Typically 1 to 5 years depending on business setup and investment stage. Renewable if startup remains active and compliant with Saudi regulations.",
+
+    cost: "Approx SAR 5,000–15,000 (~₹1.1 lakh–₹3.3 lakh) excluding startup capital, licensing fees, office setup, and visa/residency charges. Larger costs depend on business scale.",
+
+    time: "Processing time usually 2–10 weeks depending on approval from Ministry of Investment (MISA), business licensing, and due diligence checks.",
+
+    age: "No strict age limit. Typically 18+; founders are usually 21–50 years old.",
+
+    education: "Not mandatory, but business/technical background, entrepreneurial experience, or proven innovation increases approval chances.",
+
+    funds: "Minimum funding depends on business model. Generally SAR 100,000 to several million SAR required depending on sector, scalability, and investment structure. Proof of legal source of funds is mandatory.",
+
+    docs: "Valid passport, passport-size photo, business plan, startup pitch deck, financial proof or investor backing, company registration (if already incorporated), feasibility study, CV of founders, bank statements, visa application form.",
+
+    whom: "Foreign entrepreneurs (including Indians) who want to establish startups in Saudi Arabia in sectors like technology, fintech, e-commerce, AI, logistics, healthcare, or innovation-driven industries.",
+
+    rules: "Startup must be legally registered in Saudi Arabia. Must comply with Saudization (local hiring rules). Business must remain active and aligned with approved sector. Investor/Founder must maintain operational control or approved role. Misuse or inactivity may lead to visa cancellation.",
+
+    prosCons: "Pros: Access to fast-growing Saudi market, government support under Vision 2030, possible funding opportunities, pathway to long-term residency, ability to sponsor family in many cases. Cons: High regulatory requirements, business risk, capital-intensive, strict compliance and reporting obligations.",
+
+    terms: "Startup Visa: Residency for business founders; MISA: Ministry of Investment Saudi Arabia; Vision 2030: National economic transformation plan; Saudization: Local employment quota system; Commercial Registration (CR): Business license; Incubator/Accelerator: Government-supported startup programs.",
+
+    legal: "Regulated by Saudi Ministry of Investment (MISA), Ministry of Commerce, and General Authority for Small and Medium Enterprises (Monsha’at) under Vision 2030 framework.",
+
+    process: `1. Develop startup idea and business plan ->
+              2. Choose Saudi business structure and sector ->
+              3. Apply for investment/startup approval via MISA or incubator ->
+              4. Submit pitch deck and financial documents ->
+              5. Obtain initial approval or incubation acceptance ->
+              6. Register company and obtain Commercial Registration (CR) ->
+              7. Apply for Startup Visa via MOFA/immigration channels ->
+              8. Background and financial verification ->
+              9. Visa approval issued ->
+              10. Enter Saudi Arabia ->
+              11. Set up operations and bank account ->
+              12. Begin business operations ->
+              13. Renew visa based on startup performance and compliance.`
+},
+
+"SaudiDiplomaticVisa": {
+    name: "Diplomatic Visa (Saudi Arabia)",
+
+    validity: "Typically aligned with the duration of official diplomatic assignment. Usually 1 to 3 years, renewable as long as diplomatic posting continues.",
+
+    cost: "No visa fee for official diplomatic passports in most cases. Minimal administrative or service charges (~SAR 0–500 / ₹0–₹11,000) may apply depending on processing channel.",
+
+    time: "Processing time usually 1–5 working days for official government requests, depending on diplomatic clearance and protocol approval.",
+
+    age: "No age restriction. Applicable only to accredited diplomatic or government personnel.",
+
+    education: "No specific requirement, but holder must be officially appointed as diplomat, embassy staff, or government representative.",
+
+    funds: "No personal financial requirement. Expenses are usually covered by sending government (home country) or host arrangements.",
+
+    docs: "Diplomatic passport, official note verbale from sending country, accreditation letter, diplomatic mission details, passport-size photo, visa application form, security clearance (if required), assignment order.",
+
+    whom: "Diplomats, embassy staff, consular officers, and official government representatives traveling to Saudi Arabia for diplomatic missions, international relations, or embassy postings.",
+
+    rules: "Must strictly follow diplomatic protocols and Saudi foreign ministry regulations. Cannot engage in commercial employment. Must respect diplomatic immunity rules under international law (Vienna Convention). Misuse may result in withdrawal of privileges.",
+
+    prosCons: "Pros: Diplomatic immunity (limited under international law), no visa fees, priority processing, official privileges, long-term assignment validity. Cons: Restricted strictly to official duties, cannot work privately, subject to diplomatic protocols and host country regulations.",
+
+    terms: "Diplomatic Visa: Visa for government representatives; Note Verbale: Official diplomatic communication; Accreditation: Formal recognition by host country; Vienna Convention: International diplomatic law framework; MOFA: Ministry of Foreign Affairs Saudi Arabia.",
+
+    legal: "Regulated by Saudi Ministry of Foreign Affairs (MOFA) under international diplomatic agreements and Vienna Convention on Diplomatic Relations (1961).",
+
+    process: `1. Sending government issues diplomatic appointment ->
+              2. Prepare diplomatic passport and assignment letter ->
+              3. Submit Note Verbale to Saudi MOFA ->
+              4. MOFA reviews diplomatic credentials ->
+              5. Security and protocol clearance ->
+              6. Visa approval issued through diplomatic channel ->
+              7. Entry permit granted ->
+              8. Arrival in Saudi Arabia ->
+              9. Accreditation at Saudi Foreign Ministry ->
+              10. Diplomatic ID issued ->
+              11. Begin official duties at embassy/mission ->
+              12. Renewal based on assignment duration.`
+},
+
+"SaudiOfficialVisa": {
+    name: "Official Visa (Saudi Arabia)",
+
+    validity: "Usually aligned with the duration of official assignment. Typically 3 months to 3 years, renewable based on government mission requirements.",
+
+    cost: "Generally free for government-sponsored travelers. Minimal service/processing charges (~SAR 0–500 / ₹0–₹11,000) may apply in some cases.",
+
+    time: "Processing time usually 1–7 working days depending on government approval, documentation, and Saudi Ministry of Foreign Affairs clearance.",
+
+    age: "No age limit. Applicable only to government officials and authorized personnel.",
+
+    education: "No requirement. Eligibility depends on official government posting or assignment.",
+
+    funds: "No personal financial requirement. All expenses are typically covered by the sending government or official department.",
+
+    docs: "Official or service passport, Note Verbale (official government letter), assignment order, invitation from Saudi government entity, passport-size photo, visa application form, security clearance (if required).",
+
+    whom: "Government officials, ministers, public servants, delegations, and representatives traveling to Saudi Arabia for official state duties, conferences, or intergovernmental meetings.",
+
+    rules: "Must only perform official duties assigned by the government. Cannot engage in private employment or commercial activity. Must comply with Saudi official protocols and diplomatic rules. Misuse can result in revocation of privileges.",
+
+    prosCons: "Pros: No visa fee, priority processing, official privileges, long validity tied to assignment, simplified entry procedures. Cons: Strictly limited to official duties, no private work allowed, dependent on government assignment duration.",
+
+    terms: "Official Visa: Government mission visa; Note Verbale: Formal diplomatic/government communication; MOFA: Ministry of Foreign Affairs Saudi Arabia; Accreditation: Official recognition by host country; Government Delegation: Group of official representatives.",
+
+    legal: "Regulated by Saudi Ministry of Foreign Affairs (MOFA) under international government-to-government agreements and official protocol regulations.",
+
+    process: `1. Government department assigns official duty ->
+              2. Issue service/official passport and assignment letter ->
+              3. Send Note Verbale to Saudi MOFA ->
+              4. Saudi MOFA reviews request ->
+              5. Security and administrative clearance ->
+              6. Visa approval issued through official channel ->
+              7. Entry permit granted ->
+              8. Travel to Saudi Arabia ->
+              9. Entry clearance at immigration ->
+              10. Perform official duties ->
+              11. Return after assignment completion ->
+              12. Renewal if new assignment is issued.`
+},
+
+"SaudiGovernmentVisa": {
+    name: "Government Visa (Saudi Arabia)",
+
+    validity: "Usually issued for the duration of the government assignment. Typically 3 months to 3 years, renewable if the official mission continues or is extended.",
+
+    cost: "Generally free for government-sponsored applicants. In some cases, minimal administrative fees (~SAR 0–500 / ₹0–₹11,000) may apply depending on processing channel.",
+
+    time: "Processing time usually 1–7 working days depending on Saudi Ministry of Foreign Affairs (MOFA) clearance and document verification.",
+
+    age: "No age restriction. Applicable only to officially assigned government personnel.",
+
+    education: "No requirement. Eligibility is based on official government posting, not academic qualification.",
+
+    funds: "No personal financial requirement. All expenses are typically borne by the sending government or official department.",
+
+    docs: "Service/official passport, official government assignment order, Note Verbale (official diplomatic communication), invitation from Saudi government entity (if applicable), passport-size photo, visa application form, security clearance (if required).",
+
+    whom: "Government employees, civil servants, public officials, and delegation members traveling to Saudi Arabia for official duties such as bilateral meetings, conferences, inspections, or intergovernmental cooperation.",
+
+    rules: "Must strictly perform assigned government duties only. Cannot engage in private employment or business activities. Must follow Saudi official protocols and immigration regulations. Misuse of status may lead to cancellation and diplomatic consequences.",
+
+    prosCons: "Pros: No visa fee, fast-track approval, official privileges, extended validity tied to assignment, simplified immigration clearance. Cons: Strictly limited to official duties, no personal or commercial activity allowed, fully dependent on government assignment duration.",
+
+    terms: "Government Visa: Entry permit for official government work; Note Verbale: Formal government communication; MOFA: Ministry of Foreign Affairs Saudi Arabia; Service Passport: Passport issued for official travel; Delegation: Group of government representatives.",
+
+    legal: "Regulated by Saudi Ministry of Foreign Affairs (MOFA) under official state-to-state agreements and international protocol frameworks.",
+
+    process: `1. Government department assigns official overseas duty ->
+              2. Issue service/official passport and assignment letter ->
+              3. Send Note Verbale to Saudi MOFA ->
+              4. Saudi authorities review request ->
+              5. Security and administrative clearance ->
+              6. Visa approval issued via official channel ->
+              7. Entry permit granted ->
+              8. Travel to Saudi Arabia ->
+              9. Immigration clearance on arrival ->
+              10. Perform official government duties ->
+              11. Exit after assignment completion ->
+              12. Renewal if new assignment is issued.`
+},
+"SaudiMedicalTreatmentVisa": {
+    name: "Medical Treatment Visa (Saudi Arabia)",
+
+    validity: "Usually 30 to 90 days for treatment. Can be extended depending on medical condition and hospital recommendation.",
+
+    cost: "Approx SAR 300–1,500 (~₹6,500–₹33,000) excluding hospital treatment costs, insurance, and medical service charges. Fees vary by hospital and case complexity.",
+
+    time: "Processing time usually 2–7 working days depending on hospital approval, medical urgency, and embassy verification.",
+
+    age: "No age limit. Applicable for patients of all ages including children and elderly.",
+
+    education: "No requirement.",
+
+    funds: "Must show proof of ability to pay medical expenses or provide sponsorship/insurance coverage from hospital, employer, or government scheme.",
+
+    docs: "Valid passport (minimum 6 months), medical reports and diagnosis from home country, hospital acceptance/appointment letter from Saudi hospital, passport-size photo, visa application form, travel insurance, proof of funds or sponsorship letter, return flight ticket (sometimes required).",
+
+    whom: "Foreign nationals (including Indians) seeking medical treatment, surgery, specialist care, or rehabilitation services in Saudi Arabia hospitals and medical centers.",
+
+    rules: "Must strictly use visa for medical treatment only. Cannot work or engage in other activities. Must follow hospital treatment plan. Visa extension requires updated medical reports and hospital approval. Overstay is strictly prohibited.",
+
+    prosCons: "Pros: Access to advanced healthcare facilities in Saudi Arabia, fast processing in urgent cases, possible hospital sponsorship, extension allowed based on condition. Cons: No work rights, dependent on medical approval, high treatment costs if not insured, limited mobility during treatment.",
+
+    terms: "Medical Treatment Visa: Health-based entry permit; Sponsoring Hospital: Approved Saudi medical institution; Medical Report: Diagnosis documentation; MOH: Ministry of Health Saudi Arabia; Insurance Coverage: Mandatory health insurance in most cases; Emergency Case: Fast-tracked medical approval category.",
+
+    legal: "Regulated by Saudi Ministry of Foreign Affairs (MOFA) and Saudi Ministry of Health (MOH) under healthcare and immigration regulations.",
+
+    process: `1. Obtain medical diagnosis from home country ->
+              2. Send medical reports to Saudi hospital ->
+              3. Receive treatment acceptance/appointment letter ->
+              4. Apply for Medical Treatment Visa via embassy or online system ->
+              5. Submit passport and medical documents ->
+              6. Pay visa and insurance fees ->
+              7. Immigration and hospital verification ->
+              8. Visa approval issued ->
+              9. Travel to Saudi Arabia ->
+              10. Hospital admission and treatment begins ->
+              11. Follow-up and recovery monitoring ->
+              12. Extend visa if medically required or exit after recovery.`
+},
+
+"SaudiDomesticWorkerVisa": {
+    name: "Domestic Worker Visa (Saudi Arabia)",
+
+    validity: "Usually 2 years initially, renewable based on employer contract and Saudi labor regulations.",
+
+    cost: "Approx SAR 2,000–4,000 (~₹45,000–₹90,000) excluding recruitment agency fees, insurance, medical test, and residency (Iqama) charges. Generally paid by employer.",
+
+    time: "Processing time usually 2–6 weeks depending on recruitment process, embassy clearance, and employer documentation.",
+
+    age: "Typically 21–60 years depending on job type and employer requirements.",
+
+    education: "No formal education required. Experience in domestic work is preferred (cleaning, cooking, caregiving, driving, etc.).",
+
+    funds: "No personal financial requirement. Employer is responsible for salary, visa cost, accommodation, food, and insurance.",
+
+    docs: "Valid passport (6+ months), passport-size photos, employment contract, recruitment agency documents, medical fitness certificate, police clearance certificate, experience certificate (if any), visa application form.",
+
+    whom: "Foreign workers (including Indians) hired for household jobs in Saudi Arabia such as housemaids, cooks, drivers, caregivers, gardeners, and domestic helpers.",
+
+    rules: "Must work only for sponsoring employer. Cannot change employer without legal transfer process. Must follow Saudi labor laws and domestic worker regulations. Must maintain residency (Iqama). Overstay or unauthorized work is illegal.",
+
+    prosCons: "Pros: Stable employment, employer covers major expenses, legal protection under Saudi domestic labor law, opportunity to earn steady income. Cons: Employer-dependent visa, limited job mobility, long working hours in many cases, strict contract conditions.",
+
+    terms: "Domestic Worker Visa: Household employment permit; Sponsor: Employer responsible for worker; Iqama: Saudi residence ID; MHRSD: Ministry of Human Resources and Social Development; Contract: Binding employment agreement; Recruitment Agency: Licensed hiring intermediary.",
+
+    legal: "Regulated by Saudi Ministry of Human Resources and Social Development (MHRSD) and General Directorate of Passports (Jawazat) under Saudi domestic labor laws.",
+
+    process: `1. Employer hires worker through licensed recruitment agency ->
+              2. Employment contract signed and approved ->
+              3. Employer applies for visa authorization in Saudi system ->
+              4. Visa block number issued ->
+              5. Worker submits passport and documents ->
+              6. Medical test and police clearance ->
+              7. Visa stamping at Saudi embassy ->
+              8. Travel to Saudi Arabia ->
+              9. Immigration entry clearance ->
+              10. Issuance of Iqama (residence permit) ->
+              11. Begin domestic employment ->
+              12. Renewal based on contract continuation.`
+},
+
+"SaudiGCCResidentVisa": {
+    name: "GCC Resident Visa (Saudi Arabia)",
+
+    validity: "Short-term entry visa, usually 30 to 90 days per visit depending on approval. It is intended for GCC residents visiting Saudi Arabia and is not a long-term residence visa.",
+
+    cost: "Approx SAR 100–500 (~₹2,200–₹11,000) depending on entry type, processing channel, and insurance requirements. Some GCC categories may have reduced or waived fees.",
+
+    time: "Processing time usually 1–3 working days, often faster for eligible GCC residents.",
+
+    age: "No strict age limit. Applicant must hold valid GCC residency permit.",
+
+    education: "No requirement.",
+
+    funds: "Must hold valid GCC residence permit and show ability to support travel expenses (bank proof may be required in some cases).",
+
+    docs: "Valid passport (6+ months), valid GCC residence permit (Iqama/UAE residence card/Kuwait/Qatar/Bahrain/Oman residency), passport-size photo, visa application form, travel insurance, return ticket, proof of GCC employment/residency.",
+
+    whom: "Foreign nationals residing legally in GCC countries (UAE, Kuwait, Qatar, Bahrain, Oman) who want to travel to Saudi Arabia for tourism, family visits, or short business purposes.",
+
+    rules: "Applicant must have valid GCC residency for at least 3–6 months (depending on rule updates). Must not overstay visa duration. Cannot work in Saudi Arabia under this visa. Must follow Saudi entry regulations for GCC residents.",
+
+    prosCons: "Pros: Easy travel access for GCC residents, faster approval than regular tourist visas, simplified documentation, low cost. Cons: Short validity, no work rights, eligibility depends on GCC residency status, not a pathway to Saudi residence.",
+
+    terms: "GCC Resident Visa: Entry permit for GCC expatriates; GCC: Gulf Cooperation Council (UAE, Saudi Arabia, Kuwait, Qatar, Bahrain, Oman); Iqama: GCC residence permit; MOFA: Ministry of Foreign Affairs Saudi Arabia; eVisa Portal: Online visa system.",
+
+    legal: "Regulated by Saudi Ministry of Foreign Affairs (MOFA) under GCC unified visa and entry regulations.",
+
+    process: `1. Ensure valid GCC residence permit (minimum validity requirement) ->
+              2. Apply online via Saudi eVisa or MOFA portal ->
+              3. Fill application with passport and GCC residency details ->
+              4. Upload required documents ->
+              5. Pay visa fee (if applicable) ->
+              6. Background verification ->
+              7. Visa approval issued electronically ->
+              8. Travel to Saudi Arabia ->
+              9. Immigration clearance at entry point ->
+              10. Stay up to 30–90 days ->
+              11. Exit before visa expiry.`
+},
+
+"SaudiHouseholdServiceWorkerVisa": {
+    name: "Household Service Worker Visa (Saudi Arabia)",
+
+    validity: "Usually 2 years initially, renewable based on employment contract and employer agreement under Saudi domestic labor law.",
+
+    cost: "Approx SAR 2,000–4,500 (~₹45,000–₹1 lakh) excluding recruitment agency charges, medical test, insurance, and residency (Iqama). Generally paid by employer.",
+
+    time: "Processing time usually 2–6 weeks depending on recruitment channel, embassy processing, and documentation verification.",
+
+    age: "Typically 21–60 years depending on job role and employer requirements.",
+
+    education: "No formal education required. Prior experience in household services (cleaning, caregiving, cooking, driving) is preferred.",
+
+    funds: "No personal financial requirement. Employer is responsible for salary, visa cost, accommodation, food, and insurance.",
+
+    docs: "Valid passport (6+ months), passport-size photos, employment contract, recruitment agency approval (if applicable), medical fitness certificate, police clearance certificate, experience letter (if any), visa application form.",
+
+    whom: "Foreign workers (including Indians) employed in Saudi households as housemaids, cooks, drivers, caregivers, gardeners, or general domestic helpers under Saudi household labor regulations.",
+
+    rules: "Must work only for sponsoring employer. Cannot change employer without legal transfer process. Must follow Saudi domestic labor laws. Must maintain valid Iqama. Overstay or unauthorized work is illegal and punishable.",
+
+    prosCons: "Pros: Stable job opportunity, employer covers major costs, legal protection under domestic labor law, consistent income. Cons: Employer-dependent visa, limited job mobility, strict contract conditions, long working hours in many cases.",
+
+    terms: "Household Service Worker Visa: Domestic employment permit; Sponsor: Employer responsible for worker; Iqama: Saudi residence ID; MHRSD: Ministry of Human Resources and Social Development; Contract: Binding employment agreement; Recruitment Agency: Licensed intermediary.",
+
+    legal: "Regulated by Saudi Ministry of Human Resources and Social Development (MHRSD) and General Directorate of Passports (Jawazat) under Saudi domestic worker regulations.",
+
+    process: `1. Employer selects worker via licensed recruitment agency ->
+              2. Employment contract is drafted and approved ->
+              3. Employer applies for visa authorization in Saudi system ->
+              4. Visa block number is issued ->
+              5. Worker submits passport and documents ->
+              6. Medical test and police clearance completed ->
+              7. Visa stamping at Saudi embassy ->
+              8. Travel to Saudi Arabia ->
+              9. Immigration entry clearance ->
+              10. Issuance of Iqama (residency permit) ->
+              11. Begin household employment ->
+              12. Renewal based on contract continuation.`
+},
+
+"SaudiCulturalVisa": {
+    name: "Cultural Visa (Saudi Arabia)",
+
+    validity: "Usually short-term (30–90 days) for cultural events, exhibitions, or exchange programs. In some cases, long-term cultural residency or project-based extensions may be granted.",
+
+    cost: "Approx SAR 300–2,000 (~₹6,500–₹45,000) depending on event type, sponsorship, and processing channel. Often partially or fully covered by sponsoring cultural organization.",
+
+    time: "Processing time usually 3–10 working days depending on invitation approval and Ministry of Culture clearance.",
+
+    age: "No strict age limit. Depends on cultural program or invitation criteria.",
+
+    education: "Not mandatory. However, artists, researchers, historians, performers, and cultural professionals may need relevant background or portfolio.",
+
+    funds: "May require proof of funds or sponsorship from a Saudi cultural institution, festival organizer, or government body.",
+
+    docs: "Valid passport (6+ months), passport-size photo, invitation letter from Saudi cultural authority or event organizer, portfolio of work (artists/performers), CV, travel insurance, visa application form, return ticket.",
+
+    whom: "Foreign artists, performers, writers, researchers, historians, filmmakers, and cultural professionals invited to participate in Saudi cultural events, exhibitions, festivals, or exchange programs.",
+
+    rules: "Must strictly participate only in approved cultural activities. Cannot engage in employment or commercial work outside invitation scope. Must exit before visa expiry unless extended by sponsoring authority.",
+
+    prosCons: "Pros: Access to major cultural festivals and events, networking with global cultural institutions, fast processing, sometimes fully sponsored. Cons: Short-term stay, no employment rights, strictly event-based usage, dependent on invitation.",
+
+    terms: "Cultural Visa: Entry permit for cultural participation; Ministry of Culture: Saudi cultural authority; Invitation Letter: Official event sponsorship document; Festival Participation: Approved cultural engagement; MOFA: Ministry of Foreign Affairs Saudi Arabia.",
+
+    legal: "Regulated by Saudi Ministry of Culture in coordination with Ministry of Foreign Affairs (MOFA) and General Directorate of Passports (Jawazat).",
+
+    process: `1. Receive invitation from Saudi cultural institution or festival ->
+              2. Submit portfolio and professional background ->
+              3. Apply through MOFA or event organizer portal ->
+              4. Provide passport and supporting documents ->
+              5. Visa application review by cultural authority ->
+              6. Security and eligibility clearance ->
+              7. Visa approval issued ->
+              8. Travel to Saudi Arabia ->
+              9. Participate in approved cultural activities ->
+              10. Exit before visa expiry or extend if program allows.`
+},
+"SaudiDiplomaticDomesticWorkerA3G5": {
+    name: "Diplomatic Domestic Worker Visa (A-3 / G-5)",
+
+    validity: "Aligned with the principal diplomat’s posting. Usually issued for 1–2 years and renewable as long as the employer remains in a diplomatic mission in Saudi Arabia.",
+
+    cost: "Visa Fee: Generally exempt or nominal (~₹0 – ₹3,000) under diplomatic reciprocity. However, biometrics and medical insurance costs apply (~₹5,000 – ₹10,000).",
+
+    time: "Processing time: 2 to 4 weeks. Requires coordination between the foreign embassy in KSA and the Saudi Ministry of Foreign Affairs (MOFA).",
+
+    age: "Must be 21 years or older.",
+
+    education: "No formal education requirement; must be capable of domestic duties.",
+
+    funds: "No personal fund requirement; the diplomat (employer) is responsible for all costs, including salary, housing, and return travel.",
+
+    docs: "Valid passport, Note Verbale from the sending country’s Embassy, employment contract signed by the diplomat and worker, medical fitness report (GAMCA), and police clearance certificate (PCC).",
+
+    whom: "Private staff such as nannies, cooks, chauffeurs, or housekeepers employed by foreign diplomats or international organization representatives living in Saudi Arabia.",
+
+    rules: "The worker must live with the diplomat. Cannot work for any other person or company. The employer must provide a contract that complies with both diplomatic protocols and Saudi labor guidelines for domestic workers.",
+
+    prosCons: "Pros: Legal path for staff to accompany employers; stable diplomatic environment. Cons: Strictly tied to one employer; if the diplomat's posting ends, the worker must leave the country immediately.",
+
+    terms: "Note Verbale: Official diplomatic request letter; Principal: The diplomat employer; G-5: Category for staff of international organizations; A-3: Category for staff of embassy officials.",
+
+    legal: "Vienna Convention on Diplomatic Relations + Saudi Ministry of Foreign Affairs (MOFA) protocol regulations.",
+
+    process: `1. Diplomat employer prepares an employment contract -> 
+              2. The sending country’s Embassy issues a 'Note Verbale' to Saudi MOFA -> 
+              3. Obtain visa authorization from MOFA in Riyadh -> 
+              4. Worker undergoes GAMCA medical test and obtains PCC in India -> 
+              5. Submit passport and diplomatic documents to the Saudi Embassy/Consulate -> 
+              6. Visa stamping -> 
+              7. Travel to KSA -> 
+              8. Issue Iqama (Residency) under the diplomat’s sponsorship.`
+},
+
+"SaudiMedicalCompanionVisa": {
+    name: "Medical Companion Visa (Patient Escort)",
+
+    validity: "Aligned with the patient's Medical Treatment Visa. Usually valid for 30, 60, or 90 days. Extendable if the treating hospital certifies that the patient requires further care.",
+
+    cost: "Approx. SAR 300 – SAR 600 (~₹6,500 – ₹13,000) for the visa, plus mandatory medical insurance. Extension fees apply if the stay is prolonged.",
+
+    time: "Processing: 3 to 10 working days. Usually processed simultaneously with the patient’s visa.",
+
+    age: "No strict age limit, but must be an adult (18+) if acting as the primary caregiver for a minor or elderly patient.",
+
+    education: "No requirement.",
+
+    funds: "Must show ability to support stay (accommodation/food) or provide a guarantee from the patient’s sponsor/insurance provider.",
+
+    docs: "Relationship proof to the patient, copy of the patient’s medical report from KSA, invitation letter from the treating Saudi hospital, and travel insurance for the companion.",
+
+    whom: "Family members or designated escorts from India who are accompanying a person traveling to Saudi Arabia for specialized surgery or long-term medical treatment.",
+
+    rules: "Strictly prohibited from working. Must enter and exit with the patient (unless the patient is hospitalized for a longer term). The hospital in KSA acts as the secondary sponsor for the companion.",
+
+    prosCons: "Pros: Allows emotional and physical support for patients during critical care. Cons: High cost of stay; no work rights; strictly dependent on the patient’s medical status.",
+
+    terms: "Companion (Mahram/Escort): The person assisting the patient; Medical Invitation: Official letter from a Saudi healthcare facility.",
+
+    legal: "Saudi Ministry of Health (MOH) + Ministry of Foreign Affairs (MOFA).",
+
+    process: `1. Patient secures treatment acceptance from a Saudi hospital -> 
+              2. Hospital applies for 'Medical Visit' for patient and 'Companion Visit' for escort via MOFA -> 
+              3. Receive visa authorization numbers -> 
+              4. Apply for visa stamping at Saudi Consulate or via an approved agent -> 
+              5. Pay fees and insurance -> 
+              6. Travel to KSA together.`
+},
+
+
+"SaudiEducationalStudentDependentVisa": {
+    name: "Educational Student Dependent Visa (Families of Students)",
+
+    validity: "Linked to the duration of the student’s academic program. Renewable annually along with the student’s residency permit (Iqama).",
+
+    cost: "SAR 2,000 per year per dependent (~₹45,000) for the Iqama, plus visa stamping fees and health insurance. (Note: The dependent fee/levy may apply depending on the current policy).",
+
+    time: "Processing: 4 to 8 weeks. Often requires the student to be in KSA first to initiate the family sponsorship.",
+
+    age: "Applies to the spouse and unmarried children of the student.",
+
+    education: "Not required for dependents.",
+
+    funds: "The student must show proof of a scholarship stipend or bank balance sufficient to support a family (thresholds vary by university).",
+
+    docs: "Attested marriage certificate (for spouse), attested birth certificates (for children), student’s university enrollment letter, proof of accommodation, and student’s bank statement.",
+
+    whom: "Families of international students (Masters, PhD, or high-level Research) studying in Saudi universities like KAUST or KFUPM.",
+
+    rules: "Dependents are not allowed to work. Children can attend schools in KSA. The university must provide a 'No Objection' or 'Sponsorship' letter for the family.",
+
+    prosCons: "Pros: Keeps the family together during long research/PhD programs. Cons: High annual dependent fees; student stipend may be tight for a full family.",
+
+    terms: "Educational Iqama: The student’s residence permit; Dependent Levy: Monthly government fee for foreign dependents.",
+
+    legal: "Saudi Ministry of Education + Ministry of Interior (Jawazat).",
+
+    process: `1. Student arrives in KSA and obtains their Student Iqama -> 
+              2. Student applies for 'Family Joining' through the University's housing/visa office -> 
+              3. University requests MOFA for family entry permits -> 
+              4. Family in India submits attested documents to the Saudi Embassy -> 
+              5. Visa is stamped and family travels to KSA -> 
+              6. Issue Dependent Iqamas after arrival.`
+},
+
+
+
+"SaudiTruckDriverTransitVisa": {
+    name: "Truck Driver Entry / Transit Visa",
+
+    validity: "Usually valid for 7 to 14 days per entry. Often issued as multiple-entry for 6 months to 1 year for frequent cargo transport.",
+
+    cost: "Approx. SAR 300 – SAR 500 (~₹6,500 – ₹11,000) depending on the number of entries and duration. Insurance is mandatory.",
+
+    time: "Processing: 3 to 7 working days via the 'Tawakkalna' or 'Basha' systems for transport companies.",
+
+    age: "Must be between 21 and 60 years old.",
+
+    education: "Not required, but must hold a valid Heavy Vehicle Driving License (HVDL).",
+
+    funds: "Company-sponsored. The transport company must provide a financial guarantee.",
+
+    docs: "Valid commercial driving license, vehicle registration (Mulkiya) for the truck, goods manifest (manifesto), invitation from the Saudi importer/company, and employer's trade license from the originating country (e.g., UAE/India).",
+
+    whom: "Commercial truck drivers (highly relevant for Indian drivers based in UAE, Bahrain, or Oman) who transport goods across the Saudi border.",
+
+    rules: "Driver must stay on the approved route. Cannot pick up local passengers. Must exit within the transit window. Must have a valid 'Entry Permit' for the cargo destination.",
+
+    prosCons: "Pros: Essential for the GCC logistics industry; allows Indian drivers to operate regionally. Cons: Strict border checks; heavy penalties for route deviation or overstay.",
+
+    terms: "Transit Pass: Authorization to drive through KSA to another country; Manifest: Detailed list of cargo; Bayan: Customs clearance system.",
+
+    legal: "Saudi Zakat, Tax and Customs Authority + Ministry of Transport.",
+
+    process: `1. Transport company registers the driver and vehicle in the Saudi Customs system -> 
+              2. Company applies for a 'Commercial Transit/Entry' visa via MOFA -> 
+              3. Driver undergoes biometrics at the border or consulate -> 
+              4. Visa is issued -> 
+              5. Driver clears customs and security at the Saudi border (e.g., King Fahd Causeway or Batha) -> 
+              6. Deliver cargo and exit KSA.`
+},
+
+
+"SaudiReturningResidentVisa": {
+    name: "Returning Resident Visa (Status Reactivation)",
+
+    validity: "Allows a single entry into Saudi Arabia to resume residency. Once the resident enters, their existing Iqama is reactivated (or renewed if expired).",
+
+    cost: "MOFA approval fee: approx. SAR 100. Visa fee: SAR 300 (~₹6,500). Total approx. ₹8,000.",
+
+    time: "Processing: 10 to 20 working days. Requires approval from the Saudi Ministry of Interior (MOI).",
+
+    whom: "Iqama holders (workers or family members) from India who stayed outside Saudi Arabia for more than 6 months (for workers) or 1 year (for family) and their 'Exit Re-entry' visa has expired.",
+
+    rules: "Must provide a valid reason for the delay (medical emergency, court case, or flight cancellation). The employer (sponsor) must initiate the request to MOFA/MOI to allow the resident to return.",
+
+    prosCons: "Pros: Prevents the total loss of a job and residency; saves the cost of a new recruitment visa. Cons: Not guaranteed; requires significant cooperation from the employer.",
+
+    terms: "Exit Re-entry (Kharaj wa Awda): The standard travel permit; Extension: Adding time to an expired travel permit from outside KSA.",
+
+    legal: "General Directorate of Passports (Jawazat) + MOFA.",
+
+    process: `1. Employer logs into the 'Absher Business' or 'Muqeem' portal -> 
+              2. Employer submits a 'Request to extend exit re-entry' explaining the delay -> 
+              3. MOFA issues a 'Visa Extension' or 'Returning Resident' authorization -> 
+              4. Applicant in India submits their passport to the Saudi Consulate with the authorization -> 
+              5. Visa is stamped -> 
+              6. Entry into KSA within 30 days of stamping.`
+},
+
+"SaudiEventVisa": {
+    name: "Event Visa (Saudi Arabia)",
+
+    validity: "Short-term visa typically valid for 7 to 90 days depending on the event duration (conferences, exhibitions, sports, festivals, trade fairs).",
+
+    cost: "Approx SAR 300–2,500 (~₹6,500–₹55,000) depending on event type, sponsorship, and processing channel. Often sponsored or partially covered by event organizers.",
+
+    time: "Processing time usually 2–10 working days depending on event approval, organizer submission, and Ministry of Foreign Affairs clearance.",
+
+    age: "No strict age limit. Must be invited or registered participant in an approved event.",
+
+    education: "Not mandatory. However, professional background may be required depending on event type (e.g., business conference, tech summit, sports event).",
+
+    funds: "May require proof of funds for travel and stay unless fully sponsored by event organizer or Saudi authority.",
+
+    docs: "Valid passport (6+ months), passport-size photo, event invitation letter or registration confirmation, event pass/ticket, travel insurance, visa application form, return flight ticket.",
+
+    whom: "Foreign participants, speakers, exhibitors, athletes, delegates, and attendees invited or registered for official Saudi events such as conferences, trade exhibitions, cultural festivals, sports tournaments, and business summits.",
+
+    rules: "Must attend only the approved event activities. Cannot take up employment or unrelated business work. Must exit before visa expiry unless extended by organizer or authority. Must follow Saudi event and immigration regulations.",
+
+    prosCons: "Pros: Fast entry for global events, often sponsored by organizers, simplified documentation, access to major international conferences and exhibitions in Saudi Arabia. Cons: Short duration, no work rights, strictly event-bound, dependent on official invitation/registration.",
+
+    terms: "Event Visa: Entry permit for official events; Event Organizer: Approved Saudi authority/company hosting event; MOFA: Ministry of Foreign Affairs Saudi Arabia; Registration Confirmation: Proof of participation; Conference/Exhibition Pass: Entry authorization to event venue.",
+
+    legal: "Regulated by Saudi Ministry of Foreign Affairs (MOFA) in coordination with event organizers, Saudi Tourism Authority, and General Directorate of Passports (Jawazat).",
+
+    process: `1. Register or receive invitation for Saudi event ->
+              2. Event organizer submits participant details ->
+              3. Applicant provides passport and personal information ->
+              4. Apply via MOFA or event-linked visa system ->
+              5. Pay visa fee (if applicable) ->
+              6. Security and eligibility verification ->
+              7. Visa approval issued electronically ->
+              8. Travel to Saudi Arabia ->
+              9. Immigration clearance on arrival ->
+              10. Attend approved event ->
+              11. Exit before visa expiry or extend if event allows.`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

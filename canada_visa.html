@@ -1,0 +1,2987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+/* Canada Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+
+
+/* Canada Points System (CRS) Section Styling */
+.points-system-details {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.points-system-summary {
+    background: var(--aqua);
+    color: var(--black);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--black);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.points-system-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.points-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.points-content h1, .points-content h2, .points-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.points-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.points-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+
+.points-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.points-table th, .points-table td {
+    border: 1px solid var(--black);
+    padding: 10px;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+}
+
+.points-table th {
+    background: var(--black);
+    color: var(--aqua);
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.calculation-box {
+    background: #f0fdf9;
+    border: 2px solid var(--black);
+    padding: 15px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="CANADA">CANADA</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+<select id="visaType">
+    <optgroup label="Visitor Visas">
+        <option value="CanadaVisitorVisa">Visitor Visa (TRV)</option>
+        <option value="CanadaSuperVisa">Super Visa (Parents/Grandparents)</option>
+        <option value="CanadaTransitVisa">Transit Visa</option>
+        <option value="CanadaBusinessVisitorVisa">Business Visitor Visa</option>
+        <option value="CanadaTouristVisa">Tourist Visa</option>
+        <option value="CanadaMedicalTreatmentVisa">Medical Treatment Visa</option>
+        <option value="CanadaDigitalNomadEntry">Digital Nomad Entry</option>
+    </optgroup>
+
+    <optgroup label="Study Permits">
+        <option value="CanadaStudyPermit">Regular Study Permit</option>
+        <option value="CanadaSDSStudyPermit">SDS Study Permit (Fast Track)</option>
+    </optgroup>
+
+    <optgroup label="Work Permits">
+        <option value="CanadaTFWPWorkPermit">TFWP Work Permit (LMIA)</option>
+        <option value="CanadaLMIAWorkPermit">LMIA-based Work Permit</option>
+        <option value="CanadaLMIAExemptWorkPermit">LMIA-Exempt Work Permit</option>
+        <option value="CanadaIMPWorkPermit">IMP Work Permit</option>
+        <option value="IntraCompanyTransferWorkPermit">Intra-Company Transfer (ICT)</option>
+        <option value="CanadaPGWP">Post-Graduation Work Permit (PGWP)</option>
+        <option value="CanadaSpouseOpenWorkPermit">Spouse Open Work Permit</option>
+        <option value="CanadaBridgingOpenWorkPermit">Bridging Open Work Permit (BOWP)</option>
+        <option value="CanadaSeasonalAgriculturalWorkerVisa">Seasonal Agri-Worker (SAWP)</option>
+    </optgroup>
+
+    <optgroup label="Permanent Residence (Express Entry)">
+        <option value="CanadaExpressEntryFSW">Federal Skilled Worker (FSW)</option>
+        <option value="CanadaExpressEntryCEC">Canadian Experience Class (CEC)</option>
+        <option value="CanadaExpressEntryFST">Federal Skilled Trades (FST)</option>
+    </optgroup>
+
+    <optgroup label="PR - Regional & Specialized">
+        <option value="CanadaPNP">Provincial Nominee Program (PNP)</option>
+        <option value="CanadaAIP">Atlantic Immigration Program (AIP)</option>
+        <option value="CanadaRNIP">Rural & Northern Pilot (RNIP)</option>
+        <option value="CanadaAgriFoodImmigrationPilot">Agri-Food Pilot</option>
+        <option value="CanadaCaregiverProgram">Caregiver Pilot Programs</option>
+        <option value="CanadaQSWP">Quebec Skilled Worker (QSWP)</option>
+        <option value="CanadaPEQ">Quebec Experience Program (PEQ)</option>
+    </optgroup>
+
+    <optgroup label="Business & Self-Employed">
+        <option value="CanadaStartUpVisa">Start-up Visa</option>
+        <option value="CanadaSelfEmployedProgram">Self-Employed Persons Program</option>
+    </optgroup>
+
+    <optgroup label="Family Sponsorship (PR)">
+        <option value="CanadaSpousalSponsorship">Spousal Sponsorship</option>
+        <option value="CanadaCommonLawPartnerSponsorship">Common-law Partner Sponsorship</option>
+        <option value="CanadaConjugalPartnerSponsorship">Conjugal Partner Sponsorship</option>
+        <option value="CanadaDependentChildSponsorship">Dependent Child Sponsorship</option>
+        <option value="CanadaParentGrandparentSponsorship">Parent/Grandparent PR (PGP)</option>
+    </optgroup>
+
+    <optgroup label="Refugee & Humanitarian">
+        <option value="CanadaRefugeeProtectionClaim">Refugee Claim (Asylum)</option>
+        <option value="CanadaResettledRefugeeProgram">Resettled Refugee Program</option>
+        <option value="CanadaPrivateSponsorshipRefugees">Private Sponsorship of Refugees</option>
+        <option value="CanadaHumanitarianCompassionate">Humanitarian & Compassionate (H&C)</option>
+        <option value="CanadaProtectedPersonStatus">Protected Person Status</option>
+        <option value="CanadaTemporaryResidentPermit">Temporary Resident Permit (TRP)</option>
+    </optgroup>
+
+    <optgroup label="Special Programs (IEC & Official)">
+        <option value="CanadaIECWorkingHolidayVisa">IEC Working Holiday (Non-Indians)</option>
+        <option value="CanadaYoungProfessionalsProgram">IEC Young Professionals</option>
+        <option value="CanadaInternationalCoopInternshipVisa">IEC International Co-op</option>
+        <option value="CanadaDiplomaticOfficialVisas">Diplomatic & Official Visas</option>
+        <option value="CanadaArmedForcesMilitaryEntry">Military Personnel Entry</option>
+    </optgroup>
+
+
+
+
+
+   <optgroup label="Extras">
+        <option value="CanadaExpressEntryCategoryBased">Express entry-category based</option>
+        <option value="CanadaFrancophoneMobilityC16">Francophone work permit</option>
+        <option value="CanadaVulnerableWorkerPermit">Vulnerable worker</option>
+        <option value="CanadaEMPP_SkilledRefugee">EMPP</option>
+        <option value="CanadaLonelyCanadianSponsorship">Other relative</option>
+<option value="CanadaHomeCareSupportPilot2025">Home support</option>
+<option value="CanadaElectronicTravelAuthorization">Electronic travel</option>
+<option value="CanadaVisitorRecord">Visitor record</option>
+
+<option value="CanadaRestorationOfStatus">Restoration</option>
+<option value="CanadaPRTravelDocument">Travel document</option>
+
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+<!-- START OF CANADA MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇨🇦 VIEW CANADA IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇨🇦 CANADA IMMIGRATION — MASTER END-TO-END PROCESS (2026)</h1>
+
+        <h2>🟢 PHASE 1: IMMIGRATION PATHWAY SELECTION (CORE SYSTEM)</h2>
+        <p>Canada immigration is divided into 4 major streams:</p>
+        
+        <h3>1. TEMPORARY RESIDENCE (ENTRY VISAS)</h3>
+        <ul>
+            <li>Visitor Visa (TRV)</li>
+            <li>Study Permit</li>
+            <li>Work Permit (LMIA / Open Work Permit)</li>
+            <li>Super Visa (parents/grandparents)</li>
+        </ul>
+        <p>👉 Purpose: Temporary stay, entry into Canada</p>
+
+        <h3>2. PERMANENT RESIDENCE (PR)</h3>
+        <ul>
+            <li>Express Entry (FSW / CEC / FST)</li>
+            <li>Provincial Nominee Program (PNP)</li>
+            <li>Atlantic Immigration Program (AIP)</li>
+            <li>Rural & Northern Immigration Pilot (RNIP)</li>
+            <li>Caregiver pathways</li>
+        </ul>
+        <p>👉 Purpose: Permanent settlement</p>
+
+        <h3>3. FAMILY SPONSORSHIP & HUMANITARIAN</h3>
+        <ul>
+            <li>Spouse/common-law, Parents, Grandparents, and Dependent children sponsorship.</li>
+            <li>Refugee status and Asylum claims inside Canada.</li>
+        </ul>
+
+        <h2>🟡 PHASE 2: ELIGIBILITY SCREENING (CANADA CORE FILTER)</h2>
+        <p>IRCC checks the following:</p>
+        <ul>
+            <li><strong>1. Identity:</strong> Valid passport and biometrics registration.</li>
+            <li><strong>2. Purpose:</strong> Alignment with Study, Work, PR, or Family sponsorship.</li>
+            <li><strong>3. Language:</strong> IELTS General / CELPIP (English) or TEF (French) for PR points.</li>
+            <li><strong>4. Education:</strong> ECA (Educational Credential Assessment) for foreign degrees.</li>
+            <li><strong>5. Financial Proof:</strong> Tuition + living for students, travel for visitors, or settlement funds for PR.</li>
+            <li><strong>6. Medical & Security:</strong> Panel physician exams, police clearance (PCC), and background screening.</li>
+        </ul>
+
+        <h2>🟠 PHASE 3: DOCUMENT PREPARATION (CORE FILE)</h2>
+        <ul>
+            <li><strong>Identity:</strong> Passport and photos (IRCC format).</li>
+            <li><strong>Civil:</strong> Birth and marriage certificates.</li>
+            <li><strong>Financial:</strong> 4–6 months bank statements, income proof, or sponsor letters.</li>
+            <li><strong>Education:</strong> Degrees, transcripts, and mandatory ECA report.</li>
+            <li><strong>Work:</strong> Reference letters (NOC/TEER coding), job offers, and contracts.</li>
+            <li><strong>Immigration specific:</strong> LMIA, PNP nomination, or Invitation to Apply (ITA).</li>
+        </ul>
+
+        <h2>🔵 PHASE 4 & 5: APPLICATION & BIOMETRICS</h2>
+        <p>1. Create IRCC account (GCKey) -> 2. Fill online forms -> 3. Upload documents -> 4. Pay fees -> 5. Submit -> 6. Attend biometrics at VFS Global India.</p>
+
+        <h2>🟤 PHASE 6 & 7: IRCC ASSESSMENT & CHECKS</h2>
+        <p>Evaluations: Completeness check, immigration history, LMIA validation (Work), ECA validation (Education), source of funds, and criminal admissibility. May include Additional Document Requests (ADR) or medical re-checks.</p>
+
+        <h2>🟠 PHASE 8, 9 & 10: DECISION, APPROVAL & ENTRY</h2>
+        <p>Outcomes: Approved or Refused. Approval grants permits or COPR (Confirmation of PR). Entry: CBSA inspection and biometric verification at the Canadian border.</p>
+
+        <h2>🟣 PHASE 11 & 12: LIVING IN CANADA & PR PATHWAYS</h2>
+        <p>Compliance: Follow permit conditions (work limits/residency obligations). PR Routes: Express Entry (Profile -> CRS score -> ITA -> PR), PNP (+600 points), Study → PGWP → PR, or Work → PR.</p>
+
+        <h2>🟢 PHASE 13 & 14: PR OBLIGATIONS & CITIZENSHIP</h2>
+        <p>PR Obligations: 730 days residency in 5 years and tax filing. Citizenship: 3 years physical presence in 5 years + Language test + Citizenship test + Oath ceremony.</p>
+
+        <h2>⚫ MASTER FLOW (CANADA IMMIGRATION SYSTEM MAP)</h2>
+        <p style="background: #eee; padding: 10px; font-weight: bold;">Eligibility → IELTS + ECA → Application (IRCC portal) → Biometrics → IRCC processing → Decision → Entry into Canada → Temporary stay → PR application (Express Entry / PNP) → PR approval (COPR) → Residency → Citizenship</p>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL CANADA IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Main Immigration Portal:</strong> <a href="https://www.canada.ca/en/immigration-refugees-citizenship.html" target="_blank">www.canada.ca/ircc</a></p>
+            <p><strong>2. Application System:</strong> <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application.html" target="_blank">www.canada.ca/apply</a></p>
+            <p><strong>3. Express Entry Guide:</strong> <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html" target="_blank">www.canada.ca/express-entry</a></p>
+            <p><strong>4. Check Processing Times:</strong> <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/application/check-processing-times.html" target="_blank">www.canada.ca/processing-times</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: USE ONLY OFFICIAL CANADA.CA WEBSITES. BEWARE OF UNAUTHORIZED CONSULTANTS.
+        </div>
+    </div>
+</details>
+
+
+
+
+
+<!-- START OF CANADA CRS POINTS SYSTEM COLLAPSIBLE -->
+<details class="points-system-details">
+    <summary class="points-system-summary">🧮 VIEW CANADA POINTS-BASED IMMIGRATION SYSTEM (CRS 2026)</summary>
+    
+    <div class="points-content">
+        <h1>🇨🇦 CANADA POINTS-BASED IMMIGRATION SYSTEM (CRS) (2026)</h1>
+        <p>Used for FSW, CEC, FST, and PNP-linked Express Entry streams. Total CRS Score: <strong>1200 points max</strong>.</p>
+
+        <h2>🟢 2. CORE HUMAN CAPITAL FACTORS</h2>
+        
+        <h3>🎂 AGE (MAX: 110 POINTS)</h3>
+        <table class="points-table">
+            <thead><tr><th>Age</th><th>Points (Single)</th></tr></thead>
+            <tbody>
+                <tr><td>20–29 years</td><td><strong>110 (Maximum)</strong></td></tr>
+                <tr><td>30 years</td><td>105</td></tr>
+                <tr><td>31 years</td><td>99</td></tr>
+                <tr><td>32 years</td><td>94</td></tr>
+                <tr><td>35 years</td><td>77</td></tr>
+                <tr><td>40 years</td><td>45</td></tr>
+                <tr><td>45+ years</td><td>0</td></tr>
+            </tbody>
+        </table>
+
+        <h3>🎓 EDUCATION (MAX: 150 POINTS)</h3>
+        <table class="points-table">
+            <thead><tr><th>Qualification</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>PhD (Doctorate)</td><td>150</td></tr>
+                <tr><td>Master’s degree</td><td>135</td></tr>
+                <tr><td>Bachelor’s degree</td><td>120</td></tr>
+                <tr><td>Diploma / Trade</td><td>90–100</td></tr>
+            </tbody>
+        </table>
+
+        <h3>🗣️ LANGUAGE SKILLS (MAX: 160 POINTS)</h3>
+        <table class="points-table">
+            <thead><tr><th>CLB Level</th><th>English Proficiency</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>High (CLB 9+)</td><td>Excellent</td><td><strong>136–160</strong></td></tr>
+                <tr><td>Medium (CLB 7–8)</td><td>Good</td><td>100–120</td></tr>
+                <tr><td>Basic (CLB 6)</td><td>Minimum</td><td>60–80</td></tr>
+            </tbody>
+        </table>
+
+        <h3>💼 WORK EXPERIENCE (OUTSIDE CANADA)</h3>
+        <table class="points-table">
+            <thead><tr><th>Experience Duration</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>1 year</td><td>15</td></tr>
+                <tr><td>3 years</td><td>50</td></tr>
+                <tr><td>5+ years</td><td><strong>80+</strong></td></tr>
+            </tbody>
+        </table>
+
+        <h2>🟡 4. ADDITIONAL POINTS (CRITICAL BOOSTS)</h2>
+        <table class="points-table">
+            <thead><tr><th>Condition</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Provincial Nomination (PNP)</strong></td><td><strong>600 (Game Changer)</strong></td></tr>
+                <tr><td>Valid Canadian Job Offer</td><td>50–200</td></tr>
+                <tr><td>Strong French Skills</td><td>25–50</td></tr>
+                <tr><td>Study Experience in Canada</td><td>15–30</td></tr>
+            </tbody>
+        </table>
+
+        <div class="calculation-box">
+            <h3>🧮 FINAL CRS FORMULA</h3>
+            <p>Total CRS Score = Age + Education + Language + Work Experience + Skill Transferability + Job Offer + PNP Nomination + Bonuses = MAX 1200</p>
+        </div>
+
+        <h2>🎯 REALISTIC CUT-OFF SCORES (2026)</h2>
+        <table class="points-table">
+            <thead><tr><th>Stream</th><th>Typical CRS Required</th></tr></thead>
+            <tbody>
+                <tr><td>Express Entry (FSW)</td><td>480–520</td></tr>
+                <tr><td>Canadian Experience (CEC)</td><td>500–540</td></tr>
+                <tr><td>PNP Candidates</td><td>700+ (With 600 bonus)</td></tr>
+            </tbody>
+        </table>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL CANADA POINTS WEBSITES</h1>
+            <p><strong>Express Entry Portal:</strong> <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry.html" target="_blank">Express Entry Guide</a></p>
+            <p><strong>Official CRS Calculator:</strong> <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/criteria-comprehensive-ranking-system.html" target="_blank">CRS Calculation Tool</a></p>
+        </div>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black); margin-top: 15px;">
+            🧠 KEY INSIGHT: Canada uses a COMPETITIVE RANKING system. You are compared against all others in the pool; highest scores win an Invitation to Apply (ITA).
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "CANADA": {
+     "CanadaVisitorVisa": {
+    name: "Visitor Visa (Temporary Resident Visa – TRV)",
+
+    validity: "Usually up to 6 months per visit. Can be issued as single-entry or multiple-entry (often valid up to 10 years or passport expiry, whichever comes first).",
+
+    cost: "CAD $100 (~₹6,200) + biometrics fee CAD $85 (~₹5,300).",
+
+    time: "Typically 2–8 weeks from India depending on application load and biometrics scheduling.",
+
+    age: "No age restriction (minors require parental consent and documents).",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds for travel, accommodation, daily expenses, and return flight to India.",
+
+    docs: "Valid passport, completed application form, travel itinerary, proof of funds (bank statements), employment/business proof, invitation letter (if visiting family/friends), ties to India (job, property, family), biometrics.",
+
+    whom: "Tourists, family visitors, short-term business visitors, and people attending events or short medical visits in Canada.",
+
+    rules: "No work allowed. No long-term study allowed. Must leave Canada before visa expiry. Must prove strong ties to India to show return intention.",
+
+    prosCons: "Pros: Easy short-term travel, multiple-entry possible, flexible for tourism and visits. Cons: No work rights, strict approval scrutiny, strong rejection if ties to India are weak.",
+
+    terms: "TRV: Temporary Resident Visa; IRCC: Immigration, Refugees and Citizenship Canada; Visitor Status: Legal short-term stay in Canada.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) and IRCC visitor visa regulations.",
+
+    process: `1. Create IRCC online account -> 
+              2. Fill visitor visa application form -> 
+              3. Upload documents (passport, funds, itinerary, ties to India) -> 
+              4. Pay visa fee + biometrics fee -> 
+              5. Book biometrics appointment at VAC (Visa Application Centre) -> 
+              6. Submit fingerprints and photo -> 
+              7. IRCC assesses application (background + financial + intent checks) -> 
+              8. Possible interview or additional document request -> 
+              9. Decision issued -> 
+              10. Passport request for stamping -> 
+              11. Visa stamped -> 
+              12. Travel to Canada -> 
+              13. Stay up to permitted duration -> 
+              14. Exit Canada before expiry or extend if eligible.`
+},
+
+"CanadaSuperVisa": {
+    name: "Super Visa (Parents & Grandparents Visa)",
+
+    validity: "Up to 10 years multiple-entry visa. Each visit allows stay up to 5 years at a time (can be extended while in Canada).",
+
+    cost: "Visa fee: CAD $100 (~₹6,200) + biometrics CAD $85 (~₹5,300) + medical insurance (varies, approx CAD $800–$2,000/year depending on age/coverage).",
+
+    time: "Typically 4–12 weeks from India depending on medical insurance, biometrics, and IRCC processing.",
+
+    age: "No age restriction (for parents and grandparents of Canadian citizens or PR holders).",
+
+    education: "No requirement.",
+
+    funds: "Sponsor must meet Minimum Necessary Income (MNI / LICO threshold) based on family size in Canada.",
+
+    docs: "Invitation letter from child/grandchild in Canada, proof of relationship, sponsor income proof (NOA, T4, payslips), medical insurance valid for at least 1 year, medical exam report, passport, biometrics.",
+
+    whom: "Parents and grandparents of Canadian citizens or permanent residents (PR holders).",
+
+    rules: "Must have private medical insurance from a Canadian insurer (minimum 1 year coverage). Cannot work in Canada. Must maintain temporary resident status and leave or extend stay legally.",
+
+    prosCons: "Pros: Long stays (up to 5 years per visit), multiple-entry for 10 years, strong family reunification option. Cons: High income requirement for sponsor, mandatory insurance cost, no work rights.",
+
+    terms: "IRCC: Immigration, Refugees and Citizenship Canada; LICO: Low Income Cut-Off; MNI: Minimum Necessary Income.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada family visitor provisions).",
+
+    process: `1. Child/grandchild in Canada applies invitation -> 
+              2. Sponsor proves income meets LICO/MNI requirement -> 
+              3. Purchase eligible Canadian medical insurance (1 year minimum) -> 
+              4. Gather documents (relationship proof, financial records, insurance) -> 
+              5. Apply online for Super Visa -> 
+              6. Pay visa fee + biometrics fee -> 
+              7. Book biometrics appointment at VAC in India -> 
+              8. Complete medical examination -> 
+              9. Submit fingerprints and photo -> 
+              10. IRCC assesses eligibility (income, insurance, admissibility) -> 
+              11. Decision issued -> 
+              12. Passport request and visa stamping -> 
+              13. Travel to Canada -> 
+              14. Stay up to 5 years per entry -> 
+              15. Extend stay if needed from inside Canada.`
+},
+
+"CanadaTransitVisa": {
+    name: "Transit Visa (Canada Transit Temporary Resident Visa)",
+
+    validity: "Valid only for transit purpose. Allows stay up to 48 hours in Canada while connecting to another country.",
+
+    cost: "Free of visa fee (CAD $0). Biometrics fee CAD $85 (~₹5,300) may apply if not already provided.",
+
+    time: "Typically 1–3 weeks from India depending on VAC appointment and IRCC processing.",
+
+    age: "No age restriction (minors require parental consent).",
+
+    education: "No requirement.",
+
+    funds: "Must show proof of onward travel and ability to enter the destination country (visa/residence permit if required).",
+
+    docs: "Valid passport, confirmed onward flight tickets, visa or entry permit for destination country, travel itinerary, biometrics (if required), supporting travel documents.",
+
+    whom: "Passengers transiting through Canada on the way to another country by air (usually connecting flights via Canadian airports).",
+
+    rules: "Must remain in transit only. No exit from airport in most cases. No work or study allowed. Must leave Canada within 48 hours.",
+
+    prosCons: "Pros: Simple requirement for connecting flights via Canada, usually free. Cons: Very strict usage, limited to transit only, no flexibility for stay.",
+
+    terms: "IRCC: Immigration, Refugees and Citizenship Canada; Transit Passenger: Traveler passing through Canada to another destination.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Transit provisions.",
+
+    process: `1. Book confirmed onward international flight via Canada -> 
+              2. Check if transit visa is required based on nationality -> 
+              3. Apply online for Transit Visa (TRV transit category) -> 
+              4. Upload documents (passport, tickets, destination visa) -> 
+              5. Book biometrics appointment if required -> 
+              6. Submit fingerprints and photo -> 
+              7. IRCC verifies eligibility and onward travel -> 
+              8. Decision issued -> 
+              9. Visa stamped in passport if approved -> 
+              10. Travel to Canada -> 
+              11. Remain in transit area or follow allowed transit route -> 
+              12. Leave Canada within 48 hours.`
+},
+
+"CanadaBusinessVisitorVisa": {
+    name: "Business Visitor Visa (Canada Short-Term Business Entry)",
+
+    validity: "Usually up to 6 months per visit. Can be single or multiple entry depending on IRCC approval.",
+
+    cost: "CAD $100 (~₹6,200) + biometrics CAD $85 (~₹5,300).",
+
+    time: "Typically 2–8 weeks from India depending on application volume and biometrics scheduling.",
+
+    age: "No age restriction.",
+
+    education: "No requirement, but applicant should have relevant business/professional background.",
+
+    funds: "Must show sufficient funds to support travel, stay, and return to India.",
+
+    docs: "Valid passport, invitation letter from Canadian company, business meeting details, employment proof in India, financial documents (bank statements), travel itinerary, ties to India (job/business/property), biometrics.",
+
+    whom: "Individuals visiting Canada for short-term business activities such as meetings, conferences, trade fairs, negotiations, or training (not employment in Canada).",
+
+    rules: "Cannot enter Canadian labour market. No paid work for Canadian employer. Must leave Canada after permitted stay. Activities must be strictly business visitor type only.",
+
+    prosCons: "Pros: Useful for international business networking, quick short-term entry, multiple-entry possible. Cons: No employment allowed, strict distinction between visitor and worker, strong documentation required.",
+
+    terms: "IRCC: Immigration, Refugees and Citizenship Canada; Business Visitor: Person entering for short commercial activities without joining Canadian labour market.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Business Visitor provisions).",
+
+    process: `1. Receive invitation from Canadian company/organization -> 
+              2. Prepare business documents (meeting agenda, conference invite, role proof) -> 
+              3. Complete online TRV application (business visitor category) -> 
+              4. Upload documents (passport, funds, employment proof, invitation letter) -> 
+              5. Pay visa + biometrics fee -> 
+              6. Book biometrics appointment at VAC in India -> 
+              7. Submit fingerprints and photo -> 
+              8. IRCC assesses business purpose and ties to India -> 
+              9. Possible interview or additional document request -> 
+              10. Decision issued -> 
+              11. Passport stamping -> 
+              12. Travel to Canada -> 
+              13. Attend meetings/conferences only -> 
+              14. Leave Canada within authorized stay period.`
+},
+
+"CanadaTouristVisa": {
+    name: "Tourist Visa (Visitor Visa – Tourism Category, Canada)",
+
+    validity: "Usually up to 6 months per visit. Can be issued as single-entry or multiple-entry (up to 10 years or passport validity).",
+
+    cost: "CAD $100 (~₹6,200) + biometrics CAD $85 (~₹5,300).",
+
+    time: "Typically 2–8 weeks from India depending on application load and biometrics scheduling.",
+
+    age: "No age restriction (minors require parental consent).",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds for travel, accommodation, daily expenses, and return airfare to India.",
+
+    docs: "Valid passport, travel itinerary, hotel bookings or invitation letter, bank statements (3–6 months), employment/business proof, income tax returns (if available), proof of ties to India (job, property, family), biometrics.",
+
+    whom: "Individuals visiting Canada for leisure, sightseeing, tourism activities, or visiting friends and family.",
+
+    rules: "No work allowed. No long-term study allowed. Must leave Canada before visa expiry. Must prove strong ties to India to avoid immigration refusal.",
+
+    prosCons: "Pros: Easy access for tourism, multiple-entry option available, flexible travel. Cons: No work rights, strict approval on financial stability and return intent, can be refused if ties are weak.",
+
+    terms: "TRV: Temporary Resident Visa; IRCC: Immigration, Refugees and Citizenship Canada; Visitor Status: Legal short-term stay in Canada.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Visitor visa provisions.",
+
+    process: `1. Create IRCC online account -> 
+              2. Fill tourist visa application form -> 
+              3. Upload documents (passport, funds, itinerary, ties to India) -> 
+              4. Pay visa fee + biometrics fee -> 
+              5. Book biometrics appointment at VAC in India -> 
+              6. Submit fingerprints and photo -> 
+              7. IRCC assesses financial stability and travel intent -> 
+              8. Possible interview or additional document request -> 
+              9. Decision issued -> 
+              10. Passport request for stamping -> 
+              11. Visa stamped -> 
+              12. Travel to Canada -> 
+              13. Visit tourist destinations / family stay -> 
+              14. Leave Canada before visa expiry or extend if eligible.`
+},
+
+"CanadaMedicalTreatmentVisa": {
+    name: "Medical Treatment Visa (Canada Visitor Visa – Medical Category)",
+
+    validity: "Usually up to 6 months per visit. Can be single or multiple entry depending on case approval.",
+
+    cost: "CAD $100 (~₹6,200) + biometrics CAD $85 (~₹5,300). Medical tests and treatment costs are separate.",
+
+    time: "Typically 2–10 weeks from India depending on medical urgency and IRCC processing.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds to cover medical treatment, hospital costs, accommodation, travel, and living expenses in Canada.",
+
+    docs: "Valid passport, medical diagnosis report from India, letter from Canadian hospital/doctor confirming treatment plan and cost estimate, proof of funds or sponsor financial support, travel itinerary, accommodation plan, biometrics.",
+
+    whom: "Individuals travelling to Canada for specialized medical treatment, surgery, or advanced healthcare not easily available in their home country.",
+
+    rules: "Must prove medical necessity and acceptance by a Canadian medical institution. Cannot work or study. Must leave Canada after treatment unless visa extension is approved.",
+
+    prosCons: "Pros: Access to advanced Canadian healthcare, treatment for critical conditions, structured medical support system. Cons: Very high medical cost, strict approval process, no employment rights.",
+
+    terms: "IRCC: Immigration, Refugees and Citizenship Canada; Medical Letter: Hospital acceptance document; Visitor Visa: Short-term entry permit for treatment.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Medical admissibility and visitor provisions.",
+
+    process: `1. Get diagnosis from Indian medical specialist -> 
+              2. Obtain referral/approval from Canadian hospital or doctor -> 
+              3. Receive treatment plan and cost estimate -> 
+              4. Gather financial proof or sponsor support documents -> 
+              5. Complete online visitor visa application (medical category) -> 
+              6. Upload medical reports and hospital letter -> 
+              7. Pay visa + biometrics fee -> 
+              8. Book biometrics appointment at VAC in India -> 
+              9. Submit fingerprints and photograph -> 
+              10. IRCC assesses medical need and financial capability -> 
+              11. Possible additional medical verification or interview -> 
+              12. Decision issued -> 
+              13. Passport stamping -> 
+              14. Travel to Canada -> 
+              15. Undergo medical treatment -> 
+              16. Leave Canada after recovery or apply for extension if medically required.`
+},
+
+"CanadaStudyPermit": {
+    name: "Study Permit (Canada Student Visa)",
+
+    validity: "Duration of study program + 90 days. Can be extended if course is extended or changed.",
+
+    cost: "CAD $150 (~₹9,200) + biometrics CAD $85 (~₹5,300). SDS applicants may also require GIC (~CAD $20,635/year).",
+
+    time: "SDS (India): ~2–4 weeks. Non-SDS: ~4–12+ weeks depending on IRCC workload.",
+
+    age: "No official age limit, but commonly 18–35 years for Indian applicants.",
+
+    education: "Admission from a Designated Learning Institution (DLI) in Canada required.",
+
+    funds: "Tuition fees + living expenses (~CAD $20,635/year minimum living cost as per IRCC).",
+
+    docs: "Letter of Acceptance (LOA) from DLI, passport, proof of funds (bank statements/GIC), IELTS/English test, Statement of Purpose (SOP), academic transcripts, medical exam (if required), biometrics.",
+
+    whom: "International students pursuing full-time education in Canadian universities, colleges, or approved institutions.",
+
+    rules: "Must study full-time. Limited work rights (20 hours/week during study, full-time during breaks). Must maintain academic progress. Must leave or change status after study unless applying for PGWP/PR.",
+
+    prosCons: "Pros: Strong PR pathway, part-time work allowed, global education quality. Cons: High cost, strict visa approval, study performance requirements.",
+
+    terms: "DLI: Designated Learning Institution; SDS: Student Direct Stream; PGWP: Post-Graduation Work Permit.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Study permit regulations.",
+
+    process: `1. Choose DLI and course -> 
+              2. Receive Letter of Acceptance (LOA) -> 
+              3. Arrange funds (SDS requires GIC) -> 
+              4. Pay tuition fees (if required) -> 
+              5. Complete online study permit application -> 
+              6. Upload documents (LOA, SOP, funds, IELTS, transcripts) -> 
+              7. Pay visa + biometrics fee -> 
+              8. Book biometrics appointment at VAC in India -> 
+              9. Submit fingerprints and photo -> 
+              10. Medical exam (if required) -> 
+              11. IRCC assesses academic intent and funds -> 
+              12. Possible interview or document request -> 
+              13. Decision issued -> 
+              14. Passport stamping -> 
+              15. Travel to Canada -> 
+              16. Obtain study permit at port of entry -> 
+              17. Begin studies in Canada -> 
+              18. Option to apply for PGWP after graduation.`
+},
+
+"CanadaSDSStudyPermit": {
+    name: "Student Direct Stream (SDS) Study Permit",
+
+    validity: "Duration of study program + 90 days. Renewable if program is extended.",
+
+    cost: "CAD $150 (~₹9,200) + biometrics CAD $85 (~₹5,300). GIC required: CAD $20,635 (living expenses for 1 year) + first year tuition fees.",
+
+    time: "Typically 2–4 weeks from India (faster than regular study permit).",
+
+    age: "No strict age limit, but most applicants are 18–35 years.",
+
+    education: "Admission from a Designated Learning Institution (DLI) in Canada required.",
+
+    funds: "GIC (Guaranteed Investment Certificate) CAD $20,635 + 1 year tuition paid in advance + travel funds.",
+
+    docs: "Letter of Acceptance (LOA), GIC certificate from approved bank, tuition fee payment receipt, IELTS (minimum 6.0 overall with no band less than 6.0), passport, academic transcripts, medical exam (if required), biometrics.",
+
+    whom: "Eligible students from India (and selected countries) applying for faster processing study permits to Canada.",
+
+    rules: "Must meet strict SDS eligibility (IELTS, GIC, tuition payment, DLI admission). Must study full-time. Limited work rights (20 hours/week during studies). Must maintain academic progress.",
+
+    prosCons: "Pros: Fast processing, higher approval rate, simplified financial proof system. Cons: Strict eligibility requirements, mandatory GIC + IELTS criteria, no flexibility in documentation.",
+
+    terms: "SDS: Student Direct Stream; GIC: Guaranteed Investment Certificate; DLI: Designated Learning Institution; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – SDS fast-track study stream).",
+
+    process: `1. Get admission in DLI -> 
+              2. Pay first year tuition fees -> 
+              3. Purchase GIC (CAD $20,635) from approved bank -> 
+              4. Take IELTS (minimum 6.0 bands) -> 
+              5. Collect required documents (LOA, GIC, receipts, passport) -> 
+              6. Apply online under SDS category -> 
+              7. Pay visa + biometrics fee -> 
+              8. Book biometrics appointment at VAC in India -> 
+              9. Submit fingerprints and photo -> 
+              10. Medical exam (if required) -> 
+              11. IRCC fast-track assessment -> 
+              12. Possible additional document request -> 
+              13. Decision issued -> 
+              14. Passport stamping -> 
+              15. Travel to Canada -> 
+              16. Obtain study permit at port of entry -> 
+              17. Begin studies in Canada -> 
+              18. Apply for PGWP after graduation if eligible.`
+},
+
+"CanadaTFWPWorkPermit": {
+    name: "Temporary Foreign Worker Program (TFWP) Work Permit",
+
+    validity: "Usually 1–3 years depending on job contract and Labour Market Impact Assessment (LMIA). Can be extended if LMIA and job continue.",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + biometrics CAD $85 (~₹5,300). LMIA fee paid by employer: CAD $1,000.",
+
+    time: "Typically 2–6 months depending on LMIA approval and IRCC processing.",
+
+    age: "No official age limit (generally working age 18–55 preferred by employers).",
+
+    education: "Depends on job role; skilled jobs usually require diploma/degree or relevant experience.",
+
+    funds: "Must show basic settlement funds unless employer covers costs. Proof of financial ability to travel and initial stay required.",
+
+    docs: "Valid passport, job offer letter, positive LMIA from Canadian employer, employment contract, proof of qualifications/experience, biometrics, medical exam (if required).",
+
+    whom: "Foreign workers hired by Canadian employers when no Canadian citizen or PR is available for the job.",
+
+    rules: "Must work only for sponsoring employer. Must follow LMIA job role strictly. Cannot freely change employer without new LMIA/work permit.",
+
+    prosCons: "Pros: Direct job opportunity in Canada, potential pathway to PR through Express Entry/PNP. Cons: Employer-dependent, LMIA requirement, limited flexibility.",
+
+    terms: "TFWP: Temporary Foreign Worker Program; LMIA: Labour Market Impact Assessment; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Temporary Foreign Worker Program regulations.",
+
+    process: `1. Canadian employer applies for LMIA -> 
+              2. ESDC approves LMIA if no local worker available -> 
+              3. Employer issues job offer letter -> 
+              4. Worker gathers documents (passport, experience, qualifications) -> 
+              5. Apply for work permit online -> 
+              6. Pay fees + biometrics -> 
+              7. Book biometrics appointment at VAC in India -> 
+              8. Submit fingerprints and photo -> 
+              9. IRCC evaluates LMIA + applicant eligibility -> 
+              10. Possible medical exam or interview -> 
+              11. Decision issued -> 
+              12. Passport stamping -> 
+              13. Travel to Canada -> 
+              14. Work for sponsoring employer under TFWP -> 
+              15. Option to transition to PR via Express Entry or PNP if eligible.`
+},
+
+"CanadaLMIAWorkPermit": {
+    name: "LMIA-based Work Permit (Canada Employer-Sponsored Work Visa)",
+
+    validity: "Usually 1–3 years depending on job offer and LMIA approval. Can be extended if employer re-applies for LMIA.",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + biometrics CAD $85 (~₹5,300). LMIA fee: CAD $1,000 (paid by employer).",
+
+    time: "Typically 2–6 months depending on LMIA processing + IRCC visa approval.",
+
+    age: "No strict age limit (typically 18–55 preferred for employment roles).",
+
+    education: "Depends on job role (skilled jobs require degree/diploma or relevant experience).",
+
+    funds: "Must show proof of initial settlement funds unless employer provides support or accommodation.",
+
+    docs: "Valid passport, job offer letter, positive LMIA from employer, employment contract, proof of qualifications/experience, resume, biometrics, medical exam (if required).",
+
+    whom: "Foreign workers hired by Canadian employers after proving no Canadian citizen or PR is available for the job role.",
+
+    rules: "Must work only for the employer mentioned in LMIA. Cannot change job without new LMIA/work permit. Must follow job conditions strictly.",
+
+    prosCons: "Pros: Direct job in Canada, strong PR pathway via Express Entry/PNP, employer sponsorship. Cons: Employer-dependent, LMIA approval required, limited flexibility.",
+
+    terms: "LMIA: Labour Market Impact Assessment; ESDC: Employment and Social Development Canada; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – LMIA-based employment stream).",
+
+    process: `1. Canadian employer applies for LMIA to ESDC -> 
+              2. Employer proves no Canadian worker available -> 
+              3. LMIA approval issued -> 
+              4. Employer sends job offer letter + LMIA copy -> 
+              5. Applicant prepares documents (passport, CV, qualifications) -> 
+              6. Apply for work permit online -> 
+              7. Pay fees + biometrics -> 
+              8. Book biometrics appointment at VAC in India -> 
+              9. Submit fingerprints and photo -> 
+              10. IRCC reviews LMIA + eligibility -> 
+              11. Medical exam or additional checks if required -> 
+              12. Decision issued -> 
+              13. Passport stamping -> 
+              14. Travel to Canada -> 
+              15. Work for sponsoring employer -> 
+              16. Apply for PR through Express Entry or PNP if eligible.`
+},
+
+"CanadaLMIAExemptWorkPermit": {
+    name: "LMIA-Exempt Work Permit (Canada International Mobility Program – IMP)",
+
+    validity: "Usually 1–3 years depending on category and job offer. Can be extended if eligibility continues.",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + biometrics CAD $85 (~₹5,300). No LMIA fee required.",
+
+    time: "Typically 2–8 weeks depending on category and IRCC processing speed.",
+
+    age: "No strict age limit (working age 18+ typically).",
+
+    education: "Depends on category (some roles require degree, intra-company transfers require managerial/specialized experience).",
+
+    funds: "Must show proof of ability to support initial stay unless employer provides support.",
+
+    docs: "Valid passport, job offer letter, LMIA-exemption code or eligibility proof, employment contract, proof of qualifications/experience, biometrics, medical exam (if required).",
+
+    whom: "Foreign workers eligible for work permits without LMIA under special international agreements, intra-company transfers, or public policy exemptions.",
+
+    rules: "Must meet specific exemption criteria (e.g., intra-company transfer, trade agreements like CUSMA, public interest exemption). Must work only for approved employer.",
+
+    prosCons: "Pros: No LMIA required (faster processing), flexible pathways, strong route for multinational transfers. Cons: Strict eligibility categories, not open to all jobs, still employer-tied.",
+
+    terms: "LMIA: Labour Market Impact Assessment; IMP: International Mobility Program; IRCC: Immigration, Refugees and Citizenship Canada; ICT: Intra-Company Transfer.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – LMIA-exempt categories under IMP).",
+
+    process: `1. Employer determines LMIA exemption category -> 
+              2. Confirm eligibility (ICT, trade agreement, public policy, etc.) -> 
+              3. Employer submits job offer in IRCC portal (if required) -> 
+              4. Provide LMIA exemption code/reference -> 
+              5. Applicant prepares documents (passport, CV, proof of experience) -> 
+              6. Apply online for work permit -> 
+              7. Pay fees + biometrics -> 
+              8. Book biometrics appointment at VAC in India -> 
+              9. Submit fingerprints and photo -> 
+              10. IRCC verifies exemption eligibility -> 
+              11. Medical exam or additional checks if needed -> 
+              12. Decision issued -> 
+              13. Passport stamping -> 
+              14. Travel to Canada -> 
+              15. Work under approved LMIA-exempt category -> 
+              16. Possible transition to PR via Express Entry/PNP if eligible.`
+},
+
+"CanadaIMPWorkPermit": {
+    name: "International Mobility Program (IMP) Work Permit",
+
+    validity: "Usually 1–3 years depending on exemption category (ICT, trade agreements, public policy, etc.). Can be extended if eligibility continues.",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + biometrics CAD $85 (~₹5,300). No LMIA fee required.",
+
+    time: "Typically 2–8 weeks depending on category and IRCC workload.",
+
+    age: "No strict age limit (generally 18+ working age).",
+
+    education: "Depends on exemption category (ICT roles usually require specialized knowledge or managerial experience).",
+
+    funds: "Must show proof of initial settlement funds unless employer or intra-company transfer supports living costs.",
+
+    docs: "Valid passport, job offer letter, LMIA-exemption code or eligibility proof, employment contract, company transfer letter (if ICT), proof of qualifications/experience, biometrics, medical exam (if required).",
+
+    whom: "Foreign workers entering Canada under LMIA-exempt categories such as intra-company transfers, trade agreements, reciprocal youth programs, or public policy exemptions.",
+
+    rules: "Must qualify under an IMP exemption stream. Must work only for approved employer and role. Cannot freely switch jobs without new authorization.",
+
+    prosCons: "Pros: Faster processing (no LMIA), broader international agreements, common route for multinational companies. Cons: Limited to specific categories, employer-tied, not all jobs qualify.",
+
+    terms: "IMP: International Mobility Program; LMIA: Labour Market Impact Assessment; ICT: Intra-Company Transfer; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – LMIA-exempt IMP framework).",
+
+    process: `1. Employer identifies LMIA-exempt category (ICT, trade agreement, etc.) -> 
+              2. Confirm eligibility under IMP rules -> 
+              3. Issue job offer and exemption code if required -> 
+              4. Prepare supporting documents (passport, employment proof, transfer letter) -> 
+              5. Apply online for work permit -> 
+              6. Pay fees + biometrics -> 
+              7. Book biometrics appointment at VAC in India -> 
+              8. Submit fingerprints and photo -> 
+              9. IRCC verifies exemption eligibility and applicant credentials -> 
+              10. Medical exam or additional checks if required -> 
+              11. Decision issued -> 
+              12. Passport stamping -> 
+              13. Travel to Canada -> 
+              14. Begin employment under IMP category -> 
+              15. Possible transition to PR via Express Entry or PNP if eligible.`
+},
+
+"IntraCompanyTransferWorkPermit": {
+    name: "Intra-Company Transfer (ICT) Work Permit (Canada – IMP Route)",
+
+    validity: "Usually 1–3 years initially. Can be extended up to 7 years (managers/executives) or 5 years (specialized knowledge workers).",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + biometrics CAD $85 (~₹5,300). No LMIA fee required.",
+
+    time: "Typically 2–8 weeks depending on IRCC processing and document completeness.",
+
+    age: "No strict age limit (generally 18+ working age).",
+
+    education: "No fixed requirement, but must be managerial, executive, or specialized knowledge role in the company.",
+
+    funds: "Must show ability to support initial stay unless employer covers relocation and living costs.",
+
+    docs: "Valid passport, employment proof in parent company, transfer letter, organizational chart, proof of managerial/specialized role, job description, financial/company documents, biometrics, medical exam (if required).",
+
+    whom: "Employees of multinational companies transferring from foreign office (India) to Canadian branch, subsidiary, or affiliate.",
+
+    rules: "Must have worked for the company outside Canada for at least 1 year in the last 3 years. Must be transferred to same employer group in Canada. Must work only in approved ICT role.",
+
+    prosCons: "Pros: No LMIA required, faster processing, strong pathway for PR via Express Entry/PNP. Cons: Only for multinational employees, strict eligibility, employer-dependent.",
+
+    terms: "ICT: Intra-Company Transfer; IMP: International Mobility Program; LMIA: Labour Market Impact Assessment; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – ICT exemption under IMP).",
+
+    process: `1. Employee works in overseas company for at least 1 year -> 
+              2. Company establishes or confirms Canadian branch/subsidiary -> 
+              3. Employer issues transfer letter and job description -> 
+              4. Confirm eligibility under ICT category -> 
+              5. Apply online for work permit -> 
+              6. Submit supporting documents (passport, experience proof, organizational structure) -> 
+              7. Pay fees + biometrics -> 
+              8. Book biometrics appointment at VAC in India -> 
+              9. Submit fingerprints and photo -> 
+              10. IRCC evaluates ICT eligibility and company relationship -> 
+              11. Medical exam or additional checks if required -> 
+              12. Decision issued -> 
+              13. Passport stamping -> 
+              14. Travel to Canada -> 
+              15. Work in Canadian branch under ICT role -> 
+              16. Potential transition to PR via Express Entry or PNP.`
+},
+
+"CanadaPGWP": {
+    name: "Post-Graduation Work Permit (PGWP)",
+
+    validity: "Up to 8 months to 3 years depending on length of study program (cannot exceed program duration).",
+
+    cost: "Work permit fee: CAD $255 (~₹15,500) + biometrics CAD $85 (~₹5,300).",
+
+    time: "Typically 2–16 weeks after application depending on IRCC workload.",
+
+    age: "No age limit.",
+
+    education: "Must have completed an eligible program (minimum 8 months) from a Designated Learning Institution (DLI).",
+
+    funds: "No fixed proof of funds required for PGWP application itself, but applicant must support themselves during transition period.",
+
+    docs: "Passport, study permit, official letter of completion, final transcripts, proof of graduation, biometrics (if required).",
+
+    whom: "International students who have completed eligible full-time studies in Canada and want to gain Canadian work experience.",
+
+    rules: "Must apply within 180 days of receiving final marks/confirmation of program completion. Must have valid study permit during study period. One-time opportunity only (PGWP cannot be issued twice).",
+
+    prosCons: "Pros: Open work permit (can work for any employer), major pathway to PR via Express Entry/PNP. Cons: One-time only, eligibility depends on institution/program, cannot be extended further.",
+
+    terms: "PGWP: Post-Graduation Work Permit; DLI: Designated Learning Institution; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Post-Graduation Work Permit Program).",
+
+    process: `1. Complete eligible program at DLI -> 
+              2. Receive final transcripts and completion letter -> 
+              3. Ensure study permit is valid at time of application -> 
+              4. Apply online for PGWP within 180 days -> 
+              5. Pay fees (CAD $255) -> 
+              6. Submit documents (passport, transcripts, completion proof) -> 
+              7. Biometrics if required -> 
+              8. IRCC reviews eligibility -> 
+              9. Decision issued -> 
+              10. Receive open work permit -> 
+              11. Start working in Canada for any employer -> 
+              12. Gain Canadian work experience -> 
+              13. Apply for PR via Express Entry or PNP if eligible.`
+},
+"CanadaSpouseOpenWorkPermit": {
+    name: "Open Work Permit (Spouse Open Work Permit – Canada)",
+
+    validity: "Usually same as principal applicant’s study permit, work permit, or PR processing stage (often 1–3 years, renewable in some cases).",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + Open Work Permit Holder fee: CAD $100 (~₹6,200) + biometrics CAD $85 (~₹5,300).",
+
+    time: "Typically 2–16 weeks depending on principal applicant status and IRCC processing time.",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must show ability to support living costs in Canada unless spouse income is sufficient.",
+
+    docs: "Marriage certificate (or proof of common-law relationship), spouse’s valid study/work permit or PR documents, passport, proof of relationship (photos, communication records), biometrics, medical exam (if required).",
+
+    whom: "Spouses or common-law partners of international students, skilled workers, or some PR applicants in Canada.",
+
+    rules: "Must have valid relationship proof. Can work for any employer in Canada (open work permit). Valid only as long as principal applicant maintains eligible status.",
+
+    prosCons: "Pros: Full work freedom, supports family unity, income opportunity in Canada. Cons: Dependent on spouse’s visa status, temporary nature, renewal tied to main applicant.",
+
+    terms: "OWP: Open Work Permit; IRCC: Immigration, Refugees and Citizenship Canada; SOWP: Spouse Open Work Permit.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Family Open Work Permit provisions).",
+
+    process: `1. Principal applicant gets valid study/work permit or PR pathway -> 
+              2. Prepare proof of genuine relationship (marriage/common-law evidence) -> 
+              3. Collect spouse documents (passport, status in Canada, permit copy) -> 
+              4. Apply online for Open Work Permit -> 
+              5. Pay fees (work permit + open permit + biometrics) -> 
+              6. Book biometrics appointment at VAC in India (if applying from India) -> 
+              7. Submit fingerprints and photo -> 
+              8. IRCC assesses relationship and eligibility -> 
+              9. Possible additional document request -> 
+              10. Decision issued -> 
+              11. Passport stamping -> 
+              12. Travel to Canada -> 
+              13. Work freely for any employer -> 
+              14. Extend permit if spouse’s status remains valid.`
+},
+
+
+"CanadaBridgingOpenWorkPermit": {
+    name: "Bridging Open Work Permit (BOWP)",
+
+    validity: "Usually up to 1 year at a time, renewable depending on PR application status. Valid until a final decision on permanent residence is made.",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + Open Work Permit Holder fee: CAD $100 (~₹6,200) + biometrics CAD $85 (~₹5,300).",
+
+    time: "Typically 2–12 weeks depending on IRCC workload and eligibility verification.",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must show ability to support yourself in Canada during processing period.",
+
+    docs: "Acknowledgement of PR application (AOR), valid work permit or expiring permit, passport, proof of PR application under eligible program (Express Entry, PNP, etc.), biometrics, medical exam (if required).",
+
+    whom: "Foreign nationals in Canada who have applied for Permanent Residence (PR) and whose current work permit is about to expire.",
+
+    rules: "Must have valid PR application in process under eligible economic immigration programs. Must apply before current work permit expires. Allows continued work while PR is processed.",
+
+    prosCons: "Pros: Maintains legal work status while waiting for PR, open work permit flexibility, avoids job interruption. Cons: Only available to PR applicants, temporary bridge status, strict eligibility criteria.",
+
+    terms: "BOWP: Bridging Open Work Permit; AOR: Acknowledgement of Receipt; PR: Permanent Residence; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Bridging Open Work Permit policy).",
+
+    process: `1. Apply for PR under eligible program (Express Entry / PNP / etc.) -> 
+              2. Receive AOR (Acknowledgement of Receipt) -> 
+              3. Check current work permit expiry -> 
+              4. Apply for BOWP online before expiry -> 
+              5. Upload PR proof (AOR), passport, current permit -> 
+              6. Pay fees (work permit + open permit + biometrics) -> 
+              7. Book biometrics appointment at VAC in India or Canada -> 
+              8. Submit fingerprints and photo -> 
+              9. IRCC verifies PR application validity -> 
+              10. Decision issued -> 
+              11. Receive open work permit -> 
+              12. Continue working in Canada legally while PR is processed -> 
+              13. Maintain compliance until PR approval.`
+},
+
+"CanadaSeasonalAgriculturalWorkerVisa": {
+    name: "Seasonal Agricultural Worker Program (SAWP) Visa",
+
+    validity: "Usually up to 8 months per year (seasonal work only). Can be renewed annually based on employer need and program participation.",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + biometrics CAD $85 (~₹5,300). Employer may cover additional recruitment and travel costs in many cases.",
+
+    time: "Typically 2–8 weeks depending on employer, LMIA approval, and IRCC processing.",
+
+    age: "Generally 18–45 years preferred (no strict legal maximum age, but depends on job physical requirements).",
+
+    education: "No formal education required, but basic physical fitness and prior farm work experience is preferred.",
+
+    funds: "Minimal personal funds required; many employers provide accommodation and sometimes food or transport support.",
+
+    docs: "Valid passport, job contract from approved Canadian agricultural employer, positive LMIA, proof of prior agricultural experience, medical exam, biometrics.",
+
+    whom: "Temporary foreign workers from approved countries (including India in some arrangements via bilateral agreements or recruitment channels) for seasonal farm/agricultural work in Canada.",
+
+    rules: "Must work only for the assigned employer and farm. Must return to home country after contract ends. No family accompaniment allowed under this program. Must follow strict seasonal timelines.",
+
+    prosCons: "Pros: Guaranteed seasonal employment, employer often provides housing, pathway for repeated seasonal work. Cons: No PR pathway directly, physically demanding work, employer-dependent conditions.",
+
+    terms: "SAWP: Seasonal Agricultural Worker Program; LMIA: Labour Market Impact Assessment; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Seasonal Agricultural Worker Program under TFWP).",
+
+    process: `1. Canadian employer applies for LMIA for seasonal farm labor -> 
+              2. LMIA approval under SAWP program -> 
+              3. Employer selects approved foreign workers through authorized recruitment channels -> 
+              4. Worker signs employment contract -> 
+              5. Apply for work permit with LMIA and contract -> 
+              6. Submit documents (passport, experience proof, medical exam) -> 
+              7. Pay visa fee + biometrics -> 
+              8. Book biometrics appointment at VAC in India -> 
+              9. Submit fingerprints and photo -> 
+              10. IRCC verifies LMIA and eligibility -> 
+              11. Decision issued -> 
+              12. Passport stamping -> 
+              13. Travel to Canada -> 
+              14. Work on assigned farm for seasonal duration -> 
+              15. Return to home country after contract completion -> 
+              16. May reapply in future seasons if invited again.`
+},
+
+"CanadaExpressEntryFSW": {
+    name: "Express Entry – Federal Skilled Worker Program (FSW)",
+
+    validity: "Permanent Residence (PR). Once granted, it is permanent with no expiry (PR card renewable every 5 years).",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + biometrics CAD $85 (~₹5,300) + medical exam + IELTS + ECA costs (varies).",
+
+    time: "Typically 6–12 months after Invitation to Apply (ITA). Profile selection may take weeks to months depending on CRS score.",
+
+    age: "No strict age limit, but best CRS points usually between 20–35 years.",
+
+    education: "Minimum: Secondary education + Educational Credential Assessment (ECA) for foreign degrees.",
+
+    funds: "Proof of settlement funds required (approx CAD $13,757 for single applicant, increases with family size).",
+
+    docs: "Passport, IELTS/CELPIP language test, ECA report, work experience letters, proof of funds, police clearance certificate, medical exam, CRS profile details.",
+
+    whom: "Skilled professionals outside Canada (including Indians) with work experience in NOC TEER 0, 1, 2, or 3 occupations.",
+
+    rules: "Must meet minimum eligibility (67/100 FSW points system). Must create Express Entry profile and enter pool. Must receive Invitation to Apply (ITA) based on CRS score.",
+
+    prosCons: "Pros: Direct PR pathway, no job offer required, high global mobility, strong settlement benefits. Cons: Competitive CRS score system, strict documentation, proof of funds required.",
+
+    terms: "FSW: Federal Skilled Worker; CRS: Comprehensive Ranking System; ITA: Invitation to Apply; ECA: Educational Credential Assessment; NOC/TEER: Job classification system.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Express Entry Federal Skilled Worker Program regulations.",
+
+    process: `1. Check eligibility (work experience, language, education) -> 
+              2. Take IELTS/CELPIP test -> 
+              3. Get ECA for foreign education -> 
+              4. Create Express Entry profile -> 
+              5. Enter candidate pool -> 
+              6. Receive CRS score -> 
+              7. Wait for Invitation to Apply (ITA) -> 
+              8. Submit full PR application within 60 days -> 
+              9. Upload documents (passport, funds, PCC, medical, experience letters) -> 
+              10. IRCC reviews application -> 
+              11. Possible additional document request -> 
+              12. Final decision -> 
+              13. Receive COPR (Confirmation of Permanent Residence) -> 
+              14. Travel to Canada -> 
+              15. Become Permanent Resident -> 
+              16. Apply for PR card and later citizenship if eligible.`
+},
+
+"CanadaExpressEntryCEC": {
+    name: "Express Entry – Canadian Experience Class (CEC)",
+
+    validity: "Permanent Residence (PR). Permanent status once approved; PR card renewable every 5 years.",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + biometrics CAD $85 (~₹5,300) + medical exam + language test costs.",
+
+    time: "Typically 6–12 months after Invitation to Apply (ITA). Profile selection depends on CRS score.",
+
+    age: "No strict age limit, but highest CRS points usually for 20–35 years.",
+
+    education: "No minimum education requirement, but higher education increases CRS score. Foreign education requires ECA if used for points.",
+
+    funds: "No proof of funds required if applicant is currently working in Canada legally. Otherwise funds may be required depending on situation.",
+
+    docs: "Passport, IELTS/CELPIP results, Canadian work experience proof, reference letters from employer, police clearance certificate, medical exam, CRS profile details.",
+
+    whom: "Foreign workers who have at least 1 year of skilled work experience in Canada in the last 3 years under a valid work permit.",
+
+    rules: "Must have at least 1 year full-time (or equivalent part-time) skilled Canadian work experience (NOC TEER 0, 1, 2, or 3). Must meet language requirements. Must qualify under Express Entry system and receive ITA.",
+
+    prosCons: "Pros: No proof of funds (in most cases), faster PR pathway for people already in Canada, high success rate for skilled workers. Cons: Requires Canadian work experience, competitive CRS system, depends on job stability in Canada.",
+
+    terms: "CEC: Canadian Experience Class; CRS: Comprehensive Ranking System; ITA: Invitation to Apply; NOC/TEER: Job classification system; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Express Entry Canadian Experience Class regulations.",
+
+    process: `1. Get skilled work experience in Canada (minimum 1 year) -> 
+              2. Maintain valid work permit -> 
+              3. Take IELTS/CELPIP test -> 
+              4. Create Express Entry profile -> 
+              5. Enter pool and receive CRS score -> 
+              6. Wait for ITA based on draws -> 
+              7. Submit PR application within 60 days -> 
+              8. Upload documents (passport, work proof, language test, PCC, medical) -> 
+              9. IRCC reviews application -> 
+              10. Possible additional document requests -> 
+              11. Receive approval (COPR) -> 
+              12. Travel to Canada or confirm PR if already in Canada -> 
+              13. Become Permanent Resident -> 
+              14. Apply for PR card and later citizenship if eligible.`
+},
+
+"CanadaExpressEntryFST": {
+    name: "Express Entry – Federal Skilled Trades Program (FST)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + biometrics CAD $85 (~₹5,300) + medical exam + language test + certification costs (if applicable).",
+
+    time: "Typically 6–12 months after Invitation to Apply (ITA). Profile selection depends on CRS score and occupation demand.",
+
+    age: "No strict age limit, but best CRS scores usually in 20–35 age range.",
+
+    education: "No mandatory higher education requirement, but proof of training/qualification in skilled trade is required.",
+
+    funds: "Proof of funds required (unless working in Canada with valid job offer). Approx CAD $13,757 for single applicant (varies by family size).",
+
+    docs: "Passport, IELTS/CELPIP test results, proof of skilled trade experience, trade certificates (if applicable), job offer or certificate of qualification, police clearance certificate, medical exam, CRS profile details.",
+
+    whom: "Skilled trades workers such as electricians, plumbers, welders, cooks, industrial mechanics, construction workers with experience in eligible NOC TEER 2/3 trades.",
+
+    rules: "Must have at least 2 years full-time (or equivalent part-time) work experience in a skilled trade within last 5 years. Must meet language requirements. Must qualify under Express Entry system and receive ITA.",
+
+    prosCons: "Pros: Dedicated PR pathway for trades workers, lower education barrier, strong demand occupations in Canada. Cons: Limited to specific trade occupations, CRS competition still applies, certification may be required in Canada.",
+
+    terms: "FST: Federal Skilled Trades; CRS: Comprehensive Ranking System; ITA: Invitation to Apply; NOC/TEER: Occupation classification system; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Express Entry Federal Skilled Trades Program regulations.",
+
+    process: `1. Gain skilled trade experience (min 2 years) -> 
+              2. Check eligible trade occupation under NOC TEER system -> 
+              3. Take IELTS/CELPIP language test -> 
+              4. Obtain job offer or certificate of qualification (optional but helpful) -> 
+              5. Create Express Entry profile -> 
+              6. Enter candidate pool and receive CRS score -> 
+              7. Wait for Invitation to Apply (ITA) -> 
+              8. Submit PR application within 60 days -> 
+              9. Upload documents (passport, experience proof, language test, PCC, medical) -> 
+              10. IRCC assessment of eligibility and background -> 
+              11. Possible additional document request -> 
+              12. Receive COPR (Confirmation of Permanent Residence) -> 
+              13. Travel to Canada or confirm PR status if already inside Canada -> 
+              14. Become Permanent Resident -> 
+              15. Apply for PR card and later citizenship if eligible.`
+},
+
+"CanadaPNP": {
+    name: "Provincial Nominee Program (PNP)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + provincial nomination fee (CAD $0–$2,500 depending on province) + biometrics CAD $85 (~₹5,300) + medical + language test + ECA costs.",
+
+    time: "Typically 6–18 months depending on province and stream. Express Entry-linked PNPs are faster (6–12 months).",
+
+    age: "No strict age limit, but younger applicants (20–35) get higher points in most streams.",
+
+    education: "Varies by province; usually minimum secondary education, but skilled streams require diploma/degree + ECA.",
+
+    funds: "Proof of settlement funds required unless working in Canada or applying under job-offer-based stream.",
+
+    docs: "Passport, Express Entry profile (if applicable), IELTS/CELPIP results, ECA report, job offer (if required), work experience letters, provincial nomination certificate, police clearance certificate, medical exam.",
+
+    whom: "Skilled workers, semi-skilled workers (in some provinces), international graduates, and applicants with job offers or in-demand occupations in specific Canadian provinces.",
+
+    rules: "Must meet eligibility of a specific province (Ontario, Alberta, BC, Saskatchewan, etc.). Must intend to live and work in that province. If using Express Entry stream, must maintain valid profile.",
+
+    prosCons: "Pros: Higher chance of PR even with lower CRS score, multiple pathways across provinces, strong demand occupations targeted. Cons: Must commit to specific province, processing varies widely, some streams require job offer.",
+
+    terms: "PNP: Provincial Nominee Program; EE: Express Entry; CRS: Comprehensive Ranking System; ITA: Invitation to Apply; NOI: Notification of Interest.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Provincial nomination agreements between provinces and IRCC.",
+
+    process: `1. Choose eligible province (Ontario, Alberta, BC, etc.) -> 
+              2. Check in-demand occupation list -> 
+              3. Apply under provincial stream or Express Entry-linked stream -> 
+              4. Receive provincial nomination (NOI or direct approval) -> 
+              5. If Express Entry: gain +600 CRS points -> 
+              6. Receive Invitation to Apply (ITA) or apply for PR directly -> 
+              7. Submit PR application to IRCC -> 
+              8. Upload documents (passport, ECA, IELTS, PCC, work proof, nomination certificate) -> 
+              9. IRCC processing and background checks -> 
+              10. Possible additional document requests -> 
+              11. Receive COPR (Permanent Residence approval) -> 
+              12. Travel to Canada -> 
+              13. Become Permanent Resident -> 
+              14. Move to nominated province and settle -> 
+              15. Apply for PR card and later citizenship if eligible.`
+},
+
+"CanadaQSWP": {
+    name: "Quebec Skilled Worker Program (QSWP)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Application fee: approx CAD $850–$1,365 (~₹52,000–₹84,000) per adult + biometrics CAD $85 (~₹5,300) + language test + ECA + medical exam costs.",
+
+    time: "Typically 12–36 months depending on Quebec intake system and federal processing.",
+
+    age: "No strict age limit, but higher points for younger applicants (18–35 preferred).",
+
+    education: "Minimum secondary education required; higher education increases selection points. ECA may be required.",
+
+    funds: "Proof of settlement funds required based on family size (Quebec-specific thresholds).",
+
+    docs: "Passport, Expression of Interest (Arrima profile), education certificates, ECA (if required), French/English language test results, work experience letters, proof of funds, police clearance certificate, medical exam.",
+
+    whom: "Skilled workers who intend to live in the province of Quebec (Montreal, Quebec City, etc.).",
+
+    rules: "Must intend to reside in Quebec only. French language ability is highly important (often preferred or required). Must be selected by Quebec government before federal PR approval.",
+
+    prosCons: "Pros: Separate immigration system with different selection criteria, lower competition in some cases, strong PR pathway. Cons: French language requirement can be strict, longer processing times, must live in Quebec initially.",
+
+    terms: "QSWP: Quebec Skilled Worker Program; MIFI: Ministère de l’Immigration, de la Francisation et de l’Intégration (Quebec immigration authority); CSQ: Certificat de sélection du Québec.",
+
+    legal: "Quebec Immigration Act + Canada–Quebec Accord on Immigration.",
+
+    process: `1. Create Arrima profile (Quebec expression of interest system) -> 
+              2. Submit profile with skills, education, experience -> 
+              3. Receive invitation from Quebec (MIFI) -> 
+              4. Apply for CSQ (Quebec Selection Certificate) -> 
+              5. Provide documents (education, language, work experience, funds) -> 
+              6. Attend possible interview or verification -> 
+              7. Receive CSQ approval -> 
+              8. Submit federal PR application to IRCC -> 
+              9. Medical exam + police clearance -> 
+              10. IRCC background checks -> 
+              11. Final PR approval (COPR) -> 
+              12. Travel to Canada -> 
+              13. Land in Quebec and become Permanent Resident -> 
+              14. Apply for PR card -> 
+              15. Option for citizenship after eligibility period.`
+},
+"CanadaPEQ": {
+    name: "Quebec Experience Program (PEQ – Programme de l’expérience québécoise)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Application fee: approx CAD $900–$1,400 (~₹55,000–₹86,000) per applicant + biometrics CAD $85 (~₹5,300) + language test + medical exam + document costs.",
+
+    time: "Typically 6–12 months (faster than most Quebec immigration streams, but can vary based on intake and processing volume).",
+
+    age: "No strict age limit, but generally more favorable for working-age applicants (18–45 preferred).",
+
+    education: "Must have completed eligible studies in Quebec or have qualifying work experience in Quebec.",
+
+    funds: "Proof of sufficient settlement funds required based on Quebec family-size guidelines.",
+
+    docs: "Passport, proof of Quebec education (Diploma/degree from Quebec institution) OR Quebec work experience proof, French language test (or proof of French ability), Arrima profile (if required), CSQ application documents, police clearance certificate, medical exam.",
+
+    whom: "Foreign students who studied in Quebec or temporary foreign workers with work experience in Quebec who wish to become permanent residents.",
+
+    rules: "Must have strong French language ability (mandatory in most cases). Must have completed eligible education or skilled work in Quebec. Must intend to live in Quebec permanently.",
+
+    prosCons: "Pros: Faster PR pathway compared to other programs, no CRS points system like Express Entry, strong option for Quebec graduates/workers. Cons: French language requirement is strict, limited only to Quebec experience holders, eligibility is narrow.",
+
+    terms: "PEQ: Programme de l’expérience québécoise; CSQ: Certificat de sélection du Québec; MIFI: Quebec immigration authority; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Canada–Quebec Immigration Agreement and Quebec Immigration Act.",
+
+    process: `1. Complete eligible study program or work experience in Quebec -> 
+              2. Demonstrate French language proficiency -> 
+              3. Create profile or prepare application -> 
+              4. Submit PEQ application to Quebec immigration authority (MIFI) -> 
+              5. Upload documents (education/work proof, passport, language results, funds) -> 
+              6. Pay application fee -> 
+              7. Quebec reviews eligibility -> 
+              8. Possible document request or verification -> 
+              9. Receive CSQ (Quebec Selection Certificate) -> 
+              10. Submit federal PR application to IRCC -> 
+              11. Medical exam + police clearance -> 
+              12. IRCC background checks -> 
+              13. Final PR approval (COPR) -> 
+              14. Travel to Canada -> 
+              15. Land in Quebec as Permanent Resident -> 
+              16. Apply for PR card -> 
+              17. Option to apply for citizenship after eligibility period.`
+},
+
+"CanadaAIP": {
+    name: "Atlantic Immigration Program (AIP)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + biometrics CAD $85 (~₹5,300) + medical exam + language test + ECA costs.",
+
+    time: "Typically 6–12 months after submission of complete PR application (faster than many PR streams).",
+
+    age: "No strict age limit, but most successful applicants are 20–45 years old.",
+
+    education: "Minimum requirement is usually secondary education; higher education improves chances.",
+
+    funds: "Proof of settlement funds required (unless already working in Canada under valid permit). Amount depends on family size (approx CAD $3,800–$10,000+).",
+
+    docs: "Passport, job offer from designated Atlantic employer, endorsement certificate from province, IELTS/CELPIP results, ECA (if applicable), work experience letters, police clearance certificate, medical exam.",
+
+    whom: "Skilled foreign workers and international graduates who want to live in Atlantic Canadian provinces (Nova Scotia, New Brunswick, Newfoundland & Labrador, Prince Edward Island).",
+
+    rules: "Must have job offer from a designated employer in Atlantic Canada. Must receive provincial endorsement. Must intend to live in the Atlantic province permanently.",
+
+    prosCons: "Pros: No Express Entry required, lower CRS-style competition, employer-driven PR pathway, easier regional settlement. Cons: Must live in Atlantic provinces, requires job offer + endorsement, limited to specific regions.",
+
+    terms: "AIP: Atlantic Immigration Program; IRCC: Immigration, Refugees and Citizenship Canada; EOI: Expression of Interest; PR: Permanent Residence.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Atlantic Immigration Program agreement between federal and Atlantic provinces).",
+
+    process: `1. Get job offer from designated Atlantic employer -> 
+              2. Employer applies for designation and supports candidate -> 
+              3. Obtain provincial endorsement certificate -> 
+              4. Prepare documents (passport, IELTS, ECA, experience letters) -> 
+              5. Submit PR application to IRCC -> 
+              6. Apply for temporary work permit (optional fast entry route) -> 
+              7. Pay fees and submit biometrics -> 
+              8. IRCC processes application -> 
+              9. Medical exam + police clearance -> 
+              10. Background verification -> 
+              11. PR approval (COPR issued) -> 
+              12. Travel to Atlantic Canada -> 
+              13. Begin work and settle in designated province -> 
+              14. Apply for PR card -> 
+              15. Option for citizenship after eligibility period.`
+},
+
+"CanadaRNIP": {
+    name: "Rural and Northern Immigration Pilot (RNIP)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + biometrics CAD $85 (~₹5,300) + medical exam + language test + ECA costs.",
+
+    time: "Typically 6–12 months after complete PR submission (varies by community and IRCC processing).",
+
+    age: "No strict age limit, but generally 18–45 years preferred for selection competitiveness.",
+
+    education: "Minimum secondary education required; higher education improves selection chances.",
+
+    funds: "Proof of settlement funds required unless already working in Canada on valid work permit. Amount depends on family size (approx CAD $3,000–$10,000+).",
+
+    docs: "Passport, job offer from participating RNIP community employer, community recommendation, IELTS/CELPIP results, ECA (if applicable), work experience letters, police clearance certificate, medical exam.",
+
+    whom: "Skilled foreign workers who want to settle in smaller rural and northern communities in Canada (e.g., Ontario small towns, Manitoba, Saskatchewan, Alberta, BC rural regions).",
+
+    rules: "Must have job offer from a designated employer in a participating RNIP community. Must receive community recommendation. Must intend to live and work in that specific community.",
+
+    prosCons: "Pros: Lower competition than Express Entry, community-driven PR pathway, strong job integration in smaller towns. Cons: Limited to specific communities, job offer required, settlement restricted to rural/northern areas.",
+
+    terms: "RNIP: Rural and Northern Immigration Pilot; IRCC: Immigration, Refugees and Citizenship Canada; PR: Permanent Residence.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – RNIP pilot program framework).",
+
+    process: `1. Check eligible RNIP community and job list -> 
+              2. Secure job offer from designated RNIP employer -> 
+              3. Apply to community for recommendation -> 
+              4. Receive community recommendation letter -> 
+              5. Prepare PR application documents (passport, IELTS, ECA, experience proof) -> 
+              6. Submit PR application to IRCC -> 
+              7. Pay fees and submit biometrics -> 
+              8. IRCC processing and background checks -> 
+              9. Medical exam + police clearance -> 
+              10. Receive PR approval (COPR issued) -> 
+              11. Travel to Canada -> 
+              12. Land in designated community -> 
+              13. Start work and settle in rural/northern region -> 
+              14. Apply for PR card -> 
+              15. Option for citizenship after eligibility period.`
+},
+
+"CanadaAgriFoodImmigrationPilot": {
+    name: "Agri-Food Immigration Pilot (Canada PR Program)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + biometrics CAD $85 (~₹5,300) + medical exam + language test + ECA costs.",
+
+    time: "Typically 6–12 months after complete PR application submission (may vary by occupation demand and IRCC workload).",
+
+    age: "No strict age limit, but generally 18–45 years preferred for eligibility competitiveness.",
+
+    education: "Minimum secondary education required; higher education improves chances but not mandatory for some roles.",
+
+    funds: "Proof of settlement funds required unless already working in Canada under valid work permit. Approx CAD $3,000–$10,000+ depending on family size.",
+
+    docs: "Passport, eligible job offer in agri-food sector, full-time work experience proof, IELTS/CELPIP results (minimum CLB 4–5+ depending on role), ECA (if applicable), police clearance certificate, medical exam.",
+
+    whom: "Foreign workers with experience in eligible agri-food occupations such as meat processing, food production, farm work, or industrial livestock raising.",
+
+    rules: "Must have qualifying work experience in approved agri-food occupations. Must have full-time, non-seasonal job offer from eligible Canadian employer. Must meet language and settlement requirements.",
+
+    prosCons: "Pros: Direct PR pathway for agriculture/food workers, lower competition compared to Express Entry, high demand occupations. Cons: Limited to specific jobs, strict eligibility criteria, pilot-based program (subject to quotas).",
+
+    terms: "Agri-Food Pilot: Immigration program for agriculture and food processing workers; IRCC: Immigration, Refugees and Citizenship Canada; PR: Permanent Residence; NOC/TEER: Occupation classification system.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Agri-Food Immigration Pilot framework).",
+
+    process: `1. Gain eligible work experience in agri-food sector (min required years) -> 
+              2. Secure full-time non-seasonal job offer from eligible Canadian employer -> 
+              3. Ensure language test results meet minimum requirement -> 
+              4. Collect documents (passport, work proof, education, ECA if needed) -> 
+              5. Submit PR application to IRCC -> 
+              6. Pay application fees + biometrics -> 
+              7. Book biometrics appointment at VAC -> 
+              8. Submit fingerprints and photograph -> 
+              9. IRCC reviews eligibility and occupation criteria -> 
+              10. Medical exam + police clearance -> 
+              11. Background checks and verification -> 
+              12. Receive PR approval (COPR issued) -> 
+              13. Travel to Canada -> 
+              14. Become Permanent Resident -> 
+              15. Work in agri-food sector in Canada -> 
+              16. Apply for PR card and later citizenship if eligible.`
+},
+
+"CanadaCaregiverProgram": {
+    name: "Caregiver Program (Home Child Care Provider / Home Support Worker)",
+
+    validity: "Permanent Residence (PR) pathway. Initial work permit is temporary; PR is granted after eligibility requirements are met.",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + biometrics CAD $85 (~₹5,300) + medical exam + language test + ECA costs.",
+
+    time: "Work permit stage: 2–6 months. PR stage: 6–24 months depending on processing and eligibility completion.",
+
+    age: "No strict age limit, but generally 21–50 years preferred due to job nature.",
+
+    education: "Minimum equivalent of Canadian secondary school education (high school) required + ECA for foreign education.",
+
+    funds: "Proof of settlement funds required unless already working in Canada. Approx CAD $3,000–$10,000 depending on family size.",
+
+    docs: "Valid passport, job offer from Canadian household employer, employment contract, language test (IELTS/CELPIP CLB 5+), ECA report, work experience proof (if applicable), police clearance certificate, medical exam.",
+
+    whom: "Foreign workers providing in-home care for children, elderly, or persons with disabilities in Canada.",
+
+    rules: "Must have valid job offer from eligible Canadian employer (family/household). Must meet language and education requirements. Must complete qualifying work hours in Canada before PR eligibility.",
+
+    prosCons: "Pros: Direct PR pathway, high demand in Canada, opportunity for long-term settlement. Cons: Strict job conditions, employer-specific work at initial stage, physical/emotional demands of caregiving work.",
+
+    terms: "IRCC: Immigration, Refugees and Citizenship Canada; CLB: Canadian Language Benchmark; ECA: Educational Credential Assessment; PR: Permanent Residence.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Home Child Care Provider and Home Support Worker pilots).",
+
+    process: `1. Secure job offer from Canadian employer (child care or home support role) -> 
+              2. Check eligibility (education, language, experience) -> 
+              3. Take IELTS/CELPIP (CLB 5 required) -> 
+              4. Obtain ECA for education -> 
+              5. Apply for occupation-specific work permit -> 
+              6. Pay fees + submit biometrics -> 
+              7. IRCC issues work permit under caregiver pilot -> 
+              8. Travel to Canada and start work -> 
+              9. Complete required Canadian work experience (approx 24 months or as required) -> 
+              10. Submit PR application -> 
+              11. Medical exam + police clearance -> 
+              12. IRCC review and background checks -> 
+              13. Receive PR approval (COPR issued) -> 
+              14. Travel confirmation or status change -> 
+              15. Become Permanent Resident -> 
+              16. Apply for PR card and later citizenship if eligible.`
+},
+
+"CanadaStartUpVisa": {
+    name: "Start-up Visa Program (Canada PR for Entrepreneurs)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + biometrics CAD $85 (~₹5,300) + business setup costs + language test + proof of settlement funds.",
+
+    time: "Typically 12–36 months depending on business approval, incubation process, and IRCC processing.",
+
+    age: "No strict age limit, but typically 20–45 years preferred for entrepreneurship success.",
+
+    education: "No mandatory degree requirement, but business knowledge/experience is strongly preferred.",
+
+    funds: "Proof of settlement funds required (approx CAD $13,000–$25,000+ depending on family size) + business investment/operational funds depending on startup plan.",
+
+    docs: "Valid passport, Letter of Support from designated organization (incubator/angel fund/VC), business plan, proof of funds, language test (IELTS/CELPIP CLB 5+), incorporation documents (if applicable), police clearance certificate, medical exam.",
+
+    whom: "Entrepreneurs with innovative business ideas who can get support from Canadian designated organizations (venture capital funds, angel investors, or business incubators).",
+
+    rules: "Must have qualifying innovative business idea. Must secure support letter from approved Canadian organization. Must meet ownership and active management requirements. Business must be scalable and innovative.",
+
+    prosCons: "Pros: Direct PR pathway for entrepreneurs, no CRS competition like Express Entry, opportunity to build business in Canada. Cons: Difficult to get incubator/VC approval, high business risk, strong documentation required.",
+
+    terms: "SUV: Start-up Visa; IRCC: Immigration, Refugees and Citizenship Canada; LOA: Letter of Support; VC: Venture Capital; PR: Permanent Residence.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Start-up Visa Program framework).",
+
+    process: `1. Develop innovative business idea -> 
+              2. Pitch to designated Canadian organization (incubator/angel fund/VC) -> 
+              3. Obtain Letter of Support -> 
+              4. Prepare business plan and incorporation structure -> 
+              5. Take language test (CLB 5 minimum) -> 
+              6. Collect settlement funds proof -> 
+              7. Submit PR application to IRCC -> 
+              8. Pay fees + biometrics -> 
+              9. IRCC evaluates business viability and eligibility -> 
+              10. Medical exam + police clearance -> 
+              11. Possible interview or business clarification -> 
+              12. Receive PR approval (COPR issued) -> 
+              13. Travel to Canada -> 
+              14. Actively manage/start business in Canada -> 
+              15. Receive PR card -> 
+              16. Maintain business activity and apply for citizenship when eligible.`
+},
+
+"CanadaSelfEmployedProgram": {
+    name: "Self-Employed Persons Program (Canada PR – Cultural / Athletic Self-Employed Stream)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + biometrics CAD $85 (~₹5,300) + language test + medical exam + proof of work portfolio costs.",
+
+    time: "Typically 24–48 months (can be longer due to detailed eligibility assessment).",
+
+    age: "No strict age limit, but typically 25–55 years preferred due to experience requirements.",
+
+    education: "No mandatory education requirement, but relevant experience and achievements are critical.",
+
+    funds: "Proof of settlement funds required (approx CAD $13,000+ depending on family size) to support initial settlement.",
+
+    docs: "Valid passport, proof of self-employment experience, portfolio of achievements, awards or recognition, reference letters, language test (IELTS/CELPIP), education documents (if any), police clearance certificate, medical exam.",
+
+    whom: "Individuals with relevant experience in cultural activities (artists, musicians, writers) or athletics (coaches, athletes) who can contribute significantly to Canadian cultural or sports life.",
+
+    rules: "Must have at least 2 years of relevant self-employed experience in cultural or athletic fields OR world-class participation. Must show intent and ability to become self-employed in Canada in similar fields.",
+
+    prosCons: "Pros: Direct PR pathway for artists and athletes, no job offer required, flexible self-employment opportunity. Cons: Very strict eligibility, long processing time, limited to specific professions.",
+
+    terms: "IRCC: Immigration, Refugees and Citizenship Canada; PR: Permanent Residence; Self-employed experience: Independent professional cultural or sports activity.",
+
+    legal: "Immigration and Refugee Protection Act (Canada – Self-Employed Persons Program regulations).",
+
+    process: `1. Build relevant self-employed experience (arts or sports field) -> 
+              2. Prepare portfolio of achievements (awards, exhibitions, competitions, publications) -> 
+              3. Take language test (IELTS/CELPIP) -> 
+              4. Gather proof of funds and identity documents -> 
+              5. Submit PR application to IRCC -> 
+              6. Pay fees + biometrics -> 
+              7. IRCC conducts detailed eligibility and contribution assessment -> 
+              8. Possible interview or portfolio verification -> 
+              9. Medical exam + police clearance -> 
+              10. Background checks -> 
+              11. Receive PR approval (COPR issued) -> 
+              12. Travel to Canada -> 
+              13. Establish self-employed activity in cultural/sports field -> 
+              14. Receive PR card -> 
+              15. Maintain contribution and apply for citizenship when eligible.`
+},
+
+"CanadaSpousalSponsorship": {
+    name: "Spousal Sponsorship Visa (Family Class PR – Canada)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Sponsorship fee: CAD $1,080 (~₹66,000) + biometrics CAD $85 (~₹5,300) + medical exam + police clearance + optional dependent fees.",
+
+    time: "Typically 10–24 months depending on inland or outland application and IRCC workload.",
+
+    age: "No strict age limit. Sponsor must be 18+.",
+
+    education: "No requirement.",
+
+    funds: "No minimum income requirement for sponsoring spouse (except in certain cases like dependent children). Sponsor must prove ability to support basic needs.",
+
+    docs: "Marriage certificate, proof of genuine relationship (photos, chats, travel history), sponsor PR/citizenship proof, passport, financial documents (if needed), medical exam, police clearance, biometrics.",
+
+    whom: "Spouses or legally married partners of Canadian citizens or permanent residents.",
+
+    rules: "Relationship must be genuine and not for immigration purposes. Sponsor must not be on social assistance (except disability). Sponsor must agree to 3-year financial responsibility.",
+
+    prosCons: "Pros: Direct PR pathway, no CRS points system, allows living and working in Canada freely after PR. Cons: Strict relationship scrutiny, long processing time, financial responsibility binding for sponsor.",
+
+    terms: "PR: Permanent Residence; IRCC: Immigration, Refugees and Citizenship Canada; Inland Sponsorship: Application from within Canada; Outland Sponsorship: Application from outside Canada.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Family Class Sponsorship Program).",
+
+    process: `1. Sponsor (Canadian citizen/PR) submits sponsorship application -> 
+              2. Applicant submits PR application (spouse/partner) -> 
+              3. Provide proof of genuine relationship (marriage certificate, photos, communication history) -> 
+              4. Pay fees + biometrics -> 
+              5. Submit medical exam and police clearance -> 
+              6. IRCC assesses sponsor eligibility -> 
+              7. IRCC assesses relationship genuineness -> 
+              8. Possible interview or additional document request -> 
+              9. Background checks -> 
+              10. Decision issued -> 
+              11. Receive COPR (Permanent Residence approval) -> 
+              12. Travel to Canada or stay inland if already in Canada -> 
+              13. Become Permanent Resident -> 
+              14. Apply for PR card -> 
+              15. After 3 years sponsorship obligation ends; eligible for citizenship later.`
+},
+
+"CanadaCommonLawPartnerSponsorship": {
+    name: "Common-law Partner Sponsorship Visa (Canada Family Class PR)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Sponsorship fee: CAD $1,080 (~₹66,000) + biometrics CAD $85 (~₹5,300) + medical exam + police clearance + document proof costs.",
+
+    time: "Typically 10–24 months depending on inland or outland application and IRCC processing workload.",
+
+    age: "No strict age limit. Sponsor must be 18+.",
+
+    education: "No requirement.",
+
+    funds: "No minimum income requirement in most cases. Sponsor must show ability to support basic needs of partner.",
+
+    docs: "Proof of common-law relationship (at least 12 months continuous cohabitation), joint lease/rent agreements, utility bills, shared bank accounts, photos, communication records, passport, sponsor PR/citizenship proof, medical exam, police clearance, biometrics.",
+
+    whom: "Unmarried partners who have lived together in a marriage-like relationship for at least 12 continuous months with a Canadian citizen or permanent resident.",
+
+    rules: "Must prove genuine and continuous cohabitation (12+ months). Relationship must be exclusive and marriage-like. Sponsor must agree to 3-year financial responsibility.",
+
+    prosCons: "Pros: Direct PR pathway, no need for marriage certificate, full work and residency rights after PR. Cons: Strict proof of cohabitation required, high scrutiny for relationship genuineness, long processing time.",
+
+    terms: "PR: Permanent Residence; IRCC: Immigration, Refugees and Citizenship Canada; Common-law Partner: Legally recognized partner after 12 months cohabitation; Inland/Outland Sponsorship: Application location types.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Family Class Common-law Sponsorship rules).",
+
+    process: `1. Confirm 12+ months continuous cohabitation -> 
+              2. Gather proof of relationship (lease, bills, bank accounts, photos) -> 
+              3. Sponsor submits sponsorship application -> 
+              4. Applicant submits PR application -> 
+              5. Pay fees + biometrics -> 
+              6. Submit medical exam and police clearance -> 
+              7. IRCC evaluates sponsor eligibility -> 
+              8. IRCC verifies relationship authenticity and cohabitation proof -> 
+              9. Possible interview or additional document request -> 
+              10. Background checks -> 
+              11. Decision issued -> 
+              12. Receive COPR (Permanent Residence approval) -> 
+              13. Travel to Canada or stay if inland -> 
+              14. Become Permanent Resident -> 
+              15. Apply for PR card -> 
+              16. Sponsor obligation lasts 3 years after PR approval.`
+},
+
+"CanadaConjugalPartnerSponsorship": {
+    name: "Conjugal Partner Sponsorship Visa (Canada Family Class PR)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Sponsorship fee: CAD $1,080 (~₹66,000) + biometrics CAD $85 (~₹5,300) + medical exam + police clearance + supporting document costs.",
+
+    time: "Typically 12–24+ months depending on case complexity and IRCC workload.",
+
+    age: "No strict age limit. Sponsor must be 18+.",
+
+    education: "No requirement.",
+
+    funds: "No minimum income requirement in most cases. Sponsor must demonstrate ability to support partner’s basic needs.",
+
+    docs: "Proof of relationship (messages, photos, communication history), evidence of barriers preventing marriage or cohabitation, sponsor PR/citizenship proof, passport, medical exam, police clearance, biometrics.",
+
+    whom: "Partners of Canadian citizens or permanent residents who are in a genuine relationship but cannot marry or live together due to legal, immigration, religious, or severe external barriers.",
+
+    rules: "Must prove a committed relationship for at least 12 months. Must clearly show why marriage or cohabitation is not possible (not just inconvenient). Relationship must be genuine and exclusive.",
+
+    prosCons: "Pros: PR pathway even without marriage or cohabitation, recognizes complex international relationships. Cons: Very strict evidence requirements, higher refusal risk, limited eligibility compared to spousal/common-law routes.",
+
+    terms: "PR: Permanent Residence; IRCC: Immigration, Refugees and Citizenship Canada; Conjugal Partner: Partner in a committed relationship with significant barriers to marriage/cohabitation.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Family Class Conjugal Partner category).",
+
+    process: `1. Establish genuine long-term relationship (12+ months) -> 
+              2. Demonstrate serious barriers to marriage or cohabitation (legal, immigration, religious, etc.) -> 
+              3. Gather evidence (communications, photos, travel history, explanations) -> 
+              4. Sponsor submits sponsorship application -> 
+              5. Applicant submits PR application -> 
+              6. Pay fees + biometrics -> 
+              7. Medical exam and police clearance -> 
+              8. IRCC assesses sponsor eligibility -> 
+              9. IRCC evaluates relationship genuineness and barrier justification -> 
+              10. Possible interview or detailed questioning -> 
+              11. Background checks -> 
+              12. Decision issued -> 
+              13. Receive COPR (Permanent Residence approval) -> 
+              14. Travel to Canada or adjust status if already present -> 
+              15. Become Permanent Resident -> 
+              16. Apply for PR card -> 
+              17. Sponsor obligation lasts 3 years after PR.`
+},
+
+"CanadaDependentChildSponsorship": {
+    name: "Dependent Child Sponsorship Visa (Canada Family Class PR)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Sponsorship fee: CAD $150 (~₹9,200) per child + biometrics CAD $85 (~₹5,300) + medical exam + police clearance (if applicable).",
+
+    time: "Typically 8–20 months depending on application type (inland/outland) and IRCC workload.",
+
+    age: "Child must be under 22 years of age and not married or in a common-law relationship (exceptions apply for dependent children with disabilities).",
+
+    education: "No requirement.",
+
+    funds: "No strict minimum income requirement in most cases, but sponsor must show ability to financially support the child.",
+
+    docs: "Child’s birth certificate, proof of parent-child relationship, sponsor PR/citizenship proof, passport, custody documents (if applicable), adoption papers (if applicable), medical exam, police clearance (if age requires), biometrics.",
+
+    whom: "Biological, adopted, or dependent children of Canadian citizens or permanent residents.",
+
+    rules: "Child must meet dependency definition (under 22 and unmarried, or dependent due to physical/mental condition). Sponsor must be eligible parent (citizen or PR).",
+
+    prosCons: "Pros: Direct PR pathway for children, strong family reunification, full access to education and healthcare in Canada. Cons: Strict dependency definition, documentation-heavy, custody/legal proof may be required in some cases.",
+
+    terms: "PR: Permanent Residence; IRCC: Immigration, Refugees and Citizenship Canada; Dependent Child: Child meeting age and marital status criteria under Canadian immigration law.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Family Class Dependent Child Sponsorship rules).",
+
+    process: `1. Confirm child meets dependent definition (under 22, unmarried) -> 
+              2. Gather proof of parent-child relationship (birth/adoption documents) -> 
+              3. Sponsor submits sponsorship application -> 
+              4. Applicant (child) submits PR application -> 
+              5. Pay fees + biometrics -> 
+              6. Submit medical exam and police clearance (if required) -> 
+              7. IRCC verifies sponsor eligibility -> 
+              8. IRCC assesses relationship authenticity and dependency status -> 
+              9. Possible additional document request -> 
+              10. Background checks -> 
+              11. Decision issued -> 
+              12. Receive COPR (Permanent Residence approval) -> 
+              13. Travel to Canada or finalize status if already in Canada -> 
+              14. Become Permanent Resident -> 
+              15. Apply for PR card -> 
+              16. Child gains full access to education and healthcare -> 
+              17. Eligible for citizenship after residency requirement.`
+},
+
+"CanadaParentGrandparentSponsorship": {
+    name: "Parent and Grandparent Sponsorship Visa (PGP – Canada Family Class PR)",
+
+    validity: "Permanent Residence (PR). Once approved, status is permanent; PR card renewable every 5 years.",
+
+    cost: "Sponsorship fee: CAD $1,080 (~₹66,000) per applicant + biometrics CAD $85 (~₹5,300) + medical exam + police clearance + income proof documents.",
+
+    time: "Typically 20–36 months depending on IRCC intake, lottery selection, and processing backlog.",
+
+    age: "No age limit for parents/grandparents. Sponsor must be 18+.",
+
+    education: "No requirement.",
+
+    funds: "Sponsor must meet Minimum Necessary Income (MNI) requirement for the past 3 tax years + 30% additional income threshold in some cases.",
+
+    docs: "Invitation to apply, proof of relationship (birth certificates), sponsor’s tax returns (NOA – Notice of Assessment), income proof (CRA documents), passport, medical exam, police clearance, biometrics.",
+
+    whom: "Canadian citizens or permanent residents who want to sponsor their parents or grandparents for permanent residence in Canada.",
+
+    rules: "Sponsor must meet income requirement for 3 consecutive years. Must sign undertaking to financially support parents/grandparents for 20 years (10 years in Quebec may vary). Applications are typically by invitation (lottery system).",
+
+    prosCons: "Pros: Direct PR for parents/grandparents, family reunification, access to healthcare and benefits in Canada. Cons: Very competitive lottery system, strict income requirement, long processing time, financial responsibility commitment is long-term.",
+
+    terms: "PGP: Parent and Grandparent Program; MNI: Minimum Necessary Income; CRA: Canada Revenue Agency; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – Family Class Parent and Grandparent Sponsorship rules).",
+
+    process: `1. Sponsor submits Interest to Sponsor form (IRCC intake window) -> 
+              2. Wait for lottery selection invitation -> 
+              3. If selected, receive Invitation to Apply (ITA) -> 
+              4. Submit full sponsorship + PR application -> 
+              5. Provide income proof (last 3 years tax records) -> 
+              6. Pay fees + biometrics -> 
+              7. Submit medical exam and police clearance -> 
+              8. IRCC verifies sponsor eligibility and income requirement -> 
+              9. Assess relationship proof (birth certificates, etc.) -> 
+              10. Background and security checks -> 
+              11. Possible additional document request -> 
+              12. Receive COPR (Permanent Residence approval) -> 
+              13. Travel to Canada -> 
+              14. Become Permanent Resident -> 
+              15. Apply for PR card -> 
+              16. Sponsor remains financially responsible for 20 years.`
+},
+
+"CanadaRefugeeProtectionClaim": {
+    name: "Refugee Protection Claim (Asylum – Canada)",
+
+    validity: "If approved, grants Protected Person status leading to Permanent Residence (PR). Initial status is temporary protection during claim processing.",
+
+    cost: "No government application fee for refugee claim. Possible costs for legal assistance, documentation, and biometrics (~CAD $85 / ₹5,300).",
+
+    time: "Typically 6–24 months depending on complexity and Immigration and Refugee Board (IRB) backlog.",
+
+    age: "No age limit (includes minors, families, and adults).",
+
+    education: "No requirement.",
+
+    funds: "No proof of funds required. Applicants may receive temporary financial/social assistance if eligible.",
+
+    docs: "Identity documents (passport or national ID if available), proof of persecution (if any), personal statement, supporting evidence (threats, police reports, news, medical reports), biometrics.",
+
+    whom: "Individuals already in Canada or at a port of entry who fear persecution in their home country due to race, religion, nationality, political opinion, or membership in a particular social group.",
+
+    rules: "Must be physically present in Canada or entering Canada. Must prove credible fear of persecution or risk of harm. Cannot have serious criminal/security inadmissibility. Claim is assessed by IRB (Immigration and Refugee Board).",
+
+    prosCons: "Pros: Protection from deportation, access to basic services, potential pathway to PR and citizenship. Cons: Strict eligibility screening, long processing time, uncertainty in outcome, limited work rights initially until permit is granted.",
+
+    terms: "IRB: Immigration and Refugee Board; IRCC: Immigration, Refugees and Citizenship Canada; Protected Person: Individual granted refugee protection in Canada.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) + 1951 UN Refugee Convention obligations.",
+
+    process: `1. Arrive in Canada (airport, land border, or inside Canada) -> 
+              2. Make refugee protection claim to IRCC or CBSA -> 
+              3. Submit eligibility documents and biometrics -> 
+              4. Receive Refugee Protection Claimant Document -> 
+              5. Claim referred to Immigration and Refugee Board (IRB) -> 
+              6. Attend eligibility interview/hearing -> 
+              7. Submit evidence of persecution or risk -> 
+              8. IRB hearing conducted -> 
+              9. Decision issued (accepted or refused) -> 
+              10. If accepted: become Protected Person -> 
+              11. Apply for Permanent Residence -> 
+              12. Undergo medical/security checks -> 
+              13. Receive PR approval (COPR) -> 
+              14. Apply for PR card -> 
+              15. Eligible for citizenship after residency requirement -> 
+              16. If refused: appeal or leave Canada depending on legal outcome.`
+},
+
+"CanadaResettledRefugeeProgram": {
+    name: "Resettled Refugee Program (Canada Government-Assisted / Privately Sponsored Refugees)",
+
+    validity: "Permanent Residence (PR) upon arrival or shortly after resettlement approval. Status is permanent; PR card renewable every 5 years.",
+
+    cost: "No application fee for Government-Assisted Refugees. For Private Sponsorship, sponsors cover costs (approx CAD $10,000–$30,000 depending on case). Medical exams and biometrics may apply (~CAD $85 / ₹5,300).",
+
+    time: "Typically 12–36+ months depending on UNHCR referral, security screening, and processing capacity.",
+
+    age: "No age limit. Includes individuals, families, children, and vulnerable groups.",
+
+    education: "No requirement.",
+
+    funds: "Government-Assisted Refugees: no personal funds required. Privately Sponsored Refugees: sponsor provides financial support for 12 months (sometimes up to 3 years).",
+
+    docs: "UNHCR refugee referral (for government-assisted cases), identity documents if available, medical exam, security/background screening forms, sponsorship agreement (for private sponsorship), biometrics.",
+
+    whom: "Individuals outside Canada who are recognized refugees or vulnerable persons referred by UNHCR or sponsored by Canadian citizens/organizations for resettlement.",
+
+    rules: "Must be outside home country. Must meet UNHCR refugee definition or be eligible for private sponsorship. Must pass medical, security, and background checks. Cannot apply directly in most cases; must be referred or sponsored.",
+
+    prosCons: "Pros: Direct pathway to Canada PR on arrival, strong humanitarian protection, access to housing, healthcare, and settlement support. Cons: Long waiting time, not self-applied (requires referral/sponsorship), strict screening process.",
+
+    terms: "UNHCR: United Nations High Commissioner for Refugees; GAR: Government-Assisted Refugee; PSR: Private Sponsorship of Refugees; IRCC: Immigration, Refugees and Citizenship Canada.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) + UN Refugee Convention + Canada Refugee Resettlement Program policies.",
+
+    process: `1. Refugee identified and referred by UNHCR or private sponsor -> 
+              2. File submitted to IRCC for resettlement consideration -> 
+              3. Eligibility assessment as refugee (outside Canada) -> 
+              4. Medical examination -> 
+              5. Security and background screening -> 
+              6. Interview with IRCC/visa officer -> 
+              7. Decision on resettlement approval -> 
+              8. Travel arrangements to Canada (often funded by government or sponsor) -> 
+              9. Arrival in Canada -> 
+              10. Receive Permanent Residence status -> 
+              11. Settlement services (housing, language training, integration support) -> 
+              12. Apply for PR card -> 
+              13. Eligible for citizenship after residency requirement.`
+},
+
+"CanadaPrivateSponsorshipRefugees": {
+    name: "Private Sponsorship of Refugees (PSR – Canada)",
+
+    validity: "Permanent Residence (PR) upon or shortly after arrival in Canada; status is permanent; PR card renewable every 5 years.",
+
+    cost: "Government fee: usually CAD $0 for refugee application. Sponsors cover settlement costs (approx CAD $10,000–$30,000 per refugee/family for 1 year living support). Biometrics CAD $85 (~₹5,300) + medical exam may apply.",
+
+    time: "Typically 12–36+ months depending on referral, security screening, and processing backlog.",
+
+    age: "No age limit (children, adults, families, elderly all eligible).",
+
+    education: "No requirement.",
+
+    funds: "No funds required from refugee applicant. Canadian sponsors (individuals/groups/organizations) must financially support settlement for usually 12 months.",
+
+    docs: "Refugee identity documents (if available), UNHCR referral (if applicable), sponsor forms, sponsorship agreement, settlement plan, medical exam, police/security screening, biometrics.",
+
+    whom: "Refugees outside Canada who are sponsored by Canadian citizens, permanent residents, or organizations to resettle in Canada.",
+
+    rules: "Must be outside Canada. Must meet refugee definition or be recognized as displaced/vulnerable. Must be supported by approved private sponsor group. Sponsor must prove ability to support settlement costs and integration.",
+
+    prosCons: "Pros: Direct PR pathway on arrival, strong humanitarian support, community-based settlement assistance. Cons: Long processing times, depends on availability of sponsors, strict screening and eligibility checks.",
+
+    terms: "PSR: Private Sponsorship of Refugees; UNHCR: United Nations High Commissioner for Refugees; IRCC: Immigration, Refugees and Citizenship Canada; GAR: Government-Assisted Refugee.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) + UN Refugee Convention + Private Sponsorship of Refugees Program regulations.",
+
+    process: `1. Refugee identified (often outside Canada or via UNHCR referral) -> 
+              2. Canadian sponsor group (family, community, organization) agrees to sponsor -> 
+              3. Submit sponsorship application to IRCC -> 
+              4. IRCC assesses sponsor eligibility and financial capacity -> 
+              5. Refugee undergoes eligibility assessment -> 
+              6. Medical examination -> 
+              7. Security and background screening -> 
+              8. Possible interview with IRCC/visa officer -> 
+              9. Decision issued on refugee resettlement -> 
+              10. Travel arrangements to Canada (sponsor or government-assisted logistics) -> 
+              11. Arrival in Canada -> 
+              12. Receive Permanent Residence status -> 
+              13. Settlement support (housing, language training, integration assistance) -> 
+              14. Apply for PR card -> 
+              15. Eligible for citizenship after meeting residency requirements.`
+},
+
+"CanadaHumanitarianCompassionate": {
+    name: "Humanitarian and Compassionate Grounds (H&C) Application (Canada PR)",
+
+    validity: "If approved, leads to Permanent Residence (PR). Initial status is temporary while application is under review.",
+
+    cost: "Application fee: CAD $1,365 (~₹84,000) per adult + biometrics CAD $85 (~₹5,300) + legal/documentation costs (varies).",
+
+    time: "Typically 12–36+ months depending on complexity and IRCC backlog.",
+
+    age: "No age limit.",
+
+    education: "No requirement.",
+
+    funds: "No fixed proof of funds required, but applicant must show ability to settle and integrate in Canada if approved.",
+
+    docs: "Personal hardship statement, proof of establishment in Canada (if applicable), identity documents, medical reports (if relevant), family dependency evidence, country condition reports, support letters, police clearance, biometrics.",
+
+    whom: "Foreign nationals already in Canada (in most cases) who would face unusual, undeserved, or disproportionate hardship if required to leave Canada and apply through normal immigration streams.",
+
+    rules: "Must demonstrate compelling humanitarian or compassionate factors. Not intended as a regular immigration route or to bypass normal visa rules. Strong emphasis on hardship, establishment in Canada, and best interests of children.",
+
+    prosCons: "Pros: Can provide PR in exceptional hardship cases, flexible assessment based on humanitarian factors, considers family and child welfare. Cons: Highly discretionary (no guarantee), long processing time, not a standard immigration pathway.",
+
+    terms: "H&C: Humanitarian and Compassionate Grounds; IRCC: Immigration, Refugees and Citizenship Canada; PR: Permanent Residence; Establishment: Degree of integration into Canadian society.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Section 25 (Humanitarian and Compassionate considerations).",
+
+    process: `1. Prepare H&C application with detailed hardship explanation -> 
+              2. Gather supporting documents (medical, family, financial, social ties) -> 
+              3. Submit PR application under H&C category -> 
+              4. Pay fees + biometrics -> 
+              5. IRCC assesses establishment in Canada and hardship conditions -> 
+              6. Review best interests of any children affected -> 
+              7. Possible request for additional documents -> 
+              8. Background and security checks -> 
+              9. Decision issued (approval or refusal) -> 
+              10. If approved, receive COPR (Permanent Residence approval) -> 
+              11. Become Permanent Resident -> 
+              12. Apply for PR card -> 
+              13. May later apply for citizenship if residency requirements met.`
+},
+
+"CanadaProtectedPersonStatus": {
+    name: "Protected Person Status (Canada Refugee Protection Approval)",
+
+    validity: "Leads to Permanent Residence (PR). Protected Person status is granted after refugee claim approval and remains until PR is finalized.",
+
+    cost: "No application fee for Protected Person determination. PR application afterward has standard fee CAD $1,365 (~₹84,000) + biometrics CAD $85 (~₹5,300) + medical exam costs.",
+
+    time: "Refugee claim decision: 6–24 months. PR conversion after approval: additional 6–12 months.",
+
+    age: "No age limit (applies to adults and minors).",
+
+    education: "No requirement.",
+
+    funds: "No proof of funds required. Applicants may access social assistance depending on province.",
+
+    docs: "Refugee Protection Claim documents, IRB decision letter, identity documents (passport/ID if available), medical exam, police clearance (if required), biometrics.",
+
+    whom: "Individuals in Canada whose refugee protection claim has been accepted by the Immigration and Refugee Board (IRB) or IRCC on appeal.",
+
+    rules: "Must have successfully proven risk of persecution, torture, or cruel/unusual treatment if returned to home country. Must not be inadmissible for serious criminal/security reasons.",
+
+    prosCons: "Pros: Strong protection from deportation, access to healthcare and social benefits, direct pathway to PR and citizenship. Cons: Long processing time, strict eligibility and credibility assessment, initial uncertainty during claim stage.",
+
+    terms: "IRB: Immigration and Refugee Board; IRCC: Immigration, Refugees and Citizenship Canada; Protected Person: Individual granted refugee protection in Canada; PR: Permanent Residence.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Refugee Protection Division provisions + UN Refugee Convention obligations.",
+
+    process: `1. Make refugee claim in Canada or at port of entry -> 
+              2. Claim referred to IRB -> 
+              3. Submit evidence of persecution risk -> 
+              4. Attend refugee hearing -> 
+              5. IRB approves claim -> 
+              6. Receive Protected Person status -> 
+              7. Apply for Permanent Residence -> 
+              8. Submit medical exam + police clearance -> 
+              9. IRCC conducts background/security checks -> 
+              10. Receive PR approval (COPR issued) -> 
+              11. Become Permanent Resident -> 
+              12. Apply for PR card -> 
+              13. Eligible for citizenship after residency requirement -> 
+              14. Maintain compliance with Canadian laws.`
+},
+
+"CanadaTemporaryResidentPermit": {
+    name: "Temporary Resident Permit (TRP – Canada)",
+
+    validity: "Short-term temporary status (from a few days up to 3 years depending on officer decision). Not a permanent status; may be extended in limited cases.",
+
+    cost: "Application fee: CAD $200 (~₹12,000) + biometrics CAD $85 (~₹5,300) if required + medical exam (if requested).",
+
+    time: "Typically 2 weeks to 6 months depending on urgency, location, and complexity.",
+
+    age: "No age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must show ability to support stay in Canada (varies case-by-case).",
+
+    docs: "Valid passport, detailed explanation letter, reason for inadmissibility, supporting evidence, travel purpose documents, police clearance, medical exam (if required), biometrics.",
+
+    whom: "Foreign nationals who are inadmissible to Canada (criminal, medical, or administrative reasons) but have a compelling reason to enter or stay in Canada temporarily.",
+
+    rules: "Must demonstrate that the need to enter Canada outweighs the risk to Canadian society. Must leave Canada before permit expires unless renewed. Not a direct immigration pathway.",
+
+    prosCons: "Pros: Allows entry into Canada even if normally inadmissible, flexible short-term solution. Cons: Temporary only, discretionary approval, no direct path to PR, strict scrutiny.",
+
+    terms: "TRP: Temporary Resident Permit; IRCC: Immigration, Refugees and Citizenship Canada; Inadmissibility: Legal restriction preventing entry to Canada.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Section 24 (Temporary Resident Permits).",
+
+    process: `1. Determine reason for inadmissibility (medical/criminal/other) -> 
+              2. Prepare justification letter explaining necessity of entry -> 
+              3. Gather supporting documents (passport, purpose, evidence) -> 
+              4. Submit TRP application to IRCC or at port of entry -> 
+              5. Pay application fee -> 
+              6. Attend interview if requested -> 
+              7. IRCC evaluates risk vs benefit -> 
+              8. Decision issued -> 
+              9. If approved, receive TRP document -> 
+              10. Enter or remain in Canada under conditions -> 
+              11. Comply with permit conditions -> 
+              12. Apply for extension or leave Canada before expiry.`
+},
+
+"CanadaDigitalNomadEntry": {
+    name: "Digital Nomad Entry (Canada Visitor Status – Remote Work Allowance)",
+
+    validity: "Typically up to 6 months per entry as a Visitor (can sometimes be extended from within Canada). Not a visa type with PR pathway.",
+
+    cost: "Visitor visa fee: CAD $100 (~₹6,200) + biometrics CAD $85 (~₹5,300). No work permit fee since no Canadian employer is involved.",
+
+    time: "Typically 2–8 weeks depending on IRCC processing and applicant country profile.",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds to support stay in Canada (typically CAD $10,000–$20,000+ depending on duration and family size).",
+
+    docs: "Valid passport, proof of remote employment or freelance business, bank statements, travel itinerary, accommodation proof, return ticket, employment contract/client proof, biometrics.",
+
+    whom: "Foreign nationals working remotely for non-Canadian employers or clients who want to stay temporarily in Canada while continuing their overseas work.",
+
+    rules: "Must not work for Canadian employers without a work permit. Must primarily serve foreign clients/employers. Must leave Canada before visitor status expires unless extended. No direct pathway to PR under this status alone.",
+
+    prosCons: "Pros: Legal stay in Canada while working remotely, flexible lifestyle option, no LMIA/work permit needed for foreign employment. Cons: Temporary only, no guaranteed extension, no direct PR pathway, strict compliance with visitor rules.",
+
+    terms: "IRCC: Immigration, Refugees and Citizenship Canada; Visitor Status: Temporary Resident status allowing stay without work authorization for Canadian employers; Digital Nomad: Remote worker employed outside Canada.",
+
+    legal: "Immigration and Refugee Protection Act (Canada) – Visitor Class provisions (remote work for foreign employer allowed under visitor conditions).",
+
+    process: `1. Secure remote job or freelance clients outside Canada -> 
+              2. Apply for Canadian visitor visa -> 
+              3. Submit proof of funds, employment, and travel plans -> 
+              4. Pay visa + biometrics fees -> 
+              5. Book biometrics appointment at VAC in India -> 
+              6. Submit fingerprints and photograph -> 
+              7. IRCC assesses eligibility (financial + intent to return) -> 
+              8. Visa decision issued -> 
+              9. Travel to Canada as visitor -> 
+              10. Work remotely only for foreign clients/employers -> 
+              11. Follow visitor conditions (no Canadian job work) -> 
+              12. Apply for extension if eligible -> 
+              13. Exit Canada before status expiry or change status if eligible.`
+},
+
+"CanadaIECWorkingHolidayVisa": {
+    name: "Working Holiday Visa (International Experience Canada – IEC)",
+
+    validity: "Up to 12–24 months depending on nationality agreement (typically 12–24 months for eligible countries).",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + open work permit fee CAD $100 (~₹6,200) + biometrics CAD $85 (~₹5,300).",
+
+    time: "Typically 4–12 weeks after invitation and submission of complete application.",
+
+    age: "Usually 18–35 years (varies by country agreement; India is not part of IEC Working Holiday program).",
+
+    education: "No formal education requirement.",
+
+    funds: "Proof of funds required (approx CAD $2,500–$5,000) + proof of return ticket or additional funds.",
+
+    docs: "Passport, IEC profile invitation, proof of funds, travel insurance (mandatory), CV/resume, biometrics, medical exam (if required).",
+
+    whom: "Young individuals from countries participating in IEC agreements who want to travel and work in Canada temporarily.",
+
+    rules: "Must be from an IEC partner country. Must apply through pool system and receive invitation. Must have valid health insurance for entire stay. Can work for multiple employers (open work permit).",
+
+    prosCons: "Pros: Open work permit, travel + work flexibility, great for international experience, no job offer required. Cons: Limited age eligibility, lottery-based invitation system, not available for all nationalities (India not eligible under IEC Working Holiday stream).",
+
+    terms: "IEC: International Experience Canada; IRCC: Immigration, Refugees and Citizenship Canada; OWP: Open Work Permit.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – IEC Working Holiday Program agreements with partner countries).",
+
+    process: `1. Create IEC profile (if eligible country) -> 
+              2. Enter pool and wait for invitation -> 
+              3. Receive Invitation to Apply (ITA) -> 
+              4. Submit work permit application -> 
+              5. Pay fees + biometrics -> 
+              6. Provide proof of funds + insurance -> 
+              7. IRCC assesses eligibility -> 
+              8. Receive work permit approval -> 
+              9. Travel to Canada -> 
+              10. Work and travel freely under open work permit -> 
+              11. Extend only if eligible under program rules -> 
+              12. Exit Canada at end of permit or switch to another visa category if eligible.`
+},
+
+
+"CanadaYoungProfessionalsProgram": {
+    name: "Young Professionals Program (International Experience Canada – IEC)",
+
+    validity: "Up to 12–24 months depending on bilateral agreement with the applicant’s country (India is NOT eligible under IEC programs).",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + employer compliance fee (if applicable) + biometrics CAD $85 (~₹5,300).",
+
+    time: "Typically 4–12 weeks after invitation and submission of complete application.",
+
+    age: "Usually 18–35 years (varies by country agreement under IEC).",
+
+    education: "No strict requirement, but must have post-secondary qualification or relevant professional skills for the job.",
+
+    funds: "Must show sufficient funds for initial settlement (approx CAD $2,500–$5,000 depending on stay duration).",
+
+    docs: "Valid passport, job offer in Canada, IEC profile invitation, employment contract, CV/resume, proof of qualifications, biometrics, travel insurance (mandatory).",
+
+    whom: "Young foreign professionals from IEC partner countries who have a job offer in Canada and want to gain professional work experience.",
+
+    rules: "Must have a pre-arranged job offer in Canada. Work must contribute to professional development. Employer must comply with IEC employer requirements. Open work permits are NOT allowed (job-specific permit).",
+
+    prosCons: "Pros: Gain Canadian professional experience, employer-specific structured work, good for PR pathways later (Express Entry). Cons: Requires job offer in advance, limited age eligibility, not available to all countries (India not eligible under IEC).",
+
+    terms: "IEC: International Experience Canada; IRCC: Immigration, Refugees and Citizenship Canada; LMIA-exempt: No Labour Market Impact Assessment required.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – IEC Young Professionals category agreements).",
+
+    process: `1. Check eligibility under IEC partner country list -> 
+              2. Create IEC profile -> 
+              3. Enter pool and receive Invitation to Apply -> 
+              4. Secure job offer in Canada -> 
+              5. Submit work permit application -> 
+              6. Pay fees + biometrics -> 
+              7. Provide employment contract and qualifications -> 
+              8. IRCC reviews eligibility and job compliance -> 
+              9. Work permit approval issued -> 
+              10. Travel to Canada -> 
+              11. Work only for designated employer -> 
+              12. Gain professional Canadian experience -> 
+              13. Apply for PR through Express Entry or PNP if eligible -> 
+              14. Exit or extend only if program allows.`
+},
+
+"CanadaInternationalCoopInternshipVisa": {
+    name: "International Co-op Internship Visa (International Experience Canada – IEC)",
+
+    validity: "Up to 12–24 months depending on bilateral agreement (varies by country; India is NOT eligible under IEC programs).",
+
+    cost: "Work permit fee: CAD $155 (~₹9,500) + biometrics CAD $85 (~₹5,300) + employer compliance fee if applicable.",
+
+    time: "Typically 4–12 weeks after invitation and submission of complete application.",
+
+    age: "Usually 18–35 years (depends on IEC partner country agreement).",
+
+    education: "Must be a student enrolled in a post-secondary institution and have a co-op placement or internship requirement.",
+
+    funds: "Proof of funds required (approx CAD $2,500–$5,000) + return travel funds.",
+
+    docs: "Valid passport, IEC profile invitation, proof of enrollment in college/university, internship/co-op placement letter, CV/resume, biometrics, travel insurance (mandatory), proof of funds.",
+
+    whom: "International students from IEC partner countries who need to complete an internship or co-op placement in Canada as part of their academic program.",
+
+    rules: "Must be currently enrolled in post-secondary education outside Canada. Internship must be required for graduation. Must have pre-arranged placement in Canada. Work permit is employer-specific.",
+
+    prosCons: "Pros: Valuable Canadian work experience during studies, supports academic credit requirement, pathway to future PR programs. Cons: Requires student status, job/internship must be secured in advance, not open work permit, limited eligibility by country.",
+
+    terms: "IEC: International Experience Canada; IRCC: Immigration, Refugees and Citizenship Canada; Co-op: Cooperative Education Work Placement.",
+
+    legal: "Immigration and Refugee Protection Regulations (Canada – IEC International Co-op category agreements).",
+
+    process: `1. Confirm enrollment in post-secondary institution -> 
+              2. Secure internship/co-op placement in Canada -> 
+              3. Create IEC profile (if eligible country) -> 
+              4. Receive Invitation to Apply -> 
+              5. Submit work permit application -> 
+              6. Pay fees + biometrics -> 
+              7. Provide enrollment proof + internship letter -> 
+              8. IRCC assesses eligibility and placement validity -> 
+              9. Work permit issued -> 
+              10. Travel to Canada -> 
+              11. Work only for approved internship employer -> 
+              12. Complete academic credit requirement -> 
+              13. Return or switch status if eligible -> 
+              14. Gain experience useful for future PR pathways.`
+},
+
+"CanadaDiplomaticOfficialVisas": {
+    name: "Diplomatic and Official Visas (Canada – Diplomatic, Official, Courtesy Visas)",
+
+    validity: "Temporary status tied to official assignment. Duration ranges from a few days to multiple years depending on diplomatic posting and accreditation.",
+
+    cost: "No visa application fee for diplomatic and official visas in most cases (may vary by bilateral agreement). Biometrics and administrative fees are usually waived for accredited diplomats.",
+
+    time: "Typically 2–6 weeks depending on accreditation process and diplomatic clearance.",
+
+    age: "No age limit.",
+
+    education: "No requirement.",
+
+    funds: "Not required for accredited diplomats/officials, as expenses are usually covered by home government.",
+
+    docs: "Diplomatic passport or official passport, Note Verbale from Ministry of Foreign Affairs, diplomatic mission accreditation documents, assignment letter, travel order, biometric data (if required), security clearance if applicable.",
+
+    whom: "Foreign diplomats, embassy/consulate staff, government officials, international organization representatives (UN, IMF, World Bank, etc.) traveling to Canada for official duties.",
+
+    rules: "Must be officially accredited by sending country or international organization. Must perform only official duties. Must comply with Vienna Convention on Diplomatic Relations and Canadian diplomatic protocols.",
+
+    prosCons: "Pros: Fast-track entry, privileges and immunities under international law, simplified immigration processing. Cons: Strict official-use-only limitation, cannot be used for personal work or immigration, dependent on government posting.",
+
+    terms: "IRCC: Immigration, Refugees and Citizenship Canada; Note Verbale: Official diplomatic communication; Vienna Convention: International treaty governing diplomatic relations; Diplomatic Immunity: Legal protections granted to diplomats.",
+
+    legal: "Vienna Convention on Diplomatic Relations (1961) + Canadian Immigration and Refugee Protection Act (Diplomatic and Official Entry provisions).",
+
+    process: `1. Government or international organization assigns official/diplomatic posting -> 
+              2. Issuance of Note Verbale from sending Ministry of Foreign Affairs -> 
+              3. Submit diplomatic visa request to Canadian embassy/consulate -> 
+              4. Provide diplomatic passport and assignment documents -> 
+              5. Security and accreditation verification by Canadian authorities -> 
+              6. Visa issuance (often expedited or fee-exempt) -> 
+              7. Travel to Canada -> 
+              8. Accreditation by Global Affairs Canada -> 
+              9. Receive diplomatic/official status and identification -> 
+              10. Perform assigned diplomatic/official duties -> 
+              11. Maintain compliance with diplomatic laws -> 
+              12. End of posting -> 
+              13. Exit Canada or renew based on reassignment.`
+},
+
+
+"CanadaExpressEntryCategoryBased": {
+    name: "Express Entry: Category-Based Selection (STEM, Healthcare, Trades, Transport, Agri-Food, French)",
+
+    validity: "Permanent Residence (PR). Indefinite stay. Leads to Canadian citizenship after 3 years of physical presence.",
+
+    cost: "Application fee: CAD $1,525 (~₹94,000) including Right of Permanent Residence Fee. Additional costs: Language tests (~₹17k), ECA (~₹15k), Medicals (~₹6k), and Biometrics (CAD $85).",
+
+    time: "Standard processing: 6 months after receiving an Invitation to Apply (ITA). ITA draws occur periodically throughout the year.",
+
+    age: "Points are awarded based on age; maximum points are given to those aged 20–29. Points decrease significantly after age 40.",
+
+    education: "Mandatory: Minimum high school equivalent, but most successful candidates have a Bachelor’s, Master’s, or PhD with an Educational Credential Assessment (ECA).",
+
+    funds: "Proof of settlement funds required for most categories (unless currently working in Canada or have a valid job offer). Approx CAD $14,690 for a single applicant.",
+
+    docs: "ECA report, Language test results (IELTS/CELPIP/PTE/TEF), Reference letters proving 6 months of continuous work in a specific category, Police clearance, Medical exam, Passport, and Proof of funds.",
+
+    whom: "Skilled workers with experience in one of 6 priority categories: 1. Healthcare, 2. STEM (Science, Tech, Engineering, Math), 3. Trade (Carpenters, Plumbers), 4. Transport, 5. Agriculture/Agri-food, or 6. French-language Proficiency.",
+
+    rules: "Candidates must first be eligible for one of the three Express Entry programs (FSW, CEC, or FST). IRCC issues ITAs specifically to candidates who have work experience in these 35-80 specific NOC/TEER codes.",
+
+    prosCons: "Pros: Dramatically lower CRS score requirements compared to general draws; faster route for tech and healthcare pros; high priority for the Canadian government. Cons: Extremely competitive; limited only to specific occupations; requires very high language scores to remain competitive.",
+
+    terms: "CRS: Comprehensive Ranking System; ITA: Invitation to Apply; NOC: National Occupational Classification; TEER: Training, Education, Experience and Responsibilities.",
+
+    legal: "Immigration and Refugee Protection Act (IRPA) + Ministerial Instructions for Category-Based Selection.",
+
+    process: `1. Create an Express Entry profile -> 
+              2. Meet the criteria for FSW, CEC, or FST -> 
+              3. Ensure your NOC code matches the priority category list -> 
+              4. Enter the Express Entry pool -> 
+              5. Wait for a category-specific draw -> 
+              6. Receive an Invitation to Apply (ITA) even if your CRS is lower than the general draw -> 
+              7. Submit full PR application within 60 days -> 
+              8. Complete medicals and biometrics -> 
+              9. Receive COPR (Confirmation of Permanent Residence).`
+},
+
+"CanadaFrancophoneMobilityC16": {
+    name: "Francophone Mobility Work Permit (Mobilité Francophone - Code C16)",
+
+    validity: "Up to 2 years, renewable. This is an LMIA-exempt closed work permit.",
+
+    cost: "Work Permit Fee: CAD $155 (~₹9,500). Biometrics: CAD $85. Employer must pay a CAD $230 compliance fee.",
+
+    time: "Processing: 2–4 months from India.",
+
+    age: "No strict age limit.",
+
+    education: "Must meet the requirements of the job offer provided by the employer.",
+
+    funds: "Must show sufficient funds to settle in Canada initially (approx. ₹3L – ₹5L) unless already working.",
+
+    docs: "Valid passport, Job offer from a Canadian employer (outside Quebec), Proof of French proficiency (CLB 5 or higher in all 4 skills), Employer compliance fee receipt, CV/Resume.",
+
+    whom: "French-speaking or bilingual skilled workers from India and globally who have a job offer in any TEER 0, 1, 2, or 3 occupation outside the province of Quebec.",
+
+    rules: "The job offer does NOT have to require French; only the applicant must prove they speak it. This is exempt from the Labour Market Impact Assessment (LMIA) process.",
+
+    prosCons: "Pros: No LMIA needed (saves months of time and employer hassle); allows workers to enter Canada much faster; provides 50 extra PR points. Cons: Job must be outside Quebec; requires official French testing (TEF/TCF).",
+
+    terms: "LMIA-Exempt: No need to prove no Canadians are available; Closed Work Permit: You must work for the sponsoring employer only.",
+
+    legal: "International Mobility Program (IMP) – Exemption Code C16.",
+
+    process: `1. Find an employer outside Quebec willing to hire you -> 
+              2. Take a French language test (TEF or TCF) and score CLB 5+ -> 
+              3. Employer submits the job offer via the Employer Portal -> 
+              4. You apply for the work permit online using the C16 exemption -> 
+              5. Submit biometrics -> 
+              6. Receive Work Permit approval -> 
+              7. Travel to Canada and begin work.`
+},
+
+"CanadaVulnerableWorkerPermit": {
+    name: "Vulnerable Worker Open Work Permit",
+
+    validity: "Usually up to 6–12 months. Non-renewable (intended as a bridge to a new employer).",
+
+    cost: "CAD $0 (Free). Government fees are waived for this humanitarian category.",
+
+    time: "Priority processing: Often decided within 5–10 business days.",
+
+    docs: "Evidence of abuse (emails, photos, witness statements, voice recordings), your current work permit, and a detailed description of the situation.",
+
+    whom: "Foreign workers currently in Canada on an employer-specific (closed) work permit who are experiencing abuse (physical, sexual, psychological, or financial) by their employer.",
+
+    rules: "The abuse must be current or at risk of occurring. This permit allows the worker to leave the abusive employer immediately and work for ANY other employer in Canada.",
+
+    prosCons: "Pros: Extremely fast; provides immediate legal safety and work freedom. Cons: Very temporary; applicant must find a new sponsor or pathway to stay long-term.",
+
+    terms: "Open Work Permit: Allows you to work for any employer; Abuse: Includes not being paid, threats, or unsafe conditions.",
+
+    process: `1. Identify abusive situation -> 2. Apply online for the Vulnerable Worker Permit -> 3. Attach evidence of abuse -> 4. IRCC conducts an assessment (usually no interview) -> 5. Permit is mailed to you -> 6. Leave the abusive employer and start any new job.`
+},
+
+
+"CanadaEMPP_SkilledRefugee": {
+    name: "Economic Mobility Pathways Pilot (EMPP - PR Pathway)",
+
+    validity: "Permanent Residence (PR). Indefinite stay.",
+
+    cost: "Fees are often waived or covered by partner NGOs. Loans are available for travel and settlement costs.",
+
+    time: "Standard processing: 6 months.",
+
+    whom: "Skilled refugees or displaced persons currently living outside their home country who meet the requirements of a Canadian economic immigration stream.",
+
+    rules: "Must be a convention refugee. Must have a job offer from a Canadian employer OR be eligible for a regional economic program (AIP/PNP).",
+
+    prosCons: "Pros: Bypasses many financial and document hurdles for refugees; fast PR processing. Cons: Requires specialized NGO assistance (e.g., Talent Beyond Boundaries).",
+
+    process: `1. Get a job offer in Canada -> 2. Prove refugee status -> 3. Apply via EMPP portal -> 4. Receive PR and travel to Canada.`
+},
+
+"CanadaLonelyCanadianSponsorship": {
+    name: "Sponsorship of 'Other Relative' (The Lonely Canadian Stream)",
+
+    validity: "Permanent Residence (PR).",
+
+    cost: "Sponsorship fee: CAD $1,135 (~₹70,000).",
+
+    time: "12–24 months.",
+
+    whom: "Canadian Citizens/PRs who have NO living spouse, partner, child, parent, or grandparent, and NO other relative who is already a Canadian Citizen/PR.",
+
+    rules: "A Canadian can sponsor exactly ONE relative (of any age, including adult nephews/nieces) if they are completely alone in Canada and the world.",
+
+    prosCons: "Pros: Rare chance to bring any family member. Cons: Extremely strict eligibility (if you have even one cousin who is a PR, you are disqualified).",
+
+    process: `1. Prove you have no other family in Canada or abroad -> 2. Submit sponsorship for the 'Other Relative' -> 3. Background/medicals -> 4. Relative receives PR.`
+},
+
+"CanadaHomeCareSupportPilot2025": {
+    name: "Home Child Care Provider / Home Support Worker Pilot (Updated 2025)",
+
+    validity: "PR Pathway. Initial stay as a worker, leads to PR after 12 months of experience.",
+
+    cost: "CAD $1,135 (~₹70,000).",
+
+    time: "Varies (current priority for 2025/2026).",
+
+    education: "Post-secondary credential of at least 1 year.",
+
+    rules: "Must have a job offer from a Canadian family. Requires CLB 5 in English. Only 12 months of work experience required (previously 24).",
+
+    process: `1. Secure a caregiving job offer -> 2. Apply for PR and Work Permit together -> 3. Work 12 months -> 4. PR finalized.`
+},
+
+
+"CanadaElectronicTravelAuthorization": {
+    name: "Electronic Travel Authorization (eTA)",
+
+    validity: "Up to 5 years or until passport expires. Allows multiple entries for stays of up to 6 months.",
+
+    cost: "CAD $7 (~₹450).",
+
+    time: "Usually approved within minutes (automated).",
+
+    whom: "Citizens of visa-exempt countries (UK, Australia, etc.) or select visa-required countries (like some Mexicans/Brazilians) who have held a Canadian visa in the past 10 years.",
+
+    rules: "For air travel only. If arriving by land or sea, different rules apply. Not for work or study.",
+
+    process: `1. Apply online -> 2. Enter passport details -> 3. Pay $7 -> 4. Receive email approval.`
+},
+
+"CanadaVisitorRecord": {
+    name: "Visitor Record (Stay Extension)",
+
+    validity: "Determined by the officer (usually 6 additional months).",
+
+    cost: "CAD $100 (~₹6,200).",
+
+    whom: "People already in Canada as visitors who want to stay longer than 6 months.",
+
+    rules: "Must apply at least 30 days before your current status expires. It is NOT a visa to re-enter Canada; it is only a document to stay longer while inside.",
+
+    process: `1. Submit extension application from inside Canada -> 2. Prove you have funds to stay -> 3. Receive Visitor Record document by mail.`
+},
+
+
+"CanadaRestorationOfStatus": {
+    name: "Restoration of Status (For Workers, Students, Visitors)",
+
+    validity: "Restores your previous status (e.g., student or worker) for its remaining or new duration.",
+
+    cost: "CAD $200 (~₹12,400) plus the fee for the new permit (e.g., $150 for study). Total ~$350.",
+
+    time: "3–5 months.",
+
+    whom: "People who have lost their legal status in Canada because they stayed past their expiry date for 90 days or less.",
+
+    rules: "Must apply within 90 days of the expiry date. You CANNOT work or study while the restoration is being processed. You must explain why you overstayed.",
+
+    legal: "Section 182 of the IRPR.",
+
+    process: `1. Identify you are within the 90-day grace period -> 2. Apply for 'Restoration of Status' online -> 3. Pay the $200 penalty -> 4. Wait for approval. If refused, you must leave Canada immediately.`
+},
+
+"CanadaPRTravelDocument": {
+    name: "Permanent Resident Travel Document (PRTD)",
+
+    validity: "Single entry. Usually valid for 6 months from issuance.",
+
+    cost: "CAD $50 (~₹3,100).",
+
+    time: "2–8 weeks.",
+
+    whom: "Canadian Permanent Residents currently outside Canada who do not have a valid PR card (lost, stolen, or expired) and need to return to Canada by commercial vehicle (plane, bus, etc.).",
+
+    rules: "Must prove you still meet residency obligations (lived in Canada for 2 out of the last 5 years).",
+
+    process: `1. Apply at a Canadian Visa Application Centre (VAC) abroad -> 2. Submit proof of PR status -> 3. Receive counterfoil in passport -> 4. Fly back to Canada.`
+},
+
+
+
+"CanadaArmedForcesMilitaryEntry": {
+    name: "Canada Armed Forces / Military-related Entry (Military Personnel & Defence Visitors)",
+
+    validity: "Temporary entry status aligned with mission duration, training, exercise, or official deployment (can range from days to multiple years depending on assignment).",
+
+    cost: "Usually no visa fee for official military personnel under government or NATO/defence arrangements. Biometrics and admin fees may be waived depending on agreement.",
+
+    time: "Typically 2–8 weeks, but urgent defence deployments can be expedited (days to a few weeks).",
+
+    age: "No fixed age limit; depends on military service eligibility in home country and assignment requirements.",
+
+    education: "No requirement (military qualification/training is sufficient).",
+
+    funds: "Not required for official deployments, as costs are covered by sending government or defence organization.",
+
+    docs: "Military ID, valid passport (or military travel document), official deployment order, invitation from Canadian Armed Forces (CAF) or Department of National Defence (DND), NATO orders (if applicable), security clearance documents, Note Verbale (for government missions).",
+
+    whom: "Foreign military personnel, NATO forces, allied defence personnel, and official military delegations entering Canada for training, joint exercises, defence cooperation, or official missions.",
+
+    rules: "Must be part of an official government-to-government or defence agreement. Entry is strictly for official duties only. Must comply with Canadian immigration laws and military protocol agreements. Unauthorized employment or civilian work not permitted.",
+
+    prosCons: "Pros: Fast-track or simplified entry under defence agreements, government-covered costs, access to joint training/exercises. Cons: Strictly limited to official duties, no personal immigration benefit, dependent on assignment duration.",
+
+    terms: "CAF: Canadian Armed Forces; DND: Department of National Defence; NATO: North Atlantic Treaty Organization; Note Verbale: Diplomatic/military official communication; SOFA: Status of Forces Agreement.",
+
+    legal: "Status of Forces Agreements (SOFA), NATO agreements (if applicable), and Immigration and Refugee Protection Act (Canada – military and defence entry provisions).",
+
+    process: `1. Home country military selects personnel for deployment/training -> 
+              2. Canadian Armed Forces or DND issues official invitation or approval -> 
+              3. Submit military entry request via embassy or defence channels -> 
+              4. Provide military ID, deployment orders, and security clearance -> 
+              5. Verification under SOFA/NATO or bilateral defence agreement -> 
+              6. Visa/entry authorization issued (often expedited or fee-exempt) -> 
+              7. Travel to Canada under official orders -> 
+              8. Entry clearance at port of arrival -> 
+              9. Participate in training, mission, or exercise -> 
+              10. Follow CAF/DND operational protocols -> 
+              11. Complete assignment -> 
+              12. Exit Canada or redeploy as per orders.`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

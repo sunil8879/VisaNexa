@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* Kuwait Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }  
+</style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+    <label>Select Country</label>
+    <select id="country">
+        <!-- Value must exactly match the JavaScript key "SAUDI ARABIA" -->
+        <option value="OMAN">OMAN</option>
+    </select>
+
+    <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+<select id="visaType">
+    <optgroup label="1. Visit & Short Stay">
+        <option value="OmanTouristVisa">Tourist Visa</option>
+        <option value="OmanEvisa">eVisa (Online)</option>
+        <option value="OmanVisaOnArrival">Visa on Arrival</option>
+        <option value="OmanTransitVisa">Transit Visa</option>
+        <option value="OmanBusinessVisa">Business Visa</option>
+        <option value="OmanShortTermEntryVisa">Short-Term Entry Visa</option>
+        <option value="OmanMultipleEntryVisa">Multiple Entry Visa</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Employment">
+        <option value="OmanWorkVisa">Work Visa (Employment)</option>
+        <option value="OmanDomesticWorkerVisa">Domestic Worker Visa</option>
+    </optgroup>
+
+    <optgroup label="3. Long-Term Residence">
+        <option value="OmanFamilyResidenceVisa">Family Residence Visa</option>
+        <option value="OmanFamilyVisitVisa">Family Visit Visa</option>
+        <option value="OmanStudentVisa">Student Visa</option>
+        <option value="OmanInvestorPartnerVisa">Investor / Partner Visa</option>
+        <option value="OmanRetirementVisa">Retirement Visa</option>
+        <option value="OmanLongTermResidenceVisa">Long-Term Residence Visa</option>
+    </optgroup>
+
+    <optgroup label="4. GCC & Regional">
+        <option value="OmanGccResidentVisa">GCC Resident Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Government & Diplomatic">
+        <option value="OmanDiplomaticVisa">Diplomatic Visa</option>
+        <option value="OmanOfficialVisa">Official Visa</option>
+        <option value="OmanGovernmentMissionVisa">Government Mission Visa</option>
+
+
+
+    <optgroup label="6. Extras">
+        <option value="OmanScientificResearchVisa">Scientific research visa</option>
+        <option value=""OmanTruckDriverTransitVisa">Truck driver entry visa</option>
+        <option value="OmanJoiningPartnerVisa">Family joining visa</option>
+    </optgroup>
+</select>
+</div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF QATAR MASTER PROCESS COLLAPSIBLE -->
+<!-- START OF OMAN MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇴🇲 VIEW OMAN IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇴🇲 GENERAL IMMIGRATION PROCESS – OMAN (DETAILED)</h1>
+        <p>Oman immigration is primarily controlled by the Royal Oman Police (ROP), Ministry of Labour (MOL), and MOCIIP.</p>
+
+        <h2>🧭 STEP 1: IDENTIFY PURPOSE OF ENTRY</h2>
+        <h3>SHORT-TERM ENTRY:</h3>
+        <ul>
+            <li>Tourist Visa, eVisa, Visa on Arrival, Transit Visa, Business Visa, Short-Term Entry Visa.</li>
+        </ul>
+        <h3>LONG-TERM RESIDENCE:</h3>
+        <ul>
+            <li>Work Visa, Family Residence, Family Visit, Student Visa, Domestic Worker, Investor/Partner, Retirement, Long-Term Residence.</li>
+        </ul>
+
+        <h2>🧾 STEP 2: CHECK ELIGIBILITY</h2>
+        <p>Authorities verify Passport validity (6 months), Nationality eligibility (for eVisa/VOA), Financial stability, Job offer/Sponsorship, and Criminal records.</p>
+
+        <h2>🤝 STEP 3: ARRANGE SPONSOR (IF REQUIRED)</h2>
+        <table class="master-table">
+            <thead>
+                <tr><th>Visa Type</th><th>Sponsor</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Work Visa</td><td>Omani Employer</td></tr>
+                <tr><td>Family Visa</td><td>Resident in Oman</td></tr>
+                <tr><td>Student Visa</td><td>University</td></tr>
+                <tr><td>Business Visa</td><td>Company in Oman</td></tr>
+                <tr><td>Domestic Worker</td><td>Household Employer</td></tr>
+                <tr><td>Investor Visa</td><td>Self / Business Entity</td></tr>
+                <tr><td>Tourist Visa</td><td>Usually not required</td></tr>
+            </tbody>
+        </table>
+
+        <h2>📄 STEP 4: DOCUMENT PREPARATION</h2>
+        <p>Common requirements: Passport, Photos, Application form, Job offer (Work), Admission letter (Student), Invitation (Business/Family), Medical/Police certificates.</p>
+
+        <h2>🌐 STEP 5: VISA APPLICATION</h2>
+        <h3>🟢 A. ONLINE EVISA SYSTEM</h3>
+        <p>Portal: <a href="https://evisa.rop.gov.om" target="_blank">evisa.rop.gov.om</a> (Tourist, Business, GCC, and Short-term visas).</p>
+        <h3>🟡 B. SPONSOR-BASED APPLICATION</h3>
+        <p>Handled by Employer, Family, or University through the Royal Oman Police (ROP).</p>
+        <h3>🔵 C. VISA ON ARRIVAL</h3>
+        <p>Available at the airport for eligible countries after document checks.</p>
+
+        <h2>💳 STEP 6 & 7: FEES & REVIEW</h2>
+        <p>Fees are paid online or by sponsors. ROP verifies identity, security background, sponsor legitimacy, and medical eligibility for long-term stays.</p>
+
+        <h2>✅ STEP 8 & 9: APPROVAL & ENTRY</h2>
+        <p>Approved eVisas arrive by email. Entry includes immigration verification, biometric scans (if required), and entry stamp issuance.</p>
+
+        <h2>🏠 STEP 10: RESIDENCE PROCESS (LONG-TERM)</h2>
+        <ul>
+            <li>1. Medical examination (approved clinics)</li>
+            <li>2. Biometric registration</li>
+            <li>3. Residence Permit application</li>
+            <li>4. Oman ID issuance</li>
+            <li>5. Final residency activation</li>
+        </ul>
+
+        <h2>📌 STEP 11 & 12: STAY RULES & RENEWAL</h2>
+        <p>Follow visa purpose strictly. Overstay leads to fines. Renewals occur every 1–2 years. Job transfers require labour approval.</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black);">
+            🧠 SUMMARY FLOW: Purpose → Visa Type → Sponsor → Documents → Application → Review → Approval → Entry → Medical/Biometrics → Oman ID → Residency
+        </div>
+
+        <div class="official-box">
+            <h1>🇴🇲 OFFICIAL OMAN IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Royal Oman Police (Main Portal):</strong> <a href="https://evisa.rop.gov.om" target="_blank">evisa.rop.gov.om</a></p>
+            <p><strong>2. Ministry of Labour (Work Visas):</strong> <a href="https://www.mol.gov.om" target="_blank">www.mol.gov.om</a></p>
+            <p><strong>3. Ministry of Commerce (Investor):</strong> <a href="https://www.moci.gov.om" target="_blank">www.moci.gov.om</a></p>
+            <p><strong>4. Oman Government Hub:</strong> <a href="https://www.oman.om" target="_blank">www.oman.om</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: ONLY USE OFFICIAL ROP.GOV.OM WEBSITES. AVOID THIRD-PARTY SCAM AGENTS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "OMAN": {
+"OmanTouristVisa": {
+    name: "Tourist Visa (Sultanate of Oman)",
+
+    validity: "Usually 10 days, 30 days, or 1 year multiple-entry (depending on visa type). Short-term tourist visas are typically 30 days and can be extended once or twice based on approval.",
+
+    cost: "Approx OMR 20–50 (~₹4,300–₹10,800) for short-term tourist visa. One-year multiple-entry visa may cost higher (around OMR 50–100+ / ₹10,800–₹21,500+).",
+
+    time: "Processing time usually 24 hours to 5 working days for eVisa applications. Visa on arrival (if eligible) is issued instantly at entry.",
+
+    age: "No strict age limit. Minors must travel with parents/guardians and valid documentation.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement or credit card proof depending on nationality and visa type).",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, return flight ticket, hotel booking or accommodation proof, bank statement (if required), travel insurance (recommended), completed eVisa application form.",
+
+    whom: "Foreign tourists (including Indian citizens eligible for Oman eVisa or visa-on-arrival) visiting Oman for tourism, leisure, or short family visits.",
+
+    rules: "Must not engage in employment or paid work. Must exit before visa expiry. Extensions allowed only with approval from Royal Oman Police (ROP). Overstay leads to fines and possible bans.",
+
+    prosCons: "Pros: Simple online application, fast approval, visa-on-arrival option for eligible nationalities, affordable. Cons: Short duration, no work rights, strict extension limits.",
+
+    terms: "ROP Oman: Royal Oman Police (immigration authority); eVisa: Electronic visa system; Visa on Arrival: Entry visa issued at airport; Overstay: Staying beyond permitted duration.",
+
+    legal: "Regulated by Royal Oman Police (ROP), Sultanate of Oman immigration authority.",
+
+    process: `1. Check eligibility for eVisa or visa on arrival ->
+              2. Apply online via Oman eVisa portal ->
+              3. Upload passport and travel documents ->
+              4. Pay visa fee ->
+              5. Application review by ROP ->
+              6. Approval issued electronically ->
+              7. Travel to Oman ->
+              8. Immigration clearance at airport ->
+              9. Entry stamp or electronic approval ->
+              10. Exit before visa expiry or apply for extension if eligible`
+},
+
+"OmanEVisa": {
+    name: "eVisa (Electronic Visa – Sultanate of Oman)",
+
+    validity: "Usually 10 days, 30 days, or 1 year multiple-entry depending on visa category. Single-entry tourist eVisa is typically 30 days and may be extendable based on approval.",
+
+    cost: "Approx OMR 20–50 (~₹4,300–₹10,800) for short-term tourist eVisa. One-year multiple-entry eVisa may cost OMR 50–100+ (~₹10,800–₹21,500+).",
+
+    time: "Processing time usually 24 hours to 5 working days depending on application volume and document verification by Royal Oman Police (ROP).",
+
+    age: "No strict age limit. Minors must apply with parents/guardians and provide supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement or credit/debit card proof depending on nationality and visa type).",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photograph, return flight ticket, hotel booking or accommodation proof, bank statement (if required), travel insurance (recommended), completed online application form.",
+
+    whom: "Foreign nationals (including Indian citizens eligible for Oman eVisa) traveling for tourism, short visits, or leisure purposes requiring prior online visa approval.",
+
+    rules: "Must not engage in employment or paid work. Must enter Oman within visa validity period. Must leave before expiry. Extensions allowed only with approval from Royal Oman Police. Overstay leads to fines and possible travel bans.",
+
+    prosCons: "Pros: Fully online process, fast approval, no embassy visit required, multiple-entry option available. Cons: Requires pre-approval, limited stay duration, no work permission.",
+
+    terms: "ROP Oman: Royal Oman Police (immigration authority); eVisa: Electronic visa system; Multiple Entry Visa: Allows repeated travel within validity; Overstay: Staying beyond permitted duration.",
+
+    legal: "Regulated by Royal Oman Police (ROP), Sultanate of Oman immigration authority.",
+
+    process: `1. Visit Oman eVisa portal ->
+              2. Create account and select visa type ->
+              3. Fill personal and travel details ->
+              4. Upload required documents ->
+              5. Pay visa fee online ->
+              6. Application reviewed by ROP ->
+              7. Approval or request for additional documents ->
+              8. eVisa issued electronically ->
+              9. Print or save visa copy ->
+              10. Travel to Oman and present at immigration ->
+              11. Entry granted and stay begins`
+},
+
+"OmanVisaOnArrival": {
+    name: "Visa on Arrival (Sultanate of Oman)",
+
+    validity: "Usually 10 to 30 days depending on nationality and immigration approval. In some cases, extension up to 30 additional days may be granted by Royal Oman Police (ROP).",
+
+    cost: "Approx OMR 5–20 (~₹1,100–₹4,300) depending on nationality and visa category. Some eligible nationalities may receive simplified or reduced-fee entry conditions.",
+
+    time: "Issued immediately upon arrival at Oman airport immigration checkpoint.",
+
+    age: "No strict age limit. Minors must travel with parents/guardians and valid supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (cash, bank card, or bank statement depending on immigration officer discretion and nationality).",
+
+    docs: "Valid passport (minimum 6 months validity), confirmed return/onward ticket, hotel booking or accommodation details, proof of funds (if requested), travel insurance (recommended), completed arrival form if required.",
+
+    whom: "Foreign nationals from eligible countries (including some Indian travelers depending on current Oman policy) entering Oman for tourism or short visits without pre-approved visa.",
+
+    rules: "Must not engage in employment or paid work. Must leave before visa expiry. Extension only with Royal Oman Police approval. Overstay leads to fines and possible entry bans.",
+
+    prosCons: "Pros: No prior application needed, fast airport processing, convenient for eligible travelers. Cons: Limited to eligible nationalities, short stay duration, no work rights.",
+
+    terms: "ROP Oman: Royal Oman Police (immigration authority); Visa on Arrival: Entry visa issued at airport; Eligible Nationalities: Countries allowed for VOA entry; Overstay: Staying beyond permitted duration.",
+
+    legal: "Regulated by Royal Oman Police (ROP), Sultanate of Oman immigration authority.",
+
+    process: `1. Travel to Oman with required documents ->
+              2. Arrive at airport immigration counter ->
+              3. Submit passport and travel details ->
+              4. Provide return ticket and accommodation proof ->
+              5. Immigration verification ->
+              6. Visa issued at entry point ->
+              7. Entry granted into Oman ->
+              8. Stay within allowed duration ->
+              9. Apply for extension if eligible ->
+              10. Exit before visa expiry`
+},
+
+"OmanTransitVisa": {
+    name: "Transit Visa (Sultanate of Oman)",
+
+    validity: "Usually 72 hours (3 days) or up to 7 days depending on airline arrangement and immigration approval. It is strictly for short layovers.",
+
+    cost: "Approx OMR 5–15 (~₹1,100–₹3,200). In some cases, it may be included in airline transit packages or issued at reduced fees.",
+
+    time: "Processing time usually 24 hours to 3 working days if pre-arranged through airline or Royal Oman Police (ROP). Some cases may be issued instantly at airport transit desk.",
+
+    age: "No strict age limit. Minors must travel with parents/guardians and valid documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of onward travel and sufficient funds for short stay may be required (cash, card, or airline confirmation).",
+
+    docs: "Valid passport (minimum 6 months validity), confirmed onward flight ticket, visa for final destination (if required), passport-size photo (if required), transit visa application form (if pre-applied), hotel booking if leaving airport (optional), travel insurance (recommended).",
+
+    whom: "Foreign travelers (including Indian citizens) transiting through Oman en route to another country with a short stopover requiring temporary entry into Oman.",
+
+    rules: "Must remain within transit duration. No employment allowed. Must have confirmed onward journey. Cannot be converted into long-term visa in most cases. Overstay results in fines and travel bans.",
+
+    prosCons: "Pros: Quick processing, useful for layovers, minimal documentation, low cost. Cons: Very short stay, restricted movement, no residency or work rights.",
+
+    terms: "ROP Oman: Royal Oman Police (immigration authority); Transit Visa: Short stay visa for layovers; Stopover: Temporary stay between flights; Overstay: Staying beyond allowed transit duration.",
+
+    legal: "Regulated by Royal Oman Police (ROP), Sultanate of Oman immigration authority.",
+
+    process: `1. Book connecting flight via Oman ->
+              2. Check transit visa eligibility ->
+              3. Apply via airline or ROP portal if required ->
+              4. Submit passport and onward ticket ->
+              5. Visa processing and approval ->
+              6. Transit visa issued ->
+              7. Travel to Oman ->
+              8. Immigration clearance at airport transit desk ->
+              9. Short stay allowed during layover ->
+              10. Exit within permitted transit duration`
+},
+
+"OmanBusinessVisa": {
+    name: "Business Visa (Sultanate of Oman)",
+
+    validity: "Usually 30 days to 90 days for single entry. Multiple-entry business visas may be valid for 6 months to 1 year depending on sponsorship and approval by Royal Oman Police (ROP).",
+
+    cost: "Approx OMR 20–100+ (~₹4,300–₹21,500+) depending on duration, entry type (single/multiple), and processing channel. Sponsored visas are often paid by the Omani company.",
+
+    time: "Processing time usually 2–7 working days for eVisa or sponsor-based applications. Embassy cases may take up to 10 working days.",
+
+    age: "No strict age limit. Typically issued to working professionals, entrepreneurs, and corporate representatives.",
+
+    education: "Not mandatory, but applicants are generally expected to have professional or business background relevant to the visit purpose.",
+
+    funds: "Proof of financial stability may be required (bank statements, company financial documents, or sponsor guarantee depending on case).",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, invitation letter from Oman company, company registration documents (if applicable), business purpose details, return flight ticket, hotel booking, bank statement (if required), travel insurance (recommended).",
+
+    whom: "Foreign professionals, entrepreneurs, investors, and corporate representatives visiting Oman for meetings, conferences, trade events, negotiations, or short-term business activities (without employment).",
+
+    rules: "Cannot engage in paid employment in Oman. Must follow purpose stated in invitation. Must exit before visa expiry. Overstay leads to fines and possible entry bans. Work permit required for employment.",
+
+    prosCons: "Pros: Ideal for corporate travel, multiple-entry options available, fast approval with sponsorship, widely used for international business. Cons: No work rights, requires invitation in most cases, limited stay duration.",
+
+    terms: "ROP Oman: Royal Oman Police (immigration authority); Business Visa: Short-term entry for commercial purposes; Sponsor: Oman-based company inviting applicant; eVisa: Electronic visa system; Multiple Entry Visa: Allows repeated visits within validity period.",
+
+    legal: "Regulated by Royal Oman Police (ROP), Sultanate of Oman immigration authority.",
+
+    process: `1. Receive invitation from Oman company ->
+              2. Prepare business documents and passport details ->
+              3. Apply via Oman eVisa portal or sponsor channel ->
+              4. Upload invitation and supporting documents ->
+              5. Pay visa fee ->
+              6. Application reviewed by ROP ->
+              7. Approval or request for additional verification ->
+              8. Visa issued electronically ->
+              9. Travel to Oman ->
+              10. Immigration clearance on arrival`
+},
+
+"OmanWorkVisa": {
+    name: "Work Visa (Sultanate of Oman)",
+
+    validity: "Usually 2 years initially, renewable based on employer sponsorship, job contract, and approval from Royal Oman Police (ROP) and Ministry of Labour.",
+
+    cost: "Approx OMR 200–600+ (~₹43,000–₹1,30,000+) including work permit, visa issuance, medical tests, residence card (ID), and administrative fees. In most cases, employer bears the cost.",
+
+    time: "Processing time usually 7–20 working days depending on employer approval, labour clearance, and medical/biometric completion.",
+
+    age: "Typically 21–60 years depending on job category and employer requirements.",
+
+    education: "Depends on job role. Skilled jobs require relevant qualifications or experience. Certificates may require attestation.",
+
+    funds: "Not required from worker. Employer is responsible for salary, visa processing, accommodation (in many cases), and legal sponsorship.",
+
+    docs: "Valid passport (minimum 6 months), passport-size photos, job offer letter, employment contract, attested educational certificates (if required), medical fitness certificate, police clearance certificate, employer company documents, visa application form.",
+
+    whom: "Foreign workers (including Indian nationals) who have secured employment in Oman under an Omani employer sponsorship.",
+
+    rules: "Must work only for sponsoring employer. Job change requires official approval (labour clearance). Cannot engage in unauthorized work. Must complete medical and residency procedures. Overstay or illegal work leads to fines, deportation, or bans.",
+
+    prosCons: "Pros: Legal employment in Oman, stable income, long-term residency eligibility, family sponsorship possible in many cases. Cons: Employer dependency, restricted job mobility, strict compliance rules.",
+
+    terms: "ROP Oman: Royal Oman Police; MOL: Ministry of Labour; RP: Residence Permit; Sponsor: Employer responsible for worker; Resident Card: Oman ID issued after approval.",
+
+    legal: "Regulated by Royal Oman Police (ROP) and Ministry of Labour under Oman immigration and labour laws.",
+
+    process: `1. Employer secures labour approval from Ministry of Labour ->
+              2. Work permit application submitted ->
+              3. Entry visa/work visa issued ->
+              4. Employee travels to Oman ->
+              5. Medical test and biometric registration ->
+              6. Residence permit (RP) application ->
+              7. Oman ID card issued ->
+              8. Legal employment begins ->
+              9. Renewal processed before expiry ->
+              10. Exit or transfer requires official approval`
+},
+
+"OmanWorkResidencePermit": {
+    name: "Work Residence Permit (Sultanate of Oman)",
+
+    validity: "Usually 1 to 2 years depending on employment contract. Renewable as long as employer sponsorship and labour approval remain valid.",
+
+    cost: "Approx OMR 50–200+ (~₹10,800–₹43,000+) including residence permit issuance, ID card (resident card), medical tests, and administrative fees. Typically paid by the employer.",
+
+    time: "Processing time usually 5–15 working days after arrival in Oman, depending on medical clearance, biometric registration, and Royal Oman Police (ROP) processing.",
+
+    age: "Typically 21–60 years depending on job category and employer requirements.",
+
+    education: "Depends on job role. Skilled positions require relevant qualifications or experience. Certificates may need attestation.",
+
+    funds: "Not required from employee. Employer is responsible for salary, residency processing, and sponsorship obligations.",
+
+    docs: "Valid passport (6+ months), entry/work visa, passport-size photos, employment contract, medical fitness certificate, biometric fingerprints, employer sponsorship documents, police clearance certificate (if required), residence application form.",
+
+    whom: "Foreign employees (including Indians) who have entered Oman under a work visa and are converting their status into legal long-term residency under employer sponsorship.",
+
+    rules: "Must work only for sponsoring employer. Job change requires official labour approval. Must complete medical and biometric registration. Cannot engage in unauthorized employment. Overstay or violation leads to fines, cancellation, or deportation.",
+
+    prosCons: "Pros: Legal long-term stay, access to healthcare and banking, ability to sponsor family in many cases. Cons: Employer-dependent, limited job mobility, strict compliance requirements.",
+
+    terms: "ROP Oman: Royal Oman Police; MOL: Ministry of Labour; RP: Residence Permit; Sponsor: Employer responsible for worker; Resident Card: Oman ID card issued after approval.",
+
+    legal: "Regulated by Royal Oman Police (ROP) and Ministry of Labour under Oman residency and labour laws.",
+
+    process: `1. Enter Oman with valid work visa ->
+              2. Complete medical examination ->
+              3. Submit biometric registration ->
+              4. Employer applies for residence permit ->
+              5. Royal Oman Police verification ->
+              6. Residence permit approved ->
+              7. Oman ID (resident card) issued ->
+              8. Legal residency activated ->
+              9. Renewal handled by employer before expiry ->
+              10. Exit or transfer requires official approval`
+},
+"OmanFamilyResidenceVisa": {
+    name: "Family Residence Visa (Sultanate of Oman)",
+
+    validity: "Usually 1 to 2 years, renewable based on sponsor’s (resident’s) valid work/residence permit and continued eligibility.",
+
+    cost: "Approx OMR 20–100+ per dependent (~₹4,300–₹21,500+) including visa processing, medical tests, and residence card issuance. Usually paid by the sponsor.",
+
+    time: "Processing time usually 5–15 working days depending on document verification, sponsor eligibility, and Royal Oman Police (ROP) approval.",
+
+    age: "No strict age limit. Spouse and children can be sponsored. Children are typically eligible until adulthood as per Oman residency rules.",
+
+    education: "Not required.",
+
+    funds: "Sponsor must meet minimum salary requirement (commonly OMR 600–1,000+ depending on profession and number of dependents) and provide proof of stable income and accommodation.",
+
+    docs: "Valid passports (6+ months), passport-size photos, marriage certificate (for spouse), birth certificates (for children), sponsor’s Oman residence card, employment contract or salary certificate, tenancy agreement (housing proof), bank statement (if required), medical fitness certificates for dependents, application form.",
+
+    whom: "Foreign residents in Oman (including Indian workers) who wish to bring their immediate family members (spouse, children, and in some cases parents) to live with them.",
+
+    rules: "Dependents cannot work unless they obtain a separate work permit. Sponsor must maintain valid residence permit and meet salary requirements. Changes in employment may affect dependent visas. Overstay leads to fines and cancellation.",
+
+    prosCons: "Pros: Family reunification, long-term renewable stay, access to healthcare and education for dependents. Cons: Dependent on sponsor’s job and income, strict eligibility rules, limited work rights for dependents.",
+
+    terms: "ROP Oman: Royal Oman Police; RP: Residence Permit; Sponsor: Primary resident responsible for dependents; Resident Card: Oman ID; Dependent Visa: Visa linked to sponsor’s legal status.",
+
+    legal: "Regulated by Royal Oman Police (ROP) and Ministry of Labour under Oman immigration and residency laws.",
+
+    process: `1. Sponsor holds valid Oman work/residence permit ->
+              2. Verify eligibility (salary, housing, profession) ->
+              3. Submit family residence application to ROP ->
+              4. Upload relationship and financial documents ->
+              5. Application review by authorities ->
+              6. Medical tests for dependents ->
+              7. Approval granted ->
+              8. Entry or status conversion for family members ->
+              9. Residence card issued ->
+              10. Renewal linked to sponsor’s residency`
+},
+
+"OmanFamilyVisitVisa": {
+    name: "Family Visit Visa (Sultanate of Oman)",
+
+    validity: "Usually 30 days initially, extendable up to 90 days depending on Royal Oman Police (ROP) approval and sponsor eligibility.",
+
+    cost: "Approx OMR 20–50 (~₹4,300–₹10,800) depending on duration, extension requests, and processing method. Usually paid by the sponsor in Oman.",
+
+    time: "Processing time usually 2–7 working days depending on document verification and sponsor approval.",
+
+    age: "No strict age limit. Applicable for spouse, children, parents, and close relatives depending on sponsorship approval.",
+
+    education: "Not required.",
+
+    funds: "Sponsor must show sufficient income (typically OMR 300–600+ monthly depending on dependents) and may need to provide bank statements or salary certificate.",
+
+    docs: "Valid passport (6+ months), passport-size photos, relationship proof (marriage/birth certificate), sponsor’s Oman residence card, salary certificate or employment proof, tenancy agreement (if required), return ticket (sometimes required), application form.",
+
+    whom: "Foreign family members (including Indian citizens) visiting residents of Oman for short-term family reunion or personal visits.",
+
+    rules: "Visitors cannot work or engage in paid activities. Must leave before visa expiry unless extension is approved. Sponsor is responsible for visitor compliance. Overstay leads to fines and bans.",
+
+    prosCons: "Pros: Easy family reunification, extendable stay, simple sponsorship process. Cons: No work rights, short duration, dependent on sponsor approval.",
+
+    terms: "ROP Oman: Royal Oman Police; Family Visit Visa: Short-term dependent visit permit; Sponsor: Oman resident responsible for visitor; Overstay: Staying beyond permitted duration.",
+
+    legal: "Regulated by Royal Oman Police (ROP), Sultanate of Oman immigration authority.",
+
+    process: `1. Sponsor applies via ROP Oman portal ->
+              2. Submit relationship proof and sponsor documents ->
+              3. Upload visitor passport details ->
+              4. Pay visa fee ->
+              5. Application reviewed by ROP ->
+              6. Approval or request for additional documents ->
+              7. Visa issued electronically ->
+              8. Visitor travels to Oman ->
+              9. Immigration clearance on arrival ->
+              10. Apply for extension if needed ->
+              11. Exit before visa expiry`
+},
+
+"OmanInvestorVisa": {
+    name: "Investor Visa (Sultanate of Oman)",
+
+    validity: "Usually 2 to 5 years depending on investment type, company structure, and approval under Oman investment residency regulations. Renewable as long as business remains active and compliant.",
+
+    cost: "Approx OMR 200–1000+ (~₹43,000–₹2,15,000+) for visa, residence permit, and administrative processing. Investment capital requirement is separate and significantly higher depending on business type.",
+
+    time: "Processing time usually 10–30 working days depending on business registration, Royal Oman Police (ROP) approval, and Ministry of Commerce, Industry & Investment Promotion clearance.",
+
+    age: "Generally 21 years and above. Applicant must be legally eligible to invest and manage a business.",
+
+    education: "Not mandatory, but business experience, entrepreneurship background, or relevant professional qualifications are preferred.",
+
+    funds: "High investment capital required. Must show proof of funds, business ownership, or approved investment project. Bank statements and financial documents are required.",
+
+    docs: "Valid passport (6+ months), passport-size photos, business plan, proof of investment funds, company registration (Commercial Registration/CR), Memorandum of Association (MOA), bank statements, financial records, property or asset documents (if applicable), application forms.",
+
+    whom: "Foreign investors, entrepreneurs, and business owners (including Indian nationals) who want to establish or invest in Oman businesses and obtain residency through investment activity.",
+
+    rules: "Must actively maintain investment or business operations. Must comply with Oman commercial and tax laws. Misuse of investment residency is prohibited. Renewal depends on business activity and compliance status.",
+
+    prosCons: "Pros: Long-term residency potential, ability to sponsor family, business ownership rights, access to Oman investment ecosystem. Cons: High capital requirement, business risk, strict regulatory compliance.",
+
+    terms: "ROP Oman: Royal Oman Police; MOCIIP: Ministry of Commerce, Industry & Investment Promotion; CR: Commercial Registration; RP: Residence Permit; Investor Residency: Visa linked to business ownership.",
+
+    legal: "Regulated by Royal Oman Police (ROP) and Ministry of Commerce, Industry & Investment Promotion under Oman investment and residency laws.",
+
+    process: `1. Decide investment type (company, partnership, or project) ->
+              2. Register business with MOCIIP (Commercial Registration - CR) ->
+              3. Prepare investment documents and business plan ->
+              4. Apply for investor visa via ROP or investment authority ->
+              5. Submit financial proof and company documents ->
+              6. Security and regulatory review ->
+              7. Approval of investor residency ->
+              8. Entry or status conversion in Oman ->
+              9. Residence Permit (RP) and Oman ID issued ->
+              10. Maintain compliance for renewal`
+},
+"OmanPartnerVisa": {
+    name: "Partner Visa (Sultanate of Oman)",
+
+    validity: "Usually 2 to 3 years depending on company structure, partnership agreement, and commercial registration status. Renewable as long as business partnership remains active and compliant.",
+
+    cost: "Approx OMR 100–500+ (~₹21,500–₹1,08,000+) including residence permit, registration, and administrative fees. Business capital contribution is separate and varies widely.",
+
+    time: "Processing time usually 10–25 working days depending on Commercial Registration (CR), Ministry approvals, and Royal Oman Police (ROP) verification.",
+
+    age: "Generally 21 years and above. Must be legally eligible to enter into business partnership in Oman.",
+
+    education: "Not mandatory, but business experience or relevant professional background is often preferred.",
+
+    funds: "Partner must show financial contribution or investment in the company. Proof of capital, bank statements, or shareholder agreement is required.",
+
+    docs: "Valid passport (6+ months), passport-size photos, Commercial Registration (CR), Memorandum of Association (MOA), partnership agreement, proof of investment capital, bank statements, company financial documents, application forms.",
+
+    whom: "Foreign nationals (including Indian citizens) who are business partners or shareholders in an Oman-registered company and require residency based on business ownership.",
+
+    rules: "Must remain active partner/shareholder in registered business. Must comply with Oman commercial laws. Cannot misuse visa for employment outside partnership role. Changes in ownership must be updated with authorities.",
+
+    prosCons: "Pros: Business ownership rights, long-term residency potential, ability to sponsor family in many cases. Cons: Requires real investment, regulatory compliance, financial risk in business operations.",
+
+    terms: "ROP Oman: Royal Oman Police; MOCIIP: Ministry of Commerce, Industry & Investment Promotion; CR: Commercial Registration; MOA: Memorandum of Association; Partner Visa: Residency linked to business partnership.",
+
+    legal: "Regulated by Royal Oman Police (ROP) and Ministry of Commerce, Industry & Investment Promotion under Oman corporate and immigration laws.",
+
+    process: `1. Establish or join Oman-registered company ->
+              2. Sign partnership agreement and define shareholding ->
+              3. Obtain Commercial Registration (CR) ->
+              4. Apply for partner residence visa ->
+              5. Submit financial and company documents ->
+              6. Government review and verification ->
+              7. Visa approval granted ->
+              8. Entry or status conversion in Oman ->
+              9. Residence Permit (RP) and Oman ID issued ->
+              10. Maintain active business compliance for renewal`
+},
+
+"OmanStudentVisa": {
+    name: "Student Visa (Sultanate of Oman)",
+
+    validity: "Usually 1 year initially, renewable annually for the duration of the academic program. Renewal depends on continued enrollment and academic progress.",
+
+    cost: "Approx OMR 20–100+ (~₹4,300–₹21,500+) including visa processing, residence permit, medical tests, and Oman ID issuance. Tuition fees are separate and paid to the institution.",
+
+    time: "Processing time usually 7–20 working days depending on university sponsorship, Royal Oman Police (ROP) approval, and document verification.",
+
+    age: "Typically 17+ for higher education. No strict upper age limit for postgraduate or research programs.",
+
+    education: "Must meet admission requirements of the Omani educational institution (school certificate for undergraduate, degree for postgraduate programs).",
+
+    funds: "Proof of sufficient funds required (bank statements, scholarship letter, or sponsor guarantee) to cover tuition fees, accommodation, and living expenses.",
+
+    docs: "Valid passport (6+ months), passport-size photos, university admission/offer letter, academic certificates and transcripts, proof of funds or scholarship, medical fitness certificate, police clearance certificate (if required), accommodation proof, application form.",
+
+    whom: "Foreign students (including Indian nationals) admitted to recognized universities, colleges, or training institutions in Oman requiring residency for study purposes.",
+
+    rules: "Must study only at approved institution. Must maintain valid enrollment. Limited or no work rights unless explicitly permitted. Visa may be cancelled if studies are discontinued. Overstay leads to fines and penalties.",
+
+    prosCons: "Pros: Legal long-term stay for education, access to quality institutions, renewable residency, possible transition to work visa after graduation. Cons: Dependent on enrollment, strict compliance rules, limited work opportunities.",
+
+    terms: "ROP Oman: Royal Oman Police; RP: Residence Permit; Sponsor: Educational institution responsible for student; Oman ID: Resident identity card; Enrollment Letter: Proof of admission.",
+
+    legal: "Regulated by Royal Oman Police (ROP) in coordination with Ministry of Higher Education, Research and Innovation.",
+
+    process: `1. Apply and receive admission from Oman institution ->
+              2. Obtain official admission/offer letter ->
+              3. Institution or student applies for visa via ROP ->
+              4. Submit academic and financial documents ->
+              5. Pay visa and residency fees ->
+              6. Application review by authorities ->
+              7. Visa approval issued ->
+              8. Entry into Oman ->
+              9. Medical test and biometric registration ->
+              10. Oman ID and Residence Permit issued ->
+              11. Annual renewal based on academic progress`
+},
+"OmanDomesticWorkerVisa": {
+    name: "Domestic Worker Visa (Sultanate of Oman)",
+
+    validity: "Usually 2 years, renewable based on employer sponsorship, employment contract, and approval from Royal Oman Police (ROP) and Ministry of Labour.",
+
+    cost: "Approx OMR 100–400+ (~₹21,500–₹86,000+) including work permit, visa issuance, medical tests, insurance, and residence permit. Generally paid by the employer/sponsor.",
+
+    time: "Processing time usually 7–20 working days depending on labour approval, medical clearance, and ROP residency processing.",
+
+    age: "Typically 21–60 years depending on job category and employer requirements.",
+
+    education: "Not required. Basic experience in housekeeping, childcare, cooking, or caregiving is preferred.",
+
+    funds: "Not required from worker. Employer is responsible for salary, accommodation, visa costs, and legal sponsorship obligations.",
+
+    docs: "Valid passport (6+ months), passport-size photos, employment contract, medical fitness certificate, police clearance certificate (if required), employer sponsorship documents, visa application form, insurance documents.",
+
+    whom: "Foreign domestic workers (including Indian nationals) employed in Oman households as housemaids, nannies, cooks, drivers, or caregivers under private sponsorship.",
+
+    rules: "Must work only for sponsoring employer. Cannot change employer without official approval. Must comply with Oman labour laws. Overstay or unauthorized work leads to fines, deportation, or bans.",
+
+    prosCons: "Pros: Legal employment in household sector, stable income, regulated work environment, accommodation often provided. Cons: Employer dependency, limited job mobility, strict legal compliance.",
+
+    terms: "ROP Oman: Royal Oman Police; MOL: Ministry of Labour; Sponsor: Household employer responsible for worker; RP: Residence Permit; Domestic Worker Contract: Legal employment agreement.",
+
+    legal: "Regulated by Royal Oman Police (ROP) and Ministry of Labour under Oman labour and immigration laws.",
+
+    process: `1. Employer applies for domestic worker permit via Ministry of Labour ->
+              2. Submit worker documents and employment contract ->
+              3. Labour approval granted ->
+              4. Entry visa issued for worker ->
+              5. Worker travels to Oman ->
+              6. Medical test and biometric registration ->
+              7. Residence Permit (RP) issued ->
+              8. Employment begins under sponsor ->
+              9. Renewal handled by employer ->
+              10. Transfer requires official approval`
+},
+"OmanGCCResidentVisa": {
+    name: "GCC Resident Visa (Sultanate of Oman)",
+
+    validity: "Usually 30 days to 90 days depending on profession, nationality, and approval conditions. In some cases, multiple-entry validity may be granted for short-term travel.",
+
+    cost: "Approx OMR 5–20 (~₹1,100–₹4,300) depending on visa type, entry category, and processing method.",
+
+    time: "Processing time usually 24 hours to 5 working days via Royal Oman Police (ROP) eVisa system or approved channels.",
+
+    age: "No strict age limit. Applicant must hold a valid GCC residence permit and meet eligibility criteria.",
+
+    education: "Not mandatory, but applicants are generally expected to be skilled professionals depending on GCC job category.",
+
+    funds: "Proof of sufficient funds may be required (bank statement or salary certificate from GCC country of residence).",
+
+    docs: "Valid passport (6+ months), valid GCC residence permit (UAE, Saudi Arabia, Kuwait, Qatar, Bahrain, or Oman), passport-size photo, profession/job title proof, return ticket, accommodation details, bank statement (if required), travel insurance (recommended).",
+
+    whom: "Foreign nationals holding valid GCC residence permits who wish to visit Oman for tourism, short business trips, or family visits.",
+
+    rules: "Must hold valid GCC residence permit in eligible profession (usually skilled/professional categories). Cannot work in Oman under this visa. Must exit before visa expiry. Overstay leads to fines and entry bans.",
+
+    prosCons: "Pros: Fast processing, simplified documentation, convenient for GCC residents, short-term travel flexibility. Cons: Restricted to eligible professions, short stay duration, no work rights.",
+
+    terms: "ROP Oman: Royal Oman Police; GCC: Gulf Cooperation Council; eVisa: Electronic visa system; Eligible Profession: Approved job category; Overstay: Staying beyond permitted duration.",
+
+    legal: "Regulated by Royal Oman Police (ROP), Sultanate of Oman immigration authority.",
+
+    process: `1. Verify eligibility (valid GCC residence + eligible profession) ->
+              2. Apply via Oman eVisa portal ->
+              3. Upload passport and GCC residence documents ->
+              4. Provide travel details and profession information ->
+              5. Pay visa fee ->
+              6. Application reviewed by ROP ->
+              7. Approval or additional verification ->
+              8. eVisa issued electronically ->
+              9. Travel to Oman ->
+              10. Immigration clearance at entry`
+},
+
+"OmanLongTermResidenceVisa": {
+    name: "Long-Term Residence Visa (Sultanate of Oman)",
+
+    validity: "Usually 5 to 10 years depending on category (investment, skilled professionals, long-term employment, or special residency approvals). Renewable if eligibility conditions continue to be met.",
+
+    cost: "Approx OMR 200–1000+ (~₹43,000–₹2,15,000+) including residence permit, ID issuance, medical tests, and administrative fees. Investment or qualification requirements are separate and significantly higher depending on category.",
+
+    time: "Processing time usually 15–45 working days depending on category, security checks, employer/sponsor verification, and Royal Oman Police (ROP) approval.",
+
+    age: "No strict age limit. Typically granted to long-term professionals, investors, retirees (in some schemes), or individuals meeting government criteria.",
+
+    education: "Not mandatory for all categories. Skilled residency may require degrees or professional qualifications.",
+
+    funds: "Strong financial stability required. Investors must show capital investment. Skilled professionals must show stable income. Bank statements and asset proof may be required.",
+
+    docs: "Valid passport (6+ months), passport-size photos, employment contract or investment documents, Commercial Registration (if applicable), bank statements, proof of income or assets, medical fitness certificate, police clearance certificate, tenancy agreement, application forms.",
+
+    whom: "Foreign nationals (including Indian citizens) eligible for long-term residency in Oman through employment, investment, retirement schemes (if applicable), or special government-approved categories.",
+
+    rules: "Must maintain eligibility (job, investment, or financial stability). Must comply with Oman laws. Any violation or change in status must be reported. Residency may be revoked if conditions are not met.",
+
+    prosCons: "Pros: Long-term stability, renewable residency, family sponsorship possible, access to banking and healthcare services. Cons: Strict eligibility requirements, financial or employment dependency, compliance obligations.",
+
+    terms: "ROP Oman: Royal Oman Police; RP: Residence Permit; MOCIIP: Ministry of Commerce, Industry & Investment Promotion; Long-Term Residency: Extended legal stay status; Sponsor: Employer or self-sponsor depending on category.",
+
+    legal: "Regulated by Royal Oman Police (ROP) and relevant ministries such as Ministry of Labour and MOCIIP under Oman residency laws.",
+
+    process: `1. Determine eligibility (investment, employment, or special category) ->
+              2. Prepare financial, employment, or business documentation ->
+              3. Submit application via ROP Oman ->
+              4. Security and background verification ->
+              5. Review by authorities ->
+              6. Approval of long-term residency ->
+              7. Entry or status conversion in Oman ->
+              8. Residence Permit (RP) and Oman ID issued ->
+              9. Periodic renewal based on compliance`
+},
+"OmanRetirementVisa": {
+    name: "Retirement Visa (Sultanate of Oman)",
+
+    validity: "Usually 1 to 5 years depending on retirement residency scheme approval. Renewable as long as financial eligibility and residency conditions are maintained.",
+
+    cost: "Approx OMR 200–600+ (~₹43,000–₹1,30,000+) including residence permit, medical tests, ID issuance, and administrative fees. Higher costs may apply for long-term residency processing.",
+
+    time: "Processing time usually 10–30 working days depending on verification of financial documents, security checks, and Royal Oman Police (ROP) approval.",
+
+    age: "Typically 55 years and above (may vary based on policy updates and eligibility criteria).",
+
+    education: "Not required.",
+
+    funds: "Must show strong financial stability such as pension income, savings, fixed deposits, or property income. Minimum income or asset thresholds may apply depending on scheme guidelines.",
+
+    docs: "Valid passport (6+ months), passport-size photos, proof of pension or retirement income, bank statements, property ownership documents (if applicable), health insurance, medical fitness certificate, police clearance certificate, tenancy agreement in Oman, application form.",
+
+    whom: "Foreign retirees (including Indian citizens) who wish to live in Oman long-term without employment, typically those with stable pension or independent income sources.",
+
+    rules: "No employment allowed under retirement visa. Must maintain required financial threshold. Must have valid health insurance. Must comply with Oman residency laws. Visa may be revoked if financial conditions are not met.",
+
+    prosCons: "Pros: Peaceful long-term stay, access to healthcare and services, renewable residency, family accompaniment possible in some cases. Cons: Strict financial requirements, no work rights, dependent on income stability.",
+
+    terms: "ROP Oman: Royal Oman Police; RP: Residence Permit; Retirement Residency: Long-term stay based on pension/income; Sponsor: Self-sponsored in most cases; Health Insurance: Mandatory coverage for retirees.",
+
+    legal: "Regulated by Royal Oman Police (ROP) and relevant residency authorities under Oman immigration laws and retirement residency policy frameworks.",
+
+    process: `1. Verify eligibility (age and financial stability) ->
+              2. Prepare pension/income and asset documents ->
+              3. Apply for retirement residency via ROP Oman ->
+              4. Submit medical and insurance documents ->
+              5. Background verification ->
+              6. Approval of retirement visa ->
+              7. Entry or status conversion in Oman ->
+              8. Residence Permit (RP) issued ->
+              9. Maintain financial eligibility for renewal`
+},
+"OmanOfficialVisa": {
+    name: "Official Visa (Sultanate of Oman)",
+
+    validity: "Usually 14 days to 90 days depending on official assignment. May be extended for longer missions based on government approval.",
+
+    cost: "Generally free of charge for government officials and invited delegations. In rare cases, nominal administrative fees (~OMR 0–10 / ₹0–₹2,200) may apply.",
+
+    time: "Processing time usually 24 hours to 5 working days, often expedited through government or diplomatic channels.",
+
+    age: "No strict age limit. Applicable only to government officials and authorized representatives.",
+
+    education: "Not required. Eligibility is based on official designation or government assignment.",
+
+    funds: "Usually covered by sending government or host government. No personal financial proof required.",
+
+    docs: "Valid passport (6+ months), official mission letter from government department, diplomatic/official note, passport-size photos, travel itinerary, purpose of visit documents, accommodation details (often arranged by host government).",
+
+    whom: "Government officials, civil servants, and authorized personnel traveling to Oman for official duties such as meetings, training, or intergovernmental assignments.",
+
+    rules: "Must strictly follow official purpose. Cannot engage in private employment or business activity. Must comply with diplomatic protocol. Must leave after assignment unless extended officially.",
+
+    prosCons: "Pros: Fast-track processing, often fee-exempt, simplified entry for government work. Cons: Strictly limited to official duties, not usable for tourism or employment.",
+
+    terms: "ROP Oman: Royal Oman Police; MOFA Oman: Ministry of Foreign Affairs; Official Mission: Government-approved assignment; Diplomatic Note: Intergovernmental communication; Protocol Clearance: Entry authorization for official travel.",
+
+    legal: "Regulated by Oman Ministry of Foreign Affairs (MOFA) and Royal Oman Police (ROP) under official and diplomatic travel regulations.",
+
+    process: `1. Sending government issues official assignment order ->
+              2. Diplomatic/official note sent to Oman MOFA ->
+              3. Coordination with Royal Oman Police ->
+              4. Security and protocol clearance ->
+              5. Visa approval issued through official channel ->
+              6. Entry authorization granted ->
+              7. Arrival in Oman under official status ->
+              8. Immigration fast-track clearance ->
+              9. Stay strictly for assigned duties ->
+              10. Exit after completion of mission`
+},
+"OmanDiplomaticVisa": {
+    name: "Diplomatic Visa (Sultanate of Oman)",
+
+    validity: "Usually 3 months to 1 year depending on diplomatic posting. Can be extended for the full duration of the diplomatic mission.",
+
+    cost: "Generally free of charge for accredited diplomats and embassy officials. In rare cases, minor administrative fees (~OMR 0–10 / ₹0–₹2,200) may apply.",
+
+    time: "Processing time usually 24 hours to 5 working days, often expedited through Ministry of Foreign Affairs (MOFA) and Royal Oman Police (ROP).",
+
+    age: "No strict age limit. Applicable only to accredited diplomats, consular staff, and eligible dependents.",
+
+    education: "Not required. Eligibility is based on diplomatic appointment, not academic qualification.",
+
+    funds: "Not required from applicant. Expenses are typically covered by the sending government or diplomatic mission.",
+
+    docs: "Diplomatic passport, official diplomatic note (verbal note) from sending country’s Ministry of Foreign Affairs, assignment/appointment letter, passport-size photos, posting details, accommodation arrangements, dependent documents (if applicable).",
+
+    whom: "Diplomats, embassy/consulate staff, international organization representatives, and their eligible family members assigned to Oman for official diplomatic duties.",
+
+    rules: "Must comply with Vienna Convention on Diplomatic Relations. Cannot engage in private employment or commercial activities. Must respect Omani laws and diplomatic protocols. Misuse may lead to revocation of diplomatic status.",
+
+    prosCons: "Pros: Fee exemption, diplomatic privileges and immunities (as applicable), fast-track processing, legal protection under international law. Cons: Strictly limited to official duties, not usable for personal or business purposes.",
+
+    terms: "MOFA Oman: Ministry of Foreign Affairs; ROP Oman: Royal Oman Police; Vienna Convention: International treaty governing diplomacy; Accreditation: Official recognition of diplomat; Diplomatic Note: Government-to-government communication.",
+
+    legal: "Regulated by Oman Ministry of Foreign Affairs (MOFA) under the Vienna Convention on Diplomatic Relations, in coordination with Royal Oman Police (ROP).",
+
+    process: `1. Sending country appoints diplomat ->
+              2. Ministry of Foreign Affairs issues diplomatic note ->
+              3. Submission to Oman MOFA ->
+              4. Security and accreditation review ->
+              5. Approval by MOFA and ROP ->
+              6. Diplomatic visa issuance ->
+              7. Entry into Oman under diplomatic status ->
+              8. Accreditation with Omani authorities ->
+              9. Issuance of diplomatic ID card ->
+              10. Assignment begins at embassy/mission ->
+              11. Renewal based on posting duration`
+},
+"OmanShortTermEntryVisa": {
+    name: "Short-Term Entry Visa (Sultanate of Oman)",
+
+    validity: "Usually 7 to 30 days depending on purpose (tourism, urgent visit, or short business travel). In some cases, extension up to 60–90 days may be granted with Royal Oman Police (ROP) approval.",
+
+    cost: "Approx OMR 10–30 (~₹2,200–₹6,500) depending on nationality, duration, and visa category.",
+
+    time: "Processing time usually 24 hours to 5 working days for eVisa applications. Sponsor-based applications may take up to 7 working days.",
+
+    age: "No strict age limit. Minors must travel with parents/guardians and valid supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement, credit card, or sponsor guarantee depending on nationality and purpose).",
+
+    docs: "Valid passport (6+ months), passport-size photos, return flight ticket, accommodation proof (hotel booking or invitation), bank statement (if required), travel insurance (recommended), completed application form.",
+
+    whom: "Foreign nationals (including Indian citizens) visiting Oman for short tourism, urgent meetings, family visits, or brief stays.",
+
+    rules: "Must leave before visa expiry. No employment allowed. Extension only with ROP approval. Overstay results in fines, penalties, and possible entry bans.",
+
+    prosCons: "Pros: Fast approval, simple documentation, suitable for urgent travel. Cons: Very short duration, no work rights, limited extension options.",
+
+    terms: "ROP Oman: Royal Oman Police; eVisa: Electronic visa system; Short-Term Entry: Temporary stay visa; Overstay: Staying beyond permitted duration.",
+
+    legal: "Regulated by Royal Oman Police (ROP), Sultanate of Oman immigration authority.",
+
+    process: `1. Determine travel purpose ->
+              2. Apply via Oman eVisa portal or sponsor ->
+              3. Submit passport and travel documents ->
+              4. Pay visa fee ->
+              5. Application reviewed by ROP ->
+              6. Approval or request for additional documents ->
+              7. Visa issued electronically ->
+              8. Travel to Oman ->
+              9. Immigration clearance at entry ->
+              10. Exit before visa expiry or apply for extension if eligible`
+},
+"OmanMultipleEntryVisa": {
+    name: "Multiple Entry Visa (Sultanate of Oman)",
+
+    validity: "Usually 6 months to 1 year depending on visa category and approval. Each stay is typically limited to 30–90 days per entry depending on immigration conditions.",
+
+    cost: "Approx OMR 50–100+ (~₹10,800–₹21,500+) depending on duration, nationality, and processing channel. Sponsored business visas may be paid by Omani companies.",
+
+    time: "Processing time usually 2–7 working days for eVisa or sponsor-based applications. Embassy processing may take up to 10 working days.",
+
+    age: "No strict age limit. Applicant must qualify under business, tourism, or frequent travel category requirements.",
+
+    education: "Not required, but business-related multiple entry visas usually require professional or corporate background.",
+
+    funds: "Proof of financial stability may be required (bank statements, salary slips, or sponsor guarantee depending on visa type).",
+
+    docs: "Valid passport (6+ months), passport-size photo, completed application form, return/onward travel details, hotel booking or accommodation proof, bank statement (if required), invitation letter (for business/family cases), sponsor documents if applicable.",
+
+    whom: "Frequent travelers (including Indian citizens) visiting Oman for business meetings, repeated family visits, or regular short-term travel requiring multiple entries.",
+
+    rules: "Cannot be used for employment. Each stay must comply with permitted duration. Must exit before each stay expires. Overstay leads to fines, cancellation, and travel restrictions.",
+
+    prosCons: "Pros: Convenient for frequent travel, reduces repeated visa applications, flexible entry-exit option. Cons: Higher cost than single-entry visa, strict compliance with stay limits, no work rights.",
+
+    terms: "ROP Oman: Royal Oman Police; Multiple Entry Visa: Visa allowing repeated entries; eVisa: Electronic visa system; Overstay: Staying beyond permitted duration; Sponsor: Oman-based company or individual (if required).",
+
+    legal: "Regulated by Royal Oman Police (ROP), Sultanate of Oman immigration authority.",
+
+    process: `1. Determine eligibility (business, tourism, or family travel) ->
+              2. Apply via Oman eVisa portal or sponsor channel ->
+              3. Submit passport and supporting documents ->
+              4. Provide justification for multiple visits ->
+              5. Pay visa fee ->
+              6. Application reviewed by ROP ->
+              7. Approval or additional verification ->
+              8. Multiple-entry visa issued electronically ->
+              9. Travel to Oman multiple times within validity period ->
+              10. Follow stay duration rules strictly`
+},
+"OmanScientificResearchVisa": {
+    name: "Scientific Research Visa (Oman)",
+
+    validity: "Initially 3 to 12 months depending on the research project. It can be extended if the sponsoring institution provides a justification for the project's continuation.",
+
+    cost: "Approx. OMR 50 (~₹10,800) for the visa fee, plus medical examination charges if the stay exceeds 3 months. Administrative processing fees may also apply.",
+
+    time: "Processing time: 2 to 4 weeks. Requires approval from the Royal Oman Police (ROP) and coordination with the Ministry of Higher Education, Research and Innovation.",
+
+    age: "No strict age limit, but typically for postgraduate students or professionals (22+).",
+
+    education: "Mandatory: Must hold at least a Bachelor’s degree in a relevant field; Master’s or PhD is highly preferred for senior research roles.",
+
+    funds: "Must show proof of funding for the research (grant, scholarship, or institutional funding) or sufficient personal savings (~OMR 1,000+).",
+
+    docs: "Valid passport, official invitation letter from a recognized Omani university or research center, a detailed research proposal approved by the host, CV/Resume, attested educational certificates, and health insurance.",
+
+    whom: "Indian scientists, researchers, and academics invited by Omani institutions to conduct field studies, scientific experiments, or academic collaborations.",
+
+    rules: "Strictly limited to research activities. Cannot take up regular employment. Must be affiliated with a recognized Omani research body. Any intellectual property agreements must be finalized before entry.",
+
+    prosCons: "Pros: Access to unique research sites (geology, marine, etc.); institutional support; simplified entry for academics. Cons: No work rights; strictly project-bound; requires high-level local sponsorship.",
+
+    terms: "ROP: Royal Oman Police; MoHERI: Ministry of Higher Education, Research and Innovation; Hosting Agreement: The contract between the researcher and the Omani entity.",
+
+    legal: "Oman Sultanic Decree No. 16/95 regarding the residency of foreigners.",
+
+    process: `1. Secure a research invitation from an Omani institution (e.g., SQU) -> 
+              2. Host institution applies for 'Research Approval' from MoHERI -> 
+              3. Submit research proposal and CV for security vetting -> 
+              4. Apply for the visa via the ROP eVisa portal or via the sponsor -> 
+              5. Pay the visa fees -> 
+              6. Receive the e-visa -> 
+              7. Travel to Oman -> 
+              8. Undergo a medical test if staying more than 90 days.`
+},
+
+
+
+
+"OmanTruckDriverTransitVisa": {
+    name: "Truck Driver Entry / Transit Visa (Oman)",
+
+    validity: "Usually 7 to 14 days per entry. Multiple-entry versions are common for logistics companies operating on the UAE-Oman or Saudi-Oman routes.",
+
+    cost: "Approx. OMR 5 – OMR 20 (~₹1,100 – ₹4,300) depending on the agreement and entries. Insurance is mandatory.",
+
+    time: "Processing: 2 to 5 working days via the 'Suhail' system or ROP commercial portal.",
+
+    age: "21 to 60 years old.",
+
+    education: "No academic requirement; must hold a valid Omani or GCC Heavy Vehicle Driving License.",
+
+    funds: "Company-sponsored. The employer must provide a financial guarantee for the driver.",
+
+    docs: "Valid commercial driving license, vehicle registration (Mulkiya), goods manifest (Bayan), and an invitation from the Omani importer/company.",
+
+    whom: "Indian commercial truck drivers based in the GCC who transport goods across Omani land borders (Hatta, Al Wajaja, Khatmat Malaha).",
+
+    rules: "Must stay on designated transport routes. Cannot load/unload goods at unauthorized locations. Must exit within the transit window. Must have valid insurance for the vehicle and driver.",
+
+    process: `1. Transport company registers on ROP portal -> 2. Company submits driver and truck details -> 3. Pay fees -> 4. Visa issued -> 5. Driver clears border customs.`
+},
+
+
+
+"OmanJoiningPartnerVisa": {
+    name: "Family Joining Visa (For Partners & Investors)",
+
+    validity: "Aligned with the principal's Partner/Investor Visa (usually 2 years). Renewable as long as the business partnership remains active.",
+
+    cost: "OMR 30 (~₹6,500) for the visa, plus OMR 30 for the Resident Card.",
+
+    time: "Processing: 2 to 4 weeks.",
+
+    whom: "Spouse and children of an Indian national who holds a 'Partner' or 'Investor' status in an Omani company (Commercial Registration).",
+
+    rules: "Distinct from the standard worker-family visa. The principal must show they own a significant share in a company (CR). Marriage and birth certificates must be attested by MEA and the Oman Embassy.",
+
+    process: `1. Partner in Oman provides 'Commercial Registration' (CR) copy -> 2. Provide attested relationship docs -> 3. Apply via ROP -> 4. Family enters Oman -> 5. Medical and Card issuance.`
+},
+"OmanSingleEntryVisa": {
+    name: "Single Entry Visa (Sultanate of Oman)",
+
+    validity: "Usually 10 to 30 days depending on visa category (tourist, business, or short visit). Valid for one entry only; once you exit Oman, the visa becomes invalid.",
+
+    cost: "Approx OMR 20–50 (~₹4,300–₹10,800) depending on nationality, duration, and visa type. Sponsored visas may have costs covered by Omani host.",
+
+    time: "Processing time usually 24 hours to 5 working days for eVisa applications. Sponsor-based applications may take up to 7 working days.",
+
+    age: "No strict age limit. Minors must travel with parents/guardians and valid documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement, credit card, or sponsor guarantee depending on nationality and visa type).",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, return flight ticket, hotel booking or accommodation proof, bank statement (if required), travel insurance (recommended), completed application form.",
+
+    whom: "Foreign nationals (including Indian citizens) visiting Oman for tourism, short business trips, or family visits requiring only one entry.",
+
+    rules: "Must not engage in employment. Must leave Oman before visa expiry. Cannot re-enter on same visa once exited. Extension allowed only with Royal Oman Police (ROP) approval.",
+
+    prosCons: "Pros: Simple application, lower cost than multiple-entry visa, fast approval. Cons: Only one entry allowed, limited flexibility, no work rights.",
+
+    terms: "ROP Oman: Royal Oman Police; Single Entry Visa: One-time entry permit; eVisa: Electronic visa system; Overstay: Staying beyond permitted duration.",
+
+    legal: "Regulated by Royal Oman Police (ROP), Sultanate of Oman immigration authority.",
+
+    process: `1. Determine travel purpose ->
+              2. Apply via Oman eVisa portal or sponsor ->
+              3. Submit passport and travel documents ->
+              4. Pay visa fee ->
+              5. Application reviewed by ROP ->
+              6. Approval or request for additional documents ->
+              7. Visa issued electronically ->
+              8. Travel to Oman ->
+              9. Immigration clearance at entry ->
+              10. Exit before visa expiry (no re-entry allowed)`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

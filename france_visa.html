@@ -1,0 +1,2704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* USA Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="FRANCE">FRANCE</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+       <select id="visaType">
+    <optgroup label="1. Short Stay (Schengen Type C)">
+        <option value="FranceTouristVisaSchengenTypeC">Tourist Visa</option>
+        <option value="FranceBusinessVisaSchengenTypeC">Business Visa</option>
+        <option value="FranceFamilyFriendsVisitVisaSchengenTypeC">Family / Friends Visit</option>
+        <option value="FranceShortStayTransitVisaSchengenTypeC">Short-Stay Transit</option>
+        <option value="FranceAirportTransitVisaTypeA">Airport Transit (Type A)</option>
+        <option value="FranceMedicalTreatmentVisaSchengenTypeC">Medical Treatment Visa</option>
+        <option value="FranceCulturalSportsEventVisaSchengenTypeC">Cultural / Sports Event</option>
+        <option value="FranceOfficialDelegationVisaSchengenTypeC">Official Delegation Visa</option>
+        <option value="FranceShortTermStudyVisaSchengenTypeC">Short-term Study (<90 Days)</option>
+        <option value="FranceShortTermTrainingInternshipVisaSchengenTypeC">Short-term Internship</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Highly Skilled (Type D)">
+        <option value="FranceWorkVisaEmployeeSalariedWorker">Work Visa (Salaried Employee)</option>
+        <option value="FranceTalentPassportVisaPasseportTalent">Talent Passport (General)</option>
+        <option value="FranceEUBlueCardHighlySkilledWorkers">EU Blue Card</option>
+        <option value="FranceResearcherScientistVisa">Researcher / Scientist Visa</option>
+        <option value="FranceIntraCompanyTransferVisaICT">Intra-Company Transfer (ICT)</option>
+        <option value="FranceSeasonalWorkerVisa">Seasonal Worker Visa</option>
+        <option value="FranceTemporaryWorkerVisa">Temporary Worker Visa</option>
+    </optgroup>
+
+    <optgroup label="3. Study & Training (Type D)">
+        <option value="FranceStudentVisaLongStay">Long-Stay Student Visa</option>
+        <option value="FranceLanguageCourseVisa">Language Course Visa</option>
+        <option value="FranceInternshipTraineeshipVisaLongStay">Long-term Internship</option>
+        <option value="FranceAuPairVisa">Au Pair Visa</option>
+        <option value="FranceVolunteerVisa">Volunteer Visa</option>
+        <option value="FranceCulturalExchangeVisa">Cultural Exchange Visa</option>
+    </optgroup>
+
+    <optgroup label="4. Business & Innovation">
+        <option value="FranceEntrepreneurVisa">Entrepreneur Visa</option>
+        <option value="FranceSelfEmployedFreelanceVisa">Freelance / Self-Employed</option>
+        <option value="FranceStartupFrenchTechVisa">Startup / French Tech Visa</option>
+        <option value="FranceInvestorVisa">Investor Visa</option>
+        <option value="FranceTalentPassportBusinessCreation">Talent Passport - Business Creation</option>
+        <option value="FranceTalentPassportCompanyFounder">Talent Passport - Company Founder</option>
+    </optgroup>
+
+    <optgroup label="5. Family & Dependents">
+        <option value="FranceFamilyReunificationVisa">Family Reunification</option>
+        <option value="FranceSpouseVisaFrenchCitizen">Spouse of French Citizen</option>
+        <option value="FranceChildDependentVisa">Child / Dependent Visa</option>
+        <option value="FranceLongStayFamilyVisaViePriveeFamiliale">Private & Family Life Visa</option>
+        <option value="FranceReligiousWorkerVisa">Religious Worker Visa</option>
+    </optgroup>
+
+    <optgroup label="6. Permanent & Long-Term">
+        <option value="FrancePermanentResidencePermit">Permanent Residence (10 Years)</option>
+        <option value="FranceLongStayVisitorVisaVLSTSVisiteur">Long-Stay Visitor (Non-Working)</option>
+        <option value="FranceVisitorVisaForFamilyMembers">Long-Stay Family Visitor</option>
+        <option value="MonacoLongStayVisaProcessedViaFrance">Monaco Long-Stay Visa</option>
+        <option value="FranceOverseasFranceVisaDOMTOM">Overseas France (DOM-TOM)</option>
+    </optgroup>
+
+    <optgroup label="7. Specialized & Humanitarian">
+        <option value="FranceAsylumVisaRefugeeStatus">Asylum / Refugee Status</option>
+        <option value="FranceSubsidiaryProtectionVisa">Subsidiary Protection</option>
+        <option value="FranceHumanitarianVisa">Humanitarian Visa</option>
+        <option value="FranceJournalistVisa">Journalist Visa</option>
+    </optgroup>
+
+
+ <optgroup label="8. Extras">
+        <option value="FranceReceVisaJobSeekerBusinessCreation">RECE</option>
+        <option value="FranceTalentPassportInnovativeCompany">Talent Passport</option>
+        <option value="FranceVacationWorkVisa">Vacation work</option>
+     
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF FRANCE MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇫🇷 VIEW FRANCE IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇫🇷 GENERAL PROCESS FOR FRANCE IMMIGRATION (2026)</h1>
+
+        <h2>🧭 1. IDENTIFY YOUR PURPOSE</h2>
+        <p>First decide the correct category based on your needs:</p>
+        <ul>
+            <li><strong>Study:</strong> For University degrees or exchange programs.</li>
+            <li><strong>Work:</strong> For salaried employees or "Talent Passports".</li>
+            <li><strong>Business:</strong> For Entrepreneurs or Investors.</li>
+            <li><strong>Family:</strong> For joining a spouse or dependent in France.</li>
+            <li><strong>Temporary Stay:</strong> For Visitors, Training, or Internships.</li>
+        </ul>
+
+        <h2>📩 2. GET ADMISSION / JOB / SPONSORSHIP</h2>
+        <p>Depending on the visa, you must secure the core requirement: University admission (+ Campus France), a valid job offer/contract, or a detailed business plan.</p>
+
+        <h2>🔍 3. CHECK VISA REQUIREMENTS</h2>
+        <p>Prepare your eligibility: Passport (6+ months), financial proof (bank statements), accommodation proof in France, health insurance, and academic documents.</p>
+
+        <h2>🌐 4 & 5. OFFICIAL REGISTRATION & APPLICATION</h2>
+        <p>Register on <strong>Campus France</strong> (for students) and the <strong>France-Visas portal</strong>. Complete the online form, select short or long-stay, and upload documents.</p>
+
+        <h2>📅 6 & 7. APPOINTMENT & BIOMETRICS</h2>
+        <p>Book an appointment at a <strong>VFS France center</strong>. Submit your fingerprints, photograph, and physical documents for verification.</p>
+
+        <h2>💳 8. PAY VISA FEES</h2>
+        <p>Fees range from approx €80 (short stay) to €99 (long stay), plus VFS service charges.</p>
+
+        <h2>⏳ 9 & 10. PROCESSING & DECISION</h2>
+        <p>The Embassy reviews the file (2–8 weeks). If approved, a visa sticker is affixed to your passport.</p>
+
+        <h2>✈️ 11 & 12. TRAVEL & RESIDENCE PERMIT</h2>
+        <p>Enter France with your visa and original documents. For long-stays, register with the <strong>OFII</strong> and apply for your <strong>Residence Permit (carte de séjour)</strong> at the local prefecture.</p>
+
+        <h2>🔄 13 & 14. STAY, RENEWAL & PR</h2>
+        <p>Follow your conditions (Work/Study). Permits are renewable annually or multi-year. After 5 years, you become eligible for <strong>Permanent Residence</strong> and potentially citizenship.</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black); margin-top: 15px;">
+            🧠 SUMMARY FLOW: Purpose → Job/Admission → France-Visas portal → VFS Biometrics → Processing → Approval → Travel → OFII/Residence Permit
+        </div>
+
+        <div class="official-box">
+            <h1>🇫🇷 OFFICIAL FRANCE IMMIGRATION WEBSITES</h1>
+            <p><strong>1. France Visa Portal:</strong> <a href="https://france-visas.gouv.fr" target="_blank">france-visas.gouv.fr</a></p>
+            <p><strong>2. Campus France:</strong> <a href="https://www.campusfrance.org" target="_blank">www.campusfrance.org</a></p>
+            <p><strong>3. OFII (Immigration Office):</strong> <a href="https://www.ofii.fr" target="_blank">www.ofii.fr</a></p>
+            <p><strong>4. French Embassy in India:</strong> <a href="https://in.ambafrance.org" target="_blank">in.ambafrance.org</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: ONLY USE OFFICIAL .GOUV.FR WEBSITES. BEWARE OF UNAUTHORIZED THIRD-PARTY AGENTS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "FRANCE": {
+ "FranceTouristVisaSchengenTypeC": {
+    name: "Tourist Visa (Schengen Short-Stay Visa Type C – France)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Can be issued as single-entry, double-entry, or multiple-entry depending on travel history and consulate decision.",
+
+    cost: "Standard visa fee: €80 (~₹7,000–₹7,500). Children (6–12 years): €40. Free for children under 6. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. In peak seasons or complex cases, it may take up to 30–45 days.",
+
+    age: "No age limit. Applicable to all tourists including minors (with parental consent).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required. Generally €50–€120 per day (~₹4,500–₹10,000/day) depending on accommodation (hotel vs host). Bank balance of ₹1.5–3 lakh+ recommended for short trips.",
+
+    docs: "Valid passport (with at least 2 blank pages), completed visa application form, passport-size photos, travel itinerary, confirmed flight tickets, hotel bookings or invitation letter, travel insurance (minimum €30,000 coverage), bank statements (last 3–6 months), income proof (ITR, salary slips), cover letter explaining travel purpose.",
+
+    whom: "Foreign tourists (including Indian citizens) visiting France for tourism, sightseeing, holidays, or visiting attractions like Paris, museums, and cultural landmarks.",
+
+    rules: "No employment or business activity allowed. Must not overstay beyond 90 days in 180 days. Must travel within Schengen rules. Entry can be denied even with visa if conditions are not met at border.",
+
+    prosCons: "Pros: Allows travel across 27 Schengen countries, relatively straightforward process, flexible short-term stay. Cons: Limited duration, strict documentation, no work rights, financial proof required.",
+
+    terms: "Schengen Visa: Common visa for European countries; Type C: Short-stay visa; 90/180 Rule: Stay limit in Schengen zone; Travel Insurance: Mandatory medical coverage; Multiple Entry: Allows repeated entry during validity.",
+
+    legal: "Regulated under Schengen Visa Code and administered by French consulates under the authority of the French government and EU regulations.",
+
+    process: `1. Plan travel itinerary ->
+              2. Book flights and accommodation ->
+              3. Arrange travel insurance ->
+              4. Gather financial and personal documents ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Embassy/consulate reviews application ->
+              10. Receive visa decision ->
+              11. Travel to France and clear immigration`
+},
+"FranceBusinessVisaSchengenTypeC": {
+    name: "Business Visa (Schengen Short-Stay Business Visa Type C – France)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Can be single-entry, double-entry, or multiple-entry depending on business needs and travel history.",
+
+    cost: "Standard visa fee: €80 (~₹7,000–₹7,500). Children (6–12 years): €40. Free for children under 6. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 30–45 days in complex cases or peak periods.",
+
+    age: "No strict age limit. Typically for working professionals, entrepreneurs, and business representatives (18+).",
+
+    education: "Not mandatory, but professional background or business credentials may be required depending on purpose of visit.",
+
+    funds: "Proof of sufficient funds required. Generally €50–€120 per day (~₹4,500–₹10,000/day). Company sponsorship or invitation letter may reduce personal fund requirement.",
+
+    docs: "Valid passport, visa application form, passport photos, invitation letter from French company, covering letter from Indian employer, company registration proof, business correspondence, travel itinerary, hotel booking, travel insurance (€30,000 coverage), bank statements (3–6 months), ITR, salary slips, and proof of employment/business.",
+
+    whom: "Business professionals, entrepreneurs, company representatives, and employees traveling to France for meetings, conferences, trade fairs, negotiations, training, or short-term business activities.",
+
+    rules: "No full-time employment allowed. Only business-related activities such as meetings, negotiations, and events are permitted. Must not exceed 90 days in 180 days. Cannot receive salary from a French employer.",
+
+    prosCons: "Pros: Enables participation in international business activities, allows travel across Schengen countries, relatively quick processing. Cons: No work rights, limited stay duration, strict documentation and invitation requirement.",
+
+    terms: "Schengen Visa: Common EU visa; Type C: Short-stay visa; Invitation Letter: Official document from French company; Multiple Entry: Allows repeated visits; 90/180 Rule: Stay limitation in Schengen area.",
+
+    legal: "Regulated under Schengen Visa Code and administered by French consulates in accordance with EU immigration laws.",
+
+    process: `1. Receive invitation from French company ->
+              2. Prepare business and employment documents ->
+              3. Book travel and accommodation ->
+              4. Arrange travel insurance ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa decision ->
+              11. Travel to France for business activities`
+},
+"FranceFamilyFriendsVisitVisaSchengenTypeC": {
+    name: "Family / Friends Visit Visa (Schengen Short-Stay Visa Type C – France)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Can be issued as single-entry, double-entry, or multiple-entry depending on relationship and travel history.",
+
+    cost: "Standard visa fee: €80 (~₹7,000–₹7,500). Children (6–12 years): €40. Free for children under 6. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May take up to 30–45 days in some cases.",
+
+    age: "No age limit. Applicable to all applicants including minors (with parental consent).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required unless the host provides financial guarantee. Generally €50–€120 per day (~₹4,500–₹10,000/day). Sponsorship via ‘Attestation d’accueil’ can reduce personal fund requirement.",
+
+    docs: "Valid passport, visa application form, passport photos, invitation letter from host in France, Attestation d’accueil (official invitation certified by French authorities), host’s ID/residence proof, proof of relationship (if family), travel itinerary, accommodation details, travel insurance (€30,000 coverage), bank statements (3–6 months), income proof, cover letter explaining visit purpose.",
+
+    whom: "Foreign nationals (including Indians) visiting family members or friends residing in France for short stays, reunions, or personal visits.",
+
+    rules: "No employment allowed. Stay must not exceed 90 days in 180 days. Must respect Schengen travel rules. Must stay with host or declared accommodation. Overstay can lead to visa bans.",
+
+    prosCons: "Pros: Allows visiting relatives or friends in France, can travel across Schengen area, flexible short-term stay. Cons: Requires strong documentation and invitation proof, no work rights, limited duration.",
+
+    terms: "Schengen Visa: Common EU visa; Type C: Short-stay visa; Attestation d’accueil: Official host invitation document; 90/180 Rule: Maximum stay rule; Sponsor: Host providing accommodation/financial support.",
+
+    legal: "Regulated under Schengen Visa Code and French immigration regulations, administered by French consulates and local authorities.",
+
+    process: `1. Receive invitation from family/friend in France ->
+              2. Obtain Attestation d’accueil from host ->
+              3. Prepare relationship and financial documents ->
+              4. Book travel and insurance ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa decision ->
+              11. Travel to France and stay with host`
+},
+"FranceAirportTransitVisaTypeA": {
+    name: "Airport Transit Visa (Type A – France / Schengen)",
+
+    validity: "Valid only for airport transit. Allows stay in the international transit area of the airport for up to 24 hours (or as per flight connection). Does not allow entry into France or Schengen territory.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend up to 30 days in certain cases.",
+
+    age: "No age limit. Applicable to all travelers including minors (with parental consent).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds for onward journey may be required. Generally includes confirmed tickets and ability to continue travel.",
+
+    docs: "Valid passport, completed visa application form, passport-size photos, confirmed onward flight tickets, visa for final destination (if required), travel itinerary, proof of transit purpose, and any additional documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians in certain cases) transiting through a French airport en route to another country, without entering the Schengen area.",
+
+    rules: "Cannot leave airport transit zone. No entry into France or Schengen area allowed. Must have confirmed onward flight. If transit requires airport change or overnight stay outside transit zone, a short-stay visa (Type C) is required.",
+
+    prosCons: "Pros: Enables smooth international flight connections, simple purpose-specific visa. Cons: Very restricted movement, no entry into France, only for transit purposes.",
+
+    terms: "Type A Visa: Airport transit visa; Transit Zone: Restricted international area of airport; Schengen Area: Group of European countries with common visa policy; Onward Ticket: Confirmed next flight booking.",
+
+    legal: "Regulated under Schengen Visa Code and administered by French consulates for airport transit requirements.",
+
+    process: `1. Confirm transit requirement through France ->
+              2. Check if Airport Transit Visa is required for nationality ->
+              3. Book onward flight tickets ->
+              4. Gather required documents ->
+              5. Fill visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa decision ->
+              11. Transit through French airport without entering country`
+},
+
+"FranceShortTransitVisaSchengenTypeC": {
+    name: "Short Transit Visa (Schengen Short-Stay Transit Visa Type C – France)",
+
+    validity: "Usually valid for very short stays within the 90 days in 180-day rule. Typically issued for the exact duration needed for transit (1–5 days) but can allow up to 90 days depending on visa type.",
+
+    cost: "Standard visa fee: €80 (~₹7,000–₹7,500). Children (6–12 years): €40. Free for children under 6. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 30 days in some cases.",
+
+    age: "No age limit. Applicable to all travelers including minors (with parental consent).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required for short stay (generally €50–€120 per day). Must also show confirmed onward journey funds and arrangements.",
+
+    docs: "Valid passport, visa application form, passport photos, confirmed onward travel tickets, visa for final destination (if required), travel itinerary, accommodation proof (if overnight stay), travel insurance (€30,000 coverage), bank statements (3–6 months), and cover letter explaining transit purpose.",
+
+    whom: "Foreign nationals (including Indians) who need to briefly enter France/Schengen area during transit to another country (e.g., changing airports, overnight stay, or multi-leg journey).",
+
+    rules: "Allows entry into France/Schengen area for short transit only. Cannot engage in work or long stay. Must leave Schengen area within permitted time. Must follow 90/180 rule if applicable.",
+
+    prosCons: "Pros: Allows flexibility for transit involving airport changes or short stays, enables entry into Schengen temporarily. Cons: Limited stay, strict documentation, no work rights, only for transit purpose.",
+
+    terms: "Schengen Visa: Common EU visa; Type C: Short-stay visa; Transit Visa: Short entry for connecting travel; 90/180 Rule: Maximum stay rule; Onward Journey: Confirmed travel to next destination.",
+
+    legal: "Regulated under Schengen Visa Code and administered by French consulates as part of EU visa policy.",
+
+    process: `1. Plan travel route involving transit through France ->
+              2. Book onward tickets and accommodation (if needed) ->
+              3. Check visa requirement for transit ->
+              4. Gather documents including destination visa ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa decision ->
+              11. Enter France briefly and continue journey`
+},
+
+"FranceMedicalTreatmentVisaSchengenTypeC": {
+    name: "Medical Treatment Visa (Schengen Short-Stay Visa Type C – France)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Duration depends on the treatment schedule and medical requirements. Can be single or multiple entry.",
+
+    cost: "Standard visa fee: €80 (~₹7,000–₹7,500). Children (6–12 years): €40. Free for children under 6. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. Urgent medical cases may be processed faster if justified. Complex cases may take up to 30 days.",
+
+    age: "No age limit. Applicable to patients of all ages, including minors (with guardians).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required to cover medical treatment, accommodation, and living expenses. Estimated €100–€200 per day plus full treatment cost. Bank balance of ₹3–10 lakh+ may be required depending on case.",
+
+    docs: "Valid passport, visa application form, passport photos, medical certificate from Indian doctor, confirmation letter from French hospital/clinic, treatment plan and cost estimate, proof of payment or financial guarantee, travel insurance (€30,000 coverage), bank statements (3–6 months), income proof, accommodation details, and cover letter explaining treatment purpose.",
+
+    whom: "Foreign nationals (including Indians) traveling to France for medical treatment, surgery, specialized consultation, or healthcare services not available or preferred abroad.",
+
+    rules: "No employment allowed. Stay limited to treatment duration. Must follow hospital treatment plan. Extensions possible in medical emergencies with approval. Must comply with Schengen stay rules.",
+
+    prosCons: "Pros: Access to advanced medical facilities in France, possibility of extension for health reasons, allows accompanying attendant in some cases. Cons: High cost, strict documentation, financial proof required, limited stay duration.",
+
+    terms: "Schengen Visa: EU short-stay visa; Type C: Short-stay visa; Medical Certificate: Proof of illness; Treatment Plan: Hospital-provided schedule; Financial Guarantee: Proof of payment ability; Travel Insurance: Mandatory health coverage.",
+
+    legal: "Regulated under Schengen Visa Code and French healthcare/immigration regulations, administered by French consulates.",
+
+    process: `1. Consult doctor and decide treatment abroad ->
+              2. Contact French hospital and receive treatment plan ->
+              3. Arrange funds and medical insurance ->
+              4. Gather medical and financial documents ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews medical case ->
+              10. Receive visa decision ->
+              11. Travel to France for treatment`
+},
+
+"FranceCulturalSportsEventVisaSchengenTypeC": {
+    name: "Cultural / Sports / Event Visa (Schengen Short-Stay Visa Type C – France)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Duration is generally aligned with the event, performance, or competition schedule. Can be single or multiple entry.",
+
+    cost: "Standard visa fee: €80 (~₹7,000–₹7,500). Children (6–12 years): €40. Free for children under 6. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. Urgent applications for scheduled events may be prioritized.",
+
+    age: "No strict age limit. Applicable to artists, performers, athletes, and participants of all ages (minors require guardian consent).",
+
+    education: "Not required. Selection is based on participation in cultural, sports, or official events.",
+
+    funds: "Proof of sufficient funds required unless fully sponsored. Estimated €50–€120 per day (~₹4,500–₹10,000/day). Sponsorship letter from event organizer may cover expenses.",
+
+    docs: "Valid passport, visa application form, passport photos, official invitation letter from event organizer in France, event registration or participation proof, sponsorship letter (if applicable), travel itinerary, accommodation details, travel insurance (€30,000 coverage), bank statements (3–6 months), cover letter explaining purpose.",
+
+    whom: "Artists, musicians, performers, athletes, sports teams, cultural delegates, and participants traveling to France for festivals, competitions, exhibitions, concerts, or official events.",
+
+    rules: "Only allowed to participate in declared event or activity. No full-time employment permitted. Paid performances may require additional authorization. Must leave after event completion and comply with Schengen stay rules.",
+
+    prosCons: "Pros: Enables participation in international cultural and sports events, access to Schengen travel, relatively straightforward for invited participants. Cons: Limited stay duration, strict event-based purpose, no general work rights.",
+
+    terms: "Schengen Visa: EU short-stay visa; Type C: Short-stay visa; Invitation Letter: Official event participation proof; Sponsorship: Financial support by organizer; 90/180 Rule: Maximum stay limit in Schengen area.",
+
+    legal: "Regulated under Schengen Visa Code and French immigration laws for cultural and sports participation.",
+
+    process: `1. Receive invitation or register for event in France ->
+              2. Obtain official participation confirmation ->
+              3. Arrange travel and accommodation ->
+              4. Prepare financial or sponsorship documents ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa decision ->
+              11. Travel to France and attend event`
+},
+
+"FranceOfficialDelegationVisaSchengenTypeC": {
+    name: "Official / Delegation Visa (Schengen Short-Stay Visa Type C – France)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Duration is typically aligned with the official mission, government visit, or delegation schedule. Can be single or multiple entry.",
+
+    cost: "Often free or fee-exempt for official passport holders and government delegations. If applicable, standard fee €80 (~₹7,000–₹7,500) may apply. VFS charges may vary or be waived.",
+
+    time: "Processing time usually 5–15 working days. Official or diplomatic cases may be processed faster through priority channels.",
+
+    age: "No age limit. Applicable to government officials, diplomats, and delegation members.",
+
+    education: "Not required. Eligibility is based on official role and government nomination.",
+
+    funds: "Usually covered by sponsoring government or organization. Personal financial proof is generally not required.",
+
+    docs: "Valid passport (often official/diplomatic passport), visa application form, passport photos, official invitation letter from French government or organization, note verbale (official communication from sending government), delegation letter, travel itinerary, accommodation details, and supporting documents from government authorities.",
+
+    whom: "Government officials, diplomats, public servants, and members of official delegations traveling to France for bilateral meetings, summits, conferences, or official assignments.",
+
+    rules: "Must only engage in official duties. No private employment or unrelated activities allowed. Must comply with diplomatic or official protocols. Stay limited to mission duration.",
+
+    prosCons: "Pros: Faster processing, possible fee exemption, priority handling, simplified documentation for officials. Cons: Strictly limited to official purpose, no personal work rights, duration restricted to mission.",
+
+    terms: "Schengen Visa: EU visa system; Type C: Short-stay visa; Note Verbale: Official diplomatic communication; Delegation: Group representing government; Official Passport: Passport issued for government duties.",
+
+    legal: "Regulated under Schengen Visa Code and diplomatic protocols, administered by French consulates in coordination with foreign ministries.",
+
+    process: `1. Government nominates delegation members ->
+              2. Receive official invitation from France ->
+              3. Prepare note verbale and delegation documents ->
+              4. Submit visa application through official channel or VFS ->
+              5. Provide biometrics if required ->
+              6. Consulate reviews diplomatic request ->
+              7. Visa approved on priority basis ->
+              8. Travel to France for official mission ->
+              9. Return after completion of duties`
+},
+"FranceShortTermStudyVisaSchengenTypeC": {
+    name: "Short-Term Study Visa (Schengen Short-Stay Visa Type C – France)",
+
+    validity: "Valid for up to 90 days within a 180-day period. Duration depends on course length (typically short courses, language programs, or training under 3 months).",
+
+    cost: "Standard visa fee: €80 (~₹7,000–₹7,500). Students under certain exchange programs may get fee reductions. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May take up to 30 days during peak seasons.",
+
+    age: "No strict age limit. Commonly for students aged 16+ (minors require parental consent).",
+
+    education: "Must have admission or enrollment in a recognized short-term course, training, or educational program in France.",
+
+    funds: "Proof of sufficient funds required. Generally €50–€100 per day (~₹4,500–₹9,000/day). Minimum €615/month (~₹55,000) recommended for student stay.",
+
+    docs: "Valid passport, visa application form, passport photos, admission letter from French institution, course details (duration and fees), proof of payment (if applicable), travel insurance (€30,000 coverage), accommodation proof, bank statements (3–6 months), sponsor letter (if any), cover letter explaining study purpose.",
+
+    whom: "Foreign students (including Indians) attending short-term courses, language classes, workshops, training programs, or academic exchanges in France for less than 90 days.",
+
+    rules: "No long-term residence allowed. Work is generally not permitted. Must leave France after course completion. Cannot directly convert into long-term student visa within France.",
+
+    prosCons: "Pros: Quick entry for short courses, relatively simple process, allows exposure to French education system. Cons: Limited stay, no work rights, cannot extend easily to long-term visa.",
+
+    terms: "Schengen Visa: EU visa system; Type C: Short-stay visa; Admission Letter: Proof of enrollment; 90/180 Rule: Stay limitation; Travel Insurance: Mandatory health coverage.",
+
+    legal: "Regulated under Schengen Visa Code and French education/immigration regulations, administered by French consulates.",
+
+    process: `1. Apply and get admission in short-term course ->
+              2. Receive acceptance letter from institution ->
+              3. Arrange accommodation and insurance ->
+              4. Gather financial documents ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa decision ->
+              11. Travel to France and attend course`
+},
+"FranceShortTermTrainingInternshipVisaSchengenTypeC": {
+    name: "Short-Term Training / Internship Visa (Schengen Short-Stay Visa Type C – France)",
+
+    validity: "Valid for up to 90 days within a 180-day period. Duration is usually aligned with the internship or training program (typically a few weeks to 3 months).",
+
+    cost: "Standard visa fee: €80 (~₹7,000–₹7,500). In some academic exchange cases, fee reductions or exemptions may apply. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May take up to 30 days during peak seasons or for detailed verification.",
+
+    age: "No strict age limit. Commonly for students and young professionals (18–35 years). Minors require parental consent.",
+
+    education: "Must be enrolled in a recognized educational institution or be a recent graduate. Internship must be relevant to field of study or professional training.",
+
+    funds: "Proof of sufficient funds required. Generally €50–€100 per day (~₹4,500–₹9,000/day). If internship is paid or sponsored, financial requirement may be reduced.",
+
+    docs: "Valid passport, visa application form, passport photos, internship agreement (Convention de Stage) signed by student, institution, and host company, acceptance letter from French organization, training plan, travel insurance (€30,000 coverage), accommodation proof, bank statements (3–6 months), academic documents, cover letter explaining purpose.",
+
+    whom: "Foreign students or young professionals (including Indians) participating in short-term internships, industrial training, or practical learning programs in France for less than 90 days.",
+
+    rules: "Only training or internship activities allowed. No full-time employment outside internship. Must follow terms of internship agreement. Must leave France after program completion. Cannot directly convert into long-term work visa.",
+
+    prosCons: "Pros: International work exposure, skill development, short processing time, opportunity to gain European experience. Cons: Limited duration, no long-term work rights, strict documentation (internship agreement required).",
+
+    terms: "Schengen Visa: EU visa system; Type C: Short-stay visa; Convention de Stage: Official internship agreement; 90/180 Rule: Stay limitation; Training Plan: Structured learning outline.",
+
+    legal: "Regulated under Schengen Visa Code and French labor/education regulations, administered by French consulates.",
+
+    process: `1. Secure internship or training placement in France ->
+              2. Sign Convention de Stage with institution and company ->
+              3. Arrange accommodation and insurance ->
+              4. Gather academic and financial documents ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa decision ->
+              11. Travel to France and complete training/internship`
+},
+"FranceLongStayVisitorVisaVLSTSVisiteur": {
+    name: "Long-Stay Visitor Visa (VLS-TS Visiteur – France)",
+
+    validity: "Usually valid for 4 months to 1 year. It acts as a residence permit (VLS-TS) once validated after arrival. Renewable annually under certain conditions.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). After arrival, validation fee (OFII tax) approx €200–€250 (~₹18,000–₹22,000).",
+
+    time: "Processing time usually 15–30 working days. May take longer depending on documentation and consulate workload.",
+
+    age: "No strict age limit. Commonly used by adults, retirees, and long-term visitors (18+).",
+
+    education: "Not required.",
+
+    funds: "Strong proof of financial self-sufficiency required. Minimum around €1,200–€1,500/month (~₹1–1.3 lakh/month). Bank balance of ₹10–20 lakh+ often expected.",
+
+    docs: "Valid passport, long-stay visa application form, passport photos, proof of accommodation in France (rental/host letter), financial proof (bank statements, income proof, pension proof), health insurance covering full stay, cover letter stating non-working purpose, declaration not to work in France.",
+
+    whom: "Foreign nationals (including Indians) who want to stay in France for a long period without working—such as retirees, financially independent individuals, or long-term visitors.",
+
+    rules: "No employment or business activity allowed. Must be financially self-sufficient. Must validate visa after arrival in France. Renewal requires continued financial stability and compliance.",
+
+    prosCons: "Pros: Allows long-term stay in France, acts as residence permit, renewable, suitable for retirees or remote income earners. Cons: No work rights, strict financial requirements, cannot easily convert to work visa.",
+
+    terms: "VLS-TS: Visa de Long Séjour valant Titre de Séjour (long-stay visa acting as residence permit); OFII: French Immigration Office; Validation: Mandatory online process after arrival; Self-Sufficient: Financially independent without employment.",
+
+    legal: "Regulated under French immigration law and administered by French consulates and OFII (Office Français de l’Immigration et de l’Intégration).",
+
+    process: `1. Decide long-term stay purpose (non-working) ->
+              2. Arrange accommodation in France ->
+              3. Prepare strong financial proof ->
+              4. Obtain long-term health insurance ->
+              5. Fill long-stay visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Validate VLS-TS online within 3 months ->
+              13. Stay legally and renew if needed`
+},
+"FranceWorkVisaEmployeeSalariedWorker": {
+    name: "Work Visa (Employee – Salaried Worker, France)",
+
+    validity: "Usually issued as a Long-Stay Visa (VLS-TS) valid for 4 months to 1 year. After arrival, it acts as a residence permit and can be renewed annually based on employment contract.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). After arrival, residence permit/OFII tax approx €200–€300 (~₹18,000–₹26,000). Additional employer-related permit fees may apply.",
+
+    time: "Processing time usually 2–8 weeks after work authorization approval. Total timeline may extend to 2–3 months including employer permit processing.",
+
+    age: "No strict age limit. Typically 18–60 years for working professionals.",
+
+    education: "Generally requires relevant degree, diploma, or professional experience related to the job role. Skilled positions require higher qualifications.",
+
+    funds: "No fixed personal funds requirement. Salary from employer must meet minimum wage requirements (SMIC or higher depending on job). Initial settlement funds (~₹1–3 lakh) recommended.",
+
+    docs: "Valid passport, long-stay visa application form, passport photos, French work contract, work permit approval (Autorisation de travail), employer documents, educational certificates, CV/resume, proof of accommodation, travel insurance (initial period), and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who have secured a job offer from a French employer and are hired as salaried employees in France.",
+
+    rules: "Must work only for approved employer and role. Change of employer requires permission. Must validate visa after arrival. Must comply with French labor laws. Renewal depends on continued employment.",
+
+    prosCons: "Pros: Legal employment in France, pathway to long-term residence and PR, access to social benefits, stable income. Cons: Requires employer sponsorship, longer processing time, job restrictions initially.",
+
+    terms: "VLS-TS: Long-stay visa acting as residence permit; OFII: French Immigration Office; Autorisation de travail: Work permit approval; SMIC: Minimum wage in France; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French labor and immigration laws, administered by French consulates and Ministry of Interior with employer work permit approval.",
+
+    process: `1. Secure job offer from French employer ->
+              2. Employer applies for work permit in France ->
+              3. Work authorization approved ->
+              4. Prepare visa application documents ->
+              5. Fill long-stay visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Validate VLS-TS online (OFII process) ->
+              13. Start employment and renew permit when required`
+},
+"FranceTalentPassportVisaPasseportTalent": {
+    name: "Talent Passport Visa (Passeport Talent – France)",
+
+    validity: "Usually issued for up to 4 years depending on category (employee, researcher, investor, artist, etc.). Renewable and can lead to long-term residence or permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival: approx €200–€300 (~₹18,000–₹26,000). Additional costs may apply depending on category.",
+
+    time: "Processing time usually 2–6 weeks after submission. Some categories may take longer depending on verification and employer authorization.",
+
+    age: "No strict age limit. Typically for highly skilled professionals, researchers, entrepreneurs, and talented individuals (18+).",
+
+    education: "Generally requires higher education (bachelor’s/master’s/PhD) or exceptional professional experience depending on category (e.g., EU Blue Card, researcher, artist).",
+
+    funds: "Salary or financial threshold must meet specific criteria depending on category (e.g., EU Blue Card salary threshold ~€53,000/year or as updated). Investors must show significant capital investment.",
+
+    docs: "Valid passport, visa application form, passport photos, employment contract or project proposal, proof of qualifications, CV/resume, proof of salary or investment, work authorization (if applicable), accommodation proof, and supporting documents based on specific Talent Passport category.",
+
+    whom: "Highly skilled professionals, researchers, startup founders, investors, artists, and individuals with exceptional talent who wish to live and work in France under specialized categories.",
+
+    rules: "Must work or operate within approved category (e.g., employee, researcher, investor). Allows greater flexibility compared to standard work visa. Family members can accompany under simplified process. Renewal depends on continued eligibility.",
+
+    prosCons: "Pros: Longer validity (up to 4 years), faster processing, family reunification benefits, flexibility in employment, pathway to PR. Cons: High eligibility criteria, salary or investment thresholds, category-specific conditions.",
+
+    terms: "Passeport Talent: Special long-term visa for skilled individuals; EU Blue Card: High-skill work permit category; VLS-TS: Long-stay visa; Residence Permit: Legal stay authorization; Talent Categories: Various professional groups under this visa.",
+
+    legal: "Regulated under French immigration law and EU directives for highly skilled migration, administered by French consulates and Ministry of Interior.",
+
+    process: `1. Determine eligible Talent Passport category ->
+              2. Secure job offer / project / investment plan ->
+              3. Obtain necessary approvals (if required) ->
+              4. Prepare qualification and financial documents ->
+              5. Fill long-stay visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Obtain multi-year residence permit ->
+              13. Continue work/investment and renew if needed`
+},
+"FranceEUBlueCardHighlySkilledWorkers": {
+    name: "EU Blue Card (Highly Skilled Workers – France)",
+
+    validity: "Usually issued for 1–4 years depending on the employment contract duration. Renewable and can lead to long-term EU residence or permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival: approx €225–€300 (~₹20,000–₹26,000).",
+
+    time: "Processing time usually 4–8 weeks after work authorization approval. Total process may take 2–3 months including employer procedures.",
+
+    age: "No strict age limit. Typically for professionals aged 21–60 with high qualifications.",
+
+    education: "Requires higher education qualification (minimum bachelor’s degree) or at least 5 years of professional experience equivalent to higher education.",
+
+    funds: "Must meet minimum salary threshold (usually around 1.5 times the average gross annual salary in France; approx €53,000/year or as updated). No separate personal funds requirement if salary is sufficient.",
+
+    docs: "Valid passport, visa application form, passport photos, employment contract (minimum 1 year), work authorization, proof of qualifications (degree certificates), CV/resume, salary details, accommodation proof, and supporting documents required by consulate.",
+
+    whom: "Highly skilled foreign professionals (including Indians) with strong qualifications and a high-paying job offer in France or EU member states.",
+
+    rules: "Must work in high-skilled employment matching qualifications. Changing employer may require notification or approval. Allows mobility within EU after certain period. Must maintain salary threshold for renewal.",
+
+    prosCons: "Pros: High-status work visa, easier mobility within EU, pathway to permanent residency, family reunification benefits, long validity. Cons: High salary requirement, strict eligibility criteria, limited to skilled roles.",
+
+    terms: "EU Blue Card: EU-wide work permit for highly skilled workers; VLS-TS: Long-stay visa; Residence Permit: Legal stay authorization; Salary Threshold: Minimum required income level; EU Mobility: Right to move within EU after certain time.",
+
+    legal: "Regulated under EU Blue Card Directive and French immigration law, administered by French authorities and consulates.",
+
+    process: `1. Secure high-paying job offer in France ->
+              2. Employer applies for work authorization ->
+              3. Ensure salary meets Blue Card threshold ->
+              4. Prepare qualification and employment documents ->
+              5. Fill long-stay visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Obtain EU Blue Card residence permit ->
+              13. Work and renew as required`
+},
+"FranceIntraCompanyTransferVisaICT": {
+    name: "Intra-Company Transfer Visa (ICT – France)",
+
+    validity: "Usually valid for 1–3 years depending on assignment duration (managers/specialists up to 3 years, trainees up to 1 year). Non-renewable beyond maximum ICT limits but may be converted to another permit in some cases.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival: approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 4–8 weeks after work authorization approval. Total timeline may extend to 2–3 months.",
+
+    age: "No strict age limit. Typically for professionals aged 21–60 working in multinational companies.",
+
+    education: "Requires relevant degree or professional experience depending on role (manager, specialist, or trainee).",
+
+    funds: "No separate personal funds requirement. Salary must meet French standards and be comparable to local employees in similar roles.",
+
+    docs: "Valid passport, visa application form, passport photos, assignment letter from employer, proof of employment with company (usually minimum 3–12 months prior), employment contract, work authorization (if applicable), proof of qualifications, CV/resume, accommodation proof, and company documents.",
+
+    whom: "Employees of multinational companies (including Indians) transferred to a French branch, subsidiary, or affiliate as managers, specialists, or trainees.",
+
+    rules: "Must remain employed by the same company group. Cannot freely change employer. Limited to ICT duration. Allows mobility within EU under ICT scheme in some cases.",
+
+    prosCons: "Pros: Easier transfer within multinational companies, relatively faster process, EU mobility benefits, suitable for corporate professionals. Cons: Temporary stay, limited flexibility, not directly renewable beyond limits, restricted to same employer.",
+
+    terms: "ICT: Intra-Company Transfer; VLS-TS: Long-stay visa; Assignment Letter: Transfer document; Specialist/Manager/Trainee: Role categories; EU Mobility: Ability to work in other EU states under ICT rules.",
+
+    legal: "Regulated under EU ICT Directive and French immigration law, administered by French authorities and consulates.",
+
+    process: `1. Company decides international transfer ->
+              2. Employer prepares assignment and documents ->
+              3. Apply for ICT work authorization in France ->
+              4. Receive approval ->
+              5. Prepare visa application ->
+              6. Fill long-stay visa form ->
+              7. Book appointment via VFS France ->
+              8. Submit biometrics and documents ->
+              9. Pay visa fee ->
+              10. Consulate reviews application ->
+              11. Receive visa approval ->
+              12. Travel to France ->
+              13. Obtain residence permit and start assignment`
+},
+"FranceSeasonalWorkerVisa": {
+    name: "Seasonal Worker Visa (France)",
+
+    validity: "Usually issued for up to 6 months per year. Can be valid for multiple years (up to 3 years) as a multi-year permit, but work is limited to seasonal periods each year.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival: approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 3–8 weeks after work authorization approval. Total timeline may extend to 2–3 months.",
+
+    age: "No strict age limit. Typically 18–55 years for seasonal workers.",
+
+    education: "Not mandatory. Basic skills or experience relevant to seasonal jobs (agriculture, tourism, hospitality) may be required.",
+
+    funds: "No fixed personal funds requirement. Employment contract must guarantee minimum wage (SMIC or sector-specific rate). Basic funds for initial stay (~₹50,000–₹1 lakh) recommended.",
+
+    docs: "Valid passport, visa application form, passport photos, seasonal work contract, work permit approval (Autorisation de travail), employer documents, accommodation proof (often provided by employer), and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) employed in temporary seasonal jobs in France such as agriculture, vineyards, tourism, hotels, and resorts.",
+
+    rules: "Can work only in seasonal employment. Maximum 6 months per year. Must leave France after contract ends each season. Cannot switch to permanent job directly under this visa.",
+
+    prosCons: "Pros: Opportunity to work in France temporarily, multi-year permit possible, relatively lower qualification requirements. Cons: Temporary stay, limited work duration, no direct PR pathway, restricted job type.",
+
+    terms: "Seasonal Work: Temporary employment tied to seasons; SMIC: Minimum wage in France; Autorisation de travail: Work permit approval; Multi-Year Permit: Valid for repeated seasonal work.",
+
+    legal: "Regulated under French labor and immigration laws, administered by French authorities with employer-sponsored work authorization.",
+
+    process: `1. Secure seasonal job offer in France ->
+              2. Employer applies for work permit ->
+              3. Work authorization approved ->
+              4. Prepare visa documents ->
+              5. Fill long-stay visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Work during seasonal period ->
+              13. Return after contract completion`
+},
+"FranceTemporaryWorkerVisa": {
+    name: "Temporary Worker Visa (France)",
+
+    validity: "Usually issued for up to 12 months depending on the employment contract. Can be renewed if employment continues, but remains temporary in nature.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival: approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 3–8 weeks after work authorization approval. Total timeline may extend to 2–3 months.",
+
+    age: "No strict age limit. Typically 18–60 years for working professionals.",
+
+    education: "Depends on job role. Skilled jobs may require diploma/degree or relevant experience. Low-skilled roles may not require formal education.",
+
+    funds: "No fixed personal funds requirement. Salary must meet minimum wage (SMIC or sector standard). Initial funds (~₹1–2 lakh) recommended for settlement.",
+
+    docs: "Valid passport, visa application form, passport photos, temporary work contract (CDD – fixed-term contract), work permit approval (Autorisation de travail), employer documents, CV/resume, qualifications (if required), accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) hired for short-term or fixed-duration jobs in France across sectors such as construction, services, hospitality, or technical work.",
+
+    rules: "Must work only for approved employer and contract. Cannot freely change employer. Stay limited to contract duration. Renewal depends on continued employment or new authorization.",
+
+    prosCons: "Pros: Legal short-term employment in France, relatively flexible for various job types, possible renewal. Cons: Temporary status, limited job mobility, not a direct PR route.",
+
+    terms: "CDD: Fixed-term employment contract; SMIC: Minimum wage in France; Autorisation de travail: Work permit approval; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French labor and immigration laws, administered by French authorities with employer-sponsored work authorization.",
+
+    process: `1. Secure temporary job offer in France ->
+              2. Employer applies for work permit ->
+              3. Work authorization approved ->
+              4. Prepare visa documents ->
+              5. Fill long-stay visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Obtain residence permit ->
+              13. Work for contract duration and renew if eligible`
+},
+"FranceResearcherScientistVisa": {
+    name: "Researcher / Scientist Visa (Passeport Talent – Researcher, France)",
+
+    validity: "Usually issued for 1–4 years depending on the research contract. Renewable and can lead to long-term residence or permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival: approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 2–6 weeks after submission. Faster processing compared to standard work visas due to Talent Passport category.",
+
+    age: "No strict age limit. Typically for postgraduate researchers, PhD holders, and academic professionals (21+).",
+
+    education: "Requires at least a Master’s degree or PhD, or equivalent research qualifications in a relevant field.",
+
+    funds: "Must have a hosting agreement or employment contract with sufficient salary/stipend to support stay. No separate personal funds requirement if funded.",
+
+    docs: "Valid passport, visa application form, passport photos, hosting agreement (Convention d’accueil) approved by French research institution, research contract or offer letter, proof of qualifications (Master’s/PhD), CV/resume, accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "Foreign researchers, scientists, PhD scholars, and academic professionals (including Indians) invited by French universities or research institutions for research projects or academic work.",
+
+    rules: "Must conduct research or academic work as per approved project. Allows limited teaching or related academic activity. Family members can accompany under simplified procedure. Renewal depends on continued research engagement.",
+
+    prosCons: "Pros: Fast-track visa under Talent Passport, long validity, family reunification benefits, pathway to PR, access to top research institutions. Cons: Limited to research roles, requires formal hosting agreement, must maintain academic engagement.",
+
+    terms: "Passeport Talent: Special visa category; Convention d’accueil: Official hosting agreement; Research Institution: Approved French academic body; VLS-TS: Long-stay visa; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration law and EU directives for researchers, administered by French consulates and research authorities.",
+
+    process: `1. Secure research position or invitation in France ->
+              2. Obtain hosting agreement (Convention d’accueil) ->
+              3. Prepare academic and personal documents ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews application ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Obtain residence permit ->
+              12. Conduct research and renew if needed`
+},
+"FranceStudentVisaLongStay": {
+    name: "Student Visa (Long-Stay Study Visa – France)",
+
+    validity: "Usually issued for 4 months to 1 year (VLS-TS). Renewable annually for the duration of the study program. Can lead to post-study work options and long-term residence.",
+
+    cost: "Visa fee: €50 (~₹4,500–₹5,000) for students under Campus France procedure. VFS charges extra (~₹1,500–₹2,500). OFII validation fee after arrival approx €100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks after Campus France and consulate approval. Total process may take 1–3 months.",
+
+    age: "No strict age limit. Commonly 18–35 years for higher education applicants.",
+
+    education: "Must have admission to a recognized French university, college, or institution. Academic qualifications must meet course requirements.",
+
+    funds: "Proof of sufficient funds required. Minimum €615/month (~₹55,000/month). Bank balance of ₹6–10 lakh+ recommended for visa approval.",
+
+    docs: "Valid passport, long-stay visa application form, passport photos, admission letter, Campus France NOC/approval, academic transcripts and certificates, proof of funds, accommodation proof, travel insurance (initial period), cover letter explaining study plan.",
+
+    whom: "Foreign students (including Indians) pursuing higher education, degree programs, or long-term studies in France.",
+
+    rules: "Students can work part-time up to 964 hours/year (~20 hours/week). Must validate visa after arrival. Renewal depends on academic progress. Must maintain student status.",
+
+    prosCons: "Pros: Access to world-class education, part-time work rights, pathway to post-study work visa and PR, affordable compared to other countries. Cons: Financial proof required, academic performance conditions, renewal process.",
+
+    terms: "VLS-TS: Long-stay visa acting as residence permit; Campus France: Official student application system; OFII: Immigration office; Part-time Work Limit: 964 hours/year; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French education and immigration laws, administered by French consulates, Campus France, and OFII.",
+
+    process: `1. Choose course and apply to French institution ->
+              2. Get admission letter ->
+              3. Register with Campus France ->
+              4. Attend interview (if required) ->
+              5. Obtain Campus France approval ->
+              6. Prepare financial and accommodation proof ->
+              7. Fill long-stay visa application form ->
+              8. Book appointment via VFS France ->
+              9. Submit biometrics and documents ->
+              10. Pay visa fee ->
+              11. Consulate reviews application ->
+              12. Receive visa approval ->
+              13. Travel to France ->
+              14. Validate VLS-TS online ->
+              15. Start studies and renew annually`
+},
+
+"FranceLanguageCourseVisa": {
+    name: "Language Course Visa (Long-Stay Language Study Visa – France)",
+
+    validity: "Usually issued for 3 months to 1 year depending on the duration of the language course. Can be renewable if continuing studies under certain conditions.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). VFS service charges extra (~₹1,500–₹2,500). OFII validation fee after arrival approx €100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks. May take longer during peak admission seasons.",
+
+    age: "No strict age limit. Commonly 18–35 years for students, but open to all eligible applicants.",
+
+    education: "Basic education required. Must have admission to a recognized French language institute or school.",
+
+    funds: "Proof of sufficient funds required. Minimum €615/month (~₹55,000/month). Recommended bank balance ₹6–10 lakh+.",
+
+    docs: "Valid passport, visa application form, passport photos, admission letter from language institute, course details (duration and fees), proof of payment (if applicable), financial proof (bank statements), accommodation proof, travel insurance (initial period), cover letter explaining purpose of learning French.",
+
+    whom: "Foreign nationals (including Indians) enrolling in French language courses in France for academic, professional, or personal development.",
+
+    rules: "Work rights may be limited or not allowed depending on visa category. Must focus on language study. Must validate visa after arrival. Renewal depends on continued enrollment.",
+
+    prosCons: "Pros: Opportunity to learn French in native environment, gateway to further studies or jobs, flexible duration. Cons: Limited or no work rights, strict financial proof, may not directly lead to PR.",
+
+    terms: "VLS-TS: Long-stay visa; OFII: Immigration office; Language Institute: Accredited school; Validation: Mandatory process after arrival; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and education laws, administered by French consulates and OFII.",
+
+    process: `1. Enroll in French language course ->
+              2. Receive admission letter ->
+              3. Arrange accommodation and funds ->
+              4. Prepare required documents ->
+              5. Fill long-stay visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Validate visa online ->
+              13. Attend language course and renew if needed`
+},
+"FranceInternshipTraineeshipVisaLongStay": {
+    name: "Internship / Traineeship Visa (Long-Stay Visa – France)",
+
+    validity: "Usually issued for 3 months to 12 months depending on the internship duration. Can be extended in some cases if the internship continues within legal limits.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). VFS service charges extra (~₹1,500–₹2,500). OFII/residence permit fee approx €100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks. May take longer depending on verification of internship agreement and documents.",
+
+    age: "No strict age limit. Commonly for students and young professionals (18–35 years).",
+
+    education: "Must be enrolled in a recognized educational institution or be a recent graduate. Internship must be related to field of study or training.",
+
+    funds: "Proof of sufficient funds required. Minimum €615/month (~₹55,000/month). If internship provides stipend, financial requirement may be reduced.",
+
+    docs: "Valid passport, visa application form, passport photos, internship agreement (Convention de Stage) signed by student, institution, and host organization, acceptance letter from French company, academic documents, CV/resume, accommodation proof, travel insurance (initial period), financial proof, cover letter explaining purpose.",
+
+    whom: "Foreign students or recent graduates (including Indians) undertaking long-term internships, industrial training, or professional traineeships in France.",
+
+    rules: "Must follow terms of internship agreement. Cannot take full-time employment outside internship. Stipend allowed if mentioned in agreement. Must validate visa after arrival. Renewal depends on continuation of internship.",
+
+    prosCons: "Pros: Valuable international work experience, longer duration than short-term visa, exposure to French work culture. Cons: Limited to internship role, no full employment rights, requires strict documentation.",
+
+    terms: "Convention de Stage: Official internship agreement; VLS-TS: Long-stay visa; OFII: Immigration office; Stipend: Internship allowance; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French labor and immigration laws for trainees and students, administered by French consulates and authorities.",
+
+    process: `1. Secure internship in France ->
+              2. Sign Convention de Stage with institution and employer ->
+              3. Arrange accommodation and funds ->
+              4. Prepare academic and personal documents ->
+              5. Fill long-stay visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Validate visa and start internship ->
+              13. Renew if internship continues`
+},
+
+"FranceFamilyReunificationVisa": {
+    name: "Family Reunification Visa (Regroupement Familial – France)",
+
+    validity: "Issued as a Long-Stay Visa (VLS-TS) valid for 1 year. After arrival, it acts as a residence permit and can be renewed annually. Can lead to long-term residence or permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). OFII/residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 3–6 months as it involves approval from French authorities (OFII) and verification of sponsor conditions.",
+
+    age: "Applicable to spouse (18+) and minor children (under 18).",
+
+    education: "Not required.",
+
+    funds: "Sponsor in France must prove sufficient and stable income (generally at least minimum wage – SMIC or higher depending on family size). Must also show adequate housing.",
+
+    docs: "Valid passport, visa application form, passport photos, marriage certificate (for spouse), birth certificates (for children), proof of relationship, sponsor’s residence permit or citizenship proof, proof of income (salary slips, tax returns), housing proof in France, OFII approval documents, and supporting documents requested by consulate.",
+
+    whom: "Family members (spouse and minor children) of a foreign national legally residing in France who wish to join them for long-term stay.",
+
+    rules: "Sponsor must have lived legally in France for a certain period (usually 18 months). Family members cannot work immediately in some cases until permit allows. Must live together as a family. Renewal depends on continued eligibility.",
+
+    prosCons: "Pros: Allows families to live together in France, pathway to long-term residence and PR, access to healthcare and education. Cons: Long processing time, strict income and housing requirements, dependency on sponsor’s status.",
+
+    terms: "Regroupement Familial: Family reunification process; OFII: French Immigration Office; SMIC: Minimum wage; VLS-TS: Long-stay visa; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration law and administered by OFII (Office Français de l’Immigration et de l’Intégration) and French consulates.",
+
+    process: `1. Sponsor applies for family reunification in France (via OFII) ->
+              2. Authorities verify income and housing conditions ->
+              3. Approval granted by French authorities ->
+              4. Family members apply for visa at French consulate ->
+              5. Submit documents and biometrics ->
+              6. Pay visa fee ->
+              7. Consulate reviews application ->
+              8. Receive visa approval ->
+              9. Travel to France ->
+              10. Validate VLS-TS ->
+              11. Join sponsor and reside in France ->
+              12. Renew residence permit when required`
+},
+"FranceSpouseVisaFrenchCitizen": {
+    name: "Spouse Visa (Spouse of French Citizen – France)",
+
+    validity: "Issued as a Long-Stay Visa (VLS-TS) valid for 1 year. Acts as a residence permit after arrival and can be renewed. Eligible for long-term residence and citizenship after meeting conditions.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). OFII/residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 2–8 weeks. May take longer if additional verification of marriage is required.",
+
+    age: "Both spouses must generally be 18 years or older.",
+
+    education: "Not required.",
+
+    funds: "No strict minimum income requirement, but the French spouse must demonstrate ability to support the household. Proof of accommodation in France required.",
+
+    docs: "Valid passport, visa application form, passport photos, French marriage certificate (or legally recognized foreign marriage), proof of spouse’s French citizenship, proof of relationship (photos, communication, etc.), accommodation proof in France, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) legally married to a French citizen and wishing to live in France.",
+
+    rules: "Genuine marriage must be proven. Fraudulent marriages lead to visa refusal or cancellation. Visa allows work in France. Must validate visa after arrival. Renewal depends on continued marital relationship.",
+
+    prosCons: "Pros: Right to live and work in France, faster PR and citizenship pathway, fewer financial restrictions compared to other visas. Cons: Strict verification of marriage authenticity, dependency on marital status for renewal.",
+
+    terms: "VLS-TS: Long-stay visa acting as residence permit; OFII: Immigration office; Marriage Certificate: Legal proof of marriage; Community Life: Proof of living together; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and civil laws, administered by French consulates and Ministry of Interior.",
+
+    process: `1. Get legally married to French citizen ->
+              2. Register marriage (if done abroad) ->
+              3. Prepare relationship and identity documents ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate verifies marriage authenticity ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Validate VLS-TS ->
+              12. Start living and working in France ->
+              13. Apply for renewal or long-term residence`
+},
+"FranceChildDependentVisa": {
+    name: "Child / Dependent Visa (France)",
+
+    validity: "Issued as a Long-Stay Visa (VLS-TS) valid for 1 year. Acts as a residence permit after arrival and is renewable annually. Can lead to long-term residence.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). OFII/residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 2–8 weeks. May take longer if additional verification of family relationship is required.",
+
+    age: "Generally for children under 18 years. In some cases, dependent adult children may qualify if financially dependent or disabled.",
+
+    education: "Not required. Children can enroll in schools after arrival in France.",
+
+    funds: "Sponsor (parent/guardian in France) must show sufficient income and accommodation to support the dependent.",
+
+    docs: "Valid passport, visa application form, passport photos, birth certificate, proof of relationship with sponsor, sponsor’s residence permit or citizenship proof, proof of income (salary slips, tax returns), accommodation proof, parental consent (if one parent is not accompanying), and supporting documents requested by consulate.",
+
+    whom: "Children or dependents of foreign residents or French citizens who wish to join their parent/guardian in France for long-term stay.",
+
+    rules: "Child must live with parent/guardian in France. Cannot work (for minors). School attendance may be required. Renewal depends on continued dependency and legal stay of sponsor.",
+
+    prosCons: "Pros: Allows family unity, access to education and healthcare, pathway to long-term residence. Cons: Dependent on sponsor’s status, no independent work rights, documentation requirements can be strict.",
+
+    terms: "Dependent: Family member relying on sponsor; VLS-TS: Long-stay visa; OFII: Immigration office; Residence Permit: Legal stay authorization; Parental Consent: Required for minors traveling alone or with one parent.",
+
+    legal: "Regulated under French immigration and family law, administered by French consulates and authorities.",
+
+    process: `1. Parent/sponsor in France initiates process ->
+              2. Gather relationship and financial documents ->
+              3. Fill long-stay visa application form ->
+              4. Book appointment via VFS France ->
+              5. Submit biometrics (if age applicable) and documents ->
+              6. Pay visa fee ->
+              7. Consulate verifies documents ->
+              8. Receive visa approval ->
+              9. Travel to France ->
+              10. Validate VLS-TS ->
+              11. Enroll child in school ->
+              12. Renew residence permit when required`
+},
+
+"FranceVisitorVisaForFamilyMembers": {
+    name: "Visitor Visa for Family Members (VLS-TS Visiteur – Family Stay, France)",
+
+    validity: "Usually issued for 4 months to 1 year. Acts as a residence permit (VLS-TS) after validation in France. Renewable annually depending on eligibility.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). OFII validation fee after arrival approx €200–€250 (~₹18,000–₹22,000).",
+
+    time: "Processing time usually 15–30 working days. May take longer if additional verification is required.",
+
+    age: "No strict age limit. Applicable to adult family members such as parents, relatives, or partners (case-based).",
+
+    education: "Not required.",
+
+    funds: "Strong financial proof required. Either the applicant must be self-sufficient or the host in France must provide financial support. Approx €1,200–€1,500/month (~₹1–1.3 lakh/month).",
+
+    docs: "Valid passport, long-stay visa application form, passport photos, invitation letter from family member in France, proof of relationship, host’s residence proof, financial proof (bank statements, sponsor letter if applicable), accommodation proof, health insurance covering full stay, and cover letter explaining purpose.",
+
+    whom: "Family members of residents or citizens in France (such as parents, extended relatives, or partners) who wish to stay long-term without working.",
+
+    rules: "No employment or business activity allowed. Must be financially self-sufficient or supported. Must validate visa after arrival. Renewal depends on continued eligibility and compliance.",
+
+    prosCons: "Pros: Allows long-term stay with family, renewable, suitable for parents or relatives. Cons: No work rights, strict financial requirements, not a direct pathway to PR.",
+
+    terms: "VLS-TS: Long-stay visa acting as residence permit; OFII: Immigration office; Sponsor: Family member providing support; Self-Sufficient: Financially independent; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration law, administered by French consulates and OFII.",
+
+    process: `1. Receive invitation from family member in France ->
+              2. Arrange financial proof or sponsorship ->
+              3. Obtain health insurance and accommodation proof ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews application ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Validate VLS-TS online ->
+              12. Stay with family and renew if required`
+},
+
+"FranceLongStayFamilyVisaViePriveeFamiliale": {
+    name: "Long-Stay Family Visa (VLS-TS Vie Privée et Familiale – France)",
+
+    validity: "Usually issued for 1 year. Acts as a residence permit after arrival and is renewable annually. Can lead to long-term residence (10-year card) and permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit/OFII tax after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 2–8 weeks. May take longer depending on case complexity and document verification.",
+
+    age: "No strict age limit. Applicable to adults and eligible dependents based on family situation.",
+
+    education: "Not required.",
+
+    funds: "No fixed minimum, but applicant or sponsor must show sufficient financial means and stable living conditions in France.",
+
+    docs: "Valid passport, long-stay visa application form, passport photos, proof of relationship (marriage certificate, birth certificate, etc.), proof of residence in France, sponsor’s legal status (citizen or resident), proof of income/resources, evidence of private and family life ties (cohabitation, duration of stay, etc.), and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) with strong personal or family ties in France (e.g., spouse/partner of resident, parent of French child, long-term residents with established life in France).",
+
+    rules: "Allows living and working in France. Must demonstrate genuine and continuous family or private life ties. Renewal depends on continued relationship and integration. Must validate visa after arrival.",
+
+    prosCons: "Pros: Work rights included, pathway to long-term residence and PR, flexible category covering various family situations. Cons: Case-by-case approval, strong proof of ties required, documentation can be complex.",
+
+    terms: "Vie Privée et Familiale: Private and family life category; VLS-TS: Long-stay visa; OFII: Immigration office; Residence Permit: Legal stay authorization; Integration: Social and family connection proof.",
+
+    legal: "Regulated under French immigration law for private and family life, administered by French consulates and Ministry of Interior.",
+
+    process: `1. Determine eligibility under private/family life category ->
+              2. Gather proof of relationship and ties in France ->
+              3. Arrange accommodation and financial proof ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews application ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Validate VLS-TS ->
+              12. Live and work in France ->
+              13. Renew residence permit and apply for long-term status`
+},
+
+"FranceEntrepreneurVisa": {
+    name: "Entrepreneur Visa (VLS-TS Entrepreneur / Profession Libérale – France)",
+
+    validity: "Usually issued for 1 year. Acts as a residence permit after arrival and is renewable annually. Can lead to long-term residence and permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 4–8 weeks. May take longer depending on business plan evaluation and approvals.",
+
+    age: "No strict age limit. Typically 18+ for business owners and entrepreneurs.",
+
+    education: "Not strictly required, but business experience, qualifications, or professional background related to the business activity is highly recommended.",
+
+    funds: "Must show sufficient investment funds and financial capacity to support business and personal stay. No fixed minimum, but typically €30,000+ (~₹25 lakh+) or more depending on project. Must also show sustainable income plan.",
+
+    docs: "Valid passport, long-stay visa application form, passport photos, detailed business plan, proof of funds/investment, proof of qualifications or experience, CV/resume, proof of accommodation, financial projections, registration documents (if company already formed), and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who want to start, manage, or invest in a business in France as entrepreneurs or self-employed professionals.",
+
+    rules: "Must actively run and manage the business. Business must be economically viable and legal. Must generate sufficient income for self-support. Renewal depends on business performance.",
+
+    prosCons: "Pros: Opportunity to run business in France, pathway to long-term residence and PR, flexibility in business activities. Cons: Requires strong business plan, financial investment, and risk of business failure.",
+
+    terms: "VLS-TS: Long-stay visa; Profession Libérale: Self-employed category; Business Plan: Detailed project proposal; Economic Viability: Profitability requirement; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and business laws, administered by French consulates and Ministry of Economy/Interior.",
+
+    process: `1. Develop business idea and plan ->
+              2. Arrange investment funds ->
+              3. Prepare financial and professional documents ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Authorities evaluate business viability ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Register business and validate visa ->
+              12. Start operations ->
+              13. Renew based on business performance`
+},
+
+"FranceSelfEmployedFreelanceVisa": {
+    name: "Self-Employed / Freelance Visa (Profession Libérale – France)",
+
+    validity: "Usually issued for 1 year as a Long-Stay Visa (VLS-TS). Acts as a residence permit after arrival and is renewable annually. Can lead to long-term residence or permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 4–8 weeks. May take longer depending on evaluation of professional activity and documents.",
+
+    age: "No strict age limit. Typically 18+ for professionals and freelancers.",
+
+    education: "Not strictly mandatory, but relevant qualifications, certifications, or professional experience in the field are strongly recommended.",
+
+    funds: "Must show sufficient financial resources and expected income to support living expenses. Generally at least minimum wage level (SMIC equivalent ~€1,300/month). Initial savings of ₹5–15 lakh+ recommended.",
+
+    docs: "Valid passport, long-stay visa application form, passport photos, professional activity plan, proof of freelance work (contracts/clients), CV/resume, qualifications (if applicable), proof of funds, accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who want to work independently in France as freelancers, consultants, artists, or self-employed professionals.",
+
+    rules: "Must carry out declared freelance/professional activity only. Income must be sufficient to support stay. Must register business/self-employment in France. Renewal depends on continued activity and earnings.",
+
+    prosCons: "Pros: Flexibility to work independently, pathway to long-term residence, suitable for digital professionals and creatives. Cons: Income uncertainty, strict documentation, must prove economic viability.",
+
+    terms: "Profession Libérale: Self-employed category; VLS-TS: Long-stay visa; SMIC: Minimum wage benchmark; Business Registration: Mandatory setup; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and labor laws for self-employed individuals, administered by French consulates and authorities.",
+
+    process: `1. Define freelance or professional activity ->
+              2. Secure clients or contracts (if possible) ->
+              3. Prepare financial and professional documents ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Authorities evaluate application ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Register self-employment/business ->
+              12. Start freelance work ->
+              13. Renew visa based on income and activity`
+},
+
+"FranceInvestorVisa": {
+    name: "Investor Visa (Passeport Talent – Investor / Business Investor, France)",
+
+    validity: "Usually issued for up to 4 years under the Talent Passport category. Renewable and can lead to long-term residence and permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 4–8 weeks. May take longer depending on verification of investment and business documents.",
+
+    age: "No strict age limit. Typically 18+ for investors and businesspersons.",
+
+    education: "Not mandatory, but business experience or financial background is highly beneficial.",
+
+    funds: "Significant investment required. Typically minimum €300,000 (~₹2.5+ crore) investment in a French company or business project. Must also show sufficient personal financial resources.",
+
+    docs: "Valid passport, visa application form, passport photos, proof of investment (€300,000+), business plan or investment project details, proof of source of funds, CV/resume, proof of economic benefit to France (job creation, development), accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "High-net-worth individuals (including Indians) who want to invest in or establish a business in France contributing to the economy.",
+
+    rules: "Must maintain and manage investment. Investment must create or protect jobs or contribute to economic development. Renewal depends on continued investment activity.",
+
+    prosCons: "Pros: Long validity (up to 4 years), pathway to PR, business opportunities in France, family reunification benefits. Cons: High investment requirement, financial risk, strict compliance and monitoring.",
+
+    terms: "Passeport Talent: Special visa category; Investment Threshold: Minimum capital requirement; Economic Contribution: Job creation/business growth; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and investment laws, administered by French consulates and Ministry of Economy/Interior.",
+
+    process: `1. Plan investment or business project in France ->
+              2. Arrange required investment funds ->
+              3. Prepare business and financial documents ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Authorities evaluate investment proposal ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Complete investment and obtain residence permit ->
+              12. Manage business/investment ->
+              13. Renew based on compliance`
+},
+"FranceStartupFrenchTechVisa": {
+    name: "Startup / French Tech Visa (Passeport Talent – French Tech Visa, France)",
+
+    validity: "Usually issued for up to 4 years under the Talent Passport category. Renewable and can lead to long-term residence and permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 3–6 weeks after obtaining recognition from a French Tech-approved organization.",
+
+    age: "No strict age limit. Typically 18+ for startup founders, employees, and investors.",
+
+    education: "Not strictly required, but strong background in business, technology, or innovation is highly recommended.",
+
+    funds: "Must show sufficient financial resources to support stay. For founders, proof of funding or support from an incubator/accelerator is required. Minimum funds around €20,000–€30,000 (~₹18–₹27 lakh) or as per project needs.",
+
+    docs: "Valid passport, visa application form, passport photos, proof of selection/recognition by a French Tech partner (incubator, accelerator, or public body), business plan or startup project details, proof of funds, CV/resume, accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "Startup founders, innovative entrepreneurs, startup employees, and investors (including Indians) who want to build or join a startup in France under the French Tech ecosystem.",
+
+    rules: "Must work on approved startup or innovation project. Founders must be supported by recognized incubators. Employees must be hired by eligible startups. Renewal depends on continued involvement in startup ecosystem.",
+
+    prosCons: "Pros: Fast-track visa, long validity (up to 4 years), strong support from French startup ecosystem, family reunification benefits, pathway to PR. Cons: Requires selection/approval by French Tech body, competitive eligibility, startup risk.",
+
+    terms: "French Tech Visa: Special startup visa program; Passeport Talent: Long-term visa category; Incubator/Accelerator: Startup support organization; Innovation Project: New business idea; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration law and French Tech program policies, administered by French consulates and innovation authorities.",
+
+    process: `1. Develop startup idea or secure job in French startup ->
+              2. Get selected by French Tech-approved incubator/organization ->
+              3. Prepare business and financial documents ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Authorities review application ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Obtain residence permit ->
+              12. Launch or join startup ->
+              13. Renew based on startup progress`
+},
+"FranceTalentPassportBusinessCreation": {
+    name: "Talent Passport – Business Creation (Passeport Talent Création d’Entreprise – France)",
+
+    validity: "Usually issued for up to 4 years. Renewable and can lead to long-term residence and permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 4–8 weeks. May vary depending on evaluation of business project and documents.",
+
+    age: "No strict age limit. Typically 18+ for entrepreneurs and business founders.",
+
+    education: "Generally requires at least a Master’s degree or equivalent professional experience (5+ years) in a relevant field.",
+
+    funds: "Minimum investment requirement usually around €30,000 (~₹25 lakh+). Must also demonstrate sufficient personal financial resources to support living expenses.",
+
+    docs: "Valid passport, visa application form, passport photos, detailed business plan, proof of investment funds (€30,000+), proof of qualifications or professional experience, CV/resume, proof of economic viability, accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who want to establish and actively run a new business in France with a viable and innovative project.",
+
+    rules: "Must actively create and manage the business. Project must be economically viable and beneficial to France. Renewal depends on business performance and compliance.",
+
+    prosCons: "Pros: Long validity (up to 4 years), pathway to PR, flexibility to run business, part of Talent Passport advantages. Cons: Requires investment and strong business plan, strict eligibility criteria, financial risk.",
+
+    terms: "Passeport Talent: Special long-term visa; Business Creation: New enterprise setup; Economic Viability: Profitability and sustainability; Investment Threshold: Minimum capital requirement; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and business laws, administered by French consulates and Ministry of Economy/Interior.",
+
+    process: `1. Develop business creation project ->
+              2. Arrange required investment funds ->
+              3. Prepare business plan and financial documents ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Authorities evaluate project viability ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Register and launch business ->
+              12. Obtain residence permit ->
+              13. Renew based on business success`
+},
+
+"FranceTalentPassportInvestor": {
+    name: "Talent Passport – Investor (Passeport Talent Investisseur – France)",
+
+    validity: "Usually issued for up to 4 years. Renewable and can lead to long-term residence and permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 4–8 weeks. May take longer depending on verification of investment and source of funds.",
+
+    age: "No strict age limit. Typically 18+ for investors and businesspersons.",
+
+    education: "Not mandatory, but business or financial background is advantageous.",
+
+    funds: "Significant investment required. Minimum €300,000 (~₹2.5+ crore) in tangible or intangible assets in France. Must also show sufficient personal financial resources.",
+
+    docs: "Valid passport, visa application form, passport photos, proof of investment (€300,000+), proof of source of funds, investment/project details, CV/resume, proof of economic contribution (job creation or business growth), accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "High-net-worth individuals (including Indians) investing in French businesses or economic projects contributing to growth and employment.",
+
+    rules: "Must maintain investment for required period. Investment must contribute to the French economy. Renewal depends on continued compliance and investment activity.",
+
+    prosCons: "Pros: Long validity (up to 4 years), fast-track pathway to PR, family reunification benefits, access to EU market. Cons: High investment requirement, financial risk, strict monitoring.",
+
+    terms: "Passeport Talent: Special visa category; Investment Threshold: Minimum €300,000; Economic Contribution: Job creation/business impact; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and investment laws, administered by French consulates and Ministry of Economy/Interior.",
+
+    process: `1. Plan investment in France ->
+              2. Arrange funds and prove source of capital ->
+              3. Prepare investment and supporting documents ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Authorities evaluate investment ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Complete investment and obtain residence permit ->
+              12. Maintain investment ->
+              13. Renew based on compliance`
+},
+
+"FranceTalentPassportCompanyFounder": {
+    name: "Talent Passport – Company Founder (Passeport Talent Créateur d’Entreprise – France)",
+
+    validity: "Usually issued for up to 4 years. Renewable and can lead to long-term residence and permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 4–8 weeks. May vary depending on business evaluation and documentation.",
+
+    age: "No strict age limit. Typically 18+ for entrepreneurs and founders.",
+
+    education: "Generally requires at least a Master’s degree or equivalent professional experience (5+ years) relevant to the business activity.",
+
+    funds: "Minimum investment requirement usually around €30,000 (~₹25 lakh+). Must also show sufficient personal financial resources to support living expenses.",
+
+    docs: "Valid passport, visa application form, passport photos, detailed business plan, proof of investment funds (€30,000+), proof of qualifications or experience, CV/resume, proof of economic viability, company formation documents (if applicable), accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who want to establish and actively run a company in France with a viable and innovative business project.",
+
+    rules: "Must actively create and manage the company. Business must be economically viable and contribute to the French economy. Renewal depends on business performance and compliance.",
+
+    prosCons: "Pros: Long validity (up to 4 years), pathway to PR, flexibility to run business, part of Talent Passport benefits, family reunification allowed. Cons: Requires strong business plan and investment, strict eligibility criteria, financial risk.",
+
+    terms: "Passeport Talent: Special visa category; Créateur d’Entreprise: Company founder category; Economic Viability: Business sustainability; Investment Threshold: Minimum capital requirement; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and business laws, administered by French consulates and Ministry of Economy/Interior.",
+
+    process: `1. Develop company creation project ->
+              2. Arrange investment funds ->
+              3. Prepare business plan and supporting documents ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Authorities evaluate project viability ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Register and launch company ->
+              12. Obtain residence permit ->
+              13. Renew based on business performance`
+},
+"FranceAuPairVisa": {
+    name: "Au Pair Visa (Young Au Pair – France)",
+
+    validity: "Usually issued for 6 months to 1 year. Can be extended up to a maximum of 2 years under certain conditions.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). OFII/residence permit fee after arrival approx €100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks. May vary depending on verification of host family and documents.",
+
+    age: "Typically 18–30 years (age limits may vary slightly depending on country agreements).",
+
+    education: "Basic education required. Some knowledge of French is often preferred or required by host family.",
+
+    funds: "No large funds required. Au pair receives monthly pocket money (~€300–€350). Must show basic funds for initial expenses (~₹1–2 lakh recommended).",
+
+    docs: "Valid passport, visa application form, passport photos, Au Pair agreement/contract with host family, proof of host family accommodation, basic French language knowledge proof (if required), educational certificates, medical insurance, motivation/cover letter.",
+
+    whom: "Young individuals (including Indians) who want to live with a French host family, help with childcare/household tasks, and learn French culture and language.",
+
+    rules: "Work limited to light household duties (max ~25 hours/week). Must attend French language classes. Cannot take other employment. Must live with host family.",
+
+    prosCons: "Pros: Cultural exchange, low-cost stay, opportunity to learn French, accommodation and meals included. Cons: Limited income, restricted work type, dependent on host family conditions.",
+
+    terms: "Au Pair: Cultural exchange program; Host Family: Family providing accommodation; Pocket Money: Monthly allowance; Cultural Exchange: Learning language and culture; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and labor rules for cultural exchange programs, administered by French consulates and authorities.",
+
+    process: `1. Find host family in France ->
+              2. Sign Au Pair agreement/contract ->
+              3. Arrange basic funds and insurance ->
+              4. Prepare required documents ->
+              5. Fill long-stay visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Validate visa and join host family ->
+              13. Attend language classes and complete program`
+},
+"FranceVolunteerVisa": {
+    name: "Volunteer Visa (Service Civique / Volontariat – France)",
+
+    validity: "Usually issued for 6 months to 1 year depending on the volunteer program. Can be extended in some cases within program limits.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). OFII/residence permit fee after arrival approx €100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks. May vary depending on verification of volunteer organization and documents.",
+
+    age: "Typically 18–30 years for most volunteer programs (can vary depending on program type).",
+
+    education: "Not strictly required. Some programs may prefer relevant background or skills.",
+
+    funds: "No major funds required. Volunteer programs usually provide allowance (€100–€600/month), accommodation, or support. Basic personal funds (~₹1–2 lakh) recommended.",
+
+    docs: "Valid passport, visa application form, passport photos, volunteer agreement/contract, acceptance letter from approved French organization, proof of accommodation (if not provided), financial proof or sponsor letter, medical insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) participating in recognized volunteer programs, NGOs, or public service initiatives in France.",
+
+    rules: "Only volunteer work allowed. Cannot take paid employment. Must follow terms of volunteer program. Must validate visa after arrival. Stay limited to program duration.",
+
+    prosCons: "Pros: Cultural experience, social contribution, low-cost stay, exposure to French society. Cons: Limited or no income, no work rights, temporary stay.",
+
+    terms: "Volontariat: Volunteer service; Service Civique: French public service program; Host Organization: NGO or institution; Allowance: Monthly stipend; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and volunteer program laws, administered by French consulates and authorized organizations.",
+
+    process: `1. Apply for volunteer program in France ->
+              2. Receive acceptance from approved organization ->
+              3. Sign volunteer agreement ->
+              4. Arrange accommodation and insurance ->
+              5. Fill long-stay visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Validate visa ->
+              13. Start volunteer program`
+},
+
+"FranceCulturalExchangeVisa": {
+    name: "Cultural Exchange Visa (France)",
+
+    validity: "Usually issued for 3 months to 1 year depending on the exchange program. Can be extended in some cases based on program duration.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). OFII/residence permit fee after arrival approx €100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks. May vary depending on program verification and documentation.",
+
+    age: "Typically 18–35 years for most exchange programs (may vary depending on agreement or program).",
+
+    education: "Not strictly required, but relevant academic or cultural background may be preferred depending on program type.",
+
+    funds: "Financial support may be provided by the program. Otherwise, proof of sufficient funds (~€615/month or ₹50,000+/month) may be required.",
+
+    docs: "Valid passport, visa application form, passport photos, invitation/acceptance letter from French organization, cultural exchange agreement, program details, proof of funds or sponsorship, accommodation proof, travel/medical insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) participating in cultural exchange programs such as arts, music, education, research exchange, or international cooperation initiatives in France.",
+
+    rules: "Must participate only in approved cultural or exchange activities. Limited or no employment allowed unless specified. Must validate visa after arrival. Stay limited to program duration.",
+
+    prosCons: "Pros: Cultural exposure, international experience, opportunity to build global network. Cons: Limited work rights, temporary stay, dependent on program approval.",
+
+    terms: "Cultural Exchange: International program for cultural sharing; Host Organization: French institution; Sponsorship: Financial or institutional support; OFII: Immigration office; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and international exchange program laws, administered by French consulates and authorities.",
+
+    process: `1. Apply for cultural exchange program ->
+              2. Receive acceptance from French organization ->
+              3. Prepare financial and accommodation proof ->
+              4. Fill visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews application ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Validate visa ->
+              12. Participate in exchange program`
+},
+
+"FranceReligiousWorkerVisa": {
+    name: "Religious Worker Visa (France)",
+
+    validity: "Usually issued for 3 months to 1 year depending on the religious assignment. Can be renewed if the mission continues and conditions are met.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit/OFII fee after arrival approx €100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks. May take longer depending on verification of religious organization and role.",
+
+    age: "No strict age limit. Typically 18+ for religious workers.",
+
+    education: "Not strictly required, but religious training, theological education, or relevant experience is often expected.",
+
+    funds: "Usually supported by the religious organization (accommodation, stipend, or salary). Basic personal funds (~₹1–2 lakh) recommended.",
+
+    docs: "Valid passport, visa application form, passport photos, invitation/appointment letter from recognized religious organization in France, proof of role (priest, missionary, etc.), organization registration proof, accommodation details, financial support proof, medical insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) invited by recognized religious institutions in France to perform religious duties such as preaching, missionary work, or community service.",
+
+    rules: "Must work only for the sponsoring religious organization. Cannot engage in unrelated employment. Must respect French laws regarding secularism and public order. Renewal depends on continued assignment.",
+
+    prosCons: "Pros: Opportunity to serve in religious role abroad, accommodation/support often provided, possible renewal. Cons: Limited to religious duties, restricted employment rights, dependent on sponsoring institution.",
+
+    terms: "Religious Organization: Registered institution in France; Missionary Work: Religious service; OFII: Immigration office; Residence Permit: Legal stay authorization; Sponsorship: Support by organization.",
+
+    legal: "Regulated under French immigration law and laws governing religious activities, administered by French consulates and authorities.",
+
+    process: `1. Receive invitation from religious organization in France ->
+              2. Prepare supporting and identity documents ->
+              3. Arrange accommodation and financial support proof ->
+              4. Fill visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate verifies organization and role ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Validate visa and obtain residence permit ->
+              12. Begin religious duties ->
+              13. Renew if assignment continues`
+},
+"FranceNGOHumanitarianVisa": {
+    name: "NGO / Humanitarian Visa (Humanitarian or Voluntary Work – France)",
+
+    validity: "Usually issued for 3 months to 1 year depending on the humanitarian mission. Can be extended if the project continues and approvals are granted.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). OFII/residence permit fee after arrival approx €100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks. May vary depending on verification of NGO and humanitarian project.",
+
+    age: "No strict age limit. Typically 18+ for volunteers and humanitarian workers.",
+
+    education: "Not strictly required, but relevant skills, training, or experience (healthcare, social work, disaster relief, etc.) are often preferred.",
+
+    funds: "Usually supported by the NGO (allowance, accommodation, or stipend). Basic personal funds (~₹1–2 lakh) recommended.",
+
+    docs: "Valid passport, visa application form, passport photos, invitation/mission letter from recognized NGO or humanitarian organization, proof of organization registration, role description, accommodation proof, financial support or sponsorship proof, medical insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) participating in humanitarian missions, NGO projects, or social service initiatives in France or through French organizations.",
+
+    rules: "Must work only on approved humanitarian/NGO activities. Paid employment outside mission is not allowed. Must follow program conditions. Stay limited to mission duration.",
+
+    prosCons: "Pros: Opportunity to contribute to social causes, international exposure, accommodation/support often provided. Cons: Limited income, restricted work rights, temporary stay.",
+
+    terms: "NGO: Non-Governmental Organization; Humanitarian Mission: Social or relief work; Sponsorship: Support by organization; OFII: Immigration office; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and humanitarian program laws, administered by French consulates and authorized organizations.",
+
+    process: `1. Apply for NGO/humanitarian program ->
+              2. Receive acceptance from recognized organization ->
+              3. Obtain mission/invitation letter ->
+              4. Arrange accommodation and insurance ->
+              5. Fill visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to France ->
+              12. Validate visa ->
+              13. Begin humanitarian work`
+},
+"FranceArtistPerformerVisa": {
+    name: "Artist / Performer Visa (Passeport Talent – Artist or Cultural Performer, France)",
+
+    validity: "Usually issued for up to 1–4 years depending on the contract or artistic engagement. Renewable and can lead to long-term residence.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 2–6 weeks. May vary depending on verification of artistic contracts and documents.",
+
+    age: "No strict age limit. Typically 18+ for professional artists and performers.",
+
+    education: "Not mandatory, but professional training, portfolio, or proven experience in arts, music, theatre, film, or performance is usually required.",
+
+    funds: "Must show sufficient income through contracts or engagements. No fixed minimum, but income should meet living standards (SMIC level or higher).",
+
+    docs: "Valid passport, visa application form, passport photos, employment or performance contracts, invitation letters from French cultural organizations, portfolio of artistic work, CV/resume, proof of income, accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "Foreign artists, musicians, actors, performers, and cultural professionals (including Indians) invited to work or perform in France.",
+
+    rules: "Must work only in artistic or cultural activities as per contracts. Can work with multiple employers if contracts are valid. Renewal depends on continued artistic engagements.",
+
+    prosCons: "Pros: Opportunity to work in France’s rich cultural sector, flexible artistic engagements, pathway to long-term residence. Cons: Requires proven talent and contracts, income may be irregular, documentation can be strict.",
+
+    terms: "Passeport Talent: Special visa category; Artistic Contract: Work agreement; Cultural Organization: Host institution; SMIC: Minimum wage benchmark; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and cultural employment laws, administered by French consulates and Ministry of Culture/Interior.",
+
+    process: `1. Secure artistic contracts or invitations in France ->
+              2. Prepare portfolio and professional documents ->
+              3. Arrange financial and accommodation proof ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Authorities review artistic credentials ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Obtain residence permit ->
+              12. Perform/work in France ->
+              13. Renew based on ongoing contracts`
+},
+
+"FranceJournalistVisa": {
+    name: "Journalist Visa (Professional Journalist – France)",
+
+    validity: "Usually issued for 3 months to 1 year depending on assignment. Can be extended or converted to a residence permit if long-term work continues.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit/OFII fee after arrival approx €100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks. May vary depending on verification of media organization and assignment.",
+
+    age: "No strict age limit. Typically 21+ for professional journalists.",
+
+    education: "Not strictly required, but journalism, media, or communication background and professional experience are strongly recommended.",
+
+    funds: "Must show proof of income or financial support from employer/media organization. No fixed minimum, but sufficient to cover stay in France.",
+
+    docs: "Valid passport, visa application form, passport photos, assignment letter from media organization, press accreditation or journalist ID, employment contract or proof of freelance work, CV/resume, proof of income, accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "Foreign journalists, reporters, correspondents, and media professionals (including Indians) assigned to work in France for news agencies, media houses, or freelance reporting.",
+
+    rules: "Must work only for approved media activities. May require press accreditation in France. Cannot engage in unrelated employment. Renewal depends on continued assignment.",
+
+    prosCons: "Pros: Opportunity to work in international media environment, access to major global events, possible renewal. Cons: Restricted to journalism work, documentation verification can be strict, temporary nature.",
+
+    terms: "Press Accreditation: Official journalist recognition; Assignment Letter: Work authorization from media house; Freelance Journalist: Independent media professional; OFII: Immigration office; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration and media laws, administered by French consulates and relevant authorities.",
+
+    process: `1. Secure assignment from media organization ->
+              2. Prepare professional and identity documents ->
+              3. Arrange accommodation and financial proof ->
+              4. Fill visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate verifies media credentials ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Obtain residence permit (if required) ->
+              12. Begin journalistic work ->
+              13. Renew if assignment continues`
+},
+"FranceTemporaryResidenceVisa": {
+    name: "Temporary Residence Visa (Carte de Séjour Temporaire – France)",
+
+    validity: "Usually issued for up to 1 year. Renewable annually depending on purpose (work, study, family, etc.). Can lead to long-term residence after continuous stay.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 2–8 weeks. May vary depending on category and document verification.",
+
+    age: "No strict age limit. Typically 18+ for independent applicants.",
+
+    education: "Depends on purpose. Required for study visas; not mandatory for family or visitor categories.",
+
+    funds: "Must show sufficient financial resources depending on purpose (e.g., €615/month for students, higher for visitors).",
+
+    docs: "Valid passport, visa application form, passport photos, proof of purpose of stay (job offer, admission letter, family proof, etc.), financial proof, accommodation proof, health insurance, and supporting documents requested by consulate.",
+
+    whom: "Foreign nationals (including Indians) who wish to stay temporarily in France for specific purposes such as work, study, family, or personal reasons.",
+
+    rules: "Must comply with conditions of the specific purpose (work, study, etc.). Renewal depends on continued eligibility. Must validate visa after arrival.",
+
+    prosCons: "Pros: Flexible category covering multiple purposes, renewable, pathway to long-term residence. Cons: Limited to specific purpose, requires renewal, conditions vary by category.",
+
+    terms: "Carte de Séjour Temporaire: Temporary residence permit; VLS-TS: Long-stay visa; OFII: Immigration office; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration law, administered by French consulates and Ministry of Interior.",
+
+    process: `1. Determine purpose of stay in France ->
+              2. Gather required documents for that category ->
+              3. Arrange financial and accommodation proof ->
+              4. Fill visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews application ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Validate visa and obtain residence permit ->
+              12. Stay for approved purpose ->
+              13. Renew if eligible`
+},
+"FranceMultiYearResidenceVisa": {
+    name: "Multi-Year Residence Visa (Carte de Séjour Pluriannuelle – France)",
+
+    validity: "Usually issued for 2 to 4 years after the first year of residence in France. Renewable and can lead to long-term residence (10-year card) or permanent residency.",
+
+    cost: "Residence permit fee: approx €200–€300 (~₹18,000–₹26,000). Initial visa fee (if applicable): €99 (~₹9,000–₹9,500).",
+
+    time: "Processing time usually 2–8 weeks within France after application at the prefecture. May vary depending on case and location.",
+
+    age: "No strict age limit. Typically 18+ for independent applicants.",
+
+    education: "Depends on category (required for students or skilled workers, not mandatory for family/visitor categories).",
+
+    funds: "Must demonstrate stable and sufficient income or financial resources depending on category (employment salary, business income, or personal funds).",
+
+    docs: "Valid passport, current residence permit, application form, passport photos, proof of continued stay purpose (job contract, study enrollment, family ties, etc.), proof of income, accommodation proof, and supporting documents requested by authorities.",
+
+    whom: "Foreign nationals (including Indians) already residing in France on a long-stay visa or temporary residence permit who want a longer-duration residence permit.",
+
+    rules: "Must have completed initial stay legally (usually 1 year). Must continue to meet conditions of stay (work, study, family, etc.). Must comply with French integration requirements. Renewal depends on continued eligibility.",
+
+    prosCons: "Pros: Longer validity (2–4 years), fewer renewals, stability of stay, pathway to long-term residence or PR. Cons: Only available after initial stay, requires continued compliance, not granted automatically.",
+
+    terms: "Carte de Séjour Pluriannuelle: Multi-year residence permit; Prefecture: Local immigration office; Integration: Language and social adaptation; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration law, administered by local prefectures and Ministry of Interior.",
+
+    process: `1. Complete initial year of legal stay in France ->
+              2. Ensure continued eligibility (job, study, family, etc.) ->
+              3. Gather updated documents ->
+              4. Apply at local prefecture in France ->
+              5. Submit biometrics and documents ->
+              6. Pay residence permit fee ->
+              7. Authorities review application ->
+              8. Receive multi-year residence permit ->
+              9. Continue stay legally in France ->
+              10. Renew or upgrade to long-term residence`
+},
+"FrancePermanentResidencePermit": {
+    name: "Permanent Residence Permit (Carte de Résident – France)",
+
+    validity: "Valid for 10 years and renewable indefinitely. Provides long-term residence stability similar to permanent residency.",
+
+    cost: "Residence permit fee: approx €225–€300 (~₹20,000–₹26,000).",
+
+    time: "Processing time usually 2–6 months depending on prefecture and case complexity.",
+
+    age: "No strict age limit. Typically 18+ for independent applicants.",
+
+    education: "Not mandatory, but integration into French society (including basic French language knowledge) is required.",
+
+    funds: "Must show stable and sufficient income (employment, business, or other legal sources). No fixed minimum, but should meet living standards in France.",
+
+    docs: "Valid passport, current residence permit, application form, passport photos, proof of continuous legal stay (usually 5 years), proof of income, tax records, accommodation proof, proof of integration (language certificate or evidence), and supporting documents requested by prefecture.",
+
+    whom: "Foreign nationals (including Indians) who have legally lived in France for several years (usually 5 years) and wish to obtain long-term or permanent residence.",
+
+    rules: "Must have continuous legal residence. Must demonstrate integration into French society. Can work freely. Renewal every 10 years required. Long absences from France may affect status.",
+
+    prosCons: "Pros: Long-term stability (10 years), full work rights, easier travel within EU, pathway to French citizenship. Cons: Requires long residency period, strict documentation, integration requirements.",
+
+    terms: "Carte de Résident: 10-year residence permit; Prefecture: Local immigration office; Integration: Language and social adaptation; Continuous Residence: Legal stay requirement.",
+
+    legal: "Regulated under French immigration law, administered by local prefectures and Ministry of Interior.",
+
+    process: `1. Complete required years of legal stay in France (usually 5 years) ->
+              2. Ensure stable income and integration ->
+              3. Gather required documents ->
+              4. Apply at local prefecture ->
+              5. Submit biometrics and documents ->
+              6. Pay residence permit fee ->
+              7. Authorities review application ->
+              8. Attend interview if required ->
+              9. Receive 10-year residence permit ->
+              10. Renew every 10 years or apply for citizenship`
+},
+"FranceTalentPassportMultiYearResidence": {
+    name: "Talent Passport (Multi-Year Residence Category – France)",
+
+    validity: "Usually issued for up to 4 years depending on the specific Talent Passport category (employee, researcher, entrepreneur, artist, etc.). Renewable and can lead to long-term residence or permanent residency.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit fee after arrival approx €200–€300 (~₹18,000–₹26,000).",
+
+    time: "Processing time usually 2–6 weeks. May vary depending on category and document verification.",
+
+    age: "No strict age limit. Typically 18+ for professionals and applicants under Talent categories.",
+
+    education: "Generally requires higher education (Bachelor’s/Master’s/PhD) or significant professional experience depending on category.",
+
+    funds: "Depends on category. Usually requires meeting salary thresholds (for employees) or investment/business funds (for entrepreneurs/investors). Must demonstrate financial stability.",
+
+    docs: "Valid passport, visa application form, passport photos, employment contract or business plan (depending on category), proof of qualifications or experience, proof of salary/investment, accommodation proof, and supporting documents requested by consulate.",
+
+    whom: "Highly skilled professionals, researchers, entrepreneurs, investors, artists, and talented individuals (including Indians) eligible under Talent Passport categories who want long-term residence in France.",
+
+    rules: "Must continue activity under approved Talent category. Allows work and residence in France. Family members can accompany under simplified process. Renewal depends on continued eligibility.",
+
+    prosCons: "Pros: Multi-year residence (up to 4 years), fewer renewals, family reunification benefits, pathway to PR, flexibility within category. Cons: High eligibility criteria, category-specific requirements.",
+
+    terms: "Passeport Talent: Special visa/residence category; Multi-Year Permit: Up to 4 years stay; Salary Threshold: Minimum income requirement; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration law and EU directives for skilled migration, administered by French consulates and Ministry of Interior.",
+
+    process: `1. Identify eligible Talent Passport category ->
+              2. Secure job / project / investment ->
+              3. Prepare required documents ->
+              4. Fill long-stay visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Authorities review application ->
+              9. Receive visa approval ->
+              10. Travel to France ->
+              11. Obtain multi-year residence permit ->
+              12. Continue activity and renew if needed`
+},
+"FranceAsylumVisaRefugeeStatus": {
+    name: "Asylum Visa (Refugee Status – France)",
+
+    validity: "Initial temporary stay permit during application process. If approved, refugee status grants a 10-year residence permit (Carte de Résident), renewable.",
+
+    cost: "No visa fee for asylum application. Process is free. Government may provide accommodation and basic support.",
+
+    time: "Processing time varies widely (usually 6 months to 1+ year) depending on case complexity and appeals.",
+
+    age: "No age limit. Applicable to individuals and families seeking protection.",
+
+    education: "Not required.",
+
+    funds: "No financial requirement. Applicants may receive state support (housing, allowance, healthcare) during the process.",
+
+    docs: "Passport or identity documents (if available), asylum application form, personal statement explaining fear of persecution, evidence (if any), photos, and documents submitted to French asylum authorities.",
+
+    whom: "Individuals (including Indians, though rare) who fear persecution in their home country due to race, religion, nationality, political opinion, or membership in a particular social group.",
+
+    rules: "Must apply for asylum after entering France or at the border. Cannot freely travel outside France during processing. Must cooperate with authorities and attend interviews. Rights depend on application stage.",
+
+    prosCons: "Pros: Protection from persecution, right to stay legally, access to social benefits, pathway to permanent residence. Cons: Long and uncertain process, strict eligibility criteria, limited movement during application.",
+
+    terms: "Refugee Status: Legal protection under international law; OFPRA: French asylum authority; CNDA: Appeal court; Asylum Seeker: Applicant for protection; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under international refugee law (Geneva Convention) and French asylum law, administered by OFPRA (Office Français de Protection des Réfugiés et Apatrides) and CNDA.",
+
+    process: `1. Enter France or present at border ->
+              2. Register asylum application at prefecture ->
+              3. Receive temporary stay authorization ->
+              4. Submit application to OFPRA ->
+              5. Attend interview and provide evidence ->
+              6. Wait for decision ->
+              7. If approved → receive refugee status and residence permit ->
+              8. If rejected → option to appeal at CNDA ->
+              9. If final approval → settle in France with protection`
+},
+
+"FranceSubsidiaryProtectionVisa": {
+    name: "Subsidiary Protection Visa (Protection Subsidiaire – France)",
+
+    validity: "Granted with a residence permit typically valid for 1 year, renewable. After continuous stay, can lead to long-term residence or permanent residency.",
+
+    cost: "No visa/application fee for protection request. Government may provide accommodation, allowance, and basic support.",
+
+    time: "Processing time usually 6 months to 1+ year depending on case complexity and appeals.",
+
+    age: "No age limit. Applicable to individuals and families seeking protection.",
+
+    education: "Not required.",
+
+    funds: "No financial requirement. Applicants may receive state support during the process (housing, financial aid, healthcare).",
+
+    docs: "Identity documents (passport if available), asylum/protection application form, personal statement explaining risk of serious harm, any supporting evidence, photos, and documents submitted to French asylum authorities.",
+
+    whom: "Individuals (including Indians, though rare) who do not qualify for full refugee status but face serious risks in their home country (e.g., war, death penalty, torture, or inhuman treatment).",
+
+    rules: "Must apply through asylum process in France. Limited travel rights during processing. Must cooperate with authorities and attend interviews. Rights depend on protection status granted.",
+
+    prosCons: "Pros: Legal protection from serious harm, right to stay in France, access to basic rights and services, pathway to long-term residence. Cons: Temporary status initially, renewal required, long and uncertain processing time.",
+
+    terms: "Subsidiary Protection: Secondary form of protection; OFPRA: French asylum authority; CNDA: Appeal court; Residence Permit: Legal stay authorization; Protection Status: Legal humanitarian protection.",
+
+    legal: "Regulated under EU asylum directives and French immigration law, administered by OFPRA (Office Français de Protection des Réfugiés et Apatrides) and CNDA.",
+
+    process: `1. Enter France or present at border ->
+              2. Register protection/asylum request at prefecture ->
+              3. Receive temporary stay authorization ->
+              4. Submit application to OFPRA ->
+              5. Attend interview and provide evidence ->
+              6. OFPRA evaluates eligibility ->
+              7. If not eligible for refugee status but at risk → granted subsidiary protection ->
+              8. Receive residence permit ->
+              9. Renew status and apply for long-term residence later`
+},
+"FranceHumanitarianVisa": {
+    name: "Humanitarian Visa (Exceptional Humanitarian Admission – France)",
+
+    validity: "Usually issued as a short-term or long-stay visa depending on the case. If approved for residence, a temporary residence permit (1 year) may be granted and can be renewed.",
+
+    cost: "Often free or reduced fee depending on humanitarian circumstances. Some administrative fees may apply after arrival for residence permit (~€100–€300 / ₹9,000–₹26,000).",
+
+    time: "Processing time varies widely (from a few weeks to several months) depending on urgency and case complexity.",
+
+    age: "No age limit. Applicable to individuals and families in exceptional humanitarian situations.",
+
+    education: "Not required.",
+
+    funds: "No strict financial requirement. Support may be provided by the state, NGOs, or sponsors depending on the situation.",
+
+    docs: "Valid passport or identity documents (if available), visa/application form, detailed explanation of humanitarian grounds, supporting evidence (medical reports, risk proof, emergency situation documents), photos, sponsor or support letters (if any), and documents required by authorities.",
+
+    whom: "Individuals (including Indians in rare cases) facing exceptional humanitarian situations such as medical emergencies, life-threatening conditions, conflict-related risks, or urgent protection needs.",
+
+    rules: "Granted on a case-by-case basis. Must justify urgent humanitarian need. Cannot misuse visa for regular migration. Renewal depends on continued humanitarian grounds or change of status.",
+
+    prosCons: "Pros: Provides urgent entry or protection, flexible case-based approval, potential pathway to residence. Cons: Highly discretionary, rare approval, not a standard immigration route.",
+
+    terms: "Humanitarian Grounds: Exceptional circumstances; Temporary Residence Permit: Short-term legal stay; Sponsor: Supporting individual/organization; Exceptional Admission: Case-based approval.",
+
+    legal: "Regulated under French immigration law and humanitarian provisions, administered by French consulates and Ministry of Interior on a discretionary basis.",
+
+    process: `1. Identify urgent humanitarian situation ->
+              2. Gather supporting evidence (medical/emergency/risk proof) ->
+              3. Submit visa or special request to French authorities/consulate ->
+              4. Authorities assess urgency and eligibility ->
+              5. Provide additional documents if requested ->
+              6. Receive decision (approval/rejection) ->
+              7. If approved → travel to France ->
+              8. Apply for temporary residence permit (if applicable) ->
+              9. Stay and regularize status based on situation`
+},
+
+"FranceAirportTransitVisaTypeA": {
+    name: "Airport Transit Visa (Type A – France)",
+
+    validity: "Valid for a single or multiple airport transits for a short period (usually up to 24 hours per transit). Does not allow entry into France or Schengen area.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 7–15 working days. May vary depending on application volume and verification.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "No specific funds requirement, but proof of onward travel and valid visa for destination country is mandatory.",
+
+    docs: "Valid passport, visa application form, passport photos, confirmed flight tickets (showing transit), valid visa for final destination (if required), travel itinerary, and supporting documents requested by consulate.",
+
+    whom: "Travelers (including Indians in specific cases) transiting through a French airport en route to another country without entering the Schengen area.",
+
+    rules: "Must remain in the international transit zone of the airport. Cannot exit airport or enter France. Required only for certain nationalities or cases. Must have confirmed onward ticket.",
+
+    prosCons: "Pros: Allows smooth transit through French airports, quick processing. Cons: No entry into France, limited validity, required only in specific cases.",
+
+    terms: "Transit Zone: International area of airport; Schengen Area: European travel zone; Onward Travel: Next flight destination; Type A Visa: Airport-only visa.",
+
+    legal: "Regulated under Schengen Visa Code and French immigration rules, administered by French consulates.",
+
+    process: `1. Check if transit visa is required based on nationality ->
+              2. Book confirmed onward flight ->
+              3. Obtain visa for final destination (if required) ->
+              4. Fill visa application form ->
+              5. Book appointment via VFS France ->
+              6. Submit biometrics and documents ->
+              7. Pay visa fee ->
+              8. Consulate reviews application ->
+              9. Receive visa approval ->
+              10. Travel and remain in airport transit zone`
+},
+"FranceShortStayTransitVisaTypeC": {
+    name: "Short-Stay Transit Visa (Type C – France / Schengen)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Can be single, double, or multiple entry depending on approval.",
+
+    cost: "Visa fee: €80 (~₹7,000–₹7,500). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May take longer during peak travel seasons.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Must show sufficient funds for short stay and transit (~€65–€120 per day or as required).",
+
+    docs: "Valid passport, Schengen visa application form, passport photos, confirmed travel itinerary, onward/return tickets, visa for final destination (if required), proof of accommodation (if leaving airport), travel insurance (minimum €30,000 coverage), financial proof (bank statements), and supporting documents requested by consulate.",
+
+    whom: "Travelers (including Indians) transiting through France or other Schengen countries, possibly leaving the airport for short stay before continuing journey.",
+
+    rules: "Allows short stay in Schengen area during transit. Must not exceed 90 days in 180 days. Must follow visa conditions and itinerary. Travel insurance is mandatory.",
+
+    prosCons: "Pros: Allows entry into France/Schengen during transit, flexible travel, can be multi-entry. Cons: Requires more documentation than transit visa, limited stay duration.",
+
+    terms: "Schengen Visa: Short-stay visa for Europe; Type C: Short-stay category; 90/180 Rule: Maximum stay limit; Travel Insurance: Mandatory coverage; Transit: Passing through country.",
+
+    legal: "Regulated under Schengen Visa Code and French immigration law, administered by French consulates.",
+
+    process: `1. Plan travel itinerary including transit in France ->
+              2. Book flights and accommodation (if required) ->
+              3. Obtain visa for final destination (if required) ->
+              4. Arrange travel insurance and financial proof ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel and transit through France/Schengen area`
+},
+"FranceOverseasFranceVisaDOMTOM": {
+    name: "Overseas France Visa (DOM-TOM Regions – France)",
+
+    validity: "Usually issued for short-stay (up to 90 days) or long-stay (3 months to 1 year+) depending on purpose and territory. Can be renewed or extended in some cases.",
+
+    cost: "Visa fee: €80–€99 (~₹7,000–₹9,500) depending on visa type. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–30 working days. May vary depending on territory (Reunion, Guadeloupe, Martinique, French Guiana, etc.).",
+
+    age: "No strict age limit. Applicable to all applicants including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Must show sufficient funds for stay (usually similar to Schengen requirement ~€65–€120 per day or as per territory rules).",
+
+    docs: "Valid passport, visa application form, passport photos, travel itinerary, proof of accommodation in overseas territory, financial proof (bank statements), travel insurance, return/onward ticket, and supporting documents depending on purpose (tourism, work, study, family).",
+
+    whom: "Foreign nationals (including Indians) traveling to French overseas territories (DOM-TOM) such as Réunion, Guadeloupe, Martinique, French Guiana, Mayotte, Saint Martin, and French Polynesia.",
+
+    rules: "Visa validity and rules depend on specific territory. Some territories may require separate authorization even if Schengen visa is held. Must comply with local immigration rules.",
+
+    prosCons: "Pros: Access to French overseas territories, unique travel/work/study opportunities, same legal framework as France. Cons: Separate rules from mainland France, additional documentation may be required.",
+
+    terms: "DOM-TOM: French Overseas Departments and Territories; Schengen Area: Mainland Europe zone; Short-Stay Visa: Up to 90 days; Long-Stay Visa: More than 90 days; Residence Permit: Legal stay authorization.",
+
+    legal: "Regulated under French immigration law with specific rules for overseas territories, administered by French consulates and local authorities.",
+
+    process: `1. Choose overseas French territory (DOM-TOM) ->
+              2. Determine visa type (tourism, work, study, etc.) ->
+              3. Arrange travel and accommodation documents ->
+              4. Prepare financial proof and insurance ->
+              5. Fill visa application form ->
+              6. Book appointment via VFS France ->
+              7. Submit biometrics and documents ->
+              8. Pay visa fee ->
+              9. Consulate reviews application ->
+              10. Receive visa approval ->
+              11. Travel to overseas French territory`
+},
+
+"FranceReceVisaJobSeekerBusinessCreation": {
+    name: "RECE Visa (Recherche d’Emploi ou Création d’Entreprise)",
+
+    validity: "12 months maximum. This visa is non-renewable. It is designed to bridge the gap between graduation and starting a career or business in France.",
+
+    cost: "Visa Fee: €75 (~₹7,000). Stamp duty (taxe de séjour) after arrival: €225 (~₹20,000). Total administrative cost approx. ₹27,000.",
+
+    time: "Processing time: 4 to 8 weeks. Applicants must apply before their current student residence permit (titre de séjour) expires.",
+
+    age: "No strict age limit, but must be a recent graduate of an eligible program.",
+
+    education: "Mandatory: Must have obtained a Master’s degree, a 'Professional License' (Licence Professionnelle), or a degree at least equivalent to a Master's (Level 7) from a recognized French institution.",
+
+    funds: "Mandatory: Must prove financial resources of at least €615 per month (~₹55,000/month) for the 12-month duration. This can be shown via bank statements or a sponsor.",
+
+    docs: "Valid passport, graduation certificate or official 'Attestation de réussite' from a French university, previous student residence permit, proof of address (justificatif de domicile), 3 passport photos, and health insurance covering the full 12 months.",
+
+    whom: "Indian and international students who have successfully completed their Master’s or PhD in France and want to stay for one year to find a job or start a startup/company.",
+
+    rules: "Allows you to work in any job for up to 60% of the legal working year while searching for a permanent role. Once you find a job with a salary of at least 1.5 times the minimum wage (SMIC), you must switch to a 'Talent Passport' or 'Salaried' work permit.",
+
+    prosCons: "Pros: No labor market test needed when switching to a work visa; allows you to stay legally while job hunting; grants time to set up a business. Cons: Non-renewable; strictly limited to 12 months.",
+
+    terms: "RECE: Job Seeker/Business Creation permit; SMIC: French national minimum wage; Titre de Séjour: Residence permit card.",
+
+    legal: "Article L. 422-10 of the Code de l'Entrée et du Séjour des Étrangers (CESEDA).",
+
+    process: `1. Successfully complete a Master's or PhD in France -> 
+              2. Request the RECE permit at the local Prefecture in France before your student visa expires -> 
+              3. Submit the graduation certificate and proof of funds -> 
+              4. Receive a 'Récépissé' (temporary receipt) -> 
+              5. Receive the physical 12-month residence card -> 
+              6. Use the 12 months to secure a job contract or register a business -> 
+              7. Transition to a full Work Permit or Talent Passport once a job is secured.`
+},
+
+
+"FranceTalentPassportInnovativeCompany": {
+    name: "Talent Passport: Employee of an Innovative Company",
+
+    validity: "Up to 4 years. This is a multi-year residency permit that is renewable. It leads to 10-year Permanent Residence after 5 years.",
+
+    cost: "Visa Fee: €99 (~₹9,000). Stamp duty after arrival: €225. Total approx. ₹30,000.",
+
+    time: "Fast-track processing: Usually 2 to 4 weeks. This is one of the quickest work routes in France.",
+
+    age: "No strict age limit.",
+
+    education: "Mandatory: Must hold a Master’s degree or equivalent (Level 7) or higher.",
+
+    funds: "No personal bank balance required; however, the gross annual salary must be at least twice the minimum wage (approx. €43,992 per year for 2024/25).",
+
+    docs: "Valid passport, Cerfa form (No. 15614*03) signed by employer, evidence that the company is recognized as 'innovative' by the Ministry of Economy, work contract, degree certificates, and CV.",
+
+    whom: "Indian software engineers, AI researchers, and data scientists recruited by a French startup or tech firm recognized as a 'Jeune Entreprise Innovante' (JEI).",
+
+    rules: "The job role must be directly related to the company's Research and Development (R&D) project. Family members (spouse and children) get 'Family Talent Passports' automatically with full work rights.",
+
+    prosCons: "Pros: No 'Work Authorization' (labor market test) required; valid for 4 years; family gets immediate work rights. Cons: Limited only to recognized innovative startups; high salary threshold.",
+
+    terms: "French Tech Visa: The marketing name for this route; Innovative Company: A firm certified by the French state for R&D; JEI: Young Innovative Company status.",
+
+    legal: "Article L. 421-9 of the CESEDA.",
+
+    process: `1. Secure a job offer from a recognized French innovative company -> 
+              2. Employer provides the 'Cerfa' document and innovation certificate -> 
+              3. Apply for the 'Talent Passport' visa at VFS Global India -> 
+              4. Submit biometrics and degree certificates -> 
+              5. Receive the D-visa with 'Talent Passport' mention -> 
+              6. Travel to France -> 
+              7. Within 3 months, apply online for the physical multi-year residence card.`
+},
+
+
+
+"FranceVacationWorkVisa": {
+    name: "Vacation-Work Visa (Working Holiday - VVT)",
+
+    validity: "12 months only. Non-renewable and non-extendable.",
+
+    cost: "Visa Fee: Approx. €99 (~₹9,000). Usually exempt for certain nationalities under bilateral agreements.",
+
+    time: "Processing: 2 to 4 weeks.",
+
+    age: "Strict limit: 18 to 30 years old (up to 35 for Canadian citizens).",
+
+    education: "No specific degree required.",
+
+    funds: "Mandatory: Must show at least €2,500 (~₹2.2 Lakhs) in savings to cover initial costs, plus a return ticket or funds to buy one.",
+
+    docs: "Passport, clean criminal record (PCC), medical certificate of good health, travel insurance covering all risks for 12 months, and proof of savings.",
+
+    whom: "Young citizens of countries with a reciprocal agreement with France (Australia, Canada, Argentina, Japan, South Korea, etc.). Note: Not currently open to Indian citizens unless they hold a passport from an eligible country.",
+
+    rules: "The primary purpose must be holidaying; work is secondary. You are allowed to work to supplement your travel funds. You do not need a pre-arranged job offer.",
+
+    prosCons: "Pros: Allows you to live and work in France for a year with zero sponsorship; total work freedom. Cons: Very limited to specific nationalities; one-time use only; no path to residency.",
+
+    terms: "VVT: Visa Vacances-Travail; Reciprocity: Both countries must allow each other's youth to enter; Open Work Rights: No specific employer needed.",
+
+    process: `1. Check if your nationality is on the VVT list -> 2. Gather proof of health and savings -> 3. Apply online at France-Visas -> 4. Attend biometrics -> 5. Receive 12-month visa -> 6. Travel to France and start exploring/working.`
+},
+
+"MonacoLongStayVisaProcessedViaFrance": {
+    name: "Monaco Long-Stay Visa (Processed via France)",
+
+    validity: "Usually issued for 3 months to 1 year for long-stay entry. After arrival in Monaco, applicants must obtain a Monaco residence permit (carte de séjour) for continued stay, which is renewable annually.",
+
+    cost: "Visa fee: €99 (~₹9,000–₹9,500). Residence permit in Monaco after arrival approx €100–€200 (~₹9,000–₹18,000).",
+
+    time: "Processing time usually 2–6 weeks. Residence permit issuance in Monaco may take additional 2–8 weeks after arrival.",
+
+    age: "No strict age limit. Applicable to adults and dependents (18+ for independent applicants).",
+
+    education: "Not required, but depends on purpose (work, study, retirement, etc.).",
+
+    funds: "Strong financial proof required. Typically must show sufficient income or savings (often €30,000–€50,000+ annually or higher depending on lifestyle and housing in Monaco).",
+
+    docs: "Valid passport, visa application form, passport photos, proof of accommodation in Monaco (lease or property), financial proof (bank statements, income, or investment proof), health insurance valid in Monaco/France, background documents, and supporting documents required by French consulate.",
+
+    whom: "Foreign nationals (including Indians) intending to live, work, retire, or join family in Monaco, a sovereign city-state closely linked with France for visa processing.",
+
+    rules: "Visa is issued through French authorities but residence is governed by Monaco. Applicant must apply for Monaco residence permit after arrival. Must maintain financial stability and valid accommodation in Monaco.",
+
+    prosCons: "Pros: Access to Monaco residency (high standard of living, safety, tax advantages for some residents), close EU connectivity. Cons: Very high cost of living, strict financial requirements, limited availability of housing.",
+
+    terms: "Carte de Séjour: Monaco residence permit; French Consulate: Visa processing authority; Proof of Accommodation: Essential requirement; Financial Solvency: Ability to support stay.",
+
+    legal: "Regulated jointly by French visa authorities for entry and Monaco immigration authorities for residence permits under bilateral agreements.",
+
+    process: `1. Secure accommodation in Monaco ->
+              2. Prepare financial and personal documents ->
+              3. Apply for long-stay visa via French consulate ->
+              4. Submit biometrics and documents ->
+              5. Pay visa fee ->
+              6. Receive visa approval ->
+              7. Travel to Monaco ->
+              8. Register with Monaco authorities ->
+              9. Apply for residence permit (carte de séjour) ->
+              10. Obtain residence card ->
+              11. Renew annually if eligible`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* USA Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="ROMANIA">ROMANIA</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+         
+<select id="visaType">
+    <optgroup label="1. Short Stay (Schengen Type C)">
+        <option value="RomaniaTouristVisaCTU">Tourist Visa (C/TU)</option>
+        <option value="RomaniaBusinessVisaCA">Business Visa (C/A)</option>
+        <option value="RomaniaPrivateVisitVisaCVV">Private Visit Visa (C/VV)</option>
+        <option value="RomaniaShortTermStudyTrainingVisaCST">Short-term Study/Training (C/ST)</option>
+        <option value="RomaniaCulturalSportsScientificEventsVisaCSP">Cultural / Sports / Scientific (C/SP)</option>
+        <option value="RomaniaMedicalTreatmentVisaCMED">Medical Treatment Visa (C/MED)</option>
+        <option value="RomaniaJournalistVisaCZA">Journalist Visa (C/ZA)</option>
+        <option value="RomaniaOfficialGovernmentMissionVisaCM">Official Gov Mission (C/M)</option>
+        <option value="RomaniaTransitVisaShortTransit">Short Transit Visa</option>
+        <option value="RomaniaAirportTransitVisaATV">Airport Transit (ATV)</option>
+        <option value="RomaniaCrewMemberVisaCMC">Crew Member Visa (C/MC)</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Skilled (National Type D)">
+        <option value="RomaniaLongStayWorkVisaDAM">Work Visa (D/AM)</option>
+        <option value="RomaniaEUBlueCardHighlySkilledWorkerVisa">EU Blue Card</option>
+        <option value="RomaniaHighlyQualifiedWorkerVisaD">Highly Qualified Worker</option>
+        <option value="RomaniaSeasonalWorkVisaDAS">Seasonal Work Visa (D/AS)</option>
+        <option value="RomaniaIntraCompanyTransferVisaDDT">Intra-Company Transfer (D/DT)</option>
+    </optgroup>
+
+    <optgroup label="3. Study & Research (National Type D)">
+        <option value="RomaniaStudyVisaDSD">Long-term Study (D/SD)</option>
+        <option value="RomaniaResearchScientificVisaDCS">Research / Scientific (D/CS)</option>
+        <option value="RomaniaVocationalTrainingVisaDAV">Vocational Training (D/AV)</option>
+        <option value="RomaniaExchangeStudentVisaErasmusEU">Erasmus / EU Exchange</option>
+    </optgroup>
+
+    <optgroup label="4. Business & Digital Nomad">
+        <option value="RomaniaBusinessInvestorVisaDAC">Business / Investor (D/AC)</option>
+        <option value="RomaniaSelfEmployedFreelancerVisaDAE">Freelancer / Self-Employed (D/AE)</option>
+        <option value="RomaniaDigitalNomadVisa">Digital Nomad Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Family & Dependents">
+        <option value="RomaniaFamilyReunificationVisaDVF">Family Reunification (D/VF)</option>
+        <option value="RomaniaSpouseVisaFamilyReunification">Spouse Visa</option>
+        <option value="RomaniaMinorChildDependentVisa">Minor Child Visa</option>
+        <option value="RomaniaEUFamilyMemberResidenceVisa">EU Family Member Visa</option>
+        <option value="RomaniaReligiousActivitiesVisaDAR">Religious Activities (D/AR)</option>
+    </optgroup>
+
+    <optgroup label="6. Permanent & Long-Term">
+        <option value="RomaniaTemporaryResidencePermitTRP">Temporary Residence Permit (TRP)</option>
+        <option value="RomaniaPermanentResidencePermitPR">Permanent Residence (PR)</option>
+        <option value="RomaniaEULongTermResidencePermit">EU Long-Term Residence</option>
+        <option value="RomaniaLongTermEUResidenceCard">Long-Term EU Residence Card</option>
+        <option value="RomaniaIntraEUMobilityResidencePermit">Intra-EU Mobility Permit</option>
+    </optgroup>
+
+    <optgroup label="7. Specialized & Humanitarian">
+        <option value="RomaniaHumanitarianResidencePermit">Humanitarian Residence Permit</option>
+        <option value="RomaniaAsylumInternationalProtectionVisa">Asylum / International Protection</option>
+        <option value="RomaniaRefugeeStatusVisa">Refugee Status</option>
+        <option value="RomaniaSubsidiaryProtectionVisa">Subsidiary Protection</option>
+        <option value="RomaniaTemporaryProtectionVisaEU">Temporary Protection (EU Crisis)</option>
+        <option value="RomaniaEmergencyEntryVisa">Emergency Entry Visa</option>
+        <option value="RomaniaBorderVisaExceptionalEntryPermit">Border Visa (Exceptional)</option>
+    </optgroup>
+
+
+
+ <optgroup label="8. Extras">
+        <option value="RomaniaOtherPurposesVisaDOR">Long stay for other purposes</option>
+        <option value="RomaniaScientificResearchMobility">Scientific research mobility</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF ROMANIA MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇷🇴 VIEW ROMANIA IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇷🇴 GENERAL IMMIGRATION PROCESS FOR ROMANIA (2026)</h1>
+        <p>Romania immigration is managed through a tiered system: initial approval/invitation, followed by a Long-Stay (D) visa, and finally a Residence Permit (IGI) after entry.</p>
+
+        <h2>🧭 1. DECIDE YOUR VISA CATEGORY</h2>
+        <ul>
+            <li><strong>Study (D/SD):</strong> For University or academic programs.</li>
+            <li><strong>Work (D/AM / Blue Card):</strong> For employment by Romanian companies.</li>
+            <li><strong>Business (D/AC):</strong> For commercial and investment activities.</li>
+            <li><strong>Family (D/VF):</strong> For reunification with family in Romania.</li>
+            <li><strong>Special:</strong> Digital nomad, research, or training.</li>
+        </ul>
+
+        <h2>📩 2. GET INVITATION / APPROVAL</h2>
+        <p>Most long-stay visas require prior approval from within Romania: an Admission Letter (Student), a Work Permit (Worker), or Corporate Documents (Business).</p>
+
+        <h2>📄 3. APPLY FOR LONG-STAY VISA (D VISA)</h2>
+        <p>Submit your application at the Romanian Embassy or Consulate. Standard core file includes: Passport (valid 6+ months), application form, insurance (€30k coverage), and your official Romanian invitation/permit.</p>
+
+        <h2>⏳ 4 & 5. PROCESSING & DECISION</h2>
+        <p>Processing typically takes <strong>10–45 working days</strong>. If approved, you receive a D-type long-stay visa, usually valid for 90 days for entry.</p>
+
+        <h2>✈️ 6 & 7. TRAVEL & RESIDENCE PERMIT (IGI)</h2>
+        <p>Travel to Romania. <strong>Crucial:</strong> Within 30 days of arrival, you must apply for a <strong>Residence Permit</strong> at the <strong>Romanian Immigration Office (IGI)</strong> for biometrics and address registration.</p>
+
+        <h2>🪪 8 & 9. PERMIT ISSUANCE & RENEWAL</h2>
+        <p>Receive your Residence Permit card (usually valid for 1 year). This must be renewed in Romania before expiry based on your continued activity (job/study).</p>
+
+        <h2>🇪🇺 10. LONG-TERM SETTLEMENT</h2>
+        <p>After 5 years of continuous legal residence, you become eligible for <strong>Permanent Residence (PR)</strong> or EU long-term status, and eventually Citizenship.</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black); margin-top: 15px;">
+            🧠 SUMMARY FLOW: Offer/Invitation → D Visa → Travel → IGI Residence Permit → Renewal → PR/Citizenship
+        </div>
+
+        <div class="official-box">
+            <h1>🇷🇴 OFFICIAL ROMANIA IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Immigration Inspectorate (IGI):</strong> <a href="https://igi.mai.gov.ro" target="_blank">igi.mai.gov.ro</a></p>
+            <p><strong>2. Ministry of Foreign Affairs (MAE):</strong> <a href="https://www.mae.ro/en" target="_blank">www.mae.ro/en</a></p>
+            <p><strong>3. Embassy of Romania in India:</strong> <a href="https://newdelhi.mae.ro" target="_blank">newdelhi.mae.ro</a></p>
+            <p><strong>4. EU Immigration Portal:</strong> <a href="https://home-affairs.ec.europa.eu" target="_blank">home-affairs.ec.europa.eu</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: ONLY USE OFFICIAL .GOV.RO OR .MAE.RO WEBSITES. AVOID UNAUTHORIZED THIRD-PARTY AGENTS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "ROMANIA": {
+"RomaniaTouristVisaCTU": {
+    name: "Tourist Visa (C/TU) – Romania",
+
+    validity: "Up to 90 days within a 180-day period. Issued as single-entry or multiple-entry depending on travel history, purpose, and embassy decision.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 standard Schengen visa fee). Additional VFS/consular service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10 to 15 working days. In some cases (additional verification or peak season), it may extend up to 30–45 days.",
+
+    age: "No age restriction. Minors require parental consent and additional documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient financial means required (recommended ~€50–€100 per day of stay). Bank statements for last 3–6 months are usually required.",
+
+    docs: "Valid passport (minimum 6 months validity), completed visa application form, recent passport-size photos, confirmed flight reservation, hotel booking or accommodation proof, travel insurance with minimum €30,000 coverage, bank statements, income proof (salary slips/ITR), cover letter explaining travel purpose.",
+
+    whom: "Foreign nationals visiting Romania for tourism, sightseeing, leisure travel, visiting landmarks, or short recreational stay.",
+
+    rules: "Strictly no employment or business activity allowed. Must leave Romania before visa expiry. Cannot be converted into a work or residence visa inside Romania. Must comply with Schengen 90/180-day rule.",
+
+    prosCons: "Pros: Easy access for short tourism trips, part of Schengen-aligned system, relatively fast processing. Cons: No work rights, strict financial documentation, limited stay duration.",
+
+    terms: "C/TU: Short-stay tourist category; Schengen 90/180 Rule: Maximum 90 days stay within any 180-day period; Travel Insurance: Mandatory medical coverage requirement.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE) and EU Visa Code regulations.",
+
+    process: `1. Fill online visa application form  
+              2. Book appointment at VFS Global or Romanian Embassy  
+              3. Submit required documents  
+              4. Pay visa fee and service charges  
+              5. Provide biometrics (fingerprints/photo)  
+              6. Embassy processes application (10–15 working days typical)  
+              7. Additional verification if required  
+              8. Passport returned with visa decision  
+              9. Travel to Romania within validity period  
+              10. Exit within 90-day limit`
+},
+"RomaniaBusinessVisaCA": {
+    name: "Business Visa (C/A) – Romania",
+
+    validity: "Up to 90 days within a 180-day period. Can be issued as single-entry or multiple-entry depending on invitation, travel history, and embassy decision.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 standard Schengen visa fee). Additional VFS/consular service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10 to 15 working days. May extend up to 30–45 days if additional verification of business documents is required.",
+
+    age: "No strict age limit. Typically issued to professionals and business persons aged 18+.",
+
+    education: "Not mandatory, but relevant business/professional background improves approval chances.",
+
+    funds: "Proof of sufficient funds required (recommended ~€50–€100 per day of stay). Bank statements for last 3–6 months and/or company financial documents may be requested.",
+
+    docs: "Valid passport (minimum 6 months validity), completed visa application form, invitation letter from Romanian company, Romanian company registration documents, applicant company registration (if self-employed), bank statements, income tax returns (ITR), salary slips (if employed), travel itinerary, travel insurance (€30,000 coverage), cover letter explaining business purpose.",
+
+    whom: "Foreign nationals traveling to Romania for business purposes such as meetings, negotiations, conferences, trade fairs, business development, or corporate visits (not employment).",
+
+    rules: "Strictly no employment or salary-based work allowed in Romania. Activities must be limited to short-term business purposes only. Must exit before visa expiry. Cannot be converted into work visa inside Romania.",
+
+    prosCons: "Pros: Enables international business networking, fast short-term access, Schengen-aligned business mobility. Cons: No work authorization, strict documentation requirements, limited stay duration.",
+
+    terms: "C/A: Short-stay business category visa; Invitation Letter: Mandatory document from Romanian company; Schengen 90/180 Rule: Maximum 90 days stay in any 180 days; Proof of Means: Financial sufficiency requirement.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE) and EU Visa Code regulations.",
+
+    process: `1. Obtain invitation letter from Romanian business partner  
+              2. Gather company and financial documents  
+              3. Complete online visa application form  
+              4. Book appointment at VFS Global or Embassy  
+              5. Submit documents and biometrics  
+              6. Pay visa and service fees  
+              7. Embassy processing (10–15 working days typical)  
+              8. Additional verification if required  
+              9. Passport returned with visa decision  
+              10. Travel to Romania for approved business activities`
+},
+
+"RomaniaOfficialGovernmentMissionVisaCM": {
+    name: "Official / Government Mission Visa (C/M) – Romania",
+
+    validity: "Up to 90 days within a 180-day period. Issued based on official assignment duration. May be single-entry or multiple-entry depending on mission requirements and diplomatic clearance.",
+
+    cost: "₹0 – ₹7,000 (approx. €0–€80). Often free for official passport holders when covered under intergovernmental agreements. Service charges may still apply in some cases.",
+
+    time: "Processing time usually 5 to 15 working days. May vary depending on diplomatic clearance, security checks, and Ministry of Foreign Affairs coordination.",
+
+    age: "No age restriction. Applicable only to officially designated government personnel.",
+
+    education: "Not required under visa rules. Applicants are typically government employees or officials with relevant postings.",
+
+    funds: "Not required from applicant. All expenses are generally covered by the sending government or official institution.",
+
+    docs: "Official/diplomatic passport, note verbale from sending country’s Ministry of Foreign Affairs, official mission order or assignment letter, invitation from Romanian government authority (if applicable), travel itinerary, accommodation details, passport-size photos, and security clearance documents if required.",
+
+    whom: "Foreign government officials, diplomats, public servants, and technical experts traveling to Romania for official government duties, bilateral meetings, training programs, or state-related assignments.",
+
+    rules: "Strictly limited to official government work only. No private employment or commercial activity allowed. Must comply with diplomatic and international protocol rules. Stay duration is strictly tied to mission period.",
+
+    prosCons: "Pros: Fast-track processing, fee exemption for official cases, diplomatic facilitation, recognition under international protocols. Cons: Restricted only to official duties, no personal or commercial use allowed, dependent on government assignment.",
+
+    terms: "C/M: Official mission visa category; Note Verbale: Formal diplomatic communication; Government Mission: Official state assignment; Accreditation: Formal recognition by host country authorities.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE), Immigration Inspectorate of Romania, and Vienna Convention on Diplomatic Relations (1961) where applicable.",
+
+    process: `1. Government issues official mission order  
+              2. Sending Ministry of Foreign Affairs submits note verbale  
+              3. Romanian authorities verify mission details  
+              4. Security and background checks conducted  
+              5. Embassy processes official visa request  
+              6. Approval granted under government mission category  
+              7. Visa issued  
+              8. Entry into Romania for official duty  
+              9. Completion of assigned mission  
+              10. Exit or renewal based on further assignment`
+},
+
+"RomaniaPrivateVisitVisaCVV": {
+    name: "Private Visit Visa (C/VV) – Romania",
+
+    validity: "Up to 90 days within a 180-day period. Issued as single-entry or multiple-entry depending on invitation, applicant profile, and embassy decision.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 standard visa fee). Additional VFS/consular service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10 to 15 working days. In some cases, it may extend up to 30–45 days if additional verification is required.",
+
+    age: "No age restriction. Minors require parental consent and supporting documentation.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required (recommended ~€50–€100 per day of stay). Alternatively, the host in Romania may provide financial sponsorship/guarantee.",
+
+    docs: "Valid passport (minimum 6 months validity), visa application form, invitation letter from host in Romania (friend/family), host ID/residence permit copy, proof of relationship (birth/marriage/friendship evidence), bank statements (last 3–6 months), income proof (if applicable), accommodation details, travel insurance (€30,000 coverage), cover letter explaining visit purpose.",
+
+    whom: "Foreign nationals visiting family members, relatives, or friends legally residing in Romania for short-term private visits.",
+
+    rules: "No employment or business activity allowed. Must strictly follow visit purpose stated in application. Must exit Romania before visa expiry. Cannot be converted into work or residence permit inside Romania.",
+
+    prosCons: "Pros: Enables family reunification visits, flexible short stay, relatively straightforward if invitation is strong. Cons: Requires strong proof of relationship, strict financial and documentation checks, no work rights.",
+
+    terms: "C/VV: Private visit visa category; Sponsor/Host: Romanian resident inviting the applicant; Invitation Letter: Mandatory supporting document; Schengen 90/180 Rule: Maximum 90 days stay within 180 days.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE) and EU Visa Code regulations.",
+
+    process: `1. Obtain official invitation letter from host in Romania  
+              2. Prepare proof of relationship and financial documents  
+              3. Fill online visa application form  
+              4. Book appointment at VFS Global or Romanian Embassy  
+              5. Submit documents and biometrics  
+              6. Pay visa and service fees  
+              7. Embassy processes application (10–15 working days typical)  
+              8. Additional verification if required  
+              9. Passport returned with visa decision  
+              10. Travel to Romania and exit before 90-day limit`
+},
+"RomaniaCulturalSportsScientificEventsVisaCSP": {
+    name: "Cultural / Sports / Scientific Events Visa (C/SP) – Romania",
+
+    validity: "Up to 90 days within a 180-day period. Issued as single-entry or multiple-entry depending on event duration and invitation conditions.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 standard Schengen visa fee). Additional VFS/consular service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10 to 20 working days. May extend up to 30–45 days if event verification or additional checks are required.",
+
+    age: "No fixed age limit. Depends on event type (students, athletes, researchers, artists, professionals, etc.).",
+
+    education: "May be required depending on event type (e.g., academic qualifications for scientific conferences, professional background for sports/art events).",
+
+    funds: "Proof of funds required (~€50–€100 per day) unless fully sponsored. Event organizer sponsorship letter may replace personal financial proof.",
+
+    docs: "Valid passport (minimum 6 months validity), visa application form, official invitation letter from Romanian event organizer, event registration/participation proof, CV or portfolio (if applicable), financial proof or sponsorship letter, travel itinerary, travel insurance (€30,000 coverage), accommodation details, passport-size photos.",
+
+    whom: "Foreign nationals participating in cultural events, sports competitions, scientific conferences, artistic performances, academic workshops, exhibitions, or research-related short-term programs in Romania.",
+
+    rules: "Strictly limited to event-related activities only. No employment or paid work outside the approved event. Must leave Romania before visa expiry. Cannot be converted into work or residence visa inside Romania.",
+
+    prosCons: "Pros: Enables participation in international events, enhances academic/professional exposure, often sponsored by organizers. Cons: Strict purpose limitation, no work rights, requires official invitation and event proof.",
+
+    terms: "C/SP: Cultural, Sports, Scientific event visa category; Host Organization: Romanian event organizer; Invitation Letter: Mandatory official participation document; Schengen 90/180 Rule: Maximum 90-day stay within 180 days.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE) and EU Visa Code regulations.",
+
+    process: `1. Receive official invitation from Romanian event organizer  
+              2. Register for the cultural/sports/scientific event  
+              3. Prepare supporting documents (CV, portfolio, proof of participation)  
+              4. Fill online visa application form  
+              5. Book appointment at VFS Global or Embassy  
+              6. Submit documents and biometrics  
+              7. Pay visa and service fees  
+              8. Embassy reviews application (10–20 working days typical)  
+              9. Additional verification if required  
+              10. Passport returned with visa decision and travel to Romania for event`
+},
+"RomaniaMedicalTreatmentVisaCMED": {
+    name: "Medical Treatment Visa (C/MED) – Romania",
+
+    validity: "Up to 90 days within a 180-day period. May be single-entry or multiple-entry depending on medical treatment plan and hospital recommendation.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 standard Schengen visa fee). Additional VFS/consular service charges ₹1,500–₹3,000 may apply. Hospital treatment costs are separate and significantly higher.",
+
+    time: "Processing time usually 10 to 15 working days. May extend to 30–45 days if medical verification or additional documentation is required.",
+
+    age: "No age restriction. Applicable to patients of all ages including minors and elderly patients.",
+
+    education: "Not required.",
+
+    funds: "Strong financial proof required to cover treatment and stay. Alternatively, hospital sponsorship or guarantee letter may be accepted. Recommended funds depend on treatment cost (often €1,000+ minimum for stay proof, excluding treatment costs).",
+
+    docs: "Valid passport (minimum 6 months validity), completed visa application form, medical diagnosis report from home country doctor, acceptance letter from Romanian hospital/clinic, detailed treatment plan, estimated cost of treatment, proof of payment or deposit (if applicable), bank statements (last 3–6 months), travel insurance (€30,000 coverage), accommodation details, passport-size photos.",
+
+    whom: "Foreign nationals traveling to Romania for medical treatment, surgery, specialist consultation, rehabilitation, or follow-up medical care at recognized Romanian hospitals or clinics.",
+
+    rules: "Strictly limited to medical purposes only. No employment or study allowed. Must follow approved treatment plan. Visa duration is tied to medical necessity. Extension requires hospital confirmation and Immigration approval. Must leave Romania after treatment completion or visa expiry.",
+
+    prosCons: "Pros: Access to specialized medical care in EU healthcare system, structured treatment approval, possible extension for ongoing treatment. Cons: High financial requirements, strict documentation, no work rights, dependent on hospital confirmation.",
+
+    terms: "C/MED: Medical treatment visa category; Medical Invitation Letter: Hospital acceptance document; Treatment Plan: Detailed medical procedure schedule; Schengen 90/180 Rule: Maximum stay rule for short visas.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE), Romanian Ministry of Health, and EU Visa Code regulations.",
+
+    process: `1. Obtain medical diagnosis from home country doctor  
+              2. Get acceptance letter and treatment plan from Romanian hospital  
+              3. Arrange financial proof or hospital guarantee  
+              4. Fill visa application form online  
+              5. Book appointment at VFS Global or Romanian Embassy  
+              6. Submit documents and biometrics  
+              7. Pay visa and service fees  
+              8. Embassy reviews application (10–15 working days typical)  
+              9. Additional medical verification if required  
+              10. Passport returned with visa decision and travel for treatment`
+},
+"RomaniaShortTermStudyTrainingVisaCST": {
+    name: "Short-Term Study / Training Visa (C/ST) – Romania",
+
+    validity: "Up to 90 days within a 180-day period. Issued as single-entry or multiple-entry depending on training program or course duration.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 standard Schengen visa fee). Additional VFS/consular service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10 to 15 working days. May extend up to 30–45 days if academic verification or institution checks are required.",
+
+    age: "No strict age limit. Commonly issued to students, trainees, interns, and professionals (usually 16+ or 18+ depending on program).",
+
+    education: "May be required depending on course/training type. Proof of prior education or professional background may be needed.",
+
+    funds: "Proof of sufficient funds required (~€50–€100 per day of stay). Sponsorship letter from Romanian institution may reduce personal financial burden.",
+
+    docs: "Valid passport (minimum 6 months validity), visa application form, acceptance letter from Romanian educational institution or training center, course/training details, proof of payment (if applicable), bank statements (last 3–6 months), travel insurance (€30,000 coverage), accommodation details, passport-size photos, cover letter explaining purpose of study/training.",
+
+    whom: "Foreign nationals attending short-term courses, vocational training, workshops, internships, or academic training programs in Romania lasting less than 90 days.",
+
+    rules: "Strictly limited to approved study or training activities. No employment or paid work allowed. Must follow institution rules and visa conditions. Must exit Romania before visa expiry. Cannot be converted into long-term residence visa inside Romania.",
+
+    prosCons: "Pros: Opportunity for skill development and international exposure, access to EU-based training programs, often institution-supported. Cons: Short duration, no work rights, strict documentation requirements.",
+
+    terms: "C/ST: Short-term study/training visa category; Host Institution: Romanian university or training center; Acceptance Letter: Mandatory admission document; Schengen 90/180 Rule: Maximum stay rule for short visas.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE), Ministry of Education (if applicable), and EU Visa Code regulations.",
+
+    process: `1. Apply and get acceptance from Romanian institution  
+              2. Receive official invitation/acceptance letter  
+              3. Prepare financial and academic documents  
+              4. Fill visa application form online  
+              5. Book appointment at VFS Global or Embassy  
+              6. Submit documents and biometrics  
+              7. Pay visa and service fees  
+              8. Embassy processes application (10–15 working days typical)  
+              9. Additional verification if required  
+              10. Passport returned with visa decision and travel to Romania for study/training`
+},
+"RomaniaJournalistVisaCZA": {
+    name: "Journalist Visa (C/ZA) – Romania",
+
+    validity: "Up to 90 days within a 180-day period. Issued as single-entry or multiple-entry depending on assignment duration and media accreditation.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 standard Schengen visa fee). Additional VFS/consular service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10 to 15 working days. May extend up to 30–45 days if media verification or accreditation checks are required.",
+
+    age: "No strict age limit. Typically issued to professional journalists and media personnel (18+).",
+
+    education: "Not mandatory, but journalism/media qualifications or professional experience in recognized media organizations are usually required.",
+
+    funds: "Proof of sufficient funds required (~€50–€100 per day of stay). In many cases, sponsoring media organization covers expenses and provides financial guarantee.",
+
+    docs: "Valid passport (minimum 6 months validity), visa application form, official letter from media organization/employer, press ID or journalist accreditation, assignment letter detailing purpose of visit, list of reporting activities, bank statements (last 3–6 months if self-funded), travel insurance (€30,000 coverage), accommodation details, passport-size photos.",
+
+    whom: "Foreign journalists, reporters, photographers, cameramen, and media professionals traveling to Romania for reporting, news coverage, documentaries, or press-related assignments.",
+
+    rules: "Strictly limited to journalistic and media activities only. No employment outside assigned media work. Must comply with Romanian press and immigration regulations. Must exit before visa expiry. Unauthorized reporting activities may lead to penalties.",
+
+    prosCons: "Pros: Enables international media coverage, access to official events, professional reporting opportunities. Cons: Strict accreditation requirements, limited to media work only, no employment rights outside journalism assignment.",
+
+    terms: "C/ZA: Journalist visa category; Press Accreditation: Official media recognition; Assignment Letter: Proof of reporting purpose; Schengen 90/180 Rule: Maximum stay limit.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE), Romanian Press Accreditation Authorities, and EU Visa Code regulations.",
+
+    process: `1. Obtain assignment letter from media organization  
+              2. Get press accreditation or journalist ID  
+              3. Prepare reporting plan and supporting documents  
+              4. Fill online visa application form  
+              5. Book appointment at VFS Global or Embassy  
+              6. Submit documents and biometrics  
+              7. Pay visa and service fees  
+              8. Embassy verifies media credentials (10–15 working days typical)  
+              9. Additional checks if required  
+              10. Passport returned with visa decision and travel to Romania for reporting assignment`
+},
+"RomaniaTransitVisaCTR_AIR": {
+    name: "Transit Visa (C/AIR or C/TR) – Romania",
+
+    validity: "Up to 5 days within a 180-day period. Issued for short stopover or transit purposes only. Single-entry in most cases.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 standard Schengen visa fee). Additional VFS/consular service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10 to 15 working days. May extend up to 30 days if additional security or itinerary verification is required.",
+
+    age: "No age restriction. Applicable to all travelers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds for transit stay may be required (~€50–€100 per day recommended) along with onward travel proof.",
+
+    docs: "Valid passport (minimum 6 months validity), completed visa application form, confirmed onward flight tickets, visa for final destination (if required), travel insurance (€30,000 coverage), bank statements (optional but recommended), passport-size photos, and proof of transit itinerary.",
+
+    whom: "Foreign nationals transiting through Romania en route to another country, including airport layovers or short stopovers requiring entry into Romanian territory.",
+
+    rules: "Strictly for transit purposes only. No employment or business activity allowed. Must leave Romania within allowed transit period. Cannot be converted into a work or residence visa. Entry is subject to immigration approval.",
+
+    prosCons: "Pros: Enables short stopover in Romania, useful for connecting flights, simple documentation compared to long-stay visas. Cons: Very short duration, strict eligibility, no extension or conversion allowed.",
+
+    terms: "C/AIR or C/TR: Transit visa categories; Onward Ticket: Proof of exit travel; Schengen 90/180 Rule: General short-stay regulation; Transit Stay: Limited entry for connecting travel.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE) and EU Visa Code regulations.",
+
+    process: `1. Book onward flight showing transit through Romania  
+              2. Prepare travel documents and visa for destination country (if required)  
+              3. Fill online visa application form  
+              4. Book appointment at VFS Global or Embassy  
+              5. Submit documents and biometrics  
+              6. Pay visa and service fees  
+              7. Embassy reviews application (10–15 working days typical)  
+              8. Additional verification if required  
+              9. Passport returned with visa decision  
+              10. Travel through Romania within permitted transit window`
+},
+"RomaniaAirportTransitVisaCA": {
+    name: "Airport Transit Visa (C/A) – Romania",
+
+    validity: "Valid only for the duration of transit at the airport. Typically allows stay in the international transit area for a few hours up to 24 hours. No entry into Romanian territory is permitted.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 standard Schengen visa fee). Additional VFS/consular service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10 to 15 working days. May extend up to 30 days if airline routing or security checks require verification.",
+
+    age: "No age restriction. Applicable to all passengers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of funds is generally not required, but onward travel tickets and valid visas for destination country are mandatory.",
+
+    docs: "Valid passport (minimum 6 months validity), completed visa application form, confirmed onward flight ticket, visa for final destination (if required), travel itinerary, passport-size photos, and airport transit details.",
+
+    whom: "Foreign nationals transiting through Romanian airports who do NOT enter Romanian territory and remain in the international transit zone while waiting for connecting flights.",
+
+    rules: "Strictly limited to airport transit only. No entry into Romanian territory allowed. Cannot be used for tourism or business. Must remain in transit area only. Must continue journey within same travel itinerary.",
+
+    prosCons: "Pros: Simple entry requirement for connecting flights, allows smooth international transit. Cons: Extremely limited scope, no exit from airport allowed, dependent on airline routing and visa rules of destination country.",
+
+    terms: "C/A: Airport Transit Visa category; Transit Zone: International airport area; Onward Ticket: Proof of connecting flight; Schengen Transit Rule: Airport-only transit restriction.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE) and EU Visa Code regulations.",
+
+    process: `1. Book connecting international flights via Romania  
+              2. Check if Airport Transit Visa is required for nationality  
+              3. Prepare travel documents and destination visa (if required)  
+              4. Submit visa application online  
+              5. Book VFS Global or Embassy appointment  
+              6. Submit documents and biometrics  
+              7. Pay visa fee and service charges  
+              8. Embassy processes application (10–15 working days typical)  
+              9. Receive visa approval or rejection  
+              10. Travel and remain within airport transit zone only`
+},
+"RomaniaCrewMemberVisaCMC": {
+    name: "Crew Member Visa (C/MC) – Romania",
+
+    validity: "Up to 90 days within a 180-day period. Usually issued for short-term assignments based on vessel, airline, or transport schedule. Single-entry or multiple-entry depending on operational needs.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 standard Schengen visa fee). Additional VFS/consular service charges ₹1,500–₹3,000 may apply. Some crew agreements may allow fee exemptions.",
+
+    time: "Processing time usually 5 to 15 working days. May extend up to 30 days depending on verification with shipping/airline/company authorities.",
+
+    age: "No strict age limit. Typically issued to working crew members (18+), subject to employment regulations.",
+
+    education: "Not mandatory, but relevant maritime, aviation, or transport certification/training is required depending on role.",
+
+    funds: "Usually not required from applicant. Crew members are financially covered by employer, shipping company, airline, or transport operator.",
+
+    docs: "Valid passport (minimum 6 months validity), completed visa application form, employment contract or crew assignment letter, crew list (for ships/aircraft), seaman’s book or crew ID (if applicable), company invitation letter, travel itinerary, passport-size photos, and insurance coverage (if required by employer or authority).",
+
+    whom: "Foreign nationals employed as airline crew, ship crew, ferry crew, cargo vessel staff, or transport operators entering Romania as part of duty assignments.",
+
+    rules: "Strictly limited to crew duties only. No tourism, employment outside assignment, or independent work allowed. Must join and leave with assigned vessel/transport schedule. Must comply with immigration and transport regulations.",
+
+    prosCons: "Pros: Facilitates smooth international crew movement, fast processing, employer-supported documentation. Cons: Restricted strictly to duty role, no independent travel rights, dependent on employer schedule and authorization.",
+
+    terms: "C/MC: Crew member visa category; Seaman’s Book: Maritime crew identification; Crew List: Official transport personnel document; Operator Certificate: Employer authorization document.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE), Romanian Border Police, and EU Visa Code regulations.",
+
+    process: `1. Employer (airline/shipping company) issues crew assignment letter  
+              2. Prepare crew documents (ID, seaman book, contract)  
+              3. Submit visa application through VFS or Embassy  
+              4. Provide crew list and transport schedule  
+              5. Embassy verifies employer and assignment  
+              6. Pay visa and service fees  
+              7. Processing (5–15 working days typical)  
+              8. Additional checks if required  
+              9. Passport returned with visa decision  
+              10. Travel with assigned crew schedule only`
+},
+"RomaniaLongStayWorkVisaDAM": {
+    name: "Long-Stay Work Visa (D/AM) – Romania",
+
+    validity: "Initially issued for 90 days to enter Romania. After entry, it is converted into a residence permit typically valid for 1 year, renewable annually based on employment contract.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fees in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Visa processing: 10–30 working days. Work permit approval (before visa): 15–30 days. Total end-to-end process may take 4–8 weeks.",
+
+    age: "Usually 18–60 years. Must meet employer and labor contract requirements.",
+
+    education: "Not strictly required for all jobs, but depends on role. Skilled jobs may require diplomas, certificates, or experience proof.",
+
+    funds: "Employer typically provides salary contract. Applicant may need initial proof of funds for visa stage (bank statement recommended).",
+
+    docs: "Valid passport (6+ months), work permit issued by Romanian Immigration Inspectorate, employment contract, employer invitation letter, educational/work certificates, CV, police clearance certificate, medical certificate (if required), visa application form, passport photos.",
+
+    whom: "Foreign nationals employed by Romanian companies for long-term employment in sectors like IT, construction, manufacturing, healthcare, hospitality, and services.",
+
+    rules: "Must work only for sponsoring employer. Changing employer requires new work permit approval. Must obtain residence permit after arrival. No unauthorized work allowed.",
+
+    prosCons: "Pros: Legal long-term employment in Romania, pathway to residence permit renewal, stable job opportunities. Cons: Employer-dependent, strict labor market testing, limited job mobility initially.",
+
+    terms: "D/AM: Long-stay work visa category; Work Permit: Authorization from Romanian Immigration; Residence Permit: Post-entry legal stay document; Labor Market Test: Employer requirement proving no EU worker available.",
+
+    legal: "Romanian Immigration Inspectorate (IGI) and Ministry of Labour and Social Protection.",
+
+    process: `1. Employer applies for work permit in Romania  
+              2. Work permit is approved by Immigration Inspectorate  
+              3. Applicant collects documents and employment contract  
+              4. Submit D/AM visa application at Romanian Embassy/VFS  
+              5. Visa processing (10–30 working days)  
+              6. Receive long-stay visa and travel to Romania  
+              7. Apply for residence permit within 30 days of arrival  
+              8. Biometric registration and residence card issuance  
+              9. Begin employment legally  
+              10. Renew residence permit annually if employment continues`
+},
+"RomaniaEUBlueCardHighlySkilledWorkerVisa": {
+    name: "EU Blue Card (Highly Skilled Worker Visa) – Romania",
+
+    validity: "Initially issued for 1 to 2 years, depending on employment contract duration. Renewable. After long residence, it may support EU long-term residence eligibility.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit issuance fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Visa processing: 10–30 working days. Work authorization approval may take 15–45 days. Total process typically 4–10 weeks end-to-end.",
+
+    age: "No strict age limit. Typically issued to professionals aged 21–55 depending on qualification and job offer.",
+
+    education: "Mandatory. Must hold a higher education qualification (minimum Bachelor’s degree or equivalent) or proven high-level professional experience (as per Romanian/EU Blue Card rules).",
+
+    funds: "Must meet minimum salary threshold (usually 1.5x–2x Romania average gross salary for Blue Card eligibility). Employer salary contract serves as financial proof.",
+
+    docs: "Valid passport (6+ months), higher education degree certificate, employment contract with qualifying salary, work authorization from Romanian Immigration Inspectorate, CV, proof of professional experience, police clearance certificate, medical certificate (if required), visa application form, passport photos.",
+
+    whom: "Highly skilled foreign professionals such as IT specialists, engineers, doctors, researchers, finance experts, and other qualified professionals with a high-paying job offer in Romania.",
+
+    rules: "Must work only for sponsoring employer and in approved skilled role. Salary must meet EU Blue Card threshold. Job change requires approval. Must obtain residence permit after entry. Mobility within EU is possible after conditions are met.",
+
+    prosCons: "Pros: Fast-track residence pathway, high salary jobs, EU mobility advantages, long-term settlement potential. Cons: Strict qualification and salary requirements, employer dependency, limited initial flexibility.",
+
+    terms: "EU Blue Card: EU-wide high-skilled work permit; Salary Threshold: Minimum required income level; Residence Permit: Post-arrival legal stay card; Skilled Occupation: Qualified job category under EU rules.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Labour and Social Protection, and EU Blue Card Directive (EU Directive 2021/1883).",
+
+    process: `1. Secure high-skilled job offer in Romania  
+              2. Employer applies for work authorization  
+              3. Work permit approval issued  
+              4. Submit EU Blue Card visa application at Embassy/VFS  
+              5. Provide education and salary proof  
+              6. Visa processing (10–30 working days)  
+              7. Receive long-stay visa approval  
+              8. Travel to Romania  
+              9. Apply for EU Blue Card residence permit within 30 days  
+              10. Start employment under Blue Card status`
+},
+"RomaniaSeasonalWorkVisaDAS": {
+    name: "Seasonal Work Visa (D/AS) – Romania",
+
+    validity: "Up to 90 days or up to 6 months in a 12-month period depending on sector and work contract (commonly agriculture, tourism, hospitality).",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence/work authorization fees in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10 to 30 working days. Employer work authorization may take 15–45 days depending on labor office approval.",
+
+    age: "Typically 18–55 years. Must be physically fit for seasonal/manual work requirements.",
+
+    education: "Not required for most seasonal jobs. Basic literacy may be preferred depending on employer.",
+
+    funds: "Employer generally provides accommodation and salary. Applicant may still need minimal bank balance proof for visa issuance stage.",
+
+    docs: "Valid passport (6+ months), seasonal work permit issued by Romanian Immigration Inspectorate, employment contract, employer invitation letter, accommodation proof, medical certificate, police clearance certificate, visa application form, passport photos.",
+
+    whom: "Foreign workers employed temporarily in Romania for seasonal industries such as agriculture (fruit picking, farming), tourism, hospitality, construction support, and food processing.",
+
+    rules: "Strictly limited to seasonal employment only. Must work only for sponsoring employer. No job switching without approval. Must leave Romania after contract expiry. Cannot convert into permanent residence directly.",
+
+    prosCons: "Pros: Easy entry into EU labor market, employer provides support, high demand in agriculture/tourism sectors. Cons: Temporary only, physically demanding work, limited rights and mobility, no long-term guarantee.",
+
+    terms: "D/AS: Seasonal work visa category; Work Permit: Employer authorization from Romania; Seasonal Contract: Fixed-term employment agreement; Immigration Inspectorate: Romanian authority approving work stays.",
+
+    legal: "Romanian Immigration Inspectorate (IGI) and Ministry of Labour and Social Protection under EU Seasonal Workers Directive.",
+
+    process: `1. Employer recruits seasonal worker  
+              2. Employer applies for seasonal work authorization in Romania  
+              3. Work permit approval issued  
+              4. Applicant submits visa application at Embassy/VFS  
+              5. Provide employment contract and supporting documents  
+              6. Visa processing (10–30 working days)  
+              7. Visa approval issued  
+              8. Travel to Romania  
+              9. Register with immigration on arrival  
+              10. Work for contract duration and exit after completion`
+},
+"RomaniaIntraCompanyTransferVisaDDT": {
+    name: "Intra-Company Transfer Visa (D/DT) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit typically valid for 1–3 years depending on assignment. Renewable if intra-company assignment continues.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Visa processing usually 10–30 working days. Work authorization and company approval may take 15–45 days depending on documentation and corporate verification.",
+
+    age: "Typically 21–60 years. No strict limit, but must be actively employed by multinational company.",
+
+    education: "Required depending on role. Usually degree or specialized professional experience needed for managerial, specialist, or trainee positions.",
+
+    funds: "Not required from applicant. Salary and financial support provided by transferring company. Employment contract serves as financial proof.",
+
+    docs: "Valid passport (6+ months), intra-company transfer letter, employment contract with sending company, assignment letter from Romanian branch, work authorization from Romanian Immigration Inspectorate, CV, educational certificates, proof of experience (usually 6–12+ months with company), police clearance certificate, visa application form, passport photos.",
+
+    whom: "Employees of multinational companies transferred to Romanian branch/office for managerial positions, specialist roles, or trainee assignments under corporate transfer programs.",
+
+    rules: "Must work only for the assigned Romanian branch of employer. Cannot change employer without new authorization. Must follow assignment duration strictly. Residence permit required after entry. No unauthorized employment allowed.",
+
+    prosCons: "Pros: Smooth corporate mobility, stable salary, international career growth, legal EU transfer pathway. Cons: Employer-dependent, limited job flexibility, tied to corporate assignment duration.",
+
+    terms: "D/DT: Intra-company transfer visa category; Sending Entity: Parent company abroad; Host Entity: Romanian branch; Assignment Letter: Official transfer document; Residence Permit: Post-entry stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI) and EU Intra-Corporate Transfer Directive (EU Directive 2014/66/EU).",
+
+    process: `1. Employee is selected for intra-company transfer  
+              2. Company issues official transfer and assignment letter  
+              3. Romanian branch applies for work authorization  
+              4. Work permit approved by Immigration Inspectorate  
+              5. Submit visa application at Embassy/VFS  
+              6. Provide corporate and employment documents  
+              7. Visa processing (10–30 working days)  
+              8. Visa issued for entry  
+              9. Enter Romania and apply for residence permit  
+              10. Work under intra-company transfer status`
+},
+"RomaniaSelfEmployedFreelancerVisaDAE": {
+    name: "Self-Employed / Freelancer Visa (D/AE) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit typically valid for 1 year, renewable annually if business activity continues and financial requirements are met.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 15–45 working days. Business activity verification and documentation checks may extend processing in some cases.",
+
+    age: "Typically 18–60 years. No strict limit, but applicant must be legally capable of independent economic activity.",
+
+    education: "Not strictly required, but relevant professional experience, portfolio, or qualifications strengthen approval chances.",
+
+    funds: "Proof of sufficient funds required (bank statements typically covering €1,000–€2,000+ monthly sustainability depending on case). Must show ability to support self without local employment dependency.",
+
+    docs: "Valid passport (6+ months), business plan or freelance activity description, proof of professional qualifications/experience, financial statements (last 3–6 months), proof of accommodation in Romania, tax registration (if applicable), police clearance certificate, medical certificate (if required), visa application form, passport photos.",
+
+    whom: "Foreign nationals who want to live in Romania while working independently as freelancers, consultants, digital professionals, or self-employed entrepreneurs without being tied to a single employer.",
+
+    rules: "Must conduct only declared self-employed/freelance activities. Cannot work as regular employee unless additional authorization is obtained. Must maintain financial sustainability. Must renew residence permit annually. Business activity may be monitored by authorities.",
+
+    prosCons: "Pros: Independent work freedom, flexible lifestyle, EU-based residence option, potential path to long-term stay. Cons: Strict financial proof required, no guaranteed income, administrative compliance obligations, slower approval compared to work visas.",
+
+    terms: "D/AE: Self-employed visa category; Freelancer: Independent service provider; Business Plan: Activity justification document; Residence Permit: Post-entry stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI) and Ministry of Economy/Finance regulations for self-employment activities.",
+
+    process: `1. Prepare freelance/self-employment activity plan  
+              2. Gather financial and professional documents  
+              3. Submit long-stay visa application (D/AE) at Embassy/VFS  
+              4. Provide proof of funds and accommodation  
+              5. Immigration reviews business viability (15–45 working days)  
+              6. Visa approval issued for entry  
+              7. Enter Romania  
+              8. Apply for residence permit within 30 days  
+              9. Register tax/self-employment activity  
+              10. Renew residence annually based on compliance and income`
+},
+"RomaniaBusinessInvestorVisaDAC": {
+    name: "Business / Investor Visa (D/AC) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit typically valid for 1 year, renewable annually based on business activity, investment maintenance, and compliance.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply. Investment capital is separate and significantly higher.",
+
+    time: "Processing time usually 15–45 working days. Business verification, investment proof checks, and inter-agency review may extend timelines.",
+
+    age: "Typically 18–65 years. No strict limit, but applicant must be legally capable of managing business or investment activities.",
+
+    education: "Not mandatory. However, business experience, financial background, or entrepreneurial track record strongly improves approval chances.",
+
+    funds: "For investors, minimum investment thresholds apply (commonly €50,000–€100,000+ depending on business type). Proof of legal source of funds is required along with bank statements and financial records.",
+
+    docs: "Valid passport (6+ months), detailed business plan or investment proposal, company registration documents (if applicable), proof of investment funds, bank statements (last 6–12 months), proof of source of funds, tax documents (ITR or equivalent), CV/business background, police clearance certificate, accommodation proof in Romania, visa application form, passport photos.",
+
+    whom: "Foreign entrepreneurs, business owners, and investors intending to start, invest in, or manage businesses in Romania across sectors such as real estate, trade, manufacturing, IT, hospitality, and services.",
+
+    rules: "Must maintain declared investment or business activity. Funds must be legally sourced and verifiable. Business must comply with Romanian commercial laws. Residence permit renewal depends on continued economic activity. Cannot engage in unauthorized employment.",
+
+    prosCons: "Pros: Pathway to long-term residence, access to EU market, business expansion opportunities, potential family sponsorship options. Cons: High capital requirement, strict documentation and compliance, business risk exposure, ongoing monitoring by authorities.",
+
+    terms: "D/AC: Business/investor visa category; Investment Capital: Minimum required funds for eligibility; Business Plan: Structured economic activity proposal; Residence Permit: Post-entry long-term stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Economy, and Ministry of Finance under Romanian company and investment laws.",
+
+    process: `1. Prepare detailed business plan or investment proposal  
+              2. Gather financial proof and source-of-funds documentation  
+              3. Register company or investment structure (if required)  
+              4. Submit long-stay visa application (D/AC) at Embassy/VFS  
+              5. Immigration reviews business viability and capital legitimacy  
+              6. Possible interview or additional verification  
+              7. Visa approval issued for entry  
+              8. Enter Romania  
+              9. Apply for residence permit within 30 days  
+              10. Maintain business activity for annual renewal`
+},
+"RomaniaStudyVisaDSD": {
+    name: "Study Visa (D/SD) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit valid for 1 year or duration of study program, renewable annually until completion of studies.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10–30 working days. University verification and document checks may extend up to 45 days in some cases.",
+
+    age: "Typically 17–35 years for higher education. No strict upper limit for postgraduate or research programs.",
+
+    education: "Required. Must have previous academic qualifications (school certificate for bachelor’s, bachelor’s for master’s, etc.) as per program admission requirements.",
+
+    funds: "Proof of sufficient funds required (approx. €2,500–€5,000+ per year minimum depending on institution and living costs). Scholarship/sponsorship letter may replace personal funds.",
+
+    docs: "Valid passport (6+ months), university admission/acceptance letter, proof of tuition fee payment (if applicable), academic transcripts and certificates, financial proof or scholarship letter, accommodation proof, medical insurance, police clearance certificate, visa application form, passport photos.",
+
+    whom: "Foreign students admitted to Romanian universities, colleges, or accredited institutions for bachelor’s, master’s, PhD, or long-term academic programs.",
+
+    rules: "Must study only at approved institution and program. Part-time work allowed only under Romanian student work regulations. Must maintain academic progress. Must renew residence permit annually. Cannot switch to work visa without proper procedures.",
+
+    prosCons: "Pros: Access to EU-quality education, affordable tuition, pathway to residence extension, possible work opportunities during studies. Cons: Financial proof required, strict academic compliance, limited work rights initially.",
+
+    terms: "D/SD: Study visa category; Acceptance Letter: University admission proof; Residence Permit: Post-entry student stay authorization; Credit Recognition: Academic progress requirement.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Education, and EU student mobility regulations.",
+
+    process: `1. Apply and receive admission from Romanian university  
+              2. Obtain official acceptance letter  
+              3. Prepare financial and academic documents  
+              4. Submit long-stay visa application (D/SD) at Embassy/VFS  
+              5. Immigration reviews academic eligibility  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit within 30 days  
+              9. Enroll and begin studies  
+              10. Renew residence permit annually until course completion`
+},
+"RomaniaResearchScientificVisaDCS": {
+    name: "Research / Scientific Visa (D/CS) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit typically valid for 1 year or duration of research project, renewable based on project continuation and hosting agreement.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 15–30 working days. May extend to 45 days if research institution verification or security clearance is required.",
+
+    age: "No strict age limit. Typically issued to postgraduate researchers, PhD scholars, scientists, and academic professionals (usually 22+).",
+
+    education: "Required. Minimum bachelor’s or master’s degree depending on research level. PhD enrollment or prior research experience often preferred.",
+
+    funds: "Proof of sufficient funds required (~€500–€1,000 per month or scholarship/host funding covering stay and research costs). Hosting institution may provide full financial support.",
+
+    docs: "Valid passport (6+ months), research agreement or hosting agreement with Romanian university/institute, invitation letter from research institution, academic qualifications (degrees, transcripts), CV and research proposal, proof of funding or scholarship, accommodation proof, medical insurance, police clearance certificate, visa application form, passport photos.",
+
+    whom: "Foreign researchers, scientists, PhD candidates, academic fellows, and professionals participating in scientific research projects, university programs, or EU-funded research initiatives in Romania.",
+
+    rules: "Must work only on approved research project. Cannot engage in unrelated employment. Must comply with host institution rules. Residence permit required after entry. Extension depends on project continuation. Intellectual property and research compliance rules may apply.",
+
+    prosCons: "Pros: Access to EU research ecosystem, collaboration with universities, potential long-term academic career opportunities. Cons: Strict project dependency, limited flexibility, requires institutional sponsorship.",
+
+    terms: "D/CS: Research/scientific visa category; Hosting Agreement: Official research contract; Research Permit: Authorization for academic work; Residence Permit: Post-entry legal stay document.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Education and Research, and EU Directive 2016/801 on researchers.",
+
+    process: `1. Secure acceptance from Romanian research institution  
+              2. Sign hosting/research agreement  
+              3. Prepare academic and funding documents  
+              4. Submit long-stay visa application (D/CS) at Embassy/VFS  
+              5. Immigration verifies institution and project details  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit within 30 days  
+              9. Begin approved research activities  
+              10. Renew permit based on project duration`
+},
+"RomaniaVocationalTrainingVisaDAV": {
+    name: "Vocational Training Visa (D/AV) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit typically valid for the duration of the training program (usually 6 months to 1 year), renewable if training continues.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10–30 working days. May extend to 45 days depending on training institution verification and documentation checks.",
+
+    age: "Typically 16–40 years. No strict upper limit, but applicant must be suitable for vocational training program requirements.",
+
+    education: "Minimum basic education required (usually secondary school completion). Some technical programs may require prior qualifications or related experience.",
+
+    funds: "Proof of sufficient funds required (~€500–€1,000 per month recommended) unless training is fully sponsored by institution or employer.",
+
+    docs: "Valid passport (6+ months), acceptance letter from Romanian vocational training institution, training program details, proof of enrollment or registration, academic certificates (secondary or higher), financial proof or sponsorship letter, accommodation proof, medical insurance, police clearance certificate, visa application form, passport photos.",
+
+    whom: "Foreign nationals attending structured vocational or technical training programs in Romania such as technical skills courses, apprenticeships, professional certification training, or industry-based skill development programs.",
+
+    rules: "Strictly limited to approved vocational training activities. No full-time employment allowed outside training scope. Must maintain attendance and training progress. Residence permit required after entry. Cannot be converted directly into work visa without separate authorization.",
+
+    prosCons: "Pros: Skill development in EU environment, improved employability, pathway to future study or work opportunities. Cons: Limited duration, strict program dependency, no full employment rights during training.",
+
+    terms: "D/AV: Vocational training visa category; Training Agreement: Official enrollment contract; Residence Permit: Post-entry legal stay authorization; Apprenticeship: Structured skill training program.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Labour, and EU vocational training mobility regulations.",
+
+    process: `1. Apply and receive acceptance from vocational training institution  
+              2. Obtain official training admission letter  
+              3. Prepare financial and academic documents  
+              4. Submit long-stay visa application (D/AV) at Embassy/VFS  
+              5. Immigration reviews training program legitimacy  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit within 30 days  
+              9. Begin vocational training program  
+              10. Renew permit if training duration is extended`
+},
+"RomaniaReligiousActivitiesVisaDAR": {
+    name: "Religious Activities Visa (D/AR) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit typically valid for 1 year, renewable annually based on continued religious assignment or mission.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10–30 working days. May extend up to 45 days if religious organization verification or background checks are required.",
+
+    age: "Typically 18+ years. No strict upper age limit, but applicant must be officially assigned by a recognized religious institution.",
+
+    education: "Not strictly required, but theological training, religious qualification, or ordination certificate is usually expected depending on role.",
+
+    funds: "Usually covered by sponsoring religious institution. If self-funded, proof of sufficient funds (~€500–€1,000 per month recommended) may be required.",
+
+    docs: "Valid passport (6+ months), official letter from recognized religious institution, proof of ordination or religious qualification, assignment letter specifying duties in Romania, accommodation proof, financial support proof or sponsorship letter, police clearance certificate, medical insurance, visa application form, passport photos.",
+
+    whom: "Foreign nationals entering Romania to perform religious duties such as clergy work, missionary activities, religious teaching, pastoral care, or participation in recognized religious missions.",
+
+    rules: "Must strictly perform only assigned religious duties. No commercial employment allowed. Must comply with Romanian laws on religious activity. Residence permit required after entry. Must renew annually based on mission continuation.",
+
+    prosCons: "Pros: Legal stay for religious mission, institutional support, long-term renewable residence option. Cons: Strict dependency on sponsoring organization, limited to religious duties only, no independent employment rights.",
+
+    terms: "D/AR: Religious activities visa category; Religious Institution: Sponsoring organization; Ordination Certificate: Proof of clergy status; Residence Permit: Post-entry stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Culture and Religious Affairs, and EU long-stay visa regulations.",
+
+    process: `1. Receive assignment from recognized religious institution  
+              2. Obtain official mission/ordination documentation  
+              3. Prepare financial and personal documents  
+              4. Submit long-stay visa application (D/AR) at Embassy/VFS  
+              5. Immigration verifies religious organization and purpose  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit within 30 days  
+              9. Perform assigned religious duties  
+              10. Renew residence permit annually based on continuation of mission`
+},
+"RomaniaFamilyReunificationVisaDVF": {
+    name: "Family Reunification Visa (D/VF) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit typically valid for 1 year, renewable annually as long as family relationship and sponsor status remain valid.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 15–45 working days. May extend if relationship verification or sponsor status checks are required.",
+
+    age: "No age restriction. Applicable to spouses, minor children, dependent parents, and in some cases other dependent family members.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in Romania must demonstrate sufficient income and housing. Applicant may also need to show basic financial means depending on case.",
+
+    docs: "Valid passport (6+ months), proof of family relationship (marriage certificate, birth certificate, etc.), sponsor’s Romanian residence permit or citizenship proof, sponsor’s income and housing proof, invitation letter, police clearance certificate, medical insurance, visa application form, passport photos.",
+
+    whom: "Foreign family members joining Romanian citizens or legal residents, including spouses, children, and dependent relatives for long-term residence in Romania.",
+
+    rules: "Must live with sponsoring family member. No unauthorized employment unless permitted under residence rules. Must maintain valid residence permit. False relationship claims can lead to rejection or deportation.",
+
+    prosCons: "Pros: Enables family unity, long-term residence pathway, access to social integration. Cons: Strict documentation requirements, dependency on sponsor status, processing delays possible.",
+
+    terms: "D/VF: Family reunification visa category; Sponsor: Romanian citizen or resident; Residence Permit: Post-entry legal stay document; Dependent: Eligible family member.",
+
+    legal: "Romanian Immigration Inspectorate (IGI) and EU Family Reunification Directive (2003/86/EC).",
+
+    process: `1. Sponsor applies or confirms eligibility in Romania  
+              2. Prepare proof of relationship documents  
+              3. Gather sponsor financial and housing documents  
+              4. Submit long-stay visa application (D/VF) at Embassy/VFS  
+              5. Immigration verifies family relationship  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit within 30 days  
+              9. Register family residence status  
+              10. Renew residence permit annually if conditions remain valid`
+},
+"RomaniaSpouseVisaFamilyReunification": {
+    name: "Spouse Visa (Family Reunification Subtype) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit typically valid for 1 year, renewable annually as long as marriage and sponsor eligibility remain valid.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 15–45 working days. May extend if marriage authenticity verification or sponsor background checks are required.",
+
+    age: "No strict age limit. Typically applicable to legally married spouses (18+).",
+
+    education: "Not required.",
+
+    funds: "Romanian spouse (sponsor) must show stable income and adequate housing. Applicant may also be asked for basic financial means depending on case.",
+
+    docs: "Valid passport (6+ months), marriage certificate (legally registered and attested/apostilled if required), proof of genuine relationship (photos, communication records if requested), Romanian spouse’s ID/citizenship or residence permit, proof of income (salary slips/tax returns), housing proof in Romania, police clearance certificate, medical insurance, visa application form, passport photos.",
+
+    whom: "Foreign spouses of Romanian citizens or legal residents seeking to live together in Romania under family reunification rules.",
+
+    rules: "Must maintain genuine marital relationship. Must live with sponsoring spouse. Employment may be allowed only after obtaining residence permit conditions. False marriage or misrepresentation leads to rejection or cancellation. Must renew residence permit annually.",
+
+    prosCons: "Pros: Long-term stay in Romania, pathway to permanent residence, family unity. Cons: Strict verification of marriage authenticity, dependency on spouse status, documentation-heavy process.",
+
+    terms: "Family Reunification: Legal process for joining family; Sponsor: Romanian citizen/resident spouse; Residence Permit: Post-entry legal stay document; Genuine Relationship Test: Immigration verification of marriage authenticity.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Family Reunification Directive (2003/86/EC), and Romanian Civil Code (marriage recognition laws).",
+
+    process: `1. Ensure marriage is legally registered and recognized  
+              2. Romanian spouse confirms eligibility as sponsor  
+              3. Gather relationship and financial documents  
+              4. Submit long-stay visa application at Embassy/VFS  
+              5. Immigration verifies marriage authenticity  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit within 30 days  
+              9. Obtain family residence status  
+              10. Renew residence permit annually if marriage remains valid`
+},
+"RomaniaMinorChildDependentVisa": {
+    name: "Minor Child Dependent Visa (Family Reunification Subtype) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit typically valid for 1 year, renewable annually as long as parent’s legal residence status remains valid.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 15–45 working days. May extend if parent-child relationship verification or sponsor status checks are required.",
+
+    age: "Applicable only to minor children (generally under 18 years of age as per Romanian law).",
+
+    education: "Not required. If school admission is involved, enrollment documents may be requested.",
+
+    funds: "Parent/sponsor in Romania must show sufficient income and housing to support the child. Additional financial proof may be requested depending on case.",
+
+    docs: "Valid passport of child (6+ months), birth certificate proving parent-child relationship (apostilled/legalized if required), parent’s Romanian residence permit or citizenship proof, parent’s income proof, housing proof in Romania, consent letter from other parent (if applicable), school enrollment documents (if studying), medical insurance, police clearance (if required), visa application form, passport photos.",
+
+    whom: "Minor children of Romanian citizens or legal foreign residents who are joining their parent(s) for long-term residence in Romania.",
+
+    rules: "Child must reside with sponsoring parent(s). Must comply with Romanian education requirements if of school-going age. Residence permit must be renewed annually. Any false documentation or custody disputes may lead to rejection or legal action.",
+
+    prosCons: "Pros: Enables family unity, access to education in Romania, long-term dependent residence rights. Cons: Strong documentation requirements, dependency on parent’s legal status, processing delays possible.",
+
+    terms: "Minor Dependent: Child under legal age; Sponsor: Parent legally residing in Romania; Family Reunification: Legal immigration pathway; Residence Permit: Post-entry stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Family Reunification Directive (2003/86/EC), and Romanian Child Protection Laws.",
+
+    process: `1. Parent confirms legal residence or citizenship status in Romania  
+              2. Gather child’s birth and identity documents  
+              3. Prepare sponsor financial and housing proof  
+              4. Submit long-stay visa application at Embassy/VFS  
+              5. Immigration verifies parent-child relationship  
+              6. Visa approval issued for entry  
+              7. Child travels to Romania with guardian/parent  
+              8. Apply for residence permit within 30 days  
+              9. Enroll child in school if applicable  
+              10. Renew residence permit annually based on parent status`
+},
+"RomaniaEUBlueCardVisaHighlyQualifiedProfessionals": {
+    name: "EU Blue Card Visa (Highly Qualified Professionals) – Romania",
+
+    validity: "Initially issued as a long-stay entry visa (D/AM or Blue Card entry visa). After arrival, converted into an EU Blue Card residence permit valid for 1–2 years depending on employment contract, renewable as long as conditions are met.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + EU Blue Card residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 15–45 working days. Employer authorization + immigration approval may take additional 2–6 weeks depending on workload.",
+
+    age: "Typically 21–55 years. No strict legal age limit, but must be a qualified professional for skilled employment.",
+
+    education: "Mandatory. Must have a higher education qualification (Bachelor’s degree or higher) or equivalent high-level professional experience recognized under EU Blue Card rules.",
+
+    funds: "Must meet minimum salary threshold (usually at least 1.5x–2x average gross salary in Romania). Salary stated in employment contract serves as primary financial proof.",
+
+    docs: "Valid passport (6+ months), university degree certificates, employment contract with Romanian employer, work authorization from Romanian Immigration Inspectorate, CV, proof of professional experience, salary confirmation meeting EU Blue Card threshold, police clearance certificate, medical insurance, visa application form, passport photos.",
+
+    whom: "Highly skilled non-EU professionals such as IT specialists, engineers, doctors, researchers, financial analysts, and other high-demand professionals with a qualified job offer in Romania.",
+
+    rules: "Must work only for sponsoring employer in approved skilled role. Salary must remain above EU Blue Card threshold. Job change requires prior approval. Residence permit must be renewed. EU mobility rights apply after meeting conditions.",
+
+    prosCons: "Pros: Fast-track skilled migration pathway, high-paying job opportunities, EU-wide mobility benefits, long-term residence potential. Cons: Strict qualification and salary requirements, employer dependency, limited initial job flexibility.",
+
+    terms: "EU Blue Card: EU skilled worker residence system; Salary Threshold: Minimum required income level; Skilled Occupation: Qualified professional role; Residence Permit: Post-entry legal stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Labour and Social Protection, and EU Blue Card Directive (Directive (EU) 2021/1883).",
+
+    process: `1. Secure highly skilled job offer in Romania  
+              2. Employer applies for work authorization  
+              3. Work permit approval issued by immigration authorities  
+              4. Submit EU Blue Card visa application at Embassy/VFS  
+              5. Provide degree, salary, and employment proof  
+              6. Visa processing (15–45 working days typical)  
+              7. Visa approval issued for entry  
+              8. Travel to Romania  
+              9. Apply for EU Blue Card residence permit within 30 days  
+              10. Begin employment and maintain eligibility for renewal`
+},
+"RomaniaTemporaryResidencePermitTRP": {
+    name: "Temporary Residence Permit (TRP) – Romania",
+
+    validity: "Typically issued for 1 year at a time (can vary from 6 months to 2 years depending on category such as work, study, family reunification, or business). Renewable annually as long as eligibility conditions continue.",
+
+    cost: "Residence permit fee in Romania ~€100–€150 per year. Additional biometric, card issuance, and service charges may apply (~₹1,500–₹3,000 equivalent VFS/processing fees).",
+
+    time: "Processing time usually 15–30 working days after submission in Romania. Initial visa entry (D-type visa) takes 10–45 working days depending on category.",
+
+    age: "No universal age limit. Depends on underlying purpose (work, study, family, etc.).",
+
+    education: "Not mandatory. Required only if linked to study or skilled employment categories.",
+
+    funds: "Must show sufficient means of subsistence depending on category (salary, sponsor support, business income, or savings).",
+
+    docs: "Valid passport, long-stay visa (D-type entry visa), proof of purpose (employment contract/admission letter/family documents/business proof), proof of accommodation in Romania, health insurance, police clearance certificate (if required), proof of financial means, application form, biometric data.",
+
+    whom: "Foreign nationals legally staying in Romania for long-term purposes such as work, study, family reunification, business, or research after entering on a long-stay visa.",
+
+    rules: "Must comply strictly with the purpose of stay (work/study/family/business). Must register residence in Romania. Must renew before expiry. Changing purpose requires new approval. Absence beyond allowed limits may cancel permit.",
+
+    prosCons: "Pros: Legal long-term stay in Romania, renewable status, pathway to permanent residence, access to services. Cons: Strict compliance requirements, renewal dependency, purpose-specific restrictions.",
+
+    terms: "TRP: Temporary Residence Permit; D-Visa: Entry visa for long stay; IGI: Romanian Immigration Inspectorate; Purpose of Stay: Legal category under which permit is granted.",
+
+    legal: "Romanian Immigration Inspectorate (IGI) under Government Emergency Ordinance No. 194/2002 on foreigners in Romania.",
+
+    process: `1. Obtain appropriate long-stay (D-type) visa  
+              2. Enter Romania legally  
+              3. Register address with local authorities  
+              4. Submit TRP application at Romanian Immigration Office  
+              5. Provide biometric data (fingerprints/photo)  
+              6. Immigration reviews documents and purpose  
+              7. Pay residence permit fee  
+              8. Receive Temporary Residence Permit card  
+              9. Renew annually before expiry  
+              10. Maintain compliance with stated purpose of stay`
+},
+"RomaniaPermanentResidencePermitPR": {
+    name: "Permanent Residence Permit (PR) – Romania",
+
+    validity: "Issued for 5 years and renewable indefinitely. After 5 continuous years of legal residence, eligible foreign nationals can apply for permanent residence status in Romania.",
+
+    cost: "€120–€200 approximately (₹11,000–₹18,000) including residence permit issuance, biometric card, and administrative fees. Additional minor service/VFS charges may apply.",
+
+    time: "Processing time usually 30–90 working days after application submission. Eligibility (5-year residence requirement) must be completed first.",
+
+    age: "No strict age limit. Applicant must have legally completed required residence period (usually 5 years continuous stay).",
+
+    education: "Not required.",
+
+    funds: "Must show stable and legal income or financial means (salary, business income, pension, or sponsor support if applicable).",
+
+    docs: "Valid passport, proof of 5 years continuous legal residence in Romania (temporary residence permits), proof of income or financial stability, accommodation proof, health insurance, tax payment records, language integration proof (in some cases), police clearance certificate, application form, biometric data.",
+
+    whom: "Foreign nationals who have legally lived in Romania for at least 5 continuous years under temporary residence permits (work, study, family, or business categories) and wish to settle permanently.",
+
+    rules: "Must not have long absences from Romania (generally limited to short trips abroad). Must demonstrate integration and lawful residence history. Criminal record or legal violations may lead to rejection. PR status can be withdrawn if serious legal breaches occur.",
+
+    prosCons: "Pros: Long-term settlement security, freedom from annual renewals, easier job mobility, access to social benefits. Cons: Requires long qualifying period (5 years), strict compliance history, documentation-heavy process.",
+
+    terms: "PR: Permanent Residence; Continuous Residence: 5-year legal stay requirement; IGI: Romanian Immigration Inspectorate; Settlement Rights: Long-term stay rights without yearly renewal.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Government Emergency Ordinance No. 194/2002, and EU Long-Term Residence Directive (2003/109/EC).",
+
+    process: `1. Complete 5 years of continuous legal residence in Romania  
+              2. Ensure valid temporary residence permits throughout period  
+              3. Prepare financial, tax, and accommodation records  
+              4. Submit PR application at Romanian Immigration Office  
+              5. Provide biometric data and supporting documents  
+              6. Immigration verifies residence history and eligibility  
+              7. Pay PR card issuance fees  
+              8. Receive Permanent Residence Permit card (5-year validity)  
+              9. Renew PR card every 5 years  
+              10. Maintain compliance with Romanian residency laws`
+},
+"RomaniaEULongTermResidencePermit": {
+    name: "EU Long-Term Residence Permit Visa (Romania)",
+
+    validity: "Permanent long-term status granted after 5 years of continuous legal residence in Romania or another EU state (with specific conditions). The residence card itself is typically issued for 5 years and is renewable.",
+
+    cost: "€120–€200 (approx. ₹11,000–₹18,000) including residence card issuance, biometric registration, and administrative fees. Additional service charges may apply.",
+
+    time: "Processing time usually 30–90 working days after eligibility confirmation. Eligibility requires prior 5 years of continuous legal residence.",
+
+    age: "No strict age limit. Applicant must meet residence duration requirement (usually 5 consecutive years in EU with conditions met in Romania).",
+
+    education: "Not required.",
+
+    funds: "Must demonstrate stable and regular income (salary, pension, business income, or financial support) sufficient to sustain living in Romania without public assistance.",
+
+    docs: "Valid passport, proof of 5 years continuous legal residence in Romania or EU (temporary residence permits), proof of income or financial stability, tax payment records, accommodation proof, health insurance, integration proof (language or civic integration if required), police clearance certificate, application form, biometric data.",
+
+    whom: "Foreign nationals who have legally resided in Romania (or EU under qualifying conditions) for at least 5 continuous years and seek long-term EU residence rights with enhanced mobility within EU states.",
+
+    rules: "Must not have long absences from EU (generally limited absences allowed). Must maintain legal residence history. Criminal violations or immigration breaches may result in rejection or withdrawal. Status allows mobility within EU but subject to host country conditions.",
+
+    prosCons: "Pros: Strong EU residence rights, easier mobility within EU, long-term stability, access to social and economic rights. Cons: Long qualification period, strict compliance rules, requires continuous legal residence history.",
+
+    terms: "EU Long-Term Residence: EU-wide settlement status; Continuous Residence: 5-year qualifying stay; Mobility Rights: Ability to move within EU under conditions; Residence Card: Proof of status issued by Romania.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Directive 2003/109/EC (Long-Term Residents Directive), and Romanian immigration law (OUG 194/2002).",
+
+    process: `1. Complete 5 years of continuous legal residence in Romania/EU  
+              2. Ensure valid temporary residence permits throughout period  
+              3. Gather financial, tax, and accommodation documentation  
+              4. Submit application for EU long-term residence status  
+              5. Immigration verifies residence continuity and eligibility  
+              6. Provide biometric data and supporting documents  
+              7. Pay issuance fees  
+              8. Receive EU Long-Term Residence Permit card (renewable every 5 years)  
+              9. Enjoy EU mobility rights under regulated conditions  
+              10. Maintain compliance to retain status`
+},
+"RomaniaDigitalNomadVisa": {
+    name: "Digital Nomad Visa – Romania (Remote Work Residence Permit)",
+
+    validity: "Initially issued for 90 days entry visa (D-type). After arrival, converted into a residence permit typically valid for 1 year, renewable annually if remote work conditions continue to be met.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 15–45 working days. Financial verification and remote work documentation checks may extend processing time.",
+
+    age: "Typically 18–60 years. No strict limit, but applicant must be legally employed or self-employed in remote work.",
+
+    education: "Not mandatory, but relevant professional experience or employment history in remote/digital work fields is expected.",
+
+    funds: "Must show stable monthly income from foreign sources. Typically required income is around 3x Romanian average gross salary (approx. €3,000+ per month, subject to updates). Bank statements for last 6–12 months required.",
+
+    docs: "Valid passport (6+ months), proof of remote employment or freelance contracts, employer letter (if employed) confirming remote work permission, bank statements (6–12 months), proof of income stability, tax documents, accommodation proof in Romania, health insurance, police clearance certificate, visa application form, passport photos.",
+
+    whom: "Foreign remote workers, freelancers, IT professionals, consultants, and online business owners who earn income from outside Romania and want to live in Romania while working remotely.",
+
+    rules: "Must not work for Romanian employers or Romanian-based companies. Income must come from outside Romania. Must maintain minimum income threshold. Must renew residence permit annually. Local employment is prohibited without separate authorization.",
+
+    prosCons: "Pros: Live in Romania while working remotely, EU lifestyle access, lower cost of living compared to Western Europe, renewable residency. Cons: Strict income proof requirements, no local employment allowed, financial monitoring required.",
+
+    terms: "Digital Nomad: Remote worker earning foreign income; Remote Employment: Work for non-Romanian employer; Income Threshold: Minimum required monthly earnings; Residence Permit: Legal stay authorization in Romania.",
+
+    legal: "Romanian Immigration Inspectorate (IGI) and Romanian Government Emergency Ordinance No. 194/2002 on foreigners, updated provisions for remote work residents.",
+
+    process: `1. Prove remote employment or freelance business outside Romania  
+              2. Gather financial documents (income, bank statements)  
+              3. Secure accommodation in Romania  
+              4. Submit long-stay visa application (D-type digital nomad category)  
+              5. Immigration verifies income and remote work eligibility  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit within 30 days  
+              9. Maintain foreign income and renew annually  
+              10. Comply with non-local employment restrictions`
+},
+"RomaniaEUFamilyMemberResidenceVisa": {
+    name: "EU Family Member Residence Visa – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit typically valid for 1–5 years depending on the EU citizen’s status and duration of stay in Romania. Renewable as long as family relationship and EU citizen status remain valid.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply. In many EU cases, fees may be reduced or waived.",
+
+    time: "Processing time usually 10–45 working days. May extend if relationship verification or EU sponsor documentation checks are required.",
+
+    age: "No strict age limit. Applicable to spouses, children, dependent parents, and in some cases extended dependent family members of EU/EEA citizens.",
+
+    education: "Not required.",
+
+    funds: "EU citizen sponsor must demonstrate sufficient resources to support family members (income, employment, savings, or pension). Applicant may also need to show basic financial means in some cases.",
+
+    docs: "Valid passport, proof of family relationship (marriage certificate, birth certificate, etc.), EU citizen sponsor’s passport/ID, proof of EU citizen’s residence in Romania, proof of income or financial means of sponsor, accommodation proof, health insurance, application form, passport photos.",
+
+    whom: "Non-EU family members (spouse, children, dependent parents) of EU/EEA citizens living or moving to Romania under EU freedom of movement rules.",
+
+    rules: "Must reside with or join EU family member. Must not become a burden on social assistance system. Employment rights are generally granted after residence registration. False documentation or fake relationship leads to rejection or cancellation.",
+
+    prosCons: "Pros: Strong EU legal protection, easier approval compared to standard visas, right to live and often work in Romania, long-term residence pathway. Cons: Strict proof of genuine relationship, dependent on EU citizen status, verification delays possible.",
+
+    terms: "EU Citizen: Sponsor from EU/EEA country; Family Member Directive: EU Directive 2004/38/EC; Residence Card: Legal stay document issued in Romania; Free Movement Rights: EU mobility entitlement.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Directive 2004/38/EC (Free Movement of EU Citizens and Family Members), and Romanian national immigration law (OUG 194/2002).",
+
+    process: `1. EU citizen establishes residence in Romania  
+              2. Non-EU family member prepares relationship documents  
+              3. Submit long-stay visa application (if required) at Embassy/VFS  
+              4. Enter Romania  
+              5. Register residence with Immigration Office  
+              6. Submit application for residence card  
+              7. Provide biometric data and supporting documents  
+              8. Immigration verifies family relationship  
+              9. Receive EU Family Member Residence Card  
+              10. Renew residence status as long as EU citizen conditions are valid`
+},
+"RomaniaAsylumInternationalProtectionVisa": {
+    name: "Asylum / International Protection Application – Romania",
+
+    validity: "Not a traditional visa. Grants legal right to stay in Romania during asylum processing. If approved, may result in refugee status (5 years residence permit) or subsidiary protection (renewable residence permit).",
+
+    cost: "Free of visa fee. No application fee is charged. Basic administrative costs (documents, translations, transport) may apply (~₹0–₹5,000 equivalent).",
+
+    time: "Initial registration is immediate upon application. Full asylum decision process may take several months to over 1 year depending on case complexity.",
+
+    age: "No age restriction. Applicable to individuals, families, and unaccompanied minors.",
+
+    education: "Not required.",
+
+    funds: "Not required. Applicants may receive state support (accommodation, food, basic assistance) during the asylum process in reception centers.",
+
+    docs: "Valid passport or any identity document (if available), personal statement explaining persecution or risk, supporting evidence (if available such as photos, documents, threats), fingerprints and biometric data, application form submitted to Romanian Immigration authorities.",
+
+    whom: "Foreign nationals seeking protection in Romania due to persecution, war, violence, political oppression, religious persecution, or serious human rights violations in their home country.",
+
+    rules: "Must apply within Romania or at border entry points. Must cooperate with asylum authorities. Cannot leave Romania during processing without permission. False claims may result in rejection or deportation. Applicants must stay in designated reception system until decision.",
+
+    prosCons: "Pros: Legal protection from deportation, access to shelter and basic services, possibility of long-term refugee status in EU. Cons: Long processing time, limited freedom of movement initially, strict eligibility checks.",
+
+    terms: "Asylum: Protection granted by a country; Refugee Status: Full international protection under 1951 Refugee Convention; Subsidiary Protection: Limited protection for serious risk cases; Reception Center: Government accommodation facility.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Asylum Procedures Directive (2013/32/EU), and 1951 Geneva Refugee Convention.",
+
+    process: `1. Apply for asylum at Romanian border or immigration office  
+              2. Register and submit personal statement  
+              3. Provide biometric data (fingerprints/photo)  
+              4. Stay in reception or designated accommodation  
+              5. Attend asylum interviews with authorities  
+              6. Case evaluation and evidence review  
+              7. Decision issued (Refugee Status / Subsidiary Protection / Rejection)  
+              8. If approved, receive residence permit  
+              9. If rejected, appeal may be filed  
+              10. Status reviewed periodically depending on protection type`
+},
+"RomaniaRefugeeStatusVisa": {
+    name: "Refugee Status (International Protection) – Romania",
+
+    validity: "Granted for 3 years initially (in practice often issued as a 3-year residence permit). Renewable. Can lead to long-term residence and eventually permanent residence under EU rules.",
+
+    cost: "No visa or application fee. Free under international protection framework. Minor costs may apply for documents, translations, or administrative services (~₹0–₹5,000 equivalent).",
+
+    time: "Asylum decision leading to refugee status typically takes several months to over 12 months depending on case complexity and backlog.",
+
+    age: "No age restriction. Applicable to individuals and families including minors and unaccompanied children.",
+
+    education: "Not required.",
+
+    funds: "Not required. Refugees may receive state assistance such as accommodation in reception centers, food, basic healthcare, and integration support.",
+
+    docs: "Asylum application record, identity documents if available, personal statement of persecution, supporting evidence (documents, witness statements, threats, etc.), biometric data (fingerprints/photo), asylum interview records.",
+
+    whom: "Foreign nationals who have been officially recognized by Romanian authorities as refugees under the 1951 Geneva Convention due to persecution based on race, religion, nationality, political opinion, or membership in a particular social group.",
+
+    rules: "Must comply with Romanian laws. Must notify authorities of address changes. Can travel abroad only with refugee travel document. Cannot return to country of persecution while status is active. Status may be reviewed if conditions in home country change.",
+
+    prosCons: "Pros: Strong legal protection from deportation, right to reside and work in Romania, access to healthcare and education, pathway to long-term residence. Cons: Strict eligibility criteria, long processing time, periodic status review.",
+
+    terms: "Refugee Status: Full protection under Geneva Convention; International Protection: EU asylum protection framework; Residence Permit: Legal stay document issued after approval; Non-refoulement: Protection from forced return to danger.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), 1951 Geneva Refugee Convention, EU Qualification Directive (2011/95/EU).",
+
+    process: `1. Apply for asylum in Romania  
+              2. Submit personal statement and evidence of persecution  
+              3. Attend asylum interviews and hearings  
+              4. Immigration evaluates eligibility under Refugee Convention  
+              5. Decision issued (Refugee Status granted or rejected)  
+              6. If approved, receive 3-year residence permit  
+              7. Access integration services (housing, work rights, healthcare)  
+              8. Renew status upon expiry if conditions persist  
+              9. Apply for long-term residence after qualifying period  
+              10. Maintain compliance with Romanian and EU laws`
+},
+"RomaniaSubsidiaryProtectionVisa": {
+    name: "Subsidiary Protection Status (International Protection) – Romania",
+
+    validity: "Initially granted for 1 year or up to 2 years depending on case. Renewable as long as risk conditions persist. Can later lead to long-term residence eligibility under EU rules.",
+
+    cost: "No visa or application fee. Free under international protection framework. Minor administrative costs may apply for documents, translations, or services (~₹0–₹5,000 equivalent).",
+
+    time: "Decision usually takes several months up to 12+ months depending on asylum case workload and complexity.",
+
+    age: "No age restriction. Applicable to individuals and families including minors.",
+
+    education: "Not required.",
+
+    funds: "Not required. Beneficiaries may receive state assistance such as accommodation, food, healthcare, and integration support during initial period.",
+
+    docs: "Asylum application file, identity documents (if available), personal statement explaining risk of serious harm, supporting evidence (conflict, torture risk, violence, death penalty risk), biometric data, interview records with immigration authorities.",
+
+    whom: "Foreign nationals who do not qualify as refugees but face serious harm if returned to their home country, such as war zones, torture risk, indiscriminate violence, or death penalty threats.",
+
+    rules: "Must reside legally in Romania. Cannot return to country of origin if risk persists. Must report address changes. Travel outside Romania requires special travel document approval. Status may be reviewed if conditions in home country improve.",
+
+    prosCons: "Pros: Legal protection from deportation, right to reside and work in Romania, access to basic services, humanitarian protection pathway. Cons: Temporary and conditional status, periodic reviews, limited compared to full refugee rights.",
+
+    terms: "Subsidiary Protection: EU humanitarian protection status; Non-refoulement: Protection from forced return to danger; Residence Permit: Legal stay document; Asylum System: Protection framework under EU law.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Qualification Directive (2011/95/EU), and 1951 Geneva Convention principles (supplementary protection framework).",
+
+    process: `1. Apply for asylum in Romania  
+              2. Submit evidence of risk of serious harm  
+              3. Attend interviews with immigration authorities  
+              4. Case assessed under subsidiary protection criteria  
+              5. Decision issued (approval or rejection)  
+              6. If approved, receive residence permit (1–2 years validity)  
+              7. Access basic integration and support services  
+              8. Renew status if risk conditions continue  
+              9. Apply for long-term residence after qualifying period  
+              10. Maintain compliance with Romanian law`
+},
+"RomaniaHumanitarianResidencePermit": {
+    name: "Humanitarian Residence Permit – Romania",
+
+    validity: "Typically issued for 6 months to 1 year, depending on humanitarian grounds. Renewable if the humanitarian condition continues or until another legal status is granted.",
+
+    cost: "Generally free or minimal administrative fee (~€0–€50 / ₹0–₹5,000 equivalent). Some documentation or service costs may apply.",
+
+    time: "Processing time usually 15–60 working days depending on urgency, case complexity, and supporting authority verification.",
+
+    age: "No age restriction. Applicable to individuals, families, elderly persons, and minors in vulnerable situations.",
+
+    education: "Not required.",
+
+    funds: "Not mandatory. In many humanitarian cases, applicants may receive state assistance or NGO support for basic needs.",
+
+    docs: "Valid passport or identity document (if available), humanitarian justification (medical reports, vulnerability evidence, protection needs), personal statement, supporting documents from authorities/NGOs/medical institutions, biometric data, accommodation proof (if available), application form.",
+
+    whom: "Foreign nationals who cannot be deported due to humanitarian reasons such as serious illness, statelessness, family emergency, risk of harm not meeting refugee criteria, or exceptional vulnerable circumstances.",
+
+    rules: "Must comply with Romanian laws. Cannot use status for unauthorized employment unless explicitly permitted. Must report to immigration authorities if required. Status is temporary and subject to review. May be converted to other residence permits if eligibility arises.",
+
+    prosCons: "Pros: Legal stay in Romania during vulnerable situations, protection from removal, access to basic assistance, flexible case-by-case consideration. Cons: Temporary and uncertain status, limited rights compared to refugee/subsidiary protection, dependent on case review.",
+
+    terms: "Humanitarian Grounds: Exceptional protection basis; Temporary Residence: Short-term legal stay; Vulnerability Assessment: Evaluation of personal risk/need; Immigration Inspectorate (IGI): Authority issuing permits.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Romanian Aliens Ordinance (OUG 194/2002), and European human rights and humanitarian protection principles.",
+
+    process: `1. Submit request for humanitarian protection in Romania  
+              2. Provide evidence of humanitarian or medical need  
+              3. Immigration reviews case individually  
+              4. Additional verification with medical/NGO/authority reports if required  
+              5. Decision issued (approval or rejection)  
+              6. If approved, receive temporary residence permit  
+              7. Access basic rights and support services  
+              8. Renew permit if condition persists  
+              9. May transition to other residence categories if eligible  
+              10. Status reviewed periodically by authorities`
+},
+"RomaniaTemporaryProtectionVisaEU": {
+    name: "Temporary Protection Visa (EU Crisis-Based Scheme) – Romania",
+
+    validity: "Initially granted for 1 year under EU temporary protection framework. Can be extended automatically in 6-month or 1-year increments depending on EU Council decisions (commonly used during mass displacement crises).",
+
+    cost: "Free of visa and application fees. No administrative charge for granting temporary protection status. Minor personal/document costs may apply (~₹0–₹2,000 equivalent).",
+
+    time: "Immediate or very fast registration (same day to a few days) upon arrival or application at Romanian immigration authorities or designated centers.",
+
+    age: "No age restriction. Applicable to individuals, families, minors, and unaccompanied children.",
+
+    education: "Not required.",
+
+    funds: "Not required. Beneficiaries receive state support including accommodation, food assistance, healthcare access, and basic financial/social aid in some cases.",
+
+    docs: "Valid passport or identity document (if available), proof of nationality from crisis-affected country, registration form with Romanian Immigration Inspectorate (IGI), biometric data (if required), proof of residence or entry record, family documents (if applicable).",
+
+    whom: "Foreign nationals displaced due to large-scale emergencies such as war, armed conflict, or humanitarian crises, granted protection under EU Temporary Protection Directive (e.g., Ukraine crisis beneficiaries).",
+
+    rules: "Must remain within Romania or EU under temporary protection rules. Must register with authorities. Cannot be deported while protection is active. Must comply with local laws. Work and residence rights are granted under simplified procedures but remain temporary.",
+
+    prosCons: "Pros: Immediate protection, fast legal stay authorization, access to housing, healthcare, and work rights, family unity protection. Cons: Temporary nature, depends on EU policy decisions, not a permanent immigration pathway by itself.",
+
+    terms: "Temporary Protection: EU emergency protection mechanism; IGI: Romanian Immigration Inspectorate; EU Council Decision: Legal trigger for activation; Beneficiary: Person granted protection status.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Temporary Protection Directive 2001/55/EC, and EU Council Implementing Decisions (crisis-specific, e.g., Ukraine 2022).",
+
+    process: `1. Arrive in Romania or apply at designated authority center  
+              2. Register under Temporary Protection scheme  
+              3. Submit identity and nationality documents (if available)  
+              4. Provide biometric data if required  
+              5. Receive temporary protection registration certificate  
+              6. Access accommodation, healthcare, and support services  
+              7. Obtain work authorization under simplified rules  
+              8. Renew status automatically based on EU extension decisions  
+              9. Maintain registration with authorities  
+              10. Transition to other residence permits if eligible in future`
+},
+"RomaniaAirportTransitVisaATV": {
+    name: "Airport Transit Visa (ATV) – Romania",
+
+    validity: "Valid only for airport transit within the international transit area. Typically allows stay for a few hours up to 24 hours depending on flight connections. No entry into Romanian territory is permitted.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 Schengen visa fee) + VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10–15 working days. May extend up to 30 days if additional security or routing verification is required.",
+
+    age: "No age restriction. Applicable to all travelers including minors (with required guardian documentation).",
+
+    education: "Not required.",
+
+    funds: "Generally not required. However, proof of onward travel and valid visa for destination country is mandatory.",
+
+    docs: "Valid passport (6+ months), completed visa application form, confirmed onward flight ticket, visa for final destination (if required), travel itinerary, passport-size photos, and airport transit details.",
+
+    whom: "Foreign nationals transiting through Romanian airports en route to another destination who must remain in the international transit zone without entering Romania.",
+
+    rules: "Strictly limited to airport transit only. Entry into Romanian territory is not allowed. Must hold valid onward travel documents. Cannot be used for tourism, work, or business purposes.",
+
+    prosCons: "Pros: Enables smooth international flight connections via Romania, simple short-term requirement. Cons: Very restrictive, no exit from airport allowed, dependent on airline routing and nationality rules.",
+
+    terms: "ATV: Airport Transit Visa; Transit Zone: International airport area; Onward Ticket: Proof of continuation journey; Schengen Transit Rules: Regulations governing airport transit only.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE) and EU Visa Code (Regulation (EC) No 810/2009).",
+
+    process: `1. Book international flight with transit via Romania  
+              2. Check if ATV is required for nationality  
+              3. Prepare passport and onward travel documents  
+              4. Submit visa application at Embassy/VFS  
+              5. Provide flight itinerary and destination visa (if required)  
+              6. Pay visa and service fees  
+              7. Processing by embassy (10–15 working days typical)  
+              8. Receive visa decision  
+              9. Travel and remain in airport transit area only  
+              10. Continue journey to final destination without entering Romania`
+},
+"RomaniaTransitVisaShortTransit": {
+    name: "Transit Visa (Short Transit) – Romania",
+
+    validity: "Valid for up to 5 days within a 180-day period. Allows short stay for land/air/sea transit through Romania while traveling to another destination. Single or double entry depending on itinerary.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 Schengen visa fee) + VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10–15 working days. May extend up to 30 days depending on document verification and travel route checks.",
+
+    age: "No age restriction. Applicable to all travelers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds for transit stay may be required (recommended €50–€100 per day) along with confirmed onward travel proof.",
+
+    docs: "Valid passport (6+ months), completed visa application form, confirmed onward travel tickets, visa for final destination (if required), travel itinerary, proof of accommodation (if overnight transit), travel insurance (€30,000 coverage recommended), passport photos.",
+
+    whom: "Foreign nationals passing through Romania by land, air, or sea who need to exit the airport/transit zone briefly or stay for short layovers before continuing to a third country.",
+
+    rules: "Strictly for transit purposes only. No employment or long-term stay allowed. Must exit Romania within allowed transit duration. Must have valid onward travel documents. Cannot convert into long-stay visa.",
+
+    prosCons: "Pros: Allows short stopover in Romania, flexible for multi-leg journeys, easier than long-stay visas. Cons: Very limited duration, strict purpose restriction, no extension or conversion allowed.",
+
+    terms: "Transit Visa: Short-term entry for passage; Onward Ticket: Proof of exit journey; Schengen Short-Stay Rule: 90/180-day framework; Transit Stay: Temporary entry for travel continuation.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE) and EU Visa Code (Regulation (EC) No 810/2009).",
+
+    process: `1. Book travel itinerary involving transit through Romania  
+              2. Confirm transit visa requirement based on nationality  
+              3. Prepare passport and travel documents  
+              4. Submit visa application at Embassy/VFS  
+              5. Provide onward flight/transport tickets  
+              6. Pay visa and service fees  
+              7. Processing (10–15 working days typical)  
+              8. Receive visa decision  
+              9. Travel through Romania within allowed transit period  
+              10. Exit Romania to final destination within permitted time`
+},
+"RomaniaBorderVisaExceptionalEntryPermit": {
+    name: "Border Visa (Exceptional Entry Permit) – Romania",
+
+    validity: "Short-term validity, typically up to 15 days to 90 days depending on the emergency or justification. Issued only in exceptional circumstances at the border or entry point.",
+
+    cost: "Approx. €80–€120 (₹7,000–₹12,000) depending on Schengen fee rules. In some emergency humanitarian cases, fees may be reduced or waived. Additional administrative charges may apply.",
+
+    time: "Issued immediately or within 24–72 hours at border checkpoints, airports, or immigration offices in exceptional cases.",
+
+    age: "No age restriction. Applicable to all individuals including minors, subject to documentation and guardianship rules.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required depending on situation (recommended €50–€100 per day). In humanitarian cases, this requirement may be relaxed.",
+
+    docs: "Valid passport or emergency travel document, reason for emergency entry (medical emergency, family crisis, diplomatic clearance, etc.), supporting documents (hospital letters, invitation, death certificate, etc.), proof of onward travel, accommodation details (if available), passport photos.",
+
+    whom: "Foreign nationals who need urgent or exceptional entry into Romania due to emergencies such as medical crises, family emergencies, missed travel due to force majeure, or special authorization cases approved by border authorities.",
+
+    rules: "Issued only at the discretion of Romanian Border Police or immigration authorities. Not a standard visa category. Strictly temporary and non-renewable in most cases. Must comply with entry conditions and leave within granted period.",
+
+    prosCons: "Pros: Emergency entry solution, fast issuance, useful in urgent humanitarian or travel disruption cases. Cons: Highly restricted, not guaranteed, short duration, no standard pathway to residence.",
+
+    terms: "Border Visa: Emergency entry authorization; Force Majeure: Unforeseen emergency situation; Border Authority: Romanian Border Police; Exceptional Entry: Non-standard immigration approval.",
+
+    legal: "Romanian Border Police Authority, Romanian Immigration Inspectorate (IGI), and EU Schengen Border Code (Regulation (EU) 2016/399).",
+
+    process: `1. Arrive at Romanian border/airport with emergency situation  
+              2. Present valid passport and emergency justification  
+              3. Submit supporting documents to Border Police  
+              4. Authorities assess eligibility on-site  
+              5. Additional verification if required  
+              6. Decision issued immediately or within 24–72 hours  
+              7. Entry permit granted for limited duration  
+              8. Travel within Romania under specified conditions  
+              9. Exit country within validity period  
+              10. No automatic extension or conversion allowed in most cases`
+},
+"RomaniaEmergencyEntryVisa": {
+    name: "Emergency Entry Visa – Romania",
+
+    validity: "Short-term validity, typically 7 to 30 days depending on emergency justification. Non-renewable in most cases unless exceptionally approved by immigration authorities.",
+
+    cost: "Approx. €80–€120 (₹7,000–₹12,000). Fees may be reduced or waived in verified humanitarian, medical, or disaster-related emergencies. Additional service charges may apply.",
+
+    time: "Processing is fast-track. Can be issued within 24 hours to 5 working days depending on urgency and verification of emergency documents.",
+
+    age: "No age restriction. Applicable to individuals, families, minors, and elderly persons in emergency situations.",
+
+    education: "Not required.",
+
+    funds: "May be required depending on case (recommended €50–€100 per day). In medical or humanitarian emergencies, financial requirements may be relaxed.",
+
+    docs: "Valid passport or emergency travel document, proof of emergency situation (medical reports, death certificate, urgent family crisis documents), invitation letter (if applicable), proof of travel route or flight booking, accommodation details (if available), passport photos, visa application form.",
+
+    whom: "Foreign nationals needing urgent entry into Romania due to emergencies such as serious illness or hospitalization of family member, death of close relative, urgent legal matters, or unexpected humanitarian crises.",
+
+    rules: "Strictly limited to emergency purpose only. Must exit Romania within approved period. Cannot be used for employment or long-term stay. Immigration authorities may impose additional conditions. Misuse leads to refusal or future entry bans.",
+
+    prosCons: "Pros: Very fast issuance, humanitarian flexibility, allows urgent travel in crisis situations. Cons: Highly restricted use, short duration, no guarantee of approval, no conversion to long-term visa in most cases.",
+
+    terms: "Emergency Visa: Short-term crisis entry permit; Force Majeure: Uncontrollable emergency event; Immigration Discretion: Authority-based approval; Temporary Stay: Limited legal entry duration.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Romanian Border Police, and EU Schengen Border Code (Regulation (EU) 2016/399).",
+
+    process: `1. Identify emergency situation requiring urgent travel  
+              2. Gather proof of emergency (medical/legal documents)  
+              3. Contact Romanian Embassy, Consulate, or Border Authority  
+              4. Submit emergency visa request with supporting documents  
+              5. Fast-track verification by immigration authorities  
+              6. Decision issued within 24 hours to 5 days  
+              7. Visa stamped or entry permission granted  
+              8. Travel to Romania immediately  
+              9. Comply with strict stay duration conditions  
+              10. Exit Romania within authorized emergency period`
+},
+"RomaniaCulturalExchangeVisa": {
+    name: "Cultural Exchange Visa – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, may be converted into a temporary residence permit typically valid for up to 1 year, renewable if the cultural program continues.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10–30 working days. May extend up to 45 days depending on program verification and host institution approval.",
+
+    age: "Typically 18–45 years. No strict limit, but applicant must be suitable for cultural or exchange program participation.",
+
+    education: "Not strictly required, but background in arts, culture, language studies, or related fields is often preferred depending on program type.",
+
+    funds: "Proof of sufficient funds required (~€500–€1,000 per month recommended) unless fully sponsored by host organization or exchange program.",
+
+    docs: "Valid passport (6+ months), invitation letter from Romanian cultural organization/institution, exchange program agreement, proof of sponsorship or funding, accommodation details in Romania, travel insurance, CV or profile of applicant, police clearance certificate, visa application form, passport photos.",
+
+    whom: "Foreign nationals participating in cultural exchange programs, including artists, performers, language exchange participants, museum collaborations, heritage programs, and bilateral cultural initiatives.",
+
+    rules: "Must participate only in approved cultural exchange activities. No unauthorized employment allowed. Must comply with host institution rules. Residence permit required after arrival if stay exceeds visa validity. Program participation is mandatory for visa validity.",
+
+    prosCons: "Pros: Exposure to EU cultural institutions, networking in arts and heritage sectors, possible extension to long-term stay through programs. Cons: Limited to program scope, dependent on host institution, no general work rights.",
+
+    terms: "Cultural Exchange: Structured international cultural program; Host Institution: Romanian cultural organization; Exchange Agreement: Official program contract; Residence Permit: Post-entry legal stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Culture of Romania, and bilateral cultural cooperation agreements.",
+
+    process: `1. Apply to recognized cultural exchange program  
+              2. Receive official invitation or acceptance letter  
+              3. Prepare financial and personal documents  
+              4. Submit long-stay visa application at Embassy/VFS  
+              5. Immigration verifies host institution and program validity  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit if required  
+              9. Participate in cultural exchange activities  
+              10. Renew or extend based on program continuation`
+},
+"RomaniaVolunteerVisa": {
+    name: "Volunteer Visa – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, may be converted into a temporary residence permit typically valid for up to 1 year, renewable if the volunteer program continues.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply. Some approved volunteer programs may waive certain fees.",
+
+    time: "Processing time usually 10–30 working days. May extend to 45 days depending on NGO verification and program approval.",
+
+    age: "Typically 18–50 years. Some programs may accept younger volunteers (16–17) with parental consent.",
+
+    education: "Not strictly required, but basic education and relevant skills may be preferred depending on the volunteering field.",
+
+    funds: "Proof of basic funds may be required (~€300–€800 per month recommended) unless accommodation, food, and expenses are fully covered by the host organization.",
+
+    docs: "Valid passport (6+ months), official volunteer agreement or invitation from Romanian NGO/organization, project description, proof of accommodation, proof of funding or sponsorship, travel insurance, CV, police clearance certificate, visa application form, passport photos.",
+
+    whom: "Foreign nationals participating in approved volunteer programs in Romania such as social work, environmental projects, community development, education support, cultural preservation, or NGO humanitarian work.",
+
+    rules: "Must work only within approved volunteer project. No paid employment allowed. Must follow host NGO rules and Romanian laws. Must not switch to paid work without separate authorization. Residence permit required for long-term volunteering.",
+
+    prosCons: "Pros: Cultural exposure, humanitarian experience, EU-based volunteering opportunities, possible pathway to other residence permits. Cons: No salary, limited financial support, dependent on host organization, strict activity limits.",
+
+    terms: "Volunteer Agreement: Official NGO contract; Host Organization: Approved Romanian NGO; Non-profit Activity: Unpaid work purpose; Residence Permit: Post-entry legal stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Labour and Social Protection, and EU Voluntary Service Framework (European Solidarity Corps where applicable).",
+
+    process: `1. Apply to approved Romanian NGO or volunteer program  
+              2. Receive official volunteer invitation/contract  
+              3. Prepare financial and personal documents  
+              4. Submit long-stay visa application at Embassy/VFS  
+              5. Immigration verifies NGO and project legitimacy  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit if stay exceeds 90 days  
+              9. Participate in approved volunteer activities  
+              10. Renew permit if project continues`
+},
+"RomaniaInternshipTraineeVisa": {
+    name: "Internship / Trainee Visa – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, may be converted into a temporary residence permit typically valid for the duration of the internship (usually 3–12 months), renewable in limited cases.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10–30 working days. May extend up to 45 days depending on host company/university verification.",
+
+    age: "Typically 18–30 years. Some programs may allow up to 35 years depending on sector and eligibility.",
+
+    education: "Required or in progress. Applicant must be enrolled in or recently graduated from a relevant academic program (university/technical institute).",
+
+    funds: "Proof of funds required (~€500–€1,000 per month recommended) unless internship is fully paid or sponsored by host organization.",
+
+    docs: "Valid passport (6+ months), internship agreement or trainee contract, invitation letter from Romanian company/university, proof of enrollment or graduation, CV, academic transcripts, proof of accommodation, financial proof or sponsorship letter, travel insurance, police clearance certificate, visa application form, passport photos.",
+
+    whom: "Foreign students or recent graduates participating in structured internship or trainee programs in Romanian companies, universities, research institutions, or international organizations.",
+
+    rules: "Must strictly follow internship program. Paid employment outside internship is not allowed unless separately authorized. Must comply with host institution rules. Residence permit required for stays beyond visa validity.",
+
+    prosCons: "Pros: Professional experience in EU environment, skill development, networking opportunities, possible pathway to employment visa. Cons: Limited duration, restricted work rights, dependent on host organization.",
+
+    terms: "Internship Agreement: Official training contract; Trainee: Structured learner in organization; Host Organization: Romanian company/institution; Residence Permit: Post-entry legal stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Labour, and EU Traineeship Mobility Framework where applicable.",
+
+    process: `1. Secure internship/trainee placement in Romania  
+              2. Obtain official internship agreement  
+              3. Prepare academic and financial documents  
+              4. Submit long-stay visa application at Embassy/VFS  
+              5. Immigration verifies host organization and program  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit if required  
+              9. Complete internship program  
+              10. Return or transition to another visa category if eligible`
+},
+"RomaniaExchangeStudentVisaErasmusEU": {
+    name: "Exchange Student Visa (Erasmus / EU Programs) – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, converted into a residence permit valid for the duration of the exchange program (typically 3–12 months), renewable if the academic exchange continues.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Many Erasmus/EU exchange students may have visa fee waivers depending on agreement. Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10–30 working days. May extend up to 45 days depending on university and program verification.",
+
+    age: "Typically 18–30 years. Applicable mainly to undergraduate, postgraduate, and PhD exchange students under approved programs.",
+
+    education: "Required. Must be enrolled in a recognized university and selected for an exchange program (Erasmus+, bilateral agreements, or EU mobility programs).",
+
+    funds: "Proof of funds required (~€500–€1,000 per month recommended) unless fully covered by Erasmus scholarship or host university funding.",
+
+    docs: "Valid passport (6+ months), Erasmus+/exchange program acceptance letter, home university enrollment certificate, host Romanian university admission letter, financial proof or scholarship confirmation, accommodation proof, travel insurance, academic transcripts, visa application form, passport photos.",
+
+    whom: "Foreign students participating in EU exchange programs such as Erasmus+, bilateral university exchanges, or academic mobility programs with Romanian universities.",
+
+    rules: "Must study only at approved host institution. Must follow exchange program duration and rules. Limited work rights (as per student regulations). Must maintain academic performance. Residence permit required if stay exceeds 90 days.",
+
+    prosCons: "Pros: Fully structured EU academic experience, scholarship opportunities, tuition support, international exposure, simplified visa process. Cons: Limited to program duration, restricted to approved institutions, dependent on academic selection.",
+
+    terms: "Erasmus+: EU student mobility program; Exchange Agreement: University-to-university contract; Host University: Romanian academic institution; Residence Permit: Post-entry legal stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Erasmus+ Programme regulations, and EU Student Mobility Framework.",
+
+    process: `1. Apply through home university for Erasmus/exchange program  
+              2. Get selected and receive acceptance letter  
+              3. Host Romanian university confirms admission  
+              4. Prepare financial and academic documents  
+              5. Submit long-stay visa application at Embassy/VFS  
+              6. Immigration verifies exchange program details  
+              7. Visa approval issued for entry  
+              8. Travel to Romania  
+              9. Apply for residence permit if required  
+              10. Study under exchange program and return or extend mobility`
+},
+"RomaniaAthleteSportsTrainingVisa": {
+    name: "Athlete / Sports Training Visa – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, may be converted into a temporary residence permit typically valid for 6–12 months depending on training contract, competition schedule, or sports season. Renewable if contract continues.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply. Fees may be sponsored by sports federation in some cases.",
+
+    time: "Processing time usually 10–30 working days. May extend up to 45 days depending on federation verification and club approval.",
+
+    age: "Typically 16–40 years depending on sport and professional level. Elite athletes may be considered beyond standard age range.",
+
+    education: "Not required. Sports performance records, certifications, or federation recognition are more important.",
+
+    funds: "Usually covered by sports club, federation, or sponsor. If self-funded, proof of sufficient funds (~€500–€1,000 per month recommended) may be required.",
+
+    docs: "Valid passport (6+ months), official invitation from Romanian sports club/federation, athlete contract or training agreement, proof of sports achievements or rankings, accommodation proof, financial sponsorship letter (if applicable), medical fitness certificate, travel insurance, police clearance certificate, visa application form, passport photos.",
+
+    whom: "Foreign athletes, coaches, and sports professionals participating in training programs, competitions, or joining Romanian sports clubs, academies, or national-level sports programs.",
+
+    rules: "Must participate only in approved sports activities. No unrelated employment allowed. Must comply with club and federation regulations. Residence permit required for long-term stay. Contract termination may affect visa validity.",
+
+    prosCons: "Pros: Access to EU-level sports training, professional exposure, potential career growth in international sports, often sponsor-funded. Cons: Strict dependency on club/federation, limited to sports activity, no independent work rights.",
+
+    terms: "Athlete Contract: Official sports agreement; Sports Federation: Governing body; Club Registration: Membership with Romanian sports organization; Residence Permit: Post-entry legal stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Romanian Ministry of Youth and Sports, and EU professional mobility regulations for athletes.",
+
+    process: `1. Secure contract or invitation from Romanian sports club/federation  
+              2. Obtain official athlete/training agreement  
+              3. Prepare sports achievement and personal documents  
+              4. Submit long-stay visa application at Embassy/VFS  
+              5. Immigration verifies sports organization legitimacy  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit if stay exceeds 90 days  
+              9. Participate in training/competitions  
+              10. Renew permit based on contract continuation`
+},
+"RomaniaArtisticPerformerVisa": {
+    name: "Artistic / Performer Visa – Romania",
+
+    validity: "Initially issued for 90 days entry visa. After arrival, may be converted into a temporary residence permit typically valid for the duration of the contract or event (usually 3–12 months), renewable if performances or contracts continue.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 national visa fee) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply. Fees may be sponsored by event organizer or cultural institution.",
+
+    time: "Processing time usually 10–30 working days. May extend up to 45 days depending on organizer verification and event approval.",
+
+    age: "Typically 18–60 years. No strict age limit for established artists or performers.",
+
+    education: "Not required. Artistic portfolio, performance history, or professional recognition is more important.",
+
+    funds: "Usually covered by event organizer, cultural institution, or agency. If self-funded, proof of sufficient funds (~€500–€1,000 per month recommended) may be required.",
+
+    docs: "Valid passport (6+ months), invitation letter from Romanian organizer/event company, performance contract or agreement, artist portfolio (videos, recordings, press coverage), event schedule, accommodation proof, financial sponsorship letter (if applicable), travel insurance, police clearance certificate, visa application form, passport photos.",
+
+    whom: "Foreign artists, musicians, dancers, theatre performers, film crew, and entertainment professionals invited to perform or participate in cultural, artistic, or entertainment events in Romania.",
+
+    rules: "Must perform only under approved contract or event. No unauthorized employment allowed. Must comply with Romanian labor and event regulations. Residence permit required for stays beyond visa validity. Contract changes may require re-approval.",
+
+    prosCons: "Pros: Opportunity to perform in EU cultural scene, international exposure, often sponsor-funded travel, networking in entertainment industry. Cons: Short-term nature, dependent on event contracts, limited work flexibility.",
+
+    terms: "Performer Contract: Official entertainment agreement; Event Organizer: Sponsoring institution; Artistic Portfolio: Proof of professional work; Residence Permit: Post-entry legal stay authorization.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), Ministry of Culture of Romania, and EU short-stay cultural mobility provisions.",
+
+    process: `1. Receive invitation from Romanian event organizer or cultural body  
+              2. Sign performance or artistic contract  
+              3. Prepare portfolio and supporting documents  
+              4. Submit long-stay visa application at Embassy/VFS  
+              5. Immigration verifies event legitimacy and contract  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for residence permit if stay exceeds 90 days  
+              9. Perform under agreed contract  
+              10. Renew or exit based on event duration`
+},
+"RomaniaEUBlueCardMobilityVisa": {
+    name: "EU Blue Card Mobility Visa – Romania",
+
+    validity: "Short-stay entry visa (usually up to 90 days) to enable EU Blue Card holders to enter Romania for work mobility purposes. Long-term stay is then converted into a Romanian EU Blue Card residence permit.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 Schengen/national visa fee depending on case) + residence permit fee in Romania (~€100–€150). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10–30 working days. May extend up to 45 days depending on verification of EU Blue Card status from another EU country.",
+
+    age: "No strict age limit. Typically applies to skilled professionals aged 21–60 holding valid EU Blue Card status.",
+
+    education: "Required. Must already hold an EU Blue Card issued by another EU Member State, which itself requires higher education or equivalent professional experience.",
+
+    funds: "Must meet salary and financial requirements as per EU Blue Card rules (high-skilled income threshold). Proof of employment contract in Romania or intra-EU transfer is required.",
+
+    docs: "Valid passport (6+ months), existing EU Blue Card issued by another EU country, employment contract or job offer in Romania, proof of professional qualifications, CV, salary proof meeting EU Blue Card threshold, accommodation proof in Romania, health insurance, visa application form, passport photos.",
+
+    whom: "Highly skilled professionals who already hold an EU Blue Card in another EU Member State and are relocating or transferring to Romania for employment under EU mobility provisions.",
+
+    rules: "Must continue working in a qualified high-skilled job. Must apply for Romanian EU Blue Card after entry if staying long-term. Employment must meet salary thresholds. Cannot switch to low-skilled work under this category.",
+
+    prosCons: "Pros: Facilitates intra-EU mobility for skilled professionals, faster relocation within EU, maintains Blue Card benefits. Cons: Restricted to existing Blue Card holders, strict eligibility, limited to high-skilled employment only.",
+
+    terms: "EU Blue Card: High-skilled EU residence permit; Mobility Rights: Ability to move within EU under conditions; Host Member State: Romania; Residence Permit Conversion: Transition to Romanian Blue Card.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Blue Card Directive (EU 2021/1883), and EU intra-mobility regulations.",
+
+    process: `1. Hold valid EU Blue Card from another EU country  
+              2. Secure job offer or transfer in Romania  
+              3. Gather qualification and salary documents  
+              4. Submit mobility visa application at Embassy/VFS  
+              5. Immigration verifies existing EU Blue Card status  
+              6. Visa approval issued for entry  
+              7. Travel to Romania  
+              8. Apply for Romanian EU Blue Card residence permit  
+              9. Begin employment in Romania  
+              10. Maintain eligibility for renewal under EU Blue Card rules`
+},
+"RomaniaSchengenShortStayVisa": {
+    name: "Schengen Short Stay Visa (Romania Aligned Category) – Type C",
+
+    validity: "Valid for up to 90 days within any 180-day period. Can be single-entry, double-entry, or multiple-entry depending on purpose and visa issuance.",
+
+    cost: "₹7,000 – ₹12,000 (approx. €80 Schengen visa fee for adults). Reduced fees for children (6–12 years ~€40). Additional VFS/service charges ₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 10–15 working days. May extend up to 30–45 days during peak seasons or if additional verification is required.",
+
+    age: "No age restriction. Applicable to all travelers including minors (with guardian documentation).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required (commonly €50–€100 per day of stay depending on itinerary and embassy discretion).",
+
+    docs: "Valid passport (issued within last 10 years, 6+ months validity), completed visa application form, travel itinerary, round-trip flight booking, hotel/accommodation proof, travel insurance with minimum €30,000 coverage, bank statements (last 3–6 months), employment/business documents (if applicable), cover letter stating purpose of visit, passport photos.",
+
+    whom: "Foreign nationals traveling to Romania for short-term purposes such as tourism, business meetings, family visits, cultural events, or transit within the Schengen-aligned visa framework.",
+
+    rules: "Must not exceed 90 days in any 180-day period. No employment allowed. Must respect purpose of visit stated in application. Overstay or misuse can lead to bans from Schengen area. Entry is subject to border control approval.",
+
+    prosCons: "Pros: Access to Romania and other Schengen countries under unified short-stay system, flexible travel purposes, multiple-entry options available. Cons: Strict stay limits, no work rights, strong documentation requirements.",
+
+    terms: "Schengen Area: European free travel zone; Type C Visa: Short-stay visa category; 90/180 Rule: Maximum stay regulation; Entry Clearance: Border approval requirement.",
+
+    legal: "Romanian Ministry of Foreign Affairs (MAE), EU Visa Code (Regulation (EC) No 810/2009), and Schengen Border Code (Regulation (EU) 2016/399).",
+
+    process: `1. Determine purpose of travel (tourism, business, etc.)  
+              2. Prepare required documents and financial proof  
+              3. Book appointment at Embassy/VFS  
+              4. Submit visa application and biometrics  
+              5. Pay visa and service fees  
+              6. Embassy reviews application (10–15 working days typical)  
+              7. Visa decision issued  
+              8. Travel to Romania/Schengen area  
+              9. Comply with 90/180-day rule during stay  
+              10. Exit before visa validity expires`
+},
+"RomaniaIntraEUMobilityResidencePermit": {
+    name: "Intra-EU Mobility Residence Permit – Romania",
+
+    validity: "Typically issued for up to 1–2 years depending on the underlying EU residence permit and purpose of stay. Renewable as long as conditions of mobility and original EU permit remain valid.",
+
+    cost: "€100–€200 (approx. ₹9,000–₹18,000) for residence permit issuance and biometric card. Additional administrative/VFS charges may apply (~₹1,500–₹3,000).",
+
+    time: "Processing time usually 15–60 working days after submission in Romania. May extend depending on verification of original EU residence permit and purpose of stay.",
+
+    age: "No strict age limit. Applicable to all eligible third-country nationals holding valid EU residence permits or Blue Cards.",
+
+    education: "Not mandatory, but often tied to skilled work, study, or research qualifications depending on original permit category.",
+
+    funds: "Must demonstrate sufficient financial means as per purpose of stay (salary from job transfer, scholarship, or proof of stable income from EU employment).",
+
+    docs: "Valid passport, valid EU residence permit or EU Blue Card issued by another member state, proof of purpose in Romania (employment contract, research agreement, study admission, etc.), accommodation proof, health insurance, proof of income or funding, application form, biometric data, police clearance certificate (if required).",
+
+    whom: "Non-EU nationals already legally residing in another EU member state who are relocating temporarily or long-term to Romania under EU intra-mobility rules (work, study, research, or corporate transfer).",
+
+    rules: "Must already hold valid EU residence status. Must comply strictly with purpose of stay in Romania. Cannot exceed mobility duration limits defined by EU directives. Must apply for Romanian residence permit upon arrival if required. Employment or activity is restricted to approved category only.",
+
+    prosCons: "Pros: Enables easier movement within EU, reduces need for full re-visa process, supports skilled mobility and academic exchange. Cons: Strict eligibility, dependent on original EU permit, limited flexibility outside approved purpose.",
+
+    terms: "Intra-EU Mobility: Movement rights within EU states; EU Residence Permit: Valid stay authorization from another member state; Host Member State: Romania; Mobility Directive: EU Directive 2014/66/EU and related frameworks.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Intra-Corporate Transfer Directive (2014/66/EU), EU Blue Card Directive, and EU Student/Research Mobility Directives (2016/801/EU).",
+
+    process: `1. Hold valid EU residence permit or EU Blue Card in another member state  
+              2. Identify purpose of stay in Romania (work, study, research, etc.)  
+              3. Obtain supporting documents from Romanian host institution/employer  
+              4. Submit application for intra-EU mobility residence permit  
+              5. Immigration verifies EU status and eligibility  
+              6. Provide biometric data and supporting documents  
+              7. Pay applicable fees  
+              8. Receive Romanian residence permit card  
+              9. Begin authorized activity in Romania  
+              10. Renew permit if mobility conditions continue`
+},
+"RomaniaOtherPurposesVisaDOR": {
+    name: "Long-Stay Visa for Other Purposes (Symbol D/OR – Romania)",
+
+    validity: "90 days initially for entry. Within 30 days of arrival, it must be converted into a Temporary Residence Permit (TRP) valid for 1 year, renewable as long as the specific purpose continues.",
+
+    cost: "Visa Fee: €120 (~₹11,000). VFS/Consular service fees separate (~₹2,500). Residence permit issuance in Romania: approx. 450 RON (~₹8,500) including the card and tax stamps.",
+
+    time: "Processing time: 30 to 45 working days. This category requires a dual-approval process from the Ministry of Foreign Affairs and the Romanian Immigration Inspectorate (IGI).",
+
+    age: "Minimum 18 years for primary applicants.",
+
+    education: "No universal requirement; depends on the sub-category (e.g., NGO directors need professional CVs, medical patients need medical records).",
+
+    funds: "Mandatory: Must show financial means of at least the Romanian gross minimum wage per month (approx. €660 / ₹60,000) for the duration of the stay. This is usually shown via bank statements.",
+
+    docs: "Valid passport, clean criminal record (PCC), medical insurance with €30,000 coverage, proof of accommodation in Romania, and specific proof of purpose: 1. NGO/Company: Appointment as administrator or director. 2. Medical: Official acceptance from a Romanian clinic. 3. Training: Contract for an unpaid professional internship.",
+
+    whom: "Indian citizens moving to Romania for niche roles: unpaid professional trainees, administrators of a company (who are not employees), directors of NGOs, or individuals undergoing long-term medical treatment.",
+
+    rules: "The holder is NOT allowed to take up a salaried job under this visa (except if they are a company administrator/director). The stay is strictly bound to the activity mentioned in the documentation. Failure to register with IGI within 30 days of arrival results in heavy fines and deportation.",
+
+    prosCons: "Pros: Covers unique situations that don't fit standard work/study visas; allows for legal long-term stay for company owners. Cons: No access to the general labor market; high monthly financial proof required; complex documentation for NGO/Admin roles.",
+
+    terms: "D/OR: National long-stay visa symbol; IGI: Inspectoratul General pentru Imigrări (Immigration Office); Administrator: A person managing a company without a labor contract.",
+
+    legal: "Government Emergency Ordinance (OUG) no. 194/2002 regarding the regime of foreigners in Romania.",
+
+    process: `1. Secure the legal basis for stay (NGO appointment, medical acceptance, or training contract) -> 
+              2. Gather financial proof and police clearance -> 
+              3. Apply for the D/OR visa via the E-Visa portal (mae.ro) -> 
+              4. Attend biometrics appointment at VFS Global India -> 
+              5. Receive the 90-day entry visa sticker -> 
+              6. Travel to Romania -> 
+              7. Visit the local IGI office to register your address and submit fingerprints -> 
+              8. Receive the 1-year Residence Permit card.`
+},
+
+
+"RomaniaScientificResearchMobility": {
+    name: "Scientific Research Mobility (Intra-EU Mobility Route)",
+
+    validity: "Aligned with the duration of the research project in Romania. Usually valid for 1–2 years or until the expiry of the original EU residence permit.",
+
+    cost: "Visa Fee: €120 (~₹11,000). Residence permit fee in Romania: approx. ₹8,500. Some EU-funded projects (Erasmus/Horizon) may have fee exemptions.",
+
+    time: "Processing: 30 to 60 days. Requires verification of the hosting agreement by the Ministry of Research, Innovation and Digitization.",
+
+    age: "No strict age limit, but typically for postgraduate or professional researchers.",
+
+    education: "Mandatory: Must hold a higher education degree (Master’s or PhD) and a valid research residence permit from another EU Member State (e.g., Germany, France, or Italy).",
+
+    funds: "No personal funds proof required if the research stipend or salary is documented in the hosting agreement. Must meet the Romanian gross minimum wage threshold.",
+
+    docs: "Valid passport, a valid residence permit for 'Research' from another EU country, the 'Hosting Agreement' signed with a recognized Romanian research institution, and proof of health insurance.",
+
+    whom: "Indian scientists or PhD scholars who are already living in another EU country on a research visa and need to move to Romania to continue a collaborative project or start a new one.",
+
+    rules: "The researcher is allowed to work only on the project specified in the hosting agreement. This route bypasses the standard 'Work Permit' requirement. The Romanian host institution must be officially accredited by the government.",
+
+    prosCons: "Pros: Fast-track mobility within the EU; no work permit needed; allows for easy academic collaboration. Cons: Requires an existing EU research permit; highly specialized and limited to academic/scientific sectors.",
+
+    terms: "Intra-EU Mobility: The right to move between EU countries for specialized work; Hosting Agreement: The legal contract for researchers; IGI: Romanian Immigration Office.",
+
+    legal: "EU Directive 2016/801 on the conditions of entry and residence of third-country nationals for the purposes of research and studies.",
+
+    process: `1. Romanian host institution notifies the IGI of the mobility intent -> 
+              2. Researcher prepares the hosting agreement and current EU permit copy -> 
+              3. Apply for the D/CS (Research) visa at the Romanian Embassy in the current EU country or India -> 
+              4. Enter Romania and register with the IGI within 30 days -> 
+              5. Obtain the Romanian Research Residence Permit.`
+},
+"RomaniaLongTermEUResidenceCard": {
+    name: "Long-Term EU Residence Card – Romania",
+
+    validity: "Issued for 5 years and renewable. Represents EU long-term resident status after meeting eligibility conditions (usually 5 years continuous legal residence in the EU, with specific residence conditions in Romania).",
+
+    cost: "€120–€200 (approx. ₹11,000–₹18,000) including residence card issuance, biometric data processing, and administrative fees. Additional VFS/service charges ~₹1,500–₹3,000 may apply.",
+
+    time: "Processing time usually 30–90 working days after eligibility verification and submission of complete application in Romania.",
+
+    age: "No strict age limit. Applicant must have completed qualifying residence period (generally 5 years of legal and continuous stay).",
+
+    education: "Not required.",
+
+    funds: "Must demonstrate stable and regular income (employment salary, business income, pension, or sufficient savings) to support living in Romania without social assistance dependency.",
+
+    docs: "Valid passport, proof of 5 years continuous legal residence in Romania (temporary residence permits), tax records, income proof (salary slips, business income, or bank statements), accommodation proof, health insurance, integration documents (language or civic integration if required), police clearance certificate, application form, biometric data.",
+
+    whom: "Non-EU nationals who have legally and continuously resided in Romania (or EU under qualifying conditions) for at least 5 years and are seeking long-term EU resident status with enhanced stability and mobility rights.",
+
+    rules: "Must maintain continuous legal residence. Limited absences allowed under EU rules. Must comply with Romanian and EU laws. Status may be revoked in case of serious criminal activity, fraud, or prolonged absence from EU territory.",
+
+    prosCons: "Pros: Strong long-term settlement rights, easier EU mobility compared to temporary permits, access to social and economic benefits, stable residence status. Cons: Long qualification period, strict compliance requirements, periodic renewal needed.",
+
+    terms: "EU Long-Term Resident: EU-wide permanent-like status; Continuous Residence: 5-year qualifying stay requirement; Residence Card: Proof of status; Mobility Rights: Limited EU relocation rights under conditions.",
+
+    legal: "Romanian Immigration Inspectorate (IGI), EU Directive 2003/109/EC (Long-Term Residents Directive), and Romanian national immigration law (OUG 194/2002).",
+
+    process: `1. Complete 5 years of continuous legal residence in Romania/EU  
+              2. Maintain valid temporary residence permits throughout period  
+              3. Collect tax, income, and accommodation records  
+              4. Submit application for EU long-term residence status  
+              5. Immigration verifies eligibility and residence continuity  
+              6. Provide biometric data and documents  
+              7. Pay issuance fees  
+              8. Receive EU Long-Term Residence Card (valid 5 years)  
+              9. Renew card every 5 years  
+              10. Maintain compliance for retention of status`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

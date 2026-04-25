@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* Kuwait Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }  
+</style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+    <label>Select Country</label>
+    <select id="country">
+        <!-- Value must exactly match the JavaScript key "SAUDI ARABIA" -->
+        <option value="QATAR">QATAR</option>
+    </select>
+
+    <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+<select id="visaType">
+    <optgroup label="1. Visit & Short Stay">
+        <option value="QatarTouristVisa">Tourist Visa</option>
+        <option value="QatarVisaOnArrival">Visa on Arrival</option>
+        <option value="QatarEVisa">eVisa (Electronic Visa)</option>
+        <option value="QatarTransitVisa">Transit Visa</option>
+        <option value="QatarBusinessVisa">Business Visa</option>
+        <option value="QatarShortTermEntryVisa">Short-Term Entry Visa</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Employment">
+        <option value="QatarWorkVisa">Work Visa (Entry Permit)</option>
+        <option value="QatarWorkResidencePermit">Work Residence Permit (RP)</option>
+        <option value="QatarDomesticWorkerVisa">Domestic Worker Visa</option>
+        <option value="QatarReturnVisa">Return Visa (for Residents)</option>
+    </optgroup>
+
+    <optgroup label="3. Long-term & Permanent Residency">
+        <option value="QatarLongTermResidenceVisa">Long-Term Residence Visa</option>
+        <option value="QatarPermanentResidencePermit">Permanent Residence Permit</option>
+        <option value="QatarInvestorVisa">Investor Visa</option>
+    </optgroup>
+
+    <optgroup label="4. Family & Dependents">
+        <option value="QatarFamilyResidenceVisa">Family Residence Visa</option>
+        <option value="QatarFamilyVisitVisa">Family Visit Visa</option>
+        <option value="QatarMultipleEntryVisa">Multiple Entry Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Education & GCC">
+        <option value="QatarStudentVisa">Student Visa</option>
+        <option value="QatarGCCResidentVisa">GCC Resident Visa</option>
+    </optgroup>
+
+    <optgroup label="6. Official & Diplomatic">
+        <option value="QatarOfficialVisa">Official Visa</option>
+        <option value="QatarDiplomaticVisa">Diplomatic Visa</option>
+    </optgroup>
+
+
+
+   <optgroup label="7. Extras">
+        <option value="QatarDigitalNomadVisa">Digital nomad visa</option>
+        <option value="QatarHayyaWithMePermit">Guest scheme/option>
+   <option value="QatarRealEstateResidency">Real estate residency</option>
+        <option value="QatarMedicalEscortVisa">Medical escort visa</option>
+ <option value="QatarShortTermContractualWorkVisa">Contractual work visa</option>
+    </optgroup>
+</select>
+</div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF QATAR MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇶🇦 VIEW QATAR IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇶🇦 GENERAL IMMIGRATION PROCESS IN QATAR (DETAILED)</h1>
+        <p>Qatar immigration is mainly controlled by the Ministry of Interior (MOI) and Ministry of Labour (MOL). The process follows a clear step-by-step structure.</p>
+
+        <h2>1. 🎯 STEP 1: IDENTIFY YOUR PURPOSE</h2>
+        <h3>SHORT-TERM ENTRY:</h3>
+        <ul>
+            <li>Tourist Visa, Visa on Arrival, eVisa, Business Visa, Transit Visa, Short-term Entry Visa.</li>
+        </ul>
+        <h3>LONG-TERM STAY:</h3>
+        <ul>
+            <li>Work Visa, Family Residence, Student Visa, Investor Visa, Domestic Worker, Long-Term Residence/PR.</li>
+        </ul>
+
+        <h2>2. 🧾 STEP 2: CHECK ELIGIBILITY</h2>
+        <p>Authorities verify Passport validity (min 6 months), Nationality eligibility, Profession, Financial stability, and Sponsor availability.</p>
+
+        <h2>3. 🤝 STEP 3: ARRANGE SPONSOR (IF REQUIRED)</h2>
+        <table class="master-table">
+            <thead>
+                <tr><th>Visa Type</th><th>Sponsor</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Work Visa</td><td>Employer (Company)</td></tr>
+                <tr><td>Family Visa</td><td>Resident family member</td></tr>
+                <tr><td>Student Visa</td><td>University</td></tr>
+                <tr><td>Business Visa</td><td>Qatar company</td></tr>
+                <tr><td>Domestic Worker</td><td>Household employer</td></tr>
+                <tr><td>Investor Visa</td><td>Self / Company</td></tr>
+                <tr><td>Tourist / eVisa</td><td>Sometimes not required</td></tr>
+            </tbody>
+        </table>
+
+        <h2>4. 📄 STEP 4: PREPARE DOCUMENTS</h2>
+        <p>Common documents include Passport, Photos, Application form, Tickets, Accommodation proof, Bank statements, Contracts, and Medical/Police certificates for long-term visas.</p>
+
+        <h2>5. 🌐 STEP 5: APPLY FOR VISA</h2>
+        <h3>🟢 1. ONLINE (EVISA SYSTEM)</h3>
+        <p>Official portal: <a href="https://www.hayya.qa" target="_blank">www.hayya.qa</a> (Tourist, Business, GCC, and Short-term visas).</p>
+        <h3>🟡 2. EMPLOYER / SPONSOR APPLICATION</h3>
+        <p>Handled by MOL and MOI for Work, Residence, Family, and Investor visas.</p>
+        <h3>🔵 3. EMBASSY / CONSULATE</h3>
+        <p>Used for special cases or non-eVisa eligible nationalities.</p>
+
+        <h2>6. 💳 STEP 6: PAY VISA FEES</h2>
+        <p>Payment varies: Online for eVisa, Employer pays for Work visas, Sponsor pays for Family visas.</p>
+
+        <h2>7. 🔍 STEP 7: APPLICATION REVIEW</h2>
+        <p>Verification by MOI (Immigration), MOL (Labour), and MOFA (Diplomatic cases) for identity, security, and medical eligibility.</p>
+
+        <h2>8. ✅ STEP 8: VISA APPROVAL & ISSUANCE</h2>
+        <p>If approved, an eVisa is sent via email, or a Work entry permit is issued. Residence visas are linked to the Qatar ID (QID).</p>
+
+        <h2>9. ✈️ STEP 9: TRAVEL TO QATAR</h2>
+        <p>Upon arrival, biometrics are taken, the entry stamp is issued, and the visa is activated.</p>
+
+        <h2>10. 🏠 STEP 10: RESIDENCE REGISTRATION</h2>
+        <p>For long-term visas: Mandatory Medical test, Fingerprint biometrics, QID issuance, and Residence Permit (RP) activation.</p>
+
+        <h2>11. 📌 STEP 11: STAY RULES & COMPLIANCE</h2>
+        <p>Follow visa purpose strictly. No illegal work on visit visas. Renew QID on time. Overstay leads to fines and deportation.</p>
+
+        <h2>12. 🔁 STEP 12: RENEWAL / EXIT / CHANGE STATUS</h2>
+        <p>Includes visa renewal, sponsorship transfer (with approval), or status change inside Qatar.</p>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL QATAR IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Ministry of Interior (MOI):</strong> <a href="https://www.moi.gov.qa" target="_blank">www.moi.gov.qa</a></p>
+            <p><strong>2. Ministry of Labour (MOL):</strong> <a href="https://www.mol.gov.qa" target="_blank">www.mol.gov.qa</a></p>
+            <p><strong>3. Hayya Platform (Tourist/eVisa):</strong> <a href="https://www.hayya.qa" target="_blank">www.hayya.qa</a></p>
+            <p><strong>4. Hukoomi (Gov Services):</strong> <a href="https://www.gov.qa" target="_blank">www.gov.qa</a></p>
+            <p><strong>5. Ministry of Foreign Affairs (MOFA):</strong> <a href="https://www.mofa.gov.qa" target="_blank">www.mofa.gov.qa</a></p>
+            <p><strong>6. Ministry of Commerce (Investor):</strong> <a href="https://www.moci.gov.qa" target="_blank">www.moci.gov.qa</a></p>
+        </div>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; margin-top: 15px;">
+            🧠 FLOW: Purpose → Visa Type → Sponsor → Documents → Application → Approval → Entry → Medical/Biometrics → QID → Residency
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: USE ONLY OFFICIAL .GOV.QA WEBSITES. AVOID THIRD-PARTY SCAMS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "QATAR": {
+"QatarTouristVisa": {
+    name: "Tourist Visa (State of Qatar)",
+
+    validity: "Usually 30 days (single-entry) with possible extension up to 30 additional days. Some nationalities may get longer validity under visa waiver or visa-on-arrival schemes.",
+
+    cost: "Approx QAR 100–200 (~₹2,200–₹4,500) for eVisa depending on nationality and service charges. Visa on arrival may be free or included in entry eligibility for select countries.",
+
+    time: "Processing time usually 24 hours to 5 working days for eVisa applications. Visa on arrival is issued instantly at airport immigration.",
+
+    age: "No strict age limit. Minors must be accompanied by a parent/guardian or have consent documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement or credit card proof), especially for eVisa applicants or longer stays.",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, confirmed return flight ticket, hotel booking or accommodation details, bank statement (if required), travel insurance (recommended), completed visa application form (for eVisa).",
+
+    whom: "Foreign tourists (including Indian citizens eligible for eVisa or visa-on-arrival) visiting Qatar for tourism, leisure, or short family visits.",
+
+    rules: "Must not engage in employment or paid work. Must leave before visa expiry. Extensions allowed only through immigration approval. Overstay leads to fines and travel bans.",
+
+    prosCons: "Pros: Simple online or visa-on-arrival process, quick approval, widely available for many nationalities. Cons: Short duration, no work permission, strict extension rules.",
+
+    terms: "Qatar eVisa: Online visa system; Visa on Arrival: Entry visa issued at airport; MoI Qatar: Ministry of Interior Qatar (immigration authority); Overstay: Staying beyond permitted visa duration.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI) under the General Directorate of Passports and Expatriates Affairs.",
+
+    process: `1. Check eligibility for eVisa or visa-on-arrival ->
+              2. Apply online via Qatar eVisa portal (if required) ->
+              3. Upload passport and travel documents ->
+              4. Pay visa fee (if applicable) ->
+              5. Application review by MOI ->
+              6. Approval issued electronically ->
+              7. Travel to Qatar ->
+              8. Immigration clearance at airport ->
+              9. Receive entry stamp/visa ->
+              10. Exit before visa expiry or apply for extension if eligible`
+},
+"QatarVisaOnArrival": {
+    name: "Visa on Arrival (State of Qatar)",
+
+    validity: "Usually 30 days from date of entry. Can often be extended for an additional 30 days depending on eligibility and approval from Qatar immigration authorities.",
+
+    cost: "Usually free for eligible nationalities under Qatar’s visa-on-arrival program. In some cases, a small service or extension fee may apply (approx QAR 50–200 / ₹1,100–₹4,500).",
+
+    time: "Issued immediately upon arrival at Qatar airport immigration (same day processing during entry checks).",
+
+    age: "No strict age limit. Minors must travel with parents/guardians and have valid supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (commonly credit card, debit card, or bank statement showing ability to support stay).",
+
+    docs: "Valid passport (minimum 6 months validity), confirmed return/onward ticket, confirmed hotel booking or address in Qatar, proof of funds (bank card/statement), travel insurance (in some cases required), completed arrival declaration (if requested).",
+
+    whom: "Eligible foreign nationals (including citizens of select countries approved by Qatar) arriving in Qatar for tourism, short visits, or leisure travel.",
+
+    rules: "Must not engage in employment or paid work. Must leave before visa expiry. Extension allowed only if approved by Qatar immigration. Overstay results in fines and possible entry bans.",
+
+    prosCons: "Pros: No prior visa application needed, fast and convenient airport processing, cost-free for eligible nationalities. Cons: Limited to eligible countries, short stay duration, no work permission.",
+
+    terms: "MOI Qatar: Ministry of Interior (immigration authority); Visa on Arrival: Entry visa issued at airport; Eligible Nationalities: Countries approved for VOA access; Overstay: Staying beyond permitted duration.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI), General Directorate of Passports and Expatriates Affairs.",
+
+    process: `1. Check eligibility for visa on arrival ->
+              2. Travel to Qatar with required documents ->
+              3. Arrive at airport immigration counter ->
+              4. Submit passport and travel details ->
+              5. Provide proof of stay (hotel/host) and return ticket ->
+              6. Immigration verification ->
+              7. Visa issued at entry point ->
+              8. Entry granted into Qatar ->
+              9. Follow stay conditions strictly ->
+              10. Exit before visa expiry or apply for extension if allowed`
+},
+
+"QatarEVisa": {
+    name: "eVisa (Electronic Visa – State of Qatar)",
+
+    validity: "Usually 30 days from date of entry for tourism/visit purposes. In some cases, it can be extended for an additional 30 days subject to approval by Qatar immigration authorities.",
+
+    cost: "Approx QAR 100–200 (~₹2,200–₹4,500) depending on nationality, visa category, and processing/service fees. Payment is made online during application.",
+
+    time: "Processing time usually 24 hours to 5 working days depending on application volume and document verification.",
+
+    age: "No strict age limit. Minors must apply with parent/guardian details and supporting consent documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement, credit/debit card, or financial guarantee depending on nationality and visa type).",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photograph, confirmed return flight ticket, hotel booking or accommodation details in Qatar, bank statement or proof of funds (if requested), travel insurance (recommended), completed online application form.",
+
+    whom: "Foreign nationals (including Indians eligible under Qatar visa policy) traveling for tourism, short visits, or family visits requiring prior online visa approval.",
+
+    rules: "Must not engage in employment or paid work. Must enter Qatar within visa validity period. Must leave before expiry. Extension allowed only with immigration approval. Overstay results in fines and travel bans.",
+
+    prosCons: "Pros: Fully online application, fast approval, no embassy visit required, convenient for tourists. Cons: Requires pre-approval, limited stay duration, no work permission.",
+
+    terms: "MOI Qatar: Ministry of Interior (immigration authority); eVisa: Electronic visa system; Hayya Platform: Qatar’s digital visa portal (used for applications); Overstay: Staying beyond permitted visa duration.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI), General Directorate of Passports and Expatriates Affairs.",
+
+    process: `1. Visit Qatar eVisa or Hayya portal ->
+              2. Create account and select visa type ->
+              3. Fill personal and travel details ->
+              4. Upload required documents ->
+              5. Pay visa fee online ->
+              6. Application reviewed by MOI ->
+              7. Approval or request for additional documents ->
+              8. eVisa issued electronically ->
+              9. Print or save visa copy ->
+              10. Travel to Qatar and present at immigration ->
+              11. Entry granted and stay begins`
+},
+
+"QatarTransitVisa": {
+    name: "Transit Visa (State of Qatar)",
+
+    validity: "Usually up to 96 hours (4 days). Valid only for short stopovers between connecting flights through Qatar.",
+
+    cost: "Usually free of charge when issued through Qatar Airways or approved transit channels. In some cases, small service fees may apply depending on processing platform.",
+
+    time: "Processing time usually 24 to 72 hours when applied in advance. Some cases are processed within hours if arranged through airline transit services.",
+
+    age: "No strict age limit. Minors must be accompanied by a parent/guardian and have valid travel documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of onward travel and sufficient funds for short stay may be required in some cases.",
+
+    docs: "Valid passport (minimum 6 months validity), confirmed onward flight ticket, visa for final destination (if required), passport-size photo, transit visa application form (if pre-applied), hotel booking (if leaving airport), travel insurance (recommended).",
+
+    whom: "Foreign travelers (including Indian citizens) transiting through Qatar en route to another country with a short stopover requiring temporary entry into Qatar.",
+
+    rules: "Must strictly stay within transit duration. No employment allowed. Must have confirmed onward journey. Cannot be converted into long-term visa in most cases. Overstay leads to fines and travel restrictions.",
+
+    prosCons: "Pros: Quick approval, often free, useful for long layovers, minimal documentation. Cons: Very short stay, restricted movement, cannot be used for residence or work.",
+
+    terms: "MOI Qatar: Ministry of Interior; Transit Visa: Short-stay visa for layover travelers; Stopover: Temporary stay between flights; Qatar Airways Transit Facility: Airline-arranged visa service; Overstay: Staying beyond allowed transit period.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI) – General Directorate of Passports and Expatriates Affairs, often coordinated with Qatar Airways for transit facilitation.",
+
+    process: `1. Book connecting flight through Qatar (if required) ->
+              2. Check eligibility for transit visa ->
+              3. Apply via Qatar Airways or MOI portal (if pre-approval needed) ->
+              4. Submit passport and onward ticket ->
+              5. Visa processing and approval ->
+              6. Receive transit visa confirmation ->
+              7. Travel to Qatar ->
+              8. Immigration clearance at airport ->
+              9. Short stay in Qatar during layover ->
+              10. Exit within 96 hours via onward flight`
+},
+
+"QatarBusinessVisa": {
+    name: "Business Visa (State of Qatar)",
+
+    validity: "Usually 30 days to 90 days for single-entry. Multiple-entry business visas may be valid for 6 months to 1 year depending on sponsorship and approval.",
+
+    cost: "Approx QAR 200–1000+ (~₹4,500–₹22,000+) depending on duration, entry type (single/multiple), and processing channel. Sponsored corporate visas may be paid by the inviting company.",
+
+    time: "Processing time usually 2–7 working days for eVisa or sponsor-based applications. Embassy cases may take up to 10 working days.",
+
+    age: "No strict age limit. Applicant should generally be a working professional, entrepreneur, or business representative.",
+
+    education: "Not mandatory, but applicants are typically expected to have professional or business background relevant to the visit purpose.",
+
+    funds: "Proof of financial stability may be required (bank statements, company financials, or sponsor guarantee depending on case).",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, invitation letter from Qatar company, company registration documents, business purpose details (meeting/conference/investment), return flight ticket, hotel booking, bank statement (if required), travel insurance (recommended).",
+
+    whom: "Foreign professionals, entrepreneurs, investors, and corporate representatives visiting Qatar for meetings, conferences, trade events, negotiations, or short-term business activities (without employment).",
+
+    rules: "Cannot engage in paid employment in Qatar. Must follow purpose stated in invitation. Must exit before visa expiry. Overstay leads to fines and entry bans. Work permit required for employment.",
+
+    prosCons: "Pros: Ideal for corporate travel, multiple-entry options available, fast approval with sponsorship, widely used for international business. Cons: No work rights, requires invitation in most cases, limited stay duration.",
+
+    terms: "MOI Qatar: Ministry of Interior; Business Visa: Short-term entry for commercial purposes; Sponsor: Qatar-based company inviting applicant; eVisa: Electronic visa system; Multiple Entry Visa: Allows repeated visits within validity period.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI), General Directorate of Passports and Expatriates Affairs.",
+
+    process: `1. Receive invitation from Qatar company ->
+              2. Prepare business documents and passport details ->
+              3. Apply via Qatar eVisa portal or sponsor channel ->
+              4. Upload invitation and supporting documents ->
+              5. Pay visa fee (if applicable) ->
+              6. Application reviewed by MOI ->
+              7. Approval or request for additional verification ->
+              8. Visa issued electronically ->
+              9. Travel to Qatar ->
+              10. Immigration clearance on arrival`
+},
+
+"QatarWorkVisa": {
+    name: "Work Visa (State of Qatar)",
+
+    validity: "Usually 1 to 3 years depending on employment contract. Renewable based on employer sponsorship and labour approval.",
+
+    cost: "Approx QAR 1,000–5,000+ (~₹22,000–₹1,10,000+) including work permit, residence permit (RP), medical tests, biometrics, and ID issuance. In most cases, employer bears the cost.",
+
+    time: "Processing time usually 7–20 working days depending on employer approval, Ministry of Labour clearance, and medical/biometric procedures.",
+
+    age: "Typically 18–60 years depending on job category and employer requirements.",
+
+    education: "Depends on job role. Skilled jobs require relevant degrees/diplomas or experience. Certificates may need attestation.",
+
+    funds: "Not required from applicant. Employer in Qatar is responsible for visa processing, sponsorship, and salary support.",
+
+    docs: "Valid passport (6+ months), passport-size photos, job offer letter, employment contract, attested educational certificates (if required), medical fitness certificate, police clearance certificate, employer company documents, visa application forms.",
+
+    whom: "Foreign workers (including Indian nationals) who have secured employment in Qatar with a registered company under official sponsorship.",
+
+    rules: "Employee can only work for sponsoring employer. Job change requires official approval (NOC rules may apply). Cannot engage in freelance or unauthorized work. Must complete medical and biometric registration. Overstay or illegal work leads to fines, deportation, and bans.",
+
+    prosCons: "Pros: Legal employment in Qatar, stable income, long-term residency eligibility, family sponsorship possible in many cases. Cons: Employer dependency, job change restrictions, strict compliance requirements.",
+
+    terms: "MOI Qatar: Ministry of Interior; MOL: Ministry of Labour; RP: Residence Permit; Sponsor: Employer responsible for worker; QID: Qatar ID card issued after residency approval.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI) and Ministry of Labour under Qatar labour and immigration law.",
+
+    process: `1. Employer offers job and applies for work permit ->
+              2. Ministry of Labour approval ->
+              3. Entry visa/work visa issued ->
+              4. Employee travels to Qatar ->
+              5. Medical test and fingerprint biometrics ->
+              6. Residence Permit (RP) application ->
+              7. Qatar ID (QID) issued ->
+              8. Work authorization activated ->
+              9. Employment begins legally ->
+              10. Renewal handled by employer`
+},
+
+"QatarWorkResidencePermit": {
+    name: "Work Residence Permit (State of Qatar)",
+
+    validity: "Usually 1 to 3 years depending on employment contract. Renewable as long as employer sponsorship and labour approval remain valid.",
+
+    cost: "Approx QAR 1,000–5,000+ (~₹22,000–₹1,10,000+) including residence permit issuance, medical tests, biometrics, and Qatar ID (QID) issuance. Generally paid by the employer.",
+
+    time: "Processing time usually 7–20 working days after entry into Qatar, depending on medical, biometric, and Ministry of Labour processing speed.",
+
+    age: "Typically 18–60 years depending on job category and employer requirements.",
+
+    education: "Depends on job role. Skilled roles require relevant qualifications or experience; certificates may need attestation.",
+
+    funds: "Not required from the worker. Employer/sponsor is responsible for salary, visa processing, and residency costs.",
+
+    docs: "Valid passport (6+ months), entry visa/work visa, passport-size photos, employment contract, medical fitness certificate, biometric registration, employer sponsorship documents, police clearance certificate (if required), completed residence application forms.",
+
+    whom: "Foreign employees (including Indians) who have entered Qatar under a work visa and are transitioning into legal long-term residency under employer sponsorship.",
+
+    rules: "Must work only for sponsoring employer. Job changes require official approval. Must complete medical and biometric registration. Cannot engage in unauthorized employment. Overstay or violation may result in fines, cancellation, or deportation.",
+
+    prosCons: "Pros: Legal long-term stay in Qatar, access to banking, healthcare, and housing services, eligibility for family sponsorship. Cons: Employer-dependent status, job mobility restrictions, strict compliance requirements.",
+
+    terms: "MOI Qatar: Ministry of Interior; MOL: Ministry of Labour; RP: Residence Permit; QID: Qatar Identification Card; Sponsor: Employer responsible for worker; Exit Permit: Permission requirement (in some cases) to leave Qatar.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI) and Ministry of Labour under Qatar residency and labour laws.",
+
+    process: `1. Enter Qatar with approved work visa ->
+              2. Undergo medical examination ->
+              3. Complete fingerprint biometrics ->
+              4. Employer submits residence permit application ->
+              5. Ministry approval and verification ->
+              6. Qatar ID (QID) issuance ->
+              7. Work Residence Permit activated ->
+              8. Employee legally resides and works in Qatar ->
+              9. Renewal processed before expiry ->
+              10. Exit or transfer requires official approval`
+},
+
+"QatarFamilyResidenceVisa": {
+    name: "Family Residence Visa (State of Qatar)",
+
+    validity: "Usually 1 to 3 years, renewable based on sponsor’s (employee or resident’s) valid residence permit and continued eligibility.",
+
+    cost: "Approx QAR 300–1000+ (~₹6,500–₹22,000+) depending on number of dependents, medical tests, Qatar ID issuance, and administrative fees. Usually paid by the sponsor.",
+
+    time: "Processing time usually 7–20 working days depending on document verification, sponsor eligibility, and Ministry of Interior approval.",
+
+    age: "No strict age limit. Spouse and children can be sponsored. Children are generally eligible until adulthood as per Qatar residency rules. Parents may require special approval and higher salary criteria.",
+
+    education: "Not required.",
+
+    funds: "Sponsor must meet minimum salary requirement (typically around QAR 10,000–15,000+ depending on profession and number of dependents) and show proof of stable income and accommodation.",
+
+    docs: "Valid passports (6+ months), passport-size photos, marriage certificate (for spouse), birth certificates (for children), sponsor’s Qatar ID (QID), employment contract or salary certificate, tenancy contract (housing proof), bank statement (if required), medical fitness reports for dependents, application form.",
+
+    whom: "Foreign residents in Qatar (employees or investors) who wish to bring their immediate family members (spouse, children, and in some cases parents) to live with them.",
+
+    rules: "Dependents cannot work unless they obtain a separate work permit. Sponsor must maintain valid residence permit and salary threshold. Changes in sponsor’s job or visa status may affect dependent residency. Overstay leads to fines and cancellation.",
+
+    prosCons: "Pros: Family reunification, long-term renewable stay, access to healthcare and education for dependents. Cons: Dependent on sponsor’s residency and income, strict eligibility rules, limited work rights for dependents.",
+
+    terms: "MOI Qatar: Ministry of Interior; QID: Qatar Identification Card; RP: Residence Permit; Sponsor: Primary resident responsible for dependents; Dependent Visa: Residency linked to sponsor’s legal status.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI) under the General Directorate of Passports and Expatriates Affairs.",
+
+    process: `1. Sponsor holds valid Qatar residence permit ->
+              2. Verify eligibility (salary, housing, profession) ->
+              3. Submit family residence application via MOI portal ->
+              4. Upload relationship and financial documents ->
+              5. Application review by authorities ->
+              6. Medical tests for dependents ->
+              7. Approval granted ->
+              8. Entry or status conversion for family members ->
+              9. Qatar ID (QID) issuance ->
+              10. Residence permit activated ->
+              11. Renewal aligned with sponsor’s residency`
+},
+"QatarFamilyVisitVisa": {
+    name: "Family Visit Visa (State of Qatar)",
+
+    validity: "Usually 30 days initially, extendable up to 90 days or more in some cases depending on approval from Qatar Ministry of Interior (MOI).",
+
+    cost: "Approx QAR 200–500+ (~₹4,500–₹11,000+) depending on duration, number of extensions, and processing channel. Fees are usually paid by the sponsor in Qatar.",
+
+    time: "Processing time usually 3–7 working days depending on document verification and sponsor eligibility.",
+
+    age: "No strict age limit. Applicable for spouse, children, and sometimes parents or close relatives under sponsorship rules.",
+
+    education: "Not required.",
+
+    funds: "Sponsor must meet minimum salary requirement (generally QAR 5,000–10,000+ depending on relationship type and dependents) and provide proof of financial stability.",
+
+    docs: "Valid passport (6+ months), passport-size photos, relationship proof (marriage certificate for spouse, birth certificate for children), sponsor’s Qatar ID (QID), salary certificate or employment contract, tenancy contract (housing proof), return flight ticket (sometimes required), application form.",
+
+    whom: "Foreign family members (including Indians) visiting Qatar residents temporarily for family reunion, short stay, or personal visits without long-term residency.",
+
+    rules: "Must not engage in employment or paid work. Must leave before visa expiry unless extension is approved. Sponsor is responsible for visitor’s stay. Overstay results in fines and legal penalties.",
+
+    prosCons: "Pros: Easy family reunification, extendable stay, simple sponsorship process. Cons: No work permission, dependent on sponsor approval, limited duration.",
+
+    terms: "MOI Qatar: Ministry of Interior; QID: Qatar Identification Card (sponsor); Family Visit Visa: Short-term dependent visit visa; Sponsor: Resident responsible for visitor; Overstay: Staying beyond permitted visa duration.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI), General Directorate of Passports and Expatriates Affairs.",
+
+    process: `1. Sponsor applies via MOI Qatar portal ->
+              2. Submit relationship proof and sponsor documents ->
+              3. Upload passport details of visitor ->
+              4. Pay visa fee ->
+              5. Application review by MOI ->
+              6. Approval or request for additional documents ->
+              7. Visa issued electronically ->
+              8. Visitor travels to Qatar ->
+              9. Immigration clearance on arrival ->
+              10. Apply for extension if required ->
+              11. Exit before visa expiry`
+},
+
+"QatarGCCResidentVisa": {
+    name: "GCC Resident Visa (State of Qatar)",
+
+    validity: "Usually 30 days per entry or up to 3 months depending on profession, nationality, and approval conditions. Some cases may allow multiple-entry validity for short periods.",
+
+    cost: "Approx QAR 100–300 (~₹2,200–₹6,500) depending on visa type, entry category, and processing channel. Fees may vary by nationality and service charges.",
+
+    time: "Processing time usually 24 hours to 5 working days for eligible applicants applying via Qatar eVisa system or approved platforms.",
+
+    age: "No strict age limit. Applicant must hold a valid GCC residence permit and meet profession eligibility requirements.",
+
+    education: "Not mandatory, but applicants are generally expected to be skilled professionals depending on job category in GCC residence permit.",
+
+    funds: "Proof of sufficient funds may be required such as bank statement or salary proof from GCC country of residence.",
+
+    docs: "Valid passport (6+ months), valid GCC residence permit (UAE, Saudi Arabia, Kuwait, Oman, Bahrain, or Qatar residency if re-entry category applies), passport-size photo, profession/job title proof, return ticket, accommodation details, bank statement (if required), travel insurance (recommended).",
+
+    whom: "Foreign nationals holding valid residence permits in GCC countries who wish to visit Qatar for tourism, short business visits, or family visits.",
+
+    rules: "Must hold valid GCC residence permit in eligible profession (usually managerial, professional, or skilled categories). Cannot work in Qatar under this visa. Must exit before visa expiry. Overstay leads to fines and travel bans.",
+
+    prosCons: "Pros: Faster approval for GCC residents, simplified documentation, easy short-term travel within Gulf region. Cons: Restricted to eligible professions, short stay duration, no employment rights.",
+
+    terms: "GCC: Gulf Cooperation Council; MOI Qatar: Ministry of Interior; eVisa: Electronic visa system; Eligible Profession: Approved job category for GCC resident visa; Overstay: Staying beyond permitted visa duration.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI), General Directorate of Passports and Expatriates Affairs.",
+
+    process: `1. Verify eligibility (valid GCC residence + eligible profession) ->
+              2. Apply via Qatar eVisa or MOI-approved platform ->
+              3. Upload passport and GCC residence documents ->
+              4. Provide travel and profession details ->
+              5. Pay visa fee ->
+              6. Application reviewed by MOI ->
+              7. Approval or additional verification ->
+              8. eVisa issued electronically ->
+              9. Travel to Qatar ->
+              10. Immigration clearance at entry`
+},
+
+"QatarStudentVisa": {
+    name: "Student Visa (State of Qatar)",
+
+    validity: "Usually 1 year initially, renewable annually for the duration of the academic program. Extensions depend on continued enrollment and academic progress.",
+
+    cost: "Approx QAR 300–1000+ (~₹6,500–₹22,000+) including visa issuance, residence permit (RP), medical tests, Qatar ID (QID), and administrative fees. Tuition fees are separate and paid to the institution.",
+
+    time: "Processing time usually 7–20 working days depending on university sponsorship, document verification, and Ministry of Interior (MOI) processing.",
+
+    age: "Typically 17+ for higher education. No strict upper age limit for postgraduate, research, or professional programs.",
+
+    education: "Must meet admission requirements of the university (school certificate for undergraduate, degree for postgraduate programs, as applicable).",
+
+    funds: "Proof of sufficient funds required (bank statements, scholarship letters, or sponsor guarantee) to cover tuition fees, accommodation, and living expenses.",
+
+    docs: "Valid passport (6+ months), passport-size photos, university admission/offer letter, academic certificates and transcripts, proof of funds or scholarship proof, medical fitness certificate, police clearance (if required), accommodation proof, completed visa application form.",
+
+    whom: "Foreign students (including Indians) admitted to recognized universities, colleges, or training institutions in Qatar who require residency for study purposes.",
+
+    rules: "Must study only at approved institution. Must maintain valid enrollment. Limited work rights may be allowed with permission. Cannot engage in full-time employment. Visa may be cancelled if studies are discontinued. Overstay leads to fines and penalties.",
+
+    prosCons: "Pros: Long-term educational residency, access to modern universities, renewable visa, potential pathway to employment after graduation. Cons: Dependent on enrollment, strict compliance rules, limited work rights.",
+
+    terms: "MOI Qatar: Ministry of Interior; QID: Qatar ID card; RP: Residence Permit; Sponsor: University or guardian responsible for student; Enrollment Letter: Proof of admission; Overstay: Staying beyond visa validity.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI) in coordination with Ministry of Education and licensed educational institutions.",
+
+    process: `1. Apply and receive admission from Qatar institution ->
+              2. Obtain official admission/offer letter ->
+              3. Institution or student applies for visa via MOI ->
+              4. Submit academic and financial documents ->
+              5. Pay visa and residency fees ->
+              6. Application review by MOI ->
+              7. Visa approval issued ->
+              8. Entry into Qatar ->
+              9. Medical test and biometric registration ->
+              10. Qatar ID (QID) issuance ->
+              11. Residence permit activated ->
+              12. Annual renewal based on academic progress`
+},
+"QatarInvestorVisa": {
+    name: "Investor Visa (State of Qatar)",
+
+    validity: "Usually 1 to 5 years depending on investment type, company structure, and approval under investment residency schemes. Renewable as long as business remains active and compliant.",
+
+    cost: "Approx QAR 1,000–5,000+ (~₹22,000–₹1,10,000+) for visa and residency processing. Investment capital requirement is separate and significantly higher depending on business type.",
+
+    time: "Processing time usually 10–30 working days depending on business registration, security checks, and Ministry of Interior (MOI) approval.",
+
+    age: "Generally 21 years and above. Applicant must be legally capable of investing and managing a business.",
+
+    education: "Not mandatory, but business experience, entrepreneurship background, or professional qualifications are often preferred.",
+
+    funds: "High investment capital required. Must show proof of funds, business ownership, or approved investment project. Bank statements and financial records are required.",
+
+    docs: "Valid passport (6+ months), passport-size photos, business plan, proof of investment funds, company registration (Commercial Registration/CR), Memorandum of Association (MOA), bank statements, tax/financial records (if applicable), property or asset documents (if applicable), application forms.",
+
+    whom: "Foreign investors, entrepreneurs, and business owners who want to establish or invest in Qatar businesses and obtain residency through investment activity.",
+
+    rules: "Must actively maintain investment or business operations. Must comply with Qatar commercial laws. Misuse of investment structure for residency only is prohibited. Renewal depends on business activity and compliance status.",
+
+    prosCons: "Pros: Long-term residency potential, ability to sponsor family, business ownership rights, access to Qatar’s investment ecosystem. Cons: High capital requirement, regulatory compliance needed, business risk involved.",
+
+    terms: "MOI Qatar: Ministry of Interior; MOCI: Ministry of Commerce and Industry; CR: Commercial Registration; RP: Residence Permit; Sponsor: Self or company-based sponsorship; Investment Residency: Long-term visa based on business ownership.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI) and Ministry of Commerce and Industry (MOCI) under Qatar investment and residency laws.",
+
+    process: `1. Decide investment type (company, partnership, or project) ->
+              2. Register business with MOCI (Commercial Registration - CR) ->
+              3. Prepare investment documentation and business plan ->
+              4. Apply for investor residency via MOI ->
+              5. Submit financial proof and company documents ->
+              6. Security and regulatory review ->
+              7. Approval of investor visa ->
+              8. Entry or status conversion in Qatar ->
+              9. Residence Permit (RP) and Qatar ID (QID) issuance ->
+              10. Maintain business compliance for renewal`
+},
+
+"QatarPermanentResidencePermit": {
+    name: "Permanent Residence Permit (State of Qatar)",
+
+    validity: "Indefinite residency once granted. Residence card (QID) must still be renewed periodically (usually every 1–5 years depending on status requirements).",
+
+    cost: "Approx QAR 3,000–10,000+ (~₹66,000–₹2,20,000+) for application, processing, and residency issuance. Fees vary depending on category (investment, exceptional talent, long-term residency scheme).",
+
+    time: "Processing time usually 30–90 working days depending on eligibility category, background checks, and approval by Ministry of Interior (MOI).",
+
+    age: "No fixed age limit. Typically granted to long-term residents, investors, skilled professionals, or individuals approved under special state criteria.",
+
+    education: "Not mandatory for all categories, but skilled and talent-based residency may require academic or professional qualifications.",
+
+    funds: "Strong financial stability required. Investors must show significant capital. Skilled applicants must show stable income or exceptional contribution. Bank statements and asset proof are required.",
+
+    docs: "Valid passport, Qatar ID (existing residence), proof of long-term residence, employment or investment records, bank statements, property ownership (if applicable), police clearance certificate, medical fitness certificate, recommendation letters (if applicable), application form.",
+
+    whom: "Highly qualified foreign residents, investors, entrepreneurs, and individuals with exceptional contributions to Qatar’s economy, science, or national interest who qualify for long-term or permanent residency approval.",
+
+    rules: "Must comply with Qatar laws and residency conditions. Criminal activity or violation of residency terms may result in revocation. Some categories require continued investment or presence in Qatar. Not all residents are eligible.",
+
+    prosCons: "Pros: Long-term stability, strong residency security, ability to sponsor family, access to services similar to citizens (in some benefits). Cons: Strict eligibility, limited approvals, high investment or contribution requirement.",
+
+    terms: "MOI Qatar: Ministry of Interior; PRP: Permanent Residence Permit; QID: Qatar ID card; Exceptional Residency: Special category for talent/investment; Eligibility Committee: Government body reviewing applications.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI) under Qatar Permanent Residency Law (limited quotas and eligibility-based approval system).",
+
+    process: `1. Determine eligibility (investment, talent, long-term residency) ->
+              2. Prepare financial, professional, or investment documents ->
+              3. Submit application to MOI Qatar ->
+              4. Background and security verification ->
+              5. Review by Permanent Residency Committee ->
+              6. Approval or rejection decision ->
+              7. Payment of applicable fees ->
+              8. Issuance of Permanent Residence Permit ->
+              9. Qatar ID updated to PR status ->
+              10. Maintain compliance for retention of PR status`
+},
+
+"QatarOfficialVisa": {
+    name: "Official Visa (State of Qatar)",
+
+    validity: "Usually 14 days to 90 days for short official assignments. For long missions, multiple-entry validity up to 1 year may be granted depending on government authorization.",
+
+    cost: "Generally free of charge for government officials and official delegations. In rare cases, minor administrative fees (approx QAR 0–200 / ₹0–₹4,500) may apply depending on processing arrangements.",
+
+    time: "Processing time usually 24 hours to 5 working days, often expedited through government or diplomatic channels.",
+
+    age: "No strict age limit. Applicable only to government officials, civil servants, and authorized personnel.",
+
+    education: "Not required. Eligibility is based on official designation, not academic qualifications.",
+
+    funds: "Usually covered by sending government or host government. No personal financial proof required.",
+
+    docs: "Valid passport (6+ months), official mission letter from government department, diplomatic or official note, passport-size photo, travel itinerary, purpose of visit documents, accommodation arrangements (often arranged by host government).",
+
+    whom: "Government officials, civil servants, and authorized representatives traveling to Qatar for official duties such as intergovernmental meetings, training programs, or state assignments.",
+
+    rules: "Must strictly follow official purpose. Cannot engage in private employment or commercial activity. Must comply with diplomatic protocol and leave after mission completion. Misuse may affect diplomatic relations.",
+
+    prosCons: "Pros: Fast-track processing, often fee-exempt, facilitated entry through government channels. Cons: Strictly limited to official duties, not usable for personal travel or work.",
+
+    terms: "MOI Qatar: Ministry of Interior; MOFA Qatar: Ministry of Foreign Affairs; Official Mission: Government-approved assignment; Diplomatic Note: Official communication between states; Protocol Clearance: Entry authorization for official travel.",
+
+    legal: "Regulated by Qatar Ministry of Foreign Affairs (MOFA) in coordination with Ministry of Interior (MOI) under official and diplomatic travel protocols.",
+
+    process: `1. Sending government issues official mission order ->
+              2. Diplomatic/official note sent to Qatar MOFA ->
+              3. Verification and coordination with MOI ->
+              4. Security and protocol clearance ->
+              5. Visa approval issued through official channel ->
+              6. Entry authorization granted ->
+              7. Arrival in Qatar under official status ->
+              8. Immigration fast-track clearance ->
+              9. Stay strictly for assigned duties ->
+              10. Exit after mission completion`
+},
+
+"QatarDiplomaticVisa": {
+    name: "Diplomatic Visa (State of Qatar)",
+
+    validity: "Usually 3 months to 1 year depending on diplomatic posting and assignment duration. Can be extended for the full term of the diplomatic mission.",
+
+    cost: "Generally free of charge for accredited diplomats and embassy officials. In rare cases, minor administrative fees (approx QAR 0–200 / ₹0–₹4,500) may apply.",
+
+    time: "Processing time usually 24 hours to 5 working days, often expedited through diplomatic channels and Ministry of Foreign Affairs coordination.",
+
+    age: "No strict age limit. Applicable only to accredited diplomats, consular staff, and eligible dependents.",
+
+    education: "Not required. Eligibility is based on diplomatic appointment, not academic qualification.",
+
+    funds: "Not required from applicant. Expenses are typically covered by the sending government or diplomatic mission.",
+
+    docs: "Diplomatic passport, official diplomatic note (verbal note) from the sending country’s Ministry of Foreign Affairs, assignment/appointment letter, passport-size photos, details of posting, accommodation arrangements, and dependent documents (if applicable).",
+
+    whom: "Diplomats, embassy/consulate staff, international organization representatives, and their eligible family members assigned to Qatar for official diplomatic duties.",
+
+    rules: "Must comply with diplomatic rules under the Vienna Convention. Cannot engage in private employment or commercial activity. Must respect Qatari laws and diplomatic protocol. Misuse may lead to revocation of diplomatic status.",
+
+    prosCons: "Pros: Fee exemption, diplomatic privileges and immunities (as applicable), fast-track processing, legal protection under international law. Cons: Strictly limited to official duties, cannot be used for personal or business purposes.",
+
+    terms: "MOFA Qatar: Ministry of Foreign Affairs; MOI Qatar: Ministry of Interior; Vienna Convention: International treaty governing diplomatic relations; Accreditation: Official recognition of diplomat; Diplomatic Note: Government-to-government communication.",
+
+    legal: "Regulated by Qatar Ministry of Foreign Affairs (MOFA) under the Vienna Convention on Diplomatic Relations, in coordination with Ministry of Interior (MOI).",
+
+    process: `1. Sending country appoints diplomat ->
+              2. Ministry of Foreign Affairs issues diplomatic note ->
+              3. Submission to Qatar MOFA ->
+              4. Security and accreditation review ->
+              5. Approval by MOFA and MOI ->
+              6. Diplomatic visa issuance ->
+              7. Entry into Qatar under diplomatic status ->
+              8. Accreditation with Qatari authorities ->
+              9. Issuance of diplomatic ID card ->
+              10. Assignment begins at embassy/mission ->
+              11. Renewal or extension based on posting duration`
+},
+
+"QatarDomesticWorkerVisa": {
+    name: "Domestic Worker Visa (State of Qatar)",
+
+    validity: "Usually 1 to 2 years, renewable based on employer sponsorship and valid residence permit (RP). Linked to employment contract with the sponsor (household employer).",
+
+    cost: "Approx QAR 2,000–5,000+ (~₹44,000–₹1,10,000+) including work permit, visa processing, medical tests, insurance, and residence permit fees. Usually paid by the employer/sponsor.",
+
+    time: "Processing time usually 7–20 working days depending on Ministry of Labour approval, medical clearance, and residency issuance procedures.",
+
+    age: "Typically 21–60 years depending on job category and employer requirements.",
+
+    education: "Not required. Basic experience in housekeeping, childcare, cooking, or caregiving is often preferred.",
+
+    funds: "Not required from the worker. Employer/sponsor is responsible for salary, accommodation, visa fees, and medical insurance.",
+
+    docs: "Valid passport (6+ months), passport-size photos, employment contract, medical fitness certificate, police clearance certificate (if required), employer sponsorship documents, visa application form, insurance documents.",
+
+    whom: "Foreign domestic workers (including Indian nationals) employed in Qatar households as housemaids, nannies, cooks, drivers, or caregivers under private sponsorship.",
+
+    rules: "Must work only for sponsoring employer. Cannot change employer without official approval. Must comply with Qatar labour laws. Overstay or unauthorized work is illegal and punishable by fines, deportation, or bans.",
+
+    prosCons: "Pros: Legal employment in household sector, stable income, accommodation often provided, regulated labour protection. Cons: Employer dependency, limited job mobility, strict compliance requirements.",
+
+    terms: "MOI Qatar: Ministry of Interior; MOL: Ministry of Labour; Sponsor: Household employer responsible for worker; RP: Residence Permit; Domestic Worker Contract: Legal employment agreement.",
+
+    legal: "Regulated by Qatar Ministry of Labour and Ministry of Interior under Qatar labour and residency laws.",
+
+    process: `1. Employer applies for domestic worker permit via Ministry of Labour ->
+              2. Submit worker documents and contract ->
+              3. Approval from authorities ->
+              4. Entry visa issued for worker ->
+              5. Worker travels to Qatar ->
+              6. Medical test and biometric registration ->
+              7. Residence Permit (RP) issued ->
+              8. Employment begins under sponsor ->
+              9. Renewal handled by employer ->
+              10. Transfer requires official approval`
+},
+
+"QatarReturnVisa": {
+    name: "Return Visa (State of Qatar)",
+
+    validity: "Usually 30 days to 90 days depending on residence status and approval conditions. It is used to re-enter Qatar after temporary exit while maintaining residency validity.",
+
+    cost: "Approx QAR 200–500 (~₹4,500–₹11,000) depending on duration, residency category, and processing channel. In some employer-sponsored cases, cost is paid by sponsor.",
+
+    time: "Processing time usually 1–5 working days depending on MOI approval and residency status verification.",
+
+    age: "No strict age limit. Applicable to all valid Qatar residents (workers, family members, students, etc.).",
+
+    education: "Not required.",
+
+    funds: "Not always required, but proof of valid residency and sponsor support (if applicable) may be needed.",
+
+    docs: "Valid passport (6+ months), Qatar ID (QID) or residence permit copy, exit permit (if required), employment or sponsor letter (if applicable), return travel details, completed application form.",
+
+    whom: "Foreign residents of Qatar (including Indian nationals) who have temporarily exited Qatar and need authorization to re-enter while maintaining their residence permit validity.",
+
+    rules: "Must hold valid Qatar residence permit before applying. Must re-enter within visa validity period. Cannot be used for new employment entry. Overstay outside permitted return window may cancel residency.",
+
+    prosCons: "Pros: Allows residents to travel outside Qatar without losing residency status, simple re-entry process, maintains employment/family status. Cons: Strict validity window, must comply with timing rules, failure may cancel residency.",
+
+    terms: "MOI Qatar: Ministry of Interior; QID: Qatar ID card; RP: Residence Permit; Return Permit: Re-entry authorization; Exit Permit: Approval to leave Qatar (in some cases).",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI), General Directorate of Passports and Expatriates Affairs.",
+
+    process: `1. Resident applies for return visa before or after exit ->
+              2. Submit QID and residency details ->
+              3. Employer/sponsor approval if required ->
+              4. Application reviewed by MOI ->
+              5. Fee payment ->
+              6. Return visa issued ->
+              7. Travel outside Qatar ->
+              8. Re-enter Qatar within validity period ->
+              9. Immigration verification at entry ->
+              10. Residency status continues`
+},
+
+"QatarMultipleEntryVisa": {
+    name: "Multiple Entry Visa (State of Qatar)",
+
+    validity: "Usually 6 months to 1 year depending on purpose (business, family, or frequent travel). Each stay per entry is typically 30–90 days depending on approval conditions.",
+
+    cost: "Approx QAR 300–1000+ (~₹6,500–₹22,000+) depending on duration, number of entries, and visa category. Some business-sponsored visas may be paid by a Qatar-based company.",
+
+    time: "Processing time usually 2–7 working days for eVisa or sponsor-based applications. Embassy processing may take up to 10 working days.",
+
+    age: "No strict age limit. Applicant must be eligible under visa category (business, family, or frequent traveler profile).",
+
+    education: "Not required, but business-related multiple-entry visas generally require professional or corporate background.",
+
+    funds: "Proof of financial stability may be required (bank statements, salary slips, or sponsor guarantee depending on visa type).",
+
+    docs: "Valid passport (6+ months), passport-size photo, completed application form, return/onward travel details, hotel or accommodation proof, bank statement (if required), invitation letter (for business/family cases), sponsor documents if applicable.",
+
+    whom: "Frequent travelers (including Indian citizens) visiting Qatar for business meetings, repeated family visits, or regular short-term stays requiring multiple entries without reapplying each time.",
+
+    rules: "Cannot be used for employment. Each stay must comply with allowed duration. Must exit before each permitted stay ends. Overstay leads to fines and cancellation of visa privileges.",
+
+    prosCons: "Pros: Convenient for frequent travel, saves repeated visa applications, flexible entry-exit option. Cons: Higher cost than single-entry visas, strict compliance with stay limits, no work rights.",
+
+    terms: "MOI Qatar: Ministry of Interior; Multiple Entry Visa: Visa allowing repeated entries within validity period; eVisa: Electronic visa system; Overstay: Staying beyond permitted duration; Sponsor: Qatar-based company or individual (if required).",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI), General Directorate of Passports and Expatriates Affairs.",
+
+    process: `1. Determine eligibility (business, family, or frequent travel) ->
+              2. Apply via Qatar eVisa or sponsor channel ->
+              3. Submit passport and supporting documents ->
+              4. Provide justification for multiple visits ->
+              5. Pay visa fee ->
+              6. Application review by MOI ->
+              7. Approval or additional verification ->
+              8. Multiple-entry visa issued electronically ->
+              9. Travel to Qatar multiple times within validity period ->
+              10. Ensure compliance with stay duration rules`
+},
+
+"QatarShortTermEntryVisa": {
+    name: "Short-Term Entry Visa (State of Qatar)",
+
+    validity: "Usually 7 to 30 days depending on purpose (tourism, urgent business, or short family visit). In some cases, extension up to 60–90 days may be granted with MOI approval.",
+
+    cost: "Approx QAR 100–300 (~₹2,200–₹6,500) depending on visa category, duration, and processing method (eVisa or sponsor-based).",
+
+    time: "Processing time usually 24 hours to 5 working days for eVisa applications. Sponsor-based applications may take up to 7 working days.",
+
+    age: "No strict age limit. Minors must travel with parents/guardians and valid documentation.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement, credit card, or sponsor guarantee depending on nationality and visa type).",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, return flight ticket, hotel booking or accommodation proof, bank statement (if required), travel insurance (recommended), invitation letter (if applicable).",
+
+    whom: "Foreign nationals (including Indian citizens) visiting Qatar for very short stays such as tourism, urgent meetings, transit-related entry beyond airport, or short family visits.",
+
+    rules: "Must strictly leave Qatar before visa expiry. No employment allowed. Extension only with MOI approval. Overstay results in fines, penalties, and possible travel bans.",
+
+    prosCons: "Pros: Fast approval, simple documentation, ideal for urgent short trips. Cons: Very limited stay duration, no work rights, extensions not guaranteed.",
+
+    terms: "MOI Qatar: Ministry of Interior; eVisa: Electronic visa system; Short-Term Entry: Temporary visa for brief stays; Overstay: Staying beyond permitted duration; Sponsor: Qatar-based individual or company (if required).",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI), General Directorate of Passports and Expatriates Affairs.",
+
+    process: `1. Determine purpose of short visit ->
+              2. Apply via Qatar eVisa portal or sponsor channel ->
+              3. Submit passport and travel documents ->
+              4. Pay visa fee ->
+              5. Application review by MOI ->
+              6. Approval or request for additional documents ->
+              7. Visa issued electronically ->
+              8. Travel to Qatar ->
+              9. Immigration clearance on arrival ->
+              10. Exit before visa expiry or apply for extension if eligible`
+},
+
+"QatarDigitalNomadVisa": {
+    name: "Qatar Digital Nomad Visa (Remote Work Pass)",
+
+    validity: "1 year initially. Renewable annually as long as the employment and income conditions are maintained.",
+
+    cost: "Approx. QAR 1,000 – QAR 1,500 (~₹23,000 – ₹34,000) for the permit and initial residency cards. Health insurance is mandatory and extra.",
+
+    time: "Processing time: 2 to 4 weeks. Applications are submitted via the Hayya platform or the Ministry of Interior (MOI) portal.",
+
+    age: "Primary applicant must be 18 years or older.",
+
+    education: "No specific degree required, but professional qualification in a digital/remote-capable field is expected.",
+
+    funds: "Mandatory: Minimum monthly income of USD $3,500 (~₹2.9 Lakhs) or equivalent. Must show 3–6 months of consistent income history.",
+
+    docs: "Valid passport, proof of remote employment or freelance contracts outside Qatar, 6-month bank statement, health insurance valid in Qatar, clean criminal record (PCC) from home country, and a remote work declaration from the employer.",
+
+    whom: "IT professionals, digital marketers, designers, and consultants from India and globally who work for non-Qatari companies but want to live in Doha.",
+
+    rules: "Zero local income tax on foreign earnings. Must not take up employment with a Qatari company without switching to a Work Pass. Must reside in Qatar for a minimum period to maintain renewal eligibility.",
+
+    prosCons: "Pros: No local sponsor needed; allows you to enjoy Qatar's lifestyle and safety; no tax on foreign income. Cons: High income threshold; strictly prohibited from local labor market competition.",
+
+    terms: "Digital Nomad: A person working remotely via telecommunications; Remote Work Pass: The legal permit for nomads; Hayya Platform: Qatar's unified digital entry system.",
+
+    legal: "Governed by Law No. 21 of 2015 and recent 2024 amendments to attract global talent.",
+
+    process: `1. Obtain a valid remote work contract from a company outside Qatar -> 
+              2. Prepare 6 months of bank statements showing $3,500+ monthly -> 
+              3. Register on the Hayya platform or MOI portal -> 
+              4. Submit the digital application and upload documents -> 
+              5. Pay the application and insurance fees -> 
+              6. Undergo background and security verification -> 
+              7. Receive 'In-Principle Approval' -> 
+              8. Travel to Qatar and complete biometrics for the residency card.`
+},
+
+"QatarHayyaWithMePermit": {
+    name: "Hayya 'With Me' Entry Permit (1+3 Guest Scheme)",
+
+    validity: "Linked to the duration of the specific event or the main Hayya holder’s stay. Usually 30 to 60 days, single or multiple entry.",
+
+    cost: "Approx. QAR 100 (~₹2,300) per guest. This is a flat administrative fee for the guest permit.",
+
+    time: "Very fast: 24 to 72 hours. Once the host provides the voucher code, approval is near-instant.",
+
+    age: "Available for all ages. Minors can be added as guests by an adult Hayya holder.",
+
+    education: "No requirement.",
+
+    funds: "No personal fund requirement; the main Hayya holder (host) is responsible for the guests' stay.",
+
+    docs: "Valid passport for each guest, passport-size photo, and the 'Voucher Code' generated by the primary Hayya holder.",
+
+    whom: "Friends and family of individuals who have a valid Hayya Entry Permit (International fans, tourists, or event attendees).",
+
+    rules: "Each main Hayya holder can invite up to 3 guests. The guests do not need to have event tickets but must have a confirmed accommodation (host's house or hotel).",
+
+    prosCons: "Pros: Easiest way to bring family for short visits; low cost; no embassy visit. Cons: Guests cannot work; validity is strictly tied to the host's permit duration.",
+
+    terms: "Voucher Code: The 1+3 invitation key; Hayya Host: The person already approved to enter Qatar; Guest: The invited person.",
+
+    legal: "Supreme Committee for Delivery & Legacy + Ministry of Interior (MOI).",
+
+    process: `1. Primary host gets an approved Hayya entry (for tourism or an event) -> 
+              2. Host logs into Hayya app and selects 'Hayya With Me' -> 
+              3. Host generates a unique code for 3 guests -> 
+              4. Guests register on Hayya app using that code -> 
+              5. Guests pay the QAR 100 fee -> 
+              6. Guests receive the digital entry permit via the app.`
+},
+
+
+"QatarRealEstateResidency": {
+    name: "Real Estate Residency (The $200,000 Route)",
+
+    validity: "5 years. Renewable indefinitely as long as the property ownership is maintained.",
+
+    cost: "Property purchase: Minimum USD $200,000 (~₹1.67 Crore). Application and card fees approx. QAR 1,000 (~₹23,000).",
+
+    time: "Processing: 4 to 12 weeks. Requires coordination with the Ministry of Justice (MOJ) for title deed verification.",
+
+    age: "Applicant must be 18 years or older.",
+
+    education: "No requirement.",
+
+    funds: "Mandatory: Ownership of property in designated 'Freehold' or 'Leasehold' areas worth at least QAR 728,000 ($200k).",
+
+    docs: "Original Title Deed (Sanam), valuation certificate from the Ministry of Justice, clean criminal record (PCC), and a medical fitness certificate.",
+
+    whom: "Indian investors and families who want to live in Qatar permanently without an employer-sponsor by investing in real estate.",
+
+    rules: "Allows the owner to sponsor their spouse and children. The residency is tied to the asset; if the property is sold, the residency is cancelled unless a new qualifying property is bought.",
+
+    prosCons: "Pros: Self-sponsored; long-term security (5 years); allows the owner to work if they wish; immediate access to residency benefits. Cons: High initial capital lock-up; market risk in real estate.",
+
+    terms: "Freehold Areas: Pearl Qatar, Lusail, West Bay; Sanam: Title Deed; IGI: Immigration Department.",
+
+    legal: "Law No. 16 of 2018 on the Regulation of Non-Qatari Ownership of Real Estate.",
+
+    process: `1. Purchase property in an approved area for $200k+ -> 
+              2. Register the deed with the Ministry of Justice -> 
+              3. Obtain a 'Property Certificate' for residency purposes -> 
+              4. Apply for the 5-year residency pass via the MOI portal -> 
+              5. Undergo medical and biometric checks -> 
+              6. Receive the Investor Residency Card.`
+},
+
+
+
+"QatarMedicalEscortVisa": {
+    name: "Medical Escort Visa (Patient Companion)",
+
+    validity: "Aligned with the patient's treatment duration. Usually 30–90 days, extendable based on a hospital medical report.",
+
+    cost: "Approx. QAR 200 (~₹4,500). Extensions are usually QAR 200 per month.",
+
+    time: "Processing: 3 to 7 working days. Usually fast-tracked for medical emergencies.",
+
+    docs: "Proof of relationship to the patient, medical report from the patient's hospital in India, and an official invitation/acceptance letter from a Qatar hospital (e.g., Sidra Medicine or Hamad Medical Corp).",
+
+    whom: "Family members or designated caregivers accompanying a patient from India to Qatar for specialized surgery or long-term therapy.",
+
+    rules: "Prohibited from working. Must enter and exit with the patient. The hospital in Qatar acts as the guarantor for both the patient and the companion.",
+
+    process: `1. Qatar hospital issues a medical invitation -> 2. Hospital or sponsor applies via MOI portal -> 3. Visa issued electronically -> 4. Companion travels to Qatar with the patient.`
+},
+
+
+
+"QatarShortTermContractualWorkVisa": {
+    name: "Short-Term Contractual Worker Visa (6 Months)",
+
+    validity: "Strictly 6 months. Usually non-renewable. This is a temporary entry for work, not a long-term residency.",
+
+    cost: "Approx. QAR 500 – QAR 1,000 (~₹11,000 – ₹23,000). Usually paid by the Qatari employer.",
+
+    time: "Processing: 2 to 4 weeks.",
+
+    education: "Must meet the skill requirements of the specific contract (e.g., engineering degree or trade certificate).",
+
+    funds: "No personal funds; salary is fixed by the 6-month project contract.",
+
+    docs: "6-month employment contract, work permit from the Ministry of Labour, medical fitness report, and attested educational certificates.",
+
+    whom: "Indian engineers, project managers, and skilled labor coming for short-term projects like stadium maintenance, event setups, or consulting assignments.",
+
+    rules: "The worker is not issued a full QID (Qatar ID) card but a temporary labor permit. Must leave the country immediately when the 6-month contract ends.",
+
+    prosCons: "Pros: Faster than long-term work visas; allows quick income for specific projects. Cons: No path to residency; cannot sponsor family; very strict 6-month limit.",
+
+    terms: "Project Work: Time-bound employment; Contractual: Limited to a specific job agreement.",
+
+    legal: "Qatar Labour Law + Ministry of Interior regulations.",
+
+    process: `1. Employer secures a 'Short-term Labour Quota' -> 2. Employer issues a 6-month contract -> 3. Worker undergoes GAMCA medical in India -> 4. Visa is issued and worker travels to Qatar -> 5. Worker completes project and exits.`
+},
+"QatarLongTermResidenceVisa": {
+    name: "Long-Term Residence Visa (State of Qatar)",
+
+    validity: "Usually 2 to 5 years depending on category (employment, investor, skilled professional, or special residency schemes). Renewable if eligibility conditions continue to be met.",
+
+    cost: "Approx QAR 1,000–5,000+ (~₹22,000–₹1,10,000+) including residence permit (RP), medical tests, Qatar ID (QID), and administrative processing fees. Usually paid by employer or sponsor, except investor/self-sponsored cases.",
+
+    time: "Processing time usually 10–30 working days depending on visa category, security checks, employer/sponsor approval, and MOI processing speed.",
+
+    age: "No strict age limit. Typically granted to working professionals, investors, and long-term residents meeting eligibility criteria.",
+
+    education: "Depends on category. Skilled and professional residency may require degrees or experience; investor residency does not require formal education.",
+
+    funds: "Required depending on category. Investors must show significant capital. Employees require stable salary. Family-linked residency depends on sponsor income and housing proof.",
+
+    docs: "Valid passport (6+ months), passport-size photos, employment contract or business registration (CR), proof of income or investment, bank statements, medical fitness certificate, police clearance certificate, tenancy agreement, sponsor documents, completed application form.",
+
+    whom: "Foreign nationals (including Indians) eligible for long-term residency in Qatar through employment, investment, or special government-approved residency programs.",
+
+    rules: "Must maintain eligibility criteria (job, business, or investment). Must comply with Qatari laws. Any change in employment or investment status must be updated with authorities. Overstay or violation may result in cancellation.",
+
+    prosCons: "Pros: Long-term stability, renewable residency, access to healthcare, banking, education, and family sponsorship options. Cons: Strict eligibility requirements, dependency on sponsor/job/investment, regulatory compliance obligations.",
+
+    terms: "MOI Qatar: Ministry of Interior; RP: Residence Permit; QID: Qatar ID card; Sponsor: Employer or investor; CR: Commercial Registration; Long-Term Residency: Extended legal stay status.",
+
+    legal: "Regulated by Qatar Ministry of Interior (MOI) and relevant authorities such as Ministry of Labour and Ministry of Commerce and Industry (for investors).",
+
+    process: `1. Determine eligibility (work, investor, or special residency) ->
+              2. Secure sponsorship or investment/business registration ->
+              3. Submit application via MOI Qatar ->
+              4. Provide financial, employment, or business documents ->
+              5. Medical and security checks ->
+              6. Application review by authorities ->
+              7. Approval of long-term residence visa ->
+              8. Entry or status conversion in Qatar ->
+              9. Qatar ID (QID) and Residence Permit issued ->
+              10. Periodic renewal based on compliance`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

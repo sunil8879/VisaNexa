@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* Kuwait Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }  
+</style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+    <label>Select Country</label>
+    <select id="country">
+        <!-- Value must exactly match the JavaScript key "SAUDI ARABIA" -->
+        <option value="KUWAIT">KUWAIT</option>
+    </select>
+
+    <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+    <select id="visaType">
+    <optgroup label="1. Visit & Short Stay">
+        <option value="KuwaitTouristVisa">Tourist Visa</option>
+        <option value="KuwaitFamilyVisitVisa">Visit Visa (Family Visit)</option>
+        <option value="KuwaitBusinessVisitVisa">Business Visit Visa</option>
+        <option value="KuwaitOfficialVisitVisa">Official Visit Visa (Gov)</option>
+        <option value="KuwaitTransitVisa">Transit Visa</option>
+    </optgroup>
+
+    <optgroup label="2. Work Visas">
+        <option value="KuwaitWorkVisaArt17">Work Visa (Art 17 - Gov Sector)</option>
+        <option value="KuwaitWorkVisaArt18">Work Visa (Art 18 - Private Sector)</option>
+        <option value="KuwaitDomesticWorkerVisa">Domestic Worker Visa (Art 20)</option>
+    </optgroup>
+
+    <optgroup label="3. Residence Visas">
+        <option value="KuwaitFamilyResidenceVisa">Family Residence Visa (Art 22)</option>
+        <option value="KuwaitDependentResidenceVisa">Dependent Residence (Spouse/Children)</option>
+        <option value="KuwaitStudentResidenceVisa">Student Residence Visa</option>
+        <option value="KuwaitInvestorResidenceVisa">Investor Residence Visa</option>
+        <option value="KuwaitPropertyOwnerResidenceVisa">Property Owner Residence Visa</option>
+    </optgroup>
+
+    <optgroup label="4. Education & Training">
+        <option value="KuwaitStudentVisa">Student Visa / Permit</option>
+        <option value="KuwaitTrainingVisa">Training Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Special Purpose">
+        <option value="KuwaitMedicalTreatmentVisa">Medical Treatment Visa</option>
+        <option value="KuwaitEmergencyEntryVisa">Emergency Entry Visa</option>
+        <option value="KuwaitMissionVisa">Mission Visa (Temporary Assignment)</option>
+        <option value="KuwaitCulturalSportsEventVisa">Cultural / Sports / Event Visa</option>
+    </optgroup>
+
+    <optgroup label="6. GCC & Regional Entry">
+        <option value="KuwaitGccResidentVisa">GCC Resident Visa</option>
+    </optgroup>
+
+    <optgroup label="7. Entry / Temporary">
+        <option value="KuwaitEntryPermitVisa">Entry Permit Visa</option>
+        <option value="KuwaitTemporaryWorkPermitVisa">Temporary Work Permit Visa</option>
+    </optgroup>
+
+    <optgroup label="8. Exit / Return Related">
+        <option value="KuwaitExitVisa">Exit Visa</option>
+        <option value="KuwaitReentryPermitVisa">Re-entry Permit Visa</option>
+    </optgroup>
+
+    <optgroup label="9. Gov / Diplomatic">
+        <option value="KuwaitDiplomaticVisa">Diplomatic Visa</option>
+        <option value="KuwaitOfficialVisa">Official Visa</option>
+        <option value="KuwaitGovernmentMissionVisa">Government Mission Visa</option>
+    </optgroup>
+
+
+
+  <optgroup label="10. Extras">
+        <option value="KuwaitTemporaryResidencyArticle14">Temporary residency</option>
+        <option value="KuwaitSelfSponsorshipArticle24">Self sponsorship</option>
+        <option value="KuwaitStudentWorkPassArticle23">Student visa with work rights</option>
+<option value="KuwaitCommercialEntryPermit">Fast track business</option>
+    </optgroup>
+</select>
+</div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF KUWAIT MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇰🇼 VIEW KUWAIT IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇰🇼 GENERAL IMMIGRATION PROCESS FOR KUWAIT (2026)</h1>
+        <p>Kuwait immigration is primarily sponsor-based (Kafeel system). Almost all long-term stays require a sponsor such as an employer, family member, university, or government entity. Entry usually begins with an Entry Permit, followed by visa stamping, arrival, and residency (Civil ID) issuance.</p>
+
+        <h2>🟢 THE STEP-BY-STEP PROCESS</h2>
+        <ul>
+            <li><strong>1. Identify Visa Type:</strong> Work (Article 17/18), family, student, investor, visit, domestic worker, etc.</li>
+            <li><strong>2. Find Sponsor (Kafeel):</strong> Employer, family member, university, or government/company.</li>
+            <li><strong>3. Sponsor Applies in Kuwait:</strong> Application submitted to Ministry of Interior (MOI) or Public Authority for Manpower (PAM). Entry Permit is issued if approved.</li>
+            <li><strong>4. Entry Permit Issued:</strong> Pre-approval valid for 1–3 months allowing visa application or travel.</li>
+            <li><strong>5. Visa Stamping / eVisa:</strong> Apply at Kuwait Embassy in India or online. Submit passport, documents, medicals, and fees.</li>
+            <li><strong>6. Pre-Travel Requirements:</strong> GAMCA medical test, police clearance, attested certificates (education/marriage), and travel insurance.</li>
+            <li><strong>7. Travel to Kuwait:</strong> Carry passport, visa, entry permit, and documents.</li>
+            <li><strong>8. Arrival Clearance:</strong> Passport verification and biometric registration (fingerprints/face scan) at the airport.</li>
+            <li><strong>9. Post-Arrival Formalities:</strong> Medical test in Kuwait, fingerprinting, and health insurance activation.</li>
+            <li><strong>10. Residency Permit (Civil ID):</strong> Official residency card issued; required for banking, driving, and work.</li>
+            <li><strong>11. Stay & Compliance:</strong> Must follow visa purpose. No unauthorized employer change. Renew before expiry.</li>
+            <li><strong>12. Exit / Renewal:</strong> Final exit visa for permanent departure or re-entry permit for travel.</li>
+        </ul>
+
+        <h2>🏛️ KEY AUTHORITIES</h2>
+        <table class="master-table">
+            <thead>
+                <tr><th>Authority</th><th>Purpose</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>MOI</strong></td><td>Ministry of Interior (main immigration authority)</td></tr>
+                <tr><td><strong>PAM</strong></td><td>Public Authority for Manpower (work permits)</td></tr>
+                <tr><td><strong>MOFA</strong></td><td>Ministry of Foreign Affairs (visa coordination)</td></tr>
+                <tr><td><strong>Health Ministry</strong></td><td>Medical clearance and health checks</td></tr>
+                <tr><td><strong>Civil ID Authority</strong></td><td>PACI - Civil ID issuance (residency card)</td></tr>
+            </tbody>
+        </table>
+
+        <h2>🧠 CORE CONCEPTS</h2>
+        <ul>
+            <li><strong>Kafeel System:</strong> Sponsor-based immigration system where employer/family is responsible for the foreigner.</li>
+            <li><strong>Entry Permit:</strong> Pre-approval required before visa issuance.</li>
+            <li><strong>Civil ID:</strong> Official Kuwait residency identity card.</li>
+            <li><strong>Visa Stamping:</strong> Passport visa approval process at embassy.</li>
+            <li><strong>Residency Conversion:</strong> Entry permit → visa → residency (Civil ID).</li>
+        </ul>
+
+        <div class="official-box">
+            <h1>🇰🇼 OFFICIAL KUWAIT IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Ministry of Interior (MOI):</strong> <a href="https://www.moi.gov.kw" target="_blank">www.moi.gov.kw</a> (Main portal)</p>
+            <p><strong>2. Kuwait eVisa Portal:</strong> <a href="https://evisa.moi.gov.kw" target="_blank">evisa.moi.gov.kw</a> (Tourist/Visit eVisas)</p>
+            <p><strong>3. Kuwait Government Online:</strong> <a href="https://e.gov.kw" target="_blank">e.gov.kw</a> (Unified services)</p>
+            <p><strong>4. Public Authority for Manpower (PAM):</strong> <a href="https://www.manpower.gov.kw" target="_blank">www.manpower.gov.kw</a> (Work permits)</p>
+            <p><strong>5. Ministry of Foreign Affairs (MOFA):</strong> <a href="https://www.mofa.gov.kw" target="_blank">www.mofa.gov.kw</a> (Diplomatic visas)</p>
+            <p><strong>6. Civil ID Authority (PACI):</strong> <a href="https://www.paci.gov.kw" target="_blank">www.paci.gov.kw</a> (Residency cards)</p>
+            <p><strong>7. Visa Information Platform:</strong> <a href="https://www.kuwaitvisa.org" target="_blank">www.kuwaitvisa.org</a> (Guidance only)</p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: USE ONLY OFFICIAL .GOV.KW WEBSITES. AVOID FAKE AGENT PORTALS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "KUWAIT": {
+"KuwaitTouristVisa": {
+    name: "Tourist Visa (Kuwait)",
+
+    validity: "Usually 30 days to 90 days (single-entry or multiple-entry depending on approval). Extensions are limited and case-based.",
+
+    cost: "Approx KWD 3–10 (~₹800–₹2,800) for eVisa/online application. Additional service or travel agency fees may apply if applied through agents.",
+
+    time: "Processing time usually 1–3 working days for eVisa applications. Embassy/consular applications may take 3–7 working days.",
+
+    age: "No strict age limit. Minors must travel with guardians or provide parental consent.",
+
+    education: "Not required.",
+
+    funds: "Must show sufficient funds for stay (generally bank balance proof may be requested in some cases). No fixed global threshold, but proof of financial ability is recommended.",
+
+    docs: "Valid passport (minimum 6 months), passport-size photo, return flight ticket, hotel booking or accommodation proof, completed visa application form (online or embassy), travel insurance (recommended or sometimes mandatory), sponsor details if applicable.",
+
+    whom: "Foreign tourists (including Indians) visiting Kuwait for leisure, tourism, short visits to family/friends, or sightseeing purposes.",
+
+    rules: "No employment allowed. Must not overstay visa validity. Must follow Kuwait immigration and public conduct laws. Entry is subject to immigration officer approval even with valid visa.",
+
+    prosCons: "Pros: Simple online application (eVisa), quick processing, low cost, easy short-term entry for tourism or family visits. Cons: Short duration, strict immigration checks on arrival, limited extension options, no work rights.",
+
+    terms: "eVisa: Electronic travel authorization; Sponsor: Not always required for tourist visa; MOI: Ministry of Interior Kuwait; GCC Approved Visa: Entry eligibility for GCC residents; Entry Permit: Approval document for travel.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) under immigration and residency laws.",
+
+    process: `1. Apply online via Kuwait eVisa portal or embassy ->
+              2. Fill application form with passport details ->
+              3. Upload required documents (passport, photo, travel proof) ->
+              4. Pay visa fee online ->
+              5. Application review by Kuwait immigration authorities ->
+              6. Visa approval issued electronically ->
+              7. Print eVisa before travel ->
+              8. Travel to Kuwait ->
+              9. Immigration check on arrival ->
+              10. Entry granted for 30–90 days stay ->
+              11. Exit before visa expiry or apply for extension if eligible.`
+},
+
+"KuwaitFamilyVisitVisa": {
+    name: "Visit Visa (Family Visit Visa – Kuwait)",
+
+    validity: "Usually 30 days to 90 days per visit. Some cases may allow short extensions depending on sponsor approval and immigration rules.",
+
+    cost: "Approx KWD 3–10 (~₹800–₹2,800) for government fee. Additional charges may apply if processed through agents or typing centers.",
+
+    time: "Processing time usually 2–5 working days if all documents are complete and sponsor approval is in place.",
+
+    age: "No strict age limit. Minors require guardian sponsorship and consent documents.",
+
+    education: "Not required.",
+
+    funds: "Visitor must show ability to support stay or sponsor in Kuwait must provide financial responsibility in some cases.",
+
+    docs: "Valid passport (6+ months), passport-size photo, sponsor’s Civil ID copy (Iqama equivalent), proof of relationship (birth/marriage certificate), completed visa application form, return flight ticket, accommodation details, travel insurance (recommended).",
+
+    whom: "Foreign nationals visiting close family members (spouse, parents, children, siblings) who are legally residing in Kuwait.",
+
+    rules: "Must not work in Kuwait under this visa. Must leave before visa expiry. Sponsor is legally responsible for visitor. Overstay leads to fines and legal penalties. Extension is not guaranteed and depends on immigration approval.",
+
+    prosCons: "Pros: Easy family reunification, low cost, quick processing, allows short-term stay with relatives. Cons: No work rights, limited stay duration, strict dependency on sponsor approval, extensions are uncertain.",
+
+    terms: "Family Visit Visa: Short-term visa for relatives; Sponsor: Kuwait resident (Kafeel); Civil ID: Kuwait residency identity card; MOI: Ministry of Interior Kuwait; Entry Permit: Pre-approval document for travel.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) under immigration and residency laws (Kafeel system).",
+
+    process: `1. Sponsor applies for family visit visa via Kuwait MOI system ->
+              2. Submit relationship proof and sponsor documents ->
+              3. Application reviewed by immigration authorities ->
+              4. Visa approval issued ->
+              5. Visitor applies at embassy or receives eVisa (if applicable) ->
+              6. Pay visa fee ->
+              7. Visa issued ->
+              8. Travel to Kuwait ->
+              9. Immigration clearance on arrival ->
+              10. Stay for 30–90 days ->
+              11. Exit before visa expiry or request extension if allowed.`
+},
+
+"KuwaitBusinessVisitVisa": {
+    name: "Business Visit Visa (Kuwait)",
+
+    validity: "Usually 30 days to 90 days per visit. Can be single-entry or multiple-entry depending on sponsor and approval.",
+
+    cost: "Approx KWD 3–20 (~₹800–₹5,500) depending on entry type and processing channel. Additional typing/agent fees may apply.",
+
+    time: "Processing time usually 2–5 working days if sponsor documents and company approvals are complete.",
+
+    age: "No strict age limit. Applicant must be an adult (18+).",
+
+    education: "Not required, but professional/business background is usually expected.",
+
+    funds: "Must show sufficient funds for stay or have Kuwait-based company sponsor covering expenses.",
+
+    docs: "Valid passport (6+ months), passport-size photo, invitation letter from Kuwait company, sponsor company commercial registration (CR), Civil ID copy of sponsor, business purpose letter, return ticket, visa application form, travel insurance (recommended).",
+
+    whom: "Foreign business travelers (including Indians) visiting Kuwait for meetings, conferences, trade discussions, contract negotiations, or corporate activities.",
+
+    rules: "Cannot take up employment in Kuwait. Must only engage in approved business activities. Must exit before visa expiry. Sponsor company is responsible for applicant during stay.",
+
+    prosCons: "Pros: Quick entry for business purposes, simple documentation, useful for meetings and trade visits. Cons: No work rights, short duration, depends heavily on Kuwait sponsor company approval.",
+
+    terms: "Business Visit Visa: Short-term commercial entry permit; Sponsor: Kuwait company inviting visitor; CR (Commercial Registration): Business license of company; Civil ID: Residency ID of sponsor; MOI: Ministry of Interior Kuwait.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) under immigration and business entry regulations.",
+
+    process: `1. Kuwait company issues business invitation letter ->
+              2. Sponsor submits application to MOI ->
+              3. Provide commercial registration and Civil ID details ->
+              4. Immigration review and approval ->
+              5. Visa issued (single/multiple entry) ->
+              6. Applicant submits passport at embassy or receives eVisa ->
+              7. Pay visa fee ->
+              8. Travel to Kuwait ->
+              9. Immigration clearance on arrival ->
+              10. Attend business meetings/activities ->
+              11. Exit before visa expiry.`
+},
+
+"KuwaitOfficialVisitVisa": {
+    name: "Official Visit Visa (Government Visa – Kuwait)",
+
+    validity: "Usually 30 to 90 days depending on the official assignment. Can be extended if the government mission continues.",
+
+    cost: "Generally free for government-sponsored applicants. In some cases, nominal administrative fees (~KWD 0–5 / ₹0–₹1,400) may apply.",
+
+    time: "Processing time usually 1–5 working days depending on Kuwait Ministry of Interior (MOI) and government clearance.",
+
+    age: "No age restriction. Applicable only to official government personnel or delegations.",
+
+    education: "Not required. Eligibility depends on official appointment or government assignment.",
+
+    funds: "No personal financial requirement. Expenses are usually covered by the sending government or official institution.",
+
+    docs: "Official/Service passport, Note Verbale (official government letter), invitation from Kuwait government authority, assignment order, passport-size photo, visa application form, security clearance (if required).",
+
+    whom: "Government officials, ministers, diplomats, public servants, and official delegations traveling to Kuwait for meetings, conferences, bilateral talks, inspections, or state-level missions.",
+
+    rules: "Must only perform official duties. Cannot engage in private employment or business activity. Must follow Kuwait government protocols. Visa validity is strictly tied to official assignment duration.",
+
+    prosCons: "Pros: No visa fee, priority processing, official privileges, smooth entry for government missions. Cons: Strictly limited to official work, no personal or commercial activities allowed, dependent on assignment duration.",
+
+    terms: "Official Visit Visa: Government mission entry permit; Note Verbale: Official diplomatic communication; MOI: Ministry of Interior Kuwait; Government Delegation: Official group representing a country; Service Passport: Passport issued for official travel.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) in coordination with Ministry of Foreign Affairs under international government protocols.",
+
+    process: `1. Government department assigns official mission ->
+              2. Issue service passport and assignment letter ->
+              3. Send Note Verbale to Kuwait authorities ->
+              4. MOI reviews and verifies request ->
+              5. Security and administrative clearance ->
+              6. Visa approval issued via official channel ->
+              7. Entry permit granted ->
+              8. Travel to Kuwait ->
+              9. Immigration clearance on arrival ->
+              10. Perform official duties ->
+              11. Exit after assignment completion.`
+},
+
+"KuwaitTransitVisa": {
+    name: "Transit Visa (Kuwait)",
+
+    validity: "Usually 24 to 72 hours (1 to 3 days) depending on airline connection and immigration approval.",
+
+    cost: "Approx KWD 2–5 (~₹550–₹1,400). In some cases it may be free when issued through airlines or transit agreements.",
+
+    time: "Processing time usually instant to 1–2 working days depending on airline or embassy processing.",
+
+    age: "No strict age limit. Minors must travel with guardians or proper consent documents.",
+
+    education: "Not required.",
+
+    funds: "No strict financial requirement, but traveler must have confirmed onward ticket and valid visa for destination country (if required).",
+
+    docs: "Valid passport (6+ months), confirmed onward flight ticket, visa for destination country (if applicable), passport-size photo (sometimes required), transit visa application form (if issued via embassy/airline), travel insurance (recommended).",
+
+    whom: "Foreign passengers transiting through Kuwait en route to another country via Kuwait International Airport.",
+
+    rules: "Cannot leave airport transit area unless explicitly allowed. Must continue journey within visa validity. No employment or business activity allowed. Must hold confirmed onward ticket.",
+
+    prosCons: "Pros: Low cost or free, quick processing, useful for connecting flights through Kuwait. Cons: Extremely short duration, very limited movement, no extension, strictly transit-only purpose.",
+
+    terms: "Transit Visa: Short layover entry permit; Layover: Waiting period between flights; Kuwait MOI: Ministry of Interior; Airport Transit Zone: Restricted immigration area; Onward Ticket: Confirmed next destination flight.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) under immigration and airport transit rules.",
+
+    process: `1. Book international flight via Kuwait (if required transit stop) ->
+              2. Check transit visa requirement with airline ->
+              3. Apply online or through airline/embassy ->
+              4. Submit passport and onward ticket details ->
+              5. Pay visa fee (if applicable) ->
+              6. Visa approval issued (often electronic) ->
+              7. Travel to Kuwait ->
+              8. Immigration clearance at airport ->
+              9. Stay in transit area or short exit (if allowed) ->
+              10. Board onward flight within 24–72 hours.`
+},
+
+"KuwaitWorkVisaArticle17": {
+    name: "Work Visa (Article 17 – Government Sector Employment – Kuwait)",
+
+    validity: "Initially 1–2 years, renewable as long as government employment continues and contract is valid.",
+
+    cost: "Approx KWD 20–50 (~₹5,500–₹14,000) government fees. Additional costs (medical test, residency, insurance, ID issuance) usually paid by employer/government.",
+
+    time: "Processing time usually 2–6 weeks depending on government clearance, security verification, and documentation approval.",
+
+    age: "Typically 21–60 years depending on job category and government department requirements.",
+
+    education: "Required based on job role. Government positions usually require minimum diploma/degree qualification.",
+
+    funds: "No personal financial requirement. Salary is provided by Kuwaiti government department.",
+
+    docs: "Valid passport (6+ months), passport-size photos, job offer/appointment letter from Kuwait government, security clearance, educational certificates (attested), medical fitness certificate, police clearance certificate, visa application form.",
+
+    whom: "Foreign professionals (including Indians) employed directly by Kuwaiti government ministries, public institutions, or government departments under Article 17 employment rules.",
+
+    rules: "Must work only for sponsoring government department. Cannot switch jobs without official transfer approval. Must follow Kuwait labor and residency laws. Must maintain valid residency (Iqama equivalent Civil ID).",
+
+    prosCons: "Pros: Stable government job, regulated employment, strong job security, full legal protection, residency benefits. Cons: Job switching restrictions, dependent on government contract, strict administrative procedures, limited private sector mobility.",
+
+    terms: "Article 17: Kuwait government sector employment law; Sponsor: Government ministry/department; Civil ID: Kuwait residency identity card; MOI: Ministry of Interior Kuwait; Work Permit: Authorization to work legally in Kuwait.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) and Civil Service Commission under Article 17 labor regulations.",
+
+    process: `1. Government department selects candidate ->
+              2. Issue official job offer letter ->
+              3. Apply for work permit approval through MOI ->
+              4. Security and background verification ->
+              5. Visa authorization issued ->
+              6. Applicant submits passport and documents at embassy ->
+              7. Medical test and police clearance ->
+              8. Visa stamping issued ->
+              9. Travel to Kuwait ->
+              10. Immigration clearance ->
+              11. Medical check and residency registration ->
+              12. Issuance of Civil ID ->
+              13. Begin government employment ->
+              14. Renewal based on contract continuation.`
+},
+"KuwaitWorkVisaArticle18": {
+    name: "Work Visa (Article 18 – Private Sector Employment – Kuwait)",
+
+    validity: "Usually 1–2 years initially, renewable based on employment contract and company sponsorship.",
+
+    cost: "Approx KWD 20–60 (~₹5,500–₹17,000) government fee. Additional costs (medical test, residency, insurance, Civil ID) usually paid by employer.",
+
+    time: "Processing time usually 2–8 weeks depending on company approval, work permit issuance, and security clearance.",
+
+    age: "Typically 21–60 years depending on job role and company policy.",
+
+    education: "Depends on job category. Skilled jobs require diploma/degree; unskilled roles may require basic experience only.",
+
+    funds: "No personal financial requirement. Employer provides salary, accommodation (sometimes), and sponsorship responsibilities.",
+
+    docs: "Valid passport (6+ months), passport-size photos, employment contract, company commercial registration (CR), work permit approval from MOI, educational certificates (attested if skilled job), medical fitness certificate, police clearance certificate, visa application form.",
+
+    whom: "Foreign workers (including Indians) employed in Kuwait’s private sector companies under sponsorship system (Kafeel), including engineers, technicians, office staff, laborers, drivers, etc.",
+
+    rules: "Must work only for sponsoring employer. Job change requires transfer approval. Must maintain valid residency (Civil ID). Must follow Kuwait labor law and contract terms. Overstay or unauthorized work is illegal.",
+
+    prosCons: "Pros: Wide job opportunities in private sector, stable employment if contract is maintained, legal protection under labor law. Cons: Employer-dependent visa, limited job mobility, strict sponsorship system, risk of contract termination affecting residency.",
+
+    terms: "Article 18: Kuwait private sector labor law; Sponsor (Kafeel): Employer responsible for worker; Civil ID: Residency identity card; MOI: Ministry of Interior Kuwait; Work Permit: Authorization to work legally.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) and Public Authority for Manpower (PAM) under Article 18 labor regulations.",
+
+    process: `1. Kuwait company hires foreign worker ->
+              2. Apply for work permit approval from PAM/MOI ->
+              3. Issue visa authorization (entry permit) ->
+              4. Submit passport and documents at embassy ->
+              5. Medical test and police clearance ->
+              6. Visa stamping issued ->
+              7. Travel to Kuwait ->
+              8. Immigration entry clearance ->
+              9. Medical check and fingerprinting ->
+              10. Issue Civil ID (residency card) ->
+              11. Begin employment ->
+              12. Renewal based on contract and employer sponsorship.`
+},
+
+"KuwaitDomesticWorkerVisa": {
+    name: "Domestic Worker Visa (Housemaid / Driver / Cook etc. – Kuwait)",
+
+    validity: "Usually 2 years initially, renewable based on employer contract and sponsorship approval.",
+
+    cost: "Approx KWD 200–400 (~₹55,000–₹1.1 lakh) total including visa fees, medical test, insurance, and residency (Civil ID). Usually paid by employer (sponsor). Recruitment agency charges may be additional.",
+
+    time: "Processing time usually 2–6 weeks depending on recruitment agency, embassy processing, and sponsor approval.",
+
+    age: "Typically 21–60 years depending on job type and employer requirements.",
+
+    education: "No formal education required. Prior experience in domestic work is preferred.",
+
+    funds: "No personal financial requirement. Employer is fully responsible for salary, accommodation, food, insurance, and visa costs.",
+
+    docs: "Valid passport (6+ months), passport-size photos, employment contract, recruitment agency documents, medical fitness certificate, police clearance certificate, experience certificate (if available), visa application form.",
+
+    whom: "Foreign domestic workers (including Indians) employed in Kuwaiti households as housemaids, cooks, drivers, nannies, caregivers, or general household helpers.",
+
+    rules: "Must work only for sponsoring employer. Cannot change employer without legal transfer approval. Must follow Kuwait domestic labor laws. Must maintain valid residency (Civil ID). Absconding or unauthorized work is illegal.",
+
+    prosCons: "Pros: Stable employment, employer covers expenses, legal protection under domestic labor law, steady income. Cons: Employer-dependent visa, limited job mobility, strict contract conditions, long working hours in many cases.",
+
+    terms: "Domestic Worker Visa: Household employment permit; Sponsor (Kafeel): Employer responsible for worker; Civil ID: Kuwait residency identity card; PAM: Public Authority for Manpower; MOI: Ministry of Interior Kuwait; Recruitment Agency: Licensed labor supplier.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) and Public Authority for Manpower (PAM) under domestic labor law framework.",
+
+    process: `1. Employer hires worker through licensed recruitment agency ->
+              2. Employment contract is signed and approved ->
+              3. Employer applies for entry permit via MOI/PAM ->
+              4. Visa authorization issued ->
+              5. Worker submits passport and documents at embassy ->
+              6. Medical test and police clearance completed ->
+              7. Visa stamping issued ->
+              8. Travel to Kuwait ->
+              9. Immigration clearance at airport ->
+              10. Residency (Civil ID) issuance ->
+              11. Begin domestic work ->
+              12. Renewal based on contract continuation.`
+},
+
+"KuwaitFamilyResidenceVisaArticle22": {
+    name: "Family Residence Visa (Dependent Visa – Article 22 – Kuwait)",
+
+    validity: "Usually 1–3 years depending on sponsor’s residence permit and employment contract. Renewable as long as sponsor remains eligible.",
+
+    cost: "Approx KWD 100–300 (~₹28,000–₹85,000) excluding medical test, insurance, Civil ID issuance, and attestation fees. Usually paid by sponsor (employee in Kuwait).",
+
+    time: "Processing time usually 2–8 weeks depending on document attestation, salary verification, and Ministry of Interior approval.",
+
+    age: "No strict age limit. Children can be sponsored; adult dependents (like parents) require special approval.",
+
+    education: "No requirement.",
+
+    funds: "Sponsor must meet minimum salary requirement (commonly ~KWD 400–800+ depending on family size and housing conditions). Proof of accommodation is required.",
+
+    docs: "Valid passport of dependents (6+ months), passport-size photos, sponsor Civil ID, salary certificate, employment contract, attested marriage certificate (spouse), attested birth certificates (children), tenancy agreement, medical fitness certificate (for adults), visa application form.",
+
+    whom: "Foreign workers in Kuwait (including Indians) who want to bring their spouse, children, and sometimes parents to live with them under legal residency sponsorship.",
+
+    rules: "Dependents cannot work in Kuwait unless they obtain a separate work permit. Residency is fully dependent on sponsor’s job and Civil ID validity. All documents must be attested. Sponsor is legally responsible for dependents.",
+
+    prosCons: "Pros: Family reunification, long-term legal stay, access to healthcare and education for dependents, renewable residency. Cons: Fully dependent on sponsor’s employment, strict salary requirements, no independent work rights for dependents.",
+
+    terms: "Article 22: Kuwait family residency law; Sponsor (Kafeel): Primary resident worker; Civil ID: Kuwait residency card; MOI: Ministry of Interior Kuwait; PAM: Public Authority for Manpower; Dependent: Family member under sponsorship.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) and Public Authority for Manpower (PAM) under Article 22 residency and sponsorship laws.",
+
+    process: `1. Sponsor checks eligibility (salary, housing, job status) ->
+              2. Prepare and attest marriage/birth certificates ->
+              3. Submit family residence application to MOI ->
+              4. Pay government fees ->
+              5. Immigration review and approval ->
+              6. Issue entry permits for dependents (if outside Kuwait) ->
+              7. Dependents travel to Kuwait ->
+              8. Medical test for adults ->
+              9. Fingerprinting and Civil ID application ->
+              10. Residency approval issued ->
+              11. Family residency activated ->
+              12. Renewal based on sponsor’s residency status.`
+},
+
+"KuwaitDependentResidenceVisa": {
+    name: "Dependent Residence Visa (Spouse / Children – Kuwait)",
+
+    validity: "Usually 1–3 years, tied directly to the sponsor’s (primary resident’s) work permit and Civil ID validity. Renewable if sponsor remains eligible.",
+
+    cost: "Approx KWD 100–300 (~₹28,000–₹85,000) excluding medical tests, insurance, Civil ID issuance, and document attestation. Usually paid by sponsor.",
+
+    time: "Processing time usually 2–6 weeks depending on salary verification, document attestation, and Ministry of Interior approval.",
+
+    age: "No strict age limit. Children can be sponsored; adult dependents (e.g., spouse) are eligible if relationship is legally proven.",
+
+    education: "No requirement.",
+
+    funds: "Sponsor must meet minimum salary requirement (commonly KWD 400–800+, depending on number of dependents and housing conditions). Proof of accommodation is required.",
+
+    docs: "Valid passports (6+ months), passport-size photos, sponsor Civil ID, salary certificate, employment contract, attested marriage certificate (spouse), attested birth certificates (children), tenancy agreement, medical fitness certificate (for adults), visa application form.",
+
+    whom: "Foreign workers in Kuwait (including Indians) who want to legally bring and live with their spouse and children under family sponsorship.",
+
+    rules: "Dependents cannot work in Kuwait unless they obtain a separate work permit. Residency depends entirely on sponsor’s job and Civil ID validity. All documents must be properly attested. Sponsor is fully responsible for dependents.",
+
+    prosCons: "Pros: Family unity, long-term legal stay, access to healthcare and education for dependents, renewable residency. Cons: Fully dependent on sponsor’s job stability, strict salary threshold, no independent employment rights for dependents.",
+
+    terms: "Dependent Residence Visa: Family-based residency permit; Sponsor (Kafeel): Primary worker in Kuwait; Civil ID: Kuwait identity/residency card; MOI: Ministry of Interior Kuwait; PAM: Public Authority for Manpower; Attestation: Legal validation of documents.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) and Public Authority for Manpower (PAM) under residency sponsorship (kafala) regulations.",
+
+    process: `1. Sponsor confirms eligibility (salary, housing, job status) ->
+              2. Prepare attested marriage and birth certificates ->
+              3. Submit dependent visa application via MOI system ->
+              4. Pay government processing fees ->
+              5. Immigration review and approval ->
+              6. Entry permit issued (if dependents are outside Kuwait) ->
+              7. Dependents travel to Kuwait ->
+              8. Medical examination for adults ->
+              9. Fingerprinting and Civil ID registration ->
+              10. Residency permit issued ->
+              11. Family residency activated ->
+              12. Renewal based on sponsor’s validity.`
+},
+"KuwaitStudentResidenceVisa": {
+    name: "Student Residence Visa (Kuwait)",
+
+    validity: "Usually 1 year initially, renewable annually for the duration of the academic program (degree, diploma, or research course).",
+
+    cost: "Approx KWD 50–150 (~₹14,000–₹42,000) excluding university fees, medical test, insurance, and Civil ID issuance. Often partly supported by the university or sponsor.",
+
+    time: "Processing time usually 2–6 weeks depending on university admission approval and Ministry of Interior (MOI) clearance.",
+
+    age: "Typically 17–35 years for undergraduate studies. Higher age may be accepted for postgraduate or research programs.",
+
+    education: `Mandatory:  
+    - Undergraduate: Secondary school certificate (12th equivalent)  
+    - Postgraduate: Bachelor’s degree  
+    - Research/PhD: Master’s degree + academic proposal (if required)`,
+
+    funds: "Must show proof of financial support or scholarship covering tuition and living expenses. Bank statements or sponsor letter may be required.",
+
+    docs: "Valid passport (6+ months), passport-size photos, university admission letter, academic transcripts, attested certificates, medical fitness certificate, police clearance certificate, financial proof or scholarship letter, visa application form.",
+
+    whom: "Foreign students (including Indians) admitted to Kuwaiti universities, colleges, or higher education institutions for full-time study programs.",
+
+    rules: "Must study full-time at approved institution. Cannot work without permission (limited part-time work may be allowed in some cases). Must maintain academic performance. Visa validity is tied to university enrollment.",
+
+    prosCons: "Pros: Access to quality education in Kuwait, stable residency during study, possible scholarship support, exposure to GCC education system. Cons: Limited work rights, dependent on enrollment status, strict renewal conditions, no direct PR pathway.",
+
+    terms: "Student Residence Visa: Education-based residency permit; MOE: Ministry of Education Kuwait; MOI: Ministry of Interior Kuwait; Civil ID: Kuwait residency identity card; Scholarship: Government or university funding support.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) and Ministry of Higher Education under student residency regulations.",
+
+    process: `1. Apply and get admission in Kuwait educational institution ->
+              2. Receive official admission letter ->
+              3. University sponsors student visa application ->
+              4. Submit passport and academic documents ->
+              5. Apply through MOI residency system ->
+              6. Medical test and background verification ->
+              7. Visa approval issued ->
+              8. Travel to Kuwait ->
+              9. University registration and orientation ->
+              10. Apply for Civil ID (residence card) ->
+              11. Begin studies ->
+              12. Renew annually based on academic progress.`
+},
+
+"KuwaitInvestorResidenceVisa": {
+    name: "Investor Residence Visa (Kuwait)",
+
+    validity: "Usually 1 to 3 years initially, renewable based on business activity, company performance, and compliance with Kuwaiti investment laws.",
+
+    cost: "Approx KWD 300–1,000+ (~₹85,000–₹2.8 lakh) excluding investment capital, company setup fees, licensing, legal documentation, and Civil ID charges.",
+
+    time: "Processing time usually 3–8 weeks depending on Ministry of Commerce approval, company registration, and Ministry of Interior clearance.",
+
+    age: "No strict age limit. Applicant must be a legal adult (18+).",
+
+    education: "Not mandatory, but business experience or financial background is strongly preferred.",
+
+    funds: "Minimum investment varies by sector. Typically requires capital ranging from KWD 10,000 to KWD 100,000+ depending on business type, ownership structure, and licensing category. Proof of legal source of funds is required.",
+
+    docs: "Valid passport (6+ months), passport-size photos, business plan, company incorporation documents, commercial license (CR), bank statements, proof of investment capital, tax documents (if applicable), Civil ID (if existing), visa application form.",
+
+    whom: "Foreign investors (including Indians) who establish or own businesses in Kuwait under approved investment structures such as trading companies, services, consultancy, or joint ventures with local partners.",
+
+    rules: "Investment must remain active and compliant with Kuwaiti commercial laws. Business must maintain valid licensing and operations. Some sectors require a Kuwaiti partner. Non-compliance or inactive business may lead to visa cancellation.",
+
+    prosCons: "Pros: Business ownership rights, long-term residency potential, ability to sponsor family in many cases, access to Kuwaiti market. Cons: High capital requirement, strict regulations, limited foreign ownership in some sectors, business risk exposure.",
+
+    terms: "Investor Residence Visa: Residency linked to business investment; Commercial Registration (CR): Business license; Kuwaiti Partner: Local sponsor requirement in some sectors; MOI: Ministry of Interior Kuwait; Ministry of Commerce: Business regulatory authority.",
+
+    legal: "Regulated by Kuwait Ministry of Commerce and Industry and Ministry of Interior (MOI) under investment and residency laws.",
+
+    process: `1. Choose investment sector and structure ->
+              2. Register company with Ministry of Commerce ->
+              3. Obtain Commercial Registration (CR) ->
+              4. Open business bank account in Kuwait ->
+              5. Invest required capital and submit proof ->
+              6. Apply for investor residence permit via MOI ->
+              7. Security and financial verification ->
+              8. Visa approval issued ->
+              9. Enter Kuwait (if outside) ->
+              10. Medical test and Civil ID issuance ->
+              11. Start business operations ->
+              12. Renewal based on business activity and compliance.`
+},
+
+"KuwaitPropertyOwnerResidenceVisa": {
+    name: "Property Owner Residence Visa (Limited Category – Kuwait)",
+
+    validity: "Usually 1 to 3 years depending on approval conditions and property ownership status. Renewable in select cases if eligibility continues.",
+
+    cost: "Approx KWD 100–300 (~₹28,000–₹85,000) excluding property purchase cost, legal fees, registration charges, and Civil ID issuance fees.",
+
+    time: "Processing time usually 3–6 weeks depending on property registration verification and Ministry of Interior approval.",
+
+    age: "No strict age limit. Applicant must be a legal adult (18+).",
+
+    education: "Not required.",
+
+    funds: "Must show proof of property ownership and sufficient financial stability. Some cases require minimum property value threshold as per Kuwait regulations (varies by policy updates).",
+
+    docs: "Valid passport (6+ months), passport-size photos, property title deed (registered in Kuwait), proof of purchase, financial documents (bank statements), Civil ID (if applicable), visa application form, utility/property tax documents.",
+
+    whom: "Foreign nationals (including Indians in rare eligible cases) who legally own approved real estate property in Kuwait and qualify under limited residency provisions.",
+
+    rules: "Property must be legally owned and registered in Kuwait. Visa does not automatically grant work rights. Residency is strictly tied to property ownership and legal status. Misuse or sale of property may affect visa validity.",
+
+    prosCons: "Pros: Residency linked to real estate investment, potential long-term stay option, asset ownership in Kuwait, stable legal status if conditions are met. Cons: Very limited eligibility, strict property laws, no automatic work rights, dependent on property ownership maintenance.",
+
+    terms: "Property Owner Visa: Residency based on real estate ownership; Title Deed: Legal proof of property ownership; MOI: Ministry of Interior Kuwait; Ministry of Justice: Property registration authority; Civil ID: Kuwait residency identity card.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) and Ministry of Justice under property ownership and residency regulations (limited and selective category).",
+
+    process: `1. Purchase eligible property in Kuwait (as per law) ->
+              2. Register property with Ministry of Justice ->
+              3. Obtain official title deed ->
+              4. Submit residency application to MOI ->
+              5. Financial and security verification ->
+              6. Application review by authorities ->
+              7. Visa approval issued (if eligible) ->
+              8. Enter Kuwait (if outside) ->
+              9. Medical test and Civil ID registration ->
+              10. Residency permit issued ->
+              11. Maintain property ownership ->
+              12. Renew residency based on continued eligibility.`
+},
+"KuwaitStudentVisaResidencePermit": {
+    name: "Student Visa / Student Residence Permit (Kuwait)",
+
+    validity: "Usually 1 year initially, renewable annually for the duration of the academic program (degree, diploma, or research studies).",
+
+    cost: "Approx KWD 50–150 (~₹14,000–₹42,000) excluding university tuition fees, medical test, insurance, and Civil ID issuance charges. Often partially covered by university sponsorship or scholarship.",
+
+    time: "Processing time usually 2–6 weeks depending on university admission, Ministry of Interior (MOI) approval, and document verification.",
+
+    age: "Typically 17–35 years for undergraduate programs. Higher age accepted for postgraduate, PhD, or research programs depending on institution.",
+
+    education: `Mandatory:  
+    - Undergraduate: Secondary school certificate (12th equivalent)  
+    - Postgraduate: Bachelor’s degree  
+    - Doctoral/Research: Master’s degree + research proposal (if required)`,
+
+    funds: "Must show proof of financial support (bank statements or sponsor letter) OR scholarship covering tuition and living expenses. Some universities fully sponsor students.",
+
+    docs: "Valid passport (6+ months), passport-size photos, university admission letter, academic transcripts, attested certificates, medical fitness certificate, police clearance certificate, financial proof or scholarship letter, visa application form.",
+
+    whom: "Foreign students (including Indians) admitted to Kuwaiti universities, colleges, or higher education institutions for full-time academic programs.",
+
+    rules: "Must study full-time at approved institution. Must maintain academic performance for renewal. Cannot work without permission (limited part-time work may be allowed in rare cases). Visa is strictly tied to enrollment status.",
+
+    prosCons: "Pros: Access to Kuwaiti higher education system, stable residency during studies, possible scholarship opportunities, exposure to GCC academic environment. Cons: Limited work rights, strict renewal rules, dependent on university enrollment, no direct pathway to permanent residency.",
+
+    terms: "Student Residence Permit: Legal stay for education; MOE: Ministry of Education Kuwait; MOI: Ministry of Interior Kuwait; Civil ID: Kuwait residency identity card; Scholarship: Financial aid for studies; University Sponsor: Institution responsible for visa support.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) and Ministry of Higher Education under student residency regulations.",
+
+    process: `1. Apply and secure admission in Kuwait university/institution ->
+              2. Receive official admission letter ->
+              3. University sponsors student residence application ->
+              4. Submit passport and academic documents ->
+              5. Apply through MOI residency system ->
+              6. Medical examination and background verification ->
+              7. Visa approval issued ->
+              8. Travel to Kuwait ->
+              9. University registration and orientation ->
+              10. Apply for Civil ID (residency card) ->
+              11. Begin studies ->
+              12. Renew annually based on academic progress and enrollment.`
+},
+
+"KuwaitTrainingVisa": {
+    name: "Training Visa (Limited Institutional Programs – Kuwait)",
+
+    validity: "Usually 1 to 12 months depending on training program duration. Extensions may be possible if the institution requests continuation.",
+
+    cost: "Approx KWD 20–100 (~₹5,500–₹28,000) depending on sponsor, institution type, and processing channel. Often partially or fully sponsored by host institution.",
+
+    time: "Processing time usually 1–4 weeks depending on training institution approval and Ministry of Interior clearance.",
+
+    age: "Typically 18–40 years, but may vary depending on training program and institution requirements.",
+
+    education: "Depends on program. Some require diploma/degree (technical or professional training), while others accept basic qualifications plus relevant skills.",
+
+    funds: "May require proof of financial support unless fully sponsored. In many cases, training institutions or government programs cover costs.",
+
+    docs: "Valid passport (6+ months), passport-size photos, training invitation letter from Kuwait institution/company, training agreement, academic certificates (if required), CV/resume, medical fitness certificate, visa application form.",
+
+    whom: "Foreign trainees (including Indians) invited by Kuwaiti companies, government institutions, universities, or professional training centers for skill development, internships, or capacity-building programs.",
+
+    rules: "Must only participate in approved training activities. Cannot engage in paid employment unless separately authorized. Must leave upon completion of training unless visa extension is granted.",
+
+    prosCons: "Pros: Skill development opportunity, exposure to Kuwaiti work environment, often sponsored programs, good for career enhancement. Cons: Temporary stay, no guaranteed employment, limited extension options, no independent work rights.",
+
+    terms: "Training Visa: Short-term skill development entry permit; Training Institution: Approved host organization; MOI: Ministry of Interior Kuwait; Internship: Practical training program; Sponsorship: Institution responsible for trainee stay.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) in coordination with Public Authority for Manpower (PAM) and approved training institutions.",
+
+    process: `1. Apply or get selected for training program ->
+              2. Receive official invitation letter from institution ->
+              3. Institution submits sponsorship request to MOI ->
+              4. Visa authorization issued ->
+              5. Applicant submits passport and documents ->
+              6. Medical test and verification ->
+              7. Visa stamping issued ->
+              8. Travel to Kuwait ->
+              9. Immigration clearance ->
+              10. Begin training program ->
+              11. Completion of training ->
+              12. Exit or apply for extension if allowed.`
+},
+
+"KuwaitMedicalTreatmentVisa": {
+    name: "Medical Treatment Visa (Kuwait)",
+
+    validity: "Usually 30 to 90 days depending on treatment plan. Extensions may be granted based on medical condition and hospital recommendation.",
+
+    cost: "Approx KWD 20–100 (~₹5,500–₹28,000) excluding hospital treatment charges, insurance, diagnostics, and specialist fees. Often sponsored or partially supported by hospital/government.",
+
+    time: "Processing time usually 2–7 working days depending on hospital approval and Ministry of Interior (MOI) clearance.",
+
+    age: "No age limit. Applicable for patients of all ages including children and elderly.",
+
+    education: "Not required.",
+
+    funds: "Must show proof of ability to pay medical expenses or have sponsorship from hospital, insurance provider, or government health program.",
+
+    docs: "Valid passport (6+ months), passport-size photos, medical reports/diagnosis from home country, acceptance letter from Kuwait hospital/clinic, treatment plan, travel insurance, visa application form, proof of funds or sponsorship letter, return ticket (sometimes required).",
+
+    whom: "Foreign nationals (including Indians) seeking medical treatment, surgery, specialist care, rehabilitation, or follow-up treatment in Kuwait hospitals.",
+
+    rules: "Must strictly use visa for medical treatment only. Cannot work or engage in other activities. Must follow treatment plan and hospital instructions. Extension requires updated medical reports and hospital approval. Overstay is strictly prohibited.",
+
+    prosCons: "Pros: Access to modern healthcare facilities, fast processing in urgent cases, possible hospital sponsorship, extension allowed based on condition. Cons: No work rights, dependent on medical approval, high treatment costs without insurance, limited flexibility during stay.",
+
+    terms: "Medical Treatment Visa: Health-based entry permit; MOH: Ministry of Health Kuwait; MOI: Ministry of Interior Kuwait; Sponsoring Hospital: Approved medical institution; Medical Report: Diagnostic documentation; Insurance Coverage: Mandatory/optional depending on case.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) and Ministry of Health (MOH) under healthcare and immigration regulations.",
+
+    process: `1. Get medical diagnosis in home country ->
+              2. Send reports to Kuwait hospital ->
+              3. Receive treatment acceptance letter ->
+              4. Apply for medical visa via embassy or MOI system ->
+              5. Submit passport and medical documents ->
+              6. Pay visa and insurance fees ->
+              7. Visa approval issued ->
+              8. Travel to Kuwait ->
+              9. Hospital admission and treatment begins ->
+              10. Follow-up care and monitoring ->
+              11. Extend visa if medically required or exit after recovery.`
+},
+
+"KuwaitEmergencyEntryVisa": {
+    name: "Emergency Entry Visa (Kuwait)",
+
+    validity: "Very short-term visa, typically 7 to 30 days depending on the emergency case and approval by authorities. Extensions are rare and strictly case-based.",
+
+    cost: "Approx KWD 10–50 (~₹2,800–₹14,000) depending on urgency, processing channel, and sponsorship. In genuine humanitarian cases, fees may be waived or reduced.",
+
+    time: "Processing time is usually 24 hours to 3 working days in urgent cases, depending on verification speed and authority approval.",
+
+    age: "No age limit. Applicable for individuals in verified emergency situations.",
+
+    education: "Not required.",
+
+    funds: "May require proof of emergency situation support or sponsor responsibility. In many cases, sponsor or family member in Kuwait covers expenses.",
+
+    docs: "Valid passport (6+ months), passport-size photos, proof of emergency (hospital report, death certificate, accident report, legal notice, etc.), sponsor Civil ID (if applicable), invitation/emergency request letter, visa application form, return ticket (sometimes required).",
+
+    whom: "Foreign nationals (including Indians) needing urgent entry into Kuwait due to family emergencies (death, serious illness), legal issues, or critical humanitarian situations.",
+
+    rules: "Must strictly enter and stay only for the declared emergency purpose. Cannot work or extend stay without approval. Must exit immediately after situation is resolved unless extension is granted.",
+
+    prosCons: "Pros: Very fast processing, humanitarian consideration, possible fee waiver, priority handling. Cons: Strict eligibility, short duration, no work rights, extension is difficult, requires strong proof of emergency.",
+
+    terms: "Emergency Entry Visa: Urgent humanitarian entry permit; MOI: Ministry of Interior Kuwait; Humanitarian Case: Verified emergency situation; Sponsor: Family member or resident in Kuwait; Entry Permit: Temporary authorization to enter Kuwait.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) under humanitarian and emergency immigration provisions.",
+
+    process: `1. Identify emergency situation (medical, death, legal urgency) ->
+              2. Sponsor or family member submits emergency request to MOI ->
+              3. Provide supporting documents (hospital/legal proof) ->
+              4. Authorities verify urgency ->
+              5. Fast-track approval decision ->
+              6. Visa issued (often within 24–72 hours) ->
+              7. Travel to Kuwait immediately ->
+              8. Immigration clearance on arrival ->
+              9. Address emergency situation ->
+              10. Exit country after completion of purpose.`
+},
+
+"KuwaitMissionVisa": {
+    name: "Mission Visa (Temporary Official Assignments – Kuwait)",
+
+    validity: "Usually 30 to 90 days initially. Can be extended based on the duration of the official mission or project requirement.",
+
+    cost: "Approx KWD 20–100 (~₹5,500–₹28,000) depending on processing channel and government fees. Often sponsored by the inviting Kuwaiti authority.",
+
+    time: "Processing time usually 2–7 working days depending on ministry approval and sponsor documentation.",
+
+    age: "No age restriction. Applicable only to officially assigned personnel.",
+
+    education: "Not required, but depends on mission type (technical, administrative, consultancy, inspection, etc.).",
+
+    funds: "No personal financial requirement. Expenses are typically covered by sending government, organization, or host institution.",
+
+    docs: "Valid passport (6+ months), passport-size photos, official assignment letter, invitation from Kuwaiti government/entity, Note Verbale (for government missions), project details, CV (if required), visa application form.",
+
+    whom: "Foreign experts, consultants, engineers, technicians, auditors, researchers, and government personnel sent to Kuwait for short-term official missions, projects, inspections, or assignments.",
+
+    rules: "Must only work on the assigned mission/project. Cannot take other employment. Must leave Kuwait after mission completion unless extended or converted to another visa category.",
+
+    prosCons: "Pros: Fast entry for official work, often sponsored, short processing time, useful for specialized projects. Cons: Short duration, no employment flexibility, strictly mission-bound, dependent on sponsor approval.",
+
+    terms: "Mission Visa: Short-term official assignment visa; Sponsor: Kuwaiti government or organization; Note Verbale: Official diplomatic communication; MOI: Ministry of Interior Kuwait; Project Assignment: Defined work scope for mission.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) in coordination with relevant government ministries and sponsoring institutions.",
+
+    process: `1. Kuwaiti entity identifies need for foreign expert ->
+              2. Sends invitation or official request ->
+              3. Submit application to MOI with mission details ->
+              4. Provide passport and professional documents ->
+              5. Security and administrative verification ->
+              6. Visa approval issued ->
+              7. Travel to Kuwait ->
+              8. Immigration clearance on arrival ->
+              9. Perform assigned mission work ->
+              10. Exit after completion or apply for extension if approved.`
+},
+
+"KuwaitCulturalSportsEventVisa": {
+    name: "Cultural / Sports / Event Visa (Kuwait)",
+
+    validity: "Usually 7 to 90 days depending on event duration (festival, competition, exhibition, tournament, or cultural program). Extensions are rare and event-based.",
+
+    cost: "Approx KWD 10–50 (~₹2,800–₹14,000) depending on sponsorship, event type, and processing channel. Often fully or partially sponsored by organizers.",
+
+    time: "Processing time usually 2–7 working days depending on event approval and Ministry of Interior clearance.",
+
+    age: "No strict age limit. Depends on event participation (artists, athletes, performers, delegates, etc.).",
+
+    education: "Not required. However, relevant skill/portfolio may be required for cultural or sports participation.",
+
+    funds: "May require proof of funds unless fully sponsored by event organizer. Many participants are covered by hosting institutions.",
+
+    docs: "Valid passport (6+ months), passport-size photos, invitation letter from Kuwaiti event organizer, event registration/pass, proof of participation (athlete profile, artist portfolio, delegation letter), travel insurance, visa application form, return ticket.",
+
+    whom: "Foreign artists, performers, athletes, sports teams, cultural delegations, speakers, exhibitors, and participants invited to Kuwait for approved cultural festivals, sports competitions, exhibitions, or public events.",
+
+    rules: "Must participate only in approved event activities. Cannot work outside event scope. Must leave Kuwait after event completion unless extension is granted. Must follow Kuwait event and immigration regulations.",
+
+    prosCons: "Pros: Fast entry for global events, often sponsored, easy documentation for invited participants, exposure to international platforms. Cons: Short duration, no work rights, strictly event-limited, dependent on invitation/registration.",
+
+    terms: "Event Visa: Entry permit for participation in events; MOI: Ministry of Interior Kuwait; Event Organizer: Approved Kuwaiti authority/company; Cultural Authority: Ministry of Information/Culture; Sports Federation: Official governing body for sports events.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) in coordination with cultural, sports, and event organizing authorities.",
+
+    process: `1. Receive official invitation or registration for event ->
+              2. Event organizer submits participant details to MOI ->
+              3. Provide passport and participation documents ->
+              4. Application reviewed by authorities ->
+              5. Visa approval issued ->
+              6. Travel to Kuwait ->
+              7. Immigration clearance on arrival ->
+              8. Participate in event/competition/festival ->
+              9. Exit Kuwait after event completion ->
+              10. Extension only if officially approved.`
+},
+
+"KuwaitGCCResidentVisa": {
+    name: "GCC Resident Visa (for GCC Residents Entering Kuwait)",
+
+    validity: "Usually 30 to 90 days per visit (short-term entry permit). Single-entry or multiple-entry depending on eligibility and approval.",
+
+    cost: "Approx KWD 3–10 (~₹800–₹2,800). May vary depending on processing channel and nationality. In some cases, fees may be reduced or waived.",
+
+    time: "Processing time usually 1–3 working days. Often faster if applied online via Kuwait eVisa system.",
+
+    age: "No strict age limit. Applicant must hold valid GCC residency permit.",
+
+    education: "Not required.",
+
+    funds: "Must hold valid GCC residency and show ability to support travel expenses. Bank proof may be requested in some cases.",
+
+    docs: "Valid passport (6+ months), valid GCC residence permit (UAE/KSA/Qatar/Kuwait/Bahrain/Oman residency card or iqama), passport-size photo, return flight ticket, hotel booking or accommodation proof, travel insurance (recommended), visa application form.",
+
+    whom: "Foreign nationals living legally in GCC countries who want to travel to Kuwait for tourism, family visits, short business meetings, or transit-related travel.",
+
+    rules: "Must hold valid GCC residency (usually minimum 3–6 months validity required). Cannot work in Kuwait under this visa. Must exit before visa expiry. Entry is subject to immigration officer approval even with valid visa.",
+
+    prosCons: "Pros: Simple and fast entry process, low cost, convenient for GCC residents, easy online application. Cons: Short stay duration, no work rights, strict eligibility based on GCC residency status, not a residency pathway.",
+
+    terms: "GCC: Gulf Cooperation Council; GCC Resident Visa: Entry permit for GCC expatriates; Residency Permit: Legal stay document in GCC country; MOI: Ministry of Interior Kuwait; eVisa: Electronic visa system; Entry Permit: Pre-approved authorization.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) under GCC unified visa entry agreements and immigration regulations.",
+
+    process: `1. Ensure valid GCC residency permit (minimum validity required) ->
+              2. Apply via Kuwait eVisa portal or authorized system ->
+              3. Fill application with passport and GCC residency details ->
+              4. Upload required documents ->
+              5. Pay visa fee (if applicable) ->
+              6. Application review by Kuwait immigration authorities ->
+              7. Visa approval issued electronically ->
+              8. Print or carry eVisa copy ->
+              9. Travel to Kuwait ->
+              10. Immigration clearance on arrival ->
+              11. Stay up to 30–90 days ->
+              12. Exit before visa expiry.`
+},
+
+"KuwaitEntryPermitVisa": {
+    name: "Entry Permit Visa (General Temporary Entry Authorization – Kuwait)",
+
+    validity: "Usually 30 to 90 days depending on purpose (work, family, business, or visit). Must be used within validity period to enter Kuwait.",
+
+    cost: "Approx KWD 3–50 (~₹800–₹14,000) depending on visa type, sponsor category, and processing channel. Many employer-sponsored permits are paid by the sponsor.",
+
+    time: "Processing time usually 1–7 working days depending on sponsor approval and Ministry of Interior (MOI) processing speed.",
+
+    age: "No strict age limit. Depends on underlying visa category (work, visit, student, etc.).",
+
+    education: "Not required in general. Depends on purpose of entry (work/study visas may require qualifications).",
+
+    funds: "Varies by visa type. Sponsored visas (work/family) usually require no personal funds; tourist/visit entry may require proof of financial ability.",
+
+    docs: "Valid passport (6+ months), passport-size photo, sponsor documents (Civil ID or company CR), purpose-specific documents (job offer, invitation letter, admission letter, etc.), visa application form, travel insurance (recommended).",
+
+    whom: "Foreign nationals (including Indians) who have received approval to enter Kuwait temporarily for purposes such as work, family visit, business, study, or official assignments.",
+
+    rules: "Must enter Kuwait within validity period. Must strictly follow purpose stated in permit. Cannot work unless work permit is granted. Overstay or misuse leads to penalties and deportation.",
+
+    prosCons: "Pros: Fast authorization for entry, flexible use across visa categories, essential first step for most Kuwait visas. Cons: Not a standalone residency, validity is short, dependent on sponsor approval.",
+
+    terms: "Entry Permit: Pre-approval to enter Kuwait; MOI: Ministry of Interior Kuwait; Sponsor (Kafeel): Responsible entity in Kuwait; Visa Authorization Number: Reference for embassy stamping; Residency Conversion: Process of converting entry permit into long-term stay (Iqama).",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) under immigration and residency entry control system.",
+
+    process: `1. Sponsor submits request to Kuwait MOI ->
+              2. Provide purpose of visit (work, family, study, etc.) ->
+              3. Upload required documents and sponsor details ->
+              4. Immigration verification and approval ->
+              5. Entry permit issued with reference number ->
+              6. Applicant applies at embassy or receives eVisa ->
+              7. Visa stamping or electronic approval issued ->
+              8. Travel to Kuwait ->
+              9. Immigration clearance on arrival ->
+              10. Convert into residence/work permit if applicable.`
+},
+
+"KuwaitTemporaryWorkPermitVisa": {
+    name: "Temporary Work Permit Visa (Kuwait)",
+
+    validity: "Usually 3 to 6 months initially. Can be extended up to 1 year depending on project duration and employer approval.",
+
+    cost: "Approx KWD 20–100 (~₹5,500–₹28,000) excluding medical test, insurance, and residency-related fees. Usually paid by employer/sponsor.",
+
+    time: "Processing time usually 1–4 weeks depending on employer approval, work permit issuance, and Ministry of Interior (MOI) clearance.",
+
+    age: "Typically 21–60 years depending on job type and company requirements.",
+
+    education: "Depends on job role. Skilled temporary roles require diploma/degree; unskilled roles may require basic experience.",
+
+    funds: "No personal financial requirement. Employer covers salary, visa costs, and related expenses.",
+
+    docs: "Valid passport (6+ months), passport-size photos, temporary employment contract, company commercial registration (CR), work permit approval, medical fitness certificate, police clearance certificate, visa application form.",
+
+    whom: "Foreign workers (including Indians) hired for short-term jobs, project-based work, seasonal employment, or temporary assignments in Kuwait private or semi-government sectors.",
+
+    rules: "Must work only for sponsoring employer and only for approved project duration. Cannot switch jobs without authorization. Must leave Kuwait after contract ends unless visa is extended or converted.",
+
+    prosCons: "Pros: Quick employment opportunity, useful for short-term projects, legal work authorization, employer support. Cons: Short duration, no permanent residency path, dependent on employer contract, limited job security after project ends.",
+
+    terms: "Temporary Work Permit: Short-term employment authorization; Sponsor (Kafeel): Employer responsible for worker; MOI: Ministry of Interior Kuwait; PAM: Public Authority for Manpower; Work Permit: Legal authorization to work.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) and Public Authority for Manpower (PAM) under temporary labor and project-based employment rules.",
+
+    process: `1. Employer identifies short-term job/project ->
+              2. Apply for temporary work permit through PAM/MOI ->
+              3. Submit company and project details ->
+              4. Visa authorization issued ->
+              5. Worker submits passport and documents at embassy ->
+              6. Medical test and police clearance ->
+              7. Visa stamping issued ->
+              8. Travel to Kuwait ->
+              9. Immigration clearance ->
+              10. Begin temporary employment ->
+              11. Complete project work ->
+              12. Exit or apply for extension if approved.`
+},
+
+"KuwaitExitVisa": {
+    name: "Exit Visa (Kuwait)",
+
+    validity: "Very short-term approval (usually valid for a single exit within a few days after issuance). Must be used before expiry or it becomes void.",
+
+    cost: "Usually free in most cases. Some administrative or service charges (~KWD 0–10 / ₹0–₹2,800) may apply depending on processing channel.",
+
+    time: "Processing time usually 1–3 working days, depending on sponsor approval and Ministry of Interior (MOI) system clearance.",
+
+    age: "No age restriction. Applicable to all expatriate workers under sponsorship system.",
+
+    education: "Not required.",
+
+    funds: "No financial requirement for applicant. Clearance depends on employer/sponsor approval and settlement of dues.",
+
+    docs: "Valid passport, Civil ID (residency card), sponsor approval (Kafeel clearance), employment termination or leave approval letter, salary/dues clearance certificate, visa application request.",
+
+    whom: "Foreign workers (including Indians) in Kuwait who are leaving the country either permanently (final exit) or temporarily in certain controlled cases under sponsor approval.",
+
+    rules: "Must obtain sponsor (Kafeel) approval before exit. All financial dues, loans, or obligations must be cleared. Overstaying or exiting without permission is illegal. Exit must occur within visa validity window.",
+
+    prosCons: "Pros: Legal and structured exit process, ensures clearance of dues, prevents legal penalties, necessary for final departure. Cons: Dependent on employer approval, can be delayed due to disputes, strict compliance required.",
+
+    terms: "Exit Visa: Official permission to leave Kuwait; Final Exit: Permanent departure status; Sponsor (Kafeel): Employer responsible for worker; Civil ID: Residency identification card; MOI: Ministry of Interior Kuwait; Clearance Certificate: Proof of settlement of dues.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) under immigration exit control and sponsorship (kafala) system regulations.",
+
+    process: `1. Worker decides to leave Kuwait ->
+              2. Notify sponsor/employer (Kafeel) ->
+              3. Settle all financial dues (salary, loans, utilities) ->
+              4. Employer applies for exit permit via MOI system ->
+              5. Submit Civil ID and passport details ->
+              6. Immigration review and approval ->
+              7. Exit visa issued ->
+              8. Travel booked within validity period ->
+              9. Immigration clearance at airport ->
+              10. Exit Kuwait permanently or temporarily.`
+},
+
+"KuwaitReEntryPermitVisa": {
+    name: "Re-entry Permit Visa (Kuwait)",
+
+    validity: "Usually 3 to 6 months per permit (can vary based on employer approval and residency type). Must be used within validity period to re-enter Kuwait.",
+
+    cost: "Approx KWD 10–30 (~₹2,800–₹8,500) depending on duration and processing channel. Often paid online or by sponsor/employer.",
+
+    time: "Processing time usually 1–3 working days through MOI online system (often same-day approval in many cases).",
+
+    age: "No age restriction. Applicable to all foreign residents holding valid Kuwait residency (Civil ID).",
+
+    education: "Not required.",
+
+    funds: "No personal financial requirement. Applicant must have valid residency and sponsor approval (for certain categories).",
+
+    docs: "Valid passport, Civil ID (Kuwait residency card), sponsor approval (if required), residence permit details, application form (MOI online request).",
+
+    whom: "Foreign residents in Kuwait (including Indians) who need to temporarily leave Kuwait and return while maintaining their residency status (work, family, or dependent visa holders).",
+
+    rules: "Must return within validity period or residency may be cancelled. Must have valid residency (Iqama/Civil ID) at time of application. Some categories require sponsor approval. Overstay outside Kuwait may lead to residency cancellation.",
+
+    prosCons: "Pros: Maintains residency while traveling, essential for expatriates, quick online processing, flexible short-term travel option. Cons: Strict validity period, failure to return leads to cancellation, dependent on residency status and employer approval in some cases.",
+
+    terms: "Re-entry Permit: Authorization to return to Kuwait; Civil ID: Residency identity card; MOI: Ministry of Interior Kuwait; Residency Validity: Active legal stay status; Sponsor (Kafeel): Employer or family sponsor responsible for residency.",
+
+    legal: "Regulated by Kuwait Ministry of Interior (MOI) under residency and immigration control laws.",
+
+    process: `1. Resident applies online via MOI portal or sponsor system ->
+              2. Provide Civil ID and passport details ->
+              3. Sponsor approval (if required) ->
+              4. Pay re-entry fee ->
+              5. MOI verification ->
+              6. Re-entry permit issued electronically ->
+              7. Travel outside Kuwait ->
+              8. Return before permit expiry ->
+              9. Immigration clearance on re-entry ->
+              10. Residency remains active.`
+},
+
+"KuwaitDiplomaticVisa": {
+    name: "Diplomatic Visa (Kuwait)",
+
+    validity: "Usually 3 months to 5 years depending on posting duration and diplomatic assignment. Often linked to official diplomatic tenure.",
+
+    cost: "No visa fee in most cases for diplomatic passport holders. Some administrative processing charges may apply (~KWD 0–10 / ₹0–₹2,800).",
+
+    time: "Processing time usually 1–5 working days depending on Note Verbale submission and Ministry of Foreign Affairs clearance.",
+
+    age: "No age restriction. Applicable only to accredited diplomats and their dependents.",
+
+    education: "Not required. Eligibility is based on official diplomatic appointment.",
+
+    funds: "No personal financial requirement. Expenses are covered by sending government or diplomatic mission.",
+
+    docs: "Diplomatic passport, Note Verbale from sending country’s Ministry of Foreign Affairs, official assignment letter, passport-size photos, diplomatic accreditation documents, visa application form (if required).",
+
+    whom: "Foreign diplomats, embassy/consulate staff, ambassadors, high commissioners, and accredited representatives of international organizations assigned to Kuwait.",
+
+    rules: "Must only perform official diplomatic duties. Must respect Kuwait diplomatic laws and international conventions (Vienna Convention). Cannot engage in private employment or business activities.",
+
+    prosCons: "Pros: Fast-track processing, privileges and immunities under international law, exemption from many fees, long-term validity. Cons: Strict eligibility, limited to official roles only, cannot be used for personal or commercial work.",
+
+    terms: "Diplomatic Visa: Entry permit for diplomats; Note Verbale: Official diplomatic communication; MOFA: Ministry of Foreign Affairs Kuwait; Accreditation: Official recognition of diplomatic status; Vienna Convention: International diplomatic law framework.",
+
+    legal: "Regulated by Kuwait Ministry of Foreign Affairs (MOFA) under international diplomatic protocols and Vienna Convention on Diplomatic Relations.",
+
+    process: `1. Sending government appoints diplomat ->
+              2. Ministry of Foreign Affairs issues Note Verbale ->
+              3. Submit diplomatic passport and documents to Kuwait MOFA ->
+              4. Security and diplomatic verification ->
+              5. Approval granted by MOFA ->
+              6. Visa issued or diplomatic entry clearance granted ->
+              7. Travel to Kuwait ->
+              8. Diplomatic accreditation completed on arrival ->
+              9. Residency and privileges activated ->
+              10. Continue official diplomatic assignment.`
+},
+"KuwaitOfficialVisa": {
+    name: "Official Visa (Kuwait)",
+
+    validity: "Usually 30 days to 1 year depending on official assignment duration. Can be extended based on government requirement.",
+
+    cost: "Generally free for government-sponsored applicants. In rare cases, minimal administrative fees (~KWD 0–10 / ₹0–₹2,800) may apply.",
+
+    time: "Processing time usually 1–5 working days depending on Ministry of Foreign Affairs (MOFA) approval and inter-government coordination.",
+
+    age: "No age restriction. Applicable only to official government personnel.",
+
+    education: "Not required. Eligibility depends on official appointment or government nomination.",
+
+    funds: "No personal financial requirement. All expenses are typically covered by the sending government or sponsoring authority.",
+
+    docs: "Official/Service passport, Note Verbale from sending country’s Ministry of Foreign Affairs, official assignment letter, passport-size photos, visa application form (if required), security clearance (if applicable).",
+
+    whom: "Government officials, ministers, civil servants, and members of official delegations traveling to Kuwait for official meetings, state visits, conferences, inspections, or bilateral cooperation.",
+
+    rules: "Must strictly perform only assigned official duties. Cannot engage in private employment or commercial activities. Must comply with Kuwait government protocols and diplomatic norms.",
+
+    prosCons: "Pros: Fast-track entry, no visa fee, official privileges, priority processing, smooth government coordination. Cons: Strictly limited to official duties, no personal or business activity allowed, validity tied to assignment only.",
+
+    terms: "Official Visa: Entry permit for government duties; Note Verbale: Official diplomatic communication; MOFA: Ministry of Foreign Affairs Kuwait; Government Delegation: Official group representing a country; Service Passport: Passport issued for official travel.",
+
+    legal: "Regulated by Kuwait Ministry of Foreign Affairs (MOFA) under international government and diplomatic coordination protocols.",
+
+    process: `1. Government department assigns official mission ->
+              2. Issue service passport and assignment letter ->
+              3. Send Note Verbale to Kuwait MOFA ->
+              4. MOFA reviews and verifies request ->
+              5. Security and administrative clearance ->
+              6. Visa approval issued via official channel ->
+              7. Entry permit granted ->
+              8. Travel to Kuwait ->
+              9. Immigration clearance on arrival ->
+              10. Perform official duties ->
+              11. Exit after assignment completion.`
+},
+
+"KuwaitTemporaryResidencyArticle14": {
+    name: "Temporary Residency (Article 14 – The 'Bridge' Visa)",
+
+    validity: "Up to 3 months maximum. This is a non-renewable temporary extension intended to give the holder time to fix their legal status or prepare for departure.",
+
+    cost: "KWD 2 per month (~₹550) plus administrative typing fees (~₹1,000). Total approx. ₹2,600.",
+
+    time: "Processing time: 1 to 3 working days. Usually issued on the same day at the Immigration Department (Jawazat).",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No personal funds requirement, but the applicant must have an active application for a new sponsor or a valid reason for the extension.",
+
+    docs: "Valid passport, current Civil ID (or copy), application form signed by the current or prospective sponsor, letter of explanation for the extension, and proof of the pending visa transfer or medical emergency.",
+
+    whom: "Indian workers or residents whose current work (Article 18) or family (Article 22) visa has expired, but they are waiting for a new sponsor’s paperwork or cannot leave the country due to emergencies.",
+
+    rules: "Strictly temporary. You cannot work legally on an Article 14 visa (it is a stay permit only). If the holder does not secure a new residency pass within the 3 months, they must leave Kuwait or face heavy daily overstay fines.",
+
+    prosCons: "Pros: Prevents the holder from becoming 'unlawful' (illegal); provides a legal window to change jobs. Cons: Very short duration; no work rights; cannot be used for travel in and out of Kuwait.",
+
+    terms: "Bridge Visa: A temporary permit between two visas; Jawazat: The General Directorate of Residency; Khuruj: Departure.",
+
+    legal: "Kuwait Residency Law - Executive Regulations for Article 14.",
+
+    process: `1. Identify that the current visa is about to expire or has expired -> 
+              2. Approach the Immigration Department (Jawazat) in the area of residence -> 
+              3. Submit a 'Temporary Stay' request via the sponsor -> 
+              4. Pay the monthly fee (KWD 2) -> 
+              5. The Article 14 stamp is placed in the passport -> 
+              6. Use this time to finalize the transfer to a new Article 18 or 22 visa -> 
+              7. If the issue is not resolved, the holder must exit the country before the 90th day.`
+},
+
+"KuwaitSelfSponsorshipArticle24": {
+    name: "Self-Sponsorship Residency (Article 24)",
+
+    validity: "Usually issued for 2 years. Renewable indefinitely as long as the financial conditions and security clearances are met.",
+
+    cost: "Administrative fees approx. KWD 100 per year (~₹28,000). However, it requires a massive bank guarantee (approx. KWD 10,000 / ₹27 Lakhs) to be maintained in a Kuwaiti bank.",
+
+    time: "Processing: 4 to 12 weeks. Requires approval from the Ministry of Interior (MOI) and a high-level security background check.",
+
+    age: "Usually for retirees (55+) or wealthy individuals who have lived in Kuwait for many years.",
+
+    education: "No specific requirement, but professional background is evaluated.",
+
+    funds: "Mandatory: Must show a stable independent monthly income (pension or investments) of at least KWD 1,000 (~₹2.7 Lakhs) and a fixed deposit/bank guarantee.",
+
+    docs: "Proof of lawful source of wealth, 6-month bank statements from a Kuwaiti bank, letter of 'Self-Sponsorship' intent, clean criminal record (PCC), and a medical fitness certificate.",
+
+    whom: "Wealthy Indian expats, long-term business owners who have sold their shares, or widows of Kuwaiti nationals who wish to live in Kuwait without an employer.",
+
+    rules: "The holder is not allowed to work for any employer in Kuwait. They are their own sponsor. They can sponsor their spouse and children for residency under them.",
+
+    prosCons: "Pros: Total independence from the 'Kafeel' (sponsor) system; long-term stability. Cons: Extremely high financial barrier; no local employment allowed.",
+
+    terms: "Kafil Nafsa: Self-sponsor; Bank Guarantee: Money locked by the government to ensure you can afford to live; Independent Income: Money coming from outside a local salary.",
+
+    legal: "Ministerial Decision regarding Article 24 of the Residency Law.",
+
+    process: `1. Apply for 'Eligibility to Self-Sponsor' at the MOI -> 
+              2. Provide proof of funds and long-term residency history -> 
+              3. Obtain a bank guarantee of KWD 10,000+ -> 
+              4. Undergo security vetting and medical tests -> 
+              5. Receive Article 24 Residency stamp -> 
+              6. Issue the specific 'Self-Sponsorship' Civil ID.`
+},
+
+
+"KuwaitStudentWorkPassArticle23": {
+    name: "Student Visa with Work Rights (Article 23)",
+
+    validity: "1 year. Renewable annually as long as the student remains enrolled in a recognized university or college.",
+
+    cost: "Approx. KWD 20 (~₹5,500) per year for residency, plus university fees.",
+
+    whom: "International students in Kuwait who are granted permission to take up part-time work or internships.",
+
+    rules: "Work is usually limited to 20 hours per week or specifically authorized internships. The university remains the primary sponsor. A separate 'Work Authorization' letter from the Public Authority for Manpower (PAM) is required.",
+
+    docs: "University enrollment letter, 'No Objection Certificate' (NOC) for work from the University, internship/job offer, and health insurance.",
+
+    process: `1. Enroll in a Kuwaiti University -> 2. Secure an internship or part-time job offer -> 3. University applies for 'Work Authorization' at PAM -> 4. Approval added to residency status -> 5. Start work.`
+},
+
+
+"KuwaitCommercialEntryPermit": {
+    name: "Commercial Entry Permit (Fast-Track Business Entry)",
+
+    validity: "Strictly 30 days. Non-renewable and non-extendable. This is for entry only.",
+
+    cost: "KWD 5 (~₹1,400) for the permit, plus service fees.",
+
+    time: "Very fast: 2 to 4 working days. Much faster than the standard M-type business visa.",
+
+    whom: "High-level Indian businessmen, CEOs, or technical experts coming for urgent meetings or contract signings.",
+
+    rules: "Cannot work or receive a salary in Kuwait. Must exit the country within 30 days. This permit cannot be converted into a residency visa while inside the country.",
+
+    docs: "Copy of the visitor’s passport, the sponsoring company's 'Commercial License', and a letter of invitation stating the urgency of the business visit.",
+
+    prosCons: "Pros: Fastest way to enter Kuwait for business; minimal paperwork. Cons: Strictly limited stay; no extension possible.",
+
+    process: `1. Kuwaiti company applies online via the MOI portal -> 2. Uploads the Commercial License -> 3. Receives a digital 'Entry Permit' -> 4. Visitor prints permit and travels to Kuwait.`
+},
+
+"KuwaitGovernmentMissionVisa": {
+    name: "Government Mission Visa (Kuwait)",
+
+    validity: "Usually 30 to 90 days for short missions. Can be extended depending on project duration and official government approval.",
+
+    cost: "Generally free for government-sponsored applicants. In some cases, minor administrative charges (~KWD 0–10 / ₹0–₹2,800) may apply.",
+
+    time: "Processing time usually 1–5 working days depending on Ministry of Foreign Affairs (MOFA) clearance and Kuwaiti government coordination.",
+
+    age: "No age restriction. Applicable only to officially nominated government personnel.",
+
+    education: "Not required. Depends on mission type (technical, administrative, inspection, consultancy, or policy assignment).",
+
+    funds: "No personal financial requirement. Expenses are covered by sending government or host Kuwaiti authority.",
+
+    docs: "Official/service passport, Note Verbale from sending country’s Ministry of Foreign Affairs, mission assignment letter, project or task details, passport-size photos, visa application form (if required), security clearance (if applicable).",
+
+    whom: "Foreign government officials, experts, consultants, engineers, auditors, inspectors, and technical teams sent to Kuwait for short-term official missions or state-related assignments.",
+
+    rules: "Must strictly perform only assigned government mission tasks. Cannot engage in private employment or unrelated work. Must comply with Kuwait government regulations and exit upon mission completion unless extended officially.",
+
+    prosCons: "Pros: Fast processing, official recognition, fully sponsored, smooth government coordination. Cons: Strictly mission-limited, no personal or commercial activity allowed, short duration, dependent on government approval.",
+
+    terms: "Government Mission Visa: Short-term official assignment entry; Note Verbale: Diplomatic communication document; MOFA: Ministry of Foreign Affairs Kuwait; Host Ministry: Kuwaiti government department receiving delegation; Service Passport: Official government travel document.",
+
+    legal: "Regulated by Kuwait Ministry of Foreign Affairs (MOFA) in coordination with relevant Kuwaiti government ministries under official mission protocols.",
+
+    process: `1. Sending government assigns mission team ->
+              2. Issue official assignment letter and service passports ->
+              3. Send Note Verbale to Kuwait MOFA ->
+              4. Kuwait authorities verify mission purpose ->
+              5. Security and administrative clearance ->
+              6. Visa approval issued via official channel ->
+              7. Travel to Kuwait ->
+              8. Immigration clearance on arrival ->
+              9. Perform assigned mission work ->
+              10. Exit after completion or request extension if approved.`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* USA Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="RUSSIA">RUSSIA</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+         
+<select id="visaType">
+    <optgroup label="1. Standard Visit & Tourism">
+        <option value="RussiaTouristVisa">Tourist Visa (Standard)</option>
+        <option value="RussiaBusinessVisa">Business Visa</option>
+        <option value="RussiaPrivateVisitorVisa">Private Visitor Visa</option>
+        <option value="RussiaHumanitarianVisa">Humanitarian Visa</option>
+    </optgroup>
+
+    <optgroup label="2. Unified eVisas (16-Day Stay)">
+        <option value="RussiaTouristEVisa">Tourist eVisa (Online)</option>
+        <option value="RussiaBusinessEVisa">Business eVisa</option>
+        <option value="RussiaHumanitarianEVisa">Humanitarian eVisa</option>
+        <option value="RussiaGuestEVisa">Guest eVisa (Private)</option>
+    </optgroup>
+
+    <optgroup label="3. Work & Professional">
+        <option value="RussiaWorkVisaInitial">Work Visa (Initial 90 Days)</option>
+        <option value="RussiaWorkVisaLongTerm">Work Visa (Long-Term Extension)</option>
+        <option value="RussiaHQSWorkVisa">Highly Skilled Specialist (HQS)</option>
+        <option value="RussiaJournalistVisa">Journalist Visa</option>
+        <option value="RussiaCrewVisa">Crew Visa</option>
+    </optgroup>
+
+    <optgroup label="4. Study & Education">
+        <option value="RussiaStudentVisaShortTerm">Student Visa (Initial Entry)</option>
+        <option value="RussiaStudentVisaLongTerm">Student Visa (Degree/Multi-entry)</option>
+        <option value="RussiaScientificTechnicalVisa">Scientific / Technical Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Residency & Family (Type D)">
+        <option value="RussiaFamilyReunionVisa">Family Reunion Visa</option>
+        <option value="RussiaTemporaryResidenceVisa">TRP (RVP) Entry Visa</option>
+        <option value="RussiaPermanentResidenceEntryVisa">PR Entry Visa</option>
+    </optgroup>
+
+    <optgroup label="6. Regional eVisas">
+        <option value="RussiaStPetersburgLeningradEVisa">St. Petersburg & Leningrad eVisa</option>
+        <option value="RussiaKaliningradEVisa">Kaliningrad eVisa</option>
+        <option value="RussiaFarEastEVisa">Far East (Vladivostok) eVisa</option>
+    </optgroup>
+
+    <optgroup label="7. Special & Transit">
+        <option value="RussiaTransitVisa">Transit Visa (Standard)</option>
+        <option value="RussiaAirportTransitVisa">Airport Transit (72h)</option>
+        <option value="RussiaDoubleTransitVisa">Double Transit Visa</option>
+        <option value="RussiaMedicalVisa">Medical Treatment Visa</option>
+        <option value="RussiaReligiousVisa">Religious Visa</option>
+        <option value="RussiaSportsVisa">Sports Visa</option>
+        <option value="RussiaCulturalVisa">Cultural Visa</option>
+        <option value="RussiaAdoptionVisa">Adoption Visa</option>
+    </optgroup>
+
+    <optgroup label="8. Status & Exit">
+        <option value="RussiaExitVisa">Exit Visa (Departure Permit)</option>
+        <option value="RussiaReEntryVisa">Re-entry Visa</option>
+        <option value="RussiaAsylumVisa">Asylum Protection Entry</option>
+        <option value="RussiaRefugeeVisa">Refugee Entry Visa</option>
+    </optgroup>
+
+    <optgroup label="9. Official & Diplomatic">
+        <option value="RussiaDiplomaticVisa">Diplomatic Visa</option>
+        <option value="RussiaServiceOfficialVisa">Service (Official) Visa</option>
+    </optgroup>
+
+ <optgroup label="10. Extras">
+        <option value="RussiaTouristPrivateRentalVisa">Private tourist visa</option>
+        <option value="RussiaHqsFamilyVisa">HQS visa</option>
+<option value="RussiaTechnicalSupportVisa">Technical maintenance Visa</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF RUSSIA MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇷🇺 VIEW RUSSIA IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇷🇺 GENERAL IMMIGRATION PROCESS – RUSSIA (2026)</h1>
+
+        <h2>🧭 1. DECIDE YOUR PURPOSE</h2>
+        <p>Select your category: Tourist (L), Business (M), Work (Z), Student (X), or Settlement (TRP/PR). This decides if you need an official <strong>Invitation</strong> or can use the <strong>E-Visa</strong>.</p>
+
+        <h2>📩 2. OBTAIN BASIS DOCUMENT</h2>
+        <p>Most Russian visas require a formal "Invitation":</p>
+        <ul>
+            <li><strong>Tourist:</strong> Voucher from a hotel or agency.</li>
+            <li><strong>Student:</strong> Admission letter from a Russian university.</li>
+            <li><strong>Work:</strong> Official invitation from the employer (GUVM).</li>
+        </ul>
+
+        <h2>📄 3 & 4. APPLICATION & ENTRY</h2>
+        <p>Fill the online form and submit at the Embassy or VFS Global. Once approved, travel with your passport and the <strong>Arrival Card</strong> (issued on the flight).</p>
+
+        <h2>🏠 5. MIGRATION REGISTRATION (CRITICAL)</h2>
+        <p><strong>Mandatory:</strong> Within <strong>7 working days</strong> of arrival, you must register your stay through your hotel or landlord. Failure to do this leads to fines and deportation.</p>
+
+        <h2>📑 6 & 7. TEMPORARY RESIDENCE (TRP)</h2>
+        <p>The first step for long-term stay. Requirements: Medical tests (HIV, TB), no criminal record, and often a quota approval. Validity: <strong>3 years</strong>.</p>
+
+        <h2>🏠 8, 9 & 10. PR & CITIZENSHIP</h2>
+        <p>After 6–12 months on TRP, apply for <strong>Permanent Residence (PR)</strong>. After 5 years of PR, you are eligible for <strong>Russian Citizenship</strong> (requires language proficiency).</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black); margin-top: 15px;">
+            🧠 SUMMARY FLOW: Choose Visa → Get Invitation → VFS Submission → Stamping → Entry → 7-Day Registration → TRP → PR → Citizenship
+        </div>
+
+        <div class="official-box">
+            <h1>🇷🇺 OFFICIAL RUSSIA IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Official E-Visa Portal:</strong> <a href="https://evisa.kdmid.ru/" target="_blank">evisa.kdmid.ru</a></p>
+            <p><strong>2. Ministry of Foreign Affairs (MFA):</strong> <a href="https://mid.ru/en/" target="_blank">mid.ru/en</a></p>
+            <p><strong>3. VFS Global India (Apply):</strong> <a href="https://visa.vfsglobal.com/ind/en/rus" target="_blank">vfsglobal.com/russia</a></p>
+            <p><strong>4. Russian Embassy India:</strong> <a href="https://india.mid.ru/" target="_blank">india.mid.ru</a></p>
+            <p><strong>5. Government Services (Gosuslugi):</strong> <a href="https://www.gosuslugi.ru/" target="_blank">gosuslugi.ru</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: REGISTRATION WITHIN 7 DAYS OF ARRIVAL IS MANDATORY. ALWAYS CARRY YOUR MIGRATION CARD.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "RUSSIA": {
+   "RussiaTouristVisa": {
+    name: "Tourist Visa (Russia)",
+    
+    validity: "Up to 30 days (single or double entry). E-Visa version usually up to 16 days stay.",
+    
+    cost: "₹6,000 – ₹15,000 total. Breakdown: Visa Fee ₹4,000–₹10,000 (varies by type and processing speed), Invitation Voucher ₹1,000–₹3,000, Miscellaneous (photos, insurance) ₹500–₹2,000.",
+    
+    time: "Total 5 to 20 days. Standard processing 7–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not strictly required, but proof of financial ability and travel arrangements recommended.",
+    
+    docs: "Passport (valid, 2 blank pages), Visa application form, Passport-size photo, Tourist invitation voucher (hotel/agency), Hotel booking confirmation, Travel insurance, Travel itinerary.",
+    
+    whom: "Tourists visiting Russia for sightseeing, leisure travel, or short-term visits.",
+    
+    rules: "Stay limited to visa validity (max 30 days). Must register visa within 7 days of arrival. No employment allowed. Must follow itinerary linked to invitation voucher.",
+    
+    prosCons: "Pros: Relatively quick processing, suitable for short trips, available as E-Visa for some regions. Cons: Short validity, invitation letter required, strict registration rules after arrival.",
+    
+    terms: "Tourist Voucher: Official invitation from hotel/agency; E-Visa: Electronic visa for short stay; Registration: Mandatory reporting of stay location in Russia; Single/Double Entry: Number of allowed entries.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate, Authorized travel agencies (invitation providers).",
+    
+    process: `1. Choose travel dates and plan itinerary 
+              2. Obtain tourist invitation voucher from hotel/agency 
+              3. Fill visa application form online 
+              4. Gather required documents 
+              5. Submit application at Russian Embassy/VFS or apply for E-Visa (if eligible) 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days typical) 
+              8. Receive passport with visa 
+              9. Travel to Russia 
+              10. Register visa within 7 days of arrival.`
+},
+
+"RussiaBusinessVisa": {
+    name: "Business Visa (Russia)",
+    
+    validity: "1 month to 1 year. Can be single-entry, double-entry, or multiple-entry.",
+    
+    cost: "₹8,000 – ₹25,000 total. Breakdown: Visa Fee ₹6,000–₹20,000 (depends on duration & entries), Invitation Letter ₹1,500–₹5,000, Miscellaneous (photos, insurance) ₹500–₹2,000.",
+    
+    time: "Total 5 to 20 days. Standard processing 7–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not strictly required, but proof of financial stability and company backing recommended.",
+    
+    docs: "Passport (valid, 2 blank pages), Visa application form, Passport-size photo, Official business invitation letter (from Russian company or government), Cover letter from Indian company, Travel insurance.",
+    
+    whom: "Business professionals traveling for meetings, negotiations, conferences, trade fairs, or business-related visits (non-employment).",
+    
+    rules: "No employment allowed in Russia. Cannot receive salary from Russian source. Must comply with purpose stated in invitation. Registration required after arrival.",
+    
+    prosCons: "Pros: Longer validity than tourist visa, multiple-entry option, suitable for frequent business travel. Cons: Invitation letter mandatory, no work allowed, strict compliance with purpose.",
+    
+    terms: "Business Invitation: Official document issued by Russian company or authorities; Multiple Entry: Allows repeated visits; Registration: Mandatory reporting of stay in Russia; Non-Employment: No paid work allowed.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate, Authorized Russian organizations issuing invitations.",
+    
+    process: `1. Get business invitation from Russian company/authority 
+              2. Fill visa application form online 
+              3. Gather required documents (passport, invitation, company letter) 
+              4. Submit application at Russian Embassy/VFS 
+              5. Pay visa fee 
+              6. Wait for processing (5–10 days typical) 
+              7. Receive passport with visa 
+              8. Travel to Russia 
+              9. Register visa after arrival 
+              10. Conduct business activities and leave before expiry.`
+},
+
+"RussiaPrivateVisitorVisa": {
+    name: "Private (Visitor) Visa (Russia)",
+    
+    validity: "Up to 90 days (single or double entry).",
+    
+    cost: "₹8,000 – ₹20,000 total. Breakdown: Visa Fee ₹6,000–₹15,000, Official Invitation (via Russian authorities) ₹2,000–₹5,000, Miscellaneous (photos, insurance) ₹500–₹2,000.",
+    
+    time: "Total 10 to 30 days. Invitation processing may take 2–4 weeks; visa processing 5–10 working days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not strictly required, but proof of financial ability and host support recommended.",
+    
+    docs: "Passport (valid, 2 blank pages), Visa application form, Passport-size photo, Official invitation issued by Russian Ministry of Internal Affairs (requested by host), Copy of host’s passport/residence proof, Travel insurance.",
+    
+    whom: "Individuals visiting friends or family members residing in Russia for personal visits.",
+    
+    rules: "Must stay with or visit the host mentioned in invitation. No employment allowed. Registration required after arrival. Stay limited to approved duration.",
+    
+    prosCons: "Pros: Suitable for family/friend visits, longer stay than tourist visa possible, genuine personal visit category. Cons: Invitation process is lengthy and formal, strict documentation, limited flexibility.",
+    
+    terms: "Private Invitation: Official document issued through Russian authorities; Host: Person inviting the visitor; Registration: Mandatory reporting of stay; Single/Double Entry: Number of allowed entries.",
+    
+    legal: "Ministry of Internal Affairs of Russia (invitation issuance), Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate.",
+    
+    process: `1. Host in Russia applies for official invitation through authorities 
+              2. Receive invitation document 
+              3. Fill visa application form online 
+              4. Gather required documents (passport, invitation, insurance) 
+              5. Submit application at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days after invitation) 
+              8. Receive passport with visa 
+              9. Travel to Russia 
+              10. Register visa after arrival and stay with host.`
+},
+
+"RussiaHumanitarianVisa": {
+    name: "Humanitarian Visa (Russia)",
+    
+    validity: "Up to 1 year. Can be single-entry, double-entry, or multiple-entry depending on invitation.",
+    
+    cost: "₹8,000 – ₹25,000 total. Breakdown: Visa Fee ₹6,000–₹20,000 (depends on duration/entries), Invitation Letter ₹1,500–₹5,000, Miscellaneous (photos, insurance) ₹500–₹2,000.",
+    
+    time: "Total 5 to 20 days. Standard processing 7–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not strictly required, but proof of financial support or sponsoring organization recommended.",
+    
+    docs: "Passport (valid, 2 blank pages), Visa application form, Passport-size photo, Official humanitarian invitation (from Russian organization/government), Cover letter explaining purpose, Travel insurance.",
+    
+    whom: "Individuals traveling for cultural, scientific, educational, religious, charity, or humanitarian activities (non-commercial purposes).",
+    
+    rules: "No employment allowed. Must strictly follow purpose stated in invitation. Registration required after arrival. Activities limited to humanitarian scope.",
+    
+    prosCons: "Pros: Flexible for cultural/scientific/religious activities, longer validity possible, multiple-entry option. Cons: Invitation required, no work allowed, strict purpose limitations.",
+    
+    terms: "Humanitarian Invitation: Official document issued by Russian organization; Multiple Entry: Allows repeated visits; Registration: Mandatory reporting after arrival; Non-Commercial Activities: No business/work allowed.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate, Authorized organizations issuing invitations.",
+    
+    process: `1. Obtain humanitarian invitation from Russian organization 
+              2. Fill visa application form online 
+              3. Gather required documents (passport, invitation, insurance) 
+              4. Submit application at Russian Embassy/VFS 
+              5. Pay visa fee 
+              6. Wait for processing (5–10 days typical) 
+              7. Receive passport with visa 
+              8. Travel to Russia 
+              9. Register visa after arrival 
+              10. Participate in approved humanitarian activities.`
+},
+
+"RussiaWorkVisaInitial": {
+    name: "Work Visa (Short-term Initial Entry – Russia)",
+    
+    validity: "Up to 90 days (single entry). Converted to multiple-entry work visa after arrival.",
+    
+    cost: "₹10,000 – ₹30,000 total. Breakdown: Visa Fee ₹8,000–₹20,000, Work Invitation/Permit ₹2,000–₹8,000, Miscellaneous (medical tests, photos, insurance) ₹1,000–₹5,000.",
+    
+    time: "Total 2 to 8 weeks. Work permit + invitation processing may take 2–6 weeks; visa issuance 5–10 days.",
+    
+    age: "Minimum 18 years.",
+    
+    education: "Depends on job role. Skilled jobs may require qualifications.",
+    
+    funds: "Not required separately. Salary and support provided by employer.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official work invitation from Russian employer, Work permit approval, HIV test certificate, Medical certificate, Employment contract.",
+    
+    whom: "Foreign nationals entering Russia for employment under a Russian company (initial entry stage).",
+    
+    rules: "Single-entry only for first entry. Must convert to long-term multiple-entry work visa after arrival. Work restricted to sponsoring employer. Registration required after arrival.",
+    
+    prosCons: "Pros: Gateway to long-term employment in Russia, employer-supported process, can be extended after conversion. Cons: Initial visa is short-term, requires conversion, documentation is strict.",
+    
+    terms: "Work Permit: Authorization to work issued by Russian authorities; Invitation: Official entry approval from employer; Conversion: Process of changing initial visa to long-term visa; Registration: Mandatory stay reporting.",
+    
+    legal: "Ministry of Internal Affairs of Russia, Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate, Employer (sponsor).",
+    
+    process: `1. Secure job offer from Russian employer 
+              2. Employer obtains work permit and invitation 
+              3. Gather required documents (passport, medical tests, contract) 
+              4. Fill visa application form 
+              5. Submit application at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Receive short-term work visa (90 days) 
+              8. Travel to Russia 
+              9. Convert to multiple-entry work visa after arrival 
+              10. Register visa and start employment.`
+},
+
+"RussiaTransitVisa": {
+    name: "Transit Visa (Russia)",
+    
+    validity: "Up to 10 days (single or double entry) depending on travel route. Air transit usually 3 days max.",
+    
+    cost: "₹4,000 – ₹10,000 total. Breakdown: Visa Fee ₹3,000–₹8,000, Miscellaneous (photos, documents) ₹500–₹2,000.",
+    
+    time: "Total 5 to 15 days. Standard processing 7–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not required, but proof of onward journey is mandatory.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Confirmed onward tickets, Visa for final destination (if required), Travel itinerary.",
+    
+    whom: "Travelers passing through Russia to reach another country by air, road, or rail.",
+    
+    rules: "Must follow approved transit route. Stay limited to transit duration only. Cannot work or engage in other activities. Must leave before visa expiry.",
+    
+    prosCons: "Pros: Simple purpose, quick processing, low cost. Cons: Very short stay, strict route conditions, limited flexibility.",
+    
+    terms: "Transit: Passing through a country en route to another destination; Single/Double Entry: Number of entries allowed; Onward Ticket: Confirmed next destination travel proof.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate.",
+    
+    process: `1. Plan travel route through Russia 
+              2. Book confirmed onward tickets 
+              3. Obtain visa for final destination (if required) 
+              4. Fill visa application form 
+              5. Submit application at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days typical) 
+              8. Receive passport with visa 
+              9. Travel through Russia 
+              10. Exit country within permitted transit period.`
+},
+"RussiaMedicalVisa": {
+    name: "Medical Visa (Russia)",
+    
+    validity: "Up to 90 days (single or double entry). Can be extended in Russia depending on treatment duration.",
+    
+    cost: "₹6,000 – ₹20,000 total. Breakdown: Visa Fee ₹5,000–₹15,000, Medical Invitation Letter ₹1,000–₹5,000, Miscellaneous (reports, insurance, photos) ₹500–₹2,000.",
+    
+    time: "Total 7 to 20 days. Standard processing 7–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Must show ability to pay for treatment or proof of sponsorship (self, family, or hospital guarantee).",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official medical invitation from Russian hospital/clinic, Medical reports/diagnosis, Treatment plan, Proof of funds or sponsorship, Travel insurance.",
+    
+    whom: "Foreign nationals traveling to Russia for medical treatment, surgery, consultation, or specialized healthcare services.",
+    
+    rules: "Must receive treatment only at the invited medical institution. No employment allowed. Stay limited to treatment duration. Extension possible based on medical necessity.",
+    
+    prosCons: "Pros: Designed for treatment continuity, extension possible, recognized medical institutions support process. Cons: Requires official hospital invitation, strict purpose limitation, documentation-heavy.",
+    
+    terms: "Medical Invitation: Official letter from Russian hospital; Treatment Plan: Medical procedure schedule; Sponsorship: Financial support from self/family/organization; Extension: Visa prolongation for ongoing treatment.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Ministry of Health (hospital authorization), Russian Embassy/Consulate.",
+    
+    process: `1. Contact Russian hospital/clinic and obtain medical invitation 
+              2. Submit medical reports and diagnosis 
+              3. Fill visa application form 
+              4. Gather documents (passport, insurance, invitation) 
+              5. Submit application at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (7–10 days typical) 
+              8. Receive passport with visa 
+              9. Travel to Russia 
+              10. Begin treatment and apply for extension if required.`
+},
+
+"RussiaStudentVisaShortTerm": {
+    name: "Student Visa (Short-term Entry – Russia)",
+    
+    validity: "Up to 90 days (single entry). Can be extended or converted into a long-term student visa after arrival.",
+    
+    cost: "₹6,000 – ₹20,000 total. Breakdown: Visa Fee ₹5,000–₹15,000, University Invitation Letter ₹1,000–₹5,000, Miscellaneous (insurance, photos, medical tests) ₹500–₹2,000.",
+    
+    time: "Total 7 to 25 days. Invitation processing 1–3 weeks; visa processing 5–10 working days.",
+    
+    age: "No strict limit, but typically 16–35 years for international students.",
+    
+    education: "Mandatory. Must have admission or invitation from a recognized Russian educational institution.",
+    
+    funds: "Must show sufficient funds for tuition and living expenses or sponsor support (family/education loan/scholarship).",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official invitation from Russian university/college, Admission letter, Academic certificates, Proof of funds/sponsorship, Medical insurance, HIV test certificate.",
+    
+    whom: "Foreign students entering Russia to begin studies before converting to a long-term student visa.",
+    
+    rules: "Must register within 7 days of arrival. Cannot work on this short-term visa. Must convert to long-term student visa for continuation of studies. Must follow university enrollment strictly.",
+    
+    prosCons: "Pros: Gateway to Russian education system, relatively simple initial entry, conversion to long-term visa available. Cons: Short duration, strict documentation, no work rights initially.",
+    
+    terms: "Invitation Letter: Official university approval; Conversion: Change to long-term student visa; Registration: Mandatory reporting of stay; Long-Term Student Visa: Extended study residence permit.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Ministry of Education and Science of Russia, Russian Embassy/Consulate.",
+    
+    process: `1. Apply and get admission in Russian university 
+              2. Receive official invitation letter 
+              3. Fill visa application form 
+              4. Gather documents (passport, admission letter, insurance) 
+              5. Submit application at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days after invitation) 
+              8. Receive short-term student visa 
+              9. Travel to Russia 
+              10. Register and convert to long-term student visa after arrival.`
+},
+
+
+"RussiaCulturalVisa": {
+    name: "Cultural Visa (Russia)",
+    
+    validity: "Up to 1 year. Can be single-entry, double-entry, or multiple-entry depending on invitation.",
+    
+    cost: "₹6,000 – ₹20,000 total. Breakdown: Visa Fee ₹5,000–₹15,000, Cultural Invitation Letter ₹1,000–₹5,000, Miscellaneous (insurance, photos) ₹500–₹2,000.",
+    
+    time: "Total 7 to 20 days. Standard processing 7–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not strictly required, but proof of financial ability or sponsoring organization recommended.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official invitation from Russian cultural organization, Cover letter explaining purpose, Travel insurance.",
+    
+    whom: "Individuals participating in cultural exchange programs, art events, festivals, language courses, or cultural collaborations in Russia.",
+    
+    rules: "No employment allowed. Must strictly follow cultural program or invitation purpose. Registration required after arrival. Activities limited to approved cultural events.",
+    
+    prosCons: "Pros: Suitable for cultural exchange, flexible validity (up to 1 year), multiple-entry possible. Cons: Invitation required, no work rights, strict purpose limitation.",
+    
+    terms: "Cultural Invitation: Official document from cultural institution; Cultural Exchange: Non-commercial artistic/cultural activity; Registration: Mandatory reporting after arrival; Multiple Entry: Allows repeated visits.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Ministry of Culture, Russian Embassy/Consulate, Authorized cultural organizations.",
+    
+    process: `1. Obtain cultural invitation from Russian cultural institution 
+              2. Fill visa application form online 
+              3. Gather required documents (passport, invitation, insurance) 
+              4. Submit application at Russian Embassy/VFS 
+              5. Pay visa fee 
+              6. Wait for processing (5–10 days typical) 
+              7. Receive passport with visa 
+              8. Travel to Russia 
+              9. Register visa after arrival 
+              10. Participate in approved cultural activities.`
+},
+
+"RussiaSportsVisa": {
+    name: "Sports Visa (Russia)",
+    
+    validity: "Up to 1 year. Can be single-entry, double-entry, or multiple-entry depending on sports event or federation invitation.",
+    
+    cost: "₹6,000 – ₹20,000 total. Breakdown: Visa Fee ₹5,000–₹15,000, Sports Federation Invitation ₹1,000–₹5,000, Miscellaneous (insurance, photos, medical fitness) ₹500–₹2,000.",
+    
+    time: "Total 7 to 20 days. Standard processing 7–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit (depends on sport category and competition rules).",
+    
+    education: "Not required.",
+    
+    funds: "Usually covered by sports federation/club/event organizers. Personal proof of funds may be required in some cases.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official invitation from Russian sports federation/organizing committee, Event participation details, Medical fitness certificate, Travel insurance.",
+    
+    whom: "Athletes, coaches, sports officials, and team members participating in sports competitions, training camps, or events in Russia.",
+    
+    rules: "Must participate only in approved sports events or training. No employment allowed outside sports purpose. Registration required after arrival. Stay limited to event duration or visa validity.",
+    
+    prosCons: "Pros: Designed for international sports participation, multiple-entry possible, often sponsor-supported. Cons: Strict event-based usage, no work rights, requires official sports invitation.",
+    
+    terms: "Sports Invitation: Official document from federation/event organizer; Federation: Governing sports body; Event Participation: Approved competition or training; Registration: Mandatory reporting of stay.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Ministry of Sport, Russian Embassy/Consulate, Accredited sports federations.",
+    
+    process: `1. Get invitation from Russian sports federation or event organizer 
+              2. Collect event participation confirmation 
+              3. Fill visa application form 
+              4. Gather documents (passport, invitation, insurance) 
+              5. Submit application at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days typical) 
+              8. Receive passport with visa 
+              9. Travel to Russia 
+              10. Register visa and participate in sports event.`
+},
+
+"RussiaScientificTechnicalVisa": {
+    name: "Scientific / Technical Visa (Russia)",
+    
+    validity: "Up to 1 year. Can be single-entry, double-entry, or multiple-entry depending on invitation.",
+    
+    cost: "₹6,000 – ₹20,000 total. Breakdown: Visa Fee ₹5,000–₹15,000, Invitation Letter from scientific institution ₹1,000–₹5,000, Miscellaneous (insurance, photos, medical tests) ₹500–₹2,000.",
+    
+    time: "Total 7 to 20 days. Standard processing 7–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Usually required (degree/diploma in science, engineering, or technical fields depending on assignment).",
+    
+    funds: "Usually covered by host institution (research grant, employer, or project funding). Personal proof of funds may be required in some cases.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official invitation from Russian scientific/technical institution, Project/research details, Academic qualifications, Travel insurance.",
+    
+    whom: "Scientists, engineers, researchers, and technical experts participating in research projects, collaborations, conferences, or industrial/technical assignments in Russia.",
+    
+    rules: "Must work only on approved scientific/technical project. No unrelated employment allowed. Registration required after arrival. Stay limited to visa validity and project duration.",
+    
+    prosCons: "Pros: Supports research collaboration, multiple-entry possible, suitable for academic/industry exchange. Cons: Invitation required, strict project limitation, no general work rights.",
+    
+    terms: "Scientific Invitation: Official document from research institution; Technical Assignment: Approved industrial/scientific work; Research Project: Defined scope of scientific work; Registration: Mandatory reporting after arrival.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Ministry of Science and Higher Education of Russia, Russian Embassy/Consulate, Accredited research institutions.",
+    
+    process: `1. Obtain invitation from Russian scientific or technical institution 
+              2. Finalize research/project agreement 
+              3. Fill visa application form 
+              4. Gather documents (passport, invitation, academic proof, insurance) 
+              5. Submit application at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days typical) 
+              8. Receive passport with visa 
+              9. Travel to Russia 
+              10. Register visa and begin scientific/technical assignment.`
+},
+"RussiaReligiousVisa": {
+    name: "Religious Visa (Russia)",
+    
+    validity: "Up to 1 year. Can be single-entry, double-entry, or multiple-entry depending on invitation.",
+    
+    cost: "₹6,000 – ₹20,000 total. Breakdown: Visa Fee ₹5,000–₹15,000, Religious Organization Invitation ₹1,000–₹5,000, Miscellaneous (insurance, photos) ₹500–₹2,000.",
+    
+    time: "Total 7 to 20 days. Standard processing 7–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Usually supported by religious organization or self-funded. Proof of financial ability may be required.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official invitation from registered Russian religious organization, Purpose letter from home institution, Travel insurance.",
+    
+    whom: "Religious workers, clergy, missionaries, and participants attending religious events, pilgrimages, or interfaith programs in Russia.",
+    
+    rules: "Must engage only in approved religious activities. No employment allowed outside religious purpose. Registration required after arrival. Must comply with Russian laws on religious activity.",
+    
+    prosCons: "Pros: Suitable for religious missions and pilgrimages, multiple-entry possible, supports long-term religious exchange. Cons: Strict approval process, invitation required, limited to religious activities only.",
+    
+    terms: "Religious Invitation: Official document from registered religious organization; Clergy: Religious leaders; Pilgrimage: Religious journey; Registration: Mandatory reporting after arrival.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Ministry of Justice (religious organization registration), Russian Embassy/Consulate, Authorized religious institutions.",
+    
+    process: `1. Obtain invitation from registered Russian religious organization 
+              2. Prepare purpose letter from home religious institution 
+              3. Fill visa application form 
+              4. Gather required documents (passport, invitation, insurance) 
+              5. Submit application at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days typical) 
+              8. Receive passport with visa 
+              9. Travel to Russia 
+              10. Register visa and participate in approved religious activities.`
+},
+
+"RussiaWorkVisaLongTerm": {
+    name: "Work Visa (Russia – Single Entry → Multiple Entry Extension)",
+    
+    validity: "Initial 90 days (single-entry). After arrival, converted to 1-year or up to 3-year multiple-entry work visa (renewable).",
+    
+    cost: "₹10,000 – ₹35,000 total. Breakdown: Visa Fee ₹8,000–₹20,000, Work Permit + Invitation ₹2,000–₹10,000, Medical tests (HIV, health check) ₹1,000–₹5,000, Miscellaneous ₹500–₹2,000.",
+    
+    time: "Total 2 to 8 weeks for initial visa. Extension to multiple-entry work permit takes 2–6 weeks after arrival.",
+    
+    age: "Minimum 18 years.",
+    
+    education: "Depends on job role. Skilled positions may require degree/professional qualification.",
+    
+    funds: "Not required separately. Employer provides salary and support.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official work invitation from Russian employer, Work permit approval, Employment contract, Medical certificates (HIV test, general health), Insurance.",
+    
+    whom: "Foreign workers employed by Russian companies under a legal work contract (long-term employment pathway).",
+    
+    rules: "Initial visa is single-entry only. Must register within 7 days of arrival. Must convert to multiple-entry work visa for long-term stay. Work limited to sponsoring employer only.",
+    
+    prosCons: "Pros: Enables long-term employment, renewable status, stable residency with work rights. Cons: Complex paperwork, initial short validity, employer dependency.",
+    
+    terms: "Work Permit: Authorization issued by Russian authorities; Invitation: Entry document from employer; Conversion: Transition to long-term visa; Registration: Mandatory reporting after arrival.",
+    
+    legal: "Ministry of Internal Affairs of Russia, Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate, Employer (sponsor).",
+    
+    process: `1. Secure job offer from Russian employer 
+              2. Employer obtains work permit and invitation 
+              3. Apply for single-entry work visa 
+              4. Submit documents at Russian Embassy/VFS 
+              5. Receive 90-day entry visa 
+              6. Travel to Russia 
+              7. Register within 7 days 
+              8. Employer applies for extension/work permit conversion 
+              9. Obtain multiple-entry long-term work visa 
+              10. Continue employment and renew as required.`
+},
+"RussiaHQSWorkVisa": {
+    name: "Highly Qualified Specialist (HQS) Work Visa – Russia",
+    
+    validity: "Up to 3 years (multiple-entry). Renewable based on contract and salary eligibility.",
+    
+    cost: "₹10,000 – ₹30,000 total. Breakdown: Visa Fee ₹8,000–₹20,000, Employer work permit processing ₹2,000–₹8,000, Miscellaneous (insurance, medical tests, photos) ₹1,000–₹5,000.",
+    
+    time: "Total 2 to 6 weeks. Work permit and invitation usually 2–4 weeks; visa issuance 5–10 working days.",
+    
+    age: "Minimum 18 years. No upper age limit.",
+    
+    education: "Usually required. Relevant degree, professional qualification, or proven high-level expertise.",
+    
+    funds: "Not required from applicant if salary condition is met. Minimum salary threshold typically ~RUB 167,000/month (subject to change).",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official HQS invitation from employer, Work contract (high salary), Work permit approval, Medical insurance, HIV test certificate, Academic/professional qualifications.",
+    
+    whom: "Highly skilled foreign professionals hired by Russian companies in fields such as IT, engineering, finance, science, healthcare, and senior management.",
+    
+    rules: "Must work only for sponsoring employer. Must meet minimum salary requirement. Faster immigration processing compared to standard work visa. Family members can accompany under dependent visas.",
+    
+    prosCons: "Pros: Fast-track work authorization, high salary threshold ensures stability, long validity (up to 3 years), easier family reunification. Cons: Strict salary requirement, employer dependency, job loss can cancel status.",
+    
+    terms: "HQS: Highly Qualified Specialist status; Work Permit: Authorization issued to employer; Invitation: Entry document for visa; Dependent Visa: Family visa linked to HQS holder; Salary Threshold: Minimum required monthly income.",
+    
+    legal: "Ministry of Internal Affairs of Russia, Ministry of Foreign Affairs of Russia, Russian Migration Services, Employer (sponsor).",
+    
+    process: `1. Secure job offer from Russian employer as HQS candidate 
+              2. Employer applies for HQS work permit 
+              3. Receive official invitation letter 
+              4. Submit visa application at Russian Embassy/VFS 
+              5. Provide documents (passport, contract, medical tests) 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days after approval) 
+              8. Receive multiple-entry HQS visa 
+              9. Travel to Russia 
+              10. Register and begin employment under HQS status.`
+},
+
+"RussiaStudentVisaLongTerm": {
+    name: "Student Visa (Long-term / Multiple-entry – Russia)",
+    
+    validity: "1 year initially, extendable annually for the duration of studies. Usually multiple-entry after conversion inside Russia.",
+    
+    cost: "₹6,000 – ₹20,000 total. Breakdown: Visa Fee ₹5,000–₹15,000, University Invitation Letter ₹1,000–₹5,000, Extension/registration fees ₹500–₹2,000, Miscellaneous (insurance, medical tests) ₹500–₹2,000.",
+    
+    time: "Total 7 to 30 days for initial visa. Extension/renewal in Russia takes 2–4 weeks annually.",
+    
+    age: "Typically 16–35 years. No strict upper limit for higher studies.",
+    
+    education: "Mandatory. Must have admission to a recognized Russian university/college or preparatory course.",
+    
+    funds: "Must show proof of funds for tuition and living expenses or scholarship/loan/sponsor support.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official invitation from Russian university, Admission letter, Academic certificates, Proof of funds/scholarship, Medical insurance, HIV test certificate.",
+    
+    whom: "International students pursuing undergraduate, postgraduate, doctoral, or preparatory (language) courses in Russia.",
+    
+    rules: "Must register within 7 days of arrival. Cannot work on initial entry visa (limited exceptions later). Must renew visa annually. Must study full-time at sponsoring institution.",
+    
+    prosCons: "Pros: Long-term study pathway, renewable annually, access to Russian education system, multiple-entry after extension. Cons: Requires annual renewal, strict documentation, limited initial work rights.",
+    
+    terms: "Invitation Letter: Official university approval; Multiple-entry Visa: Allows re-entry after conversion; Registration: Mandatory address reporting; Extension: Annual renewal of student status.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Ministry of Science and Higher Education of Russia, Russian Embassy/Consulate, Accredited universities.",
+    
+    process: `1. Apply and get admission in Russian university 
+              2. Receive official invitation letter 
+              3. Apply for initial student visa at Russian Embassy 
+              4. Submit required documents (passport, admission, insurance) 
+              5. Receive short-term entry visa 
+              6. Travel to Russia 
+              7. Register within 7 days of arrival 
+              8. Apply for visa extension at migration office 
+              9. Receive long-term multiple-entry student visa 
+              10. Renew annually for duration of studies.`
+},
+"RussiaFamilyReunionVisa": {
+    name: "Family Reunion Visa (Russia)",
+    
+    validity: "Up to 1 year (can be single, double, or multiple-entry depending on invitation). Can be extended in Russia.",
+    
+    cost: "₹6,000 – ₹20,000 total. Breakdown: Visa Fee ₹5,000–₹15,000, Official Invitation ₹1,000–₹5,000, Miscellaneous (documents, insurance, photos) ₹500–₹2,000.",
+    
+    time: "Total 10 to 30 days. Invitation processing 2–4 weeks; visa issuance 5–10 working days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Must show financial support either from sponsor in Russia or applicant. Sponsor’s income proof may be required.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official invitation from Russian Federal Migration Service (issued for family reunification), Proof of relationship (marriage/birth certificates), Sponsor’s passport/residence permit, Travel insurance.",
+    
+    whom: "Spouses, children, parents, and close family members of foreign nationals legally residing in Russia (work, study, or permanent residence holders).",
+    
+    rules: "Must stay with sponsoring family member. No employment allowed unless separately authorized. Registration required after arrival. Duration depends on sponsor’s legal stay.",
+    
+    prosCons: "Pros: Family unity, extendable stay, pathway to long-term residence, supports dependents of workers/students. Cons: Strict documentation, invitation process is bureaucratic, dependent on sponsor’s legal status.",
+    
+    terms: "Invitation: Official document issued by Russian migration authority; Sponsor: Family member in Russia; Registration: Mandatory address reporting; Dependent Visa: Visa linked to primary visa holder.",
+    
+    legal: "Ministry of Internal Affairs of Russia (migration authority), Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate.",
+    
+    process: `1. Sponsor in Russia applies for family invitation via migration authorities 
+              2. Obtain official invitation letter 
+              3. Prepare relationship proof documents 
+              4. Fill visa application form 
+              5. Submit documents at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days after invitation) 
+              8. Receive visa approval 
+              9. Travel to Russia 
+              10. Register visa and stay with family member.`
+},
+"RussiaPermanentResidenceEntryVisa": {
+    name: "Permanent Residence Entry Visa (Russia)",
+    
+    validity: "Typically 3 months (single-entry). Used only to enter Russia and obtain Permanent Residence status.",
+    
+    cost: "₹6,000 – ₹15,000 total. Breakdown: Visa Fee ₹5,000–₹12,000, Miscellaneous (documents, translation, insurance, photos) ₹500–₹3,000.",
+    
+    time: "Total 10 to 30 days. Processing usually 7–15 working days after submission.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not always required separately, but applicant must already qualify for Permanent Residence approval (income or eligibility proof).",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Approved Permanent Residence (PR) decision from Russian authorities, Migration approval document, Travel insurance.",
+    
+    whom: "Foreign nationals who have already been granted approval for Permanent Residence in Russia and need an entry visa to travel and activate their status.",
+    
+    rules: "Entry visa is only for entering Russia to collect PR status. Must register within 7 days after arrival. Cannot be used for work independently (rights depend on PR status).",
+    
+    prosCons: "Pros: Gateway to permanent residency activation, simple short-term visa once PR is approved, stable migration pathway. Cons: Cannot be used independently for long stay, requires prior PR approval, single-entry only.",
+    
+    terms: "PR: Permanent Residence; Entry Visa: Travel document to enter Russia; Migration Approval: Official PR approval document; Registration: Mandatory address reporting after arrival.",
+    
+    legal: "Ministry of Internal Affairs of Russia, Russian Migration Service, Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate.",
+    
+    process: `1. Apply and obtain Permanent Residence approval in Russia 
+              2. Receive PR approval document 
+              3. Apply for PR entry visa at Russian Embassy 
+              4. Submit required documents (passport, PR approval, insurance) 
+              5. Pay visa fee 
+              6. Wait for processing (7–15 days typical) 
+              7. Receive entry visa 
+              8. Travel to Russia 
+              9. Register within 7 days of arrival 
+              10. Activate Permanent Residence status.`
+},
+"RussiaTemporaryResidenceVisa": {
+    name: "Temporary Residence Visa (Russia – RVP Entry Visa)",
+    
+    validity: "Up to 3 months (single-entry). Used to enter Russia and obtain Temporary Residence Permit (RVP).",
+    
+    cost: "₹6,000 – ₹15,000 total. Breakdown: Visa Fee ₹5,000–₹12,000, Miscellaneous (documents, translations, insurance, photos) ₹500–₹3,000.",
+    
+    time: "Total 10 to 30 days. Processing usually 7–15 working days after submission.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Must already qualify for Temporary Residence Permit (RVP) approval, including financial stability or eligibility criteria set by Russian authorities.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Approved RVP (Temporary Residence Permit) decision, Migration service approval document, Travel insurance.",
+    
+    whom: "Foreign nationals who have already been granted approval for a Temporary Residence Permit (RVP) and need a visa to enter Russia to activate it.",
+    
+    rules: "Single-entry only. Must enter Russia within visa validity. Must register within 7 days of arrival. After entry, applicant must complete RVP formalities and reside in assigned region.",
+    
+    prosCons: "Pros: Gateway to temporary residence status, required step for long-term stay, structured migration pathway. Cons: Very limited validity, single-entry only, requires prior approval from Russian authorities.",
+    
+    terms: "RVP: Temporary Residence Permit; Entry Visa: Short visa to activate residence status; Migration Service: Authority handling residence permits; Registration: Mandatory address reporting after arrival.",
+    
+    legal: "Ministry of Internal Affairs of Russia (migration authority), Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate.",
+    
+    process: `1. Apply and obtain Temporary Residence Permit (RVP) approval in Russia 
+              2. Receive official approval document 
+              3. Apply for entry visa at Russian Embassy 
+              4. Submit documents (passport, RVP approval, insurance) 
+              5. Pay visa fee 
+              6. Wait for processing (7–15 days typical) 
+              7. Receive visa 
+              8. Travel to Russia 
+              9. Register within 7 days of arrival 
+              10. Activate Temporary Residence Permit and begin stay.`
+},
+"RussiaTouristEVisa": {
+    name: "Tourist E-Visa (Russia)",
+    
+    validity: "Up to 60 days from issuance; maximum stay 16 days in Russia. Single-entry only.",
+    
+    cost: "₹0 – ₹2,500 total. Usually free on official portal. Miscellaneous (insurance, documents, photos) ₹500–₹2,000.",
+    
+    time: "Total 3 to 7 days. Most applications processed within 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not strictly required, but proof of sufficient funds and return travel is recommended.",
+    
+    docs: "Passport (valid), Digital photo, Travel itinerary, Hotel booking or invitation (optional depending on rules), Travel insurance (recommended).",
+    
+    whom: "Tourists visiting selected regions of Russia for short leisure trips, sightseeing, or cultural visits under the E-Visa program.",
+    
+    rules: "Single-entry only. Maximum stay 16 days. Must enter and exit within validity period. Cannot be extended or converted inside Russia. Restricted to eligible entry points.",
+    
+    prosCons: "Pros: Fully online process, no embassy visit, fast approval, low cost. Cons: Very short stay, limited entry points, cannot be extended or converted.",
+    
+    terms: "E-Visa: Electronic travel authorization; Single Entry: One-time entry only; Eligible Regions: Specific approved areas of Russia; Validity Window: Time period to enter Russia after approval.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Government of the Russian Federation E-Visa system.",
+    
+    process: `1. Visit official Russian E-Visa portal 
+              2. Fill online application form 
+              3. Upload passport and photo 
+              4. Provide travel details 
+              5. Submit application 
+              6. Wait for approval (usually 2–4 days) 
+              7. Download E-Visa confirmation 
+              8. Travel to Russia within validity period 
+              9. Enter through approved ports only 
+              10. Exit within 16-day stay limit.`
+},
+"RussiaBusinessEVisa": {
+    name: "Business E-Visa (Russia)",
+    
+    validity: "Up to 60 days from issuance; maximum stay 16 days in Russia. Single-entry only.",
+    
+    cost: "₹0 – ₹2,500 total. Usually free on official portal. Miscellaneous (insurance, documents, photos) ₹500–₹2,000.",
+    
+    time: "Total 3 to 7 days. Most applications processed within 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not strictly required, but proof of financial stability and return travel may be requested.",
+    
+    docs: "Passport (valid), Digital photo, Online application form, Business purpose details (meetings/invitation optional depending on case), Travel itinerary, Travel insurance (recommended).",
+    
+    whom: "Business travelers visiting Russia for meetings, conferences, negotiations, or short professional visits under the E-Visa system.",
+    
+    rules: "Single-entry only. Maximum stay 16 days. Cannot be extended or converted inside Russia. Must exit before visa expiry. Only valid for approved entry points.",
+    
+    prosCons: "Pros: Fully online application, no invitation letter required in many cases, fast processing, low cost. Cons: Very short stay, single-entry only, no work permitted, limited usability for long business trips.",
+    
+    terms: "E-Visa: Electronic travel authorization; Single Entry: One-time entry only; Business Purpose: Meetings, negotiations, events; Validity Window: Time allowed to enter Russia after approval.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Government of the Russian Federation E-Visa system.",
+    
+    process: `1. Access official Russian E-Visa portal 
+              2. Fill in online application form 
+              3. Upload passport and photograph 
+              4. Provide business travel details 
+              5. Submit application online 
+              6. Wait for processing (2–4 days typical) 
+              7. Receive E-Visa approval electronically 
+              8. Travel to Russia within validity period 
+              9. Enter through designated checkpoints 
+              10. Complete business visit and exit within 16 days.`
+},
+"RussiaHumanitarianEVisa": {
+    name: "Humanitarian E-Visa (Russia)",
+    
+    validity: "Up to 60 days from issuance; maximum stay 16 days in Russia. Single-entry only.",
+    
+    cost: "₹0 – ₹2,500 total. Usually free on official portal. Miscellaneous (insurance, documents, photos) ₹500–₹2,000.",
+    
+    time: "Total 3 to 7 days. Most applications processed within 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not strictly required, but proof of financial ability and return travel is recommended.",
+    
+    docs: "Passport (valid), Digital photo, Online application form, Purpose details (cultural/scientific/religious/humanitarian activity), Travel itinerary, Travel insurance (recommended).",
+    
+    whom: "Individuals visiting Russia for humanitarian, cultural, scientific, educational, or religious purposes such as events, exchanges, or short programs.",
+    
+    rules: "Single-entry only. Maximum stay 16 days. Cannot be extended or converted inside Russia. Must enter and exit within validity period. Only valid at approved entry points.",
+    
+    prosCons: "Pros: Fully online application, no embassy visit, fast approval, suitable for cultural/scientific/religious visits. Cons: Very short stay, single-entry only, no work rights, limited travel flexibility.",
+    
+    terms: "E-Visa: Electronic visa system; Humanitarian Purpose: Non-commercial cultural/scientific/religious activity; Single Entry: One-time entry only; Validity Window: Period to enter Russia after approval.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Government of the Russian Federation E-Visa system.",
+    
+    process: `1. Visit official Russian E-Visa portal 
+              2. Fill online application form 
+              3. Upload passport and photo 
+              4. Select humanitarian purpose of visit 
+              5. Submit application online 
+              6. Wait for processing (2–4 days typical) 
+              7. Receive electronic visa approval 
+              8. Travel to Russia within validity period 
+              9. Enter through designated checkpoints 
+              10. Exit within 16-day permitted stay.`
+},
+"RussiaGuestEVisa": {
+    name: "Guest (Private) E-Visa – Russia",
+    
+    validity: "Up to 60 days from issuance; maximum stay 16 days in Russia. Single-entry only.",
+    
+    cost: "₹0 – ₹2,500 total. Usually free on official portal. Miscellaneous (insurance, documents, photos) ₹500–₹2,000.",
+    
+    time: "Total 3 to 7 days. Most applications processed within 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not strictly required, but proof of financial ability and return travel may be requested.",
+    
+    docs: "Passport (valid), Digital photo, Online application form, Purpose details (visiting friends/relatives), Travel itinerary, Travel insurance (recommended).",
+    
+    whom: "Travelers visiting friends or relatives in Russia for short private visits under the E-Visa system.",
+    
+    rules: "Single-entry only. Maximum stay 16 days. Cannot be extended or converted inside Russia. Must enter and exit within validity period. Only valid at approved entry points.",
+    
+    prosCons: "Pros: Fully online process, no invitation letter required, fast approval, low cost. Cons: Very short stay, single-entry only, no work rights, limited to specific regions and ports of entry.",
+    
+    terms: "E-Visa: Electronic visa system; Guest Visa: Private visit category; Single Entry: One-time entry only; Validity Window: Time allowed to enter Russia after approval.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Government of the Russian Federation E-Visa system.",
+    
+    process: `1. Visit official Russian E-Visa portal 
+              2. Fill online application form 
+              3. Upload passport and photo 
+              4. Enter private visit details (friends/family) 
+              5. Submit application online 
+              6. Wait for processing (2–4 days typical) 
+              7. Receive E-Visa approval electronically 
+              8. Travel to Russia within validity period 
+              9. Enter through designated checkpoints 
+              10. Exit within 16-day permitted stay.`
+},
+"RussiaDiplomaticVisa": {
+    name: "Diplomatic Visa (Russia)",
+    
+    validity: "Depends on diplomatic assignment (short-term or long-term). Usually multiple-entry for duration of posting or mission.",
+    
+    cost: "Free or nominal fee (generally waived for diplomatic passport holders). Miscellaneous ₹1,000–₹5,000 (documents, photos, courier).",
+    
+    time: "Fast-track processing: 2 to 10 days depending on urgency and diplomatic clearance.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not required. All expenses typically covered by sending government or international organization.",
+    
+    docs: "Diplomatic passport, Note Verbale (official diplomatic communication), Assignment/order from government or international organization, Travel itinerary, Passport-size photos.",
+    
+    whom: "Diplomats, embassy staff, consular officers, and government representatives traveling to Russia for official diplomatic duties.",
+    
+    rules: "Strictly for official diplomatic work only. No private employment allowed. Diplomatic privileges and immunities may apply under international law. Duration tied to posting or mission.",
+    
+    prosCons: "Pros: Fast processing, fee exemption, diplomatic immunity benefits, simplified entry procedures. Cons: Strictly restricted to official duties, no personal travel or employment allowed.",
+    
+    terms: "Note Verbale: Formal diplomatic communication between governments; Diplomatic Passport: Official government-issued passport; Diplomatic Immunity: Legal protection under international law; Mission: Official diplomatic assignment.",
+    
+    legal: "Ministry of Foreign Affairs of the Russian Federation, Russian Embassies/Consulates, Vienna Convention on Diplomatic Relations (international law).",
+    
+    process: `1. Sending government issues diplomatic assignment and Note Verbale 
+              2. Prepare required documents (passport, assignment letter) 
+              3. Submit application via diplomatic channels or embassy 
+              4. Embassy verifies credentials and purpose 
+              5. Fast-track processing initiated 
+              6. Visa approval granted 
+              7. Diplomatic visa issued in passport 
+              8. Travel to Russia for official assignment 
+              9. Register with relevant authorities if long-term stay 
+              10. Perform diplomatic duties under assigned mission.`
+},
+"RussiaServiceOfficialVisa": {
+    name: "Service (Official) Visa – Russia",
+    
+    validity: "Depends on assignment (short-term or long-term). Usually valid for duration of official duty; can be single or multiple-entry.",
+    
+    cost: "Free or minimal fee (often waived for official/service passport holders). Miscellaneous ₹1,000–₹5,000 (documents, photos, processing charges).",
+    
+    time: "Fast-track: 2 to 10 days depending on urgency and official clearance.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not required. Expenses are typically covered by sending government or official organization.",
+    
+    docs: "Service/Official passport, Note Verbale (official government communication), Assignment/order letter, Travel itinerary, Passport-size photos.",
+    
+    whom: "Government officials, administrative staff, and representatives traveling to Russia for non-diplomatic official duties such as meetings, conferences, training, or government assignments.",
+    
+    rules: "Strictly for official government duties only. No private employment or business allowed. Stay duration strictly tied to assignment. Limited privileges compared to diplomatic visa.",
+    
+    prosCons: "Pros: Fast processing, reduced/waived fees, simplified procedures for government travel. Cons: Restricted only to official duties, no personal use, no employment rights.",
+    
+    terms: "Service Passport: Government-issued passport for official travel; Note Verbale: Formal diplomatic/government communication; Official Duty: Assigned government task; Visa Waiver: Fee exemption for official travel.",
+    
+    legal: "Ministry of Foreign Affairs of the Russian Federation, Russian Embassies/Consulates, Government-to-Government agreements, Vienna Convention (limited application for service category).",
+    
+    process: `1. Government department issues official assignment order 
+              2. Prepare Note Verbale through authorized authority 
+              3. Gather required documents (service passport, itinerary) 
+              4. Submit application via embassy or official channel 
+              5. Embassy verifies credentials and purpose 
+              6. Fast-track processing initiated 
+              7. Service visa issued 
+              8. Travel to Russia for official duty 
+              9. Register if required for long-term stay 
+              10. Complete assignment and return to home country.`
+},
+"RussiaCrewVisa": {
+    name: "Crew Visa (Russia)",
+    
+    validity: "Up to 1 year (depending on transport contract). Usually single or multiple-entry based on assignment.",
+    
+    cost: "₹5,000 – ₹15,000 total. Breakdown: Visa Fee ₹4,000–₹12,000, Crew Invitation/Guarantee Letter ₹1,000–₹3,000, Miscellaneous (insurance, photos) ₹500–₹2,000.",
+    
+    time: "Total 5 to 15 days. Standard processing 5–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required, but professional certification required for transport/crew role.",
+    
+    funds: "Usually covered by employer (airline, shipping, logistics company). Personal funds proof may not be required.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Crew ID card, Employment contract (airline/shipping company), Crew list or guarantee letter from employer, Travel insurance.",
+    
+    whom: "Aircraft crew, ship crew, train crew, and logistics personnel operating international transport routes involving Russia.",
+    
+    rules: "Must only perform assigned crew duties. No employment outside transport role. Must follow entry/exit schedules strictly. Registration may be required depending on stay duration.",
+    
+    prosCons: "Pros: Fast processing, simplified procedures for transport staff, multiple-entry possible, employer-sponsored. Cons: Strictly limited to crew duties, no personal stay/work rights, tied to employment contract.",
+    
+    terms: "Crew Member: Transport staff (air/sea/rail); Guarantee Letter: Employer confirmation of duty; Crew List: Official roster of personnel; Transit Duty: Operational travel assignment.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Federal Air Transport Agency / Maritime Authorities, Russian Embassy/Consulate, Transport companies (sponsors).",
+    
+    process: `1. Employer (airline/shipping company) issues crew guarantee letter 
+              2. Prepare crew list and employment documents 
+              3. Fill visa application form 
+              4. Gather required documents (passport, ID, contract) 
+              5. Submit application at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days typical) 
+              8. Receive crew visa 
+              9. Travel to Russia as per duty schedule 
+              10. Perform crew operations and exit as per assignment.`
+},
+"RussiaJournalistVisa": {
+    name: "Journalist Visa (Russia)",
+    
+    validity: "Up to 3 months (single-entry or double-entry) initially. Can be extended or converted to multiple-entry long-term visa for accredited journalists.",
+    
+    cost: "₹6,000 – ₹20,000 total. Breakdown: Visa Fee ₹5,000–₹15,000, Accreditation/Invitation Letter ₹1,000–₹5,000, Miscellaneous (insurance, photos) ₹500–₹2,000.",
+    
+    time: "Total 7 to 20 days. Standard processing 7–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not mandatory, but journalism/media qualification or professional experience is usually required.",
+    
+    funds: "Usually covered by media organization. Personal proof of funds may be required in some cases.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official invitation from Russian media organization or Press Center accreditation, Employment letter from media house, Journalist ID/press card, Travel insurance.",
+    
+    whom: "Foreign journalists, reporters, photographers, and media personnel traveling to Russia for reporting, news coverage, or media assignments.",
+    
+    rules: "Must only perform journalistic/media activities as accredited. No unauthorized reporting in restricted zones. Must comply with Russian media regulations. Registration required after arrival.",
+    
+    prosCons: "Pros: Designed for media professionals, allows official reporting access, can be extended for long-term assignments. Cons: Strict accreditation process, sensitive restrictions on reporting, limited freedom in certain regions.",
+    
+    terms: "Accreditation: Official approval for journalists; Press Card: Media identification; Media Visa: Special visa for journalism work; Registration: Mandatory reporting after arrival.",
+    
+    legal: "Ministry of Foreign Affairs of the Russian Federation (Press Department), Russian Embassy/Consulate, Federal Press Services.",
+    
+    process: `1. Obtain accreditation or invitation from Russian media/press authority 
+              2. Get employment confirmation from media organization 
+              3. Fill visa application form 
+              4. Gather documents (passport, press ID, insurance) 
+              5. Submit application at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (7–10 days typical) 
+              8. Receive journalist visa 
+              9. Travel to Russia 
+              10. Register and begin approved media assignment.`
+},
+"RussiaAdoptionVisa": {
+    name: "Adoption Visa (Russia)",
+    
+    validity: "Usually up to 90 days (single-entry). Can be extended in Russia depending on adoption process duration.",
+    
+    cost: "₹6,000 – ₹15,000 total. Breakdown: Visa Fee ₹5,000–₹12,000, Court/Adoption Invitation Documents ₹1,000–₹3,000, Miscellaneous (translation, insurance, photos) ₹500–₹2,000.",
+    
+    time: "Total 10 to 30 days. Visa processing 5–10 working days after receiving adoption authorization documents.",
+    
+    age: "No official age limit for applicant; eligibility depends on adoption laws and court approval.",
+    
+    education: "Not required.",
+    
+    funds: "Must show financial ability to support child adoption and living expenses (bank statements or sponsor proof may be required).",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Official adoption authorization from Russian court/authority, Child adoption referral documents, Proof of financial stability, Travel insurance.",
+    
+    whom: "Foreign nationals traveling to Russia for legal adoption of a child under Russian court and government-approved adoption procedures.",
+    
+    rules: "Must follow strict legal adoption process under Russian law. No employment allowed under this visa. Must complete adoption procedures within validity period or seek extension. Child custody transfer is legally supervised.",
+    
+    prosCons: "Pros: Enables legal international adoption, structured court-supervised process, extension possible during proceedings. Cons: Complex legal documentation, strict eligibility checks, time-sensitive process.",
+    
+    terms: "Adoption Authorization: Legal permission from court; Custody Transfer: Legal transfer of parental rights; Adoption Referral: Child assignment document; Court Approval: Legal confirmation of adoption.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Family Court System, Ministry of Education (child welfare authority), Russian Embassy/Consulate.",
+    
+    process: `1. Apply for adoption approval through Russian legal channels 
+              2. Receive official adoption authorization/referral 
+              3. Collect required legal documents 
+              4. Fill visa application form 
+              5. Submit documents at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days typical) 
+              8. Receive adoption visa 
+              9. Travel to Russia 
+              10. Complete court adoption process and follow legal procedures.`
+},
+"RussiaAsylumVisa": {
+    name: "Asylum Visa (Russia – Refugee / Humanitarian Protection Entry)",
+    
+    validity: "Initial entry visa is short-term (typically 30–90 days). After arrival, applicant may be granted temporary asylum or refugee status based on review.",
+    
+    cost: "₹0 – ₹5,000 total. Usually minimal or free. Miscellaneous (documents, translation, photos) ₹500–₹2,000.",
+    
+    time: "Total 7 to 30 days for visa issuance. Asylum status decision after arrival may take several months.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not required. Applicants are typically assessed based on humanitarian grounds, not financial status.",
+    
+    docs: "Passport (valid or expired if applicable), Visa application form, Passport-size photo, Statement explaining asylum request, Supporting evidence of persecution or risk, Travel insurance (if available), Any legal or identity documents.",
+    
+    whom: "Individuals seeking protection in Russia due to persecution, conflict, war, political opinion, religion, or humanitarian crisis in their home country.",
+    
+    rules: "Must apply through official asylum channels upon entry. Cannot work until status is granted. Must comply with Russian migration authorities during review. Stay is conditional until decision is made.",
+    
+    prosCons: "Pros: Provides humanitarian protection pathway, access to legal asylum process, possibility of refugee status. Cons: Complex approval process, uncertain outcome, restrictions on movement/work during review period.",
+    
+    terms: "Asylum: Protection granted to persecuted individuals; Refugee Status: Legal protection under international law; Humanitarian Grounds: Non-political protection reason; Migration Authority: Russian Federal Migration Service.",
+    
+    legal: "Ministry of Internal Affairs of Russia, Federal Migration Service, Russian Embassy/Consulate, UNHCR (supporting international body in some cases).",
+    
+    process: `1. Arrive in Russia legally or at entry point 
+              2. Submit asylum application to migration authorities 
+              3. Provide supporting evidence of persecution 
+              4. Fill required asylum forms 
+              5. Undergo interviews and background checks 
+              6. Wait for decision (may take months) 
+              7. Receive temporary asylum or refugee status if approved 
+              8. Obtain residence rights and documentation 
+              9. Comply with integration/legal requirements 
+              10. Apply for long-term status if eligible.`
+},
+"RussiaRefugeeVisa": {
+    name: "Refugee Visa (Russia)",
+    
+    validity: "Short-term entry (usually 30–90 days). After arrival, applicant may be granted refugee status or temporary asylum depending on assessment.",
+    
+    cost: "₹0 – ₹5,000 total. Usually free or minimal administrative fee. Miscellaneous (translation, documents, photos) ₹500–₹2,000.",
+    
+    time: "Total 7 to 30 days for visa issuance. Refugee status determination after arrival may take several months.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not required. Determination is based on humanitarian and protection grounds, not financial status.",
+    
+    docs: "Passport (valid or expired in some cases), Visa application form, Passport-size photo, Refugee claim statement, Evidence of persecution (if available), Identity documents (if available), Travel insurance (optional).",
+    
+    whom: "Individuals fleeing war, persecution, political oppression, or serious human rights violations seeking protection in Russia under refugee status framework.",
+    
+    rules: "Must declare refugee intent upon arrival or at border. Cannot engage in employment until status is granted. Must comply with migration authority procedures. Stay is conditional until final decision.",
+    
+    prosCons: "Pros: Legal protection pathway, access to humanitarian support, potential refugee status and residence rights. Cons: Long processing time, uncertain outcome, restricted rights during assessment phase.",
+    
+    terms: "Refugee Status: Legal protection under international law; Asylum: Temporary protection; Migration Service: Authority handling applications; Humanitarian Grounds: Basis for protection.",
+    
+    legal: "Ministry of Internal Affairs of Russia, Federal Migration Service, Russian Government asylum framework, UNHCR (supporting international organization).",
+    
+    process: `1. Enter Russia and declare refugee intent at border or migration office 
+              2. Submit refugee application with supporting documents 
+              3. Attend interviews and background verification 
+              4. Undergo security and eligibility assessment 
+              5. Wait for decision (may take several months) 
+              6. Receive refugee status or temporary asylum if approved 
+              7. Obtain residence documentation 
+              8. Access legal rights and services 
+              9. Follow integration requirements 
+              10. Apply for long-term residence if eligible.`
+},
+"RussiaExitVisa": {
+    name: "Exit Visa (Russia – Special Departure Permit)",
+    
+    validity: "Short duration (usually 7–30 days). Single-purpose visa allowing departure from Russia in specific situations.",
+    
+    cost: "₹3,000 – ₹10,000 total. Breakdown: Administrative Fee ₹2,000–₹8,000, Miscellaneous (documents, translation, photos) ₹500–₹2,000.",
+    
+    time: "Total 5 to 20 days depending on case complexity and migration authority approval.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not required.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Residence permit or visa details, Police/migration clearance (if required), Explanation letter for exit request, Supporting documents (loss of passport, visa expiry, legal issue resolution, etc.).",
+    
+    whom: "Foreign nationals in Russia who need special permission to leave the country due to visa issues, lost documents, expired permits, legal clearance, or administrative migration requirements.",
+    
+    rules: "Must leave Russia within validity period. Cannot be used for re-entry. Issued only in exceptional or administrative cases. Must comply with migration authority instructions.",
+    
+    prosCons: "Pros: Enables legal departure in difficult or irregular immigration situations. Cons: Not a standard visa, limited use cases, requires strict approval, no re-entry rights.",
+    
+    terms: "Exit Permit: Authorization to leave country; Migration Clearance: Approval from authorities; Overstay Resolution: Legal correction of visa status; Administrative Departure: Controlled exit process.",
+    
+    legal: "Ministry of Internal Affairs of Russia, Federal Migration Service, Russian courts (if legal case involved), Russian Embassy/Consulate (in rare external cases).",
+    
+    process: `1. Apply at local migration office or authorized authority 
+              2. Submit reason for exit (document loss, visa issues, etc.) 
+              3. Provide supporting identification and records 
+              4. Pay administrative fee 
+              5. Undergo verification and clearance process 
+              6. Receive exit authorization 
+              7. Travel within permitted validity period 
+              8. Exit Russia legally 
+              9. Resolve any pending migration status issues if required 
+              10. Close case with authorities after departure.`
+},
+"RussiaReEntryVisa": {
+    name: "Re-entry Visa (Russia)",
+    
+    validity: "Short-term or aligned with main visa validity (usually up to remaining stay period of existing visa or residence permit).",
+    
+    cost: "₹4,000 – ₹12,000 total. Breakdown: Visa Fee ₹3,000–₹10,000, Administrative Charges ₹500–₹2,000, Miscellaneous (photos, documents) ₹500–₹1,000.",
+    
+    time: "Total 5 to 15 days depending on visa type and verification requirements.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not always required, but proof of valid stay status in Russia (work/study/residence) is necessary.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Valid Russian visa or residence permit, Proof of reason for exit and return, Employer/university/sponsor letter (if applicable), Travel insurance.",
+    
+    whom: "Foreign nationals in Russia holding valid long-term visas or residence permits who need permission to temporarily leave and re-enter Russia during their authorized stay.",
+    
+    rules: "Must return within validity period. Cannot exceed original visa/residence permit duration. Must maintain valid migration registration. Loss of status may occur if conditions are violated.",
+    
+    prosCons: "Pros: Allows travel outside Russia without losing legal status, useful for work/study continuity. Cons: Limited duration, requires documentation, depends on existing visa validity.",
+    
+    terms: "Re-entry Permit: Authorization to return; Residence Permit: Legal stay document; Migration Registration: Address registration requirement; Valid Visa Status: Active legal immigration status.",
+    
+    legal: "Ministry of Internal Affairs of Russia, Federal Migration Service, Russian Embassy/Consulate.",
+    
+    process: `1. Apply at local migration office or embassy (depending on case) 
+              2. Submit valid visa or residence permit details 
+              3. Provide reason for travel outside Russia 
+              4. Submit supporting documents (work/study/sponsor letter) 
+              5. Pay applicable fees 
+              6. Wait for approval (5–10 days typical) 
+              7. Receive re-entry authorization 
+              8. Travel outside Russia 
+              9. Re-enter within validity period 
+              10. Report re-entry to migration authorities if required.`
+},
+"RussiaAirportTransitVisa": {
+    name: "Airport Transit Visa (Russia)",
+    
+    validity: "Up to 72 hours (airside transit only). Single-entry transit permission.",
+    
+    cost: "₹3,000 – ₹8,000 total. Breakdown: Visa Fee ₹2,500–₹6,000, Miscellaneous (photos, documents) ₹500–₹2,000.",
+    
+    time: "Total 5 to 15 days. Standard processing 5–10 working days; urgent cases 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not required, but confirmed onward travel is mandatory.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Confirmed onward ticket within 72 hours, Visa for final destination (if required), Travel itinerary.",
+    
+    whom: "Travelers transiting through Russian airports en route to another country, without entering Russia beyond the airport transit zone.",
+    
+    rules: "Must remain in international transit zone only. Cannot leave airport unless permitted. Must depart within 72 hours. No employment or activities allowed. Strict adherence to transit route required.",
+    
+    prosCons: "Pros: Simple short-term transit option, enables connecting flights through Russia. Cons: Very limited duration, strict airport-only restriction, no flexibility for delays.",
+    
+    terms: "Transit: Passing through country en route; Airside Transit: Staying within airport international zone; Onward Ticket: Proof of next destination travel; Single Entry: One-time transit only.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Airport Immigration Authorities, Russian Embassy/Consulate.",
+    
+    process: `1. Plan international travel route via Russian airport 
+              2. Book confirmed onward flight within 72 hours 
+              3. Ensure valid visa for final destination (if required) 
+              4. Fill transit visa application form 
+              5. Submit documents at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days typical) 
+              8. Receive transit visa 
+              9. Travel via Russian airport transit zone 
+              10. Depart within 72-hour limit.`
+},
+
+"RussiaDoubleTransitVisa": {
+    name: "Double Transit Visa (Russia)",
+    
+    validity: "Up to 10 days total validity depending on itinerary. Allows two transits through Russia (each stay usually up to 72 hours).",
+    
+    cost: "₹4,000 – ₹10,000 total. Breakdown: Visa Fee ₹3,500–₹8,000, Miscellaneous (photos, documents) ₹500–₹2,000.",
+    
+    time: "Total 5 to 15 days. Standard processing 5–10 working days; urgent processing 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not required, but proof of onward travel for both transits is mandatory.",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photo, Confirmed onward tickets for both legs of journey, Visa for final destination (if required), Complete travel itinerary.",
+    
+    whom: "Travelers who need to pass through Russia twice during a round-trip or multi-leg international journey (e.g., onward and return transit via Russia).",
+    
+    rules: "Must use visa for two permitted transits only. Each stay limited to transit duration (usually up to 72 hours). Must remain within allowed transit conditions. No employment or extended stay allowed.",
+    
+    prosCons: "Pros: Useful for round-trip routing via Russia, avoids applying twice for transit visa, simple travel facilitation. Cons: Very short stay per entry, strict itinerary control, no flexibility for delays.",
+    
+    terms: "Double Transit: Two permitted transit entries; Onward Ticket: Proof of travel for each segment; Transit Window: Allowed stay duration per entry; Single Purpose Visa: Restricted to transit only.",
+    
+    legal: "Ministry of Foreign Affairs of Russia, Russian Embassy/Consulate, Airport Immigration Authorities.",
+    
+    process: `1. Plan two-leg travel route through Russia 
+              2. Book confirmed tickets for both transits 
+              3. Ensure visa compliance for final destinations 
+              4. Fill visa application form 
+              5. Submit documents at Russian Embassy/VFS 
+              6. Pay visa fee 
+              7. Wait for processing (5–10 days typical) 
+              8. Receive double transit visa 
+              9. Travel through Russia twice as per itinerary 
+              10. Exit within allowed transit durations each time.`
+},
+"RussiaFarEastEVisa": {
+    name: "Far East (Vladivostok) E-Visa – Russia",
+    
+    validity: "Up to 60 days from issuance; maximum stay 8 days in the Russian Far East region. Single-entry only.",
+    
+    cost: "₹0 – ₹2,500 total. Usually free on official portal. Miscellaneous (insurance, documents, photos) ₹500–₹2,000.",
+    
+    time: "Total 3 to 7 days. Most applications processed within 2–4 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not strictly required, but proof of sufficient funds and return travel is recommended.",
+    
+    docs: "Passport (valid), Digital photo, Online application form, Travel itinerary, Accommodation details in Far East region, Travel insurance (recommended).",
+    
+    whom: "Tourists, business travelers, and humanitarian visitors visiting Russia’s Far East regions such as Vladivostok, Sakhalin, and Kamchatka under the regional e-visa program.",
+    
+    rules: "Single-entry only. Maximum stay 8 days. Restricted to Far East regions only. Cannot be extended or converted inside Russia. Must enter and exit through designated checkpoints.",
+    
+    prosCons: "Pros: Fully online process, no invitation required, fast approval, access to unique Far East destinations. Cons: Very short stay, limited to specific regions, no extension or conversion allowed.",
+    
+    terms: "E-Visa: Electronic visa system; Far East Region: Specific Russian federal districts; Single Entry: One-time entry only; Validity Window: Time to enter Russia after approval.",
+    
+    legal: "Ministry of Foreign Affairs of the Russian Federation, Government of Russia Far East E-Visa Program.",
+    
+    process: `1. Visit official Russian e-visa portal 
+              2. Select Far East region option 
+              3. Fill online application form 
+              4. Upload passport and photo 
+              5. Provide travel and accommodation details 
+              6. Submit application 
+              7. Wait for processing (2–4 days typical) 
+              8. Receive electronic visa approval 
+              9. Travel to Far East Russia within validity period 
+              10. Enter and exit within 8-day stay limit.`
+},
+"RussiaKaliningradEVisa": {
+    name: "Kaliningrad E-Visa – Russia",
+
+    validity: "Up to 60 days from issuance; maximum stay 16 days in Russia. Single-entry only. Valid for entry into Kaliningrad region and other permitted Russian regions under unified e-visa rules.",
+
+    cost: "₹3,500 – ₹4,500 total (approx. USD 40–52 e-visa fee). Additional ₹500–₹2,000 may apply for insurance, documents, and photo services.",
+
+    time: "Total 3 to 7 days. Most applications are processed within 2–4 working days.",
+
+    age: "No official age limit. Minors require parental/guardian application.",
+
+    education: "Not required.",
+
+    funds: "Not strictly required, but proof of sufficient funds and return/onward travel is recommended.",
+
+    docs: "Valid passport (minimum 6 months validity), digital passport photo, online application form, travel itinerary, accommodation details in Kaliningrad or other permitted region, travel insurance (recommended).",
+
+    whom: "Tourists, business travelers, and humanitarian visitors entering Kaliningrad region (and other eligible regions under Russia’s unified e-visa system).",
+
+    rules: "Single-entry only. Maximum stay 16 days. Non-extendable and non-convertible inside Russia. Entry and exit must be through approved checkpoints including Kaliningrad airports, seaports, and border crossings permitted under the e-visa regime.",
+
+    prosCons: "Pros: Fully online process, no invitation required, fast approval, allows access to Kaliningrad (a European exclave of Russia). Cons: Short stay duration, single entry only, limited permitted regions, cannot be extended.",
+
+    terms: "E-Visa: Electronic visa issued online; Kaliningrad Region: Russian exclave between Poland and Lithuania; Single Entry: One-time entry only; Validity Window: 60 days to enter Russia after approval; Stay Period: Maximum 16 consecutive days.",
+
+    legal: "Ministry of Foreign Affairs of the Russian Federation – Unified Electronic Visa Program (Kaliningrad included).",
+
+    process: `1. Visit official Russian e-visa portal  
+              2. Select unified e-visa option (Kaliningrad eligible region)  
+              3. Fill online application form  
+              4. Upload passport and digital photo  
+              5. Enter travel details (dates, accommodation, purpose)  
+              6. Submit application and pay fee online  
+              7. Wait for processing (usually 2–4 days)  
+              8. Receive electronic visa approval via email  
+              9. Print or save e-visa for travel  
+              10. Enter Russia via Kaliningrad-approved border checkpoints within validity period`
+},
+"RussiaTouristPrivateRentalVisa": {
+    name: "Private Tourist Visa (Voucher-Based for Apartments/Rentals)",
+
+    validity: "Up to 30 days (single or double entry). Strictly limited to the dates specified on the travel voucher.",
+
+    cost: "Visa Fee: ₹4,000 – ₹10,000 (Standard vs. Urgent). Travel Agency Voucher Fee: ₹1,500 – ₹4,000. Total approx. ₹6,000 – ₹15,000.",
+
+    time: "Processing time: 5 to 10 working days. The voucher is usually issued by a Russian agency within 24 hours.",
+
+    age: "No age limit.",
+
+    education: "No requirement.",
+
+    funds: "Proof of sufficient funds is generally not requested at the embassy, but travelers should have approx. $50 per day for expenses.",
+
+    docs: "Valid passport, DS-160 equivalent online form, passport-size photo, a 'Tourist Voucher' and 'Confirmation' from a Russian travel agency that specifically lists the private apartment address (instead of a hotel), and travel insurance.",
+
+    whom: "Indian tourists who prefer staying in Airbnb-style rentals or private apartments rather than traditional hotels.",
+
+    rules: "The travel agency providing the voucher remains your official 'inviter' and is responsible for you. You must provide the exact address of the rental to the agency so it appears on the voucher. You must still perform the 'Migration Registration' at the local post office or MFC within 7 days of arrival, usually with the help of the apartment owner.",
+
+    prosCons: "Pros: Allows more authentic living experience in Russia; often cheaper than hotels. Cons: Apartment owners are often less familiar with registration rules than hotels; requires a specialized voucher from an agency that supports private addresses.",
+
+    terms: "Voucher (Vaucher): The booking confirmation; Confirmation (Podtverzhdeniye): The acceptance letter from the agency; Migration Registration: The mandatory 7-day reporting rule.",
+
+    legal: "Federal Law No. 114-FZ on the Procedure for Exit from and Entry into the Russian Federation.",
+
+    process: `1. Book a private apartment (e.g., via a Russian rental site) -> 
+              2. Contact a Russian travel agency that issues 'Private Rental Vouchers' -> 
+              3. Provide the agency with the apartment address and host contact -> 
+              4. Receive the electronic Voucher and Confirmation -> 
+              5. Fill the visa form on the MFA Russia website -> 
+              6. Submit documents and pay fees at VFS Global or the Consulate -> 
+              7. Receive visa and travel to Russia -> 
+              8. Ensure the apartment host completes your migration registration within 7 days.`
+},
+
+"RussiaHqsFamilyVisa": {
+    name: "HQS Family Member Visa (Highly Qualified Specialist Dependent)",
+
+    validity: "Up to 3 years (Multiple Entry). This visa is always aligned with the validity of the primary HQS worker's visa.",
+
+    cost: "Visa Fee: ₹8,000 – ₹20,000 per member. Medical tests (HIV, TB, Leprosy) in Russia: approx. ₹5,000 per person.",
+
+    time: "Processing: 2 to 4 weeks. Usually applied for at the same time as the primary worker's visa.",
+
+    age: "Applicable to spouses, children, and parents of the HQS holder.",
+
+    education: "No requirement.",
+
+    funds: "The primary HQS worker must show an income of at least 167,000 RUB per month (~₹1.5 Lakhs) to support the family.",
+
+    docs: "Valid passport, HQS invitation letter (issued by the Ministry of Internal Affairs), proof of relationship (Attested/Apostilled Marriage or Birth Certificates), HIV-negative certificate, and travel insurance.",
+
+    whom: "Spouses and children (and sometimes parents) of Indian professionals working in Russia under the 'Highly Qualified Specialist' scheme.",
+
+    rules: "HQS family members are allowed to study and, in many cases, work in Russia without a separate quota, provided they follow the HQS labor rules. They do not need to undergo the standard medical exams as frequently as other workers.",
+
+    prosCons: "Pros: Longest dependency validity in Russia (3 years); no annual quota limits; multiple entry rights. Cons: Fully dependent on the primary worker's contract; high cost of document attestation/translation.",
+
+    terms: "HQS (VKS): Vysokokvalifitsirovannyy Spetsialist; Dependent: Family member linked to the specialist; GUVM: The Main Directorate for Migration Affairs.",
+
+    legal: "Federal Law No. 115-FZ 'On the Legal Status of Foreign Citizens in the Russian Federation'.",
+
+    process: `1. Primary employer in Russia includes family members in the HQS Work Permit application -> 
+              2. Ministry of Internal Affairs (MVD) issues a collective or individual invitation -> 
+              3. Family in India obtains an HIV-negative certificate -> 
+              4. Submit the stamped/apostilled relationship documents to the Russian Consulate -> 
+              5. Receive 3-year multi-entry visa -> 
+              6. Travel to Russia -> 
+              7. Complete migration registration within 7 days.`
+},
+
+"RussiaTechnicalSupportVisa": {
+    name: "Technical Maintenance Visa (Mounting/Service Work)",
+
+    validity: "Up to 90 days. Can be single or double entry. Designed for short-term technical assignments.",
+
+    cost: "Visa Fee: ₹5,000 – ₹12,000. Invitation handling fees by the Russian company separate.",
+
+    time: "Processing: 7 to 15 working days.",
+
+    docs: "Passport, invitation letter from the Russian company, a copy of the contract for the supply of equipment, and an assignment letter from the foreign (Indian) employer.",
+
+    whom: "Engineers and technicians from Indian companies that have sold machinery or software to a Russian firm and need to enter Russia to install, maintain, or repair it.",
+
+    rules: "This is NOT a standard 'Work Visa'. The technician must remain an employee of the Indian company. The work in Russia must be 'after-sales service' or 'mounting' as per the equipment contract.",
+
+    prosCons: "Pros: Bypasses the complex 'Work Permit' (Zezwolenie) requirement; faster than a Z-visa. Cons: Strictly limited to 90 days; no local Russian salary allowed.",
+
+    terms: "Mounting Work: Installation of industrial machinery; Service Maintenance: Repairs under warranty/contract.",
+
+    process: `1. Russian company verifies the equipment supply contract -> 2. Russian company issues a specialized 'Technical' invitation -> 3. Indian engineer applies at the Consulate -> 4. Visa issued for 'Technical Service' -> 5. Enter Russia and perform repairs -> 6. Exit before 90 days.`
+},
+"RussiaStPetersburgLeningradEVisa": {
+    name: "St. Petersburg & Leningrad Region E-Visa – Russia",
+
+    validity: "Valid for 60 days from issuance; maximum stay up to 16 days in Saint Petersburg & Leningrad Region. Single-entry only. Must enter and exit through approved checkpoints.",
+
+    cost: "₹0 – ₹2,500 (official e-visa fee often free or low depending on nationality agreements). Total effective cost including insurance, documents, and photo: ₹500 – ₹2,500.",
+
+    time: "Processing time 2 to 4 working days. Application must be submitted at least 4 days before travel (recommended window 4–20 days before entry).",
+
+    age: "No official age restriction. Minors require separate application with guardian details.",
+
+    education: "Not required.",
+
+    funds: "No strict minimum bank balance required, but proof of sufficient funds and return/onward travel is recommended.",
+
+    docs: "Valid passport (minimum 6 months validity), digital passport photo, online application form, travel itinerary, accommodation details in Saint Petersburg/Leningrad Region, travel insurance valid in Russia (mandatory in practice).",
+
+    whom: "Tourists, business visitors, cultural and humanitarian travelers visiting Saint Petersburg city and the wider Leningrad Region under Russia’s unified e-visa system.",
+
+    rules: "Single-entry only. Stay limited to 16 consecutive days. Valid only within Saint Petersburg and Leningrad Region (cannot travel to other Russian regions on this visa). Must enter through designated checkpoints such as Pulkovo Airport, seaports, and selected land crossings. Not extendable or convertible inside Russia.",
+
+    prosCons: "Pros: Fully online application, no invitation required, fast approval, access to Saint Petersburg (major cultural destination). Cons: Short stay duration, region-restricted travel, single entry only, no extension or visa conversion allowed.",
+
+    terms: "E-Visa: Electronic travel authorization issued online; Leningrad Region: Administrative region around Saint Petersburg; Single Entry: One-time entry only; Validity Window: 60 days to enter after approval; Stay Period: Maximum 16 days in-region.",
+
+    legal: "Ministry of Foreign Affairs of the Russian Federation – Unified Electronic Visa Program (Saint Petersburg & Leningrad Region).",
+
+    process: `1. Visit official Russian e-visa portal  
+              2. Select “Saint Petersburg & Leningrad Region e-visa”  
+              3. Fill online application form  
+              4. Upload passport and digital photo  
+              5. Enter travel details (dates, accommodation, purpose)  
+              6. Submit application online  
+              7. Wait 2–4 days for processing  
+              8. Receive e-visa approval via email  
+              9. Print or save electronic visa copy  
+              10. Present passport + e-visa at entry checkpoint in St. Petersburg region`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

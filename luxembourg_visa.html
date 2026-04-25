@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* Kuwait Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }  
+</style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+    <label>Select Country</label>
+    <select id="country">
+        <!-- Value must exactly match the JavaScript key "SAUDI ARABIA" -->
+        <option value="LUXEMBOURG">LUXEMBOURG</option>
+    </select>
+
+    <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+<select id="visaType">
+    <optgroup label="1. Short Stay (Schengen Type C)">
+        <option value="LuxembourgSchengenShortStayVisa">Schengen Short-Stay Visa</option>
+        <option value="LuxembourgTouristVisa">Tourist Visa</option>
+        <option value="LuxembourgBusinessVisa">Business Visa</option>
+        <option value="LuxembourgVisitorVisa">Visitor Visa (Family/Friends)</option>
+        <option value="LuxembourgMedicalTreatmentVisa">Medical Treatment Visa</option>
+        <option value="LuxembourgCulturalVisa">Cultural Visa</option>
+        <option value="LuxembourgSportsVisa">Sports Visa</option>
+        <option value="LuxembourgReligiousVisa">Religious Visa</option>
+        <option value="LuxembourgAirportTransitVisa">Airport Transit Visa</option>
+        <option value="LuxembourgTransitVisa">Transit Visa</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Highly Skilled (Type D)">
+        <option value="LuxembourgWorkVisa">Work Visa (General)</option>
+        <option value="LuxembourgEUBlueCard">EU Blue Card</option>
+        <option value="LuxembourgHighlyQualifiedWorkerVisa">Highly Qualified Worker</option>
+        <option value="LuxembourgIntraCorporateTransferVisa">Intra-Corporate Transfer (ICT)</option>
+        <option value="LuxembourgSeasonalWorkerVisa">Seasonal Worker Visa</option>
+    </optgroup>
+
+    <optgroup label="3. Study & Training (Type D)">
+        <option value="LuxembourgStudentVisa">Student Visa</option>
+        <option value="LuxembourgLanguageCourseVisa">Language Course Visa</option>
+        <option value="LuxembourgInternshipVisa">Internship Visa</option>
+        <option value="LuxembourgTraineeVisa">Trainee Visa</option>
+        <option value="LuxembourgAuPairVisa">Au Pair Visa</option>
+        <option value="LuxembourgResearchVisa">Research Visa</option>
+    </optgroup>
+
+    <optgroup label="4. Business & Investment">
+        <option value="LuxembourgSelfEmployedVisa">Self-Employed Visa</option>
+        <option value="LuxembourgStartupVisa">Startup Visa</option>
+        <option value="LuxembourgInvestorVisa">Investor Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Family & Dependents">
+        <option value="LuxembourgFamilyReunionVisa">Family Reunion Visa</option>
+        <option value="LuxembourgSpouseVisa">Spouse Visa</option>
+        <option value="LuxembourgChildVisa">Child Visa</option>
+        <option value="LuxembourgDependentVisa">Dependent Visa</option>
+    </optgroup>
+
+    <optgroup label="6. Permanent & Long-Term">
+        <option value="LuxembourgPermanentResidencePermit">Permanent Residence</option>
+        <option value="LuxembourgEULongTermResidencePermit">EU Long-Term Residence</option>
+        <option value="LuxembourgLongStayVisaTypeD">Long-Stay Visa (General Type D)</option>
+    </optgroup>
+
+    <optgroup label="7. Special & Humanitarian">
+        <option value="LuxembourgHumanitarianVisa">Humanitarian Visa</option>
+        <option value="LuxembourgAsylumRefugeeProtection">Asylum / Refugee Protection</option>
+        <option value="LuxembourgVolunteerVisa">Volunteer Visa</option>
+        <option value="LuxembourgCrewVisa">Crew Visa</option>
+        <option value="LuxembourgSeafarerVisa">Seafarer Visa</option>
+    </optgroup>
+
+    <optgroup label="8. Official & Diplomatic">
+        <option value="LuxembourgOfficialVisa">Official Visa</option>
+        <option value="LuxembourgDiplomaticVisa">Diplomatic Visa</option>
+    </optgroup>
+
+
+ <optgroup label="9. Extras">
+        <option value="LuxembourgCrossBorderWorkPermit">Cross border</option>
+        <option value="LuxembourgAdoptionVisaTypeD">Adoption Visa</option>
+    </optgroup>
+</select>
+</div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF LUXEMBOURG MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇱🇺 VIEW LUXEMBOURG IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇱🇺 LUXEMBOURG IMMIGRATION – GENERAL PROCESS (2026)</h1>
+
+        <h2>🧭 1. CHOOSE YOUR VISA TYPE</h2>
+        <p>First, decide the correct category:</p>
+        <ul>
+            <li>Work Visa (Skilled Worker / EU Blue Card)</li>
+            <li>Student Visa</li>
+            <li>Job Seeker Visa</li>
+            <li>Family Reunification Visa</li>
+            <li>Self-Employment / Startup Visa</li>
+            <li>Investor Visa</li>
+            <li>Internship / Trainee Visa</li>
+            <li>Long-Stay Visa (Type D – National Visa)</li>
+        </ul>
+        <p>👉 Luxembourg is strict: your visa type must match your purpose exactly.</p>
+
+        <h2>⚠️ 2. PRE-APPROVAL (MANDATORY STAGE)</h2>
+        <p>For most long-stay visas (especially work), you must apply for <strong>authorisation to stay BEFORE entering Luxembourg</strong>. This is handled by the Ministry of Foreign Affairs (Immigration Directorate).</p>
+
+        <h2>📄 3. APPLY FOR AUTHORISATION TO STAY</h2>
+        <p>Submit documents to Luxembourg immigration. Requirements: Passport, CV, job contract or admission letter, educational certificates, proof of funds, criminal record certificate, and health insurance. Processing takes 2–3 months typically.</p>
+
+        <h2>✅ 4. RECEIVE “AUTHORISATION TO STAY”</h2>
+        <p>If approved, you receive the <strong>“Autorisation de séjour”</strong>. This is your pre-approval allowing you to enter the country.</p>
+
+        <h2>🏛️ 5. APPLY FOR TYPE D VISA (ENTRY VISA)</h2>
+        <p>Apply at the Embassy of Luxembourg or the Belgian Embassy (which represents Luxembourg in countries like India). Submit your authorisation letter, passport, visa form, and travel proof.</p>
+
+        <h2>✈️ 6 & 7. TRAVEL & DECLARATION OF ARRIVAL</h2>
+        <p>After visa approval, enter Luxembourg. Within 3 days of arrival, you must register at the local commune (city hall).</p>
+
+        <h2>🧪 8. MEDICAL CHECK + BIOMETRICS</h2>
+        <p>You must complete a medical examination by an approved doctor and submit biometrics (photo + fingerprints) for your identity registration.</p>
+
+        <h2>🪪 9. APPLY FOR RESIDENCE PERMIT</h2>
+        <p>At the Immigration Directorate, convert your entry visa into a <strong>Residence Permit Card</strong>. This card is usually valid for 1–3 years and is renewable.</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black); margin-top: 15px;">
+            🧠 SUMMARY FLOW: Job/Admission → Authorisation to Stay → Type D Visa → Entry → Registration → Medical + Biometrics → Residence Permit
+        </div>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL LUXEMBOURG IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Luxembourg Immigration Portal:</strong> <a href="https://guichet.public.lu" target="_blank">guichet.public.lu</a></p>
+            <p><strong>2. Ministry of Foreign & European Affairs:</strong> <a href="https://maee.gouvernement.lu" target="_blank">maee.gouvernement.lu</a></p>
+            <p><strong>3. Work & Employment (ADEM):</strong> <a href="https://adem.public.lu" target="_blank">adem.public.lu</a></p>
+            <p><strong>4. EU Blue Card Info:</strong> <a href="https://home-affairs.ec.europa.eu" target="_blank">ec.europa.eu/blue-card</a></p>
+            <p><strong>5. India Submission (Belgium Embassy):</strong> <a href="https://india.diplomatie.belgium.be" target="_blank">india.diplomatie.belgium.be</a></p>
+            <p><strong>6. EU Immigration Portal:</strong> <a href="https://immigration-portal.ec.europa.eu" target="_blank">immigration-portal.ec.europa.eu</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ VERY IMPORTANT: YOU ALWAYS NEED PRE-APPROVAL (AUTHORISATION TO STAY) BEFORE APPLYING FOR THE VISA.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "LUXEMBOURG": {
+"LuxembourgSchengenShortStayVisa": {
+    name: "Schengen Short-Stay Visa (Type C – Luxembourg)",
+
+    validity: "Up to 90 days within any 180-day period across the Schengen Area. Can be issued as single-entry, double-entry, or multiple-entry depending on travel history and purpose.",
+
+    cost: "€90 (~₹8,000–₹8,500) for adults. Reduced fees may apply for children (6–12 years ~€45). Some categories (students, researchers) may have exemptions.",
+
+    time: "Processing time usually 15 calendar days. In some cases, it may extend to 30–60 days depending on verification, season, and embassy workload.",
+
+    age: "No strict age limit. Applicable to all age groups including minors (with parental consent).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required (approximately €70–€120 per day depending on stay type), including bank statements, sponsorship letters, or employer support.",
+
+    docs: "Valid passport (at least 3 months beyond return date), completed visa application form, passport photos, travel itinerary, flight reservation, hotel booking or invitation letter, travel insurance (minimum €30,000 coverage), bank statements (last 3–6 months), proof of employment/study, cover letter explaining purpose of visit.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Luxembourg for tourism, business meetings, family visits, short-term study, medical treatment, or transit within the Schengen Area.",
+
+    rules: "Must not exceed 90 days in any 180-day period. No employment allowed under this visa. Must leave Schengen area before visa expiry. Must follow declared purpose of visit.",
+
+    prosCons: "Pros: Easy access to Luxembourg and Schengen countries, fast processing, multiple-entry options available. Cons: Strict short duration, no work rights, strong financial documentation required.",
+
+    terms: "Schengen Area: 27 European countries with free movement; Type C Visa: Short-stay visa category; Overstay: Staying beyond permitted duration; Visa Sticker: Passport visa label issued after approval.",
+
+    legal: "Regulated under EU Visa Code (Regulation EC No 810/2009) and Schengen Agreement rules.",
+
+    process: `1. Determine purpose of short stay ->
+              2. Prepare required documents ->
+              3. Book appointment at Luxembourg consulate/VFS ->
+              4. Submit visa application ->
+              5. Provide biometrics (fingerprints/photo) ->
+              6. Pay visa fee ->
+              7. Embassy reviews application ->
+              8. Additional documents requested if needed ->
+              9. Visa decision issued ->
+              10. Visa sticker affixed in passport ->
+              11. Travel to Luxembourg/Schengen Area ->
+              12. Exit before 90-day limit expires`
+},
+
+"LuxembourgAirportTransitVisa": {
+    name: "Airport Transit Visa (Type A – Luxembourg)",
+
+    validity: "Valid only for transit through the international transit area of Luxembourg Airport. Usually issued for a very short duration (hours to a maximum of 24 hours depending on itinerary).",
+
+    cost: "€80 (~₹7,000–₹7,500) for adults. Some nationalities and categories may be exempt depending on EU rules.",
+
+    time: "Processing time usually 7–15 calendar days, depending on verification and embassy workload.",
+
+    age: "No strict age limit. Applicable to all passengers who require a transit visa based on nationality.",
+
+    education: "Not required.",
+
+    funds: "Proof of onward travel and sufficient funds for transit (if requested), usually minimal compared to other visa types.",
+
+    docs: "Valid passport, completed visa application form, passport photos, confirmed onward flight ticket, valid visa for final destination country (if required), travel itinerary, airport transit proof, travel insurance (sometimes required), supporting documents based on nationality rules.",
+
+    whom: "Foreign nationals (including some Indian citizens depending on destination route) who need to transit through Luxembourg airport without entering the Schengen territory.",
+
+    rules: "Must remain in the international transit area only. Entry into Luxembourg or Schengen territory is not permitted. Must have confirmed onward travel within allowed transit time.",
+
+    prosCons: "Pros: Enables smooth international transit via Luxembourg airport, simple documentation, short processing time. Cons: Very restricted movement, no entry into country allowed, limited validity.",
+
+    terms: "Transit Area: International zone of airport; Type A Visa: Airport transit visa category; Layover: Short stop between flights; Final Destination Visa: Visa for the country of onward travel.",
+
+    legal: "Regulated under EU Visa Code (Regulation EC No 810/2009) and Schengen Airport Transit Visa rules.",
+
+    process: `1. Confirm need for Airport Transit Visa based on nationality ->
+              2. Book onward flight tickets ->
+              3. Prepare visa application documents ->
+              4. Submit application at consulate/VFS ->
+              5. Provide biometrics if required ->
+              6. Pay visa fee ->
+              7. Embassy verifies travel route ->
+              8. Visa decision issued ->
+              9. Visa stamped in passport ->
+              10. Travel to Luxembourg airport ->
+              11. Remain in transit zone only ->
+              12. Board onward flight`
+},
+
+"LuxembourgTouristVisa": {
+    name: "Tourist Visa (Luxembourg – Schengen Short-Stay Visa Type C for Tourism)",
+
+    validity: "Up to 90 days within any 180-day period across the Schengen Area. Can be issued as single-entry, double-entry, or multiple-entry depending on travel history and applicant profile.",
+
+    cost: "€90 (~₹8,000–₹8,500) for adults. Reduced fees (~€45) for children aged 6–12. Certain categories (students, researchers) may be exempt.",
+
+    time: "Processing time usually 15 calendar days. May extend to 30–60 days in peak seasons or if additional verification is required.",
+
+    age: "No strict age limit. Applicable to all age groups including minors (with parental consent and documentation).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required, typically €70–€120 per day of stay, supported by bank statements, sponsorship letters, or income proof.",
+
+    docs: "Valid passport (minimum 3 months beyond return date), completed application form, passport photos, travel itinerary, hotel booking or invitation letter, round-trip flight reservation, travel insurance (minimum €30,000 coverage), bank statements (last 3–6 months), employment or student proof, cover letter explaining travel purpose.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Luxembourg for tourism, sightseeing, leisure travel, or short visits to friends/relatives.",
+
+    rules: "Must not exceed 90 days in any 180-day period. No employment allowed. Must exit Schengen Area before visa expiry. Must follow declared travel itinerary and purpose.",
+
+    prosCons: "Pros: Access to Luxembourg and entire Schengen zone, relatively simple application, multiple-entry options available. Cons: Strict financial documentation, no work rights, short stay limit.",
+
+    terms: "Schengen Area: Group of European countries with free movement; Type C Visa: Short-stay visa category; Overstay: Staying beyond permitted duration; Visa Sticker: Passport visa approval label.",
+
+    legal: "Regulated under EU Visa Code (Regulation EC No 810/2009) and Schengen Agreement rules.",
+
+    process: `1. Plan tourism itinerary ->
+              2. Book accommodation and flights ->
+              3. Collect required documents ->
+              4. Book appointment at Luxembourg consulate/VFS ->
+              5. Submit visa application ->
+              6. Provide biometrics ->
+              7. Pay visa fee ->
+              8. Embassy reviews application ->
+              9. Additional documents requested if needed ->
+              10. Visa decision issued ->
+              11. Visa sticker affixed in passport ->
+              12. Travel to Luxembourg and follow itinerary`
+},
+
+"LuxembourgBusinessVisa": {
+    name: "Business Visa (Luxembourg – Schengen Short-Stay Visa Type C for Business)",
+
+    validity: "Up to 90 days within any 180-day period across the Schengen Area. Can be issued as single-entry, double-entry, or multiple-entry depending on business profile and travel history.",
+
+    cost: "€90 (~₹8,000–₹8,500) for adults. Reduced fees may apply for certain categories such as students or researchers attending business-related events.",
+
+    time: "Processing time usually 15 calendar days. May extend to 30–60 days if additional verification from companies or authorities is required.",
+
+    age: "No strict age limit. Typically issued to working professionals, entrepreneurs, and business representatives (18+).",
+
+    education: "Not mandatory, but professional/business background is expected for applicants attending corporate or trade activities.",
+
+    funds: "Proof of sufficient funds required (generally €70–€120 per day or sponsor/company covering expenses). Includes bank statements, employer sponsorship, or invitation guarantee.",
+
+    docs: "Valid passport (minimum 3 months beyond return date), completed application form, passport photos, business invitation letter from Luxembourg company, cover letter from employer, company registration documents (if self-employed), travel itinerary, flight booking, hotel booking or sponsor accommodation, travel insurance (€30,000 minimum coverage), bank statements (last 3–6 months), proof of employment or business ownership.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Luxembourg for business meetings, conferences, trade fairs, corporate negotiations, training sessions, or commercial activities.",
+
+    rules: "Must only engage in declared business activities. No employment or salary-based work in Luxembourg allowed under this visa. Must exit Schengen Area before visa expiry. Must follow invitation purpose strictly.",
+
+    prosCons: "Pros: Easy access to EU business hubs, supports meetings and networking, multiple-entry options available. Cons: No long-term work rights, strict documentation requirements, short duration.",
+
+    terms: "Business Invitation Letter: Official company invite; Schengen Business Visa: Short-term corporate travel permit; Sponsor Company: Inviting organization in Luxembourg; Visa Sticker: Passport approval label.",
+
+    legal: "Regulated under EU Visa Code (Regulation EC No 810/2009) and Schengen business travel rules.",
+
+    process: `1. Receive business invitation from Luxembourg company ->
+              2. Prepare company and financial documents ->
+              3. Book appointment at consulate/VFS ->
+              4. Submit visa application ->
+              5. Provide biometrics ->
+              6. Pay visa fee ->
+              7. Embassy verifies business purpose ->
+              8. Additional documents requested if needed ->
+              9. Visa decision issued ->
+              10. Visa sticker placed in passport ->
+              11. Travel to Luxembourg ->
+              12. Attend meetings/events and return before expiry`
+},
+"LuxembourgVisitorVisa": {
+    name: "Visitor Visa (Family/Friends Visit – Luxembourg Schengen Visa Type C)",
+
+    validity: "Up to 90 days within any 180-day period across the Schengen Area. Can be issued as single-entry, double-entry, or multiple-entry depending on travel history and sponsor invitation.",
+
+    cost: "€90 (~₹8,000–₹8,500) for adults. Reduced fee (~€45) for children aged 6–12. Some exemptions may apply for specific categories.",
+
+    time: "Processing time usually 15 calendar days. May extend to 30–60 days if additional verification of sponsor or relationship is required.",
+
+    age: "No strict age limit. Applicable to all age groups including minors (with parental consent and supporting documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required, usually €70–€120 per day of stay, or sponsor in Luxembourg can cover expenses through formal invitation/guarantee.",
+
+    docs: "Valid passport (minimum 3 months beyond return date), completed application form, passport photos, invitation letter from family/friend in Luxembourg, proof of relationship (birth/marriage/friendship evidence), sponsor’s residence permit or citizenship proof, sponsor’s financial proof (salary slips, bank statements), travel itinerary, flight booking, accommodation details, travel insurance (minimum €30,000 coverage), applicant’s bank statements (last 3–6 months).",
+
+    whom: "Foreign nationals (including Indian citizens) visiting family members or friends legally residing in Luxembourg for short stays such as holidays, family events, or personal visits.",
+
+    rules: "Must not exceed 90 days in any 180-day period. No employment allowed. Must leave Schengen Area before visa expiry. Must stay only with declared host or itinerary.",
+
+    prosCons: "Pros: Enables family reunification for short stays, simple if strong sponsor documents are provided, access to entire Schengen zone. Cons: Strict financial and relationship verification, no work rights, limited duration.",
+
+    terms: "Sponsor: Host in Luxembourg; Invitation Letter: Formal invitation document; Schengen Visa Type C: Short-stay visa category; Overstay: Illegal stay beyond permitted duration.",
+
+    legal: "Regulated under EU Visa Code (Regulation EC No 810/2009) and Schengen short-stay visa regulations.",
+
+    process: `1. Receive invitation letter from host in Luxembourg ->
+              2. Collect proof of relationship and sponsor documents ->
+              3. Prepare financial and travel documents ->
+              4. Book appointment at consulate/VFS ->
+              5. Submit visa application ->
+              6. Provide biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies sponsor and purpose ->
+              9. Additional documents requested if needed ->
+              10. Visa decision issued ->
+              11. Visa sticker placed in passport ->
+              12. Travel to Luxembourg and stay with host`
+},
+
+"LuxembourgMedicalTreatmentVisa": {
+    name: "Medical Treatment Visa (Luxembourg – Schengen Short-Stay Visa Type C for Medical Care)",
+
+    validity: "Up to 90 days within any 180-day period. Can be extended in exceptional medical cases based on hospital recommendation and immigration approval.",
+
+    cost: "€90 (~₹8,000–₹8,500) for adults. Reduced or exempt fees may apply in urgent humanitarian or severe medical cases.",
+
+    time: "Processing time usually 10–15 calendar days. Urgent medical cases may be processed faster if supported by hospital documentation.",
+
+    age: "No strict age limit. Applicable to all age groups including minors and elderly patients.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds or sponsor/medical institution guarantee required. Estimated costs should cover treatment, stay, and travel (often €70–€120 per day plus treatment costs).",
+
+    docs: "Valid passport, completed visa application form, passport photos, medical report from home country doctor, invitation letter from Luxembourg hospital/clinic, proof of treatment plan and estimated cost, proof of payment/deposit or financial guarantee, travel itinerary, accommodation details, travel insurance (minimum €30,000 coverage), bank statements or sponsor financial proof.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Luxembourg for medical diagnosis, treatment, surgery, or follow-up care in approved hospitals or clinics.",
+
+    rules: "Must follow approved medical treatment plan. Cannot work during stay. Must exit Schengen area after treatment unless visa is extended for continued care. Must provide valid medical justification for entry and extension.",
+
+    prosCons: "Pros: Access to advanced European healthcare, fast-track in urgent cases, possibility of extension for treatment. Cons: High medical costs, strict documentation requirements, limited stay duration.",
+
+    terms: "Medical Invitation: Hospital acceptance letter; Treatment Plan: Detailed medical procedure schedule; Schengen Medical Visa: Short-stay visa for healthcare; Guarantee Letter: Financial assurance from sponsor or hospital.",
+
+    legal: "Regulated under EU Visa Code (Regulation EC No 810/2009) and Schengen short-stay medical visa provisions.",
+
+    process: `1. Obtain medical diagnosis from home country doctor ->
+              2. Contact Luxembourg hospital and receive treatment acceptance ->
+              3. Prepare medical reports and cost estimate ->
+              4. Arrange financial guarantee or sponsor support ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Provide biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies medical necessity ->
+              10. Visa decision issued ->
+              11. Travel to Luxembourg for treatment ->
+              12. Follow treatment plan and apply for extension if needed`
+},
+
+"LuxembourgCulturalVisa": {
+    name: "Cultural Visa (Luxembourg – Schengen Short-Stay Visa Type C for Cultural Activities)",
+
+    validity: "Up to 90 days within any 180-day period across the Schengen Area. Can be issued as single-entry or multiple-entry depending on event schedule.",
+
+    cost: "€90 (~₹8,000–₹8,500) for adults. Reduced fees may apply for students, artists, or officially invited participants in cultural programs.",
+
+    time: "Processing time usually 15–30 calendar days depending on event verification, organizer documentation, and embassy workload.",
+
+    age: "No strict age limit. Applicable to artists, performers, cultural delegates, and participants of all adult age groups (18+ typically).",
+
+    education: "Not mandatory, but relevant artistic or cultural background may be required depending on the event or program.",
+
+    funds: "Proof of sufficient funds required or sponsorship from cultural organization/event sponsor in Luxembourg covering travel, stay, and participation expenses.",
+
+    docs: "Valid passport, completed application form, passport photos, official invitation letter from cultural organization/event organizer, event schedule or program details, proof of artist/participant profile (portfolio, CV, certificates), travel itinerary, accommodation details, travel insurance (€30,000 minimum coverage), bank statements or sponsor financial guarantee.",
+
+    whom: "Foreign nationals (including Indian citizens) participating in cultural events in Luxembourg such as festivals, art exhibitions, music performances, theatre, film events, or cultural exchange programs.",
+
+    rules: "Must participate only in approved cultural event/activity. No paid employment outside event participation allowed. Must leave Schengen Area after visa expiry. Must follow event schedule strictly.",
+
+    prosCons: "Pros: Access to European cultural platforms, opportunity for international exposure, multiple-entry possible for touring events. Cons: Strict purpose limitation, short duration, no work rights outside cultural activity.",
+
+    terms: "Cultural Event: Approved artistic or heritage program; Event Organizer: Hosting institution; Schengen Cultural Visa: Short-stay artistic participation visa; Invitation Letter: Official event participation confirmation.",
+
+    legal: "Regulated under EU Visa Code (Regulation EC No 810/2009) and Schengen cultural/short-stay visa rules.",
+
+    process: `1. Receive invitation from Luxembourg cultural organizer ->
+              2. Prepare artist/participant portfolio ->
+              3. Collect event details and sponsorship documents ->
+              4. Book appointment at consulate/VFS ->
+              5. Submit visa application ->
+              6. Provide biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies cultural event authenticity ->
+              9. Additional documents requested if needed ->
+              10. Visa decision issued ->
+              11. Visa sticker issued in passport ->
+              12. Travel to Luxembourg and participate in event`
+},
+
+"LuxembourgSportsVisa": {
+    name: "Sports Visa (Luxembourg – Schengen Short-Stay Visa Type C for Sports Events)",
+
+    validity: "Up to 90 days within any 180-day period across the Schengen Area. Can be issued single-entry or multiple-entry depending on tournament schedule.",
+
+    cost: "€90 (~₹8,000–₹8,500) for adults. Reduced or exempt fees may apply for officially sponsored athletes or youth sports delegations.",
+
+    time: "Processing time usually 10–30 calendar days depending on sports federation verification and embassy workload.",
+
+    age: "No strict age limit. Applicable to professional athletes, coaches, officials, and youth sports participants.",
+
+    education: "Not required. Sports qualification, club membership, or federation recognition is relevant instead.",
+
+    funds: "Proof of sufficient funds or sponsorship required from sports club, federation, or event organizer covering travel, stay, and participation expenses.",
+
+    docs: "Valid passport, completed visa application form, passport photos, invitation letter from Luxembourg sports federation/club/event organizer, tournament or event schedule, proof of athlete status (sports license, club membership, ranking certificates), travel itinerary, accommodation details, travel insurance (€30,000 minimum coverage), bank statements or sponsor guarantee letter.",
+
+    whom: "Foreign nationals (including Indian citizens) participating in sports events in Luxembourg such as tournaments, training camps, championships, coaching programs, or official sporting competitions.",
+
+    rules: "Must participate only in approved sports events. No unauthorized employment allowed. Must leave Schengen Area after event completion. Must follow sports federation/event schedule strictly.",
+
+    prosCons: "Pros: Enables international sports participation, exposure to European tournaments, sponsor support often available. Cons: Strict event-based limitation, no employment rights, short duration.",
+
+    terms: "Sports Federation: Official governing sports body; Athlete License: Proof of registered sports status; Event Organizer: Hosting sports authority; Schengen Sports Visa: Short-stay competition visa.",
+
+    legal: "Regulated under EU Visa Code (Regulation EC No 810/2009) and Schengen short-stay visa rules for sports professionals.",
+
+    process: `1. Receive official invitation from sports federation or event organizer ->
+              2. Collect athlete credentials and certificates ->
+              3. Prepare tournament/event documentation ->
+              4. Arrange sponsorship or financial proof ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Provide biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies sports event authenticity ->
+              10. Visa decision issued ->
+              11. Visa stamped in passport ->
+              12. Travel to Luxembourg and participate in sports event`
+},
+"LuxembourgReligiousVisa": {
+    name: "Religious Visa (Luxembourg – Schengen Short-Stay Visa Type C for Religious Activities)",
+
+    validity: "Up to 90 days within any 180-day period across the Schengen Area. Can be issued single-entry or multiple-entry depending on mission or event duration.",
+
+    cost: "€90 (~₹8,000–₹8,500) for adults. Reduced or waived fees may apply for officially recognized religious missions or clergy delegations.",
+
+    time: "Processing time usually 10–30 calendar days depending on verification of religious organization and embassy workload.",
+
+    age: "No strict age limit. Applicable to clergy, missionaries, religious scholars, and participants in religious gatherings.",
+
+    education: "Not mandatory, but religious ordination, theological qualification, or institutional affiliation is usually required.",
+
+    funds: "Must be covered by sponsoring religious institution or proof of sufficient personal funds. Includes accommodation, travel, and living expenses during stay.",
+
+    docs: "Valid passport, completed application form, passport photos, invitation letter from recognized religious institution in Luxembourg, proof of religious role (ordination certificate, membership, clergy ID), event/program schedule, accommodation details, travel itinerary, travel insurance (€30,000 minimum coverage), financial sponsorship letter or bank statements.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Luxembourg for religious purposes such as pilgrimages, conferences, missionary work, religious ceremonies, or theological training.",
+
+    rules: "Must engage only in approved religious activities. No employment or commercial work allowed. Must respect Luxembourg laws and return after visa expiry. Must not misuse visa for unrelated activities.",
+
+    prosCons: "Pros: Supports international religious participation, often institution-sponsored, access to European religious networks. Cons: Strict purpose limitation, short duration, no work rights.",
+
+    terms: "Religious Institution: Recognized church/organization; Clergy: Religious leader or ordained member; Missionary Work: Faith-based outreach activity; Schengen Religious Visa: Short-stay visa for religious purposes.",
+
+    legal: "Regulated under EU Visa Code (Regulation EC No 810/2009) and Schengen short-stay visa provisions for religious/cultural activities.",
+
+    process: `1. Receive invitation from recognized religious institution ->
+              2. Obtain proof of religious role or ordination ->
+              3. Prepare event or mission details ->
+              4. Arrange sponsorship or financial proof ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Provide biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies religious purpose ->
+              10. Visa decision issued ->
+              11. Visa sticker placed in passport ->
+              12. Travel to Luxembourg and participate in religious activity`
+},
+
+"LuxembourgStudentVisa": {
+    name: "Study Visa (Student Visa – Luxembourg National Visa Type D)",
+
+    validity: "Usually issued for 1 year initially. Can be renewed annually for the duration of the study program (Bachelor, Master, PhD, or diploma course).",
+
+    cost: "€50–€80 (~₹4,500–₹7,500) depending on nationality and administrative fees. Additional costs apply for residence permit after arrival (~€80–€100).",
+
+    time: "Processing time usually 4–12 weeks depending on university admission verification and embassy workload.",
+
+    age: "No strict age limit. Typically issued to applicants aged 18+, but minors may apply for school-level studies with guardianship arrangements.",
+
+    education: "Required. Must have admission from a recognized Luxembourg higher education institution (university or approved college).",
+
+    funds: "Proof of sufficient funds required, usually around €1,200–€1,500 per month (or ~€14,000–€18,000 per year) via blocked account, sponsorship, or scholarship.",
+
+    docs: "Valid passport, completed visa application form, university admission letter, proof of tuition payment (if required), blocked account or financial proof, academic transcripts and certificates, CV, motivation letter, health insurance, accommodation proof, passport photos, language proficiency proof (English/French/German depending on course).",
+
+    whom: "Foreign students (including Indian citizens) who have been accepted into Luxembourg universities or higher education institutions for full-time academic programs.",
+
+    rules: "Must study full-time. Limited part-time work allowed (usually up to 15–20 hours/week during term). Must maintain academic progress. Must register with local authorities after arrival. Must renew residence permit annually.",
+
+    prosCons: "Pros: High-quality European education, access to EU job market, multicultural environment, post-study work opportunities. Cons: High living costs, strict financial proof requirements, limited intake programs.",
+
+    terms: "Blocked Account: Locked funds for living expenses; Residence Permit: Post-arrival legal stay document; Credit System: Academic progress tracking; Student Mobility: EU study exchange options.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Student Directive (2016/801/EU).",
+
+    process: `1. Apply and secure admission in Luxembourg university ->
+              2. Receive official admission letter ->
+              3. Arrange financial proof or blocked account ->
+              4. Collect academic documents and insurance ->
+              5. Apply for Type D visa at embassy/VFS ->
+              6. Submit biometric data ->
+              7. Pay visa fee ->
+              8. Embassy reviews application ->
+              9. Visa approval issued ->
+              10. Travel to Luxembourg ->
+              11. Register at commune office ->
+              12. Apply for residence permit after arrival`
+},
+
+"LuxembourgLanguageCourseVisa": {
+    name: "Language Course Visa (Luxembourg – National Visa Type D for Language Study)",
+
+    validity: "Usually issued for the duration of the language course, typically 3 months to 1 year. Extensions may be granted if enrolled in a longer certified program.",
+
+    cost: "€50–€80 (~₹4,500–₹7,500) depending on administrative fees and embassy charges. Residence permit after arrival may cost additional €80–€100.",
+
+    time: "Processing time usually 3–10 weeks depending on course enrollment verification and embassy workload.",
+
+    age: "No strict age limit. Commonly issued to applicants aged 18+, but minors may join certified language programs with guardianship arrangements.",
+
+    education: "Not strictly required, but basic education is expected. Proof of enrollment in a recognized language school is mandatory.",
+
+    funds: "Proof of sufficient funds required, typically €1,000–€1,500 per month (or equivalent blocked account/sponsorship) to cover living expenses in Luxembourg.",
+
+    docs: "Valid passport, completed visa application form, language school admission/enrollment letter, course duration details, blocked account or financial proof, accommodation proof, health insurance, passport photos, previous education certificates (if required), motivation letter.",
+
+    whom: "Foreign nationals (including Indian citizens) who wish to study French, German, or Luxembourgish language in recognized language institutes in Luxembourg for integration, education, or career preparation.",
+
+    rules: "Must attend registered language course regularly. No full-time employment allowed (limited part-time work may be permitted under strict conditions). Must maintain visa validity and register after arrival.",
+
+    prosCons: "Pros: Improves language skills for EU integration, pathway to student or work visas, cultural immersion. Cons: Limited work rights, short-term stay, strict financial requirements.",
+
+    terms: "Language Institute: Approved training center; Blocked Account: Prepaid living funds account; Residence Permit: Post-arrival legal stay document; Integration Course: Language + cultural program.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Student/Training mobility directives (2016/801/EU).",
+
+    process: `1. Enroll in recognized Luxembourg language school ->
+              2. Receive admission/enrollment confirmation ->
+              3. Arrange financial proof or blocked account ->
+              4. Prepare accommodation and insurance ->
+              5. Submit Type D visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy reviews application ->
+              9. Visa decision issued ->
+              10. Travel to Luxembourg ->
+              11. Register with local commune ->
+              12. Begin language course`
+},
+
+"LuxembourgResearchVisa": {
+    name: "Research Visa (Luxembourg – National Visa Type D for Scientific Research)",
+
+    validity: "Usually issued for the duration of the research project or hosting agreement, typically 1–3 years. Renewable if the research contract is extended.",
+
+    cost: "€50–€100 (~₹4,500–₹9,000) depending on administrative category and residence permit fees after arrival.",
+
+    time: "Processing time usually 4–12 weeks depending on research institution approval and immigration verification.",
+
+    age: "No strict age limit. Typically issued to postgraduate researchers, PhD candidates, scientists, and academic professionals.",
+
+    education: "Required. Minimum requirement is usually a Master’s degree or equivalent higher education qualification depending on research role.",
+
+    funds: "Proof of sufficient financial support required, usually covered by host research institute, scholarship, or stipend (around €1,200–€2,000 per month minimum depending on project).",
+
+    docs: "Valid passport, completed visa application form, hosting agreement with approved Luxembourg research institution, invitation letter from research body, academic qualifications (degrees, transcripts), CV, research proposal or project outline, proof of financial support or stipend, health insurance, accommodation proof, passport photos.",
+
+    whom: "Foreign researchers (including Indian citizens) who are invited by recognized universities, laboratories, or research institutions in Luxembourg for scientific, academic, or technical research work.",
+
+    rules: "Must work only on approved research project. Must be affiliated with recognized institution. Limited teaching or secondary work may be allowed depending on contract. Must register with local authorities after arrival.",
+
+    prosCons: "Pros: Access to EU research ecosystem, funding opportunities, career advancement in academia, possibility of long-term residence. Cons: Highly dependent on project funding, strict institutional control, limited flexibility outside research scope.",
+
+    terms: "Hosting Agreement: Official research contract; Research Institution: Approved university/lab; PhD Candidate: Doctoral researcher; Residence Permit: Post-arrival legal stay authorization.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Researcher Directive (2016/801/EU).",
+
+    process: `1. Secure research position at Luxembourg institution ->
+              2. Sign hosting agreement with research body ->
+              3. Prepare academic and financial documents ->
+              4. Submit Type D visa application ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Embassy verifies research credentials ->
+              8. Visa decision issued ->
+              9. Travel to Luxembourg ->
+              10. Register with commune office ->
+              11. Apply for residence permit ->
+              12. Begin research project`
+},
+
+"LuxembourgWorkVisa": {
+    name: "Work Visa (Employment Visa – Luxembourg National Visa Type D)",
+
+    validity: "Usually issued for 1 year initially and renewable. It is linked to the employment contract and can be extended as long as the job continues.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Additional residence permit fee after arrival: ~€80–€100.",
+
+    time: "Processing time usually 6–12 weeks depending on employer authorization, labor market check, and embassy workload.",
+
+    age: "No strict age limit. Commonly issued to working-age professionals (18+), subject to job requirements.",
+
+    education: "Required depending on job role. Skilled jobs require relevant degrees, certifications, or professional experience.",
+
+    funds: "No personal funds required in most cases. Employer must guarantee salary sufficient to meet Luxembourg minimum wage and living standards.",
+
+    docs: "Valid passport, employment contract signed by Luxembourg employer, employer authorization from Ministry of Foreign Affairs (if required), CV, academic/professional certificates, work experience proof, passport photos, visa application form, health insurance, accommodation proof (sometimes required).",
+
+    whom: "Foreign nationals (including Indian citizens) who have secured a job offer from a Luxembourg employer in skilled, semi-skilled, or specialized occupations.",
+
+    rules: "Must work only for sponsoring employer. Job change requires new authorization. Must register after arrival. Must comply with labor laws and tax regulations. Cannot engage in unauthorized employment.",
+
+    prosCons: "Pros: Legal employment in EU, competitive salaries, pathway to EU long-term residence, strong worker protections. Cons: Strict employer sponsorship requirement, lengthy approval process, limited job-switch flexibility initially.",
+
+    terms: "Employer Sponsorship: Company supports visa application; Work Permit Authorization: Government approval to hire foreign worker; Residence Permit: Post-arrival stay authorization; Labour Market Test: Check for local/EU candidate availability.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Single Permit Directive (2011/98/EU).",
+
+    process: `1. Secure job offer from Luxembourg employer ->
+              2. Employer applies for work authorization (if required) ->
+              3. Sign employment contract ->
+              4. Prepare academic and professional documents ->
+              5. Submit Type D visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy reviews employer authorization ->
+              9. Visa decision issued ->
+              10. Travel to Luxembourg ->
+              11. Register at commune office ->
+              12. Apply for residence permit and start work`
+},
+"LuxembourgEUBlueCard": {
+    name: "EU Blue Card (Luxembourg – Highly Qualified Employment Permit)",
+
+    validity: "Usually issued for 1–4 years depending on employment contract duration. Renewable. Can lead to long-term residence and EU mobility rights.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Residence permit issuance after arrival may cost an additional ~€80–€100.",
+
+    time: "Processing time usually 6–12 weeks depending on employer authorization, qualification verification, and immigration workload.",
+
+    age: "No strict age limit. Typically issued to highly skilled professionals aged 21–55, depending on job contract.",
+
+    education: "Required. Must have a recognized higher education degree (usually Bachelor’s or Master’s) or equivalent professional experience for highly skilled roles.",
+
+    funds: "No personal funds required in most cases. Applicant must have a valid employment contract with salary meeting EU Blue Card threshold (high salary benchmark set annually by Luxembourg).",
+
+    docs: "Valid passport, employment contract (minimum 1 year), proof of salary meeting EU Blue Card threshold, academic degrees and transcripts, CV, work experience certificates, passport photos, health insurance, visa application form, employer authorization (if applicable).",
+
+    whom: "Highly skilled non-EU nationals (including Indian citizens) who have secured high-paying skilled employment in Luxembourg in fields like IT, engineering, finance, healthcare, or research.",
+
+    rules: "Must work only for sponsoring employer initially. Must meet salary threshold. Job changes may require authorization during initial period. Must register after arrival and obtain residence permit. Must comply with tax and labor regulations.",
+
+    prosCons: "Pros: Fast-track skilled migration route, high salary benefits, EU mobility after certain period, pathway to permanent residence. Cons: Strict qualification and salary requirements, employer dependency initially.",
+
+    terms: "EU Blue Card: Skilled worker residence permit; Salary Threshold: Minimum required income level; Highly Qualified Employment: Specialized professional job; Mobility Rights: Movement within EU after conditions met.",
+
+    legal: "Regulated under EU Blue Card Directive (2009/50/EC, updated by Directive (EU) 2021/1883) and Luxembourg immigration law.",
+
+    process: `1. Secure high-skilled job offer in Luxembourg ->
+              2. Ensure salary meets EU Blue Card threshold ->
+              3. Employer provides employment contract ->
+              4. Prepare academic and professional documents ->
+              5. Submit Type D visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Immigration verifies qualification and salary ->
+              9. Visa approval issued ->
+              10. Travel to Luxembourg ->
+              11. Register with commune office ->
+              12. Apply for EU Blue Card residence permit`
+},
+
+"LuxembourgHighlyQualifiedWorkerVisa": {
+    name: "Highly Qualified Worker Visa (Luxembourg – Skilled Employment Residence Permit)",
+
+    validity: "Usually issued for 1–4 years depending on employment contract. Renewable as long as eligibility and job conditions are maintained.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Residence permit issuance after arrival may cost an additional €80–€100.",
+
+    time: "Processing time usually 6–12 weeks depending on employer authorization, qualification verification, and administrative workload.",
+
+    age: "No strict age limit. Typically issued to professionals aged 21–55 depending on role and experience.",
+
+    education: "Required. Must hold a recognized higher education degree (Bachelor’s, Master’s, or equivalent professional qualification) relevant to the job.",
+
+    funds: "No personal funds required in most cases. Applicant must have a valid job offer with salary meeting Luxembourg’s high-skilled worker threshold.",
+
+    docs: "Valid passport, employment contract from Luxembourg employer, proof of salary meeting skilled worker requirements, academic degrees and transcripts, CV, work experience certificates, passport photos, health insurance, visa application form, employer authorization (if required).",
+
+    whom: "Highly skilled non-EU nationals (including Indian citizens) employed in Luxembourg in sectors such as IT, engineering, finance, healthcare, research, or specialized technical fields.",
+
+    rules: "Must work only for sponsoring employer. Must meet qualification and salary requirements. Job change may require approval. Must register after arrival and obtain residence permit. Must comply with labor and tax laws.",
+
+    prosCons: "Pros: High salary employment in EU, strong career growth, pathway to EU long-term residence or EU Blue Card, strong labor protections. Cons: Strict qualification and salary requirements, employer dependency initially.",
+
+    terms: "Highly Qualified Employment: Skilled professional job role; Salary Threshold: Minimum required wage level; Employer Sponsorship: Company support for visa; Residence Permit: Legal stay document after arrival.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Single Permit Directive (2011/98/EU) and EU skilled migration frameworks.",
+
+    process: `1. Secure skilled job offer in Luxembourg ->
+              2. Employer confirms employment contract ->
+              3. Verify salary meets skilled worker threshold ->
+              4. Prepare academic and professional documents ->
+              5. Submit Type D visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Immigration authority reviews application ->
+              9. Visa approval issued ->
+              10. Travel to Luxembourg ->
+              11. Register at commune office ->
+              12. Apply for residence permit and start employment`
+},
+"LuxembourgSeasonalWorkerVisa": {
+    name: "Seasonal Worker Visa (Luxembourg – Temporary Employment Visa Type D)",
+
+    validity: "Usually issued for up to 6 months within a 12-month period. Can be extended only in limited cases depending on employer and sector demand (agriculture, hospitality, tourism).",
+
+    cost: "€80 (~₹7,000–₹7,500) for visa application. Additional residence/registration fees may apply after arrival (~€80–€100).",
+
+    time: "Processing time usually 4–10 weeks depending on employer approval, sector demand, and seasonal labor quotas.",
+
+    age: "No strict age limit. Typically issued to working-age adults (18+) in physically active job roles.",
+
+    education: "Not mandatory. Basic skills or prior experience in agriculture, hospitality, or seasonal work may be required by employer.",
+
+    funds: "No personal funds required in most cases. Employer must provide salary and often accommodation and basic living arrangements.",
+
+    docs: "Valid passport, seasonal work contract, employer invitation letter, proof of accommodation (provided by employer or arranged), work schedule, health insurance, passport photos, visa application form, travel itinerary, any relevant work experience certificates.",
+
+    whom: "Foreign nationals (including Indian citizens) employed temporarily in Luxembourg in sectors such as agriculture, vineyards, hospitality, tourism, food processing, and seasonal industries.",
+
+    rules: "Must work only for sponsoring employer. Cannot change employer without authorization. Must leave Luxembourg after contract expiry. No long-term settlement rights under this visa.",
+
+    prosCons: "Pros: Easy entry for temporary jobs, employer often provides housing, opportunity to gain EU work experience. Cons: Very short duration, no pathway to permanent residence, physically demanding work.",
+
+    terms: "Seasonal Work Permit: Temporary employment authorization; Employer Sponsorship: Company responsibility for worker; Quota System: Limited seasonal worker intake; Residence Permit: Legal stay document during employment.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Seasonal Workers Directive (2014/36/EU).",
+
+    process: `1. Secure seasonal job offer from Luxembourg employer ->
+              2. Sign seasonal employment contract ->
+              3. Employer applies for authorization if required ->
+              4. Prepare passport and work documents ->
+              5. Submit Type D visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Immigration reviews employer and job validity ->
+              9. Visa approval issued ->
+              10. Travel to Luxembourg ->
+              11. Register locally if required ->
+              12. Begin seasonal work and leave after contract ends`
+},
+"LuxembourgIntraCorporateTransferVisa": {
+    name: "Intra-Corporate Transfer Visa (ICT – Luxembourg National Visa Type D)",
+
+    validity: "Usually issued for 1 to 3 years depending on assignment. Managers and specialists can get up to 3 years; trainees up to 1 year. Renewable under certain conditions.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Residence permit issuance after arrival may cost an additional €80–€100.",
+
+    time: "Processing time usually 6–12 weeks depending on company documentation, transfer approval, and immigration verification.",
+
+    age: "No strict age limit. Typically issued to professionals aged 21–55 depending on corporate role and experience.",
+
+    education: "Required. Must have relevant degree or professional expertise for managerial, specialist, or trainee ICT category.",
+
+    funds: "No personal funds required. Salary and living costs are covered by the sending or receiving company in Luxembourg.",
+
+    docs: "Valid passport, ICT assignment letter from company, proof of employment in home branch (minimum 3–12 months prior employment), transfer agreement, job description in Luxembourg branch, academic/professional qualifications, CV, salary details, passport photos, visa application form, health insurance, accommodation proof.",
+
+    whom: "Non-EU employees (including Indian citizens) transferred within multinational companies to Luxembourg branches in roles such as managers, specialists, or trainees.",
+
+    rules: "Must work only for assigned company and branch. Cannot switch employer during ICT validity. Must return or move under new permit after transfer ends. Must register after arrival.",
+
+    prosCons: "Pros: Smooth corporate mobility, no labor market test required, career growth in multinational companies, family reunification possible. Cons: Employer dependent, limited flexibility, temporary status.",
+
+    terms: "ICT: Intra-Corporate Transfer; Specialist: Expert-level employee; Manager: Senior leadership role; Trainee: Corporate training employee; Sending Company: Home branch; Hosting Company: Luxembourg branch.",
+
+    legal: "Regulated under EU ICT Directive (2014/66/EU) and Luxembourg immigration law.",
+
+    process: `1. Employee selected for transfer within multinational company ->
+              2. Company prepares ICT assignment agreement ->
+              3. Provide proof of prior employment (minimum required duration) ->
+              4. Submit Type D ICT visa application ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Immigration verifies corporate transfer eligibility ->
+              8. Visa approval issued ->
+              9. Travel to Luxembourg ->
+              10. Register at commune office ->
+              11. Apply for ICT residence permit ->
+              12. Begin assignment at Luxembourg branch`
+},
+"LuxembourgSelfEmployedVisa": {
+    name: "Self-Employed Visa (Luxembourg – Independent Professional / Business Activity Permit)",
+
+    validity: "Usually issued for 1–3 years initially. Renewable if business remains viable and legal requirements are met.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Additional residence permit fee after arrival: ~€80–€100.",
+
+    time: "Processing time usually 8–16 weeks due to business viability checks and economic approval procedures.",
+
+    age: "No strict age limit. Typically issued to working-age entrepreneurs (18+), often with relevant professional experience.",
+
+    education: "Not strictly required, but relevant qualifications, business experience, or professional expertise are strongly expected.",
+
+    funds: "Proof of sufficient financial resources required (often €15,000–€50,000+ depending on business type), plus ability to sustain living and business operations in Luxembourg.",
+
+    docs: "Valid passport, detailed business plan, proof of financial resources, CV, professional qualifications, market feasibility study, proof of accommodation, health insurance, visa application form, passport photos, tax and financial records (if applicable), registration documents (if already a business exists).",
+
+    whom: "Foreign nationals (including Indian citizens) who want to establish and run an independent business or professional activity in Luxembourg (consulting, trade, services, freelancing under business registration).",
+
+    rules: "Must operate only approved self-employed activity. Business must be economically viable and beneficial to Luxembourg economy. Must register with trade authorities. Must pay taxes and comply with business laws. Cannot switch to unrelated employment without authorization.",
+
+    prosCons: "Pros: Business independence in EU market, access to high-income economy, pathway to long-term residence if successful. Cons: Strict approval process, high financial proof requirement, business risk burden on applicant.",
+
+    terms: "Self-Employment Authorization: Permission to run independent business; Business Plan: Detailed operational strategy; Economic Interest Test: Assessment of business benefit to Luxembourg; Trade License: Business registration approval.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU self-employment and business migration regulations.",
+
+    process: `1. Develop viable business idea and plan ->
+              2. Prepare financial proof and feasibility study ->
+              3. Submit self-employment authorization request ->
+              4. Apply for Type D visa at embassy ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Authorities assess economic viability ->
+              8. Visa approval issued ->
+              9. Travel to Luxembourg ->
+              10. Register business with authorities ->
+              11. Apply for residence permit ->
+              12. Begin self-employed activity`
+},
+
+"LuxembourgStartupVisa": {
+    name: "Startup Visa (Luxembourg – Innovative Business Residence Permit)",
+
+    validity: "Usually issued for 1 year initially. Renewable for 2–3 years depending on startup progress and innovation milestones. Can lead to long-term residence if the business succeeds.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Additional residence permit fee after arrival: ~€80–€100.",
+
+    time: "Processing time usually 8–14 weeks depending on evaluation of business plan and approval by competent authorities.",
+
+    age: "No strict age limit. Typically issued to entrepreneurs aged 18+ with innovative business ideas.",
+
+    education: "Not mandatory, but strong preference for applicants with relevant education, technical skills, or entrepreneurial experience.",
+
+    funds: "Proof of sufficient funds required, typically €20,000–€50,000+ depending on business plan and living costs. Must show ability to sustain both startup and personal expenses.",
+
+    docs: "Valid passport, detailed innovative business plan, proof of innovative nature of startup, CV, academic/professional qualifications, financial proof or investment funds, proof of accommodation, health insurance, passport photos, market analysis, endorsement letter (if required by incubator or authority).",
+
+    whom: "Foreign entrepreneurs (including Indian citizens) who want to launch innovative, scalable, and technology-driven startups in Luxembourg (fintech, AI, biotech, green tech, digital services, etc.).",
+
+    rules: "Business must be innovative and scalable. Must be approved by relevant Luxembourg authorities or incubators. Must actively develop startup in Luxembourg. Cannot operate unrelated business activities. Must comply with tax and legal regulations.",
+
+    prosCons: "Pros: Access to EU startup ecosystem, incubation support, potential funding opportunities, pathway to long-term residence. Cons: Strict innovation requirement, high competition, approval not guaranteed.",
+
+    terms: "Startup Incubator: Support organization for startups; Innovation Requirement: Business must be novel/scalable; Business Validation: Government/agency approval; Residence Permit: Legal stay authorization after arrival.",
+
+    legal: "Regulated under Luxembourg Immigration Law and national startup/innovation policies aligned with EU entrepreneurship frameworks.",
+
+    process: `1. Develop innovative startup idea ->
+              2. Prepare detailed business plan and feasibility study ->
+              3. Seek endorsement from incubator or authority (if required) ->
+              4. Submit Type D startup visa application ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Authorities evaluate innovation and scalability ->
+              8. Visa approval issued ->
+              9. Travel to Luxembourg ->
+              10. Register with local authorities ->
+              11. Apply for residence permit ->
+              12. Launch and operate startup in Luxembourg`
+},
+
+"LuxembourgInvestorVisa": {
+    name: "Investor Visa (Luxembourg – Residence Permit for Investors)",
+
+    validity: "Usually issued for 3 years initially. Renewable if investment conditions are maintained. Can lead to long-term residence and eventually citizenship eligibility.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Residence permit issuance after arrival may cost an additional €80–€100.",
+
+    time: "Processing time usually 8–16 weeks depending on verification of investment funds, source of wealth checks, and approval by authorities.",
+
+    age: "No strict age limit. Typically issued to adult investors (18+) with substantial financial capacity.",
+
+    education: "Not required. Eligibility is based on financial investment capacity and lawful source of funds.",
+
+    funds: "High investment requirement. Typically €500,000 to €20,000,000+ depending on investment route (startup, innovation, real estate, fund investment, or economic contribution). Must prove legal source of wealth.",
+
+    docs: "Valid passport, detailed investment plan, proof of funds and source of wealth, bank statements, investment commitment letter, CV/profile of investor, proof of accommodation, health insurance, police clearance certificate, passport photos, business or investment documentation (funds, company shares, startup investment, etc.).",
+
+    whom: "Foreign nationals (including Indian citizens) who wish to obtain residence in Luxembourg by making substantial financial investments in the economy such as businesses, startups, funds, or strategic economic projects.",
+
+    rules: "Investment must be maintained throughout residence validity. Funds must be legally sourced and verifiable. Must comply with tax laws and investment commitments. Passive or illegal investments are not accepted.",
+
+    prosCons: "Pros: Fast-track residence option, access to EU market, family inclusion possible, pathway to long-term residence and citizenship. Cons: Very high capital requirement, strict financial scrutiny, investment risk borne by applicant.",
+
+    terms: "Investor Residence Permit: Legal stay based on capital investment; Source of Wealth Check: Verification of funds origin; Economic Contribution: Investment benefit to Luxembourg economy; Due Diligence: Background and financial checks.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU investor migration policies (national discretion-based framework).",
+
+    process: `1. Select eligible investment route (startup, fund, business, etc.) ->
+              2. Prepare investment plan and financial documentation ->
+              3. Conduct source-of-funds verification ->
+              4. Submit investor visa application (Type D) ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Authorities evaluate investment and background ->
+              8. Approval issued ->
+              9. Travel to Luxembourg ->
+              10. Complete investment commitment ->
+              11. Register with local authorities ->
+              12. Apply for residence permit and maintain investment`
+},
+
+"LuxembourgFamilyReunionVisa": {
+    name: "Family Reunion Visa (Luxembourg – National Visa Type D for Family Reunification)",
+
+    validity: "Usually issued for 1 year initially, renewable. It is linked to the residence status of the sponsoring family member in Luxembourg.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Additional residence permit fee after arrival: ~€80–€100.",
+
+    time: "Processing time usually 8–16 weeks depending on verification of family relationship and sponsor residence status.",
+
+    age: "No strict age limit. Applicable to spouses, children, and dependent family members of all ages.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in Luxembourg must demonstrate sufficient income to support family members (stable salary meeting Luxembourg minimum living requirements). Applicant usually does not need separate financial proof.",
+
+    docs: "Valid passport, completed visa application form, proof of family relationship (marriage certificate, birth certificates, legal adoption papers), sponsor’s residence permit or citizenship proof, sponsor’s employment and income proof, accommodation proof, health insurance, passport photos, civil status documents (translated and legalized if required).",
+
+    whom: "Foreign family members (including Indian citizens) of legal residents, workers, students, or EU/Blue Card holders in Luxembourg seeking to join their spouse, parents, or children.",
+
+    rules: "Must live with sponsoring family member. Must register after arrival. Work rights may depend on sponsor’s status. Must maintain valid residence conditions. False documentation leads to rejection or ban.",
+
+    prosCons: "Pros: Enables family unity, access to education and healthcare, possible work rights depending on status. Cons: Strict documentation verification, dependency on sponsor, processing delays possible.",
+
+    terms: "Sponsor: Family member in Luxembourg; Dependents: Eligible family members; Civil Status Documents: Legal proof of relationship; Residence Permit: Post-arrival legal stay authorization.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Family Reunification Directive (2003/86/EC).",
+
+    process: `1. Sponsor applies or holds valid residence in Luxembourg ->
+              2. Gather family relationship documents ->
+              3. Legalize and translate civil documents if needed ->
+              4. Submit Type D family reunion visa application ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Immigration verifies relationship and sponsor income ->
+              8. Visa decision issued ->
+              9. Travel to Luxembourg ->
+              10. Register with commune office ->
+              11. Apply for residence permit ->
+              12. Join family in Luxembourg`
+},
+
+"LuxembourgSpouseVisa": {
+    name: "Spouse Visa (Luxembourg – Family Reunification Visa Type D for Married Partners)",
+
+    validity: "Usually issued for 1 year initially, renewable. Linked to the residence status of the sponsoring spouse in Luxembourg. Can lead to long-term residence if conditions are maintained.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Additional residence permit fee after arrival: ~€80–€100.",
+
+    time: "Processing time usually 8–16 weeks depending on verification of marriage authenticity and sponsor’s residence status.",
+
+    age: "No strict age limit. Typically applicable to married spouses aged 18+.",
+
+    education: "Not required.",
+
+    funds: "Sponsor must show sufficient income to support spouse (stable employment in Luxembourg meeting minimum income threshold). Applicant usually does not need separate financial proof.",
+
+    docs: "Valid passport, completed visa application form, marriage certificate (legally registered and legalized/apostilled), proof of genuine relationship (photos, communication records if requested), sponsor’s residence permit or citizenship proof, sponsor’s employment contract and salary slips, accommodation proof, health insurance, passport photos.",
+
+    whom: "Legally married spouses of non-EU residents, workers, EU Blue Card holders, or citizens living in Luxembourg (including Indian nationals).",
+
+    rules: "Must live with sponsoring spouse. Must register after arrival. Work rights depend on sponsor’s immigration status. Marriage must be legally valid and recognized. Fraudulent marriages lead to rejection and penalties.",
+
+    prosCons: "Pros: Enables family unity, access to healthcare and education, potential work rights, pathway to long-term residence. Cons: Strict marriage verification, dependency on sponsor, documentation-heavy process.",
+
+    terms: "Sponsor: Resident spouse in Luxembourg; Family Reunification: Legal process to join family; Civil Status Documents: Marriage certificates and legal proof; Residence Permit: Post-arrival stay authorization.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Family Reunification Directive (2003/86/EC).",
+
+    process: `1. Sponsor must have valid residence status in Luxembourg ->
+              2. Obtain and legalize marriage certificate ->
+              3. Gather proof of genuine relationship ->
+              4. Prepare financial and accommodation proof from sponsor ->
+              5. Submit Type D spouse visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Authorities verify marriage authenticity and sponsor income ->
+              9. Visa decision issued ->
+              10. Travel to Luxembourg ->
+              11. Register at commune office ->
+              12. Apply for residence permit and live with spouse`
+},
+"LuxembourgChildVisa": {
+    name: "Child Visa (Luxembourg – Family Reunification Visa Type D for Minor Children)",
+
+    validity: "Usually issued for 1 year initially, renewable. Linked to the residence status of the sponsoring parent in Luxembourg. Can lead to long-term residence if family conditions continue.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Additional residence permit fee after arrival: ~€80–€100.",
+
+    time: "Processing time usually 6–16 weeks depending on verification of parent-child relationship and sponsor residence status.",
+
+    age: "Applicable to minor children under 18 years. In some cases, dependent adult children with disabilities may also qualify.",
+
+    education: "Not required for visa eligibility, but school enrollment may be required after arrival for school-age children.",
+
+    funds: "Sponsor (parent in Luxembourg) must show sufficient income to support child(ren). No separate financial proof required from the child.",
+
+    docs: "Valid passport, completed visa application form, birth certificate (legalized/apostilled) proving parent-child relationship, sponsor’s residence permit or citizenship proof, sponsor’s employment and income proof, accommodation proof, health insurance, passport photos, school enrollment documents (if applicable).",
+
+    whom: "Minor children of non-EU residents, workers, students, or EU Blue Card holders living in Luxembourg (including Indian citizens).",
+
+    rules: "Child must live with sponsoring parent. Must attend school once of school age. Must register with local commune after arrival. Immigration status depends on parent’s valid residence permit.",
+
+    prosCons: "Pros: Enables family unity, access to free/low-cost education, healthcare benefits, safe living environment. Cons: Fully dependent on parent’s legal status, strict documentation requirements.",
+
+    terms: "Sponsor: Parent residing in Luxembourg; Minor: Child under legal adult age; Family Reunification: Legal process of joining family; Residence Permit: Legal stay document after arrival.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Family Reunification Directive (2003/86/EC).",
+
+    process: `1. Parent must have valid residence status in Luxembourg ->
+              2. Obtain legalized birth certificate of child ->
+              3. Prepare sponsor income and housing proof ->
+              4. Submit Type D child visa application ->
+              5. Attend biometric appointment (if required) ->
+              6. Pay visa fee ->
+              7. Authorities verify relationship and financial stability ->
+              8. Visa decision issued ->
+              9. Child travels to Luxembourg ->
+              10. Register with commune office ->
+              11. Enroll in school (if applicable) ->
+              12. Apply for residence permit`
+},
+"LuxembourgDependentVisa": {
+    name: "Dependent Visa (Luxembourg – Family Dependent Residence Permit)",
+
+    validity: "Usually issued for 1 year initially, renewable. Linked to the validity of the main applicant’s residence permit (worker, student, EU Blue Card holder, etc.).",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Residence permit issuance after arrival may cost an additional €80–€100.",
+
+    time: "Processing time usually 6–16 weeks depending on verification of dependency relationship and sponsor status.",
+
+    age: "No strict age limit. Commonly applies to spouse, children under 18, and in some cases dependent parents or disabled adult dependents.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in Luxembourg must show sufficient income to support dependents according to household size and Luxembourg minimum living standards.",
+
+    docs: "Valid passport, completed visa application form, proof of relationship (marriage certificate, birth certificate, dependency proof), sponsor’s residence permit or EU Blue Card, sponsor’s employment and salary proof, accommodation proof, health insurance, passport photos, civil status documents (legalized and translated if required).",
+
+    whom: "Family members (including Indian citizens) who are financially and legally dependent on a primary visa holder in Luxembourg such as workers, students, or EU Blue Card holders.",
+
+    rules: "Must reside with sponsor. Must register after arrival. Work rights depend on sponsor’s visa category. Must maintain dependency status. Misrepresentation leads to rejection or cancellation.",
+
+    prosCons: "Pros: Enables family unity, access to healthcare and education, possible work rights depending on sponsor status. Cons: Fully dependent on sponsor, strict documentation requirements, no independent immigration status initially.",
+
+    terms: "Sponsor: Main visa holder in Luxembourg; Dependent: Family member supported financially; Family Reunification: Legal process of joining family; Residence Permit: Legal stay document after arrival.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Family Reunification Directive (2003/86/EC).",
+
+    process: `1. Sponsor holds valid residence permit in Luxembourg ->
+              2. Gather proof of dependency (relationship documents) ->
+              3. Legalize and translate civil documents if required ->
+              4. Submit Type D dependent visa application ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Authorities verify dependency and sponsor income ->
+              8. Visa decision issued ->
+              9. Travel to Luxembourg ->
+              10. Register with commune office ->
+              11. Apply for residence permit ->
+              12. Join sponsor in Luxembourg`
+},
+"LuxembourgAuPairVisa": {
+    name: "Au Pair Visa (Luxembourg – Cultural Exchange / Family Placement Visa Type D)",
+
+    validity: "Usually issued for 6 months to 1 year. Extension is generally not allowed beyond the maximum duration under au pair rules.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for visa application. Residence permit registration fee after arrival may apply (~€80–€100).",
+
+    time: "Processing time usually 4–10 weeks depending on host family approval and administrative verification.",
+
+    age: "Typically 18–30 years old. Some cases may allow up to 35 depending on agreement and nationality rules.",
+
+    education: "Minimum secondary education required. Basic knowledge of French, German, or English is often expected.",
+
+    funds: "No large personal funds required. Host family provides pocket money (stipend), accommodation, and meals. Applicant may need small proof of initial travel funds.",
+
+    docs: "Valid passport, completed visa application form, au pair agreement/contract with host family, proof of education, basic language proficiency proof (if required), medical insurance, police clearance certificate, passport photos, motivation letter, travel itinerary.",
+
+    whom: "Foreign young adults (including Indian citizens) participating in cultural exchange programs by living with a host family in Luxembourg while helping with childcare and light household tasks.",
+
+    rules: "Must live with host family. Maximum working hours usually 25–30 hours/week. Must attend language courses if required. Cannot take full-time employment. Must respect cultural exchange nature of program.",
+
+    prosCons: "Pros: Cultural exchange experience, free accommodation and meals, language learning opportunity, easy entry route. Cons: Limited income, strict rules on working hours, no long-term residence pathway.",
+
+    terms: "Host Family: Family providing accommodation; Pocket Money: Weekly/monthly stipend; Cultural Exchange: Non-employment childcare arrangement; Au Pair Agreement: Official placement contract.",
+
+    legal: "Regulated under Luxembourg immigration rules for cultural exchange programs and European Au Pair guidelines.",
+
+    process: `1. Find approved host family in Luxembourg ->
+              2. Sign au pair agreement ->
+              3. Arrange basic documents and insurance ->
+              4. Submit Type D visa application ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Immigration verifies host family arrangement ->
+              8. Visa decision issued ->
+              9. Travel to Luxembourg ->
+              10. Register with commune office ->
+              11. Begin au pair placement ->
+              12. Attend language/cultural integration activities`
+},
+
+"LuxembourgInternshipVisa": {
+    name: "Internship Visa (Luxembourg – National Visa Type D for Trainees / Interns)",
+
+    validity: "Usually issued for the duration of the internship, typically 3–12 months. In some structured programs, it may be extended up to 18 months.",
+
+    cost: "€50–€80 (~₹4,500–₹7,500) for visa application. Residence permit after arrival may cost an additional €80–€100.",
+
+    time: "Processing time usually 4–10 weeks depending on internship agreement verification and embassy workload.",
+
+    age: "Generally 18–30 years for most internship programs. Some professional internships may allow older candidates depending on program rules.",
+
+    education: "Required. Must be enrolled in or recently graduated from a university/recognized institution related to the internship field.",
+
+    funds: "Proof of sufficient funds required (~€1,000–€1,500/month) unless internship is paid. Some internships provide stipend or sponsorship from host company.",
+
+    docs: "Valid passport, internship agreement or training contract, university enrollment/graduation proof, CV, motivation letter, accommodation proof, health insurance, passport photos, financial proof or stipend details, visa application form.",
+
+    whom: "Foreign students or recent graduates (including Indian citizens) who are undertaking internships in Luxembourg companies, NGOs, research centers, or institutions.",
+
+    rules: "Must work only within approved internship scope. Cannot take unrelated employment. Must follow internship duration strictly. Must register after arrival. Some internships may require academic supervision.",
+
+    prosCons: "Pros: International work experience, exposure to EU companies, possible pathway to job offers, skill development. Cons: Temporary stay, limited income, strict internship scope limitations.",
+
+    terms: "Trainee: Internship participant; Internship Agreement: Official training contract; Host Organization: Company or institution offering internship; Residence Permit: Post-arrival legal stay authorization.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Traineeship Directive (2016/801/EU).",
+
+    process: `1. Secure internship offer from Luxembourg organization ->
+              2. Sign internship/training agreement ->
+              3. Prepare academic documents and CV ->
+              4. Submit Type D visa application ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Immigration verifies internship legitimacy ->
+              8. Visa approval issued ->
+              9. Travel to Luxembourg ->
+              10. Register with commune office ->
+              11. Apply for residence permit ->
+              12. Begin internship program`
+},
+
+"LuxembourgTraineeVisa": {
+    name: "Trainee Visa (Luxembourg – National Visa Type D for Vocational / Professional Training)",
+
+    validity: "Usually issued for the duration of the training program, typically 3–12 months. In some structured corporate or certified programs, it may extend up to 18 months.",
+
+    cost: "€50–€80 (~₹4,500–₹7,500) for visa application. Residence permit after arrival may cost an additional €80–€100.",
+
+    time: "Processing time usually 4–12 weeks depending on training agreement verification and administrative workload.",
+
+    age: "Typically 18–35 years. Some professional or corporate training programs may allow older candidates based on employer policy.",
+
+    education: "Required. Must have relevant education or be enrolled in vocational, technical, or professional training program aligned with the trainee position.",
+
+    funds: "Proof of sufficient funds required (~€1,000–€1,500/month) unless training is paid or sponsored by employer/organization.",
+
+    docs: "Valid passport, training agreement or trainee contract, proof of education (degree/diploma/certificates), CV, motivation letter, accommodation proof, health insurance, financial proof or stipend details, passport photos, visa application form.",
+
+    whom: "Foreign nationals (including Indian citizens) participating in structured vocational or professional training programs in Luxembourg companies, institutions, or organizations.",
+
+    rules: "Must follow approved training program only. No unrelated employment allowed. Must complete training duration. Must register after arrival. Must comply with host organization rules and immigration conditions.",
+
+    prosCons: "Pros: Skill development in EU environment, exposure to international work culture, potential pathway to employment. Cons: Temporary stay, limited earnings, strict training-only restriction.",
+
+    terms: "Trainee: Participant in structured training; Training Agreement: Official contract between trainee and host; Host Organization: Company or institution providing training; Residence Permit: Legal stay authorization after arrival.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Traineeship Directive (2016/801/EU).",
+
+    process: `1. Secure training program or placement in Luxembourg ->
+              2. Sign trainee/training agreement ->
+              3. Prepare educational and CV documents ->
+              4. Submit Type D visa application ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Immigration verifies training validity ->
+              8. Visa approval issued ->
+              9. Travel to Luxembourg ->
+              10. Register with commune office ->
+              11. Apply for residence permit ->
+              12. Begin trainee program`
+},
+"LuxembourgVolunteerVisa": {
+    name: "Volunteer Visa (Luxembourg – European Voluntary Service / European Solidarity Corps Visa Type D)",
+
+    validity: "Usually issued for the duration of the volunteer program, typically 2 to 12 months. Extensions are rarely granted and depend on program approval.",
+
+    cost: "€0–€80 (~₹0–₹7,500) depending on category. Many European Solidarity Corps volunteers are exempt from visa fees, but standard administrative charges may still apply.",
+
+    time: "Processing time usually 4–10 weeks depending on host organization approval and embassy workload.",
+
+    age: "Typically 18–30 years old under European Solidarity Corps programs. Some volunteer programs may allow slightly higher age limits depending on project rules.",
+
+    education: "Not strictly required. Basic education and motivation for social/community work are expected.",
+
+    funds: "No personal funds required in most cases. Accommodation, food, and basic expenses are usually covered by the host organization. Volunteers may receive a small allowance/pocket money.",
+
+    docs: "Valid passport, completed visa application form, volunteer placement agreement, acceptance letter from accredited NGO/host organization, project description, proof of accommodation, health insurance, motivation letter, passport photos, travel itinerary.",
+
+    whom: "Foreign nationals (including Indian citizens) participating in approved volunteer programs in Luxembourg under European Solidarity Corps or similar NGO/community initiatives.",
+
+    rules: "Must participate only in approved volunteer activities. Cannot take paid employment. Must follow project schedule and rules of host organization. Must leave after completion of program unless another permit is granted.",
+
+    prosCons: "Pros: Fully funded experience in many cases, cultural exchange, EU exposure, personal development, networking opportunities. Cons: No salary, short-term stay, strict program-based limitations.",
+
+    terms: "European Solidarity Corps: EU volunteer program; NGO: Non-governmental organization; Host Organization: Approved project provider; Volunteer Agreement: Official participation contract.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU European Solidarity Corps / Voluntary Service framework.",
+
+    process: `1. Apply for approved volunteer program in Luxembourg ->
+              2. Get acceptance from host NGO or organization ->
+              3. Receive volunteer placement agreement ->
+              4. Prepare visa documents and insurance ->
+              5. Submit Type D visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee (if applicable) ->
+              8. Immigration verifies volunteer project ->
+              9. Visa approval issued ->
+              10. Travel to Luxembourg ->
+              11. Register with local authorities ->
+              12. Begin volunteer service`
+},
+"LuxembourgLongStayVisaTypeD": {
+    name: "Long-Stay Visa (Type D National Visa – Luxembourg)",
+
+    validity: "Usually issued for more than 90 days, typically 3 months to 1 year initially depending on purpose (work, study, family, research). Renewable through residence permit extensions.",
+
+    cost: "€50–€100 (~₹4,500–₹9,000) depending on category and purpose. Additional residence permit fee after arrival: ~€80–€100.",
+
+    time: "Processing time usually 4–16 weeks depending on visa category (work, study, family, etc.) and document verification requirements.",
+
+    age: "No strict age limit. Depends on visa sub-category (students, workers, dependents, researchers, etc.).",
+
+    education: "Not required universally. Depends on purpose (e.g., required for study, research, and skilled employment categories).",
+
+    funds: "Varies by category. Applicants must show sufficient funds or sponsor support (e.g., €1,000–€2,000/month for students; employer salary for workers; sponsor income for family visas).",
+
+    docs: "Valid passport, completed visa application form, category-specific documents (job contract/admission letter/family proof/research agreement), proof of accommodation, health insurance, financial proof or sponsor guarantee, passport photos, civil status documents (if applicable), travel itinerary.",
+
+    whom: "Foreign nationals (including Indian citizens) planning to stay in Luxembourg for long-term purposes such as work, study, family reunification, research, or training.",
+
+    rules: "Must comply strictly with declared purpose of stay. Must register with local commune after arrival. Must apply for residence permit after entry. Work or study rights depend on visa category. Overstaying or misuse leads to penalties.",
+
+    prosCons: "Pros: Gateway to long-term residence in Luxembourg, supports multiple purposes, access to EU mobility after conversion to residence permit. Cons: Strict documentation, category-dependent rules, longer processing time.",
+
+    terms: "Type D Visa: National long-stay visa; Residence Permit: Post-arrival legal stay document; Commune Registration: Local authority registration; Purpose-Based Visa: Visa linked to specific activity.",
+
+    legal: "Regulated under Luxembourg Immigration Law and EU Visa Code (for issuance) plus national residence regulations.",
+
+    process: `1. Determine purpose of long stay (work, study, family, etc.) ->
+              2. Gather category-specific documents ->
+              3. Submit Type D visa application at embassy/VFS ->
+              4. Attend biometric appointment ->
+              5. Pay visa fee ->
+              6. Immigration reviews application ->
+              7. Visa decision issued ->
+              8. Travel to Luxembourg ->
+              9. Register with local commune ->
+              10. Apply for residence permit ->
+              11. Receive residence card ->
+              12. Continue stay under approved category`
+},
+"LuxembourgPermanentResidencePermit": {
+    name: "Permanent Residence Permit (Luxembourg – Long-Term Residence Status)",
+
+    validity: "Indefinite residence status once granted. The residence card itself is usually issued for 5 years and renewable.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for application. Renewal or issuance of residence card may involve similar administrative fees.",
+
+    time: "Processing time usually 3–6 months depending on continuous residence proof and immigration verification.",
+
+    age: "No strict age limit. Granted to eligible long-term residents who meet residency requirements.",
+
+    education: "Not required.",
+
+    funds: "Must demonstrate stable and sufficient income or financial independence (employment, business, pension, or long-term support).",
+
+    docs: "Valid passport, proof of continuous legal residence (usually 5 years), residence permits history, employment or income proof, tax records, accommodation proof, health insurance, language integration proof (if required), civil status documents, application form, passport photos.",
+
+    whom: "Non-EU nationals (including Indian citizens) who have legally and continuously lived in Luxembourg for at least 5 years under eligible residence permits (work, study with conditions, family reunification, etc.).",
+
+    rules: "Must have continuous legal residence without long absences (usually no more than 6 consecutive months or 10 months total outside in 5 years). Must show integration into Luxembourg society. Must maintain financial stability and legal status.",
+
+    prosCons: "Pros: Long-term security, free movement within Luxembourg, easier access to jobs and services, pathway to citizenship. Cons: Strict residency requirement, loss possible if long absence, documentation-heavy process.",
+
+    terms: "Long-Term Resident Status: Permanent residence right; Continuous Residence: Uninterrupted legal stay period; Integration Requirement: Language and social integration proof; Residence Card: Official ID document.",
+
+    legal: "Regulated under EU Long-Term Residence Directive (2003/109/EC) and Luxembourg Immigration Law.",
+
+    process: `1. Complete minimum 5 years of legal residence in Luxembourg ->
+              2. Gather proof of continuous stay and income ->
+              3. Ensure tax compliance and social integration ->
+              4. Submit permanent residence application ->
+              5. Attend verification appointment if required ->
+              6. Immigration reviews eligibility ->
+              7. Decision issued ->
+              8. Receive long-term residence permit card ->
+              9. Register updated status if needed ->
+              10. Maintain residence conditions for validity`
+},
+
+"LuxembourgEULongTermResidencePermit": {
+    name: "EU Long-Term Residence Permit (Luxembourg – EU Long-Term Resident Status)",
+
+    validity: "Indefinite right of residence once granted. The physical residence card is typically valid for 5 years and renewable.",
+
+    cost: "€80–€100 (~₹7,000–₹9,000) for application. Renewal or issuance of residence card may involve similar administrative fees.",
+
+    time: "Processing time usually 3–6 months depending on verification of continuous residence, integration, and documentation checks.",
+
+    age: "No strict age limit. Granted to eligible non-EU residents who meet long-term residence requirements.",
+
+    education: "Not required.",
+
+    funds: "Must show stable and sufficient income (employment, self-employment, pension, or long-term financial support) to avoid dependence on social assistance.",
+
+    docs: "Valid passport, proof of 5 years continuous legal residence in Luxembourg, residence permit history, employment contracts or income proof, tax declarations, health insurance, accommodation proof, integration/language proof if required, application form, passport photos.",
+
+    whom: "Non-EU nationals (including Indian citizens) who have legally and continuously lived in Luxembourg for at least 5 years under eligible residence categories and want EU-wide long-term resident status.",
+
+    rules: "Must maintain legal residence and financial stability. Absences from EU must not exceed allowed limits (generally not more than 6 consecutive months or 12 months total in 5 years in special cases). Must comply with integration and tax obligations.",
+
+    prosCons: "Pros: Strong EU-wide residence security, easier mobility across EU countries (subject to rules), access to social benefits, pathway to citizenship. Cons: Strict 5-year requirement, documentation-heavy, may be revoked if conditions are violated.",
+
+    terms: "EU Long-Term Resident Status: EU-wide residency rights; Continuous Residence: Legal stay without major gaps; Integration Requirement: Language and societal participation; Mobility Rights: Limited relocation rights within EU states.",
+
+    legal: "Regulated under EU Directive 2003/109/EC on long-term resident status and Luxembourg Immigration Law.",
+
+    process: `1. Complete 5 years of continuous legal residence in Luxembourg ->
+              2. Collect proof of income, tax, and residence history ->
+              3. Verify integration requirements (language/social) ->
+              4. Submit EU long-term residence application ->
+              5. Attend verification appointment if required ->
+              6. Immigration authority reviews eligibility ->
+              7. Decision issued ->
+              8. Receive EU long-term residence permit card ->
+              9. Register updated status with authorities ->
+              10. Maintain residence conditions for retention`
+},
+
+"LuxembourgHumanitarianVisa": {
+    name: "Humanitarian Visa (Luxembourg – National Visa Type D / Exceptional Humanitarian Residence Permit)",
+
+    validity: "Usually short-term (3–12 months initially) depending on case. Can be extended or converted into longer residence permits based on humanitarian situation and official assessment.",
+
+    cost: "€0–€100 (~₹0–₹9,000). In many humanitarian or protection cases, visa fees are reduced or fully waived.",
+
+    time: "Processing time varies widely: usually 4–20 weeks depending on urgency, documentation, and asylum/humanitarian case assessment.",
+
+    age: "No strict age limit. Applicable to individuals of all ages including minors, elderly, and vulnerable persons.",
+
+    education: "Not required.",
+
+    funds: "No mandatory personal funds requirement. Applicants may receive state support or NGO assistance depending on case approval.",
+
+    docs: "Valid passport or identity documents (if available), detailed explanation of humanitarian grounds, supporting evidence (medical reports, threat documentation, protection evidence), civil status documents, accommodation proof (if available), police reports (if relevant), visa application form, passport photos.",
+
+    whom: "Foreign nationals (including Indian citizens in exceptional cases) seeking entry or stay in Luxembourg due to urgent humanitarian reasons such as serious medical conditions, persecution risk, family emergencies, or vulnerable situations.",
+
+    rules: "Must provide credible humanitarian justification. Status is strictly case-based and reviewed by authorities. Cannot engage in unauthorized employment unless permitted. Must comply with Luxembourg immigration decisions and reporting requirements.",
+
+    prosCons: "Pros: Protection in urgent or vulnerable situations, access to basic support services, possible pathway to asylum or residence status. Cons: Uncertain approval, highly case-specific, temporary nature, strict scrutiny.",
+
+    terms: "Humanitarian Grounds: Exceptional need for protection; Protection Status: Legal safeguard under immigration law; Vulnerable Person: High-risk applicant category; Temporary Residence: Short-term legal stay authorization.",
+
+    legal: "Regulated under Luxembourg Immigration Law, EU asylum and humanitarian protection frameworks, and the European Convention on Human Rights (ECHR).",
+
+    process: `1. Present humanitarian reason for entry or stay ->
+              2. Submit application with supporting evidence ->
+              3. Authorities assess urgency and credibility ->
+              4. Additional interviews or medical checks if required ->
+              5. Temporary decision or protection assessment issued ->
+              6. Visa or residence authorization granted (if approved) ->
+              7. Travel to Luxembourg (if outside EU) ->
+              8. Register with authorities ->
+              9. Receive temporary residence documentation ->
+              10. Undergo periodic review for extension or status change`
+},
+"LuxembourgAsylumRefugeeProtection": {
+    name: "Asylum / Refugee Protection Status (Luxembourg – International Protection)",
+
+    validity: "Initial asylum procedure is temporary. If granted refugee status or subsidiary protection, residence is typically issued for 1–3 years, renewable. Refugee status can lead to long-term residence and citizenship eligibility over time.",
+
+    cost: "€0 (~₹0). Asylum application is free of charge. Basic living support is provided by the state during the procedure.",
+
+    time: "Processing time usually 6–18 months, but can vary depending on case complexity, interviews, and backlog.",
+
+    age: "No age limit. Applicable to individuals, families, minors (including unaccompanied minors), and vulnerable persons.",
+
+    education: "Not required.",
+
+    funds: "No personal funds required. Applicants are supported by state accommodation centers and basic financial assistance during the asylum process.",
+
+    docs: "Valid passport or identity documents (if available), asylum application form, personal statement explaining persecution or risk, supporting evidence (police reports, threat letters, medical reports, country risk documentation), civil documents (if available), fingerprints and biometric data, interview records.",
+
+    whom: "Foreign nationals (including Indian citizens in rare exceptional cases) who are unable to return to their home country due to persecution, war, violence, or serious risk to life based on race, religion, nationality, political opinion, or membership of a particular social group.",
+
+    rules: "Must apply upon arrival or as soon as possible in Luxembourg. Must cooperate with asylum authorities and interviews. Cannot leave Luxembourg during procedure without permission. Work rights are restricted initially but may be granted after a waiting period depending on status.",
+
+    prosCons: "Pros: Legal protection from deportation, access to housing, healthcare, and basic support, pathway to long-term residence if granted. Cons: Long processing time, uncertainty of outcome, restricted freedom during procedure.",
+
+    terms: "Asylum Seeker: Person applying for protection; Refugee Status: Full international protection under Geneva Convention; Subsidiary Protection: Partial protection for serious risk cases; Dublin Regulation: EU rule determining responsible country for asylum case.",
+
+    legal: "Regulated under the 1951 Geneva Refugee Convention, EU Asylum Procedures Directive, and Luxembourg Immigration Law.",
+
+    process: `1. Arrive in Luxembourg or present at designated authority ->
+              2. Submit asylum application ->
+              3. Register biometric data ->
+              4. Receive temporary protection and accommodation ->
+              5. Attend asylum interview with authorities ->
+              6. Case assessment by immigration office ->
+              7. Decision issued (refugee status / subsidiary protection / rejection) ->
+              8. If approved, receive residence permit ->
+              9. Access integration support programs ->
+              10. Periodic review or appeal if required`
+},
+
+"LuxembourgOfficialVisa": {
+    name: "Official Visa (Luxembourg – Government / Official Delegation Visa Type D/C)",
+
+    validity: "Usually issued for the duration of official duty or assignment, typically short-term (up to 90 days for Type C) or long-term (Type D) depending on mission.",
+
+    cost: "€0 (~₹0) for official/government delegations in most cases. Fees are usually waived for diplomatic or intergovernmental assignments.",
+
+    time: "Processing time usually 5–15 working days, depending on verification of official mission and embassy coordination.",
+
+    age: "No strict age limit. Applicable to government officials and delegation members.",
+
+    education: "Not required, but applicants are usually government employees or representatives with official postings.",
+
+    funds: "Usually covered by the sending government or official institution. Applicant does not need personal financial proof.",
+
+    docs: "Valid passport, official letter from government department or institution, diplomatic/official note verbale, assignment details, travel itinerary, accommodation details, health insurance (if required), passport photos, visa application form.",
+
+    whom: "Foreign government officials, civil servants, and members of official delegations (including Indian government representatives) traveling to Luxembourg for official meetings, conferences, or state-related duties.",
+
+    rules: "Must perform only assigned official duties. Cannot engage in private employment or commercial activity. Must follow diplomatic protocol and exit upon completion of mission unless extended.",
+
+    prosCons: "Pros: Fast processing, fee waiver, diplomatic facilitation, simplified entry procedures. Cons: Strict purpose limitation, no personal work rights, dependent on official assignment duration.",
+
+    terms: "Note Verbale: Official diplomatic communication; Delegation: Government-appointed group; Protocol: Diplomatic rules and procedures; Official Mission: Government-assigned task.",
+
+    legal: "Regulated under Vienna Convention on Diplomatic Relations (1961), Luxembourg Immigration Law, and EU Schengen Visa Code for official travel.",
+
+    process: `1. Government or institution assigns official mission ->
+              2. Issue official letter or note verbale ->
+              3. Submit official visa application through embassy ->
+              4. Provide travel and mission details ->
+              5. Embassy verifies official status ->
+              6. Visa processing (fast-track) ->
+              7. Visa approval issued ->
+              8. Travel to Luxembourg ->
+              9. Entry with official clearance ->
+              10. Complete official assignment ->
+              11. Exit country after mission completion`
+},
+"LuxembourgDiplomaticVisa": {
+    name: "Diplomatic Visa (Luxembourg – Diplomatic / Official Passport Visa)",
+
+    validity: "Usually issued for the duration of diplomatic posting or mission. Can range from short-term (single assignment) to multi-year validity aligned with posting.",
+
+    cost: "€0 (~₹0). Diplomatic visas are generally fee-exempt under international diplomatic conventions.",
+
+    time: "Processing time usually 3–10 working days due to priority handling for diplomatic channels.",
+
+    age: "No strict age limit. Applicable to accredited diplomats and eligible family members.",
+
+    education: "Not required. Eligibility depends on diplomatic appointment or government posting.",
+
+    funds: "Not required from applicant. Expenses are typically covered by the sending government (salary, accommodation, allowances).",
+
+    docs: "Diplomatic passport, note verbale from sending country’s Ministry of Foreign Affairs, official assignment/order of posting, diplomatic accreditation documents, travel itinerary, passport photos, visa application form (if required), health insurance (if requested).",
+
+    whom: "Foreign diplomats (including Indian Foreign Service officers or embassy staff) and their eligible family members posted to embassies, consulates, or diplomatic missions in Luxembourg.",
+
+    rules: "Must perform only official diplomatic duties. Must respect Vienna Convention rules. Cannot engage in commercial or private employment. Must leave or change status upon completion of posting.",
+
+    prosCons: "Pros: Fast-track entry, full diplomatic privileges, immunity in certain cases, no visa fees. Cons: Strict eligibility, limited to official postings only, no personal employment rights.",
+
+    terms: "Diplomatic Immunity: Legal protection under international law; Note Verbale: Formal diplomatic communication; Accreditation: Official recognition by host country; Mission Posting: Assignment to embassy or consulate.",
+
+    legal: "Regulated under the Vienna Convention on Diplomatic Relations (1961) and Luxembourg diplomatic protocol laws.",
+
+    process: `1. Government assigns diplomatic posting ->
+              2. Ministry of Foreign Affairs issues note verbale ->
+              3. Submit diplomatic visa request via embassy channels ->
+              4. Host country verifies accreditation ->
+              5. Fast-track visa processing ->
+              6. Visa approval issued ->
+              7. Diplomat travels to Luxembourg ->
+              8. Accreditation with Luxembourg Foreign Ministry ->
+              9. Begin diplomatic mission ->
+              10. Maintain status until end of posting`
+},
+"LuxembourgCrewVisa": {
+    name: "Crew Visa (Luxembourg – Seafarer / Transport Crew Visa Type C/D)",
+
+    validity: "Usually short-stay (Type C up to 90 days within 180 days) for transit or assignment. In rare cases, long-stay (Type D) may be issued for extended contracts.",
+
+    cost: "€80 (~₹7,000–₹7,500) for short-stay visa. Some transport/crew agreements may have reduced or employer-covered fees.",
+
+    time: "Processing time usually 5–15 working days depending on crew schedule, employer verification, and travel urgency.",
+
+    age: "No strict age limit. Typically issued to working-age crew members (18+) employed in transport, aviation, or maritime sectors.",
+
+    education: "Not mandatory. Depends on role (pilot, cabin crew, ship crew, logistics staff, etc.). Relevant training/certification is usually required.",
+
+    funds: "Usually covered by employer or transport company. Crew members typically do not need to show personal financial proof.",
+
+    docs: "Valid passport, crew employment contract or seafarer/airline letter, crew ID card or seaman’s book (for maritime crew), flight/ship schedule, port entry details, visa application form, passport photos, health/travel insurance (if required), employer guarantee letter.",
+
+    whom: "Foreign nationals (including Indian citizens) working as airline crew, ship crew, or transport operators entering Luxembourg or transiting through EU routes for duty purposes.",
+
+    rules: "Must remain within assigned crew duties. Cannot engage in local employment. Must follow transport schedule and leave after duty completion. Crew visa is strictly for operational travel purposes.",
+
+    prosCons: "Pros: Fast processing, employer-sponsored travel, multiple-entry possibilities for frequent routes. Cons: Strictly work-bound, no settlement or employment flexibility, limited duration.",
+
+    terms: "Crew Member: Transport employee (air/sea/land); Seafarer: Maritime worker; Layover: Short transit stay; Crew ID: Official transport identification document.",
+
+    legal: "Regulated under EU Schengen Visa Code, Luxembourg immigration law, and international transport conventions (ICAO/IMO standards).",
+
+    process: `1. Employer assigns crew duty or route ->
+              2. Provide crew contract and travel schedule ->
+              3. Submit crew visa application via embassy/VFS ->
+              4. Provide crew identification documents ->
+              5. Fast-track verification by authorities ->
+              6. Visa approval issued ->
+              7. Travel to Luxembourg/EU port or airport ->
+              8. Immigration clearance under crew category ->
+              9. Perform assigned duty ->
+              10. Exit country or continue next assignment`
+},
+"LuxembourgSeafarerVisa": {
+    name: "Seafarer Visa (Luxembourg – Maritime Crew / Seaman Visa Type C/D)",
+
+    validity: "Usually issued for short stays up to 90 days within 180 days (Type C) for transit or port calls. Long-stay Type D may apply in rare cases for extended contracts or assignments.",
+
+    cost: "€80 (~₹7,000–₹7,500) for visa application. In many cases, fees may be covered by the shipping company or employer.",
+
+    time: "Processing time usually 5–15 working days depending on ship schedule, port authority coordination, and embassy verification.",
+
+    age: "No strict age limit. Typically issued to working-age maritime personnel (18+) such as sailors, engineers, officers, and support crew.",
+
+    education: "Not mandatory, but maritime certifications and training (STCW certification or equivalent) are required for most seafarer roles.",
+
+    funds: "Usually not required from the applicant. Shipping company or employer covers wages, travel, and accommodation onboard vessel.",
+
+    docs: "Valid passport, seafarer employment contract, seaman’s book (continuous discharge certificate), crew list issued by shipping company, vessel details (IMO number, route, port of call), visa application form, passport photos, maritime certificates (STCW or equivalent), travel/crew insurance if required.",
+
+    whom: "Foreign nationals (including Indian citizens) employed in maritime shipping industry working on cargo ships, cruise ships, tankers, or other vessels entering Luxembourg/EU ports or transiting through Schengen waters.",
+
+    rules: "Must serve only on assigned vessel. Cannot engage in land-based employment. Must follow maritime and port authority regulations. Must depart with vessel or as per crew rotation schedule.",
+
+    prosCons: "Pros: Facilitates international maritime employment, employer-sponsored travel, multiple port access in EU routes. Cons: Strictly job-bound, no settlement rights, dependent on vessel schedule.",
+
+    terms: "Seafarer: Maritime worker; STCW: International maritime certification standard; Discharge Book: Record of sea service; Port of Call: Designated stop for vessels; Crew Rotation: Scheduled replacement of ship personnel.",
+
+    legal: "Regulated under EU Schengen Visa Code, International Maritime Organization (IMO) conventions, and Luxembourg immigration law.",
+
+    process: `1. Seafarer receives job contract from shipping company ->
+              2. Vessel itinerary and crew list prepared ->
+              3. Submit seafarer visa application via embassy/VFS ->
+              4. Provide maritime certificates and seaman’s book ->
+              5. Embassy verifies shipping and crew details ->
+              6. Fast-track visa processing ->
+              7. Visa approval issued ->
+              8. Travel to designated port or join vessel ->
+              9. Immigration/port clearance as crew member ->
+              10. Join vessel and perform duties ->
+              11. Leave EU waters upon contract completion or rotation`
+},
+
+"LuxembourgCrossBorderWorkPermit": {
+    name: "Cross-Border Work Permit (Work without Residency in Luxembourg)",
+
+    validity: "Usually valid for 1 year and renewable indefinitely as long as the employment contract remains active. The permit is strictly tied to the specific employer and the applicant's residency in a neighboring country.",
+
+    cost: "Application fee: Approx. €80 (~₹7,200). Note: Since the applicant lives in France, Germany, or Belgium, they do not pay the Luxembourgish 'Residence Permit' tax (approx. €80), but they must pay for residency renewals in their country of living.",
+
+    time: "Processing time: 4 to 12 weeks. The employer must first obtain a certificate from ADEM (National Employment Agency) which takes 3 weeks.",
+
+    age: "Minimum 18 years. No strict upper limit for skilled professionals.",
+
+    education: "Mandatory: Must hold qualifications (Degree/Diploma) or relevant professional experience that matches the job description provided to ADEM.",
+
+    funds: "No personal fund requirement; however, the salary must meet the Luxembourgish social minimum wage for skilled workers (approx. €3,085 gross per month for 2024/25).",
+
+    docs: "Valid passport, a valid residence permit from a neighboring Schengen country (e.g., a French 'Titre de Séjour'), employment contract, ADEM certificate, CV, and attested copies of professional diplomas.",
+
+    whom: "Indian professionals or non-EU nationals who live in border regions (e.g., Metz in France, Trier in Germany, or Arlon in Belgium) but have been hired by a firm in Luxembourg (finance, IT, or EU institutions).",
+
+    rules: "You are NOT allowed to live in Luxembourg on this permit. You must return to your country of residence (France/Germany/Belgium) daily or weekly. You must pay income tax in Luxembourg but are covered by the social security system of your country of residence (or via bilateral tax treaties).",
+
+    prosCons: "Pros: Access to Luxembourg’s high salaries while paying lower rent in neighboring countries; no need for a Luxembourgish 'Authorisation to Stay'. Cons: Long commutes; requires a valid residence permit in a neighboring country first; no path to Luxembourgish citizenship.",
+
+    terms: "Frontalier: Cross-border worker; ADEM: Agence pour le développement de l'emploi (Labor Office); Grande Région: The border area surrounding Luxembourg.",
+
+    legal: "Amended Law of 29 August 2008 on the free movement of persons and immigration.",
+
+    process: `1. Secure a job offer from a Luxembourgish employer -> 
+              2. Employer declares the vacancy to ADEM to check for local/EU candidates -> 
+              3. ADEM issues a certificate allowing the employer to hire a non-EU national -> 
+              4. Sign the employment contract -> 
+              5. Submit the 'Work Permit for Cross-Border Worker' application to the Ministry of Foreign Affairs -> 
+              6. Receive the permit via mail -> 
+              7. Start work in Luxembourg while maintaining residency in a neighboring country.`
+},
+
+
+
+"LuxembourgAdoptionVisaTypeD": {
+    name: "Adoption Visa (National Long-Stay Visa Type D)",
+
+    validity: "Initially 90 days for entry. After the child arrives in Luxembourg, they are granted a residence permit (VVR) or citizenship, depending on the type of adoption (Full vs. Simple).",
+
+    cost: "Visa Fee: €50 (~₹4,500). Additional costs for the adoption procedure (legal fees, home study) can range from ₹5L to ₹15L depending on the country of origin.",
+
+    time: "The visa processing takes 2 to 4 weeks, but the adoption process itself can take 2 to 5 years.",
+
+    age: "The child must be under 18 years of age at the time the adoption application is filed.",
+
+    education: "No requirement.",
+
+    funds: "The adoptive parents must prove they have sufficient and stable financial resources to provide for the child’s upbringing and education in Luxembourg.",
+
+    docs: "Valid passport for the child, the official 'Consent to Adoption' from the Central Authority of the country of origin (e.g., CARA in India), the Luxembourgish 'Approval of Suitability' for the parents, and the medical certificate of the child.",
+
+    whom: "Children from non-EU countries (like India) who are being adopted by residents or citizens of Luxembourg.",
+
+    rules: "The adoption must comply with the Hague Convention on Intercountry Adoption. The parents must be officially recognized as 'suitable to adopt' by the Luxembourgish Ministry of Education, Children and Youth. Private adoptions without government oversight are generally not recognized for visa purposes.",
+
+    prosCons: "Pros: Grants the child a safe home and a pathway to EU citizenship. Cons: Extremely long and emotionally taxing legal process; strict monitoring of the family home for years.",
+
+    terms: "Hague Convention: International treaty on adoption standards; Central Authority: The government body in charge of adoption (Ministry of Children in Lux); VVR: Vignette de séjour (Residence sticker).",
+
+    legal: "Law of 14 March 2023 on Intercountry Adoption + Luxembourg Civil Code.",
+
+    process: `1. Parents obtain 'Suitability Approval' in Luxembourg -> 
+              2. Match with a child through an authorized agency (OAA) or CARA in India -> 
+              3. Obtain the 'Article 17' certificate (Consent) from the country of origin -> 
+              4. Luxembourgish authorities issue the 'Authorisation to Stay' for the child -> 
+              5. Apply for the Type D Visa at the nearest Luxembourg/Belgian Embassy -> 
+              6. Travel with the child to Luxembourg -> 
+              7. Register the child at the local commune within 3 days -> 
+              8. Finalize the adoption in the Luxembourgish Court to secure residency/citizenship.`
+},
+"LuxembourgTransitVisa": {
+    name: "Transit Visa (Luxembourg – Airport / Short Transit Visa Type A or Short Stay Transit Type C)",
+
+    validity: "Usually valid for a very short duration, typically 24–72 hours for transit. In Schengen cases, Type C transit may allow up to 5 days depending on itinerary.",
+
+    cost: "€80 (~₹7,000–₹7,500) for standard Schengen transit visa. Some categories (aircrew/diplomatic) may be fee-exempt.",
+
+    time: "Processing time usually 3–10 working days depending on travel schedule and embassy workload.",
+
+    age: "No strict age limit. Applicable to all age groups traveling in transit through Luxembourg/Schengen airports.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds for transit stay may be required (usually minimal, enough for airport stay, hotel if overnight).",
+
+    docs: "Valid passport, confirmed onward flight ticket, valid visa for final destination (if required), Schengen visa application form (if Type C transit), passport photos, travel itinerary, proof of funds, travel insurance (if applicable), visa for destination country (if required).",
+
+    whom: "Foreign travelers (including Indian citizens) transiting through Luxembourg or Schengen area airports en route to another destination country.",
+
+    rules: "Must not leave transit zone in Airport Transit Visa (Type A). Must exit Schengen area within allowed timeframe for Type C transit. Cannot engage in employment or extended stay activities.",
+
+    prosCons: "Pros: Simple entry for connecting flights, fast processing, minimal documentation. Cons: Very short duration, no mobility beyond transit purpose, strict travel compliance required.",
+
+    terms: "Transit Zone: Airport international area; Onward Ticket: Confirmed next journey flight; Schengen Area: European travel zone; Layover: Short stop between flights.",
+
+    legal: "Regulated under EU Schengen Visa Code (Regulation (EC) No 810/2009) and Luxembourg immigration rules.",
+
+    process: `1. Book confirmed onward travel ticket ->
+              2. Check if transit visa is required ->
+              3. Prepare travel documents and destination visa ->
+              4. Submit transit visa application ->
+              5. Attend biometric appointment if required ->
+              6. Pay visa fee ->
+              7. Embassy verifies travel itinerary ->
+              8. Visa issued ->
+              9. Travel via Luxembourg airport ->
+              10. Clear transit or immigration check ->
+              11. Continue onward journey`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

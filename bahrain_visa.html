@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* Kuwait Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }  
+</style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+    <label>Select Country</label>
+    <select id="country">
+        <!-- Value must exactly match the JavaScript key "SAUDI ARABIA" -->
+        <option value="BAHRAIN">BAHRAIN</option>
+    </select>
+
+    <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+   <select id="visaType">
+    <optgroup label="1. Visit & Short Stay">
+        <option value="BahrainTouristVisa">Tourist Visa</option>
+        <option value="BahrainVisitVisa">Visit Visa</option>
+        <option value="BahrainEVisa">eVisa (Electronic Visa)</option>
+        <option value="BahrainBusinessVisa">Business Visa</option>
+        <option value="BahrainMultipleEntryVisa">Multiple Entry Visa</option>
+        <option value="BahrainSingleEntryVisa">Single Entry Visa</option>
+        <option value="BahrainShortTermEntryVisa">Short-Term Entry Visa</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Employment">
+        <option value="BahrainWorkVisa">Work Visa (General)</option>
+        <option value="BahrainLMRAWorkPermitVisa">LMRA Work Permit Visa</option>
+        <option value="BahrainDomesticWorkerVisa">Domestic Worker Visa</option>
+    </optgroup>
+
+    <optgroup label="3. Residency & Investment">
+        <option value="BahrainResidenceVisa">Residence Visa (General)</option>
+        <option value="BahrainLongTermResidencePermit">Long-Term Residence Permit</option>
+        <option value="BahrainInvestorVisa">Investor Visa</option>
+    </optgroup>
+
+    <optgroup label="4. Family & Dependents">
+        <option value="BahrainFamilyVisa">Family Visa</option>
+        <option value="BahrainFamilyJoiningVisa">Family Joining Visa</option>
+        <option value="BahrainDependentVisa">Dependent Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Education & Transit">
+        <option value="BahrainStudentVisa">Student Visa</option>
+        <option value="BahrainTransitVisa">Transit Visa</option>
+    </optgroup>
+
+    <optgroup label="6. GCC & Regional">
+        <option value="BahrainGCCResidentVisa">GCC Resident Visa</option>
+    </optgroup>
+
+    <optgroup label="7. Official & Medical">
+        <option value="BahrainMedicalTreatmentVisa">Medical Treatment Visa</option>
+        <option value="BahrainOfficialGovernmentVisa">Official / Government Visa</option>
+        <option value="BahrainDiplomaticVisa">Diplomatic Visa</option>
+    </optgroup>
+
+
+
+   <optgroup label="8. Extras">
+        <option value="BahrainGoldenResidencyVisa">Golden Residency Visa</option>
+        <option value="BahrainProfessionalPracticeVisa">Professional practice visa</option>
+        <option value="BahrainF1GrandPrixVisa">Formula I seasonal visa</option>
+  <option value="BahrainShipToShoreMaritimeVisa">Maritime Visa</option>
+    </optgroup>
+</select>
+</div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF BAHRAIN MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇧🇭 VIEW GENERAL BAHRAIN IMMIGRATION PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇧🇭 GENERAL IMMIGRATION PROCESS FOR BAHRAIN (2026)</h1>
+
+        <h2>🧭 1. IDENTIFY THE PURPOSE OF ENTRY</h2>
+        <p>First step is to decide your immigration category:</p>
+        <ul>
+            <li>Tourism / Visit</li>
+            <li>Business travel</li>
+            <li>Work / Employment</li>
+            <li>Investor / Business setup</li>
+            <li>Student admission</li>
+            <li>Family joining / dependent</li>
+            <li>Medical treatment</li>
+            <li>Transit or short-term entry</li>
+        </ul>
+        <p>👉 Your purpose decides the visa type and documents required.</p>
+
+        <h2>📌 2. CHOOSE THE CORRECT VISA TYPE</h2>
+        <p>Based on purpose, select: eVisa, Work visa (LMRA-based), Investor visa, Student visa, Family visa, or Government / diplomatic visa.</p>
+
+        <h2>🔍 3. CHECK ELIGIBILITY REQUIREMENTS</h2>
+        <p>Authorities check: Passport validity (min 6 months), Profession, Financial stability, Sponsorship availability, and Clean immigration history.</p>
+
+        <h2>🤝 4. ARRANGE SPONSOR (IF REQUIRED)</h2>
+        <p>Many Bahrain visas require a sponsor: Employer (Work), Family member (Dependent), University (Student), Company (Business), or Hospital (Medical).</p>
+
+        <h2>📄 5. PREPARE REQUIRED DOCUMENTS</h2>
+        <p>Common documents: Valid passport, Photos, Application form, Return ticket, Hotel/Accommodation proof, Bank statements, Invitation letter, and Medical/Police certificates for long-term stays.</p>
+
+        <h2>🏛️ 6. APPLY FOR VISA</h2>
+        <h3>🌐 ONLINE (EVISA SYSTEM)</h3>
+        <p>Most tourist, visit, GCC, and business visas are processed fast via the Bahrain government portal.</p>
+        <h3>🏢 SPONSOR SUBMISSION (LMRA / NPRA)</h3>
+        <p>Work, dependent, and investor visas are applied for by the employer or sponsor on your behalf.</p>
+
+        <h2>💳 7. PAY VISA FEES</h2>
+        <p>Payment occurs online for eVisas or is handled by the employer/sponsor for work-related visas.</p>
+
+        <h2>🛡️ 8 & 9. REVIEW, VERIFICATION & ISSUANCE</h2>
+        <p>Agencies (NPRA, LMRA, MOFA) verify identity and security. Approved eVisas are sent via email; Work visas include an entry permit, and Residency is linked to the CPR card system.</p>
+
+        <h2>✈️ 10 & 11. TRAVEL & RESIDENCY REGISTRATION</h2>
+        <p>On arrival: Immigration checks and biometric verification. For long-term stays: Medical test in Bahrain, Biometrics registration, and CPR (Identity card) issuance.</p>
+
+        <h2>⚖️ 12 & 13. STAY, COMPLIANCE & RENEWAL</h2>
+        <p>Follow visa purpose strictly. Maintain valid residency and report job changes. Short-term visas must exit before expiry; Work/Family visas are renewable via NPRA/LMRA.</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black);">
+            🧠 SUMMARY FLOW: Purpose → Visa Type → Sponsor → Documents → Application → Approval → Travel → Immigration → Residency
+        </div>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL BAHRAIN IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Bahrain eVisa Portal:</strong> <a href="https://www.evisa.gov.bh" target="_blank">www.evisa.gov.bh</a></p>
+            <p><strong>2. NPRA (Residency Affairs):</strong> <a href="https://www.npra.gov.bh" target="_blank">www.npra.gov.bh</a></p>
+            <p><strong>3. LMRA (Work Permits):</strong> <a href="https://www.lmra.gov.bh" target="_blank">www.lmra.gov.bh</a></p>
+            <p><strong>4. Ministry of Interior (MOI):</strong> <a href="https://www.moi.gov.bh" target="_blank">www.moi.gov.bh</a></p>
+            <p><strong>5. Ministry of Foreign Affairs (MOFA):</strong> <a href="https://www.mofa.gov.bh" target="_blank">www.mofa.gov.bh</a></p>
+            <p><strong>6. Sijilat (Business Setup):</strong> <a href="https://www.sijilat.bh" target="_blank">www.sijilat.bh</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: USE ONLY OFFICIAL GOVERNMENT PORTALS. BEWARE OF UNAUTHORIZED AGENTS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "BAHRAIN": {
+"BahrainTouristVisa": {
+    name: "Tourist Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 14 days, 30 days, or up to 90 days depending on visa type (single-entry or multiple-entry eVisa). Extension may be possible in some cases through NPRA approval.",
+
+    cost: "Approx BHD 5–30 (~₹1,100–₹6,500) for eVisa depending on duration and entry type. Fees may vary based on nationality, insurance, and processing platform charges.",
+
+    time: "Processing time usually 24 hours to 5 working days for eVisa applications. Embassy applications may take 3–10 working days.",
+
+    age: "No strict age limit. Minors must apply with guardian/parent authorization and supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement or credit card proof), typically to cover stay, accommodation, and return travel.",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photograph, confirmed return ticket, hotel booking or accommodation proof, bank statement (if requested), travel insurance (recommended), completed eVisa application form.",
+
+    whom: "Foreign tourists including Indian citizens visiting Bahrain for leisure, sightseeing, short family visits, or non-business short stays.",
+
+    rules: "Must not engage in employment or paid work. Must leave before visa expiry. Overstay leads to fines and possible entry bans. Extension requires approval from Nationality, Passports & Residence Affairs (NPRA).",
+
+    prosCons: "Pros: Simple online application (eVisa), quick approval, multiple-entry options available. Cons: Short stay duration, strict no-work rule, extensions not always guaranteed.",
+
+    terms: "eVisa: Electronic visa issued online; NPRA: Nationality, Passports & Residence Affairs (Bahrain authority); Single-entry: One-time entry visa; Multiple-entry: Allows repeated entry within validity period; Sponsorship: Not usually required for tourist eVisa.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Apply online via Bahrain eVisa portal ->
+              2. Fill personal, travel, and passport details ->
+              3. Upload required documents ->
+              4. Pay visa fee online ->
+              5. Application reviewed by NPRA ->
+              6. Approval issued electronically ->
+              7. Receive eVisa via email ->
+              8. Print eVisa or save digital copy ->
+              9. Travel to Bahrain ->
+              10. Immigration verification on arrival`
+},
+
+"BahrainVisitVisa": {
+    name: "Visit Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 14 days, 30 days, 60 days, or up to 90 days depending on visa type and sponsorship. Some visit visas can be extended once or twice subject to NPRA approval.",
+
+    cost: "Approx BHD 5–40 (~₹1,100–₹8,800) depending on duration, single/multiple entry, and application method (eVisa or sponsored application).",
+
+    time: "Processing time usually 1–7 working days for eVisa or sponsored applications. Embassy processing may take up to 10 working days.",
+
+    age: "No fixed age limit. Minors must be accompanied by a parent/guardian and have consent documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement, sponsor assurance, or financial guarantee depending on visa type).",
+
+    docs: "Valid passport (6+ months validity), passport-size photo, completed application form, invitation letter from Bahrain host/sponsor (if applicable), proof of relationship (for family visits), return ticket, accommodation proof, bank statement (if requested), travel insurance (recommended).",
+
+    whom: "Foreign nationals visiting Bahrain for family visits, friend visits, short business meetings (non-employment), or general short-term stays with a local sponsor or invitation.",
+
+    rules: "Cannot work or engage in paid activities. Must exit before expiry. Must follow sponsor conditions if applicable. Overstay results in fines and potential entry bans. Extension depends on NPRA approval.",
+
+    prosCons: "Pros: Flexible for family and personal visits, can be sponsored or self-applied (eVisa), multiple-entry options available. Cons: Not valid for employment, extensions not guaranteed, requires sponsor or invitation in many cases.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs authority in Bahrain; Sponsor: Bahraini resident/company inviting the visitor; eVisa: Online visa system; Single-entry visa: One-time entry only; Multiple-entry visa: Allows repeated entry within validity.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Determine visa type (eVisa or sponsored visit visa) ->
+              2. Obtain invitation/sponsorship if required ->
+              3. Apply online via Bahrain eVisa portal or through sponsor ->
+              4. Upload documents (passport, photo, invitation letter, etc.) ->
+              5. Pay visa fee ->
+              6. Application review by NPRA ->
+              7. Approval or request for additional documents ->
+              8. Visa issuance (electronic or stamped) ->
+              9. Travel to Bahrain ->
+              10. Immigration clearance on arrival`
+},
+
+"BahrainEVisa": {
+    name: "eVisa (Electronic Visa – Bahrain)",
+
+    validity: "Usually 14 days, 30 days, or 90 days depending on visa category. Some variants allow single-entry or multiple-entry validity ranging from 2 weeks up to 1 year for frequent travelers.",
+
+    cost: "Approx BHD 5–50 (~₹1,100–₹11,000) depending on visa duration, entry type (single/multiple), and applicant nationality. Additional service or processing fees may apply.",
+
+    time: "Typically processed within 24 hours to 5 working days. In some cases, additional verification may extend processing up to 7–10 days.",
+
+    age: "No strict age limit. Minors must apply with parent/guardian details and supporting consent documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required, such as bank statements, credit card proof, or sponsor financial guarantee depending on visa category.",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, confirmed return ticket, hotel booking or accommodation details, travel insurance (recommended), bank statement (if requested), completed online application form.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Bahrain for tourism, short family visits, or short-term business meetings (non-employment purposes).",
+
+    rules: "Must not engage in employment or paid work. Must enter within validity period after approval. Must exit before visa expiry. Overstay leads to fines and possible bans. Extensions may be allowed through NPRA approval.",
+
+    prosCons: "Pros: Fully online application, fast approval, no embassy visit required, multiple-entry options available for eligible applicants. Cons: Strict eligibility checks, limited stay duration, no work permission, extensions not guaranteed.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (Bahrain authority); eVisa: Online visa system issued electronically; Single-entry: One-time entry visa; Multiple-entry: Allows repeated entries within validity period.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Visit Bahrain eVisa official portal ->
+              2. Select visa type (tourist/visit/business) ->
+              3. Fill application form with passport details ->
+              4. Upload required documents ->
+              5. Pay visa fee online ->
+              6. Application submitted to NPRA ->
+              7. Verification and processing ->
+              8. Approval issued electronically ->
+              9. Receive eVisa by email ->
+              10. Print or save eVisa for travel ->
+              11. Present at Bahrain immigration on arrival`
+},
+
+"BahrainBusinessVisa": {
+    name: "Business Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 14 days, 30 days, 90 days, or up to 1 year for multiple-entry business visas depending on invitation and applicant profile. Each stay is typically limited to 14–90 days per visit.",
+
+    cost: "Approx BHD 10–60 (~₹2,200–₹13,000) depending on single/multiple entry, duration, and processing method. Sponsored corporate visas may have fees paid by the inviting company.",
+
+    time: "Processing time usually 1–7 working days for eVisa or sponsor-based applications. Embassy cases may take 5–10 working days depending on verification.",
+
+    age: "No strict age limit. Applicant must be legally eligible for business travel and typically be employed, self-employed, or a company representative.",
+
+    education: "Not mandatory, but often expected that applicant is a professional, entrepreneur, or business representative.",
+
+    funds: "Proof of financial stability may be required (bank statements, company documents, or sponsor guarantee). In many cases, the Bahrain company provides financial responsibility.",
+
+    docs: "Valid passport (6+ months validity), passport-size photo, invitation letter from Bahrain company, company registration documents (if required), business purpose details (meeting/conference/event), return flight ticket, hotel booking, bank statement, travel insurance (recommended).",
+
+    whom: "Foreign professionals, entrepreneurs, investors, and employees traveling to Bahrain for meetings, conferences, trade fairs, business negotiations, or corporate visits (without employment in Bahrain).",
+
+    rules: "Cannot perform paid employment in Bahrain under this visa. Must strictly follow business purpose stated in invitation. Must exit before visa expiry. Overstay leads to fines and entry bans. Work permit required for employment.",
+
+    prosCons: "Pros: Ideal for meetings and short-term corporate travel, multiple-entry options available, relatively fast approval with company sponsorship. Cons: No right to work, requires invitation from Bahrain entity, limited stay per visit.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (Bahrain authority); Sponsor: Bahrain-based company inviting the applicant; eVisa: Electronic visa system; Multiple-entry visa: Allows repeated business visits within validity period.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Receive invitation from Bahrain company or organization ->
+              2. Prepare business documents and passport details ->
+              3. Apply online via Bahrain eVisa system or through sponsor ->
+              4. Upload invitation letter and supporting documents ->
+              5. Pay visa fee ->
+              6. Application reviewed by NPRA ->
+              7. Approval or document verification request ->
+              8. eVisa issued electronically ->
+              9. Travel to Bahrain ->
+              10. Immigration clearance with business purpose verification`
+},
+
+"BahrainWorkVisa": {
+    name: "Work Visa / Work Permit (Kingdom of Bahrain)",
+
+    validity: "Usually 1 to 2 years initially, renewable based on employment contract and employer sponsorship. Residency permit (RP/Iqama) is tied to the work visa duration.",
+
+    cost: "Approx BHD 100–300+ (~₹22,000–₹66,000+) depending on job category, employer sponsorship, LMRA fees, medical tests, and residency issuance. In most cases, employer bears the cost.",
+
+    time: "Processing time usually 5–20 working days, depending on employer approval, LMRA processing, medical tests, and security clearance.",
+
+    age: "Generally 18–60 years (may vary by job type and employer requirements).",
+
+    education: "Depends on job role. Skilled jobs require relevant qualifications or experience. Some roles require degree certificates attested by authorities.",
+
+    funds: "Not required from applicant in most cases. Employer/sponsor in Bahrain is financially responsible for salary, visa processing, and residency support.",
+
+    docs: "Valid passport (6+ months), passport-size photos, job offer letter, employment contract, attested educational certificates (if applicable), medical fitness report, police clearance certificate, LMRA application forms, sponsor/company CR documents.",
+
+    whom: "Foreign workers (including Indian nationals) who have secured employment in Bahrain with a registered company or employer sponsorship approved by LMRA.",
+
+    rules: "Must work only for sponsoring employer. Changing job requires official transfer approval. Cannot engage in freelance or side employment. Must undergo medical screening. Overstay or illegal work leads to fines, deportation, and bans.",
+
+    prosCons: "Pros: Legal employment in Bahrain, stable residency, potential for long-term stay and family sponsorship. Cons: Strict employer dependency, job change restrictions, requires sponsorship, cancellation if employment ends.",
+
+    terms: "LMRA: Labour Market Regulatory Authority (issues work permits in Bahrain); Sponsor: Employer responsible for visa and residency; RP (Residence Permit): Legal stay document linked to work visa; CR: Commercial Registration of employer.",
+
+    legal: "Regulated by Bahrain Labour Market Regulatory Authority (LMRA) and Ministry of Interior (NPRA for residency issuance).",
+
+    process: `1. Employer offers job in Bahrain ->
+              2. Employer applies for work permit via LMRA ->
+              3. Submission of employee documents ->
+              4. Approval from LMRA ->
+              5. Entry visa/work visa issued ->
+              6. Employee travels to Bahrain ->
+              7. Medical tests + biometric registration ->
+              8. Residence permit (RP) issued ->
+              9. Work authorization activated ->
+              10. Renewal handled by employer periodically`
+},
+
+
+"BahrainLMRAWorkPermitVisa": {
+    name: "Work Permit (LMRA Work Visa – Kingdom of Bahrain)",
+
+    validity: "Typically 1 to 2 years, renewable based on employment contract, employer sponsorship, and LMRA approval. Residence Permit (RP) is issued alongside and is tied to validity of the work permit.",
+
+    cost: "Approx BHD 100–400+ (~₹22,000–₹88,000+) including LMRA fees, visa issuance, medical tests, and residence permit charges. In most cases, the employer in Bahrain bears the full cost.",
+
+    time: "Processing time usually 5–15 working days for LMRA approval, but total process (including medical, entry visa, and RP issuance) may take 10–25 working days.",
+
+    age: "Generally 18–60 years depending on job category and employer requirements. Some skilled or high-demand roles may have flexible age limits.",
+
+    education: "Depends on job role. Low-skilled jobs may require minimal education, while skilled/professional roles require relevant degrees, diplomas, or experience. Certificates may need attestation.",
+
+    funds: "Not required from the applicant in most cases. Employer/sponsor is fully responsible for visa fees, work authorization, and residency costs.",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photographs, job offer letter, employment contract, attested educational certificates (if applicable), medical fitness report, police clearance certificate, LMRA application form, employer’s Commercial Registration (CR) documents.",
+
+    whom: "Foreign nationals (including Indians) who have secured employment with a Bahrain-based employer registered under LMRA and approved to hire foreign workers.",
+
+    rules: "Employee can only work for the sponsoring employer. Job change requires official LMRA transfer approval. Unauthorized work is illegal. Mandatory medical tests and biometrics required. Violation leads to fines, deportation, or bans.",
+
+    prosCons: "Pros: Legal employment with full residency rights, long-term stay possible, family sponsorship eligibility in many cases. Cons: Highly employer-dependent, job restrictions, strict regulatory compliance required, cancellation if job ends.",
+
+    terms: "LMRA: Labour Market Regulatory Authority (issues and regulates work permits in Bahrain); RP (Residence Permit): Legal stay document linked to work permit; Sponsor: Employer responsible for employee's legal status; CR: Commercial Registration of employer company.",
+
+    legal: "Regulated primarily by Bahrain Labour Market Regulatory Authority (LMRA) under Bahrain labour and immigration law, with residency issuance coordinated with the Ministry of Interior (NPRA).",
+
+    process: `1. Employer in Bahrain offers job to foreign worker ->
+              2. Employer submits LMRA work permit application ->
+              3. Upload of employee documents and job details ->
+              4. LMRA review and approval of work permit ->
+              5. Entry visa issued for employee ->
+              6. Employee travels to Bahrain ->
+              7. Medical examination and fingerprint registration ->
+              8. Residence Permit (RP) application and issuance ->
+              9. Work authorization activated ->
+              10. Periodic renewal handled by employer via LMRA`
+},
+
+
+"BahrainInvestorVisa": {
+    name: "Investor Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 1 to 5 years depending on investment type and company structure. Renewable as long as investment/business remains active and compliant with Bahrain regulations.",
+
+    cost: "Approx BHD 100–500+ (~₹22,000–₹1,10,000+) including registration, residency, company setup, and visa fees. Higher costs apply for large-scale business investments or legal structuring. Investment capital requirement is separate from visa fees.",
+
+    time: "Processing time usually 7–30 working days depending on business registration, approvals from relevant authorities (Bahrain Investors Center / NPRA / Sijilat system), and documentation completeness.",
+
+    age: "Generally 21 years and above. Applicant must be legally competent to establish or invest in a business.",
+
+    education: "Not mandatory, but business background, entrepreneurial experience, or professional qualifications may strengthen approval chances.",
+
+    funds: "Significant investment capital required. Typically involves minimum business investment, company formation costs, and proof of financial capability (bank statements, capital proof, or business assets).",
+
+    docs: "Valid passport (6+ months), passport-size photos, business plan, proof of investment funds, company registration documents (Sijilat registration), Memorandum of Association (MOA), commercial license, bank statements, proof of address, and supporting financial/legal documents.",
+
+    whom: "Foreign investors, entrepreneurs, business owners, and shareholders who want to establish or invest in a company in Bahrain and obtain residency through business ownership.",
+
+    rules: "Investor must actively maintain investment or business operations. Must comply with Bahrain commercial laws. Misuse of business structure for residency only may lead to cancellation. Renewal depends on active business status and compliance.",
+
+    prosCons: "Pros: Long-term residency, ability to sponsor family, business ownership rights, potential path to permanent residency. Cons: High financial commitment, regulatory compliance required, business risk involved, renewal depends on business performance.",
+
+    terms: "Sijilat: Bahrain’s business registration system; NPRA: Nationality, Passports & Residence Affairs (issues residency); CR: Commercial Registration of company; MOICT: Ministry of Industry and Commerce (business regulation); Sponsor: Self-sponsored via own company in many cases.",
+
+    legal: "Regulated by Bahrain Ministry of Industry and Commerce (MOIC), Bahrain Investors Center, and Nationality, Passports & Residence Affairs (NPRA) for residency issuance.",
+
+    process: `1. Decide investment type (company, partnership, or shareholding) ->
+              2. Register business via Sijilat system ->
+              3. Submit commercial registration (CR) application ->
+              4. Obtain business license from MOIC ->
+              5. Submit investor residency application to NPRA ->
+              6. Provide proof of capital and business plan ->
+              7. Government review and approval ->
+              8. Residency visa issued ->
+              9. Entry into Bahrain ->
+              10. Activate residence permit and maintain business compliance ->
+              11. Renew visa based on business performance and legal standing`
+},
+
+"BahrainFamilyVisa": {
+    name: "Family Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 1 to 2 years, renewable based on sponsor’s (resident’s) valid residence permit and employment/business status in Bahrain.",
+
+    cost: "Approx BHD 20–100+ (~₹4,400–₹22,000+) depending on type (spouse, children, dependents), visa issuance, medical tests, and residency card fees. Sponsor (resident/employee) usually bears the cost.",
+
+    time: "Processing time usually 5–15 working days depending on document verification, sponsor eligibility, and NPRA processing workload.",
+
+    age: "No strict age limit. Spouse and children can be sponsored. Children are usually covered until adulthood or as per Bahrain residency rules; elderly parents may require special approval.",
+
+    education: "Not required.",
+
+    funds: "Sponsor must meet minimum salary requirement (varies by job category, typically around BHD 250–500+ monthly depending on dependent type) and provide proof of stable income.",
+
+    docs: "Valid passport (6+ months), passport-size photos, marriage certificate (for spouse), birth certificates (for children), sponsor’s residence permit copy, salary certificate/employment contract, tenancy agreement (proof of housing), bank statement (if required), medical fitness reports for dependents, application form.",
+
+    whom: "Foreign workers or residents in Bahrain who want to bring immediate family members (spouse, children, and in some cases parents) to live with them under sponsorship.",
+
+    rules: "Dependents cannot work unless they obtain separate work authorization. Sponsor must maintain valid residency and income threshold. Any change in sponsor’s status (job loss or visa cancellation) may affect family visas. Overstay is penalized.",
+
+    prosCons: "Pros: Enables family reunification, renewable residency, access to healthcare and schooling for dependents. Cons: Dependent on sponsor’s job/residency status, income requirements must be maintained, limited employment rights for dependents.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (issues family residency permits); Sponsor: Primary resident in Bahrain (employee or investor); Dependent Visa: Residency linked to sponsor; RP: Residence Permit (legal stay document).",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Sponsor obtains valid Bahrain residence permit ->
+              2. Apply for family visa through NPRA ->
+              3. Submit relationship proof (marriage/birth certificates) ->
+              4. Provide salary and accommodation proof ->
+              5. Application review by authorities ->
+              6. Approval or request for additional documents ->
+              7. Visa issuance ->
+              8. Family member enters Bahrain ->
+              9. Medical test and residency card issuance ->
+              10. Residence permit activated and renewable`
+},
+
+
+"BahrainFamilyJoiningVisa": {
+    name: "Family Joining Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 1 to 2 years, renewable based on the sponsor’s valid residence permit (work or investor visa) and continued eligibility under NPRA rules.",
+
+    cost: "Approx BHD 20–120+ (~₹4,400–₹26,000+) depending on dependent category, processing fees, medical tests, and residence permit issuance. Generally paid by the sponsor in Bahrain.",
+
+    time: "Processing time usually 5–20 working days depending on document verification, sponsor eligibility, and NPRA workload.",
+
+    age: "No strict age limit. Spouse and children are eligible. Parents may be allowed in special cases with higher income requirements and approval.",
+
+    education: "Not required.",
+
+    funds: "Sponsor must meet minimum monthly salary requirement (typically BHD 250–500+ depending on number of dependents and job category) and show stable income and accommodation proof.",
+
+    docs: "Valid passports (6+ months), passport-size photos, marriage certificate (for spouse), birth certificates (for children), sponsor’s residence permit copy, employment contract or salary certificate, tenancy agreement (housing proof), bank statement (if required), medical fitness certificates, completed application form.",
+
+    whom: "Foreign residents in Bahrain (employees or investors) who want to bring their immediate family members (spouse, children, and in some cases parents) to live with them in Bahrain.",
+
+    rules: "Dependents cannot work unless they obtain separate work authorization. Sponsor must maintain valid residency and meet income requirements. Any cancellation of sponsor’s visa may cancel dependent visas. Overstay leads to fines and legal consequences.",
+
+    prosCons: "Pros: Enables family reunification, renewable long-term stay, access to healthcare and education for dependents. Cons: Dependent on sponsor’s visa and income stability, strict eligibility rules, limited work rights for dependents.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (issues residency permits); Sponsor: Bahrain resident (employee/investor); Dependent Visa: Residency tied to sponsor; RP: Residence Permit; Family Joining: Process of bringing dependents to Bahrain under sponsorship.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Sponsor holds valid Bahrain residence permit ->
+              2. Verify eligibility (salary, housing, job category) ->
+              3. Submit family joining application to NPRA ->
+              4. Upload relationship proof documents ->
+              5. Provide salary, employment, and accommodation proof ->
+              6. Application review and verification ->
+              7. Approval or request for additional documents ->
+              8. Visa issuance for dependents ->
+              9. Dependents enter Bahrain ->
+              10. Medical test and biometric registration ->
+              11. Residence permit issued and activated ->
+              12. Renewal linked to sponsor’s residency status`
+},
+
+
+"BahrainDependentVisa": {
+    name: "Dependent Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 1 to 2 years, renewable as long as the sponsor (employee or investor) maintains a valid residence permit and meets eligibility requirements.",
+
+    cost: "Approx BHD 20–100+ (~₹4,400–₹22,000+) depending on dependent category, processing fees, medical tests, and residence card issuance. Typically paid by the sponsor.",
+
+    time: "Processing time usually 5–15 working days depending on document verification, sponsor eligibility, and NPRA processing speed.",
+
+    age: "No strict age limit. Spouse and children can be sponsored. Children are generally covered until adulthood or as per Bahrain residency rules. Parents may require special approval and higher income criteria.",
+
+    education: "Not required.",
+
+    funds: "Sponsor must meet minimum salary requirement (commonly around BHD 250–500+ per month depending on number of dependents and job category) and show stable income and accommodation proof.",
+
+    docs: "Valid passport (6+ months), passport-size photos, marriage certificate (for spouse), birth certificates (for children), sponsor’s residence permit copy, salary certificate/employment contract, tenancy agreement (housing proof), bank statement (if required), medical fitness certificate for dependents, completed application form.",
+
+    whom: "Family members of foreign residents in Bahrain (employees or investors), typically including spouse, children, and in some cases parents, who are financially sponsored by the primary resident.",
+
+    rules: "Dependents are not allowed to work unless they obtain a separate work permit. Sponsor must maintain valid residency and income threshold. If sponsor loses residency or job, dependent visas may be cancelled. Overstay leads to fines and legal penalties.",
+
+    prosCons: "Pros: Enables family reunification, renewable long-term residence, access to healthcare and schooling for dependents. Cons: Fully dependent on sponsor’s visa status, income requirements must be maintained, limited employment rights for dependents.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (issues dependent residence permits); Sponsor: Primary resident in Bahrain responsible for dependents; RP: Residence Permit; Dependent Visa: Residency linked to sponsor’s legal status.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Sponsor holds valid Bahrain residence permit ->
+              2. Confirm eligibility (salary, housing, job status) ->
+              3. Submit dependent visa application to NPRA ->
+              4. Upload required relationship documents ->
+              5. Provide financial and accommodation proof ->
+              6. Application review by authorities ->
+              7. Approval or request for additional documents ->
+              8. Dependent visa issued ->
+              9. Dependents travel to Bahrain ->
+              10. Medical test and biometric registration ->
+              11. Residence permit issued ->
+              12. Renewal aligned with sponsor’s visa validity`
+},
+
+"BahrainGCCResidentVisa": {
+    name: "GCC Resident Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 14 days to 30 days (short-term entry). In some cases, multiple-entry validity up to 3 months may be granted depending on profession and GCC residence status.",
+
+    cost: "Approx BHD 5–30 (~₹1,100–₹6,500) depending on duration, single/multiple entry type, and application channel (eVisa or embassy).",
+
+    time: "Processing time usually 24 hours to 5 working days for eVisa applications, depending on verification of GCC residency status.",
+
+    age: "No strict age limit. Applicant must hold valid GCC residency permit in an eligible profession.",
+
+    education: "Not mandatory, but applicants are generally required to hold skilled or professional jobs in GCC countries (as per eligibility rules).",
+
+    funds: "Proof of sufficient funds may be required, including bank statements or employer salary proof from GCC country of residence.",
+
+    docs: "Valid passport (6+ months), valid GCC residence permit (Iqama or equivalent), passport-size photo, profession certificate or job title proof, return ticket, hotel booking or accommodation proof, bank statement (if requested), travel insurance (recommended).",
+
+    whom: "Foreign nationals holding valid residence permits in GCC countries (Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain) who wish to visit Bahrain for tourism, short visits, or business purposes.",
+
+    rules: "Applicant must hold valid GCC residency in an approved profession (typically managerial, professional, or skilled categories). Must not engage in employment in Bahrain. Must leave before visa expiry. Overstay results in fines and restrictions.",
+
+    prosCons: "Pros: Simplified visa process for GCC residents, fast approval, easy short-term travel to Bahrain. Cons: Restricted to certain professions, short stay duration, not valid for employment.",
+
+    terms: "GCC: Gulf Cooperation Council (regional bloc of Gulf countries); NPRA: Nationality, Passports & Residence Affairs (Bahrain authority); eVisa: Electronic visa system; Eligible Profession: Job category approved under GCC resident visa rules.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Verify eligibility (valid GCC residence + eligible profession) ->
+              2. Apply via Bahrain eVisa portal or approved channel ->
+              3. Upload passport and GCC residence documents ->
+              4. Provide profession and travel details ->
+              5. Pay visa fee online ->
+              6. Application reviewed by NPRA ->
+              7. Approval or request for additional verification ->
+              8. eVisa issued electronically ->
+              9. Travel to Bahrain ->
+              10. Immigration clearance on arrival`
+},
+
+"BahrainTransitVisa": {
+    name: "Transit Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 48 hours to 7 days depending on airline, route, and visa approval conditions. In most cases, it is a very short-stay visa strictly for onward travel.",
+
+    cost: "Approx BHD 5–20 (~₹1,100–₹4,400) depending on airline arrangements, visa channel, and processing fees. In some cases, it may be free when issued through airlines or transit agreements.",
+
+    time: "Processing time usually 24 hours to 3 working days. Some airport/airline-arranged transit visas may be approved within hours.",
+
+    age: "No strict age limit. Minors must be accompanied by a parent/guardian or have valid consent documents.",
+
+    education: "Not required.",
+
+    funds: "Generally minimal requirement, but proof of onward travel and sufficient funds for short stay may be requested.",
+
+    docs: "Valid passport (6+ months), confirmed onward flight ticket, visa for next destination (if required), passport-size photo, visa application form, hotel booking (if overnight stay), travel insurance (recommended), transit airline confirmation (if applicable).",
+
+    whom: "Foreign travelers (including Indians) passing through Bahrain en route to another country, with a short layover requiring airport exit or short stay in Bahrain.",
+
+    rules: "Must strictly remain within transit duration. No employment allowed. Must have confirmed onward journey. Overstay leads to penalties and travel restrictions. Cannot be used for long-term stay or residence.",
+
+    prosCons: "Pros: Quick approval, useful for connecting flights, sometimes free or low cost, minimal documentation. Cons: Very short duration, strict conditions, cannot be extended or converted easily to long-term visa.",
+
+    terms: "Transit Visa: Short-term visa for passing through a country; NPRA: Nationality, Passports & Residence Affairs (Bahrain authority); Onward Ticket: Confirmed travel booking to next destination; Layover: Short stop between connecting flights.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA) and airport immigration authorities.",
+
+    process: `1. Confirm transit eligibility with airline or Bahrain visa system ->
+              2. Apply for transit visa (online or via airline) ->
+              3. Submit passport and onward ticket details ->
+              4. Pay applicable fee (if required) ->
+              5. Application review ->
+              6. Visa approval issued ->
+              7. Travel to Bahrain ->
+              8. Immigration clearance ->
+              9. Short stay during transit ->
+              10. Departure within allowed time frame`
+},
+
+"BahrainStudentVisa": {
+    name: "Student Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 1 year initially, renewable annually for the duration of the academic program (course length). Extensions depend on continued enrollment and academic progress.",
+
+    cost: "Approx BHD 100–250+ (~₹22,000–₹55,000+) including visa issuance, residency permit, medical tests, and administrative fees. Tuition fees are separate and paid to the educational institution.",
+
+    time: "Processing time usually 7–20 working days depending on university sponsorship, document verification, and NPRA processing workload.",
+
+    age: "Typically 16 years and above for higher education. No strict upper age limit for postgraduate or professional courses.",
+
+    education: "Must have prior qualifying education (school certificate for undergraduate, degree for postgraduate programs) as per university admission requirements.",
+
+    funds: "Proof of sufficient funds required (bank statement, sponsor letter, or scholarship proof) to cover tuition fees, accommodation, and living expenses in Bahrain.",
+
+    docs: "Valid passport (6+ months), passport-size photos, university admission/offer letter, academic certificates and transcripts, proof of funds or scholarship letter, medical fitness certificate, police clearance certificate (if required), visa application form, accommodation proof.",
+
+    whom: "Foreign students (including Indians) admitted to recognized universities, colleges, or training institutions in Bahrain who require a residence permit for study purposes.",
+
+    rules: "Must study only at the approved institution. Cannot work full-time; limited part-time work may be allowed with permission. Must maintain valid enrollment. Visa may be cancelled if studies are discontinued. Overstay leads to penalties.",
+
+    prosCons: "Pros: Legal long-term stay for education, renewable residency, access to modern education system in Bahrain, potential pathway to employment after studies. Cons: Dependent on academic enrollment, limited work rights, requires consistent financial proof.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (issues student residency); Sponsor: Usually the educational institution or student’s guardian; RP: Residence Permit; Enrollment Letter: Proof of admission to institution.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA) in coordination with the Ministry of Education and approved institutions.",
+
+    process: `1. Apply and get admission from Bahrain institution ->
+              2. Receive official offer/admission letter ->
+              3. Institution or student submits visa application to NPRA ->
+              4. Upload academic and financial documents ->
+              5. Pay visa and residency fees ->
+              6. Application review and verification ->
+              7. Visa approval issued ->
+              8. Student enters Bahrain ->
+              9. Medical test and residency registration ->
+              10. Residence permit issued ->
+              11. Annual renewal based on academic progress`
+},
+
+"BahrainResidenceVisa": {
+    name: "Residence Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 1 to 2 years initially, renewable as long as the sponsor (employer, investor, or family sponsor) maintains valid residency status and eligibility under NPRA rules.",
+
+    cost: "Approx BHD 20–200+ (~₹4,400–₹44,000+) depending on category (work, family, investor, or other residency type), medical tests, issuance fees, and ID card charges. Often paid by sponsor or employer.",
+
+    time: "Processing time usually 5–20 working days depending on visa category, document verification, and NPRA processing workload.",
+
+    age: "No strict age limit. Depends on residency type (work, family, investor, student, etc.).",
+
+    education: "Not required for general residency. Specific categories (work or student residency) may require educational qualifications or admission/employment proof.",
+
+    funds: "Depends on category. Work residency is supported by employer salary. Family residency requires minimum salary threshold. Investor residency requires proof of investment capital.",
+
+    docs: "Valid passport (6+ months), passport-size photos, sponsor documents (employment contract, business license, or family proof), medical fitness certificate, police clearance (if required), tenancy agreement or housing proof, bank statement (for some categories), application form.",
+
+    whom: "Foreign nationals living in Bahrain under various categories such as employment, investment, study, or family sponsorship who require legal long-term stay authorization.",
+
+    rules: "Must comply with conditions of specific residency category. Employment is restricted to sponsor-based work unless permitted. Any change in sponsor or status must be reported to NPRA. Overstay or violation may lead to fines, cancellation, or deportation.",
+
+    prosCons: "Pros: Legal long-term stay in Bahrain, access to healthcare, banking, education, and services. Cons: Fully dependent on sponsor category, renewal required, restrictions vary by visa type.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (issues residence permits); RP: Residence Permit (legal residency card); Sponsor: Employer, family member, or investor responsible for residency; ID Card: National identity card issued to residents.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Determine residency category (work, family, investor, student) ->
+              2. Obtain sponsor approval (employer/family/business/university) ->
+              3. Submit residency application to NPRA ->
+              4. Upload required documents ->
+              5. Medical test and security clearance ->
+              6. Pay applicable fees ->
+              7. Application review by authorities ->
+              8. Residency approval issued ->
+              9. Entry or status activation in Bahrain ->
+              10. Residence permit and ID card issuance ->
+              11. Renewal based on category conditions`
+},
+
+"BahrainMultipleEntryVisa": {
+    name: "Multiple Entry Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 3 months, 6 months, or 1 year depending on applicant profile and visa type. Each stay is typically limited to 14–90 days per visit even within validity period.",
+
+    cost: "Approx BHD 10–60 (~₹2,200–₹13,000) depending on duration (short/long-term), nationality, and application channel (eVisa or embassy).",
+
+    time: "Processing time usually 1–7 working days for eVisa applications. Embassy or sponsor-based applications may take up to 10 working days.",
+
+    age: "No strict age limit. Applicant must be eligible for travel purposes (tourism, business, or visit category).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement or financial proof) depending on visa category and applicant nationality.",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, completed application form, return or onward travel details (if required), hotel booking or accommodation proof, bank statement (if requested), travel insurance (recommended), invitation letter (for visit/business cases).",
+
+    whom: "Foreign nationals (including Indian citizens) who need to enter Bahrain multiple times within a specific period for tourism, business meetings, or family visits.",
+
+    rules: "Each entry is subject to maximum stay limits (usually 14–90 days). Must not work under this visa. Must exit before each permitted stay expires. Overstay results in fines and entry bans. Visa validity does not guarantee continuous stay.",
+
+    prosCons: "Pros: Flexible travel with repeated entry, ideal for business travelers and frequent visitors, available as eVisa for many nationalities. Cons: Limited stay per visit, no employment allowed, eligibility varies by nationality.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (Bahrain authority); Multiple Entry Visa: Visa allowing repeated entry within validity period; eVisa: Electronic visa system; Stay Duration: Maximum allowed stay per visit.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Choose visa type (tourist, visit, or business multiple-entry) ->
+              2. Apply online via Bahrain eVisa portal or embassy ->
+              3. Submit passport and supporting documents ->
+              4. Pay visa fee ->
+              5. Application review by NPRA ->
+              6. Approval or additional verification request ->
+              7. eVisa issued electronically ->
+              8. Travel to Bahrain multiple times within validity period ->
+              9. Immigration checks on each entry ->
+              10. Ensure exit before allowed stay expires`
+},
+
+"BahrainSingleEntryVisa": {
+    name: "Single Entry Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 14 days, 30 days, or up to 90 days depending on visa type (tourist, visit, or business). Valid for one entry only; once you exit Bahrain, the visa becomes invalid.",
+
+    cost: "Approx BHD 5–40 (~₹1,100–₹8,800) depending on duration, visa category, and application method (eVisa or embassy/sponsor-based).",
+
+    time: "Processing time usually 24 hours to 5 working days for eVisa applications. Embassy or sponsor-based cases may take up to 7–10 working days.",
+
+    age: "No strict age limit. Minors must apply with parent/guardian consent and supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required depending on nationality and visa category (bank statement or financial proof).",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, completed application form, return flight ticket, hotel booking or accommodation proof, bank statement (if requested), travel insurance (recommended), invitation letter (if applicable for visit/business visa).",
+
+    whom: "Foreign nationals (including Indian citizens) visiting Bahrain for tourism, short family visits, or short-term business meetings requiring only one-time entry.",
+
+    rules: "Valid for only one entry into Bahrain. Must exit before visa expiry. No employment allowed. Overstay leads to fines and potential bans. Cannot be reused after exit even if validity period remains.",
+
+    prosCons: "Pros: Simple application process, quick approval, lower cost compared to multiple-entry visas. Cons: Only one entry allowed, limited flexibility, no work permission.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (Bahrain authority); Single Entry Visa: Visa allowing one-time entry only; eVisa: Online visa system; Validity Period: Time window during which entry must occur.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Select visa type (tourist/visit/business single-entry) ->
+              2. Apply via Bahrain eVisa portal or embassy ->
+              3. Submit required documents ->
+              4. Pay visa fee ->
+              5. Application review by NPRA ->
+              6. Approval or document verification ->
+              7. eVisa issued electronically ->
+              8. Travel to Bahrain once within validity period ->
+              9. Immigration clearance on arrival ->
+              10. Exit before visa expiry (no re-entry allowed)`
+},
+
+"BahrainDomesticWorkerVisa": {
+    name: "Domestic Worker Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 1 to 2 years, renewable based on sponsor (employer) and valid residence permit status. Linked directly to employment contract.",
+
+    cost: "Approx BHD 200–500+ (~₹44,000–₹1,10,000+) including work permit, residency, medical tests, insurance, and administrative fees. In most cases, the employer/sponsor bears the full cost.",
+
+    time: "Processing time usually 7–20 working days depending on LMRA approval, document verification, medical tests, and residence permit issuance.",
+
+    age: "Typically 21–60 years depending on job category and employer requirements.",
+
+    education: "Not mandatory. Basic skills, prior domestic work experience, or training may be preferred by employers.",
+
+    funds: "Not required from the worker. Employer/sponsor is fully responsible for salary, visa fees, accommodation, and residency costs.",
+
+    docs: "Valid passport (6+ months), passport-size photos, employment contract, medical fitness certificate, police clearance certificate, LMRA work permit application, sponsor’s ID/residence details, insurance documents, completed application form.",
+
+    whom: "Foreign domestic workers (including Indian nationals) employed in Bahrain households as housemaids, nannies, cooks, drivers, or caregivers under a private sponsor.",
+
+    rules: "Must work only for sponsoring employer. Cannot change employer without official transfer approval. Living conditions and salary must comply with Bahrain labour regulations. Overstay or unauthorized work is illegal and punishable.",
+
+    prosCons: "Pros: Legal employment in Bahrain households, stable income, accommodation usually provided, regulated labour protection. Cons: Employer-dependent visa, restricted mobility, job change requires approval, strict compliance rules.",
+
+    terms: "LMRA: Labour Market Regulatory Authority (issues work permits); Sponsor: Household employer responsible for worker; RP: Residence Permit; Contract: Legal employment agreement between worker and sponsor.",
+
+    legal: "Regulated by Bahrain Labour Market Regulatory Authority (LMRA) and overseen for residency by the Ministry of Interior (NPRA).",
+
+    process: `1. Employer (household sponsor) applies for domestic worker permit via LMRA ->
+              2. Submit worker’s passport and details ->
+              3. Medical and background verification ->
+              4. LMRA approval of work permit ->
+              5. Entry visa issued for worker ->
+              6. Worker travels to Bahrain ->
+              7. Medical test and biometric registration ->
+              8. Residence permit (RP) issued ->
+              9. Employment begins under sponsor ->
+              10. Renewal or transfer handled through LMRA approval`
+},
+
+"BahrainOfficialGovernmentVisa": {
+    name: "Official / Government Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 14 days to 90 days for short official assignments. For longer missions, multiple-entry validity may be granted up to 1 year depending on government purpose and authorization.",
+
+    cost: "Generally free or exempt for official government delegations. In some cases, administrative fees (approx BHD 0–30 / ₹0–₹6,500) may apply depending on processing channel and arrangements.",
+
+    time: "Processing time usually 24 hours to 5 working days depending on diplomatic clearance and government coordination.",
+
+    age: "No strict age limit. Applicable to government officials, diplomats, and authorized personnel only.",
+
+    education: "Not required as eligibility is based on official designation, not academic qualification.",
+
+    funds: "Usually covered by sending government or host government. No personal financial proof required for official delegations.",
+
+    docs: "Valid passport (6+ months), official letter from government department/agency, diplomatic note or mission letter, passport-size photo, purpose of visit documentation, travel itinerary, and accommodation arrangements arranged by host government.",
+
+    whom: "Government officials, civil servants, and authorized representatives traveling to Bahrain for official meetings, intergovernmental negotiations, training programs, or state-related assignments.",
+
+    rules: "Must strictly follow official purpose of visit. Cannot engage in private employment or commercial activities. Must respect diplomatic protocols. Duration and activities are limited to mission scope. Overstay or misuse may affect diplomatic relations.",
+
+    prosCons: "Pros: Priority processing, often fee-exempt, facilitated by diplomatic channels, fast clearance. Cons: Strictly limited to official duties, not usable for personal travel or employment.",
+
+    terms: "MOFA: Ministry of Foreign Affairs (Bahrain); Diplomatic Note: Official communication between governments; NPRA: Nationality, Passports & Residence Affairs; Official Mission: Government-approved assignment; Protocol Clearance: Diplomatic approval for entry.",
+
+    legal: "Regulated under Bahrain Ministry of Foreign Affairs (MOFA) in coordination with Ministry of Interior (NPRA) and diplomatic protocols.",
+
+    process: `1. Sending government issues official mission request ->
+              2. Submit diplomatic note to Bahrain MOFA ->
+              3. Verification and coordination with NPRA ->
+              4. Security and protocol clearance ->
+              5. Visa approval issued through official channel ->
+              6. Entry authorization granted ->
+              7. Arrival in Bahrain with diplomatic/official clearance ->
+              8. Immigration fast-track processing ->
+              9. Stay strictly under official assignment ->
+              10. Exit upon completion of mission`
+},
+
+"BahrainDiplomaticVisa": {
+    name: "Diplomatic Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 3 months to 1 year depending on diplomatic posting, assignment duration, and bilateral agreements. May be extended for the full tenure of the diplomatic mission.",
+
+    cost: "Generally free of charge for accredited diplomats and embassy officials. In rare cases, minor administrative fees (approx BHD 0–25 / ₹0–₹5,500) may apply for processing or documentation.",
+
+    time: "Processing time usually 24 hours to 5 working days, often expedited through diplomatic channels and Ministry of Foreign Affairs coordination.",
+
+    age: "No strict age limit. Applicable only to accredited diplomatic personnel and their eligible dependents.",
+
+    education: "Not required. Eligibility is based on diplomatic appointment or government posting, not academic qualifications.",
+
+    funds: "Not required from applicant. Expenses are typically covered by sending government or diplomatic mission.",
+
+    docs: "Diplomatic passport, official diplomatic note (verbal note) from Ministry of Foreign Affairs of sending country, assignment letter, passport-size photo, details of diplomatic post, family/dependent documents (if applicable), travel itinerary, and accommodation arrangements provided by host government or embassy.",
+
+    whom: "Diplomats, embassy/consulate staff, international organization representatives, and their eligible family members assigned to Bahrain for official diplomatic duties.",
+
+    rules: "Must strictly follow diplomatic assignment. Cannot engage in commercial or private employment. Must respect diplomatic protocols and Bahraini laws under Vienna Convention. Misuse may lead to revocation of diplomatic status.",
+
+    prosCons: "Pros: Visa fee exemption, diplomatic immunity (as per applicable agreements), priority processing, legal protections under international law. Cons: Strictly limited to official diplomatic functions, cannot be used for personal or business activities.",
+
+    terms: "MOFA: Ministry of Foreign Affairs (Bahrain); Diplomatic Note: Official government communication; Vienna Convention: International treaty governing diplomatic relations; Accreditation: Official recognition of diplomat by host country; NPRA: Nationality, Passports & Residence Affairs.",
+
+    legal: "Regulated by Bahrain Ministry of Foreign Affairs (MOFA) under international diplomatic law (Vienna Convention on Diplomatic Relations) in coordination with Ministry of Interior (NPRA).",
+
+    process: `1. Sending country issues diplomatic appointment ->
+              2. Ministry of Foreign Affairs sends diplomatic note to Bahrain MOFA ->
+              3. Verification and accreditation process ->
+              4. Security clearance and approval by MOFA ->
+              5. Diplomatic visa issuance ->
+              6. Entry into Bahrain under diplomatic status ->
+              7. Accreditation with Bahraini authorities ->
+              8. Issuance of diplomatic ID card ->
+              9. Assignment begins at embassy/mission ->
+              10. Renewal or extension based on posting duration`
+},
+
+"BahrainMedicalTreatmentVisa": {
+    name: "Medical Treatment Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 14 days to 90 days depending on treatment duration. Can be extended based on hospital recommendation and NPRA approval until treatment is completed.",
+
+    cost: "Approx BHD 10–50 (~₹2,200–₹11,000) depending on duration, hospital sponsorship, and visa category. Additional hospital/medical costs are separate and paid directly to healthcare provider.",
+
+    time: "Processing time usually 24 hours to 7 working days depending on hospital sponsorship, medical urgency, and document verification.",
+
+    age: "No strict age limit. Applicable for patients of all ages, including minors and elderly patients.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds or medical sponsorship required. This may include bank statements, hospital cost estimate, insurance coverage, or sponsor guarantee.",
+
+    docs: "Valid passport (6+ months), passport-size photo, hospital/medical institution invitation letter, medical diagnosis report from home country, treatment plan from Bahrain hospital, proof of funds or insurance, return ticket, completed visa application form.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Bahrain for medical consultation, surgery, specialized treatment, or follow-up care in licensed hospitals.",
+
+    rules: "Must strictly follow medical treatment plan. Cannot engage in employment. Must leave after treatment completion unless extension is approved. Overstay leads to fines and legal consequences.",
+
+    prosCons: "Pros: Access to advanced healthcare in Bahrain, hospital-sponsored visas available, quick processing in urgent cases. Cons: Short-term stay, dependent on medical approval, high treatment costs outside visa scope.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (issues visa); MOH: Ministry of Health (Bahrain); Medical Sponsor: Hospital or healthcare provider; Treatment Plan: Official medical recommendation; eVisa: Electronic visa system.",
+
+    legal: "Regulated by Bahrain Ministry of Interior (NPRA) in coordination with Ministry of Health and licensed medical institutions.",
+
+    process: `1. Obtain medical diagnosis in home country ->
+              2. Contact Bahrain hospital and receive treatment plan ->
+              3. Hospital issues invitation/sponsorship letter ->
+              4. Apply for medical visa via eVisa or embassy ->
+              5. Submit medical and financial documents ->
+              6. Application review by NPRA ->
+              7. Visa approval issued ->
+              8. Travel to Bahrain ->
+              9. Hospital admission and treatment begins ->
+              10. Extension if required based on medical report ->
+              11. Exit after treatment completion`
+},
+
+"BahrainShortTermEntryVisa": {
+    name: "Short-Term Entry Visa (Kingdom of Bahrain)",
+
+    validity: "Usually 7 days, 14 days, or up to 30 days depending on purpose (tourism, visit, or urgent business). Some cases may allow extension up to 60–90 days with NPRA approval.",
+
+    cost: "Approx BHD 5–30 (~₹1,100–₹6,500) depending on duration, entry type, and application channel (eVisa or embassy/sponsor).",
+
+    time: "Processing time usually 24 hours to 5 working days for eVisa. Embassy or sponsor-based applications may take up to 7–10 working days.",
+
+    age: "No strict age limit. Minors require parent/guardian consent and supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required (bank statement, sponsor guarantee, or financial proof depending on nationality).",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, completed application form, return flight ticket, hotel booking or accommodation proof, bank statement (if requested), travel insurance (recommended), invitation letter (if applicable).",
+
+    whom: "Foreign nationals (including Indian citizens) visiting Bahrain for very short stays such as tourism, family visits, urgent business meetings, or short transit-related entry beyond airport area.",
+
+    rules: "Must strictly leave Bahrain before visa expiry. No employment allowed. Extension only with NPRA approval. Overstay results in fines and possible entry bans.",
+
+    prosCons: "Pros: Fast approval, minimal documentation, ideal for urgent short trips. Cons: Very limited stay duration, no work permission, extensions not guaranteed.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (Bahrain authority); Short-Term Entry: Temporary visa for brief stays; eVisa: Electronic visa system; Validity Period: Time window for entry and stay.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA).",
+
+    process: `1. Determine purpose of short visit ->
+              2. Apply via Bahrain eVisa portal or embassy ->
+              3. Submit passport and supporting documents ->
+              4. Pay visa fee ->
+              5. Application review by NPRA ->
+              6. Approval or additional verification ->
+              7. eVisa issued electronically ->
+              8. Travel to Bahrain ->
+              9. Immigration clearance on arrival ->
+              10. Exit before visa expiry`
+},
+
+
+"BahrainGoldenResidencyVisa": {
+    name: "Golden Residency Visa (Bahrain 10-Year Permanent Route)",
+
+    validity: "10 years. Renewable indefinitely for additional 10-year periods, provided the eligibility criteria are still met. It is the most stable residency status in Bahrain.",
+
+    cost: "Application fee: BHD 4 (~₹900). Issuance fee: BHD 300 (~₹66,000) for the full 10 years. Plus medical exam and biometrics charges separate.",
+
+    time: "Processing time: 4 to 8 weeks. Requires thorough background checks and financial verification by the NPRA.",
+
+    age: "No strict age limit for property owners or talent; retirees must be of retirement age (usually 55+).",
+
+    education: "No specific requirement for property owners/retirees. For 'Highly Talented' individuals, a PhD or high-level professional certification is expected.",
+
+    funds: "Mandatory (one of these): 1. Own property worth BHD 200,000 (~₹4.4 Crore) or more. 2. Be a retiree with a monthly income of BHD 4,000 (~₹8.8 Lakhs). 3. Highly talented individuals with government endorsement.",
+
+    docs: "Valid passport, Title Deed (for property route), 6-month bank statements, proof of pension/income (for retirees), CV and achievement awards (for talent), health insurance valid in Bahrain, and clean criminal record (PCC).",
+
+    whom: "Indian high-net-worth investors, property owners in Bahrain, wealthy retirees, and world-class experts in science, sports, or arts.",
+
+    rules: "Self-sponsored (no employer required). Must reside in Bahrain for at least 90 days per year to keep the residency active. Allows the holder to work for any employer or start their own business freely.",
+
+    prosCons: "Pros: Long-term security; no local sponsor needed; allows sponsoring family and domestic staff; fast-track at the airport. Cons: High entry threshold; residency tied to property or income maintenance.",
+
+    terms: "Golden Pass: Common name for this 10-year visa; Self-Sponsorship: Being your own legal guarantor; NPRA: Nationality, Passports and Residence Affairs.",
+
+    legal: "Cabinet Resolution No. 2 of 2022 regarding the Golden Residency Visa.",
+
+    process: `1. Verify eligibility (Property vs. Income vs. Talent) -> 
+              2. Log into the Bahrain eVisa portal or NPRA system -> 
+              3. Submit the 'Golden Residency' nomination request -> 
+              4. Upload title deeds, bank statements, and attested certificates -> 
+              5. Pay the initial application fee -> 
+              6. Undergo security screening and financial audit -> 
+              7. Receive 'Approval in Principle' -> 
+              8. Pay the BHD 300 issuance fee -> 
+              9. Receive the 10-year residency stamp and Golden CPR card.`
+},
+
+
+"BahrainProfessionalPracticeVisa": {
+    name: "Professional Practice Visa (Temporary Service Permit)",
+
+    validity: "Usually 3 to 6 months. Designed for short-term professional engagements that do not constitute full employment.",
+
+    cost: "Approx. BHD 50 – BHD 100 (~₹11,000 – ₹22,000) depending on the duration and the specific profession.",
+
+    time: "Processing: 1 to 2 weeks. Requires approval from the relevant professional regulatory body (e.g., NHRA for doctors).",
+
+    education: "Mandatory: Must hold professional qualifications (Degree/License) attested by the Ministry of Foreign Affairs (MEA) and the Bahrain Embassy.",
+
+    whom: "Indian doctors, lawyers, specialized engineers, and auditors who are entering Bahrain to provide a specific consultation, perform a surgery, or conduct an audit for a limited time.",
+
+    rules: "Not an employment visa; the applicant cannot receive a regular monthly salary from a Bahraini payroll. They must be sent by a foreign firm or invited as a consultant. Must have temporary registration with Bahraini professional councils.",
+
+    process: `1. Bahraini entity requests professional services -> 2. Obtain temporary license from NHRA or COEPP -> 3. Apply via NPRA portal -> 4. Visa issued for specific contract duration.`
+},
+
+
+
+"BahrainF1GrandPrixVisa": {
+    name: "F1 Grand Prix Visa (Formula 1 Seasonal Visa)",
+
+    validity: "2 weeks. Strictly valid only during the weeks surrounding the Bahrain Grand Prix event.",
+
+    cost: "Usually BHD 5 (~₹1,100). In some years, this visa is offered for FREE to ticket holders of the race.",
+
+    time: "Very fast: 24 to 72 hours. Can be applied for online or sometimes granted on arrival.",
+
+    whom: "Indian F1 fans, racing team staff, media crews, and sponsors visiting for the international race event at Sakhir.",
+
+    rules: "Strictly for the F1 event. No work rights. Entry is only permitted during the race season window. Must have a valid race ticket or event accreditation.",
+
+    prosCons: "Pros: Very low cost; extremely fast processing; festive atmosphere. Cons: Very short validity; useless for any other travel purpose.",
+
+    process: `1. Purchase an F1 Race Ticket -> 2. Apply via the specialized F1 portal on evisa.gov.bh -> 3. Provide ticket reference number -> 4. Receive e-visa via email.`
+},
+
+
+
+"BahrainShipToShoreMaritimeVisa": {
+    name: "Ship-to-Shore Maritime Visa (72-Hour Shore Pass)",
+
+    validity: "Maximum 72 hours. Strictly for the duration of the ship's docking at a Bahraini port (Khalifa Bin Salman Port).",
+
+    cost: "Approx. BHD 10 (~₹2,200). Often handled by the shipping agent.",
+
+    time: "Immediate. Processed at the port immigration desk upon the vessel's arrival.",
+
+    whom: "Indian seafarers, ship officers, and crew members of commercial vessels or luxury yachts who wish to enter the city for rest or supplies.",
+
+    rules: "The traveler must return to the ship before it departs or within 72 hours. The original passport is often held by the Port Immigration, and a 'Shore Pass' card is issued.",
+
+    terms: "Shore Pass: Temporary permit to leave the port; Vessel Agent: The local company managing the ship's stay.",
+
+    process: `1. Vessel docks at Bahraini port -> 2. Shipping agent submits the crew list to Port Immigration -> 3. Individual crew members present Seaman's Book/Passport -> 4. Shore Pass granted for 72 hours -> 5. Return to ship and reclaim documents.`
+},
+
+"BahrainLongTermResidencePermit": {
+    name: "Long-Term Residence Permit (Kingdom of Bahrain)",
+
+    validity: "Usually 2 to 5 years depending on category (investor, skilled worker, or long-term resident schemes). Renewable if eligibility conditions continue to be met.",
+
+    cost: "Approx BHD 100–500+ (~₹22,000–₹1,10,000+) depending on category, duration, medical tests, ID card issuance, and administrative fees. Sponsored by employer or self (investor route).",
+
+    time: "Processing time usually 10–30 working days depending on visa category, background checks, and NPRA verification process.",
+
+    age: "No strict age limit. Typically applies to working-age professionals, investors, and long-term residents.",
+
+    education: "Not mandatory for investor residency. For skilled residency, relevant qualifications or professional experience may be required.",
+
+    funds: "Required depending on category. Investors must show significant capital investment. Employees depend on salary. Family-based residency depends on sponsor’s income threshold.",
+
+    docs: "Valid passport (6+ months), passport-size photos, sponsor documents (employment contract or business registration), medical fitness certificate, police clearance certificate, proof of income or investment, tenancy agreement, bank statements (if required), completed application form.",
+
+    whom: "Foreign nationals (including Indians) who qualify for long-term stay in Bahrain through employment, investment, or special residency programs such as extended investor or skilled worker residency.",
+
+    rules: "Must maintain eligibility criteria (job, investment, or sponsorship). Must comply with Bahraini laws. Changes in employment or investment status must be reported. Overstay or violation can lead to cancellation and deportation.",
+
+    prosCons: "Pros: Long-term stability, renewable residency, access to services (healthcare, banking, education), potential pathway to permanent residency. Cons: Strict eligibility requirements, dependent on job/investment status, regulatory compliance needed.",
+
+    terms: "NPRA: Nationality, Passports & Residence Affairs (issues residence permits); RP: Residence Permit; Sponsor: Employer, investor, or eligible resident; CR: Commercial Registration (for businesses); Long-Term Residency: Extended legal stay status beyond standard visas.",
+
+    legal: "Regulated by Bahrain Ministry of Interior through the Nationality, Passports & Residence Affairs (NPRA) in coordination with Labour Market Regulatory Authority (LMRA) and Ministry of Industry and Commerce (for investors).",
+
+    process: `1. Determine eligibility (work, investor, or special residency category) ->
+              2. Obtain sponsorship or establish business/investment ->
+              3. Submit application to NPRA ->
+              4. Provide supporting documents (income, investment, employment) ->
+              5. Medical test and security clearance ->
+              6. Pay applicable fees ->
+              7. Application review and approval ->
+              8. Long-term residence permit issued ->
+              9. Entry or status activation in Bahrain ->
+              10. Periodic renewal based on compliance and eligibility`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>

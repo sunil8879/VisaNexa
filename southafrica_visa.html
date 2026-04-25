@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* USA Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="SOUTH AFRICA">SOUTH AFRICA</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+         
+<select id="visaType">
+    <optgroup label="1. Visitor & Short-Term Stay">
+        <option value="SouthAfricaVisitorsVisa">Visitor’s Visa (Short Stay)</option>
+        <option value="SouthAfricaTouristVisa">Tourist Visa</option>
+        <option value="SouthAfricaBusinessVisaShortTerm">Business Visa (Short-Term)</option>
+        <option value="SouthAfricaMedicalTreatmentVisa">Medical Treatment Visa</option>
+        <option value="SouthAfricaRelativesVisa">Relative’s Visa (Short Stay)</option>
+        <option value="SouthAfricaFianceVisa">Fiancé / Fiancée Visa</option>
+        <option value="SouthAfricaTransitVisa">Transit Visa</option>
+        <option value="SouthAfricaCrewVisa">Crew Visa</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Skilled Migration">
+        <option value="SouthAfricaGeneralWorkVisa">General Work Visa</option>
+        <option value="SouthAfricaCriticalSkillsWorkVisa">Critical Skills Work Visa</option>
+        <option value="SouthAfricaIntraCompanyTransferWorkVisa">Intra-Company Transfer (ICT)</option>
+        <option value="SouthAfricaCorporateVisa">Corporate Visa (Quota)</option>
+        <option value="SouthAfricaSection11_2WorkAuthorisationVisa">Section 11(2) (Short-Term Work)</option>
+        <option value="SouthAfricaSection11_6SpousalWorkVisa">Section 11(6) (Spousal Work Rights)</option>
+    </optgroup>
+
+    <optgroup label="3. Residency & Personal Status">
+        <option value="SouthAfricaSpousalVisa">Spousal Visa (Residency)</option>
+        <option value="SouthAfricaLifePartnerVisa">Life Partner Visa</option>
+        <option value="SouthAfricaRetiredPersonVisa">Retired Person Visa</option>
+        <option value="SouthAfricaFinanciallyIndependentPermit">Financially Independent Permit</option>
+        <option value="SouthAfricaAccompanyingDependentVisa">Accompanying Dependent Visa</option>
+        <option value="SouthAfricaPermanentResidenceDirect">Permanent Residence (Direct)</option>
+        <option value="SouthAfricaPermanentResidenceOtherGrounds">Permanent Residence (Other Grounds)</option>
+    </optgroup>
+
+    <optgroup label="4. Study, Training & Social">
+        <option value="SouthAfricaStudyVisa">Study Visa</option>
+        <option value="SouthAfricaVolunteerVisa">Volunteer Visa</option>
+        <option value="SouthAfricaExchangeVisa">Exchange Visa</option>
+        <option value="SouthAfricaTrainingVisa">Training Visa</option>
+        <option value="SouthAfricaInternshipVisa">Internship Visa</option>
+        <option value="SouthAfricaResearchVisa">Research Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Specialized Industry Visas">
+        <option value="SouthAfricaBusinessVisaLongTermInvestment">Business / Investment Visa</option>
+        <option value="SouthAfricaFilmProductionVisa">Film Production Visa</option>
+        <option value="SouthAfricaReligiousWorkerVisa">Religious Worker Visa</option>
+        <option value="SouthAfricaSportsVisa">Sports Visa</option>
+        <option value="SouthAfricaArtsAndCultureVisa">Arts and Culture Visa</option>
+        <option value="SouthAfricaSeasonalWorkVisa">Seasonal Work Visa</option>
+        <option value="SouthAfricaMiningWorkVisa">Mining Work Visa</option>
+        <option value="SouthAfricaAgriculturalWorkVisa">Agricultural Work Visa</option>
+        <option value="SouthAfricaFishingIndustryVisa">Fishing Industry Visa</option>
+        <option value="SouthAfricaAviationCrewVisa">Aviation Crew Visa</option>
+        <option value="SouthAfricaMaritimeCrewVisa">Maritime Crew Visa</option>
+    </optgroup>
+
+    <optgroup label="6. Regional & Border Entry">
+        <option value="SouthAfricaCrossBorderPermit">Cross-Border Permit</option>
+        <option value="SouthAfricaBorderPassVisa">Border Pass Visa</option>
+        <option value="SouthAfricaReEntryVisa">Re-entry Visa</option>
+    </optgroup>
+
+    <optgroup label="7. Official & Diplomatic">
+        <option value="SouthAfricaDiplomaticVisa">Diplomatic Visa</option>
+        <option value="SouthAfricaOfficialVisa">Official Visa</option>
+        <option value="SouthAfricaTreatyVisa">Treaty Visa</option>
+        <option value="SouthAfricaCourtesyVisa">Courtesy Visa</option>
+        <option value="SouthAfricaJudicialVisa">Judicial Visa</option>
+    </optgroup>
+
+    <optgroup label="8. Protection & Humanitarian">
+        <option value="SouthAfricaRefugeeVisa">Refugee Visa</option>
+        <option value="SouthAfricaAsylumSeekerVisa">Asylum Seeker Visa</option>
+        <option value="SouthAfricaAdoptionVisa">Adoption Visa</option>
+        <option value="SouthAfricaConferenceVisa">Conference Visa</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF SOUTH AFRICA MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇿🇦 VIEW SOUTH AFRICA IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇿🇦 GENERAL PROCESS FOR SOUTH AFRICA IMMIGRATION</h1>
+
+        <h2>🧭 1. DETERMINE YOUR IMMIGRATION PATHWAY</h2>
+        <p>Identify your category: Visitor (Short-stay), Study, Work (Critical Skills, General, or ICT), Business/Investment, or Family/Spousal. Each category has distinct requirements under the South African Immigration Act.</p>
+
+        <h2>📩 2. CHECK ELIGIBILITY & HEALTH REQUIREMENTS</h2>
+        <p>Confirm you meet the criteria for your chosen visa. <strong>Important:</strong> Long-term visas (over 3 months) require a <b>Medical Report</b> and a <b>Radiological Report</b> (chest X-ray for TB) from a registered physician.</p>
+
+        <h2>📄 3. DOCUMENT PREPARATION</h2>
+        <p>Prepare your core file: Valid Passport, Application forms, proof of financial capacity, and a <b>Police Clearance Certificate (PCC)</b> from every country where you resided for 12+ months since age 18.</p>
+
+        <h2>🧬 4 & 5. SUBMISSION VIA VFS GLOBAL & BIOMETRICS</h2>
+        <p>In India, applications are submitted through <b>VFS Global</b>. You must book an appointment, submit your physical file, and provide biometrics (fingerprints and photo). You pay both the visa fee and the VFS service charge.</p>
+
+        <h2>⚖️ 6. DHA ASSESSMENT & VERIFICATION</h2>
+        <p>The <b>Department of Home Affairs (DHA)</b> in South Africa assesses the application. They verify the authenticity of your job offer, university admission, or family relationship. Processing takes 5–15 days for visitors and 4–8 weeks for work/study visas.</p>
+
+        <h2>✅ 7 & 8. APPROVAL & PORT OF ENTRY</h2>
+        <p>If approved, you receive a visa sticker or an e-visa. Upon arrival at a South African Port of Entry (Airport), an immigration officer verifies your visa and issues an <b>Entry Permit</b> defining your legal stay duration.</p>
+
+        <h2>🔄 9. COMPLIANCE & 60-DAY RENEWAL RULE</h2>
+        <p>Maintain legal status by following your visa conditions. If you need an extension, you must apply via VFS <b>at least 60 days</b> before your current visa expires to avoid being declared "undesirable."</p>
+
+        <h2>🌍 10. PERMANENT RESIDENCY (PR) PATHWAY</h2>
+        <p>After holding a work visa for 5 years (or immediately for certain Critical Skills/Business categories), you may apply for <b>Permanent Residency</b>. PR status allows you to live and work without a specific sponsor.</p>
+
+        <div style="background: #eee; padding: 15px; font-weight: bold; border-left: 5px solid var(--black); margin-top: 15px;">
+            ⚡ SUMMARY FLOW: Choose Category → Medical/PCC Prep → VFS Submission → Biometrics → DHA Processing → Approval → Airport Entry Permit → Stay Compliance → PR Path
+        </div>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL SOUTH AFRICA IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Department of Home Affairs (DHA):</strong> <a href="http://www.dha.gov.on.za" target="_blank">www.dha.gov.za</a></p>
+            <p><strong>2. Government Services Portal:</strong> <a href="https://www.gov.za" target="_blank">www.gov.za</a></p>
+            <p><strong>3. VFS Global South Africa (India):</strong> <a href="https://visa.vfsglobal.com/ind/en/zaf" target="_blank">visa.vfsglobal.com/india</a></p>
+            <p><strong>4. High Commission of South Africa (India):</strong> <a href="https://www.dirco.gov.za/newdelhi/" target="_blank">www.dirco.gov.za/newdelhi</a></p>
+            <p><strong>5. SA e-Visa Portal:</strong> <a href="https://evisa.dha.gov.za" target="_blank">evisa.dha.gov.za</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: ONLY USE OFFICIAL .GOV.ZA WEBSITES. BEWARE OF AGENTS PROMISING TO "BYPASS" THE MEDICAL OR PCC REQUIREMENTS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "SOUTH AFRICA": {
+"SouthAfricaVisitorsVisa": {
+    name: "Visitor’s Visa (South Africa)",
+
+    validity: "Usually issued for short-term stay up to 90 days. In some cases, it may be granted for shorter periods depending on the purpose of visit. Extensions may be possible within South Africa under valid circumstances.",
+
+    cost: "Approx. USD 30–100 (₹2,500–₹8,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 15 working days. May extend to 20–30 days depending on application volume and document verification.",
+
+    age: "No strict age limit. Applicable to all foreign nationals including minors (with additional parental consent documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required to cover stay. Bank statements, salary slips, or sponsor financial documents may be required.",
+
+    docs: "Valid passport, completed visa application form, recent passport-size photos, travel itinerary, return flight ticket, proof of accommodation, bank statements, cover letter stating purpose of visit, invitation letter (if applicable), yellow fever certificate (if required), travel insurance.",
+
+    whom: "Foreign nationals traveling to South Africa for tourism, family visit, or short-term purposes such as business meetings or conferences (non-work).",
+
+    rules: "No employment allowed. Stay limited to visa validity. Must comply with stated purpose of visit. Overstaying can result in fines, bans, or deportation.",
+
+    prosCons: "Pros: Simple and flexible short-term entry option, covers multiple purposes like tourism and visits. Cons: No work rights, limited duration, strict overstay penalties.",
+
+    terms: "Visitor’s Visa: Short-term entry permit; VFS: Visa Facilitation Services; Sponsor: Person inviting or supporting applicant; Overstay: Staying beyond visa validity leading to penalties.",
+
+    legal: "Department of Home Affairs (DHA), Republic of South Africa immigration regulations under Immigration Act.",
+
+    process: `1. Determine purpose of visit  
+              2. Gather required documents  
+              3. Complete visa application form  
+              4. Book appointment with VFS/embassy  
+              5. Submit biometric data and documents  
+              6. Pay visa and service fees  
+              7. Application sent for processing  
+              8. Background and document verification  
+              9. Decision made by immigration authorities  
+              10. Passport returned with visa decision  
+              11. Travel to South Africa  
+              12. Comply with visa conditions or apply for extension if eligible`
+},
+
+"SouthAfricaTouristVisa": {
+    name: "Tourist Visa (South Africa)",
+
+    validity: "Typically issued for up to 90 days for tourism purposes. In some cases, it may be granted for shorter or slightly longer durations depending on itinerary and immigration discretion. Extensions may be possible inside South Africa under special conditions.",
+
+    cost: "Approx. USD 30–100 (₹2,500–₹8,500). Additional VFS/embassy service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time usually 5 to 15 working days. May extend up to 30 days during peak travel seasons or due to document verification.",
+
+    age: "No age restriction. Applicable for adults, minors, and senior citizens. Minors require parental consent and additional supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required for entire stay. Bank statements, salary slips, or sponsor financial support documents may be required.",
+
+    docs: "Valid passport, visa application form, recent passport-size photographs, confirmed return flight tickets, hotel bookings or accommodation proof, bank statements (last 3–6 months), cover letter explaining travel itinerary, travel insurance, invitation letter (if staying with family/friends), proof of employment or business (if applicable), minor travel consent documents (if applicable).",
+
+    whom: "Foreign nationals visiting South Africa purely for tourism, sightseeing, leisure travel, or holiday purposes without engaging in any paid work or business activities.",
+
+    rules: "Strictly no employment or paid activity allowed. Must follow approved travel itinerary. Must leave South Africa before visa expiry unless legally extended. Overstaying may lead to fines, bans, or deportation.",
+
+    prosCons: "Pros: Simple process for holiday travel, widely accepted for tourism entry, flexible itinerary options. Cons: No work or study allowed, short validity, strict financial and documentation requirements.",
+
+    terms: "Tourist Visa: Short-term leisure travel permit; VFS: Visa Facilitation Services; Overstay: Remaining beyond permitted duration; Immigration Officer: Authority deciding entry at border.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under the Immigration Act and tourism entry regulations.",
+
+    process: `1. Decide travel dates and itinerary  
+              2. Collect required documents  
+              3. Fill visa application form  
+              4. Book VFS/embassy appointment  
+              5. Submit biometrics and application  
+              6. Pay visa processing fees  
+              7. Application review by immigration authorities  
+              8. Verification of documents and funds  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Follow visa conditions and exit before expiry`
+},
+
+"SouthAfricaBusinessVisaShortTerm": {
+    name: "Business Visa (Short-Term – South Africa)",
+
+    validity: "Usually issued for up to 90 days per visit. In some cases, validity may be aligned with business invitation duration. Extensions may be possible within South Africa depending on justification and approval.",
+
+    cost: "Approx. USD 50–120 (₹4,000–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time generally 5 to 15 working days. May extend to 20–30 days if additional verification of business purpose is required.",
+
+    age: "No strict age limit. Typically issued to working professionals, entrepreneurs, investors, and business representatives.",
+
+    education: "Not mandatory, but professional or business background is usually expected depending on purpose.",
+
+    funds: "Proof of sufficient funds required for travel and stay. Bank statements, company sponsorship letter, or business financial documents may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, business invitation letter from South African company, company registration documents (both sides if applicable), employer letter or business proof from home country, bank statements, travel itinerary, return flight tickets, accommodation proof, travel insurance, cover letter explaining business purpose, meeting/conference details.",
+
+    whom: "Foreign nationals traveling to South Africa for short-term business activities such as meetings, conferences, negotiations, trade discussions, or site visits (no employment or long-term work).",
+
+    rules: "No employment or paid work allowed in South Africa under this visa. Activities must be strictly limited to business meetings or short-term engagements. Must exit before visa expiry unless legally extended.",
+
+    prosCons: "Pros: Suitable for quick business trips, easy access for meetings and conferences, flexible short-term entry. Cons: No work authorization, strict documentation requirements, limited stay duration.",
+
+    terms: "Business Invitation Letter: Official invite from South African company; VFS: Visa Facilitation Services; DHA: Department of Home Affairs; Short-Term Business Activity: Meetings, conferences, negotiations only.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for short-term business visitors.",
+
+    process: `1. Receive business invitation from South African company  
+              2. Collect required business and personal documents  
+              3. Fill visa application form  
+              4. Book VFS/embassy appointment  
+              5. Submit biometrics and documents  
+              6. Pay visa and service fees  
+              7. Application review by immigration authorities  
+              8. Verification of business purpose and documents  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Attend meetings and return before expiry`
+},
+
+"SouthAfricaStudyVisa": {
+    name: "Study Visa (South Africa)",
+
+    validity: "Issued for the duration of the academic program (course length). Typically valid for 1 year at a time and renewable annually until completion of studies.",
+
+    cost: "Approx. USD 50–150 (₹4,000–₹12,500). Additional VFS/embassy service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time usually 5 to 20 working days. May extend to 30–60 days depending on document verification and institution approval.",
+
+    age: "No strict age limit. Common for school students, university students, and postgraduate learners. Minors require parental/legal guardian consent.",
+
+    education: "Admission letter from a recognized South African educational institution is mandatory. Proof of previous academic qualifications required.",
+
+    funds: "Proof of sufficient funds required for tuition fees and living expenses. Bank statements, sponsor letters, scholarship proof, or education loan documents accepted.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, official letter of acceptance from South African institution, proof of tuition payment or enrollment, financial proof (bank statements/sponsor documents/scholarship), medical report, radiological report (if required), police clearance certificate (for adults), travel insurance, proof of accommodation, parental consent (for minors), cover letter stating study intent.",
+
+    whom: "Foreign students accepted into South African schools, colleges, universities, or approved training/academic programs.",
+
+    rules: "No full-time employment allowed (limited part-time work may be permitted under conditions). Must maintain enrollment and academic progress. Must notify authorities of institution changes. Overstay or dropout may lead to visa cancellation.",
+
+    prosCons: "Pros: Access to South African education system, renewable for full study duration, allows limited work opportunities in some cases. Cons: High documentation requirements, financial proof mandatory, strict compliance with academic enrollment.",
+
+    terms: "Study Visa: Student residence permit; DHA: Department of Home Affairs; LOA: Letter of Acceptance; Police Clearance Certificate: Criminal background check document.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for study permits.",
+
+    process: `1. Apply and get acceptance from South African institution  
+              2. Collect academic and financial documents  
+              3. Complete study visa application form  
+              4. Book VFS/embassy appointment  
+              5. Submit biometrics and documents  
+              6. Pay visa fees  
+              7. Application review and verification by authorities  
+              8. Medical and police clearance checks  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Register at institution and maintain study compliance`
+},
+
+"SouthAfricaMedicalTreatmentVisa": {
+    name: "Medical Treatment Visa (South Africa)",
+
+    validity: "Usually issued for short-term medical treatment up to 90 days. May be extended based on medical reports and hospital recommendation within South Africa.",
+
+    cost: "Approx. USD 30–100 (₹2,500–₹8,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 15 working days. May extend to 20–30 days if medical verification or hospital coordination is required.",
+
+    age: "No age restriction. Applicable to adults, children, and elderly patients requiring medical care.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required for medical treatment, hospital stay, travel, and living expenses. Sponsor or insurance coverage documents may also be accepted.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, medical reports from home country doctor, letter from South African hospital/doctor confirming treatment and appointment, proof of payment or estimated treatment cost, bank statements or sponsor financial documents, travel insurance (medical coverage), accommodation details, cover letter explaining medical purpose, return flight ticket.",
+
+    whom: "Foreign nationals traveling to South Africa for medical consultation, surgery, treatment, or specialized healthcare services.",
+
+    rules: "No employment allowed. Must strictly follow approved medical treatment plan. Stay limited to treatment duration. Extension allowed only with updated medical proof. Overstay may lead to penalties.",
+
+    prosCons: "Pros: Access to advanced medical facilities in South Africa, flexible extension based on treatment, allows accompanying caregiver in some cases. Cons: Strict medical documentation required, high financial proof needed, limited to treatment purpose only.",
+
+    terms: "Medical Treatment Visa: Short-term healthcare entry permit; DHA: Department of Home Affairs; Hospital Letter: Official treatment confirmation; Medical Report: Doctor’s diagnosis and treatment plan.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for medical visits.",
+
+    process: `1. Consult doctor in home country and obtain medical report  
+              2. Get appointment confirmation from South African hospital  
+              3. Collect financial and travel documents  
+              4. Fill visa application form  
+              5. Book VFS/embassy appointment  
+              6. Submit biometrics and documents  
+              7. Pay visa fees  
+              8. Application review and medical verification  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Undergo treatment and apply for extension if needed`
+},
+
+"SouthAfricaRelativesVisa": {
+    name: "Relative’s Visa (South Africa)",
+
+    validity: "Usually issued for up to 90 days per visit. Extensions may be granted within South Africa based on family circumstances and supporting documentation.",
+
+    cost: "Approx. USD 30–100 (₹2,500–₹8,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 15 working days. May extend to 20–30 days depending on verification of family relationship.",
+
+    age: "No age restriction. Applicable to parents, children, siblings, grandparents, and other close relatives.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required either from applicant or sponsoring relative in South Africa. Sponsor’s bank statements and income proof may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, proof of relationship (birth certificate, marriage certificate, family records), invitation letter from relative in South Africa, sponsor’s ID or residence permit, sponsor’s financial proof (bank statements, salary slips), accommodation proof, travel itinerary, return flight ticket, cover letter explaining purpose of visit.",
+
+    whom: "Foreign nationals visiting close relatives legally residing in South Africa for short-term family visits.",
+
+    rules: "No employment allowed. Must strictly stay within approved visit purpose. Must leave before visa expiry unless extension is granted. Overstay may lead to fines or bans.",
+
+    prosCons: "Pros: Enables family reunification visits, flexible extension in genuine cases, supports strong family ties. Cons: No work rights, strict proof of relationship required, limited duration of stay.",
+
+    terms: "Relative’s Visa: Short-term family visit permit; Sponsor: Family member in South Africa; DHA: Department of Home Affairs; Proof of Relationship: Legal documents confirming family connection.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for family visits.",
+
+    process: `1. Collect proof of relationship documents  
+              2. Obtain invitation letter from relative in South Africa  
+              3. Gather sponsor financial and residence documents  
+              4. Complete visa application form  
+              5. Book VFS/embassy appointment  
+              6. Submit biometrics and documents  
+              7. Pay visa fees  
+              8. Application review and verification of relationship  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Return before expiry or apply for extension if eligible`
+},
+
+"SouthAfricaSpousalVisa": {
+    name: "Spousal Visa (South Africa)",
+
+    validity: "Usually issued for 1 to 3 years depending on the validity of the relationship proof and sponsor’s legal status. It can be renewed and may lead to long-term residence eligibility.",
+
+    cost: "Approx. USD 50–150 (₹4,000–₹12,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend up to 60 days depending on relationship verification and documentation checks.",
+
+    age: "No strict age limit. Applicable to legally married spouses or partners in a recognized life partnership.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required from either applicant or sponsoring spouse. Sponsor’s income proof, bank statements, and employment documents may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, marriage certificate or proof of legal partnership, sponsor’s South African ID or residence permit, proof of cohabitation or relationship history (photos, communication records, joint bills if available), sponsor’s financial proof, police clearance certificate (if required), medical and radiological reports, cover letter explaining relationship, accommodation proof.",
+
+    whom: "Foreign nationals legally married to or in a recognized life partnership with a South African citizen or legal resident.",
+
+    rules: "Must maintain genuine spousal/life partner relationship. Employment or study rights may be allowed only if specifically endorsed on the visa. Misrepresentation or fake relationships can lead to refusal or deportation. Must comply with immigration reporting requirements.",
+
+    prosCons: "Pros: Long-term stay option, potential pathway to permanent residence, may allow work or study with endorsement. Cons: Strict relationship verification, long processing and documentation requirements, visa can be revoked if relationship is not genuine.",
+
+    terms: "Spousal Visa: Residence permit based on marriage/partnership; Life Partner: Unmarried but long-term committed relationship; DHA: Department of Home Affairs; Endorsement: Permission added to visa for work or study.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for spousal and life partner residence permits.",
+
+    process: `1. Establish legal marriage or recognized partnership  
+              2. Collect relationship and identity documents  
+              3. Gather sponsor residence and financial proof  
+              4. Complete visa application form  
+              5. Book VFS/embassy appointment  
+              6. Submit biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Relationship verification by immigration authorities  
+              9. Additional interviews or checks if required  
+              10. Visa decision issued  
+              11. Passport returned with visa  
+              12. Travel to South Africa and comply with residence conditions`
+},
+
+"SouthAfricaLifePartnerVisa": {
+    name: "Life Partner Visa (South Africa)",
+
+    validity: "Usually issued for 1 to 3 years based on the strength and duration of the relationship proof. Renewable and can be extended further if the relationship continues to be genuine.",
+
+    cost: "Approx. USD 50–150 (₹4,000–₹12,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend up to 60–90 days if additional interviews or relationship verification is required.",
+
+    age: "No strict age limit. Applicable to adult partners in a long-term, committed relationship (married or unmarried).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required from either applicant or sponsoring partner. Sponsor’s income proof, bank statements, and employment details may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, proof of life partnership (cohabitation proof, joint financial records, shared lease or bills if available, photos, communication history), sponsor’s South African ID or residence permit, financial proof of sponsor, police clearance certificate (if required), medical and radiological reports, cover letter explaining relationship history and intent to live together, accommodation proof.",
+
+    whom: "Foreign nationals in a long-term committed relationship (not necessarily married) with a South African citizen or permanent resident.",
+
+    rules: "Must prove genuine and stable relationship. Employment or study may be allowed only if specifically endorsed. Immigration authorities may conduct interviews or home visits. False relationships or misrepresentation can lead to refusal or cancellation.",
+
+    prosCons: "Pros: Recognizes unmarried partnerships, potential pathway to permanent residence, allows cohabitation in South Africa. Cons: Strict proof requirements, long verification process, relationship scrutiny by immigration authorities.",
+
+    terms: "Life Partner: Long-term committed relationship without marriage; Cohabitation: Living together as partners; Endorsement: Permission added for work or study; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for life partner residence permits.",
+
+    process: `1. Establish and document long-term relationship  
+              2. Collect cohabitation and financial evidence  
+              3. Obtain sponsor’s legal residence documents  
+              4. Complete visa application form  
+              5. Book VFS/embassy appointment  
+              6. Submit biometrics and relationship documents  
+              7. Pay visa fees  
+              8. Relationship verification and possible interview  
+              9. Additional checks if required  
+              10. Visa decision issued  
+              11. Passport returned with visa  
+              12. Travel to South Africa and maintain relationship proof for renewals`
+},
+
+"SouthAfricaFianceVisa": {
+    name: "Fiancé/Fiancée Visa (South Africa)",
+
+    validity: "Usually issued for a short-term period of up to 90 days, intended specifically for entering South Africa to get married. In some cases, it may be extended once depending on immigration approval and marriage timeline.",
+
+    cost: "Approx. USD 30–100 (₹2,500–₹8,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 20 working days. May extend to 30 days depending on document verification and relationship checks.",
+
+    age: "No strict age limit. Applicable to adult individuals engaged or intending to marry a South African citizen or legal resident.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required for stay and wedding-related expenses. Sponsor’s financial proof may also be required if supported by South African partner.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, proof of engagement (engagement letter, photos, communication records), invitation letter from South African partner, sponsor’s ID or residence permit, proof of intention to marry (wedding booking or affidavit), bank statements or financial proof, travel itinerary, return ticket, accommodation proof, cover letter explaining marriage intent.",
+
+    whom: "Foreign nationals traveling to South Africa to marry a South African citizen or permanent resident within a planned timeframe.",
+
+    rules: "Must marry within the validity period or within legally allowed timeframe. No employment allowed unless separately authorized. Misuse for non-marriage purposes can lead to visa cancellation or deportation.",
+
+    prosCons: "Pros: Enables legal entry for marriage in South Africa, simplifies spouse transition process after marriage. Cons: Very short validity, strict proof of genuine relationship, must complete marriage quickly within visa period.",
+
+    terms: "Fiancé/Fiancée Visa: Entry permit for marriage purpose; Engagement Proof: Evidence of intention to marry; DHA: Department of Home Affairs; Marriage Registration: Legal registration of marriage in South Africa.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions related to marriage entry and spousal transition.",
+
+    process: `1. Establish and document engagement  
+              2. Arrange marriage plan/date in South Africa  
+              3. Collect partner and sponsor documents  
+              4. Complete visa application form  
+              5. Book VFS/embassy appointment  
+              6. Submit biometrics and documents  
+              7. Pay visa fees  
+              8. Application review and verification of relationship  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Complete marriage registration before visa expiry`
+},
+
+"SouthAfricaVolunteerVisa": {
+    name: "Volunteer Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the volunteer program, typically 3 to 12 months. May be extended depending on the organization and immigration approval.",
+
+    cost: "Approx. USD 30–100 (₹2,500–₹8,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 20 working days. May extend up to 30–45 days depending on NGO verification and program assessment.",
+
+    age: "No strict age limit. Commonly issued to young adults, professionals, gap-year travelers, and retirees participating in volunteer work.",
+
+    education: "Not mandatory, but some volunteer programs may require basic qualifications or skills depending on the project.",
+
+    funds: "Proof of sufficient funds required for living expenses, unless fully sponsored by the host organization. Bank statements or sponsor support letter may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, official acceptance letter from South African NGO/volunteer organization, detailed volunteer program description, proof of accommodation, bank statements or sponsor financial proof, travel itinerary, return flight ticket, travel insurance, cover letter explaining purpose of volunteering, police clearance certificate (sometimes required).",
+
+    whom: "Foreign nationals participating in unpaid volunteer work in South Africa through registered NGOs, charitable organizations, or community projects.",
+
+    rules: "Strictly no paid employment allowed. Must only engage in approved volunteer activities. Must comply with host organization rules and visa duration. Overstay or misuse may lead to penalties or bans.",
+
+    prosCons: "Pros: Allows meaningful social contribution, cultural exchange opportunities, often includes accommodation support. Cons: No income allowed, limited to approved volunteer project, strict documentation from NGO required.",
+
+    terms: "Volunteer Visa: Permit for unpaid social work; NGO: Non-Governmental Organization; Program Letter: Official volunteer placement confirmation; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for voluntary and non-profit sector participation.",
+
+    process: `1. Apply to a registered South African NGO or volunteer program  
+              2. Receive official acceptance letter  
+              3. Collect financial and travel documents  
+              4. Complete visa application form  
+              5. Book VFS/embassy appointment  
+              6. Submit biometrics and documents  
+              7. Pay visa fees  
+              8. Application review and NGO verification  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Join volunteer program and follow program rules`
+},
+
+"SouthAfricaExchangeVisa": {
+    name: "Exchange Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the exchange program, typically 3 to 12 months. In limited cases, it may be extended depending on program approval and host institution.",
+
+    cost: "Approx. USD 30–100 (₹2,500–₹8,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 20 working days. May extend to 30–45 days depending on verification of exchange program and sponsoring institution.",
+
+    age: "Commonly issued to students, young professionals, or trainees typically between 16 and 35 years, but no strict age limit applies depending on program type.",
+
+    education: "Not always mandatory, but most exchange programs require enrollment in an educational institution or proof of professional/academic participation.",
+
+    funds: "Proof of sufficient funds required for living expenses unless fully sponsored by exchange program. Sponsor or institution financial support letter may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, official acceptance letter from South African host institution or exchange organization, detailed exchange program description, proof of enrollment (if academic exchange), sponsor/institution financial guarantee, bank statements, travel itinerary, return flight ticket, accommodation proof, travel insurance, cover letter explaining exchange purpose, police clearance certificate (sometimes required).",
+
+    whom: "Foreign nationals participating in approved cultural, academic, educational, or professional exchange programs between South Africa and their home country.",
+
+    rules: "No permanent employment allowed unless specifically authorized by the exchange program. Must strictly follow program duration and activities. Must leave South Africa upon completion unless status is changed legally.",
+
+    prosCons: "Pros: Structured international exposure, cultural and academic exchange opportunities, often partially sponsored. Cons: Strict program limitations, short duration, limited work rights, dependent on host institution approval.",
+
+    terms: "Exchange Visa: Permit for structured international programs; Host Institution: South African organization managing exchange; Sponsoring Body: Organization funding/supporting participant; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for exchange and training programs.",
+
+    process: `1. Apply to recognized exchange program  
+              2. Receive official acceptance from host institution  
+              3. Collect program and financial documents  
+              4. Complete visa application form  
+              5. Book VFS/embassy appointment  
+              6. Submit biometrics and documents  
+              7. Pay visa fees  
+              8. Application review and verification of exchange program  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Participate in exchange program and comply with conditions`
+},
+"SouthAfricaCrewVisa": {
+    name: "Crew Visa (South Africa)",
+
+    validity: "Usually issued for short-term stays aligned with ship, aircraft, or transport schedule. Typically valid for a few days to a few months depending on assignment and entry frequency.",
+
+    cost: "Approx. USD 30–80 (₹2,500–₹7,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 3 to 15 working days. May be faster for verified airline or shipping company applications.",
+
+    age: "No strict age limit. Applicable to adult crew members working in aviation, maritime, or transport sectors.",
+
+    education: "Not mandatory, but relevant professional training or certifications in aviation, shipping, or logistics are required.",
+
+    funds: "Usually covered by employer (airline, shipping company, or transport operator). Proof of employment and salary responsibility from company is required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, employment letter from airline/shipping/transport company, crew ID or seaman book (if applicable), flight/vessel schedule, company guarantee letter, contract of employment, travel itinerary, return/onward movement details, accommodation details (if applicable).",
+
+    whom: "Foreign nationals working as crew members on ships, aircraft, or international transport vehicles entering South Africa for duty purposes.",
+
+    rules: "Must only perform assigned crew duties. No employment outside designated crew role. Must exit or continue journey as per transport schedule. Misuse may result in penalties or entry bans.",
+
+    prosCons: "Pros: Fast processing, employer-supported, essential for international travel operations. Cons: Strictly limited to crew duties, no personal employment rights, short stay duration.",
+
+    terms: "Crew Visa: Entry permit for transport personnel; Seaman Book: Maritime crew identification document; Crew ID: Airline/transport identification; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for transport and crew movement.",
+
+    process: `1. Employer (airline/shipping company) prepares crew documentation  
+              2. Collect employment and travel schedule documents  
+              3. Complete visa application form  
+              4. Submit application via VFS/embassy or direct channel (if applicable)  
+              5. Submit biometrics if required  
+              6. Pay visa fees (if not covered by employer)  
+              7. Application review and verification with employer  
+              8. Visa decision issued  
+              9. Passport returned with visa  
+              10. Travel to South Africa as per crew schedule  
+              11. Perform assigned duties  
+              12. Exit or continue journey as per transport itinerary`
+},
+
+"SouthAfricaTransitVisa": {
+    name: "Transit Visa (South Africa)",
+
+    validity: "Usually valid for up to 3–7 days, strictly for short stopovers while traveling to a third destination.",
+
+    cost: "Approx. USD 20–60 (₹1,500–₹5,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 3 to 10 working days. Can be faster if all onward travel documents are clear.",
+
+    age: "No age restriction. Applicable to all travelers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds for short stay in transit may be required. Onward travel confirmation is essential.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, confirmed onward flight ticket to final destination, valid visa for destination country (if required), proof of funds, travel itinerary, cover letter explaining transit purpose, hotel booking (if overnight stay), travel insurance (if required).",
+
+    whom: "Foreign nationals passing through South Africa en route to another country and needing to leave the airport or stay briefly during layover.",
+
+    rules: "Strictly no employment or extended stay allowed. Must leave South Africa within transit period. Must hold valid onward travel documents. Overstay or deviation from transit purpose may result in penalties.",
+
+    prosCons: "Pros: Quick and simple entry for layovers, minimal documentation, short processing time. Cons: Very limited duration, no stay flexibility, strict onward travel requirement.",
+
+    terms: "Transit Visa: Short stopover permit; Onward Ticket: Confirmed travel to next destination; Layover: Short stay between flights; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for transit passengers.",
+
+    process: `1. Book confirmed onward travel ticket  
+              2. Check transit visa requirement for nationality  
+              3. Collect required documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Pay visa fees  
+              7. Application review and verification  
+              8. Visa decision issued  
+              9. Passport returned with visa  
+              10. Travel to South Africa  
+              11. Clear transit immigration if required  
+              12. Depart within allowed transit time`
+},
+
+"SouthAfricaGeneralWorkVisa": {
+    name: "General Work Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the employment contract, typically up to 1–5 years. It can be renewed and may support long-term residence applications.",
+
+    cost: "Approx. USD 80–200 (₹6,500–₹16,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 20 to 60 working days. May extend further depending on labor market testing and Department of Labour approval.",
+
+    age: "No strict age limit. Commonly issued to working professionals, skilled workers, and qualified candidates with job offers in South Africa.",
+
+    education: "Relevant educational qualifications and/or professional experience required as per job role and employer requirements.",
+
+    funds: "Usually employer-sponsored. Applicant may still need to show initial proof of funds for relocation and settlement.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, formal job offer from South African employer, employment contract, proof that employer attempted to hire a South African citizen (labour market test), qualifications certificates, CV/resume, police clearance certificate, medical and radiological reports, employer registration documents, proof of accommodation, cover letter explaining job role.",
+
+    whom: "Foreign nationals who have secured a job offer from a South African employer in a role that cannot be easily filled by a local worker.",
+
+    rules: "Must work only for the sponsoring employer and in the approved job role. Changing employers requires new authorization. Must comply with immigration and labour regulations. Overstay or unauthorized work may lead to deportation.",
+
+    prosCons: "Pros: Legal employment in South Africa, renewable visa, potential pathway to permanent residence. Cons: Strict labour market testing, dependent on employer sponsorship, limited job flexibility.",
+
+    terms: "General Work Visa: Employer-sponsored employment permit; Labour Market Test: Proof no suitable local candidate exists; DHA: Department of Home Affairs; Contract of Employment: Legal job agreement.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA) and Department of Employment and Labour under South Africa Immigration Act.",
+
+    process: `1. Secure job offer from South African employer  
+              2. Employer conducts labour market test  
+              3. Gather qualifications and professional documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Submit biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Application review by DHA and Labour Department  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Begin employment and comply with visa conditions`
+},
+
+"SouthAfricaCriticalSkillsWorkVisa": {
+    name: "Critical Skills Work Visa (South Africa)",
+
+    validity: "Usually issued for up to 5 years if a qualifying job offer is secured. If issued without an immediate job offer (critical skills search option), it may be granted for up to 12 months to find employment, with possibility of renewal.",
+
+    cost: "Approx. USD 80–200 (₹6,500–₹16,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 20 to 60 working days. May take longer depending on verification of qualifications with South African authorities.",
+
+    age: "No strict age limit. Commonly issued to skilled professionals such as engineers, IT specialists, healthcare workers, scientists, and technical experts.",
+
+    education: "Mandatory. Applicant must have qualifications and/or experience listed on South Africa’s Critical Skills List and may require qualification evaluation (SAQA recognition).",
+
+    funds: "Proof of sufficient funds required for initial stay and relocation unless fully employer-sponsored. Bank statements or sponsor/employer support letters may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, qualification certificates, SAQA evaluation (if required), proof of critical skills registration or eligibility, employment offer (if applicable), detailed CV, professional registration (if applicable), police clearance certificate, medical and radiological reports, proof of funds, accommodation details, cover letter explaining purpose and skills category.",
+
+    whom: "Highly skilled foreign professionals whose occupation appears on South Africa’s Critical Skills List and who are needed in sectors like IT, engineering, healthcare, science, education, and technical trades.",
+
+    rules: "Must work in an occupation listed under Critical Skills. If job is obtained, must work only in approved role. Must comply with immigration reporting requirements. If unemployed (search visa), must secure job within validity period or leave country.",
+
+    prosCons: "Pros: Faster pathway compared to general work visa, no labour market test required, strong pathway to permanent residence. Cons: Strict qualification requirements, limited to approved skill list, requires formal verification of credentials.",
+
+    terms: "Critical Skills List: Official list of in-demand occupations; SAQA: South African Qualifications Authority; DHA: Department of Home Affairs; Endorsement: Permission attached to visa conditions.",
+
+    legal: "Governed by the Department of Home Affairs (DHA) and Critical Skills List regulations under South African Immigration Act.",
+
+    process: `1. Check eligibility on Critical Skills List  
+              2. Obtain qualification evaluation (SAQA if required)  
+              3. Prepare CV and professional documents  
+              4. Secure job offer (if applicable)  
+              5. Complete visa application form  
+              6. Submit application via VFS/embassy  
+              7. Provide biometrics and documents  
+              8. Pay visa fees  
+              9. Verification of qualifications and skills  
+              10. Visa decision issued  
+              11. Passport returned with visa  
+              12. Travel to South Africa and begin work or job search`
+},
+
+"SouthAfricaIntraCompanyTransferWorkVisa": {
+    name: "Intra-Company Transfer Work Visa (South Africa)",
+
+    validity: "Usually issued for up to 4 years, depending on the duration of the transfer assignment. Extensions are generally not allowed beyond the maximum permitted period, but reapplication may be possible under certain conditions.",
+
+    cost: "Approx. USD 80–200 (₹6,500–₹16,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 20 to 60 working days. May extend if corporate verification or security checks are required.",
+
+    age: "No strict age limit. Typically issued to employees transferred within multinational companies, often skilled professionals or managerial staff.",
+
+    education: "Relevant qualifications and/or work experience required as per job role. Employment history within the company is mandatory.",
+
+    funds: "Usually employer-sponsored. The company covers relocation and salary obligations, though proof of initial financial support may still be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, formal transfer letter from multinational company, employment contract, proof of at least 6 months to 1 year prior employment with the same company, job description in South Africa, company registration documents (home and host branch), police clearance certificate, medical and radiological reports, proof of accommodation, cover letter explaining transfer purpose.",
+
+    whom: "Employees of multinational companies being temporarily transferred from an overseas branch to a South African branch, subsidiary, or affiliate.",
+
+    rules: "Must work only for the transferring company in the approved role. Cannot switch employers under this visa. Must leave South Africa after completion of transfer period. Overstay or unauthorized work may result in penalties.",
+
+    prosCons: "Pros: No labour market test required, streamlined corporate transfer process, allows international career mobility. Cons: Fixed duration, no permanent employment rights, tied strictly to employer.",
+
+    terms: "ICT Visa: Intra-Company Transfer permit; Multinational Company: Organization operating in multiple countries; Transfer Letter: Official internal relocation document; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for intra-company transfers.",
+
+    process: `1. Obtain internal transfer approval from company  
+              2. Receive official transfer letter  
+              3. Gather employment and company documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Corporate and security verification  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Work at assigned branch for approved duration`
+},
+
+"SouthAfricaCorporateVisa": {
+    name: "Corporate Visa (South Africa)",
+
+    validity: "Usually issued for up to 3 years, depending on the corporate agreement and quota approval. It allows a company to employ multiple foreign workers under one corporate authorization.",
+
+    cost: "Approx. USD 150–400 (₹12,500–₹33,000), depending on company size and application scope. Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 30 to 90 working days due to corporate-level evaluation and labour compliance checks.",
+
+    age: "No strict age limit. Applies to foreign workers hired under a corporate quota by approved South African companies.",
+
+    education: "Depends on job roles under corporate quota approval. Can include both skilled and semi-skilled positions as authorized.",
+
+    funds: "Usually fully employer-sponsored. The corporate entity is responsible for wages, compliance, and sometimes relocation support.",
+
+    docs: "Valid passports of employees, completed visa application forms, recent photographs, corporate quota approval letter, proof of company registration in South Africa, Department of Labour approval for hiring foreign workers, employment contracts, job descriptions for each role, list of foreign employees, police clearance certificates, medical reports, accommodation details, cover letter from company explaining staffing needs.",
+
+    whom: "South African companies approved by the Department of Home Affairs to employ multiple foreign workers under a single corporate quota arrangement for specific projects or operational needs.",
+
+    rules: "Employees must work only for the sponsoring company and within approved roles. Company must ensure compliance with labour and immigration laws. Any change in job roles or employees requires approval. Misuse of quota can lead to cancellation.",
+
+    prosCons: "Pros: Efficient bulk hiring system for companies, simplifies multiple visa applications, no separate labour test per employee. Cons: Strict corporate eligibility requirements, heavy compliance burden, limited flexibility for employees.",
+
+    terms: "Corporate Visa: Bulk work authorization permit; Corporate Quota: Approved number of foreign employees allowed; DHA: Department of Home Affairs; Labour Compliance: Verification of employment fairness and legality.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA) and Department of Employment and Labour under South African Immigration Act corporate work provisions.",
+
+    process: `1. Company applies for corporate quota approval  
+              2. Department of Labour reviews staffing justification  
+              3. Corporate authorization issued  
+              4. Company prepares employee list and contracts  
+              5. Individual visa applications submitted  
+              6. Submit biometrics and documents  
+              7. Pay visa fees  
+              8. Corporate and compliance verification  
+              9. Visa decisions issued for employees  
+              10. Passports returned with visas  
+              11. Employees travel to South Africa  
+              12. Company ensures compliance and reporting`
+},
+
+"SouthAfricaBusinessVisaLongTermInvestment": {
+    name: "Business Visa (Long-Term / Investment – South Africa)",
+
+    validity: "Usually issued for 1 to 3 years initially, renewable based on business performance, investment compliance, and continued eligibility. Can lead to permanent residence if business meets long-term requirements.",
+
+    cost: "Approx. USD 100–300 (₹8,500–₹25,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 30 to 90 working days. May take longer due to business plan evaluation and Department of Trade, Industry and Competition (DTIC) review.",
+
+    age: "No strict age limit. Commonly issued to entrepreneurs, investors, business owners, and company directors.",
+
+    education: "Not mandatory, but relevant business experience or entrepreneurial background is usually required.",
+
+    funds: "High financial requirement. Minimum capital investment (often around ZAR 2.5 million or as prescribed), proof of funds, and detailed financial statements are required. Some cases may allow reduction if business is in a priority sector.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, detailed business plan, proof of investment capital, company registration documents, proof of capital transfer into South Africa, feasibility study, DTIC recommendation (if required), police clearance certificate, medical and radiological reports, CV/business background, accommodation details, cover letter explaining business intent.",
+
+    whom: "Foreign nationals intending to establish, invest in, or manage a business in South Africa either individually or as part of a company setup.",
+
+    rules: "Must actively operate the approved business. Investment funds must be maintained as per regulations. Employment of South Africans is often required under conditions. Business must comply with South African tax and labour laws. Non-compliance may lead to visa cancellation.",
+
+    prosCons: "Pros: Pathway to permanent residency, allows full business ownership/management, supports long-term settlement. Cons: High capital requirement, strict compliance rules, business risk involved, lengthy approval process.",
+
+    terms: "DTIC: Department of Trade, Industry and Competition; Business Plan: Official operational proposal; Investment Threshold: Minimum capital requirement; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA) and Department of Trade, Industry and Competition (DTIC) under South African Immigration Act business investment provisions.",
+
+    process: `1. Develop detailed business plan  
+              2. Secure required investment capital  
+              3. Register or plan company setup in South Africa  
+              4. Obtain DTIC recommendation (if applicable)  
+              5. Complete visa application form  
+              6. Submit application via VFS/embassy  
+              7. Provide biometrics and documents  
+              8. Pay visa fees  
+              9. Business and financial verification  
+              10. Visa decision issued  
+              11. Passport returned with visa  
+              12. Travel to South Africa and establish business operations`
+},
+
+"SouthAfricaRetiredPersonVisa": {
+    name: "Retired Person Visa (South Africa)",
+
+    validity: "Usually issued for 2 to 4 years initially. It is renewable as long as financial requirements continue to be met. Can be a pathway to long-term residence in some cases.",
+
+    cost: "Approx. USD 50–150 (₹4,000–₹12,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 20 to 60 working days. May extend depending on financial verification and background checks.",
+
+    age: "No strict minimum age defined, but generally intended for individuals aged 45–55+ who are retired or financially independent.",
+
+    education: "Not required.",
+
+    funds: "Proof of stable passive income or pension required (approx. ZAR 37,000+ per month or equivalent). Alternatively, proof of net worth/assets may be accepted in some cases.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, proof of pension or retirement income, bank statements (last 3–6 months), proof of assets/net worth (if applicable), police clearance certificate, medical and radiological reports, proof of accommodation in South Africa, cover letter explaining retirement plans, travel insurance.",
+
+    whom: "Foreign nationals who are retired or financially independent and wish to reside in South Africa without engaging in employment.",
+
+    rules: "No employment or business activities allowed unless specifically authorized. Must maintain required financial threshold. Must comply with residence conditions and renewals. Overstay or loss of funds may affect visa status.",
+
+    prosCons: "Pros: Ideal for peaceful retirement lifestyle, long-term stay option, no employment requirement. Cons: Strict income proof requirement, no work rights, dependent on financial stability.",
+
+    terms: "Retired Person Visa: Residence permit for retirees; Passive Income: Regular income not from employment; Net Worth: Total financial assets; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for financially independent and retired persons.",
+
+    process: `1. Gather proof of retirement income or assets  
+              2. Prepare financial and personal documents  
+              3. Complete visa application form  
+              4. Book VFS/embassy appointment  
+              5. Submit biometrics and documents  
+              6. Pay visa fees  
+              7. Financial verification by authorities  
+              8. Visa decision issued  
+              9. Passport returned with visa  
+              10. Travel to South Africa  
+              11. Maintain financial proof for renewals  
+              12. Apply for extension if eligible`
+},
+
+"SouthAfricaFinanciallyIndependentPermit": {
+    name: "Financially Independent Permit (South Africa)",
+
+    validity: "This is typically a Permanent Residence Permit, granted indefinitely once approved, with no fixed expiry date. However, the status may be reviewed if eligibility was based on financial criteria.",
+
+    cost: "Approx. USD 100–300 (₹8,500–₹25,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 6 to 24 months due to strict financial and background verification.",
+
+    age: "No strict age limit. Commonly applied for by high-net-worth individuals, investors, and financially independent persons.",
+
+    education: "Not required.",
+
+    funds: "Very high financial requirement. Applicant must prove net worth of at least ZAR 12 million (or as updated by authorities) and may need to pay a once-off prescribed fee (around ZAR 120,000 or more). Proof of legal source of wealth is mandatory.",
+
+    docs: "Valid passport, completed application form, proof of net worth (audited financial statements, asset valuation reports, bank statements), proof of legal source of funds, police clearance certificates from all countries of residence, medical and radiological reports, affidavit declaring financial independence, cover letter explaining intent to reside in South Africa, proof of accommodation, identity documents.",
+
+    whom: "High-net-worth foreign nationals who are financially independent and wish to obtain permanent residence in South Africa without needing employment or business sponsorship.",
+
+    rules: "No employment requirement, but also no automatic work right unless separately applied for. Must maintain legality of declared assets. Misrepresentation of wealth or source of funds leads to refusal or cancellation.",
+
+    prosCons: "Pros: Direct pathway to permanent residency, no job or sponsorship required, long-term settlement stability. Cons: Extremely high financial threshold, strict verification of wealth source, long processing time.",
+
+    terms: "Permanent Residence Permit: Indefinite residency status; Net Worth: Total value of assets minus liabilities; Prescribed Fee: Mandatory once-off immigration fee; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for financially independent persons and permanent residency.",
+
+    process: `1. Compile proof of net worth and financial independence  
+              2. Obtain audited financial and asset valuation documents  
+              3. Gather police clearance and medical reports  
+              4. Complete permanent residence application form  
+              5. Submit application via VFS/embassy or DHA  
+              6. Pay prescribed permanent residence fee  
+              7. Background and financial source verification  
+              8. Immigration assessment and decision process  
+              9. Approval of permanent residence  
+              10. Receive permanent residence certificate  
+              11. Travel to South Africa (if not already present)  
+              12. Maintain compliance with residency regulations`
+},
+
+"SouthAfricaPermanentResidenceDirect": {
+    name: "Permanent Residence Permit (Direct Residence – South Africa)",
+
+    validity: "Indefinite (permanent status). The permit does not expire, but the holder must comply with South African residency laws and may lose status under specific legal violations.",
+
+    cost: "Approx. USD 100–300 (₹8,500–₹25,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 6 to 24 months depending on category, background checks, and document verification.",
+
+    age: "No strict age limit. Applicable across categories such as skilled workers, family members, retirees, and long-term residents.",
+
+    education: "Not mandatory for all categories, but required in some pathways (e.g., skilled work-based PR).",
+
+    funds: "Varies by category. Some routes require proof of financial stability, employment, or sponsorship. Others (like long-term residence or family-based PR) may not require high financial thresholds.",
+
+    docs: "Valid passport, completed permanent residence application form, police clearance certificates (all countries lived in), medical and radiological reports, proof of legal stay in South Africa (temporary visas if applicable), marriage/birth certificates (for family-based PR), employment records (if work-based), financial documents (if required), proof of residence in South Africa, cover letter explaining eligibility category.",
+
+    whom: "Foreign nationals who qualify under South Africa’s permanent residence categories such as long-term workers, spouses of citizens/permanent residents, retirees, financially independent individuals, or those with long-term legal residence.",
+
+    rules: "Permanent residents must comply with South African laws and residency obligations. Long absences from the country may affect status in certain cases. Fraud or misrepresentation leads to cancellation.",
+
+    prosCons: "Pros: Indefinite stay rights, stability, access to work and study without visa restrictions, pathway to citizenship. Cons: Long processing time, strict eligibility requirements depending on category, documentation-heavy process.",
+
+    terms: "Permanent Residence Permit: Indefinite residency status; DHA: Department of Home Affairs; Direct Residence: PR granted without temporary visa conversion pathway; Eligibility Category: Basis under which PR is granted.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for permanent residence categories.",
+
+    process: `1. Identify eligible permanent residence category  
+              2. Gather required supporting documents  
+              3. Complete permanent residence application form  
+              4. Submit application via VFS or Department of Home Affairs  
+              5. Pay application fees  
+              6. Submit biometrics and background documents  
+              7. Undergo police, medical, and eligibility verification  
+              8. Immigration assessment review  
+              9. Decision issued (approval or refusal)  
+              10. If approved, receive permanent residence permit  
+              11. Register residence status if required  
+              12. Maintain compliance with South African law`
+},
+
+"SouthAfricaPermanentResidenceOtherGrounds": {
+    name: "Permanent Residence Permit (Residence on Other Grounds – South Africa)",
+
+    validity: "Indefinite (permanent status). Granted without a fixed expiry date, but subject to compliance with South African immigration laws and possible review in cases of fraud or non-compliance.",
+
+    cost: "Approx. USD 100–300 (₹8,500–₹25,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 6 to 24 months depending on the strength of supporting documents, category, and background verification.",
+
+    age: "No strict age limit. Applicable across various exceptional or special eligibility categories.",
+
+    education: "Not mandatory, but may be required depending on the underlying qualifying category.",
+
+    funds: "Varies depending on case. Some applicants must show financial stability, while others (such as family-based or long-term residents) may not require high financial thresholds.",
+
+    docs: "Valid passport, completed permanent residence application form, police clearance certificates from all countries of residence, medical and radiological reports, proof of long-term stay in South Africa (if applicable), supporting documents proving eligibility under special grounds, affidavits or motivation letter, marriage/birth certificates (if family-based), employment or contribution records (if applicable), proof of accommodation, any supporting legal or humanitarian documents.",
+
+    whom: "Foreign nationals who qualify for permanent residence in South Africa under exceptional, humanitarian, family, or long-term residency circumstances not covered by standard categories.",
+
+    rules: "Must provide strong justification for residence under special grounds. Misrepresentation or weak evidence can result in refusal. Must comply with South African laws after approval. Status may be revoked in cases of fraud or violation.",
+
+    prosCons: "Pros: Flexible category covering exceptional cases, pathway to permanent residency, no fixed visa renewal cycle. Cons: Highly case-specific, strict documentation requirements, long and uncertain processing time.",
+
+    terms: "Residence on Other Grounds: Catch-all PR category for exceptional cases; DHA: Department of Home Affairs; Affidavit: Legal sworn statement; Eligibility Grounds: Basis for PR consideration.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for discretionary and special permanent residence categories.",
+
+    process: `1. Identify applicable exceptional or special eligibility ground  
+              2. Collect all supporting legal and personal documents  
+              3. Prepare detailed motivation/affidavit  
+              4. Complete permanent residence application form  
+              5. Submit application via VFS or Department of Home Affairs  
+              6. Pay applicable fees  
+              7. Submit biometrics and background documents  
+              8. Undergo detailed eligibility and security verification  
+              9. Immigration authority assessment and review  
+              10. Decision issued (approval or refusal)  
+              11. If approved, receive permanent residence permit  
+              12. Maintain compliance with South African immigration laws`
+},
+
+"SouthAfricaRefugeeVisa": {
+    name: "Refugee Visa (South Africa)",
+
+    validity: "Usually issued initially for 2 to 4 years, renewable as long as refugee status remains valid. Can eventually lead to permanent residence after long-term recognition.",
+
+    cost: "No visa fee for asylum/refugee application. However, minor administrative or permit card fees (approx. USD 10–50 / ₹800–₹4,000) may apply in some stages.",
+
+    time: "Initial registration is immediate at asylum reception offices. Full refugee status determination may take several months to years depending on case complexity.",
+
+    age: "No age restriction. Applicable to all individuals including minors, unaccompanied children, and adults.",
+
+    education: "Not required.",
+
+    funds: "No financial requirement. Refugee status is granted based on protection needs, not financial capacity.",
+
+    docs: "Valid passport (if available), asylum seeker application form, identity documents (if any), written statement explaining persecution or fear of return, supporting evidence (if available), police reports or threat documentation, UNHCR referral (if applicable), photographs, fingerprints/biometrics.",
+
+    whom: "Individuals who are outside their home country and cannot return due to persecution, war, violence, or well-founded fear of harm based on race, religion, nationality, political opinion, or social group.",
+
+    rules: "Must comply with South African refugee laws. Must not return to country of persecution voluntarily. Employment and movement rights are regulated and may require permits. Must renew refugee status periodically.",
+
+    prosCons: "Pros: Legal protection from deportation to unsafe country, access to basic services, pathway to long-term residence. Cons: Lengthy processing times, restricted travel rights, limited documentation and administrative challenges.",
+
+    terms: "Refugee Status: Legal protection under international law; Asylum Seeker: Person awaiting refugee decision; DHA: Department of Home Affairs; UNHCR: United Nations Refugee Agency.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa under Refugees Act and international refugee conventions.",
+
+    process: `1. Enter South Africa and report to asylum reception office  
+              2. Submit asylum application form  
+              3. Provide personal statement and available evidence  
+              4. Undergo biometric registration  
+              5. Receive asylum seeker permit  
+              6. Attend refugee status determination interviews  
+              7. Case evaluation by authorities  
+              8. Decision on refugee status  
+              9. If approved, receive refugee permit  
+              10. Renew status periodically  
+              11. Apply for permanent residence after eligibility period  
+              12. Comply with refugee regulations`
+},
+
+"SouthAfricaAsylumSeekerVisa": {
+    name: "Asylum Seeker Visa (South Africa)",
+
+    validity: "Usually issued for 3 to 6 months at a time (asylum seeker permit). It must be renewed periodically while the asylum application is under review.",
+
+    cost: "No application fee. The process is free of charge. Minor administrative costs may apply in certain documentation or permit renewals.",
+
+    time: "Initial registration and issuance of asylum seeker permit is immediate at reception offices. Final asylum decision may take several months to several years depending on case backlog and complexity.",
+
+    age: "No age restriction. Applicable to adults, minors, families, and unaccompanied children.",
+
+    education: "Not required.",
+
+    funds: "No financial requirement. Eligibility is based on protection needs rather than financial status.",
+
+    docs: "Valid passport (if available), completed asylum application form, personal identity documents (if any), written statement explaining fear of persecution, any supporting evidence (police reports, threat letters, medical reports), biometric data (fingerprints and photo), UNHCR referral (if applicable), proof of entry into South Africa (if available).",
+
+    whom: "Foreign nationals in South Africa who are seeking protection due to fear of persecution, war, violence, or human rights violations in their home country.",
+
+    rules: "Must remain in South Africa while application is pending. Must attend all required interviews. Cannot be deported while claim is under consideration. Employment or movement rights may be restricted unless authorized under permit conditions.",
+
+    prosCons: "Pros: Legal protection during asylum process, protection from forced return, access to basic services. Cons: Long waiting periods, uncertainty in outcome, limited freedom of travel and work restrictions.",
+
+    terms: "Asylum Seeker: Person awaiting refugee decision; Asylum Seeker Permit: Temporary legal stay document; DHA: Department of Home Affairs; Refugee Status Determination: Process of deciding eligibility for refugee protection.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Refugees Act and international refugee protection obligations.",
+
+    process: `1. Report to South African asylum reception office immediately upon arrival  
+              2. Submit asylum application form  
+              3. Provide personal statement and available evidence  
+              4. Undergo biometric registration  
+              5. Receive asylum seeker permit (temporary legal stay)  
+              6. Attend Refugee Status Determination Officer (RSDO) interview  
+              7. Case review and investigation  
+              8. Decision issued (approval or rejection)  
+              9. If rejected, right to appeal  
+              10. If approved, converted to refugee status  
+              11. Renew asylum seeker permit during process  
+              12. Comply with all legal requirements until final decision`
+},
+
+"SouthAfricaDiplomaticVisa": {
+    name: "Diplomatic Visa (South Africa)",
+
+    validity: "Issued for the duration of the official assignment or diplomatic posting, typically 1 to 5 years, depending on mission length and government agreement.",
+
+    cost: "No visa fee in most cases for official diplomatic passport holders. Administrative or service charges may apply in rare processing situations.",
+
+    time: "Processing time typically 3 to 15 working days. May be faster depending on inter-governmental coordination.",
+
+    age: "No age restriction. Applicable to government officials, diplomats, and accredited representatives.",
+
+    education: "Not required, but applicable only to officially designated diplomatic/government personnel.",
+
+    funds: "Usually fully sponsored by the sending government. Diplomatic missions cover all expenses including accommodation and travel.",
+
+    docs: "Diplomatic passport, official note verbale from sending country’s Ministry of Foreign Affairs, completed visa application form (if required), recent photographs, assignment/order letter, accreditation documents, diplomatic ID card (if applicable), travel itinerary, accommodation details, security clearance documents.",
+
+    whom: "Foreign diplomats, government officials, embassy staff, consular officers, and representatives of international missions assigned to South Africa.",
+
+    rules: "Must strictly perform official diplomatic duties. Must comply with diplomatic protocol and international conventions. Misuse of privileges can result in withdrawal of diplomatic status or expulsion.",
+
+    prosCons: "Pros: Fast-track entry, immunity privileges under international law (where applicable), full official support. Cons: Restricted strictly to official duties, dependent on government assignment, cannot be used for personal employment.",
+
+    terms: "Diplomatic Passport: Official government-issued passport for diplomats; Note Verbale: Formal diplomatic communication; Accreditation: Official recognition by host country; Vienna Convention: International diplomatic law framework.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa in accordance with the Vienna Convention on Diplomatic Relations and bilateral agreements.",
+
+    process: `1. Government issues diplomatic appointment  
+              2. Ministry of Foreign Affairs sends note verbale to South Africa  
+              3. Prepare diplomatic documentation  
+              4. Submit application through diplomatic channel  
+              5. Security and accreditation verification  
+              6. Approval by South African authorities  
+              7. Visa issuance or entry authorization  
+              8. Arrival in South Africa  
+              9. Diplomatic accreditation completed  
+              10. Assignment begins  
+              11. Maintain compliance with diplomatic protocols  
+              12. End of mission and exit or reassignment`
+},
+
+"SouthAfricaOfficialVisa": {
+    name: "Official Visa (South Africa)",
+
+    validity: "Issued for the duration of the official assignment or government duty, typically ranging from a few weeks up to 5 years depending on the posting.",
+
+    cost: "Usually no visa fee for official passport holders. In some cases, minor administrative or service charges may apply.",
+
+    time: "Processing time typically 3 to 15 working days, depending on intergovernmental coordination and verification.",
+
+    age: "No age restriction. Applicable to government officials and designated public servants.",
+
+    education: "Not required, but only applicable to officially appointed government or public sector representatives.",
+
+    funds: "Usually fully sponsored by the sending government or public authority, including travel, accommodation, and daily expenses.",
+
+    docs: "Official or service passport, Note Verbale from the Ministry of Foreign Affairs or relevant government department, assignment or posting order, completed visa application form (if required), recent photographs, travel itinerary, accommodation details, official ID card (if applicable), security clearance documents.",
+
+    whom: "Government officials, public servants, and representatives traveling to South Africa on official state duties such as meetings, conferences, bilateral talks, or assignments.",
+
+    rules: "Must strictly engage only in official duties. Cannot undertake private employment or unrelated activities. Must follow diplomatic and governmental protocols. Misuse may lead to cancellation of visa privileges.",
+
+    prosCons: "Pros: Fast-track processing, government-supported travel, simplified entry for official duties. Cons: Restricted only to official assignments, no personal work rights, dependent on government authorization.",
+
+    terms: "Official Passport: Government-issued travel document; Note Verbale: Formal diplomatic/government communication; DHA: Department of Home Affairs; Official Duty: Government-assigned task or mission.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions and international government-to-government agreements.",
+
+    process: `1. Government issues official assignment order  
+              2. Ministry of Foreign Affairs sends Note Verbale  
+              3. Prepare official travel documentation  
+              4. Submit application through official channel  
+              5. Security and eligibility verification  
+              6. Approval by South African authorities  
+              7. Visa issuance or entry clearance  
+              8. Travel to South Africa  
+              9. Perform official duties  
+              10. Maintain compliance with government protocols  
+              11. Complete assignment  
+              12. Exit or reassign as per government order`
+},
+
+"SouthAfricaTreatyVisa": {
+    name: "Treaty Visa (South Africa)",
+
+    validity: "Issued for the duration of the specific treaty assignment, program, or international agreement activity. Typically ranges from a few days to several years depending on treaty obligations and role.",
+
+    cost: "Usually no visa fee for treaty/official agreement participants. Minor administrative charges may apply in some processing cases.",
+
+    time: "Processing time typically 3 to 20 working days depending on intergovernmental or institutional verification linked to the treaty agreement.",
+
+    age: "No age restriction. Applicable to designated representatives, experts, officials, or delegates under international treaties.",
+
+    education: "Not required, but typically issued to qualified professionals, government delegates, or technical experts involved in treaty implementation.",
+
+    funds: "Usually fully sponsored by the sending government, international organization, or treaty body. All expenses are typically covered under the agreement.",
+
+    docs: "Valid passport, official nomination or designation letter under treaty framework, Note Verbale or institutional authorization, completed visa application form (if required), recent photographs, treaty participation invitation letter, proof of role in treaty program, travel itinerary, accommodation details, security clearance documents.",
+
+    whom: "Foreign nationals participating in international treaties, bilateral or multilateral agreements, technical missions, or official treaty-based programs in South Africa.",
+
+    rules: "Must strictly participate only in treaty-related activities. No employment or private work allowed. Must comply with international agreement terms and South African government regulations. Misuse can lead to revocation of privileges.",
+
+    prosCons: "Pros: Simplified entry for international cooperation, government/organization support, priority processing in many cases. Cons: Strictly limited to treaty scope, no personal work rights, dependent on official designation.",
+
+    terms: "Treaty Visa: Entry permit under international agreement; Treaty Body: Organization managing agreement; Note Verbale: Official diplomatic communication; DHA: Department of Home Affairs.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa and international treaty obligations under bilateral/multilateral agreements.",
+
+    process: `1. Official nomination under treaty agreement  
+              2. Sending authority issues authorization letter  
+              3. Prepare treaty-related documentation  
+              4. Submit application via official/diplomatic channel  
+              5. Security and eligibility verification  
+              6. Coordination between treaty bodies and South African authorities  
+              7. Visa or entry clearance approval  
+              8. Travel to South Africa  
+              9. Participate in treaty-related activities  
+              10. Compliance monitoring during assignment  
+              11. Completion of treaty mission  
+              12. Exit or reassignment as per agreement`
+},
+
+"SouthAfricaCourtesyVisa": {
+    name: "Courtesy Visa (South Africa)",
+
+    validity: "Usually issued for a short duration ranging from a few days up to 90 days, depending on the nature of the official or semi-official visit.",
+
+    cost: "Generally no visa fee for eligible dignitaries or invited guests. Minor administrative or service charges may apply in some cases.",
+
+    time: "Processing time typically 3 to 15 working days, depending on official clearance and invitation verification.",
+
+    age: "No age restriction. Issued based on status rather than age.",
+
+    education: "Not required, but generally issued to distinguished individuals such as officials, experts, or invited guests.",
+
+    funds: "Usually fully sponsored by the inviting government, institution, or organization in South Africa.",
+
+    docs: "Valid passport, official invitation letter from South African government or recognized institution, Note Verbale (if applicable), completed visa application form (if required), recent photographs, travel itinerary, accommodation details, proof of purpose of visit, security clearance documents (if required).",
+
+    whom: "Foreign dignitaries, senior officials, special guests, experts, or invited individuals visiting South Africa for courtesy visits, meetings, or non-commercial official engagements.",
+
+    rules: "Must only engage in activities stated in the invitation. No employment or commercial activity allowed. Must respect South African laws and protocol requirements. Misuse may lead to withdrawal of privileges.",
+
+    prosCons: "Pros: Fast-track entry for invited dignitaries, minimal or no cost, simplified processing. Cons: Strictly limited to invitation purpose, no personal or work-related rights, short validity period.",
+
+    terms: "Courtesy Visa: Entry permit for invited dignitaries; Note Verbale: Diplomatic communication document; Inviting Authority: Government or institution hosting the visitor; DHA: Department of Home Affairs.",
+
+    legal: "Governed by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions and diplomatic courtesy protocols.",
+
+    process: `1. Official invitation issued by South African authority  
+              2. Sending organization submits Note Verbale (if applicable)  
+              3. Prepare courtesy visa documentation  
+              4. Submit application through diplomatic or official channel  
+              5. Security and background verification  
+              6. Approval by South African authorities  
+              7. Visa or entry authorization issued  
+              8. Travel to South Africa  
+              9. Attend official or invited engagement  
+              10. Maintain protocol compliance  
+              11. Complete visit  
+              12. Exit country as per schedule`
+},
+"SouthAfricaCrossBorderPermit": {
+    name: "Cross-Border Permit (South Africa)",
+
+    validity: "Typically issued for short-term, repeated entry over a defined period (often up to 30 days per visit or as specified). Validity depends on bilateral border agreements and permit type.",
+
+    cost: "Approx. USD 10–50 (₹800–₹4,000). In many cases, fees are minimal or waived under regional agreements. Service charges may still apply.",
+
+    time: "Processing time is usually 1 to 10 working days. In some border cases, it may be issued immediately or on arrival.",
+
+    age: "No age restriction. Applicable to eligible travelers under regional movement agreements.",
+
+    education: "Not required.",
+
+    funds: "Proof of basic funds may be required depending on the agreement and purpose of travel, but often relaxed under regional arrangements.",
+
+    docs: "Valid passport, completed application form (if required), recent photographs, proof of residence in eligible neighboring country, travel purpose proof, return or onward travel details, invitation letter (if applicable), border permit application support documents, identity documents.",
+
+    whom: "Foreign nationals from neighboring countries or eligible regional states who frequently cross into South Africa for short-term visits, trade, family visits, or limited work-related activities under bilateral or regional agreements.",
+
+    rules: "Must comply with conditions of cross-border movement agreements. Stay is strictly limited to permitted duration. No unauthorized employment unless specifically allowed under agreement. Must return before expiry.",
+
+    prosCons: "Pros: Simplified travel between neighboring countries, low cost, fast or immediate processing, supports regional mobility. Cons: Very limited stay duration, restricted to eligible nationalities, limited activity scope.",
+
+    terms: "Cross-Border Permit: Regional movement authorization; SADC: Southern African Development Community; Border Control: Immigration checkpoint authority; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa and governed by regional agreements such as SADC mobility frameworks and bilateral border arrangements.",
+
+    process: `1. Check eligibility under regional/bilateral agreement  
+              2. Gather required identification and travel documents  
+              3. Complete application form (if required)  
+              4. Submit at embassy, consulate, or border post  
+              5. Verification of eligibility and documents  
+              6. Approval or on-the-spot issuance at border  
+              7. Entry into South Africa  
+              8. Comply with permitted activities and duration  
+              9. Exit before permit expiry  
+              10. Renew or reapply if eligible  
+              11. Maintain compliance with border rules  
+              12. Repeat travel under permit conditions`
+},
+
+"SouthAfricaBorderPassVisa": {
+    name: "Border Pass Visa (South Africa)",
+
+    validity: "Very short-term validity, typically 1 to 7 days depending on border agreement and purpose of entry. Often issued for single or limited entries near border regions.",
+
+    cost: "Approx. USD 5–30 (₹400–₹2,500). In many cases, it is free or has minimal administrative charges under local border arrangements.",
+
+    time: "Processing time is usually immediate to 1–3 working days. In some cases, it may be issued on the same day at designated border posts.",
+
+    age: "No age restriction. Applicable to eligible residents of bordering regions.",
+
+    education: "Not required.",
+
+    funds: "Minimal proof of funds may be required depending on border control rules and purpose of visit.",
+
+    docs: "Valid passport or border identification document, completed border pass form (if required), proof of residence in border area, recent photograph, travel purpose declaration, invitation letter (if applicable), return or onward travel proof, any regional identity card or permit.",
+
+    whom: "Residents of designated border areas in neighboring countries who frequently cross into South Africa for short visits such as family visits, local trade, or essential services under border community arrangements.",
+
+    rules: "Must stay only within permitted border zones or regions. Strictly limited duration of stay. No unauthorized employment allowed. Must return within validity period. Misuse can result in denial of future entry.",
+
+    prosCons: "Pros: Very fast or instant processing, low or no cost, facilitates daily or frequent cross-border movement. Cons: Extremely short stay, limited to border communities, strict geographic and activity restrictions.",
+
+    terms: "Border Pass: Short-term local movement permit; Border Zone: Designated area near international boundary; DHA: Department of Home Affairs; Cross-Border Community Agreement: Local mobility arrangement.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions and bilateral/local border community agreements.",
+
+    process: `1. Confirm eligibility as border community resident  
+              2. Collect required identification and residence proof  
+              3. Complete border pass application (if required)  
+              4. Submit at designated border post  
+              5. Identity and eligibility verification  
+              6. Immediate or quick approval issued  
+              7. Enter South Africa within permitted zone  
+              8. Follow restricted stay rules  
+              9. Exit before expiry  
+              10. Reapply for future crossings if eligible  
+              11. Maintain compliance with border regulations  
+              12. Use only for approved local purposes`
+},
+
+"SouthAfricaSection11_2WorkAuthorisationVisa": {
+    name: "Section 11(2) Work Authorisation Visa (South Africa)",
+
+    validity: "Usually issued for a short-term period aligned with the specific assignment, typically up to 90 days, extendable in limited cases with justification and approval from the Department of Home Affairs.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 20 working days, depending on employer justification and urgency of the assignment.",
+
+    age: "No strict age limit. Applicable to professionals and employees temporarily entering South Africa for short-term work assignments.",
+
+    education: "Not mandatory in general, but applicant must have relevant skills, qualifications, or experience for the assigned short-term work.",
+
+    funds: "Usually employer-sponsored. Proof of salary/payment arrangement or company financial responsibility is required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, formal request from South African employer, detailed explanation of short-term work assignment, employment contract or assignment letter, proof of employer registration, CV/resume, travel itinerary, accommodation details, cover letter explaining purpose of work, return ticket, police clearance certificate (if required).",
+
+    whom: "Foreign nationals entering South Africa for short-term, specific work assignments or projects under Section 11(2) authorization, where standard work visa processing is not suitable due to urgency or duration.",
+
+    rules: "Must only perform the specific authorized work and for the approved employer. Cannot engage in unrelated employment. Must leave South Africa immediately after completion of assignment or visa expiry.",
+
+    prosCons: "Pros: Fast-track work authorization for urgent assignments, flexible short-term solution, employer-supported. Cons: Very limited duration, no pathway to long-term work rights, strict scope of permitted work.",
+
+    terms: "Section 11(2): Immigration Act provision allowing temporary work authorization; DHA: Department of Home Affairs; Short-Term Assignment: Limited project-based work; Employer Sponsorship: Company responsibility for applicant.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Section 11(2) of the Immigration Act for temporary work authorisation.",
+
+    process: `1. Employer identifies urgent short-term work need  
+              2. Prepare assignment and justification letter  
+              3. Collect employee documents and CV  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy or DHA  
+              6. Pay applicable visa fees  
+              7. Application reviewed for urgency and eligibility  
+              8. Security and employer verification  
+              9. Visa decision issued  
+              10. Passport returned with authorization  
+              11. Travel to South Africa  
+              12. Complete assignment and exit before expiry`
+},
+
+"SouthAfricaSection11_6SpousalWorkVisa": {
+    name: "Section 11(6) Spousal Work Visa (South Africa)",
+
+    validity: "Usually aligned with the validity of the spouse or life partner visa. Typically issued for 1–3 years and renewable as long as the relationship and main visa remain valid.",
+
+    cost: "Approx. USD 50–150 (₹4,000–₹12,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend up to 60 days depending on verification of relationship and supporting documents.",
+
+    age: "No strict age limit. Applicable to spouses or life partners of foreign nationals or South African residents.",
+
+    education: "Not required. However, job-specific qualifications may be needed depending on employment type sought.",
+
+    funds: "Proof of financial support may be required from spouse or partner. In many cases, employment income from the applicant may supplement household finances once authorization is granted.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, proof of spousal or life partnership (marriage certificate or cohabitation proof), copy of spouse’s visa or South African ID/permit, cover letter requesting work endorsement, employment offer or job search intent (if applicable), CV/resume, police clearance certificate (if required), medical and radiological reports, accommodation proof.",
+
+    whom: "Foreign spouses or life partners of South African citizens or residents who wish to work legally in South Africa under endorsement of their dependent/spousal visa.",
+
+    rules: "Employment is only allowed once the work endorsement is granted under Section 11(6). Must maintain valid spousal/life partner relationship. Employment must comply with South African labour laws. Misuse or false relationship claims may lead to cancellation.",
+
+    prosCons: "Pros: Allows spouses/partners to work legally, flexible employment options, supports family stability. Cons: Dependent on relationship status, requires formal endorsement approval, can take time to process.",
+
+    terms: "Section 11(6): Immigration provision allowing work endorsement for dependents; Spousal Visa: Residence permit based on marriage; Life Partner: Long-term committed relationship; Endorsement: Permission added to visa for work rights.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for dependent spouses and work endorsements.",
+
+    process: `1. Hold valid spousal or life partner visa  
+              2. Obtain job offer or employment intent  
+              3. Prepare supporting relationship documents  
+              4. Complete Section 11(6) endorsement application  
+              5. Submit via VFS/Department of Home Affairs  
+              6. Pay applicable fees  
+              7. Submit biometrics and supporting documents  
+              8. Verification of relationship and eligibility  
+              9. Decision issued for work endorsement  
+              10. Passport updated with work authorization  
+              11. Begin employment in approved role  
+              12. Renew endorsement with visa validity if required`
+},
+
+"SouthAfricaAccompanyingDependentVisa": {
+    name: "Accompanying Dependent Visa (South Africa)",
+
+    validity: "Usually issued for the same duration as the principal visa holder (student, work, business, or residence permit). Renewable in line with the main applicant’s visa status.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend up to 60 days depending on verification of relationship and principal applicant’s status.",
+
+    age: "No strict age limit. Applicable to spouses, life partners, children, and legally dependent family members.",
+
+    education: "Not required. However, school-aged dependents may need enrollment documents for study in South Africa.",
+
+    funds: "Proof of financial support required from the principal visa holder or sponsor. Bank statements, salary slips, or employer sponsorship may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, proof of relationship (marriage certificate, birth certificate, or adoption papers), copy of principal visa holder’s permit, financial proof of sponsor, accommodation proof in South Africa, cover letter explaining dependency, travel itinerary, police clearance certificate (if required), medical and radiological reports.",
+
+    whom: "Family members (spouse, life partner, children, or dependents) accompanying a foreign national who holds a valid South African visa such as work, study, business, or residence permit.",
+
+    rules: "Must remain dependent on the principal visa holder’s status. Work or study may require separate endorsement or visa permission. If the principal visa expires or is cancelled, dependent visa becomes invalid.",
+
+    prosCons: "Pros: Enables family unity, allows long-term stay aligned with principal applicant, possible study/work options with endorsements. Cons: Fully dependent on principal visa holder, limited independent rights, requires continuous documentation updates.",
+
+    terms: "Dependent Visa: Permit for family members; Principal Applicant: Main visa holder; DHA: Department of Home Affairs; Endorsement: Additional permission for work or study.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for family reunification and dependent residence.",
+
+    process: `1. Principal applicant obtains valid South African visa  
+              2. Gather proof of relationship documents  
+              3. Collect financial and accommodation proof  
+              4. Complete dependent visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Verification of relationship and principal visa status  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa with or after principal applicant  
+              12. Maintain dependent status compliance and renew with main visa`
+},
+
+"SouthAfricaAdoptionVisa": {
+    name: "Adoption Visa (South Africa)",
+
+    validity: "Usually issued for a short-term period aligned with the adoption process, typically up to 90 days, extendable based on court proceedings and immigration approval.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend up to 60 days depending on legal adoption procedures and verification requirements.",
+
+    age: "No strict age limit. Applicable to prospective adoptive parents or guardians involved in legal adoption processes.",
+
+    education: "Not required. However, suitability assessments may consider social and personal background of adoptive parents.",
+
+    funds: "Proof of sufficient financial stability required to support the child after adoption. Bank statements, income proof, or sponsor documents may be needed.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, court approval or adoption application documents, letter from South African child welfare authority or accredited adoption agency, proof of eligibility to adopt under home country law, financial proof, police clearance certificate, medical reports, accommodation proof, cover letter explaining adoption purpose, identity documents.",
+
+    whom: "Foreign nationals entering South Africa for legal adoption procedures or to complete an adoption process through authorized courts or child welfare agencies.",
+
+    rules: "Must strictly follow South African adoption laws and court procedures. No unauthorized guardianship or removal of child outside legal process. Must complete all legal formalities before taking custody of the child.",
+
+    prosCons: "Pros: Enables legal international adoption process, ensures child protection under law, structured court supervision. Cons: Complex legal process, strict eligibility checks, lengthy approval timelines.",
+
+    terms: "Adoption Visa: Permit for legal adoption process; Child Welfare Authority: Government body overseeing adoption; Court Order: Legal approval for adoption; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act and Child Care and Adoption legislation.",
+
+    process: `1. Apply through accredited adoption agency or court  
+              2. Obtain eligibility approval to adopt  
+              3. Receive referral of child (if applicable)  
+              4. Gather legal and financial documents  
+              5. Complete visa application form  
+              6. Submit application via VFS/embassy  
+              7. Provide biometrics and supporting documents  
+              8. Court and immigration verification process  
+              9. Visa decision issued  
+              10. Travel to South Africa  
+              11. Complete legal adoption procedures in court  
+              12. Obtain legal custody and comply with post-adoption requirements`
+},
+"SouthAfricaJudicialVisa": {
+    name: "Judicial Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the court case or judicial assignment, typically from a few days up to several months depending on proceedings.",
+
+    cost: "Approx. USD 20–80 (₹1,500–₹7,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply. Often waived for official judicial delegations.",
+
+    time: "Processing time typically 3 to 15 working days. May be expedited in urgent court-related matters.",
+
+    age: "No age restriction. Applicable to judges, legal experts, witnesses, litigants, or court-appointed officials.",
+
+    education: "Not mandatory, but typically issued to legally qualified professionals or individuals involved in judicial proceedings.",
+
+    funds: "Usually sponsored by government, court authority, or legal institution. In some cases, personal proof of funds or legal sponsorship may be required.",
+
+    docs: "Valid passport, completed visa application form, court summons or official judicial notice, letter from court or legal authority, legal case documents (if applicable), invitation from South African judiciary or legal institution, travel itinerary, accommodation details, identity documents, police clearance certificate (if required).",
+
+    whom: "Foreign nationals required to attend or participate in judicial proceedings in South Africa such as court hearings, legal consultations, testimony, or official legal cooperation.",
+
+    rules: "Must strictly attend only judicial or court-related activities. No employment or unrelated activities allowed. Must comply with court schedules and legal instructions. Must leave South Africa after completion of proceedings unless legally extended.",
+
+    prosCons: "Pros: Enables legal participation in court processes, fast-track in urgent cases, officially recognized by judiciary. Cons: Very limited scope, short duration, strictly tied to court proceedings.",
+
+    terms: "Judicial Visa: Entry permit for court-related activities; Court Summons: Legal order to appear; DHA: Department of Home Affairs; Legal Authority: Court or judicial body issuing request.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa in coordination with the judiciary and legal system under Immigration Act provisions.",
+
+    process: `1. Receive court summons or judicial notice  
+              2. Obtain official invitation from legal authority  
+              3. Collect case-related documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy or diplomatic channel  
+              6. Provide biometrics and documents  
+              7. Pay visa fees (if applicable)  
+              8. Verification with judicial authorities  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Attend court proceedings and exit after completion`
+},
+
+"SouthAfricaFilmProductionVisa": {
+    name: "Film Production Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the film, TV, or media production project, typically up to 6–12 months. Extensions may be granted depending on production requirements.",
+
+    cost: "Approx. USD 50–150 (₹4,000–₹12,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend to 45 days depending on approval from film authorities and documentation checks.",
+
+    age: "No strict age limit. Applicable to cast, crew, production staff, directors, and technical teams.",
+
+    education: "Not mandatory, but relevant professional experience in film, media, or production industry is expected.",
+
+    funds: "Usually sponsored by production company. Proof of funding for the project and financial capability to support crew may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, official production company letter, detailed filming schedule, script or project synopsis (if required), filming permits from South African authorities, list of cast and crew, proof of funding for production, employment contracts, travel itinerary, accommodation details, cover letter explaining production purpose, police clearance certificate (if required).",
+
+    whom: "Foreign nationals entering South Africa for participation in film, television, documentary, advertising, or media production projects.",
+
+    rules: "Must only engage in approved production activities. No unrelated employment allowed. Must comply with filming permits and location regulations. Must leave after project completion unless visa is extended.",
+
+    prosCons: "Pros: Enables legal filming in South Africa, supports international media projects, group applications allowed for crew. Cons: Strict project documentation required, limited to production activities, dependent on approval from film authorities.",
+
+    terms: "Film Production Visa: Permit for media projects; Production Company: Organization managing filming; Filming Permit: Government approval for shooting locations; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA) in coordination with South African film and media authorities under Immigration Act provisions.",
+
+    process: `1. Secure film production approval and permits  
+              2. Prepare production schedule and crew list  
+              3. Gather company and financial documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Verification by immigration and film authorities  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Complete filming and exit upon project completion`
+},
+
+"SouthAfricaReligiousWorkerVisa": {
+    name: "Religious Worker Visa (South Africa)",
+
+    validity: "Usually issued for 1 to 3 years depending on the duration of the religious assignment or appointment. It is renewable as long as the religious posting continues.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend up to 45 days depending on verification of sponsoring religious institution.",
+
+    age: "No strict age limit. Applicable to clergy, missionaries, monks, imams, priests, religious teachers, and faith-based workers.",
+
+    education: "Not mandatory in general, but religious training, ordination certificates, or theological qualifications are usually required depending on denomination.",
+
+    funds: "Usually sponsored by the religious institution or organization in South Africa. Proof of financial support or stipend may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, official letter from religious institution in South Africa, proof of ordination or religious qualification, appointment letter or mission assignment, details of accommodation, proof of funding/support, police clearance certificate, medical and radiological reports, cover letter explaining religious purpose, travel itinerary.",
+
+    whom: "Foreign nationals entering South Africa to perform religious duties, missionary work, spiritual teaching, or religious administration under a recognized religious organization.",
+
+    rules: "Must only engage in approved religious or faith-based activities. No secular employment allowed unless separately authorized. Must comply with South African laws and religious organization rules. Misuse may result in visa cancellation.",
+
+    prosCons: "Pros: Enables long-term religious service, supports missionary and faith-based work, renewable based on assignment. Cons: Restricted to religious activities only, dependent on sponsoring institution, no general employment rights.",
+
+    terms: "Religious Worker Visa: Permit for faith-based service; Religious Institution: Recognized church/temple/mosque/organization; Ordination: Formal religious appointment; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for religious and charitable work.",
+
+    process: `1. Receive appointment from recognized religious institution  
+              2. Obtain official sponsorship letter  
+              3. Gather religious qualification documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Verification of religious organization  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Carry out religious duties and renew if required`
+},
+
+"SouthAfricaSportsVisa": {
+    name: "Sports Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the sporting event, tournament, training camp, or contract, typically from a few weeks up to 1 year. Renewable depending on continued participation or contracts.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 20 working days. May be faster for officially recognized international events.",
+
+    age: "No strict age limit. Applicable to athletes, coaches, referees, support staff, and sports officials.",
+
+    education: "Not required, but professional sports experience or certification is expected depending on role.",
+
+    funds: "Usually sponsored by sports federation, club, event organizer, or employer. Proof of stipend, contract, or funding may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, invitation letter from South African sports federation/club/event organizer, proof of participation (team selection or contract), event schedule or tournament details, employment/contract letter (if applicable), travel itinerary, accommodation details, sponsor/funding proof, police clearance certificate (if required), medical fitness certificate.",
+
+    whom: "Foreign athletes and sports personnel traveling to South Africa to participate in competitions, training programs, coaching assignments, or sports-related events.",
+
+    rules: "Must only engage in approved sports-related activities. No unrelated employment allowed. Must comply with event and immigration rules. Must leave after event or contract ends unless visa is extended.",
+
+    prosCons: "Pros: Enables participation in international sports events, group/team applications possible, supports professional sports careers. Cons: Strictly limited to sports activities, short validity, dependent on event/club sponsorship.",
+
+    terms: "Sports Visa: Permit for athletic participation; Sports Federation: Governing sports body; Contract: Official sports agreement; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for sporting and professional athletic activities.",
+
+    process: `1. Receive selection or invitation from sports body  
+              2. Obtain official event or contract letter  
+              3. Gather sports credentials and documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Verification by sports authority and immigration  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Participate in sports event and exit after completion`
+},
+"SouthAfricaArtsAndCultureVisa": {
+    name: "Arts and Culture Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the cultural event, tour, performance, or artistic project, typically from a few weeks up to 12 months. Renewable depending on ongoing engagements.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 20 working days. May be faster for officially recognized festivals or government-backed cultural programs.",
+
+    age: "No strict age limit. Applicable to artists, performers, musicians, dancers, writers, curators, and cultural professionals.",
+
+    education: "Not mandatory, but relevant artistic background, training, portfolio, or professional experience is expected.",
+
+    funds: "Usually sponsored by event organizers, cultural institutions, or host organizations. Proof of funding, stipend, or sponsorship letter may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, invitation letter from South African cultural institution or event organizer, proof of participation (contract, program schedule), artist portfolio or CV, event details or festival invitation, travel itinerary, accommodation details, sponsorship/funding proof, police clearance certificate (if required), cover letter explaining purpose of visit.",
+
+    whom: "Foreign artists and cultural professionals participating in performances, exhibitions, festivals, cultural exchanges, or artistic collaborations in South Africa.",
+
+    rules: "Must only engage in approved arts and cultural activities. No unrelated employment allowed. Must comply with event schedules and immigration rules. Must leave after completion unless visa is extended.",
+
+    prosCons: "Pros: Enables participation in international cultural events, supports artistic exchange, group participation allowed for teams or ensembles. Cons: Limited to cultural activities only, short-term validity, dependent on organizer sponsorship.",
+
+    terms: "Arts and Culture Visa: Permit for artistic participation; Cultural Institution: Organization hosting events; Portfolio: Artistic work record; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for cultural, artistic, and performance-based activities.",
+
+    process: `1. Receive invitation from cultural institution or event organizer  
+              2. Prepare artistic portfolio and supporting documents  
+              3. Obtain contract or participation confirmation  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Verification of cultural event and participation  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Participate in cultural event and exit after completion`
+},
+
+"SouthAfricaResearchVisa": {
+    name: "Research Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the research project, typically from 3 months up to 3 years depending on academic or institutional agreement. Renewable based on continuation of research.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend up to 60 days depending on institutional verification and security checks.",
+
+    age: "No strict age limit. Applicable to students, academics, scientists, and researchers.",
+
+    education: "Relevant academic qualification required (usually Bachelor’s, Master’s, or PhD depending on research level).",
+
+    funds: "Proof of funding required through university, research institution, scholarship, or personal funds. Must cover living expenses and research costs.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, invitation letter from South African university or research institution, research proposal or project outline, proof of academic qualifications, funding/scholarship proof, collaboration agreement (if applicable), CV, accommodation details, police clearance certificate, medical and radiological reports, cover letter explaining research purpose.",
+
+    whom: "Foreign nationals conducting academic, scientific, technical, or institutional research at recognized universities, laboratories, or research organizations in South Africa.",
+
+    rules: "Must only conduct approved research activities. No unrelated employment allowed unless separately authorized. Must comply with institutional and immigration regulations. Must leave or renew upon completion of research.",
+
+    prosCons: "Pros: Supports academic and scientific collaboration, long-term research opportunities, access to South African institutions. Cons: Strict academic documentation required, limited to research scope, dependent on institutional sponsorship.",
+
+    terms: "Research Visa: Permit for academic/scientific work; Research Institution: University or lab hosting researcher; Funding Proof: Scholarship or financial support evidence; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for academic and research activities.",
+
+    process: `1. Secure acceptance or invitation from research institution  
+              2. Prepare research proposal and academic documents  
+              3. Obtain funding or scholarship proof  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Verification by institution and immigration authorities  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Conduct research and renew if required`
+},
+
+"SouthAfricaConferenceVisa": {
+    name: "Conference Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the conference, seminar, workshop, or event, typically from a few days up to 90 days. Extensions are rare and granted only in exceptional cases.",
+
+    cost: "Approx. USD 20–100 (₹1,500–₹8,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 15 working days. May be faster for government or internationally recognized conferences.",
+
+    age: "No strict age limit. Applicable to delegates, speakers, participants, and invited guests.",
+
+    education: "Not mandatory, but often applicable to professionals, academics, or industry experts depending on conference theme.",
+
+    funds: "Usually sponsored by event organizers or employer. Proof of registration fee payment or sponsorship letter may be required.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, official invitation letter from conference organizer, conference registration proof, agenda or program schedule, proof of payment (if applicable), employer sponsorship letter (if applicable), travel itinerary, accommodation details, cover letter explaining purpose of visit, police clearance certificate (if required).",
+
+    whom: "Foreign nationals attending conferences, seminars, workshops, exhibitions, or professional events in South Africa as speakers, delegates, or participants.",
+
+    rules: "Must only attend approved conference-related activities. No employment or unrelated work allowed. Must leave South Africa after event completion unless visa is extended or changed.",
+
+    prosCons: "Pros: Easy entry for professional events, fast processing, supports academic and industry networking. Cons: Very short duration, limited to conference activities, no work rights.",
+
+    terms: "Conference Visa: Permit for event participation; Organizer: Entity hosting the conference; Delegate: Participant or attendee; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for short-term professional and academic engagements.",
+
+    process: `1. Register for conference or receive invitation  
+              2. Obtain official invitation letter  
+              3. Gather required documents and registration proof  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Verification of conference details  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Attend conference and exit after completion`
+},
+
+"SouthAfricaTrainingVisa": {
+    name: "Training Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the training program, typically from 1 month up to 12 months. Renewable depending on continuation of training and institutional approval.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 20 working days. May extend to 30–45 days depending on verification of training institution.",
+
+    age: "No strict age limit. Applicable to trainees, interns, professionals, and students depending on program.",
+
+    education: "Varies by program. Some training programs require basic qualifications or relevant academic/professional background.",
+
+    funds: "Proof of funding required from employer, training institution, scholarship, or personal savings. Must cover living expenses during training period.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, invitation or acceptance letter from training institution or company, training program details, proof of enrollment or selection, funding/sponsorship proof, CV or academic records, accommodation details, travel itinerary, police clearance certificate (if required), medical and radiological reports, cover letter explaining training purpose.",
+
+    whom: "Foreign nationals entering South Africa to undergo professional, technical, academic, or vocational training at recognized institutions, companies, or organizations.",
+
+    rules: "Must only participate in approved training activities. No unrelated employment allowed unless separately authorized. Must comply with training schedule and immigration conditions. Must leave or renew visa after completion.",
+
+    prosCons: "Pros: Enhances skills and professional exposure, supports international training programs, structured learning environment. Cons: Limited duration, restricted to training activities only, dependent on sponsor institution.",
+
+    terms: "Training Visa: Permit for skill development programs; Training Institution: Approved organization providing training; Trainee: Person undergoing training; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for training and capacity-building programs.",
+
+    process: `1. Receive acceptance into training program  
+              2. Obtain official training invitation letter  
+              3. Gather academic and personal documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Verification of training program  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Attend training and comply with program conditions`
+},
+
+
+"SouthAfricaInternshipVisa": {
+    name: "Internship Visa (South Africa)",
+
+    validity: "Usually issued for the duration of the internship program, typically from 3 months up to 12 months. Renewable only in limited cases with institutional approval.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend depending on employer verification and internship structure.",
+
+    age: "No strict age limit. Most commonly applicable to students and young professionals.",
+
+    education: "Usually requires enrollment in a degree/diploma program or recent graduation depending on internship requirements.",
+
+    funds: "Proof of funds required from sponsor, university, employer, or personal savings to cover living expenses during internship.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, internship offer letter from South African company/organization, proof of enrollment or graduation certificate, internship agreement, CV/resume, sponsor funding letter (if applicable), accommodation details, travel itinerary, police clearance certificate (if required), medical and radiological reports, cover letter explaining internship purpose.",
+
+    whom: "Foreign students or graduates entering South Africa to gain practical work experience through structured internship programs at companies, NGOs, or institutions.",
+
+    rules: "Must only perform internship-related duties. No full-time employment outside internship scope unless separately authorized. Must comply with internship schedule and visa conditions. Must leave or renew after completion.",
+
+    prosCons: "Pros: Valuable international work experience, enhances career skills, structured professional exposure. Cons: Limited duration, restricted to internship role only, dependent on host organization.",
+
+    terms: "Internship Visa: Permit for structured work learning; Intern: Trainee gaining practical experience; Host Organization: Company providing internship; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for study-to-work transition and training programs.",
+
+    process: `1. Secure internship offer from South African organization  
+              2. Obtain official internship letter and agreement  
+              3. Gather academic and personal documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Verification of internship program  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Complete internship and comply with visa conditions`
+},
+
+"SouthAfricaSeasonalWorkVisa": {
+    name: "Seasonal Work Visa (South Africa)",
+
+    validity: "Usually issued for short-term periods aligned with seasonal employment cycles, typically 3 to 9 months. Non-renewable in most cases unless a new seasonal contract is approved.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend depending on employer verification and seasonal labour demand.",
+
+    age: "No strict age limit. Commonly applicable to temporary labour workers in agriculture, hospitality, tourism, and related sectors.",
+
+    education: "Not mandatory. Basic skills relevant to the seasonal job may be required depending on employer.",
+
+    funds: "Usually employer-sponsored. Proof of wage agreement or employment contract is required. Some cases may require minimal personal funds for arrival support.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, seasonal employment contract, employer invitation letter, proof of employer registration, job description, accommodation details, travel itinerary, police clearance certificate (if required), medical report (if required), cover letter explaining seasonal work purpose.",
+
+    whom: "Foreign nationals entering South Africa for temporary seasonal employment in sectors such as agriculture, tourism, hospitality, and harvesting operations.",
+
+    rules: "Must only work for the specified employer and in the approved seasonal role. No switching employers unless new visa is granted. Must leave after contract ends or visa expiry.",
+
+    prosCons: "Pros: Enables legal short-term employment, supports seasonal income opportunities, relatively quick processing. Cons: Very short duration, no pathway to long-term residence, restricted to specific job and employer.",
+
+    terms: "Seasonal Work Visa: Temporary employment permit; Employer Sponsorship: Company responsibility for worker; Seasonal Labour: Time-bound job demand; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for temporary and seasonal employment.",
+
+    process: `1. Obtain seasonal job offer from South African employer  
+              2. Sign employment contract  
+              3. Gather required personal documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Employer and immigration verification  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Work during season and exit after contract completion`
+},
+
+"SouthAfricaMiningWorkVisa": {
+    name: "Mining Work Visa (South Africa)",
+
+    validity: "Usually issued for 1 to 4 years depending on the mining contract and employer requirement. Renewable if employment continues with approved mining company.",
+
+    cost: "Approx. USD 50–150 (₹4,000–₹12,500). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 20 to 60 working days due to strict labour and safety compliance checks.",
+
+    age: "No strict age limit. Typically issued to skilled, semi-skilled, and technical mining workers.",
+
+    education: "Depends on role. Skilled positions require technical qualifications or certifications; semi-skilled roles may require experience.",
+
+    funds: "Usually fully employer-sponsored. Mining company covers salary, accommodation, and sometimes relocation costs.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, mining job offer letter, employment contract, proof of mining company registration, job role description, proof of qualifications or work experience, medical fitness certificate (important for mining work), police clearance certificate, accommodation details, travel itinerary, cover letter explaining job role.",
+
+    whom: "Foreign nationals employed in South African mining sector including miners, engineers, technicians, safety officers, and machinery operators.",
+
+    rules: "Must work only for the approved mining employer and designated site. Must comply with strict occupational health and safety regulations. Cannot change employer without new visa approval.",
+
+    prosCons: "Pros: Stable employment in structured sector, high demand for skilled workers, employer-supported relocation. Cons: Physically demanding work, strict safety and regulatory compliance, limited job flexibility.",
+
+    terms: "Mining Work Visa: Employment permit for mining sector; DHA: Department of Home Affairs; Mining Company: Licensed extraction operator; Occupational Safety: Workplace safety regulations.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA) and Department of Mineral Resources and Energy under South African Immigration and Mining regulations.",
+
+    process: `1. Secure job offer from licensed mining company  
+              2. Sign employment contract  
+              3. Obtain proof of qualifications and experience  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and medical fitness test  
+              7. Pay visa fees  
+              8. Employer and regulatory verification  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to mining site in South Africa  
+              12. Begin work under safety and compliance rules`
+},
+
+"SouthAfricaAgriculturalWorkVisa": {
+    name: "Agricultural Work Visa (South Africa)",
+
+    validity: "Usually issued for 3 months to 2 years depending on farming cycle and employment contract. Renewable if the agricultural job continues with the same employer or approved extension.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend depending on seasonal demand and employer verification.",
+
+    age: "No strict age limit. Commonly issued to adult workers for farm, plantation, and agricultural labour roles.",
+
+    education: "Not required for general farm labour. Skilled agricultural roles (machinery, agronomy, veterinary support) may require qualifications.",
+
+    funds: "Usually employer-sponsored. Employer provides wages, accommodation, and sometimes transport support.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, agricultural job offer or farm employment contract, employer invitation letter, proof of farm registration, job description (planting, harvesting, livestock care, etc.), accommodation details, travel itinerary, police clearance certificate (if required), medical fitness certificate (if required), cover letter explaining purpose of work.",
+
+    whom: "Foreign nationals working in South African agriculture sector such as farm labourers, harvest workers, livestock handlers, irrigation staff, and agri-technicians.",
+
+    rules: "Must work only for approved agricultural employer and designated farm/location. Cannot switch employers without new authorization. Must comply with labour laws and visa duration strictly.",
+
+    prosCons: "Pros: Easy entry for seasonal labour demand, employer-supported stay, consistent agricultural job opportunities. Cons: Low skill transferability, physically demanding work, no pathway to long-term residency in most cases.",
+
+    terms: "Agricultural Work Visa: Permit for farm employment; Seasonal Labour: Time-based agricultural work; Employer Sponsorship: Farm/company responsibility; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions for temporary and agricultural employment.",
+
+    process: `1. Obtain farm or agricultural job offer  
+              2. Sign employment contract with employer  
+              3. Collect required personal and medical documents  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Employer and immigration verification  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa  
+              12. Begin agricultural work and comply with contract terms`
+},
+
+"SouthAfricaFishingIndustryVisa": {
+    name: "Fishing Industry Visa (South Africa)",
+
+    validity: "Usually issued for 3 months to 2 years depending on fishing season, vessel contract, or employment agreement. Renewable if the fishing contract continues and regulatory approvals are maintained.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 10 to 30 working days. May extend depending on maritime clearance and employer verification.",
+
+    age: "No strict age limit. Commonly issued to adult seafarers and fishing crew members.",
+
+    education: "Not mandatory for general deck/fishing crew roles. Specialized maritime or engineering roles may require certifications.",
+
+    funds: "Usually employer or vessel operator-sponsored. Wages, accommodation onboard, and basic provisions are typically provided.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, fishing vessel employment contract, crew list or assignment letter, maritime operator registration proof, job role description (deckhand, engineer, processing staff, etc.), seafarer/maritime certificates (if applicable), travel itinerary, medical fitness certificate, police clearance certificate (if required), cover letter explaining fishing assignment.",
+
+    whom: "Foreign nationals employed in South Africa’s fishing and marine harvesting industry, including fishing vessels, seafood processing ships, and coastal fishing operations.",
+
+    rules: "Must work only on assigned vessel or employer. Cannot disembark or change vessel/employer without approval. Must comply with maritime safety and fishing regulations. Must leave or renew upon contract completion.",
+
+    prosCons: "Pros: Legal access to maritime employment, employer-provided living conditions, structured seasonal work. Cons: Physically demanding, long periods at sea, strict regulatory control, limited job flexibility.",
+
+    terms: "Fishing Industry Visa: Maritime work permit; Seafarer: Crew member working on vessel; Vessel Operator: Fishing company; DHA: Department of Home Affairs; Maritime Authority: Regulator of sea-based employment.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA) and South African maritime and fisheries authorities under Immigration Act and maritime labour regulations.",
+
+    process: `1. Obtain fishing vessel employment contract  
+              2. Receive crew assignment from vessel operator  
+              3. Collect maritime certifications (if required)  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees  
+              8. Maritime and employer verification  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to port of embarkation in South Africa  
+              12. Join vessel and begin fishing operations`
+},
+
+"SouthAfricaAviationCrewVisa": {
+    name: "Aviation Crew Visa (South Africa)",
+
+    validity: "Usually issued for 1 to 3 years depending on airline contract and operational assignment. Renewable as long as the crew member remains employed with the airline.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 20 working days. May be faster for airline-sponsored or urgent operational requirements.",
+
+    age: "No strict age limit. Applicable to qualified aviation professionals.",
+
+    education: "Required aviation training and certifications such as pilot license, cabin crew certification, or engineering qualifications depending on role.",
+
+    funds: "Usually fully sponsored by the airline or aviation company. Salary, travel, and accommodation during duty layovers are typically covered.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, airline employment contract, crew assignment letter, valid aviation licenses (pilot license, cabin crew certification, etc.), airline operator registration details, training certificates, medical fitness certificate (aviation medical if applicable), travel roster or duty schedule, cover letter explaining role.",
+
+    whom: "Foreign nationals employed as pilots, cabin crew, aircraft engineers, ground support staff, or operational aviation personnel working with South African or international airlines operating in South Africa.",
+
+    rules: "Must work only for the sponsoring airline or aviation company. Must comply with aviation safety and duty regulations. Cannot undertake unrelated employment. Must follow international aviation standards and immigration rules.",
+
+    prosCons: "Pros: Stable international aviation career, structured airline sponsorship, global travel opportunities. Cons: Strict licensing requirements, irregular work schedules, highly regulated profession.",
+
+    terms: "Aviation Crew Visa: Permit for airline personnel; Crew Roster: Duty schedule; ICAO: International Civil Aviation Organization standards; DHA: Department of Home Affairs.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa in coordination with aviation authorities and international aviation regulations (ICAO standards).",
+
+    process: `1. Obtain employment with airline or aviation company  
+              2. Receive crew assignment and contract  
+              3. Validate aviation licenses and medical certificates  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy or airline channel  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees (if applicable)  
+              8. Airline and immigration verification  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to South Africa as per crew roster  
+              12. Perform aviation duties and comply with regulations`
+},
+
+"SouthAfricaMaritimeCrewVisa": {
+    name: "Maritime Crew Visa (South Africa)",
+
+    validity: "Usually issued for 3 months to 2 years depending on vessel contract, shipping schedule, or crew rotation agreement. Renewable as long as employment continues.",
+
+    cost: "Approx. USD 30–120 (₹2,500–₹10,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 5 to 20 working days. May be faster for shipping line-sponsored crew movements.",
+
+    age: "No strict age limit. Applicable to certified maritime professionals and seafarers.",
+
+    education: "Not mandatory for general seafarer roles. Technical positions (engineers, officers) require maritime qualifications and certifications.",
+
+    funds: "Usually fully sponsored by shipping company or vessel operator. Salary, accommodation onboard, and provisions are provided during contract.",
+
+    docs: "Valid passport, completed visa application form, recent photographs, seafarer employment contract, crew list or vessel assignment letter, shipping company registration proof, STCW certificates (Standards of Training, Certification and Watchkeeping), medical fitness certificate, maritime discharge book (if applicable), travel itinerary, police clearance certificate (if required), cover letter explaining vessel assignment.",
+
+    whom: "Foreign nationals working on commercial ships, cargo vessels, tankers, fishing vessels, or port-related maritime operations in South Africa.",
+
+    rules: "Must serve only on assigned vessel or shipping company. Cannot change employer or vessel without authorization. Must comply with maritime safety and immigration rules. Must leave or renew upon contract completion.",
+
+    prosCons: "Pros: Legal maritime employment, employer-sponsored travel and stay, global shipping career opportunities. Cons: Long periods at sea, strict safety regulations, limited shore-based mobility.",
+
+    terms: "Maritime Crew Visa: Permit for seafarers; STCW: International maritime training standard; Vessel Operator: Shipping company; DHA: Department of Home Affairs; Port Authority: Maritime regulatory body.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA) and South African maritime authorities under Immigration Act and international maritime labour conventions.",
+
+    process: `1. Obtain employment contract from shipping company  
+              2. Receive vessel assignment and crew list inclusion  
+              3. Ensure maritime certifications are valid (STCW, medical fitness)  
+              4. Complete visa application form  
+              5. Submit application via VFS/embassy or shipping agent  
+              6. Provide biometrics and supporting documents  
+              7. Pay visa fees (if applicable)  
+              8. Verify shipping line and maritime documents  
+              9. Visa decision issued  
+              10. Passport returned with visa  
+              11. Travel to port of embarkation in South Africa  
+              12. Join vessel and perform maritime duties`
+},
+"SouthAfricaReEntryVisa": {
+    name: "Re-entry Visa (South Africa)",
+
+    validity: "Usually aligned with the validity of the holder’s main visa or residence permit. Can range from a few months up to 5 years depending on underlying status.",
+
+    cost: "Approx. USD 20–80 (₹1,500–₹7,000). Additional VFS/consular service charges ₹1,000–₹3,000 may apply.",
+
+    time: "Processing time typically 3 to 15 working days. May be faster for valid residents or permit holders.",
+
+    age: "No strict age limit. Applicable to all foreign nationals holding valid South African temporary or permanent residence permits.",
+
+    education: "Not required.",
+
+    funds: "Proof of valid financial stability may be required depending on underlying visa category, but not always mandatory for re-entry alone.",
+
+    docs: "Valid passport, completed application form, valid South African visa or residence permit, proof of travel plans, proof of ongoing employment/study/residence (if applicable), recent photographs, accommodation details, travel itinerary, cover letter explaining reason for exit and return, police clearance certificate (if required in some cases).",
+
+    whom: "Foreign nationals residing in South Africa who need authorization to leave and re-enter the country while maintaining their visa or residence status.",
+
+    rules: "Must hold a valid underlying visa or residence permit. Must re-enter within the validity period. Overstay outside validity may result in loss of residency rights. Must comply with South African immigration rules.",
+
+    prosCons: "Pros: Maintains legal status during international travel, protects long-term residency continuity, useful for workers/students/residents. Cons: Dependent on validity of main visa, requires careful timing, administrative processing required.",
+
+    terms: "Re-entry Visa: Travel authorization to return; Temporary Residence Permit: Primary visa type; DHA: Department of Home Affairs; Visa Validity: Legal stay duration.",
+
+    legal: "Regulated by the Department of Home Affairs (DHA), South Africa under Immigration Act provisions governing entry, exit, and return of foreign nationals.",
+
+    process: `1. Confirm valid underlying visa or residence permit  
+              2. Gather travel and residence documents  
+              3. Complete re-entry visa application form  
+              4. Submit application via VFS/embassy or DHA  
+              5. Provide biometrics and supporting documents  
+              6. Pay visa fees  
+              7. Verification of visa/residence status  
+              8. Visa decision issued  
+              9. Passport returned with re-entry authorization  
+              10. Travel outside South Africa  
+              11. Re-enter within validity period  
+              12. Maintain continuous legal status`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

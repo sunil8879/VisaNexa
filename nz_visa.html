@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="NEW ZEALAND">NEW ZEALAND</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+<select id="visaType">
+    <optgroup label="Visitor & Travel">
+        <option value="NewZealandVisitorVisa">Visitor Visa</option>
+        <option value="NewZealandNZeTA">NZeTA (Electronic Authority)</option>
+        <option value="NewZealandTransitVisa">Transit Visa</option>
+    </optgroup>
+
+    <optgroup label="Study & Graduate">
+        <option value="NewZealandStudentVisa">Student Visa</option>
+        <option value="NewZealandPostStudyWorkVisa">Post Study Work Visa</option>
+    </optgroup>
+
+    <optgroup label="Work Permits">
+        <option value="NewZealandAccreditedEmployerWorkVisa">Accredited Employer Work Visa (AEWV)</option>
+        <option value="NewZealandSpecificPurposeWorkVisa">Specific Purpose Work Visa</option>
+        <option value="NewZealandRecognisedSeasonalEmployerLimitedVisa">Recognised Seasonal Employer (RSE)</option>
+        <option value="NewZealandWorkingHolidayVisa">Working Holiday Visa</option>
+    </optgroup>
+
+    <optgroup label="Skilled Residence Pathways">
+        <option value="NewZealandSkilledMigrantCategoryResidentVisa">Skilled Migrant Category (SMC)</option>
+        <option value="NewZealandGreenListStraightToResidenceVisa">Green List Straight to Residence</option>
+        <option value="NewZealandGreenListWorkToResidenceVisa">Green List Work to Residence</option>
+    </optgroup>
+
+    <optgroup label="Family & Partner">
+        <option value="NewZealandPartnerOfNewZealanderResidentVisa">Partner Resident Visa</option>
+        <option value="NewZealandPartnerOfNewZealanderWorkVisa">Partner Work Visa</option>
+        <option value="NewZealandDependentChildResidentVisa">Dependent Child Resident Visa</option>
+        <option value="NewZealandParentResidentVisa">Parent Resident Visa</option>
+    </optgroup>
+
+    <optgroup label="Business & Investment">
+        <option value="NewZealandEntrepreneurWorkVisa">Entrepreneur Work Visa</option>
+        <option value="NewZealandEntrepreneurResidentVisa">Entrepreneur Resident Visa</option>
+        <option value="NewZealandActiveInvestorPlusVisa">Active Investor Plus Visa</option>
+        <option value="NewZealandGlobalImpactVisa">Global Impact Visa</option>
+    </optgroup>
+
+    <optgroup label="Specialized & Talent">
+        <option value="NewZealandReligiousWorkerVisa">Religious Worker Visa</option>
+        <option value="NewZealandTalentAccreditedEmployerResidentVisa">Talent Accredited Employer Residence</option>
+        <option value="NewZealandTalentArtsCultureSportsWorkVisa">Talent (Arts/Sports) Work Visa</option>
+        <option value="NewZealandLongTermSkillShortageListResidentVisa">LTSSL Resident Visa (Legacy)</option>
+        <option value="NewZealandSouthIslandContributionResidentVisa">South Island Contribution (Legacy)</option>
+    </optgroup>
+
+    <optgroup label="Humanitarian & Refugee">
+        <option value="NewZealandRefugeeAndProtectedPersonVisa">Refugee/Protected Person Visa</option>
+        <option value="NewZealandRefugeeProtectionClaimantVisa">Refugee Protection Claimant Visa</option>
+        <option value="NewZealandPacificAccessCategoryResidentVisa">Pacific Access Category (PAC)</option>
+        <option value="NewZealandSamoanQuotaResidentVisa">Samoan Quota Resident Visa</option>
+    </optgroup>
+
+    <optgroup label="Bridging">
+        <option value="NewZealandInterimVisa">Interim Visa</option>
+    </optgroup>
+
+
+
+
+   <optgroup label="Extras">
+        <option value="NewZealandParentRetirementResidentVisa">Parent retirement Visa</option>
+        <option value="NewZealandTemporaryRetirementVisitorVisa">Temporary retirement visa</option>
+        <option value="NewZealandParentGrandparentVisitorVisa">Parents & Grand parents visitor visa</option>
+        <option value="NewZealandCulturallyArrangedMarriageVisa">Marriage visitor visa</option>
+ <option value="NewZealandGroupVisitorVisa">Group visitor visa</option>
+
+        <option value="NewZealandBusinessVisitorVisa">Business visitor visa</option>
+        <option value="NewZealandFishingCrewWorkVisa">Fishing crew work visa</option>
+        <option value="NewZealandDiplomaticDomesticWorkerVisa">Domestic worker</option>
+ <option value="NewZealandVictimsOfFamilyViolenceVisa">Family violence victims visa</option>
+        <option value="NewZealandRefugeeFamilySupportVisa">Refugee family support</option>
+        <option value="NewZealandOccupationalRegistrationVisa">Occupational registration</option>
+        <option value="NewZealandPathwayStudentVisa">Pathway student visa</option>
+ <option value="NewZealandSection61Request">Overstay Request visa</option>
+        <option value="NewZealandVariationOfConditions">Variation of condition</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇳🇿 VIEW MASTER END-TO-END PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇳🇿 NEW ZEALAND VISA SYSTEM — MASTER END-TO-END PROCESS (2026)</h1>
+
+        <h2>🟢 PHASE 1: IDENTIFY VISA PATHWAY (SELECTION STAGE)</h2>
+        <p>Every applicant first goes through visa classification selection.</p>
+        <h3>1. Determine purpose of entry:</h3>
+        <p>You must clearly choose ONE:</p>
+        <ul>
+            <li>Visitor (tourism / family visit)</li>
+            <li>Study (education pathway)</li>
+            <li>Work (temporary employment)</li>
+            <li>Residence (permanent migration)</li>
+            <li>Business / Investment</li>
+            <li>Family (partner/child/parent)</li>
+            <li>Protection / Refugee</li>
+            <li>Transit / Short stay</li>
+            <li>Special categories (RSE, Talent, Religious, etc.)</li>
+        </ul>
+
+        <h3>2. Match visa category:</h3>
+        <p><strong>Temporary visas:</strong> Visitor Visa, NZeTA, Student Visa, Post Study Work Visa, AEWV, Specific Purpose Work Visa, Working Holiday Visa, RSE Limited Visa, Interim Visa, Transit Visa, Religious Worker Visa, Global Impact Visa, Talent Work Visa.</p>
+        <p><strong>Residence visas:</strong> Skilled Migrant Category Resident Visa, Green List Straight to Residence, Green List Work to Residence, Partner Resident Visa, Parent Resident Visa, Dependent Child Resident Visa, Entrepreneur Resident Visa, Investor Visa, Talent Resident Visa, Legacy categories.</p>
+        <p><strong>Protection visas:</strong> Refugee & Protected Person Visa, Claimant Visa.</p>
+
+        <h2>🟡 PHASE 2: ELIGIBILITY CHECK (CORE SCREENING)</h2>
+        <p>Immigration NZ checks 5 universal pillars:</p>
+        <ul>
+            <li><strong>1. Identity:</strong> Valid passport, Legal name consistency, Nationality verification.</li>
+            <li><strong>2. Health requirement:</strong> Medical exam (x-ray + blood tests), Must not pose public health risk.</li>
+            <li><strong>3. Character requirement:</strong> Police clearance certificates (all countries lived in 12+ months), No serious criminal record.</li>
+            <li><strong>4. Genuine intent:</strong> Must match visa purpose (Study intent → student visa, Job intent → work visa, Settlement intent → residence visa).</li>
+            <li><strong>5. Financial capability:</strong> Proof depends on visa type (Visitor → daily funds, Student → tuition + living cost, Work → job income, Residence → settlement funds / investment).</li>
+        </ul>
+
+        <h2>🟠 PHASE 3: DOCUMENT PREPARATION (UNIVERSAL CORE FILE)</h2>
+        <p>Almost ALL visas require: Identity documents (Passport valid 6–24 months, Photos), Civil documents (Birth/Marriage certificates), Financial documents (Bank statements 3–6 months, Income tax returns, Sponsorship), Medicals, and Police clearance (India PCC + any country lived in).</p>
+
+        <h2>🔵 PHASE 4: APPLICATION SUBMISSION</h2>
+        <ul>
+            <li>1. Create Immigration New Zealand account</li>
+            <li>2. Select visa category</li>
+            <li>3. Fill application form (online)</li>
+            <li>4. Upload documents</li>
+            <li>5. Pay visa fee</li>
+            <li>6. Submit application</li>
+        </ul>
+
+        <h2>🟣 PHASE 5: IMMIGRATION ASSESSMENT PROCESS</h2>
+        <p>This is the core decision-making stage involving Application triage, Background checks, Employer verification, Education validation, Relationship verification, Financial verification, and Risk assessment.</p>
+
+        <h2>🟤 PHASE 6 & 7: INTERVIEW & DECISION STAGE</h2>
+        <p>May include Immigration interview (phone/video/in-person). Outcomes: Visa granted (approved), Declined (refused), or Further information required.</p>
+
+        <h2>🟢 PHASE 8: VISA GRANT CONDITIONS</h2>
+        <p>If approved, visa includes Validity period and Conditions (Employer-specific, job role restricted, salary threshold, or work limits).</p>
+
+        <h2>🔵 PHASE 9 & 10: ENTRY & POST-ARRIVAL COMPLIANCE</h2>
+        <p>On arrival: Immigration border check. Compliance: Must follow visa conditions, maintain status, and report changes (job, address, partner).</p>
+
+        <h2>🟡 PHASE 11, 12 & 13: TRANSITION, PR & CITIZENSHIP</h2>
+        <p>Temporary → Residence pathways → Permanent Resident Visa (PR after 2 years) → New Zealand citizenship (usually after 5 years residence).</p>
+
+        <h2>⚫ UNIVERSAL FLOW (SIMPLIFIED MASTER MAP)</h2>
+        <p><strong>Eligibility → Documents → Application → Assessment → Decision → Visa Grant → Entry → Compliance → Extension/Transition → Residence → Permanent Residency → Citizenship</strong></p>
+
+        <div class="official-box">
+            <h1>🇳🇿 OFFICIAL NEW ZEALAND IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Main Official Website:</strong> <a href="https://www.immigration.govt.nz" target="_blank">www.immigration.govt.nz</a></p>
+            <p><strong>2. Online Application Portal:</strong> <a href="https://online.immigration.govt.nz" target="_blank">online.immigration.govt.nz</a></p>
+            <p><strong>3. NZeTA Official Site:</strong> <a href="https://nzeta.immigration.govt.nz" target="_blank">nzeta.immigration.govt.nz</a></p>
+            <p><strong>4. RealMe Secure Login:</strong> <a href="https://www.realme.govt.nz" target="_blank">www.realme.govt.nz</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: USE ONLY OFFICIAL .GOVT.NZ WEBSITES. AVOID SCAM AGENT SITES.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "NEW ZEALAND": {
+"NewZealandVisitorVisa": {
+    name: "Visitor Visa (New Zealand)",
+
+    validity: "Temporary visa. Usually up to 9 months total stay in a 18-month period (can vary based on application type and immigration decision). No pathway to permanent residence.",
+
+    cost: "Application fee approx NZD $211–$441 (~₹10,500–₹22,000) depending on application type + IVL (International Visitor Conservation and Tourism Levy) NZD $35 (~₹1,800) + biometrics/medical exam charges in India (~₹2,000–₹8,000).",
+
+    time: "Standard processing: 2–6 weeks (can be faster or longer depending on workload, documentation, and background checks).",
+
+    age: "No strict age limit. Applicants must be genuine temporary visitors.",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds for stay: generally NZD $1,000 per month (or NZD $400 per month if accommodation is prepaid) OR proof of sponsorship + return/onward ticket.",
+
+    docs: "Valid passport, completed visa application form, passport photos, bank statements, income proof, travel itinerary, return ticket or proof of funds, accommodation details, invitation letter (if applicable), medical certificate (if required), police clearance (rare for short stays), sponsorship documents (if applicable).",
+
+    whom: "Tourists, family visitors, short-term business visitors, and people visiting New Zealand for leisure, events, or short stays without working rights.",
+
+    rules: "Must be a genuine temporary entrant. No work allowed (except very limited remote work conditions in special cases). Must leave before visa expiry. Must have sufficient funds or sponsor. Must meet health and character requirements.",
+
+    prosCons: "Pros: Easy entry for tourism, multiple-entry options, flexible travel within NZ, relatively quick processing. Cons: No work rights, no long-term stay, strict proof of funds requirement, must prove strong ties to home country.",
+
+    terms: "Visitor Visa: Temporary entry visa for tourism or short visits; IVL: International Visitor Conservation and Tourism Levy; Genuine Temporary Entry (GTE): Requirement to prove intent to leave after visit.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand operational instructions for Visitor Visa category.",
+
+    process: `1. Check eligibility for visitor category ->
+              2. Prepare passport and travel documents ->
+              3. Gather proof of funds and travel purpose ->
+              4. Book return flight (recommended) ->
+              5. Apply online via Immigration New Zealand portal ->
+              6. Upload documents and pay visa fee + IVL ->
+              7. Provide biometrics/medical if requested ->
+              8. Immigration officer reviews application ->
+              9. Additional documents requested (if needed) ->
+              10. Background/security checks ->
+              11. Visa decision issued ->
+              12. Receive eVisa or visa label ->
+              13. Travel to New Zealand ->
+              14. Comply with visitor conditions during stay ->
+              15. Exit before visa expiry (or apply for extension if eligible).`
+},
+
+"NewZealandNZeTA": {
+    name: "New Zealand Electronic Travel Authority (NZeTA)",
+
+    validity: "Up to 2 years validity. Allows multiple short visits. Each stay usually up to 3 months (UK citizens up to 6 months). Not a visa but a travel authorization.",
+
+    cost: "Application fee NZD $17 (mobile app) or NZD $23 (web) + IVL (International Visitor Conservation and Tourism Levy) NZD $35 (~₹1,800). Total approx ₹2,000–₹3,000.",
+
+    time: "Usually approved within 10 minutes to 72 hours, but can take longer in some cases.",
+
+    age: "No strict age limit. All travelers (including infants) must have an NZeTA if required.",
+
+    education: "No requirement.",
+
+    funds: "No formal proof of funds required, but traveler must be able to support themselves during stay and may be asked at entry.",
+
+    docs: "Valid passport, email address, debit/credit card for payment, travel details (optional), photo of applicant (for mobile app submission), IVL payment confirmation.",
+
+    whom: "Visa waiver country travelers (including UK, USA, EU, and many others), cruise ship passengers, and transit passengers through Auckland International Airport.",
+
+    rules: "Must be from visa-waiver country or eligible transit passenger. Cannot work in New Zealand. Must not overstay allowed duration. Must meet character and health requirements. Must carry NZeTA approval before boarding flight/cruise.",
+
+    prosCons: "Pros: Very fast approval, low cost, multiple entries, simple online process, valid for 2 years. Cons: No work or long-term stay allowed, still requires IVL payment, entry is not guaranteed even if approved.",
+
+    terms: "NZeTA: Electronic Travel Authorization system; IVL: International Visitor Conservation and Tourism Levy; Visa Waiver: Countries eligible for entry without full visa.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Visa Waiver and Transit Passenger Regulations.",
+
+    process: `1. Check if eligible for visa waiver or transit requirement ->
+              2. Download NZeTA app or use official website ->
+              3. Enter passport details ->
+              4. Upload photo (if required) ->
+              5. Pay NZeTA fee + IVL ->
+              6. Submit application ->
+              7. Wait for approval (minutes to 72 hours) ->
+              8. Receive electronic confirmation ->
+              9. NZeTA automatically linked to passport ->
+              10. Travel to New Zealand ->
+              11. Present passport at boarding and immigration ->
+              12. Enter New Zealand under visa waiver conditions ->
+              13. Exit within permitted stay period.`
+},
+
+"NewZealandStudentVisa": {
+    name: "Student Visa (New Zealand)",
+
+    validity: "Valid for the duration of the enrolled course (usually 1–4 years). Allows stay in New Zealand full-time during study period. Limited work rights (up to 20 hours/week during study and full-time during holidays in most cases).",
+
+    cost: "Application fee approx NZD $375–$750 (~₹18,000–₹37,000) + IVL (International Visitor Conservation and Tourism Levy) NZD $100 (~₹5,000) + medicals (~₹5,000–₹15,000 in India) + biometrics (~₹1,500–₹3,000).",
+
+    time: "Standard processing: 4–8 weeks (can extend to 12+ weeks depending on documents, course type, and verification requirements).",
+
+    age: "No strict age limit. Applicants must be genuine students. Gap years are accepted if justified with documents.",
+
+    education: "Must have prior academic qualification relevant to the chosen course (12th for undergraduate, bachelor’s for postgraduate). English proficiency required (IELTS/TOEFL/PTE unless exempted).",
+
+    funds: "Must show minimum approx NZD $20,000 per year for living expenses + full tuition fee payment or proof of funds/education loan. Sponsor documents accepted (parents/guardians).",
+
+    docs: "Valid passport, Offer of Place from NZ education provider, tuition fee receipt, bank statements (6 months), education loan sanction letter (if any), academic transcripts, SOP (Statement of Purpose), IELTS/PTE score (if required), medical certificate, chest X-ray, police clearance certificate (if required), passport photos.",
+
+    whom: "International students accepted into NZQA-approved institutions such as universities, polytechnics, and private training establishments for full-time study programs.",
+
+    rules: "Must be a genuine student with intention to study full-time. Must maintain attendance and academic progress. Must not exceed work limits (20 hours/week during study unless exempt). Must maintain sufficient funds and valid health insurance. Must comply with visa conditions and stay within course duration.",
+
+    prosCons: "Pros: High-quality education system, post-study work visa pathway, part-time work allowed, safe country, pathway to residency in skilled categories. Cons: High tuition fees, strict financial proof requirements, limited work hours during study, visa conditions tied strictly to course enrollment.",
+
+    terms: "Offer of Place: Admission confirmation from NZ institution; NZQA: New Zealand Qualifications Authority; IVL: International Visitor Conservation and Tourism Levy; Student Visa Conditions: Work limits, study requirements, attendance rules.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Student Visa Instructions and Education (Pastoral Care of Tertiary and International Learners) Code of Practice.",
+
+    process: `1. Choose NZQA-approved course and institution ->
+              2. Apply to institution ->
+              3. Receive Offer of Place ->
+              4. Pay tuition fee or deposit ->
+              5. Collect financial proof (bank statements/loan/sponsorship) ->
+              6. Prepare academic documents and SOP ->
+              7. Apply online via Immigration New Zealand portal ->
+              8. Upload required documents ->
+              9. Pay visa fee + IVL ->
+              10. Attend medical and biometrics (if requested) ->
+              11. Application assessment by immigration officer ->
+              12. Provide additional documents if requested ->
+              13. Wait for decision (4–8+ weeks) ->
+              14. Receive student visa approval ->
+              15. Travel to New Zealand ->
+              16. Enroll at institution and attend classes ->
+              17. Follow visa conditions (study + work limits) ->
+              18. Apply for post-study work visa after completion if eligible.`
+},
+
+"NewZealandPostStudyWorkVisa": {
+    name: "Post Study Work Visa (New Zealand)",
+
+    validity: "Usually 1 to 3 years depending on qualification level and where you studied. Allows full-time work in New Zealand. No direct pathway guarantee to residence, but strongly supports Skilled Migrant Category applications.",
+
+    cost: "Application fee approx NZD $700–$860 (~₹35,000–₹43,000) + possible medicals (~₹5,000–₹15,000 in India) + biometrics (~₹1,500–₹3,000 if required).",
+
+    time: "Processing time usually 4–8 weeks, can vary depending on application completeness and verification checks.",
+
+    age: "No strict age limit. Must have recently completed eligible qualification in New Zealand.",
+
+    education: `Must have completed an eligible qualification in New Zealand:  
+    - Level 7 (Bachelor’s) or above → up to 3 years visa  
+    - Level 4–6 or non-degree qualifications → typically 1 year (or employer-linked conditions)  
+    - Qualification must be from NZQA-approved provider`,
+
+    funds: "No strict minimum funds requirement after approval, but applicant must be able to support themselves initially until employment starts.",
+
+    docs: "Valid passport, completed qualification certificate, academic transcript, Offer of completion letter from institution, previous student visa details, proof of study in New Zealand, passport photos, medical certificate (if required), police clearance (if required), visa application form.",
+
+    whom: "International students who have recently completed a full-time qualification in New Zealand from an approved institution and wish to gain work experience in their field.",
+
+    rules: "Must apply within specified time after completing studies. Must hold an eligible qualification. Must not have previously held a post-study work visa for the same qualification (in most cases). Must work full-time (no study restriction but limited in some cases). Must meet health and character requirements.",
+
+    prosCons: "Pros: Full-time work rights, excellent pathway to skilled jobs, strong route toward permanent residency, no employer sponsorship required initially. Cons: Limited duration, eligibility depends heavily on qualification level, must find skilled job for residency transition.",
+
+    terms: "Post Study Work Visa (PSWV): Work visa after graduation; NZQA: Qualification authority; Level 7+: Bachelor’s or higher qualifications; Skilled Employment: Work relevant to qualification for residency pathways.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Post Study Work Visa instructions under Skilled Migrant and Work Visa policy framework.",
+
+    process: `1. Complete eligible qualification in New Zealand ->
+              2. Obtain official completion letter from institution ->
+              3. Confirm eligibility based on qualification level and institution ->
+              4. Prepare documents (passport, transcripts, certificate) ->
+              5. Apply online via Immigration New Zealand portal ->
+              6. Upload qualification proof and identity documents ->
+              7. Pay visa application fee ->
+              8. Provide medical/police clearance if requested ->
+              9. Application assessment by immigration officer ->
+              10. Verify qualification authenticity with institution ->
+              11. Additional documents requested (if required) ->
+              12. Wait for processing (4–8 weeks) ->
+              13. Visa approval issued ->
+              14. Move to full-time employment in New Zealand ->
+              15. Gain skilled work experience ->
+              16. Transition to residence pathways (e.g., Skilled Migrant Category or Green List residence if eligible).`
+},
+
+"NewZealandAccreditedEmployerWorkVisa": {
+    name: "Accredited Employer Work Visa (AEWV – New Zealand)",
+
+    validity: "Usually up to 3 years depending on job offer, wage level, and employer accreditation. Can be renewed if conditions continue. No direct PR, but strong pathway to residence via skilled categories.",
+
+    cost: "Application fee approx NZD $750–$1,000 (~₹37,000–₹50,000) + possible immigration levy + medicals (~₹5,000–₹15,000 in India) + biometrics (~₹1,500–₹3,000 if required).",
+
+    time: "Typical processing time 3–8 weeks (may extend if employer checks or labor market testing issues arise).",
+
+    age: "No strict age limit, but most applicants are typically 18–55. Must meet job and skill requirements.",
+
+    education: `Depends on job role. Some jobs require:  
+    - Diploma / Degree (Level 4–7 NZQA equivalent or higher)  
+    - Relevant work experience can sometimes substitute qualifications  
+    English proficiency may be required depending on occupation`,
+
+    funds: "Must show ability to support initial stay unless employer provides relocation support. No fixed minimum personal funds requirement for approval.",
+
+    docs: "Valid passport, job offer from NZ accredited employer, employment agreement, employer accreditation details, proof of qualifications, work experience letters, CV, medical certificate, police clearance, passport photos, visa application form, job description, wage details.",
+
+    whom: "Foreign workers with a valid full-time job offer from an Immigration New Zealand–accredited employer in New Zealand. Common in healthcare, construction, IT, agriculture, hospitality, and trades.",
+
+    rules: "Must have a genuine job offer from an accredited employer. Employer must prove no suitable local worker available (labor market test in some cases). Must meet wage thresholds (generally at or above median wage unless exempt). Must work only in approved role and employer. Must maintain employment conditions for visa validity.",
+
+    prosCons: "Pros: Legal full-time work in NZ, strong pathway to residence (Green List or Skilled Migrant Category), employer support often included, renewable visa. Cons: Dependent on employer, job loss can affect visa status, strict wage and job role compliance, limited flexibility to change employers initially.",
+
+    terms: "AEWV: Accredited Employer Work Visa; Accredited Employer: Employer approved by Immigration NZ; Job Check: Employer approval step; Work Check: Labor market validation; Median Wage: Government-set minimum benchmark for most jobs.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand AEWV Policy Framework (Accredited Employer, Job Check, and Worker Check system).",
+
+    process: `1. Find job with Immigration NZ accredited employer ->
+              2. Employer completes accreditation (if not already accredited) ->
+              3. Employer conducts Job Check and gets approval ->
+              4. Receive valid employment offer and contract ->
+              5. Prepare documents (passport, CV, qualifications, experience proof) ->
+              6. Apply online for AEWV via Immigration NZ portal ->
+              7. Upload job offer and employer accreditation details ->
+              8. Pay visa application fee ->
+              9. Undergo medical examination and police clearance (if required) ->
+              10. Immigration officer verifies employer and job legitimacy ->
+              11. Additional document requests if needed ->
+              12. Wait for processing (3–8 weeks) ->
+              13. Visa decision issued ->
+              14. Travel to New Zealand ->
+              15. Start employment with accredited employer ->
+              16. Maintain job conditions and wage requirements ->
+              17. Extend visa or transition to residence pathways (Green List / Skilled Migrant Category).`
+},
+
+"NewZealandSpecificPurposeWorkVisa": {
+    name: "Specific Purpose Work Visa (New Zealand)",
+
+    validity: "Temporary visa. Valid for the duration of the specific purpose or assignment (usually a few months up to 3 years depending on the job/event/project). Can be extended if the purpose continues.",
+
+    cost: "Application fee approx NZD $700–$1,000 (~₹35,000–₹50,000) + possible immigration levy + medicals (~₹5,000–₹15,000 in India) + biometrics (~₹1,500–₹3,000 if required).",
+
+    time: "Processing time usually 2–6 weeks, depending on the complexity of the assignment and documentation.",
+
+    age: "No strict age limit. Must be fit for the specific work purpose and meet health/character requirements.",
+
+    education: "Depends entirely on the purpose of entry. May require degree, technical qualification, or proven expertise (e.g., engineers, consultants, athletes, artists, installers, researchers).",
+
+    funds: "No fixed personal funds requirement in most cases, as employer or sponsoring organization usually covers salary and/or expenses.",
+
+    docs: "Valid passport, job/assignment letter explaining specific purpose, employer or organization invitation, contract or agreement, proof of qualifications and experience, CV, medical certificate (if required), police clearance (if required), passport photos, visa application form.",
+
+    whom: `Foreign nationals entering New Zealand for a clearly defined and time-limited work purpose such as:  
+    - Specialist projects or installations  
+    - Short-term contracts  
+    - Sports events or coaching  
+    - Film/entertainment work  
+    - Academic/research assignments  
+    - Emergency or critical skills deployment`,
+
+    rules: "Must have a clearly defined and genuine specific purpose for entry. Must leave New Zealand once purpose is completed unless visa is extended. Must not switch to unrelated employment without approval. Must meet health and character requirements. Work must strictly match approved purpose.",
+
+    prosCons: "Pros: Flexible for short-term skilled assignments, faster approval than long-term work visas, allows high-level professionals to work in NZ without long-term sponsorship. Cons: Not a pathway to PR in most cases, strictly limited to defined purpose, cannot freely change jobs, temporary nature only.",
+
+    terms: "Specific Purpose Work Visa: Temporary work visa tied to a defined activity; Purpose of Stay: Approved reason for entry; Sponsored Assignment: Work supported by an employer/organization; Duration of Stay: Limited to approved activity period.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Specific Purpose or Event Work Visa Instructions.",
+
+    process: `1. Identify specific work purpose (project, contract, event) ->
+              2. Obtain official invitation or contract from NZ employer/organization ->
+              3. Confirm eligibility for Specific Purpose Work Visa ->
+              4. Gather documents (passport, CV, qualifications, work experience) ->
+              5. Prepare supporting letters explaining purpose and duration ->
+              6. Apply online via Immigration New Zealand portal ->
+              7. Upload employment/assignment evidence ->
+              8. Pay visa application fee ->
+              9. Complete medical/police checks if requested ->
+              10. Immigration officer assesses purpose legitimacy ->
+              11. Additional documents requested if required ->
+              12. Wait for processing (2–6 weeks) ->
+              13. Visa approval issued for defined period ->
+              14. Travel to New Zealand ->
+              15. Perform only approved specific work ->
+              16. Leave NZ or apply for extension if purpose continues.`
+},
+
+"NewZealandWorkingHolidayVisa": {
+    name: "Working Holiday Visa (New Zealand)",
+
+    validity: "Usually 12 months for most countries. Some countries (e.g., UK, Canada) may get up to 23 months under specific agreements. Allows multiple entry during validity period.",
+
+    cost: "Application fee approx NZD $455 (~₹22,000–₹24,000) + International Visitor Conservation and Tourism Levy (IVL) NZD $35 (~₹1,800).",
+
+    time: "Processing time usually 1–4 weeks, sometimes faster (few days) depending on country quota and application volume.",
+
+    age: "Typically 18–30 years (some countries up to 35 years, depending on bilateral agreement).",
+
+    education: "No formal education requirement.",
+
+    funds: "Must show proof of at least NZD $4,200 (~₹2.1 lakh) in available funds to support initial stay + return ticket or sufficient funds to purchase one.",
+
+    docs: "Valid passport, proof of funds (bank statement), return or onward travel proof, passport photos, medical certificate (if required), police certificate (for some nationalities), completed online application form.",
+
+    whom: "Young individuals from eligible countries (including India under limited quota if open) who want to travel, work temporarily, and experience New Zealand culture.",
+
+    rules: "Must be within eligible age range. Work allowed but usually limited (cannot take permanent job offers in some cases). Cannot support dependent children. Must not exceed visa duration. Must have intention of holidaying with incidental work. Must meet health and character requirements.",
+
+    prosCons: "Pros: Easy entry for youth, allows travel + work combination, flexible jobs (hospitality, farming, tourism), multiple entry allowed. Cons: Not a pathway to PR in most cases, age-restricted, limited duration, job types often low-skilled initially.",
+
+    terms: "Working Holiday Scheme: bilateral youth mobility program; Quota: country-specific limit; IVL: tourism levy; Open Work Rights: ability to work for most employers (restricted in some cases).",
+
+    legal: "Immigration Act 2009 (New Zealand) + Working Holiday Scheme agreements between New Zealand and partner countries.",
+
+    process: `1. Check eligibility (age + nationality) ->
+              2. Confirm quota availability for your country ->
+              3. Prepare documents (passport, funds proof, photos) ->
+              4. Apply online via Immigration New Zealand portal ->
+              5. Pay visa fee + IVL ->
+              6. Submit application ->
+              7. Provide medical/police certificate if requested ->
+              8. Immigration assessment (eligibility + funds verification) ->
+              9. Receive approval (days to weeks) ->
+              10. Receive eVisa linked to passport ->
+              11. Travel to New Zealand within validity period ->
+              12. Enter country and activate visa ->
+              13. Work casually or part-time while traveling ->
+              14. Comply with visa conditions ->
+              15. Exit before visa expiry (no extension in most cases).`
+},
+
+"NewZealandSkilledMigrantCategoryResidentVisa": {
+    name: "Skilled Migrant Category (SMC) Resident Visa – New Zealand",
+
+    validity: "Permanent Resident Visa (PR). Allows indefinite stay in New Zealand. Initial travel conditions typically valid for 2 years, after which Permanent Resident status can be obtained.",
+
+    cost: "Application fee approx NZD $4,890–$5,360 (~₹2.4 lakh–₹2.7 lakh) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + biometrics if requested.",
+
+    time: "Processing time typically 6–12 months (can vary depending on occupation, points score, verification delays, and document checks).",
+
+    age: "Generally no strict upper limit, but applicants aged 20–39 receive higher points. Age is a key factor in the points system.",
+
+    education: "Must have recognized qualification (usually Level 7 bachelor’s degree or higher preferred). Lower qualifications may be accepted if combined with high-skilled work experience and job offer.",
+
+    funds: "No fixed minimum funds requirement, but must demonstrate ability to settle initially. Higher-skilled applicants with job offers reduce financial scrutiny.",
+
+    docs: "Valid passport, Expression of Interest (EOI) submission, Invitation to Apply (ITA), proof of qualification, work experience letters, job offer (if any), IELTS/PTE English test results, medical certificate, police clearance certificates, CV, proof of skilled employment in NZ (if applicable).",
+
+    whom: "Skilled professionals who have qualifications, work experience, and/or job offers in New Zealand in occupations that meet the Skilled Migrant points threshold (typically 6+ points under current system framework).",
+
+    rules: "Must meet points threshold under SMC system. Must have skilled employment or job offer in many cases. Must meet English language requirement. Must pass health and character checks. Must intend to live in New Zealand permanently. Points are awarded based on age, qualifications, experience, income, and job skill level.",
+
+    prosCons: "Pros: Direct pathway to permanent residency, high-quality healthcare and education access, family inclusion possible, strong job market opportunities. Cons: Competitive points system, long processing time, requires skilled occupation, strict documentation and verification requirements.",
+
+    terms: "EOI: Expression of Interest submission; ITA: Invitation to Apply; ANZSCO: Occupation classification system; Skilled Employment: Job meeting NZ skill and wage thresholds; Points System: Selection method based on age, education, experience, and income.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Skilled Migrant Category Resident Visa Instructions (points-based residence system).",
+
+    process: `1. Check eligibility for Skilled Migrant Category ->
+              2. Assess points (age, education, experience, job offer) ->
+              3. Take English test (IELTS/PTE) if required ->
+              4. Submit Expression of Interest (EOI) online ->
+              5. Wait for selection from EOI pool ->
+              6. Receive Invitation to Apply (ITA) if selected ->
+              7. Gather full documentation (qualification, work proof, etc.) ->
+              8. Complete medical examinations ->
+              9. Obtain police clearance certificates ->
+              10. Submit full residency application ->
+              11. Immigration NZ assesses skills, employment, and eligibility ->
+              12. Additional documents requested if needed ->
+              13. Wait for processing (6–12 months) ->
+              14. Receive Resident Visa approval ->
+              15. Move to New Zealand as Resident ->
+              16. After 2 years, apply for Permanent Resident Visa conditions removal ->
+              17. Live, work, and eventually apply for citizenship if eligible.`
+},
+
+"NewZealandGreenListStraightToResidenceVisa": {
+    name: "Green List Straight to Residence Visa (New Zealand)",
+
+    validity: "Permanent Resident Visa (PR). Grants indefinite stay in New Zealand once approved. Initial travel conditions usually valid for 2 years before converting to Permanent Resident status.",
+
+    cost: "Application fee approx NZD $4,890–$5,360 (~₹2.4 lakh–₹2.7 lakh) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + biometrics if requested.",
+
+    time: "Processing time typically 4–8 months (can be faster than general skilled migration due to priority occupation list).",
+
+    age: "No strict age limit, but applicants must meet skilled employment requirements. Age is not the main barrier unlike points-based systems.",
+
+    education: "Must hold a relevant qualification for a Green List Tier 1 occupation (often Level 7 bachelor’s degree or higher, or equivalent professional registration such as engineering, healthcare, IT specialist roles).",
+
+    funds: "No fixed minimum funds requirement, but must have stable skilled employment or job offer from an accredited employer in a Green List occupation.",
+
+    docs: "Valid passport, job offer or current employment contract in a Green List occupation, proof of qualification, work experience letters, employer accreditation details, employment agreement, English test results (if required), medical certificate, police clearance certificates, CV, visa application form.",
+
+    whom: "Highly skilled professionals working in **Green List Tier 1 occupations** such as doctors, engineers, IT specialists, construction professionals, teachers, and other in-demand roles in New Zealand.",
+
+    rules: "Must be employed or have a job offer in a Tier 1 Green List occupation. Must work for an accredited employer. Must meet minimum salary thresholds. Must meet health and character requirements. Must maintain employment conditions until residence is granted. Job must match Green List occupation requirements strictly.",
+
+    prosCons: "Pros: Direct pathway to permanent residency (no long waiting via points system), faster processing, high-demand occupations prioritized, strong job security in NZ labor market. Cons: Limited to specific occupations, strict job and employer requirements, must maintain skilled employment continuously, not flexible for career change initially.",
+
+    terms: "Green List: New Zealand immigration shortage occupation list; Tier 1: Straight to Residence occupations; Accredited Employer: Approved NZ employer; Skilled Employment: Job meeting NZ wage and skill thresholds; Residence Visa: Permanent settlement status.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Green List Straight to Residence Visa Policy (skill shortage residence pathway).",
+
+    process: `1. Check if occupation is on Green List Tier 1 ->
+              2. Secure job offer from accredited NZ employer ->
+              3. Ensure job meets salary and skill requirements ->
+              4. Gather qualification and experience documents ->
+              5. Confirm employer accreditation and job eligibility ->
+              6. Apply online for Straight to Residence Visa ->
+              7. Upload employment contract and proof of qualifications ->
+              8. Pay visa application fee ->
+              9. Complete medical examination and police clearance ->
+              10. Immigration NZ verifies employer and occupation ->
+              11. Assessment of skill match and wage compliance ->
+              12. Additional documents requested if needed ->
+              13. Processing period (4–8 months) ->
+              14. Visa approval issued as Resident Visa ->
+              15. Travel to New Zealand and start employment ->
+              16. After 2 years, convert to Permanent Resident status ->
+              17. Eligible for citizenship after residency requirements.`
+},
+
+"NewZealandGreenListWorkToResidenceVisa": {
+    name: "Green List Work to Residence Visa (New Zealand)",
+
+    validity: "Temporary-to-residence pathway. Initial work visa typically valid for 2 years, after which eligible applicants can apply for Residence Visa. Final outcome is Permanent Residence (PR).",
+
+    cost: "Work Visa application approx NZD $750–$1,000 (~₹37,000–₹50,000) + later Residence application approx NZD $4,890–$5,360 (~₹2.4 lakh–₹2.7 lakh) + medicals (~₹5,000–₹15,000) + police certificates (~₹500–₹2,000 per country).",
+
+    time: "Work Visa processing: 3–8 weeks. Residence stage processing: 4–8 months after eligibility completion.",
+
+    age: "No strict age limit, but applicants must meet skilled employment criteria and work experience requirements in a Green List Tier 2 occupation pathway.",
+
+    education: "Must have relevant qualification or equivalent work experience for a Green List Tier 2 occupation (generally Level 4–7 NZQA equivalent or higher depending on job).",
+
+    funds: "No fixed minimum funds requirement, but must be employed full-time in an eligible Green List occupation and meet salary thresholds.",
+
+    docs: "Valid passport, job offer or employment contract from accredited employer, proof of qualification, work experience letters, CV, employer accreditation details, employment agreement, payslips (if already working), English test results (if required), medical certificate, police clearance certificates, visa application forms.",
+
+    whom: "Skilled workers in **Green List Tier 2 occupations** who may not qualify for direct residence but can transition to PR after working in New Zealand for a required period (commonly 24 months).",
+
+    rules: "Must work in an eligible Green List Tier 2 occupation. Must be employed full-time by an accredited employer. Must meet wage threshold (typically at or above median wage unless exempt). Must complete required work duration (usually 24 months) before applying for residence. Must maintain continuous employment and meet health/character requirements.",
+
+    prosCons: "Pros: Clear pathway to permanent residency, easier entry than Straight to Residence, allows time to gain NZ work experience, strong job market integration. Cons: Requires waiting period before PR eligibility, dependent on employer and job continuity, strict occupation list rules, must maintain employment conditions for years.",
+
+    terms: "Green List: NZ shortage occupation list; Tier 2: Work-to-residence occupations; AEWV: Accredited Employer Work Visa; Residence Pathway: Eligibility after continuous employment period; Median Wage: Government wage benchmark.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Green List Work to Residence Visa Policy Framework.",
+
+    process: `1. Check if occupation is on Green List Tier 2 ->
+              2. Secure job offer from accredited employer ->
+              3. Apply for Accredited Employer Work Visa (AEWV) ->
+              4. Get work visa approval ->
+              5. Move to New Zealand and start full-time employment ->
+              6. Maintain continuous employment in eligible role ->
+              7. Meet required work duration (usually 24 months) ->
+              8. Ensure wage and job conditions are met throughout ->
+              9. Apply for Residence Visa under Green List pathway ->
+              10. Submit employment proof, payslips, and employer confirmation ->
+              11. Undergo medical and police verification (if required) ->
+              12. Immigration NZ assesses eligibility for residence ->
+              13. Additional documents requested if needed ->
+              14. Wait for residence processing (4–8 months) ->
+              15. Receive Residence Visa approval ->
+              16. Continue living and working in New Zealand as Resident ->
+              17. Apply for Permanent Residency after meeting conditions ->
+              18. Eligible for citizenship after residency period.`
+},
+
+"NewZealandPartnerOfNewZealanderResidentVisa": {
+    name: "Partner of a New Zealander Resident Visa",
+
+    validity: "Permanent Resident Visa (PR). Allows indefinite stay in New Zealand once granted. Initial travel conditions typically valid for 2 years, after which Permanent Resident status can be obtained.",
+
+    cost: "Application fee approx NZD $4,500–$5,360 (~₹2.2 lakh–₹2.7 lakh) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + biometrics if requested.",
+
+    time: "Processing time usually 6–12 months (can be longer if relationship verification takes time or additional evidence is required).",
+
+    age: "No strict age limit. Both partners must be of legal age (18+ generally required for partnership recognition).",
+
+    education: "No education requirement.",
+
+    funds: "No fixed minimum funds requirement, but sponsor (New Zealand citizen or resident partner) must demonstrate ability to support joint living expenses. Evidence of shared finances strengthens the case.",
+
+    docs: "Valid passport, proof of genuine relationship (photos, chat history, travel history), cohabitation proof (rent agreements, utility bills), joint bank accounts, sponsor’s New Zealand citizenship/residency proof, medical certificate, police clearance certificates, statutory declarations, visa application form.",
+
+    whom: "Foreign partners (spouses, civil union partners, or de facto partners) of New Zealand citizens or residents who have a genuine and stable relationship.",
+
+    rules: "Must prove a genuine and stable relationship (usually de facto or married). Must show cohabitation or long-term partnership evidence. Relationship must be ongoing and not for immigration purposes only. Must meet health and character requirements. Sponsor must be eligible and not previously breached sponsorship obligations.",
+
+    prosCons: "Pros: Direct pathway to permanent residency, allows living and working freely in New Zealand, includes dependent children, strong family reunification option. Cons: Strict relationship verification, long processing time, extensive documentation required, risk of refusal if relationship evidence is weak.",
+
+    terms: "Partner Visa: Residence visa based on relationship; De facto: Unmarried but living together relationship; Sponsorship: NZ citizen/resident supporting applicant; Genuine and Stable Relationship: Immigration requirement for approval.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Partnership Residence Visa Policy Instructions.",
+
+    process: `1. Establish eligible relationship (married, civil union, or de facto) ->
+              2. Live together and build relationship evidence ->
+              3. Gather proof (photos, chats, joint bills, travel history) ->
+              4. Obtain sponsor documents (NZ citizen/resident partner) ->
+              5. Prepare statutory declarations from both partners ->
+              6. Apply online for Partner of New Zealander Resident Visa ->
+              7. Upload relationship evidence and identity documents ->
+              8. Pay visa application fee ->
+              9. Complete medical examinations ->
+              10. Provide police clearance certificates ->
+              11. Immigration NZ assesses relationship genuineness ->
+              12. May conduct interviews or request further proof ->
+              13. Additional documents submitted if required ->
+              14. Processing period (6–12+ months) ->
+              15. Visa approval issued as Resident Visa ->
+              16. Move to New Zealand and live with partner ->
+              17. After 2 years, apply for Permanent Resident status ->
+              18. Eligible for citizenship after residency requirements.`
+},
+
+"NewZealandPartnerOfNewZealanderWorkVisa": {
+    name: "Partner of a New Zealander Work Visa",
+
+    validity: "Usually up to 2 years initially, with the ability to apply for renewal while the relationship continues. Allows full-time work in New Zealand. Can lead to residence pathway through Partner Residence Visa.",
+
+    cost: "Application fee approx NZD $700–$1,000 (~₹35,000–₹50,000) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + biometrics if requested.",
+
+    time: "Processing time usually 4–10 weeks, depending on strength of relationship evidence and verification checks.",
+
+    age: "No strict age limit. Must be in a genuine and stable relationship with a New Zealand citizen or resident (18+ generally required).",
+
+    education: "No education requirement.",
+
+    funds: "No fixed minimum funds requirement, but partner (NZ citizen/resident) must demonstrate ability to support shared living expenses. Joint financial stability helps approval.",
+
+    docs: "Valid passport, proof of genuine and stable relationship (photos, chats, travel history), evidence of cohabitation (lease agreements, utility bills), partner’s NZ citizenship/residency proof, sponsor support letter, statutory declarations, medical certificate, police clearance certificates, visa application form.",
+
+    whom: "Foreign partners (spouse, civil union partner, or de facto partner) of New Zealand citizens or residents who want to live and work in New Zealand while their relationship is recognized.",
+
+    rules: "Must prove a genuine and stable relationship (married, civil union, or de facto). Must be living together or demonstrate strong commitment to living together. Must meet health and character requirements. Relationship must not be primarily for immigration purposes. Visa conditions require ongoing relationship validity.",
+
+    prosCons: "Pros: Full work rights in New Zealand, ability to live with partner, pathway to residence visa, no skill or job requirement, includes family stability option. Cons: Strong relationship proof required, visa depends on relationship continuity, may require repeated renewals, scrutiny of personal relationship evidence.",
+
+    terms: "Partner Work Visa: Temporary visa based on relationship; De facto relationship: Unmarried but living together; Sponsorship: NZ citizen/resident supporting partner; Genuine and Stable Relationship: Immigration requirement for approval.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Partnership Work Visa Instructions.",
+
+    process: `1. Establish eligible relationship (married, civil union, or de facto) ->
+              2. Gather relationship evidence (photos, chats, travel history) ->
+              3. Prepare cohabitation proof (rent, bills, joint accounts) ->
+              4. Obtain partner’s NZ citizenship/residency documents ->
+              5. Complete statutory declarations from both partners ->
+              6. Apply online for Partner of a New Zealander Work Visa ->
+              7. Upload all relationship and identity documents ->
+              8. Pay visa application fee ->
+              9. Complete medical examination ->
+              10. Provide police clearance certificates ->
+              11. Immigration NZ assesses relationship genuineness ->
+              12. May request interview or additional proof ->
+              13. Submit further documents if required ->
+              14. Processing period (4–10 weeks) ->
+              15. Visa approval issued ->
+              16. Move to New Zealand and start full-time work ->
+              17. Maintain relationship evidence for renewal ->
+              18. Transition to Partner Residence Visa if eligible.`
+},
+
+"NewZealandDependentChildResidentVisa": {
+    name: "Dependent Child Resident Visa (New Zealand)",
+
+    validity: "Permanent Resident Visa (PR). Grants indefinite stay in New Zealand once approved. Initial travel conditions typically valid for 2 years before becoming full Permanent Resident status.",
+
+    cost: "Application fee approx NZD $2,500–$3,500 (~₹1.2 lakh–₹1.7 lakh) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + biometrics if required.",
+
+    time: "Processing time usually 4–9 months depending on parent visa status, documentation completeness, and verification checks.",
+
+    age: "Child must generally be under 24 years old. Must be single (not married, not in de facto relationship). Must be financially dependent on parent.",
+
+    education: "No strict education requirement, but if aged 18–24, must usually be in full-time study or financially dependent on parents.",
+
+    funds: "No separate income requirement for the child. Parent(s) must demonstrate financial ability to support dependent child in New Zealand.",
+
+    docs: "Valid passport, birth certificate proving parent-child relationship, parent’s New Zealand residency/citizenship proof, proof of dependency (financial support evidence, education enrollment if applicable), custody documents (if required), medical certificate, police clearance certificate (for older children), passport photos, visa application form.",
+
+    whom: "Biological or legally adopted children of New Zealand citizens or residents who are financially dependent and meet age and relationship criteria.",
+
+    rules: "Child must be dependent on parent (financially or due to study). Must be unmarried and not in a de facto relationship. Must meet health and character requirements. Must provide strong proof of biological or legal relationship. Must be included under eligible parent visa category.",
+
+    prosCons: "Pros: Direct pathway to permanent residency, allows access to education and healthcare in New Zealand, family reunification, stable long-term settlement option. Cons: Strict dependency and age limits, requires strong documentation of relationship, may take time if parent’s residency status is not settled.",
+
+    terms: "Dependent Child: Financially dependent offspring under immigration rules; Resident Visa: Permanent residency status; Sponsorship: Parent supporting child application; Biological/Adopted Child: Legal relationship basis for eligibility.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Family (Dependent Child) Residence Visa Instructions.",
+
+    process: `1. Confirm parent is eligible New Zealand citizen or resident ->
+              2. Verify child meets age and dependency requirements ->
+              3. Gather birth/adoption certificate proving relationship ->
+              4. Collect parent’s residency/citizenship proof ->
+              5. Prepare financial dependency evidence ->
+              6. Obtain custody/legal documents if applicable ->
+              7. Apply online for Dependent Child Resident Visa ->
+              8. Upload identity and relationship documents ->
+              9. Pay visa application fee ->
+              10. Complete medical examination ->
+              11. Provide police clearance (if applicable for older children) ->
+              12. Immigration NZ assesses dependency and relationship ->
+              13. Additional documents requested if needed ->
+              14. Processing period (4–9 months) ->
+              15. Visa approval granted as Resident Visa ->
+              16. Child moves to New Zealand with or joins parent ->
+              17. Access education and healthcare benefits ->
+              18. Convert to Permanent Resident status after travel condition period.`
+},
+
+"NewZealandParentResidentVisa": {
+    name: "Parent Resident Visa (New Zealand)",
+
+    validity: "Permanent Resident Visa (PR). Grants indefinite stay in New Zealand once approved. Initial travel conditions usually valid for 2 years, after which Permanent Resident status can be granted.",
+
+    cost: "Application fee approx NZD $4,500–$5,360 (~₹2.2 lakh–₹2.7 lakh) + additional charges for medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + biometrics if required.",
+
+    time: "Processing time typically 12–24 months (can be longer due to annual caps and high demand in family categories).",
+
+    age: "No strict age limit, but applicants must be parents of eligible New Zealand citizens or residents. Some streams consider sponsor income and support capability more heavily than age.",
+
+    education: "No education requirement.",
+
+    funds: `Must meet either:  
+    - Sponsor income threshold (child in NZ must earn above minimum income requirement), OR  
+    - Financial sponsorship requirements under family category rules.  
+    Evidence of financial dependency support may be required.`,
+
+    docs: "Valid passport, proof of relationship with sponsoring child (birth certificates), sponsor’s NZ citizenship/residency proof, sponsor income proof (payslips, tax returns), medical certificate, police clearance certificates, statutory declarations, proof of financial support arrangements, visa application form.",
+
+    whom: "Parents of New Zealand citizens or residents who wish to join their children permanently in New Zealand under family reunification rules.",
+
+    rules: "Must be biological or legally adoptive parent of NZ citizen/resident. Must be sponsored by eligible child. Must meet health and character requirements. Must satisfy financial sponsorship or income threshold requirements. Relationship must be genuine and verifiable.",
+
+    prosCons: "Pros: Permanent residency, family reunification, access to healthcare and social systems, ability to live long-term with children in NZ. Cons: Long processing time, strict income/sponsorship requirements, limited annual intake (quota-based), strong documentation burden.",
+
+    terms: "Parent Category Visa: Family reunification residence pathway; Sponsorship: Child in NZ supporting application; Income Threshold: Minimum earnings required for sponsorship; Residence Visa: Permanent settlement status.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Parent Resident Visa Instructions (Family Category rules and quota system).",
+
+    process: `1. Confirm child is eligible NZ citizen or resident ->
+              2. Check sponsorship eligibility (income or financial support criteria) ->
+              3. Gather proof of relationship (birth certificates) ->
+              4. Collect sponsor’s income/tax documents ->
+              5. Obtain medical examination reports ->
+              6. Obtain police clearance certificates ->
+              7. Prepare statutory declarations from parent and sponsor ->
+              8. Apply online for Parent Resident Visa ->
+              9. Upload all identity and relationship documents ->
+              10. Pay visa application fee ->
+              11. Immigration NZ checks sponsorship eligibility and quota availability ->
+              12. Additional documents requested if required ->
+              13. Application enters processing queue (12–24 months) ->
+              14. Immigration NZ assesses health, character, and financial criteria ->
+              15. Visa approval issued as Resident Visa ->
+              16. Parent moves to New Zealand to join family ->
+              17. After travel conditions, convert to Permanent Resident status ->
+              18. Live permanently with family in New Zealand.`
+},
+
+"NewZealandInterimVisa": {
+    name: "Interim Visa (New Zealand)",
+
+    validity: "Temporary visa that allows a person to stay lawfully in New Zealand while their new visa application is being processed. Usually valid until a decision is made on the main visa application.",
+
+    cost: "No separate application fee in most cases (it is automatically granted when eligible). If linked to certain applications, normal visa application fees still apply for the main visa.",
+
+    time: "Automatically granted (if eligible) once a current visa expires while a new visa application is under processing.",
+
+    age: "No age restriction. Depends on eligibility of underlying visa application.",
+
+    education: "No requirement.",
+
+    funds: "No separate funds requirement, but applicant must continue meeting conditions of the original or pending visa application.",
+
+    docs: "Valid passport, proof of existing visa, proof of lodged new visa application, immigration reference number, previous visa conditions documents (if required).",
+
+    whom: "Foreign nationals in New Zealand who have applied for a new visa before their current visa expires and are waiting for a decision from Immigration New Zealand.",
+
+    rules: "Must have applied for a new visa before current visa expires. Must not leave New Zealand while on an Interim Visa (in most cases). Must follow conditions of previous visa or interim conditions set by Immigration NZ. Interim Visa ends once a decision is made on the new visa application.",
+
+    prosCons: "Pros: Allows legal stay in New Zealand during visa processing, prevents unlawful overstay, automatically granted in eligible cases, maintains lawful status. Cons: No independent application, usually no travel rights, work/study rights depend on previous visa conditions, temporary and uncertain duration.",
+
+    terms: "Interim Visa: Temporary bridging status; Visa Application in Process: Pending immigration decision; Conditions: Work/study rights carried over or modified; Overstay Protection: Prevents unlawful presence.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Interim Visa Policy Instructions.",
+
+    process: `1. Hold a valid New Zealand visa ->
+              2. Apply for a new visa before current visa expires ->
+              3. Submit complete visa application to Immigration NZ ->
+              4. Wait for current visa to expire (if processing continues) ->
+              5. Automatically become eligible for Interim Visa ->
+              6. Immigration NZ grants Interim Visa electronically ->
+              7. Receive confirmation of interim status ->
+              8. Remain in New Zealand legally while application is processed ->
+              9. Follow conditions of previous visa or interim conditions ->
+              10. Wait for final visa decision ->
+              11. If approved, Interim Visa ends and new visa begins ->
+              12. If declined, must leave New Zealand or take further action (appeal/variation if allowed).`
+},
+
+"NewZealandTransitVisa": {
+    name: "Transit Visa (New Zealand)",
+
+    validity: "Very short-term. Valid only for the duration of transit through New Zealand, usually up to 24–48 hours while connecting flights pass through Auckland International Airport.",
+
+    cost: "Application fee approx NZD $235 (~₹11,000–₹12,000). Some travelers may be exempt depending on nationality and transit conditions.",
+
+    time: "Usually processed within 1–10 working days, but often faster for low-risk applicants.",
+
+    age: "No age limit. All travelers requiring transit authorization must comply.",
+
+    education: "No requirement.",
+
+    funds: "No fixed funds requirement, but traveler must have confirmed onward travel and valid visa for destination country (if required).",
+
+    docs: "Valid passport, confirmed onward flight ticket, visa for destination country (if required), transit visa application form, passport photos, travel itinerary, proof of identity, supporting documents if requested.",
+
+    whom: "Passengers transiting through New Zealand (mainly Auckland International Airport) on the way to another country, especially those who are not from visa waiver transit countries.",
+
+    rules: "Must remain in the international transit area of the airport (or stay for very limited time depending on approval). Must have confirmed onward journey. Must not enter New Zealand for tourism or work. Must meet health and character requirements. Must comply strictly with transit duration conditions.",
+
+    prosCons: "Pros: Simple short-term clearance for connecting flights, ensures legal transit through New Zealand, low cost compared to full visas. Cons: Extremely limited use, no entry into country for travel purposes, no work or study rights, strict time restriction.",
+
+    terms: "Transit Visa: Permission to pass through New Zealand; Transit Passenger: Person connecting to another country; International Transit Area: Airport restricted zone; Visa Waiver Transit: Some nationalities exempt from transit visa requirement.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Transit Visa and Transit Passenger Regulations.",
+
+    process: `1. Book international flight with transit through New Zealand ->
+              2. Check if transit visa is required for your nationality ->
+              3. Gather documents (passport, onward ticket, destination visa) ->
+              4. Apply online for Transit Visa via Immigration NZ ->
+              5. Upload travel itinerary and supporting documents ->
+              6. Pay visa application fee ->
+              7. Wait for processing (1–10 working days) ->
+              8. Receive transit visa approval ->
+              9. Travel to New Zealand airport ->
+              10. Stay in transit area or follow allowed transit conditions ->
+              11. Board onward flight within permitted time ->
+              12. Exit New Zealand without entering for other purposes.`
+},
+
+
+"NewZealandRefugeeAndProtectedPersonVisa": {
+    name: "Refugee and Protected Person Visa (New Zealand)",
+
+    validity: "Permanent Resident Visa (PR). Grants indefinite stay in New Zealand once approved. Includes full residency rights, and can lead to citizenship after meeting requirements.",
+
+    cost: "No application fee for most refugee and protected person claims. Some associated costs may include medical examinations (~₹5,000–₹15,000 in India if required), biometrics, or legal assistance if used.",
+
+    time: "Processing time varies widely: typically 6 months to several years depending on case complexity, country of origin situation, and verification of claims.",
+
+    age: "No age limit. Applicable to individuals and sometimes families fleeing persecution.",
+
+    education: "No requirement.",
+
+    funds: "No funds requirement. Applicants are usually supported by government assistance during processing and after approval.",
+
+    docs: "Valid passport (if available), identity documents, proof of persecution or risk (affidavits, reports, evidence), personal statement, country condition evidence, medical reports (if applicable), police reports (if available), supporting witness statements, visa application or asylum claim forms.",
+
+    whom: "People who are outside their home country or already in New Zealand and are unable or unwilling to return due to a well-founded fear of persecution based on race, religion, nationality, political opinion, or membership in a particular social group.",
+
+    rules: "Must demonstrate genuine refugee or protected person status under international law. Must prove risk of persecution or serious harm if returned home. Must pass identity, security, and character checks. Must not have committed serious crimes or pose security threats. Assessment follows UN Refugee Convention principles.",
+
+    prosCons: "Pros: Permanent residency pathway, protection from deportation, access to healthcare, education, and social support, family reunification options. Cons: Very strict evidence requirements, long processing time, uncertain outcome, limited freedom during assessment, emotionally and legally complex process.",
+
+    terms: "Refugee Status: Protection under 1951 Refugee Convention; Protected Person: Broader protection category under NZ law; Asylum Claim: Request for protection; UNHCR: United Nations High Commissioner for Refugees framework.",
+
+    legal: "Immigration Act 2009 (New Zealand) + 1951 UN Refugee Convention + 1967 Protocol + Immigration New Zealand Refugee and Protection Status Instructions.",
+
+    process: `1. Arrive in New Zealand or submit protection claim ->
+              2. Lodge refugee/protection claim with Immigration NZ ->
+              3. Provide personal statement explaining persecution risk ->
+              4. Submit identity documents and supporting evidence ->
+              5. Undergo initial interview with immigration officer ->
+              6. Background and security checks conducted ->
+              7. Country of origin information reviewed ->
+              8. Provide additional evidence if requested ->
+              9. Detailed refugee status interview ->
+              10. Legal or interpreter support (if required) ->
+              11. Case assessment under UN Refugee Convention criteria ->
+              12. Decision made (grant or refusal) ->
+              13. If approved: receive Resident Visa (Refugee/Protected Person status) ->
+              14. Access settlement support in New Zealand ->
+              15. Eligible for Permanent Residency and later citizenship ->
+              16. Family reunion applications may be processed.`
+},
+
+"NewZealandRefugeeProtectionClaimantVisa": {
+    name: "Refugee and Protection Claimant Visa (New Zealand)",
+
+    validity: "Temporary visa valid while a refugee or protection claim is being assessed. Remains valid until a final decision is made on the claim (can take months or years).",
+
+    cost: "No application fee for lodging a refugee or protection claim. Some associated costs may include medical examinations (~₹5,000–₹15,000 in India if requested), legal aid (if used), and document translation costs.",
+
+    time: "Issued immediately upon acceptance of a claim. Overall claim processing can take 6 months to several years depending on complexity and case backlog.",
+
+    age: "No age restriction. Applicable to adults and children seeking protection.",
+
+    education: "No requirement.",
+
+    funds: "No funds requirement. Claimants are generally supported through government assistance or approved support services while their case is being processed.",
+
+    docs: "Valid passport or identity documents (if available), refugee/protection claim form, personal statement explaining fear of persecution, supporting evidence (documents, photos, reports), country condition evidence, witness statements (if any), medical or psychological reports (if relevant).",
+
+    whom: "People who have applied for refugee or protected person status in New Zealand and are waiting for their claim to be decided. Typically individuals fearing persecution, torture, or serious harm if returned to their home country.",
+
+    rules: "Must have lodged a valid refugee or protection claim. Must cooperate with Immigration New Zealand during interviews and investigations. Must not provide false or misleading information. Must meet identity and security checks. Must remain in New Zealand while claim is being processed (in most cases).",
+
+    prosCons: "Pros: Legal right to stay in New Zealand while claim is processed, protection from deportation during assessment, access to basic support services, potential pathway to permanent residency if approved. Cons: Uncertain outcome, long processing times, restricted travel, limited employment rights depending on conditions, emotionally and legally stressful process.",
+
+    terms: "Claimant: Person seeking refugee or protection status; Refugee Convention: International legal framework for protection; Protected Person: Broader NZ protection category; Asylum Claim: Request for protection from persecution.",
+
+    legal: "Immigration Act 2009 (New Zealand) + 1951 Refugee Convention + 1967 Protocol + Immigration New Zealand Refugee and Protection Claimant Instructions.",
+
+    process: `1. Arrive in New Zealand or already be in country ->
+              2. Lodge refugee or protection claim with Immigration NZ ->
+              3. Provide initial identity details and personal statement ->
+              4. Claim accepted and claimant visa issued ->
+              5. Submit supporting evidence of persecution risk ->
+              6. Attend initial interview with immigration officer ->
+              7. Background and security checks conducted ->
+              8. Country of origin risk assessment reviewed ->
+              9. Provide additional documents if requested ->
+              10. Detailed refugee status interview conducted ->
+              11. Interpreter or legal aid support if required ->
+              12. Case evaluation under Refugee Convention criteria ->
+              13. Decision pending while claim is processed ->
+              14. If approved: granted Resident Visa (Refugee/Protected Person status) ->
+              15. If refused: right to appeal or review may apply ->
+              16. Final resolution of immigration status in New Zealand.`
+},
+
+"NewZealandPacificAccessCategoryResidentVisa": {
+    name: "Pacific Access Category (PAC) Resident Visa (New Zealand)",
+
+    validity: "Permanent Resident Visa (PR). Grants indefinite stay in New Zealand once approved. Initial travel conditions typically valid for 2 years before converting to Permanent Resident status.",
+
+    cost: "Application fee approx NZD $4,500–$5,360 (~₹2.2 lakh–₹2.7 lakh) + medicals (~₹5,000–₹15,000 in India if required) + police certificates (~₹500–₹2,000 per country) + biometrics if requested.",
+
+    time: "Processing time usually 6–12 months after selection in the ballot (can vary depending on quota and verification checks).",
+
+    age: "Applicants must be aged 18–45 years (age limits vary slightly by country quota rules).",
+
+    education: "No strict education requirement, but applicants must meet basic eligibility and settlement ability criteria.",
+
+    funds: "Must meet minimum settlement funds requirement (commonly around NZD $5,000–$10,000) plus sponsorship or job offer requirements depending on country rules.",
+
+    docs: "Valid passport, birth certificate, proof of nationality (from eligible Pacific countries), police certificates, medical certificate, proof of funds, family details, sponsor documents in NZ (if applicable), visa application form.",
+
+    whom: "Citizens of selected Pacific countries (such as Fiji, Tonga, Tuvalu, Kiribati, and others under quota system) who are selected through a ballot system and wish to migrate permanently to New Zealand.",
+
+    rules: "Must be a citizen of an eligible Pacific country. Must be selected through annual ballot/quota system. Must meet health and character requirements. Must show ability to settle in New Zealand (funds and/or job support). Must be of eligible working age. Must meet country-specific quota conditions.",
+
+    prosCons: "Pros: Direct pathway to permanent residency, family migration option, supports Pacific community settlement, access to work, healthcare, and education in NZ. Cons: Limited quotas and high competition, requires lottery/ballot selection, strict eligibility by nationality, may require settlement proof and financial readiness.",
+
+    terms: "Pacific Access Category (PAC): Quota-based immigration scheme; Ballot: Random selection system; Quota: Annual limit per country; Resident Visa: Permanent settlement visa.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Pacific Access Category Resident Visa Instructions + Country-specific quota agreements.",
+
+    process: `1. Check eligibility for Pacific Access Category (citizenship requirement) ->
+              2. Submit Expression of Interest in annual ballot ->
+              3. Wait for random selection from quota pool ->
+              4. If selected, receive Invitation to Apply ->
+              5. Gather required documents (passport, birth certificate, police clearance) ->
+              6. Prepare medical examination reports ->
+              7. Show proof of funds and settlement ability ->
+              8. Apply for Resident Visa online ->
+              9. Pay visa application fee ->
+              10. Immigration NZ verifies eligibility and documents ->
+              11. Additional documents requested if needed ->
+              12. Processing period (6–12 months) ->
+              13. Visa approval issued as Resident Visa ->
+              14. Move to New Zealand as Permanent Resident ->
+              15. Settle with access to work, healthcare, and education ->
+              16. Apply for Permanent Resident status after travel conditions.`
+},
+"NewZealandSamoanQuotaResidentVisa": {
+    name: "Samoan Quota Resident Visa (New Zealand)",
+
+    validity: "Permanent Resident Visa (PR). Grants indefinite stay in New Zealand once approved. Initial travel conditions typically valid for 2 years before becoming full Permanent Resident status.",
+
+    cost: "Application fee approx NZD $4,500–$5,360 (~₹2.2 lakh–₹2.7 lakh) + medicals (~₹5,000–₹15,000 in India if applicable) + police certificates (~₹500–₹2,000 per country) + biometrics if required.",
+
+    time: "Processing time usually 6–12 months after selection in the annual ballot (may vary depending on quota and verification checks).",
+
+    age: "Applicants must generally be aged 18–45 years at the time of application.",
+
+    education: "No strict education requirement, but applicants must show ability to settle and integrate in New Zealand.",
+
+    funds: "Must show minimum settlement funds (commonly around NZD $4,200–$10,000 depending on policy updates) and/or sponsorship support in some cases.",
+
+    docs: "Valid passport, Samoan citizenship proof, birth certificate, police certificates, medical certificate, proof of funds, family details (if applicable), sponsor documents (if applicable), visa application form.",
+
+    whom: "Citizens of Samoa selected under the annual Samoan Quota Scheme who wish to migrate permanently to New Zealand for settlement and work.",
+
+    rules: "Must be a citizen of Samoa. Must be selected through the annual quota ballot system. Must meet health and character requirements. Must be within eligible working age range. Must show ability to settle in New Zealand (funds/support/job readiness). Must comply with quota limits and selection rules.",
+
+    prosCons: "Pros: Direct pathway to permanent residency, family settlement opportunities, access to work, healthcare, and education, strong migration pathway for Samoan citizens. Cons: Very limited annual quota, lottery-based selection, strict eligibility requirements, high competition, requires strong settlement preparation.",
+
+    terms: "Samoan Quota Scheme: Bilateral migration program between Samoa and New Zealand; Ballot System: Random selection process; Quota: Annual migration cap; Resident Visa: Permanent settlement status.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Samoan Quota Resident Visa Instructions + Treaty-based quota agreement between New Zealand and Samoa.",
+
+    process: `1. Confirm Samoan citizenship eligibility ->
+              2. Register for annual Samoan Quota ballot ->
+              3. Wait for random selection under quota system ->
+              4. If selected, receive Invitation to Apply ->
+              5. Gather required documents (passport, birth certificate, police clearance) ->
+              6. Complete medical examination ->
+              7. Show proof of settlement funds/support ->
+              8. Submit Resident Visa application online ->
+              9. Pay visa application fee ->
+              10. Immigration NZ assesses eligibility and documents ->
+              11. Provide additional documents if requested ->
+              12. Processing period (6–12 months) ->
+              13. Visa approval granted as Resident Visa ->
+              14. Move to New Zealand as permanent resident ->
+              15. Access work, healthcare, and education rights ->
+              16. Apply for Permanent Resident status after travel conditions.`
+},
+
+"NewZealandRecognisedSeasonalEmployerLimitedVisa": {
+    name: "Recognised Seasonal Employer (RSE) Limited Visa (New Zealand)",
+
+    validity: "Temporary visa. Usually valid for up to 7 months in any 11-month period (Pacific workers may be allowed up to 9 months depending on policy). No pathway to permanent residence.",
+
+    cost: "Application fee approx NZD $280–$430 (~₹14,000–₹22,000) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + recruitment/agency costs if applicable.",
+
+    time: "Processing time usually 2–6 weeks depending on employer approval, seasonal demand, and document verification.",
+
+    age: "Typically 18+ years. Must be physically fit for seasonal agricultural work.",
+
+    education: "No formal education required. Basic literacy and ability to perform manual/agricultural work is sufficient.",
+
+    funds: "No strict minimum funds requirement, but workers must be able to support initial arrival costs; employer often provides accommodation and partial support.",
+
+    docs: "Valid passport, job offer from Recognised Seasonal Employer, employment contract, medical certificate, police clearance certificate, passport photos, visa application form, proof of identity.",
+
+    whom: "Foreign workers (mainly from Pacific Island countries and selected partner nations) recruited for seasonal agricultural work such as fruit picking, vineyard work, horticulture, and farming in New Zealand.",
+
+    rules: "Must be recruited by an approved Recognised Seasonal Employer. Must only work in approved seasonal role. Must leave New Zealand at the end of visa duration. Must not switch to other visa types without approval. Must meet health and character requirements. Must comply with strict return-to-home conditions.",
+
+    prosCons: "Pros: Legal seasonal employment in New Zealand, employer-arranged work and accommodation, steady income opportunity, repeat seasonal employment possible. Cons: No pathway to residency, short duration, physically demanding work, strict return requirement, limited job flexibility.",
+
+    terms: "RSE Scheme: Seasonal worker program; Recognised Seasonal Employer: Approved employer under scheme; Seasonal Work: Temporary agricultural employment; Return Requirement: Mandatory departure after season ends.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Recognised Seasonal Employer Scheme Instructions + Pacific Labour Mobility Agreements.",
+
+    process: `1. Employer becomes Recognised Seasonal Employer ->
+              2. Employer recruits seasonal workers through approved channels ->
+              3. Worker receives job offer and contract ->
+              4. Gather required documents (passport, medical, police clearance) ->
+              5. Apply for RSE Limited Visa through Immigration NZ ->
+              6. Upload employment contract and identity documents ->
+              7. Pay visa application fee ->
+              8. Undergo medical examination and background checks ->
+              9. Immigration NZ assesses employer approval and worker eligibility ->
+              10. Additional documents requested if needed ->
+              11. Wait for processing (2–6 weeks) ->
+              12. Visa approval issued for seasonal work period ->
+              13. Travel to New Zealand ->
+              14. Work in approved seasonal role only ->
+              15. Complete contract period ->
+              16. Return to home country after visa expiry (mandatory).`
+},
+
+"NewZealandEntrepreneurWorkVisa": {
+    name: "Entrepreneur Work Visa (New Zealand)",
+
+    validity: "Temporary visa usually up to 12 months initially to establish the business. Can be extended up to 3 years total depending on business progress. May lead to Entrepreneur Resident Visa and then Permanent Residency.",
+
+    cost: "Application fee approx NZD $3,710 (~₹1.8 lakh–₹2 lakh) + additional costs for business plan preparation, legal fees, medicals (~₹5,000–₹15,000 in India), police certificates (~₹500–₹2,000 per country).",
+
+    time: "Processing time usually 3–6 months depending on business plan evaluation and documentation quality.",
+
+    age: "No strict age limit, but applicants are generally expected to be of working age and actively managing a business.",
+
+    education: "No mandatory education requirement, but strong business experience or qualifications are highly preferred.",
+
+    funds: "Must show minimum investment of at least NZD $100,000 (~₹50 lakh) in most cases (can vary depending on business type). Must also show sufficient personal funds for living expenses in New Zealand.",
+
+    docs: "Valid passport, detailed business plan, proof of funds and investment capital, CV showing business experience, financial statements, medical certificate, police clearance certificates, business proposal documents, visa application form.",
+
+    whom: "Experienced entrepreneurs who want to start or purchase a business in New Zealand and actively manage it to contribute to the economy.",
+
+    rules: "Must submit a credible and viable business plan. Must actively manage the business (passive investment not allowed). Must meet minimum investment threshold. Business must benefit New Zealand economy (job creation or innovation). Must meet health and character requirements. Must achieve business performance milestones for residence eligibility.",
+
+    prosCons: "Pros: Pathway to residency, opportunity to start or expand business in NZ, access to stable economy, includes family support options. Cons: High financial risk, strict business performance requirements, no guarantee of residency, active involvement required, business failure may end visa pathway.",
+
+    terms: "Entrepreneur Work Visa: Business establishment visa; Entrepreneur Resident Visa: PR pathway after successful business; Minimum Capital: Required investment threshold; Business Plan: Core assessment document; Active Management: Mandatory involvement in business operations.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Entrepreneur Work Visa Instructions + Business Immigration Policy Framework.",
+
+    process: `1. Develop viable business idea ->
+              2. Prepare detailed business plan (market, investment, profit model) ->
+              3. Arrange minimum investment funds (NZD $100,000+) ->
+              4. Gather financial and experience documents ->
+              5. Apply online for Entrepreneur Work Visa ->
+              6. Submit business plan and investment proof ->
+              7. Pay visa application fee ->
+              8. Immigration NZ evaluates business viability ->
+              9. Additional documents or clarification requested if needed ->
+              10. Medical and police checks conducted ->
+              11. Application assessment by business immigration team ->
+              12. Processing period (3–6 months) ->
+              13. Visa approval granted for business setup ->
+              14. Move to New Zealand and start business operations ->
+              15. Meet business milestones over 12–36 months ->
+              16. Apply for Entrepreneur Resident Visa ->
+              17. If approved, obtain Permanent Residency pathway.`
+},
+
+"NewZealandEntrepreneurResidentVisa": {
+    name: "Entrepreneur Resident Visa (New Zealand)",
+
+    validity: "Permanent Resident Visa (PR). Grants indefinite stay in New Zealand once approved. Initial travel conditions usually valid for 2 years before full Permanent Resident status is granted.",
+
+    cost: "Application fee approx NZD $4,890–$5,360 (~₹2.4 lakh–₹2.7 lakh) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + business evaluation/reporting costs if required.",
+
+    time: "Processing time usually 6–12 months after eligibility criteria are met (depends on business performance and documentation review).",
+
+    age: "No strict age limit, but applicant must be actively managing the business in New Zealand.",
+
+    education: "No mandatory education requirement, but business experience and proven entrepreneurial success are highly important.",
+
+    funds: "No additional investment required at resident stage, but applicant must have already met the Entrepreneur Work Visa investment requirement (usually NZD $100,000+) and business must be viable and operating successfully.",
+
+    docs: "Valid passport, Entrepreneur Work Visa history, business performance reports, financial statements of business, tax filings, proof of active business management, employee records (if any), business registration documents, medical certificate, police clearance certificates, visa application form.",
+
+    whom: "Entrepreneurs who have successfully established, operated, and met the performance requirements of their business in New Zealand under the Entrepreneur Work Visa pathway.",
+
+    rules: "Must have successfully operated an approved business in New Zealand for required period (usually 2–3 years). Must meet business performance criteria (profitability, job creation, or economic contribution). Must remain actively involved in business management. Must meet health and character requirements. Business must be compliant with New Zealand laws and tax regulations.",
+
+    prosCons: "Pros: Direct pathway to permanent residency, allows full settlement in New Zealand, includes family members, access to healthcare and education, long-term business stability. Cons: High business performance requirements, financial risk in earlier stage, strict monitoring of business activity, failure of business may block residency approval.",
+
+    terms: "Entrepreneur Resident Visa: Permanent residency through business success; Entrepreneur Work Visa: Initial business setup visa; Business Performance Criteria: Profit/job targets; Active Management: Required involvement in business; Residence Approval: Final PR grant stage.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Entrepreneur Residence Visa Instructions + Business Immigration Policy Framework.",
+
+    process: `1. Hold valid Entrepreneur Work Visa ->
+              2. Establish and operate business in New Zealand ->
+              3. Meet required business performance milestones (profit, jobs, revenue) ->
+              4. Maintain active management of business ->
+              5. Prepare business performance evidence (financials, tax records) ->
+              6. Apply for Entrepreneur Resident Visa online ->
+              7. Submit business reports and compliance documents ->
+              8. Pay residence application fee ->
+              9. Undergo medical examination and police clearance checks ->
+              10. Immigration NZ evaluates business success and compliance ->
+              11. Additional documents or audits requested if needed ->
+              12. Processing period (6–12 months) ->
+              13. Residence visa approval granted ->
+              14. Move to permanent residency status in New Zealand ->
+              15. Apply for Permanent Resident Visa after travel conditions ->
+              16. Continue business or expand operations freely ->
+              17. Eligible for citizenship after meeting residency requirements.`
+},
+
+"NewZealandActiveInvestorPlusVisa": {
+    name: "Active Investor Plus Visa (New Zealand)",
+
+    validity: "Residence Visa leading to Permanent Residence (PR). Initially grants residence with travel conditions (usually 4 years), after which Permanent Resident status can be obtained.",
+
+    cost: "Application fee approx NZD $27,000–$30,000 (~₹13 lakh–₹15 lakh) + legal/advisory fees + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country). Investment requirement is separate (very high capital).",
+
+    time: "Processing time usually 4–9 months depending on investment verification and due diligence checks.",
+
+    age: "No strict age limit, but applicants must be capable investors with verifiable source of funds.",
+
+    education: "No requirement.",
+
+    funds: `Minimum investment required under two categories:  
+    - Growth Category: NZD $5 million (~₹25 crore) for 3 years  
+    - Balanced Category: NZD $10 million (~₹50 crore) for 5 years  
+    Must prove lawful source of wealth and transfer funds into approved NZ investments.`,
+
+    docs: "Valid passport, proof of funds and source of wealth, investment portfolio evidence, bank statements, tax records, investment plan in NZ, medical certificate, police clearance certificates, CV showing business/investment background, visa application form.",
+
+    whom: "High-net-worth individuals who want to invest significantly in New Zealand’s economy through approved investments such as businesses, managed funds, or direct investments.",
+
+    rules: "Must invest required capital in approved New Zealand investment categories. Must maintain investment for required period (3–5 years depending on category). Must prove legal source of wealth. Must meet health and character requirements. Must comply with investment reporting and residency requirements (limited stay conditions may apply depending on category).",
+
+    prosCons: "Pros: Direct pathway to residency and Permanent Residence, family included, flexible lifestyle, access to high-quality healthcare and education, strong economy stability. Cons: Extremely high investment requirement, strict due diligence, funds are locked for years, no guarantee of high returns, compliance monitoring required.",
+
+    terms: "Active Investor Plus: High-value investment residency program; Growth Category: Lower investment, higher risk allocation; Balanced Category: Higher investment, more stable assets; Approved Investments: NZ government-approved investment classes; Residence Visa: Pathway to PR.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Active Investor Plus Visa Policy Framework.",
+
+    process: `1. Assess eligibility as high-net-worth investor ->
+              2. Choose investment category (Growth or Balanced) ->
+              3. Prepare proof of lawful source of wealth ->
+              4. Build investment plan for New Zealand approved assets ->
+              5. Submit Expression of Interest (EOI) ->
+              6. Receive Invitation to Apply (ITA) if selected ->
+              7. Submit full application with financial documents ->
+              8. Undergo strict financial due diligence ->
+              9. Pay visa application fee ->
+              10. Receive approval in principle ->
+              11. Transfer investment funds to NZ approved investments ->
+              12. Immigration NZ verifies investment placement ->
+              13. Receive Residence Visa approval ->
+              14. Move to New Zealand (or maintain residency conditions) ->
+              15. Maintain investment for required period (3–5 years) ->
+              16. Apply for Permanent Resident status after conditions met ->
+              17. Full residency rights granted including family settlement.`
+},
+
+"NewZealandReligiousWorkerVisa": {
+    name: "Religious Worker Visa (New Zealand)",
+
+    validity: "Temporary visa usually up to 3 years, depending on the religious role and contract. Can sometimes be extended. May lead to residence pathways in limited cases through skilled or long-term work routes.",
+
+    cost: "Application fee approx NZD $750–$1,000 (~₹37,000–₹50,000) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + additional documentation costs if required.",
+
+    time: "Processing time usually 4–8 weeks depending on employer (religious organisation) verification and documentation completeness.",
+
+    age: "No strict age limit. Applicant must be suitable for religious duties and active service.",
+
+    education: "No fixed education requirement, but religious training, theological qualification, or ordination proof is usually required depending on role.",
+
+    funds: "No personal minimum funds requirement in most cases, as sponsoring religious organisation usually provides salary, accommodation, or support.",
+
+    docs: "Valid passport, job offer from recognised religious organisation in New Zealand, proof of ordination or religious training, experience letters, CV, employment contract, medical certificate, police clearance certificate, passport photos, visa application form.",
+
+    whom: "Religious ministers, priests, pastors, monks, imams, missionaries, or other faith-based workers invited by recognised religious organisations in New Zealand to perform religious duties.",
+
+    rules: "Must be sponsored by a recognised religious organisation in New Zealand. Must perform genuine religious duties (not administrative-only roles unless included in scope). Must meet health and character requirements. Must comply with visa conditions and work only for approved organisation. Must leave or apply for another visa if role ends.",
+
+    prosCons: "Pros: Legal work in religious service, stable sponsorship by organisation, accommodation/support often provided, opportunity to serve religious community in NZ. Cons: Limited job flexibility, temporary nature, no guaranteed pathway to PR, dependent on sponsoring organisation, strict role verification.",
+
+    terms: "Religious Worker: Person engaged in faith-based duties; Sponsoring Organisation: Recognised religious institution in NZ; Genuine Role: Verified religious function; Temporary Work Visa: Time-limited employment visa.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Religious Worker Visa Instructions.",
+
+    process: `1. Receive invitation/job offer from NZ religious organisation ->
+              2. Verify organisation is recognised by Immigration NZ ->
+              3. Confirm role and duties (religious service requirements) ->
+              4. Gather religious qualification/ordination proof ->
+              5. Prepare supporting documents (CV, experience, identity) ->
+              6. Apply online for Religious Worker Visa ->
+              7. Upload job offer and sponsorship documents ->
+              8. Pay visa application fee ->
+              9. Complete medical examination ->
+              10. Provide police clearance certificates ->
+              11. Immigration NZ verifies organisation and role authenticity ->
+              12. Additional documents requested if needed ->
+              13. Processing period (4–8 weeks) ->
+              14. Visa approval issued ->
+              15. Travel to New Zealand ->
+              16. Perform assigned religious duties ->
+              17. Maintain compliance with visa conditions ->
+              18. Apply for extension or other visa if continuing role.`
+},
+
+"NewZealandGlobalImpactVisa": {
+    name: "Global Impact Visa (New Zealand)",
+
+    validity: "Temporary visa usually up to 3 years under the Edmund Hillary Fellowship (EHF) program. Can lead to residence pathways in some cases through business, talent, or other skilled migration categories.",
+
+    cost: "Application fee approx NZD $495–$1,000 (~₹25,000–₹50,000) + additional EHF program costs + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country).",
+
+    time: "Processing time usually 3–6 months including selection process and fellowship admission stages.",
+
+    age: "No strict age limit, but typically targeted at experienced professionals (usually 25–55 years).",
+
+    education: "No fixed requirement, but strong professional background, leadership experience, or innovation track record is essential.",
+
+    funds: "No fixed minimum funds requirement, but applicants must demonstrate ability to support themselves in New Zealand or have access to funding/investment for their projects.",
+
+    docs: "Valid passport, CV/resume showing leadership or innovation experience, portfolio of work/projects, proof of achievements, business or impact proposal, recommendation letters, medical certificate, police clearance certificate, visa application form.",
+
+    whom: "High-impact entrepreneurs, innovators, researchers, and global change-makers accepted into the Edmund Hillary Fellowship who want to build scalable, impactful ventures in New Zealand.",
+
+    rules: "Must be selected into the Edmund Hillary Fellowship (EHF). Must actively contribute to innovation, entrepreneurship, or social impact projects in New Zealand. Must participate in fellowship ecosystem activities. Must meet health and character requirements. Visa is tied to fellowship participation and impact contribution.",
+
+    prosCons: "Pros: Access to elite innovation network, opportunity to build global ventures, pathway to residence in some cases, strong support ecosystem, flexibility for entrepreneurship. Cons: Highly selective, not a standard visa route, requires significant achievements, no guaranteed PR, competitive admission process.",
+
+    terms: "Global Impact Visa: Innovation-focused visa linked to EHF; Edmund Hillary Fellowship: Official program selecting applicants; Impact Venture: High-value social/economic innovation project; Talent Mobility: Entry for global innovators.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Global Impact Visa Policy + Edmund Hillary Fellowship (EHF) Program Framework.",
+
+    process: `1. Build strong professional/entrepreneurial profile ->
+              2. Apply to Edmund Hillary Fellowship (EHF) program ->
+              3. Submit CV, achievements, and impact proposal ->
+              4. Go through selection and interview process ->
+              5. If selected, receive fellowship offer ->
+              6. Apply for Global Impact Visa ->
+              7. Upload fellowship acceptance documents ->
+              8. Pay visa application fee ->
+              9. Complete medical and police checks ->
+              10. Immigration NZ verifies fellowship membership ->
+              11. Additional documents requested if needed ->
+              12. Processing period (3–6 months) ->
+              13. Visa approval issued (linked to fellowship) ->
+              14. Move to New Zealand and join innovation ecosystem ->
+              15. Develop or scale impact projects ->
+              16. Potential transition to residence pathways (skill/business based) ->
+              17. Renew or extend participation based on fellowship terms.`
+},
+
+"NewZealandTalentAccreditedEmployerResidentVisa": {
+    name: "Talent (Accredited Employer) Resident Visa (New Zealand)",
+
+    validity: "Permanent Resident Visa (PR). Grants indefinite stay in New Zealand once approved. Initial travel conditions typically valid for 2 years before converting to full Permanent Resident status.",
+
+    cost: "Application fee approx NZD $4,890–$5,360 (~₹2.4 lakh–₹2.7 lakh) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + biometrics if required.",
+
+    time: "Processing time usually 4–8 months depending on job verification, employer accreditation, and document completeness.",
+
+    age: "No strict age limit, but applicant must be employed in a skilled role with an accredited employer. Typically targeted at working-age professionals.",
+
+    education: "Usually requires relevant qualification (often Level 4–7 NZQA equivalent or higher) or strong work experience in a skilled occupation.",
+
+    funds: "No fixed minimum funds requirement, but applicant must be earning at or above the required salary threshold and have stable employment in New Zealand.",
+
+    docs: "Valid passport, job offer or employment contract from accredited employer, proof of qualifications, work experience letters, CV, employer accreditation details, payslips (if already employed), employment agreement, medical certificate, police clearance certificates, visa application form.",
+
+    whom: "Skilled workers employed by an Immigration New Zealand accredited employer in New Zealand who meet salary and skill thresholds and are eligible for residence under the Talent (Accredited Employer) pathway.",
+
+    rules: "Must work for an accredited employer. Must meet minimum salary threshold (generally above median wage unless exempt). Must have skilled employment in eligible occupation. Must meet health and character requirements. Must maintain continuous employment for eligibility. Job must be genuine and full-time.",
+
+    prosCons: "Pros: Direct pathway to permanent residency, strong job security in NZ, no points-based EOI system, includes family members, fast-track compared to general skilled migration. Cons: Dependent on employer, strict wage requirements, job loss may affect residency pathway, limited flexibility to change employer initially.",
+
+    terms: "Talent (Accredited Employer): Residence visa based on skilled employment; Accredited Employer: NZ-approved employer; Median Wage: Government salary benchmark; Skilled Employment: Job matching NZ skill criteria; Residence Approval: Final PR grant stage.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Talent (Accredited Employer) Resident Visa Instructions.",
+
+    process: `1. Secure skilled job offer from accredited NZ employer ->
+              2. Ensure salary meets required threshold ->
+              3. Confirm job is full-time and skilled role ->
+              4. Gather qualifications and work experience documents ->
+              5. Employer confirms accreditation status ->
+              6. Apply for Talent (Accredited Employer) Resident Visa ->
+              7. Upload employment contract and supporting documents ->
+              8. Pay residence visa application fee ->
+              9. Complete medical examination ->
+              10. Provide police clearance certificates ->
+              11. Immigration NZ assesses employer accreditation and job legitimacy ->
+              12. Additional documents requested if needed ->
+              13. Processing period (4–8 months) ->
+              14. Visa approval granted as Resident Visa ->
+              15. Move to New Zealand as resident ->
+              16. After travel conditions, apply for Permanent Resident status ->
+              17. Live and work freely in New Zealand with residency rights.`
+},
+
+"NewZealandTalentArtsCultureSportsWorkVisa": {
+    name: "Talent (Arts, Culture and Sports) Work Visa (New Zealand)",
+
+    validity: "Temporary visa usually up to 30 months (2.5 years). Can lead to Talent (Arts, Culture and Sports) Resident Visa after meeting eligibility requirements.",
+
+    cost: "Application fee approx NZD $750–$1,000 (~₹37,000–₹50,000) + possible immigration levy + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country).",
+
+    time: "Processing time usually 4–8 weeks depending on endorsement verification and evidence of talent/achievement.",
+
+    age: "No strict age limit, but typically aimed at established professionals (usually 18–55 years) in arts, culture, or sports.",
+
+    education: "No fixed education requirement. Strong achievements, recognition, or proven expertise in arts, culture, or sports is more important than formal qualifications.",
+
+    funds: "No strict minimum funds requirement, but applicant must show ability to support themselves or have sponsorship/support from a New Zealand organisation or employer.",
+
+    docs: "Valid passport, endorsement from a qualifying New Zealand organisation, proof of achievements (awards, performances, rankings, publications), CV/portfolio, contract or job offer in NZ, reference letters, medical certificate, police clearance certificate, visa application form.",
+
+    whom: "Highly talented individuals in arts, culture, or sports (e.g., musicians, performers, artists, dancers, filmmakers, athletes, coaches) who are internationally or nationally recognised and endorsed by a New Zealand organisation.",
+
+    rules: "Must be endorsed by a qualifying NZ organisation in arts, culture, or sports. Must demonstrate exceptional talent or achievement. Must work in the field of talent endorsement. Must meet health and character requirements. Must comply with visa conditions and work only in approved talent area.",
+
+    prosCons: "Pros: Pathway to residency, opportunity to work in creative or sports field in NZ, recognition-based entry (not purely points or job-based), includes family options in some cases. Cons: Highly selective, requires strong evidence of achievement, depends on endorsement, not guaranteed PR, limited to specific fields.",
+
+    terms: "Talent Visa: Skill-based visa for high achievers; Endorsement: Approval from NZ organisation; Arts, Culture and Sports Category: Eligible talent fields; Recognised Talent: Proven national/international achievement; Residence Pathway: PR eligibility after work period.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Talent (Arts, Culture and Sports) Work Visa Instructions.",
+
+    process: `1. Build strong record of achievement in arts, culture, or sports ->
+              2. Obtain endorsement from a qualifying New Zealand organisation ->
+              3. Secure job offer or engagement in NZ field ->
+              4. Gather proof of achievements (awards, performances, rankings) ->
+              5. Prepare CV and portfolio ->
+              6. Apply online for Talent (Arts, Culture and Sports) Work Visa ->
+              7. Upload endorsement and supporting documents ->
+              8. Pay visa application fee ->
+              9. Complete medical examination ->
+              10. Provide police clearance certificates ->
+              11. Immigration NZ verifies endorsement and talent status ->
+              12. Additional documents requested if needed ->
+              13. Processing period (4–8 weeks) ->
+              14. Visa approval issued ->
+              15. Travel to New Zealand and work in endorsed field ->
+              16. Maintain active participation in arts/culture/sports ->
+              17. After qualifying period, apply for Talent Resident Visa ->
+              18. Transition to Permanent Residency if eligible.`
+},
+"NewZealandLongTermSkillShortageListResidentVisa": {
+    name: "Long Term Skill Shortage List Resident Visa (Legacy Category – New Zealand)",
+
+    validity: "Permanent Resident Visa (PR). Grants indefinite stay in New Zealand once approved. Initial travel conditions typically valid for 2 years before converting to full Permanent Resident status.",
+
+    cost: "Application fee approx NZD $4,890–$5,360 (~₹2.4 lakh–₹2.7 lakh) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + biometrics if required.",
+
+    time: "Processing time usually 6–12 months depending on occupation verification, employment evidence, and immigration workload.",
+
+    age: "No strict age limit, but applicants are generally working-age skilled professionals (typically 20–55 years).",
+
+    education: "Must have relevant qualification or equivalent work experience in a Long Term Skill Shortage List occupation (engineering, IT, healthcare, trades, etc.).",
+
+    funds: "No fixed minimum funds requirement, but must show stable skilled employment in New Zealand meeting salary and job requirements.",
+
+    docs: "Valid passport, job offer or employment contract in LTSSL occupation, proof of qualifications, work experience letters, CV, employer details, payslips (if already working in NZ), medical certificate, police clearance certificates, visa application form.",
+
+    whom: "Skilled workers who were employed in occupations listed on New Zealand’s Long Term Skill Shortage List (LTSSL) and met specific work duration requirements, allowing them to apply for residence under this legacy pathway (now largely replaced by Green List system).",
+
+    rules: "Must have worked in an eligible LTSSL occupation for required duration (typically 2+ years). Must be employed in New Zealand at time of application. Must meet salary thresholds and job requirements. Must meet health and character requirements. Category is now largely closed/transitioned to Green List, but legacy applications may still be processed.",
+
+    prosCons: "Pros: Direct pathway to permanent residency, strong recognition of skilled shortage occupations, includes family benefits, stable employment-based migration route. Cons: Mostly replaced by Green List system, eligibility now limited/legacy-based, strict occupation and employment history requirements, must maintain continuous skilled work.",
+
+    terms: "LTSSL: Long Term Skill Shortage List; Legacy Category: Older visa pathway replaced by Green List; Skilled Employment: Job meeting NZ skill criteria; Residence Visa: Permanent settlement status; Transition Policy: Shift from LTSSL to Green List system.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand Long Term Skill Shortage List Residence Visa (Legacy Policy – now superseded by Green List Residence Framework).",
+
+    process: `1. Check if occupation was on LTSSL during eligibility period ->
+              2. Secure skilled employment in New Zealand ->
+              3. Work continuously in LTSSL role for required duration ->
+              4. Collect employment evidence (contracts, payslips, tax records) ->
+              5. Gather qualification and experience documents ->
+              6. Ensure employer verification and job compliance ->
+              7. Apply for LTSSL Residence Visa (legacy pathway) ->
+              8. Upload employment and identity documents ->
+              9. Pay visa application fee ->
+              10. Complete medical examination ->
+              11. Provide police clearance certificates ->
+              12. Immigration NZ verifies occupation eligibility and work history ->
+              13. Additional documents requested if needed ->
+              14. Processing period (6–12 months) ->
+              15. Visa approval issued as Resident Visa ->
+              16. Move to New Zealand as resident ->
+              17. Apply for Permanent Resident status after travel conditions ->
+              18. Live and work permanently in New Zealand.`
+},
+"NewZealandParentRetirementResidentVisa": {
+    name: "Parent Retirement Resident Visa (New Zealand)",
+
+    validity: "Permanent Residence (PR). Indefinite stay. Allows you to live, work, and study in New Zealand permanently.",
+
+    cost: "Application fee: NZD $3,610 (~₹1.8L). Plus additional costs for medicals, police clearances, and document translations.",
+
+    time: "Processing typically takes 12–24 months due to the complexity of auditing high-value investments.",
+
+    age: "No age limit, but applicants must be the parent of an adult New Zealand citizen or resident.",
+
+    education: "No education requirement.",
+
+    funds: "Mandatory: Must invest NZD $1 million (~₹5 crore) in NZ for 4 years. Plus, show NZD $500,000 in settlement funds and an annual income of at least NZD $60,000.",
+
+    docs: "Evidence of relationship to NZ child, proof of ownership of $1M for investment, proof of $500k settlement funds, evidence of $60k annual income, source of wealth audit, health/police certificates.",
+
+    whom: "Wealthy parents of New Zealand citizens or residents who have the financial means to invest significantly in the country.",
+
+    rules: "Investment must stay in New Zealand for 4 years in government-approved 'acceptable investments' (stocks, bonds, etc.). Must not have dependent children.",
+
+    prosCons: "Pros: Faster than standard parent queue, direct PR pathway, no language requirement. Cons: Extremely high financial threshold, capital is 'at risk' for 4 years.",
+
+    terms: "Acceptable Investment: Assets like equity or bonds that contribute to NZ economy; Principal: The main applicant; PR: Permanent Residency.",
+
+    legal: "Immigration Act 2009 + Immigration New Zealand Operational Manual (Parent Retirement Category).",
+
+    process: `1. Verify parental relationship with an NZ citizen/PR -> 
+              2. Document $1.5M in assets and $60k annual income -> 
+              3. Lodge residence application -> 
+              4. 'Approval in Principle' (AIP) issued -> 
+              5. 12-month window to transfer and invest $1M in NZ -> 
+              6. Provide proof of investment to INZ -> 
+              7. Resident Visa granted -> 
+              8. Maintain investment for 4 years to secure Permanent Residency.`
+},
+
+"NewZealandTemporaryRetirementVisitorVisa": {
+    name: "Temporary Retirement Visitor Visa (New Zealand)",
+
+    validity: "Up to 2 years. Allows multiple entries during the validity period.",
+
+    cost: "Application fee: NZD $635 (~₹32,000).",
+
+    time: "Usually processed within 2–4 months.",
+
+    age: "Must be 66 years of age or older.",
+
+    education: "No requirement.",
+
+    funds: "Must invest NZD $750,000 (~₹3.8 crore) in NZ for 2 years. Plus, show NZD $500,000 in settlement funds and an annual income of NZD $60,000.",
+
+    docs: "Proof of age (66+), proof of investment funds, evidence of annual income, health insurance, and police/medical certificates.",
+
+    whom: "Retirees aged 66+ who want to spend up to 2 years in New Zealand and have significant investment capital.",
+
+    rules: "Cannot work or study. Must maintain the investment for the full 2 years. Must have comprehensive travel/health insurance.",
+
+    prosCons: "Pros: Allows a long-term stay for retirees without a PR commitment. Cons: No work rights, high capital lock-up for a temporary visa.",
+
+    terms: "Temporary Retirement: Stay based on investment without PR; Capital: The $750k investment amount.",
+
+    legal: "Immigration Act 2009.",
+
+    process: `1. Prove age 66+ -> 2. Document $750k investment + $500k assets -> 3. Lodge application -> 4. Receive AIP -> 5. Transfer funds to NZ -> 6. Visa Grant.`
+},
+
+"NewZealandParentGrandparentVisitorVisa": {
+    name: "Parent and Grandparent Visitor Visa (New Zealand)",
+
+    validity: "Valid for 3 years. Allows multiple entries for stays of up to 6 months at a time, with a total of 18 months stay within the 3-year period.",
+
+    cost: "NZD $211 (~₹11,000).",
+
+    time: "Standard processing: 5–10 weeks.",
+
+    age: "Parent or grandparent of an NZ Citizen/PR.",
+
+    education: "No requirement.",
+
+    funds: "Must be sponsored by the NZ child/grandchild or show sufficient savings to cover the stay.",
+
+    docs: "Birth certificates proving relationship, sponsor's NZ passport/PR visa, evidence of sponsor's income, and medical/chest X-ray certificates.",
+
+    whom: "Parents and grandparents of NZ residents/citizens who want to visit family frequently over a 3-year period.",
+
+    rules: "Cannot work. Must leave after 6 months or apply for an extension if eligible. Sponsor is responsible for costs of stay and departure.",
+
+    prosCons: "Pros: Much longer validity than a standard visitor visa, multiple entries. Cons: No work rights, requires medical exams due to the long duration.",
+
+    terms: "Multiple Entry: Facility to enter and leave many times; Sponsorship: Financial guarantee by the NZ family member.",
+
+    legal: "Immigration Act 2009.",
+
+    process: `1. Gather relationship proof -> 2. Child completes sponsorship form -> 3. Parent lodges visa -> 4. Undergo medicals -> 5. Visa Grant.`
+},
+
+"NewZealandCulturallyArrangedMarriageVisa": {
+    name: "Culturally Arranged Marriage Visitor Visa (New Zealand)",
+
+    validity: "3 months. Specifically designed to allow entry for a marriage ceremony.",
+
+    cost: "NZD $211 (~₹11,000).",
+
+    time: "2–8 weeks.",
+
+    age: "Legal marriage age (18+).",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds for a 3-month stay or be sponsored by the intended spouse/family.",
+
+    docs: "Proof that the marriage is arranged by a third party (parents/matchmaker) according to cultural tradition, evidence of the wedding date/venue in NZ, and intended spouse's NZ status.",
+
+    whom: "Indian and other applicants whose marriage to an NZ citizen/PR has been arranged by their families and will take place in NZ.",
+
+    rules: "Must marry within 3 months of arrival. After marriage, the applicant can apply for a Partner Work Visa while onshore. Must not have met before the arrangement or met only briefly.",
+
+    prosCons: "Pros: Direct legal route for arranged marriages, allows switching to partnership visas onshore. Cons: Very short validity, high scrutiny on the 'arrangement' authenticity.",
+
+    terms: "Arranged Marriage: Marriage planned by people other than the couple; intended spouse: The person in NZ.",
+
+    legal: "Immigration Act 2009.",
+
+    process: `1. Document the family arrangement/matchmaking -> 2. Provide proof of wedding plans in NZ -> 3. Lodge application -> 4. Enter NZ -> 5. Marry within 90 days -> 6. Apply for Partnership Visa.`
+},
+
+"NewZealandGroupVisitorVisa": {
+    name: "Group Visitor Visa (New Zealand)",
+
+    validity: "Usually up to 1 month or for the specific duration of the group's event/tour.",
+
+    cost: "NZD $35 (~₹1,800) per person (cheaper than individual visas).",
+
+    whom: "Groups of 6 or more people traveling together for the same purpose (tourists, sports teams, students).",
+
+    docs: "Group itinerary, list of all members, one master application form plus individual details.",
+
+    rules: "The entire group must arrive and depart together. No one can leave the group to stay longer.",
+
+    process: `1. Appoint a group leader -> 2. Complete group visa form -> 3. Submit all passports together -> 4. Group Visa Grant.`
+},
+
+"NewZealandBusinessVisitorVisa": {
+    name: "Business Visitor Visa (New Zealand)",
+
+    validity: "Up to 3 months stay within a 1-year period.",
+
+    cost: "NZD $211 (~₹11,000).",
+
+    whom: "Business people coming for negotiations, buying goods, or attending specific short-term business consultations.",
+
+    rules: "Cannot be employed by an NZ company. Must be paid by the home country employer. Restricted to 'business consultations' only.",
+
+    process: `1. Get invitation from NZ business -> 2. Submit proof of employment in India -> 3. Lodge application -> 4. Visa Grant.`
+},
+
+"NewZealandFishingCrewWorkVisa": {
+    name: "Fishing Crew Work Visa (New Zealand)",
+
+    validity: "Up to 12 months. Usually tied to a specific fishing season.",
+
+    cost: "NZD $700 (~₹35,000).",
+
+    whom: "Crew members for foreign-flagged fishing vessels operating in NZ waters.",
+
+    rules: "Must work only on the specified vessel. Employer must pay the New Zealand minimum wage and follow labor standards.",
+
+    process: `1. Employer gains 'Approval in Principle' -> 2. Crew member applies -> 3. Visa Grant.`
+},
+
+"NewZealandDiplomaticDomesticWorkerVisa": {
+    name: "Domestic Worker for Diplomatic Staff (New Zealand)",
+
+    validity: "Duration of the diplomat's posting in New Zealand (usually 2–4 years).",
+
+    cost: "NZD $450 (~₹23,000).",
+
+    whom: "Nannies, cleaners, or cooks working privately for a foreign diplomat posted in NZ.",
+
+    rules: "Must have an employment agreement meeting NZ law. Cannot change employers. Must live with the diplomat.",
+
+    process: `1. Diplomat sponsors worker -> 2. Provide Note Verbale from Embassy -> 3. Visa Grant.`
+},
+
+
+"NewZealandVictimsOfFamilyViolenceVisa": {
+    name: "Victims of Family Violence (Work & Resident Visas)",
+
+    validity: "Work Visa: 6 months. Resident Visa: Permanent.",
+
+    cost: "Work: NZD $0 (Free). Resident: NZD $0 (Free).",
+
+    whom: "People whose relationship with an NZ partner has ended due to domestic violence and they cannot return home due to social stigma or lack of support.",
+
+    rules: "Must have intended to seek PR through the partner. Evidence of violence (police/court/medical) is required.",
+
+    process: `1. Relationship ends due to violence -> 2. Lodge 'Victims of Violence' claim -> 3. Immediate Work Visa granted -> 4. Application for Resident Visa processed.`
+},
+
+"NewZealandRefugeeFamilySupportVisa": {
+    name: "Refugee Family Support Resident Visa (New Zealand)",
+
+    validity: "Permanent Residence (PR).",
+
+    cost: "NZD $0 (Free) for the first stage.",
+
+    whom: "Relatives of people who came to NZ as refugees.",
+
+    rules: "Strict annual quota of 300 places. Requires a two-tier registration process (Tier 1 for closest family).",
+
+    process: `1. NZ refugee registers to sponsor -> 2. If selected in quota, relative applies for PR -> 3. Visa Grant.`
+},
+
+
+"NewZealandOccupationalRegistrationVisa": {
+    name: "Occupational Registration Visitor Visa (New Zealand)",
+
+    validity: "3 months.",
+
+    cost: "NZD $211.",
+
+    whom: "Overseas professionals (e.g., Nurses, Doctors) who need to enter NZ to sit a clinical exam or practical test for registration.",
+
+    process: `1. Provide invitation from NZ registration body -> 2. Lodge application -> 3. Visa Grant.`
+},
+
+"NewZealandPathwayStudentVisa": {
+    name: "Pathway Student Visa (New Zealand)",
+
+    validity: "Up to 5 years. Allows you to study up to 3 consecutive courses on a single visa.",
+
+    cost: "NZD $375 (~₹19,000).",
+
+    whom: "Students planning to do a language course followed by a diploma and then a degree.",
+
+    rules: "Must have an offer from a 'Pathway' approved education provider. Tuition for the first course must be paid.",
+
+    process: `1. Get a 'Pathway' offer letter -> 2. Prove funds for the long-term plan -> 3. Visa Grant.`
+},
+
+"NewZealandSection61Request": {
+    name: "Section 61 Request (For Overstayers in New Zealand)",
+
+    validity: "Varies. Usually results in a short-term visa to regularize status or prepare for departure.",
+
+    cost: "NZD $250 (~₹12,500).",
+
+    time: "No fixed timeframe; decided at the absolute discretion of the Minister.",
+
+    whom: "People who have become 'unlawful' (visa expired) and want to ask for a visa rather than being deported.",
+
+    rules: "You have NO legal right to apply. This is a 'request' for grace. There is no appeal if refused.",
+
+    terms: "Unlawful: Being in NZ without a valid visa; Discretionary: Up to the officer's personal judgment.",
+
+    legal: "Section 61 of the Immigration Act 2009.",
+
+    process: `1. Become unlawful -> 2. Write a detailed request explaining why you overstayed -> 3. Submit request -> 4. If accepted, a visa is granted. If ignored/refused, you must leave NZ immediately.`
+},
+
+"NewZealandVariationOfConditions": {
+    name: "Variation of Conditions (VOC)",
+
+    validity: "Changes the conditions of your current visa (e.g., changing your job or employer).",
+
+    cost: "NZD $190–$210 (~₹10,000).",
+
+    whom: "Holders of work or student visas who need to change their specific situation (e.g., moving to a different company while on an AEWV).",
+
+    rules: "The new job or course must still meet the original visa requirements.",
+
+    process: `1. Secure new job offer -> 2. Submit VOC application -> 3. Wait for approval before starting the new job.`
+},
+
+
+
+"NewZealandSouthIslandContributionResidentVisa": {
+    name: "South Island Contribution Resident Visa (Legacy Category – New Zealand)",
+
+    validity: "Permanent Resident Visa (PR). Grants indefinite stay in New Zealand once approved. Initial travel conditions typically valid for 2 years before converting to full Permanent Resident status.",
+
+    cost: "Application fee approx NZD $4,890–$5,360 (~₹2.4 lakh–₹2.7 lakh) + medicals (~₹5,000–₹15,000 in India) + police certificates (~₹500–₹2,000 per country) + biometrics if required.",
+
+    time: "Processing time usually 6–12 months depending on employment verification and regional policy checks.",
+
+    age: "No strict age limit, but applicants were typically working-age skilled migrants (20–55 years).",
+
+    education: "Must have relevant qualification or skilled work experience in an occupation supporting South Island regional development needs.",
+
+    funds: "No fixed minimum funds requirement, but must demonstrate stable employment and ability to support settlement in South Island regions.",
+
+    docs: "Valid passport, job offer or employment contract in South Island region, proof of work experience, qualification certificates, CV, employer documentation, payslips (if already employed), medical certificate, police clearance certificates, visa application form.",
+
+    whom: "Skilled workers who accepted employment in New Zealand’s South Island regions under older regional migration incentives aimed at supporting workforce shortages in that region.",
+
+    rules: "Must have worked in an approved South Island job/region under the scheme. Must have maintained continuous employment in eligible role. Must meet health and character requirements. Must comply with regional employment conditions. Category is now closed/legacy and replaced by broader skilled and Green List pathways.",
+
+    prosCons: "Pros: Direct residency pathway, encouraged regional settlement, employment-based PR route, family inclusion benefits. Cons: Legacy scheme no longer open, limited eligibility for new applicants, region-specific restrictions, now replaced by updated immigration pathways.",
+
+    terms: "South Island Contribution Visa: Regional migration scheme; Legacy Category: Discontinued immigration pathway; Regional Development: Workforce support program; Skilled Employment: Eligible job in South Island; Residence Visa: Permanent settlement status.",
+
+    legal: "Immigration Act 2009 (New Zealand) + Immigration New Zealand South Island Contribution Resident Visa (Legacy Policy – now closed and replaced by current skilled residence frameworks).",
+
+    process: `1. Secure skilled job offer in South Island region ->
+              2. Relocate and begin employment in eligible role ->
+              3. Maintain continuous employment in South Island ->
+              4. Collect employment evidence (contracts, payslips, tax records) ->
+              5. Gather qualification and identity documents ->
+              6. Confirm eligibility under legacy South Island policy ->
+              7. Apply for South Island Contribution Resident Visa ->
+              8. Upload employment and supporting documents ->
+              9. Pay application fee ->
+              10. Complete medical examination ->
+              11. Provide police clearance certificates ->
+              12. Immigration NZ verifies regional employment compliance ->
+              13. Additional documents requested if needed ->
+              14. Processing period (6–12 months) ->
+              15. Visa approval granted as Resident Visa ->
+              16. Move to permanent residency status in New Zealand ->
+              17. Apply for Permanent Resident status after travel conditions ->
+              18. Live and work freely in New Zealand.`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

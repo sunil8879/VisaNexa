@@ -1,0 +1,2818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+/* UK Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+
+
+
+/* UK Points System Section Styling */
+.points-system-details {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.points-system-summary {
+    background: var(--aqua);
+    color: var(--black);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--black);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.points-system-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.points-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.points-content h1, .points-content h2, .points-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.points-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.points-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+
+.points-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.points-table th, .points-table td {
+    border: 1px solid var(--black);
+    padding: 10px;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+}
+
+.points-table th {
+    background: var(--black);
+    color: var(--aqua);
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.calculation-box {
+    background: #f0fdf9;
+    border: 2px solid var(--black);
+    padding: 15px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="UK">UK</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+  <select id="visaType">
+    <optgroup label="Work Visas">
+        <option value="SkilledWorkerVisa">Skilled Worker Visa</option>
+        <option value="HealthAndCareWorkerVisa">Health and Care Worker Visa</option>
+        <option value="TemporaryWorkerVisa_T5">Temporary Worker Visa (T5)</option>
+        <option value="SeasonalWorkerVisa">Seasonal Worker Visa</option>
+        <option value="YouthMobilitySchemeVisa">Youth Mobility Scheme Visa</option>
+        <option value="GlobalTalentVisa">Global Talent Visa</option>
+        <option value="HighPotentialIndividualVisa">High Potential Individual (HPI) Visa</option>
+        <option value="GraduateVisa">Graduate Visa</option>
+        <option value="ScaleUpWorkerVisa">Scale-up Worker Visa</option>
+        <option value="MinisterOfReligionVisa">Minister of Religion Visa</option>
+        <option value="SportspersonVisa">Sportsperson Visa</option>
+    </optgroup>
+
+    <optgroup label="Global Business Mobility">
+        <option value="SeniorOrSpecialistWorkerVisa">Senior or Specialist Worker Visa</option>
+        <option value="GraduateTraineeVisa">Graduate Trainee Visa</option>
+        <option value="ServiceSupplierVisa">Service Supplier Visa</option>
+        <option value="SecondmentWorkerVisa">Secondment Worker Visa</option>
+        <option value="UKExpansionWorkerVisa">UK Expansion Worker Visa</option>
+        <option value="RepresentativeOfAnOverseasBusinessVisa">Representative of an Overseas Business Visa</option>
+    </optgroup>
+
+    <optgroup label="Study Visas">
+        <option value="StudentVisa">Student Visa</option>
+        <option value="ChildStudentVisa">Child Student Visa</option>
+        <option value="ShortTermStudyVisa">Short-term Study Visa</option>
+    </optgroup>
+
+    <optgroup label="Family Visas">
+        <option value="SpouseVisa">Spouse Visa (Partner Visa)</option>
+        <option value="FianceVisa">Fiancé(e) Visa</option>
+        <option value="UnmarriedPartnerVisa">Unmarried Partner Visa</option>
+        <option value="ParentVisa">Parent Visa</option>
+        <option value="ChildDependentVisa">Child Dependent Visa</option>
+        <option value="FamilyReunionVisa">Family Reunion Visa (Refugee)</option>
+    </optgroup>
+
+    <optgroup label="Visitor Visas">
+        <option value="StandardVisitorVisa">Standard Visitor Visa</option>
+        <option value="MarriageVisitorVisa">Marriage Visitor Visa</option>
+        <option value="PermittedPaidEngagementVisa">Permitted Paid Engagement Visitor</option>
+        <option value="TransitVisa">Transit Visa</option>
+    </optgroup>
+
+    <optgroup label="Humanitarian & Special">
+        <option value="AsylumVisa">Asylum Claim / Visa</option>
+        <option value="RefugeeStatus">Refugee Status Visa</option>
+        <option value="HumanitarianProtection">Humanitarian Protection Visa</option>
+        <option value="StatelessPersonVisa">Stateless Person Visa</option>
+        <option value="DiscretionaryLeaveToRemain">Discretionary Leave to Remain</option>
+    </optgroup>
+
+    <optgroup label="Settlement & Citizenship">
+        <option value="IndefiniteLeaveToRemain">Indefinite Leave to Remain (ILR)</option>
+        <option value="EUSettlementScheme">EU Settlement Scheme (Settled Status)</option>
+        <option value="BritishCitizenship">British Citizenship (Naturalisation)</option>
+    </optgroup>
+
+
+
+  <optgroup label="Extras">
+        <option value="UkAncestryVisa">Ancestry visa</option>
+        <option value="UkDomesticWorkerVisa">Domestic worker visa</option>
+        <option value="UkFrontierWorkerPermit">Frontier worker permit</option>
+
+   <option value="UkAdultDependentRelativeVisa">Adult dependent relative</option>
+        <option value="UkElectronicTravelAuthorisationEta">Electronic travel authorization</option>
+        <option value="UkElectronicVisaWaiverEvw">Electronic visa waiver</option>
+
+   <option value="UkBnoVisa">British national overseas visa</option>
+        <option value="UkRightOfAbode">Right of abode</option>
+        <option value="UkReturningResidentVisa">Returning resident visa</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF UK MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇬🇧 VIEW UK IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇬🇧 UK IMMIGRATION — MASTER END-TO-END PROCESS (2026)</h1>
+
+        <h2>🟢 PHASE 1: IMMIGRATION PATHWAY SELECTION (CORE DECISION)</h2>
+        <p>The UK immigration system is divided into 4 main routes:</p>
+        
+        <h3>1. WORK ROUTES</h3>
+        <ul>
+            <li>Skilled Worker Visa</li>
+            <li>Health & Care Worker Visa</li>
+            <li>Global Talent Visa</li>
+            <li>Temporary Worker Visas (Seasonal, Creative, Charity, etc.)</li>
+        </ul>
+        <p>👉 Purpose: Work + possible settlement</p>
+
+        <h3>2. STUDY ROUTE</h3>
+        <ul>
+            <li>Student Visa (Tier 4 / Student Route)</li>
+        </ul>
+        <p>👉 Purpose: Education + post-study work pathway</p>
+
+        <h3>3. FAMILY ROUTE</h3>
+        <ul>
+            <li>Spouse / Partner Visa</li>
+            <li>Child Visa</li>
+            <li>Parent Visa (limited cases)</li>
+        </ul>
+        <p>👉 Purpose: Family reunification + settlement</p>
+
+        <h3>4. SETTLEMENT / IMMIGRATION ROUTE</h3>
+        <ul>
+            <li>Indefinite Leave to Remain (ILR)</li>
+            <li>British Citizenship</li>
+            <li>Ancestry Visa (legacy route for Commonwealth countries)</li>
+        </ul>
+
+        <h2>🟡 PHASE 2: ELIGIBILITY CHECK (UK CORE SYSTEM)</h2>
+        <p>UKVI checks 5 pillars:</p>
+        <ul>
+            <li><strong>1. Identity verification:</strong> Valid passport, biometric identity verification, UKVI account registration.</li>
+            <li><strong>2. Genuine purpose:</strong> Must match visa type (study → Student, job → Skilled Worker, family → spouse).</li>
+            <li><strong>3. Financial requirement:</strong> Maintenance funds, sponsor income (family), salary threshold (work), tuition fees (students).</li>
+            <li><strong>4. English language:</strong> IELTS UKVI or approved test; exemptions for some nationals/qualifications.</li>
+            <li><strong>5. Suitability:</strong> Criminal record check, immigration violations history, false documents screening.</li>
+        </ul>
+
+        <h2>🟠 PHASE 3: DOCUMENT PREPARATION (FULL CORE FILE)</h2>
+        <ul>
+            <li><strong>Identity:</strong> Passport (valid), passport photos.</li>
+            <li><strong>Civil:</strong> Birth certificate, marriage certificate (if applicable).</li>
+            <li><strong>Financial:</strong> Bank statements (28–90 days typical), salary slips, sponsor documents.</li>
+            <li><strong>Job/Edu:</strong> Degree certificates, CoS (Work), CAS (Students).</li>
+            <li><strong>Immigration:</strong> IELTS UKVI, relationship proof (family), biometrics.</li>
+            <li><strong>Additional:</strong> Tuberculosis test certificate (India mandatory), police clearance certificate.</li>
+        </ul>
+
+        <h2>🔵 PHASE 4 & 5: APPLICATION & BIOMETRICS</h2>
+        <p>1. Create UKVI account -> 2. Select visa type -> 3. Fill online form -> 4. Upload documents -> 5. Pay fee + IHS -> 6. Book biometrics appointment at VFS Global India (VAC).</p>
+
+        <h2>🟤 PHASE 6 & 7: UKVI ASSESSMENT & CHECKS</h2>
+        <p>Reviews: CoS/CAS authenticity, salary compliance, job role (SOC code), education credibility, relationship genuineness (family), and TB clearance. May include credibility interviews or employer verification calls.</p>
+
+        <h2>🟠 PHASE 8, 9 & 10: DECISION, CONDITIONS & ENTRY</h2>
+        <p>Outcomes: Approved, Refused, or Further Info Required. Grant includes validity and restrictions. Entry: Border Force inspection and biometric check at UK border.</p>
+
+        <h2>🟣 PHASE 11 & 12: LIVING IN UK & EXTENSIONS</h2>
+        <p>Compliance: Must work for sponsor, attend classes, or live with sponsor. Pathways: Skilled Worker → 5 years → ILR; Student → Graduate visa → Skilled Worker → ILR; Spouse visa → 5 years → ILR.</p>
+
+        <h2>🟢 PHASE 13 & 14: ILR & CITIZENSHIP</h2>
+        <p>ILR (Permanent Residence): 5 years residence + Life in the UK test + English. Citizenship: 12 months after ILR + Life in UK test + ceremony.</p>
+
+        <h2>⚫ MASTER FLOW (UK IMMIGRATION SYSTEM MAP)</h2>
+        <p style="background: #eee; padding: 10px; font-weight: bold;">Eligibility → Visa selection → Online application (gov.uk) → Biometrics → UKVI assessment → Decision → Entry into UK → Work/Study/Family stay → Extension → ILR (Permanent Residence) → Citizenship</p>
+
+        <div class="official-box">
+            <h1>🇬🇧 OFFICIAL UK IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Main Visa Application:</strong> <a href="https://www.gov.uk/apply-uk-visa" target="_blank">www.gov.uk/apply-uk-visa</a></p>
+            <p><strong>2. UKVI Organisation Page:</strong> <a href="https://www.gov.uk/government/organisations/uk-visas-and-immigration" target="_blank">www.gov.uk/ukvi</a></p>
+            <p><strong>3. Guidance & Rules:</strong> <a href="https://www.gov.uk/browse/visas-immigration" target="_blank">www.gov.uk/browse/visas-immigration</a></p>
+            <p><strong>4. Student Visa System:</strong> <a href="https://www.gov.uk/student-visa" target="_blank">www.gov.uk/student-visa</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: USE ONLY OFFICIAL GOV.UK WEBSITES. AVOID THIRD-PARTY SCAM AGENTS.
+        </div>
+    </div>
+</details>
+
+
+
+
+
+
+
+<!-- START OF UK POINTS SYSTEM COLLAPSIBLE -->
+<details class="points-system-details">
+    <summary class="points-system-summary">🧮 VIEW UK POINTS-BASED IMMIGRATION SYSTEM (2026)</summary>
+    
+    <div class="points-content">
+        <h1>🇬🇧 UK POINTS-BASED IMMIGRATION SYSTEM (2026)</h1>
+        <p>Mainly used for Skilled Worker and Health & Care Worker Visas. You must score a minimum of <strong>70 points</strong> to be eligible.</p>
+
+        <h2>🟢 1. MANDATORY POINTS (50 POINTS FIXED)</h2>
+        <p>These requirements are non-negotiable.</p>
+        <table class="points-table">
+            <thead>
+                <tr>
+                    <th>Requirement</th>
+                    <th>Detail</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Job Offer</strong></td>
+                    <td>Offer from an approved UK employer (CoS)</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td><strong>Skill Level</strong></td>
+                    <td>Job must be RQF Level 3 or higher (Skilled)</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td><strong>English</strong></td>
+                    <td>Minimum IELTS B1 or equivalent</td>
+                    <td>10</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>🔵 2. TRADEABLE POINTS (20 POINTS REQUIRED)</h2>
+        <p>You must gain an additional 20 points through salary or education.</p>
+        
+        <h3>💰 SALARY THRESHOLDS</h3>
+        <table class="points-table">
+            <thead>
+                <tr>
+                    <th>Annual Salary</th>
+                    <th>Condition</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>£38,700 or higher</td>
+                    <td>Standard Threshold (2026)</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>£34,000 – £38,699</td>
+                    <td>Partial points</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>Shortage Occupation</td>
+                    <td>Lower salary allowed for specific roles</td>
+                    <td>20</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🎓 EDUCATION (PHD)</h3>
+        <table class="points-table">
+            <thead>
+                <tr>
+                    <th>Qualification</th>
+                    <th>Relevance to Job</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>PhD</td>
+                    <td>Relevant to the role</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>PhD (STEM)</td>
+                    <td>STEM field and relevant to role</td>
+                    <td>20</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="calculation-box">
+            <h3>🧮 FINAL UK POINTS FORMULA</h3>
+            <p>Total Points = Job Offer (20) + Skill Level (20) + English (10) + Salary OR PhD (20) = 70 REQUIRED</p>
+        </div>
+
+        <h2>🎯 KEY SYSTEM DIFFERENCES</h2>
+        <ul>
+            <li><strong>No Ranking:</strong> Unlike Australia, UK is not a competition. If you hit 70, you are eligible.</li>
+            <li><strong>No Pool:</strong> There is no waiting pool (EOI). You apply directly once you have a job offer.</li>
+            <li><strong>Sponsor Mandatory:</strong> You cannot apply without a Certificate of Sponsorship (CoS).</li>
+        </ul>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL UK VISA GUIDANCE</h1>
+            <p><strong>Check Skilled Worker Rules:</strong> <a href="https://www.gov.uk/skilled-worker-visa" target="_blank">www.gov.uk/skilled-worker-visa</a></p>
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "UK": {
+      "SkilledWorkerVisa": {
+    name: "Skilled Worker Visa (UK Work Visa)",
+
+    validity: "Up to 5 years per visa; can be extended. Leads to Indefinite Leave to Remain (ILR) after 5 years of continuous residence.",
+
+    cost: "Application fee: £610–£1,408 (₹65,000–₹1.5 lakh approx depending on duration and job). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Usually 3 weeks to 8 weeks from India (priority services may be faster).",
+
+    age: "18 years or older.",
+
+    education: "No fixed degree requirement, but must meet job skill level (RQF Level 3 or higher).",
+
+    funds: "Usually £1,270 (~₹1.3 lakh) in bank unless employer certifies maintenance support.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS) from UK employer, Job offer letter, Proof of English language ability, Bank statements (if required), Job role details.",
+
+    whom: "Skilled professionals with a job offer from a UK licensed sponsor (IT, healthcare, engineering, finance, teaching, etc.).",
+
+    rules: "Must work only for sponsoring employer. Must meet minimum salary threshold (usually £26,200/year or occupation-specific rate). Cannot switch jobs without visa update.",
+
+    prosCons: "Pros: Direct work pathway, dependent family allowed, route to permanent residency (ILR). Cons: Employer-dependent, strict salary and sponsorship rules, high healthcare surcharge cost.",
+
+    terms: "CoS: Certificate of Sponsorship; IHS: Immigration Health Surcharge; RQF: Regulated Qualifications Framework; ILR: Indefinite Leave to Remain.",
+
+    legal: "UK Home Office (primary authority), UK Visas and Immigration (UKVI).",
+
+    process: `1. Get UK job offer -> 2. Employer issues Certificate of Sponsorship (CoS) -> 3. Prepare documents -> 4. Apply online visa application -> 5. Pay fees and IHS -> 6. Biometrics appointment -> 7. Wait for decision -> 8. Visa approval -> 9. Travel to UK -> 10. Start employment -> 11. Apply for ILR after eligibility period.`
+},
+
+
+"HealthAndCareWorkerVisa": {
+    name: "Health and Care Worker Visa (UK NHS & Care Sector Visa)",
+
+    validity: "Up to 5 years per visa; renewable. Eligible for Indefinite Leave to Remain (ILR) after 5 years of continuous residence.",
+
+    cost: "Visa fee: £284–£551 (₹30,000–₹60,000 approx). Immigration Health Surcharge: EXEMPT for this visa category.",
+
+    time: "Usually 3–6 weeks from India (priority processing may be faster).",
+
+    age: "18 years or older.",
+
+    education: "Relevant medical qualification (nurse, doctor, paramedic, care worker training, or equivalent healthcare certification).",
+
+    funds: "Usually no maintenance funds required if employer certifies support; otherwise £1,270 (~₹1.3 lakh) bank balance may be needed.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS) from UK licensed NHS/care employer, Job offer letter, Proof of qualification, English language test (IELTS/OET if required), Police clearance certificate.",
+
+    whom: "Healthcare professionals working in NHS hospitals, private healthcare providers, or adult social care roles (doctors, nurses, carers, allied health workers).",
+
+    rules: "Must work only in approved health/care job role under sponsoring employer. Salary must meet UK Health and Care pay thresholds. Job change requires visa update.",
+
+    prosCons: "Pros: Fast-track visa processing, no health surcharge, lower fees, direct PR route (ILR). Cons: Restricted to healthcare sector only, employer dependency, licensing requirements for professionals.",
+
+    terms: "CoS: Certificate of Sponsorship; NHS: National Health Service; ILR: Indefinite Leave to Remain; UKVI: UK Visas and Immigration.",
+
+    legal: "UK Home Office (primary authority), UK Visas and Immigration (UKVI), NHS and licensed care providers.",
+
+    process: `1. Get job offer from NHS/care employer -> 2. Receive Certificate of Sponsorship (CoS) -> 3. Prepare documents -> 4. Apply online visa application -> 5. Pay visa fee -> 6. Book biometrics appointment -> 7. Submit application -> 8. Decision processing -> 9. Visa approval -> 10. Travel to UK -> 11. Start employment -> 12. Apply for ILR after 5 years.`
+},
+
+
+
+"TemporaryWorkerVisa_T5": {
+    name: "Temporary Worker Visa (T5 – UK Temporary Work Route)",
+
+    validity: "Usually up to 12 months to 2 years depending on sub-category (some schemes allow up to 24 months). Cannot directly lead to Indefinite Leave to Remain (ILR).",
+
+    cost: "Visa fee: £259 (~₹27,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India depending on category and sponsorship.",
+
+    age: "18 years or older.",
+
+    education: "Depends on sub-category (generally no strict degree requirement, but skills/experience may be required).",
+
+    funds: "At least £1,270 (~₹1.3 lakh) unless fully sponsored by employer/organization (maintenance certification allowed).",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS), job/placement offer letter, bank statements (if required), proof of role eligibility, tuberculosis test certificate (for India applicants), biometric data.",
+
+    whom: "Individuals coming to the UK for temporary work such as charity work, creative roles, religious work, government authorized exchange programs, seasonal jobs, and international agreements.",
+
+    rules: "Must work only for sponsoring organization and approved role. Cannot take permanent employment or switch category freely. Must leave UK after visa expiry unless switched to another valid visa.",
+
+    prosCons: "Pros: Easy entry route for short-term work, multiple sub-categories, good for international exposure. Cons: No direct PR route, time-limited stay, restricted job flexibility.",
+
+    terms: "CoS: Certificate of Sponsorship; UKVI: UK Visas and Immigration; T5: Temporary Work Route.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Choose eligible T5 sub-category (Charity, Creative, Seasonal, Religious, Government Authorised Exchange, International Agreement) -> 
+              2. Get licensed UK sponsor -> 
+              3. Employer issues Certificate of Sponsorship (CoS) -> 
+              4. Prepare documents (passport, TB test, financial proof if needed) -> 
+              5. Fill online UK visa application form -> 
+              6. Pay visa fee and Immigration Health Surcharge (if applicable) -> 
+              7. Book biometrics appointment at Visa Application Centre in India -> 
+              8. Attend biometrics submission (photo + fingerprints) -> 
+              9. Submit supporting documents online or at VAC -> 
+              10. UKVI reviews application and verifies sponsor details -> 
+              11. Possible credibility interview (if required) -> 
+              12. Decision issued (approval or refusal) -> 
+              13. If approved, receive visa vignette in passport -> 
+              14. Travel to UK within validity period -> 
+              15. Collect BRP (Biometric Residence Permit) after arrival -> 
+              16. Work only in sponsored role until visa expiry -> 
+              17. Exit UK or switch visa category before expiry if eligible.`
+},
+
+"SeasonalWorkerVisa": {
+    name: "Seasonal Worker Visa (UK Temporary Agricultural Work Visa)",
+
+    validity: "Up to 6 months per year (for horticulture roles such as fruit, vegetable, and flower picking). Cannot be extended beyond the seasonal period.",
+
+    cost: "Visa fee: £259 (~₹27,000). Immigration Health Surcharge (IHS): Not required for this visa.",
+
+    time: "Typically 2–6 weeks from India depending on seasonal demand and sponsor allocation.",
+
+    age: "18 years or older.",
+
+    education: "No formal education required.",
+
+    funds: "Usually no personal funds required if employer certifies maintenance; otherwise around £1,270 (~₹1.3 lakh) may be requested.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS), job offer from licensed UK seasonal worker scheme operator, TB test certificate (India), proof of accommodation/arrival details if required.",
+
+    whom: "Foreign workers coming to the UK for short-term agricultural work such as fruit picking, vegetable harvesting, flower farming, and other seasonal farm jobs.",
+
+    rules: "Must work only for assigned farm or approved operator. Cannot switch jobs or extend stay beyond visa duration. Must leave the UK after visa expiry.",
+
+    prosCons: "Pros: Easy entry requirement, no degree needed, quick processing, good for short-term earning. Cons: Very short stay, physically demanding work, no route to permanent residency.",
+
+    terms: "CoS: Certificate of Sponsorship; UKVI: UK Visas and Immigration; Seasonal Worker Scheme: UK government agricultural labour program.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), licensed seasonal worker scheme operators.",
+
+    process: `1. Apply through licensed UK Seasonal Worker Scheme operator -> 
+              2. Receive job allocation (farm/harvest role) -> 
+              3. Operator issues Certificate of Sponsorship (CoS) -> 
+              4. Prepare documents (passport, TB test, personal details) -> 
+              5. Fill online UK visa application form -> 
+              6. Pay visa fee (£259) -> 
+              7. Book biometrics appointment at Visa Application Centre -> 
+              8. Submit fingerprints and photograph -> 
+              9. Upload/supporting documents submission -> 
+              10. UKVI reviews application and sponsor verification -> 
+              11. Visa decision issued -> 
+              12. Receive visa vignette in passport if approved -> 
+              13. Travel to UK within seasonal period -> 
+              14. Work only on assigned farm/job -> 
+              15. Leave UK immediately after visa expiry -> 
+              16. Cannot extend or switch to another visa from within UK (in most cases).`
+},
+
+"YouthMobilitySchemeVisa": {
+    name: "Youth Mobility Scheme Visa (UK Working Holiday Visa)",
+
+    validity: "Up to 2 years (for most countries including India via ballot route under India Young Professionals Scheme). Cannot be extended, but switching to other visas inside UK may be possible.",
+
+    cost: "Visa fee: £298 (~₹31,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks after successful ballot selection and application submission.",
+
+    age: "18–30 years (India scheme is typically 18–30; some partner countries allow up to 35).",
+
+    education: "No formal degree required, but must meet scheme eligibility (India requires specific qualification criteria under Young Professionals Scheme).",
+
+    funds: "At least £2,530 (~₹2.7 lakh) in bank account to show financial support.",
+
+    docs: "Valid passport, ballot invitation (India Young Professionals Scheme), bank statements proving funds, tuberculosis test certificate (India applicants), online visa application form, biometrics data.",
+
+    whom: "Young professionals from eligible countries (including India under the UK-India Young Professionals Scheme) who want to live, work, or study in the UK temporarily.",
+
+    rules: "Cannot bring dependents (in most cases). Cannot work as professional sportsperson or doctor in training. Must maintain financial requirements. Limited stay duration only.",
+
+    prosCons: "Pros: Easy access for young professionals, flexible work rights, opportunity to live in UK without employer sponsorship. Cons: Lottery/ballot system for India, no direct PR route, strict age limit.",
+
+    terms: "YMS: Youth Mobility Scheme; UKVI: UK Visas and Immigration; Ballot: Random selection system used for India; IHS: Immigration Health Surcharge.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), India Young Professionals Scheme agreement between UK and India.",
+
+    process: `1. Check eligibility (India Young Professionals Scheme requirements) -> 
+              2. Enter UK visa ballot when opened -> 
+              3. If selected, receive invitation to apply -> 
+              4. Fill online UK Youth Mobility Scheme visa application -> 
+              5. Pay visa fee (£298) -> 
+              6. Pay Immigration Health Surcharge (IHS) -> 
+              7. Prepare documents (passport, bank statements, TB test) -> 
+              8. Book biometrics appointment at Visa Application Centre -> 
+              9. Submit fingerprints and photo -> 
+              10. Upload supporting documents -> 
+              11. UKVI processes application and verifies eligibility -> 
+              12. Receive visa decision -> 
+              13. If approved, receive visa vignette -> 
+              14. Travel to UK within validity period -> 
+              15. Collect BRP after arrival -> 
+              16. Work, study, or travel freely within permitted rules for up to 2 years -> 
+              17. Leave UK or switch visa category before expiry if eligible.`
+},
+
+"GlobalTalentVisa": {
+    name: "Global Talent Visa (UK Exceptional Talent / Promise Visa)",
+
+    validity: "Up to 5 years per grant; renewable. Leads to Indefinite Leave to Remain (ILR) after 3–5 years depending on endorsement category.",
+
+    cost: "Visa fee: £716 (~₹75,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year). Endorsement fee may apply (£524 ~₹55,000 in some cases).",
+
+    time: "Endorsement: 2–8 weeks. Visa decision: 3–8 weeks after endorsement (from India overall ~1–3 months).",
+
+    age: "18 years or older.",
+
+    education: "No mandatory degree requirement. Must demonstrate exceptional talent or exceptional promise.",
+
+    funds: "No fixed bank balance requirement in most cases.",
+
+    docs: "Valid passport, endorsement letter from approved UK endorsing body, evidence of achievement (awards, publications, patents, media recognition), CV/portfolio, recommendation letters, visa application form.",
+
+    whom: "Highly skilled individuals in science, engineering, medicine, humanities, digital technology, arts, culture, and academia.",
+
+    rules: "Must work in endorsed field. No job offer required. Can be employed, self-employed, or start business. Must maintain contribution to UK sector of endorsement.",
+
+    prosCons: "Pros: No job offer required, fast PR pathway, high flexibility, no sponsorship needed. Cons: Very competitive, strict endorsement criteria, strong evidence required.",
+
+    terms: "Endorsement: Approval from UK body (e.g., Tech Nation, Arts Council England); ILR: Indefinite Leave to Remain; UKVI: UK Visas and Immigration.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), endorsing bodies such as Tech Nation, British Academy, Royal Society, Arts Council England.",
+
+    process: `1. Check eligibility in eligible fields -> 
+              2. Prepare evidence portfolio (achievements, awards, publications) -> 
+              3. Apply for endorsement from approved UK endorsing body -> 
+              4. Endorsing body reviews application (2–8 weeks) -> 
+              5. If endorsed, receive endorsement letter -> 
+              6. Submit UK Global Talent visa application online -> 
+              7. Pay visa fee (£716) -> 
+              8. Pay Immigration Health Surcharge -> 
+              9. Book biometrics appointment at Visa Application Centre -> 
+              10. Submit fingerprints and photograph -> 
+              11. UKVI reviews visa application -> 
+              12. Receive visa decision -> 
+              13. If approved, receive visa vignette/BRP -> 
+              14. Travel to UK -> 
+              15. Work freely in endorsed field (employment or self-employment) -> 
+              16. Apply for ILR after 3–5 years depending on category.`
+},
+
+"HighPotentialIndividualVisa": {
+    name: "High Potential Individual (HPI) Visa (UK Graduate Talent Visa Route)",
+
+    validity: "Up to 2 years (Bachelor’s or Master’s degree holders) or up to 3 years (PhD holders). Cannot be extended, but switching to other visas inside the UK is possible.",
+
+    cost: "Visa fee: £822 (~₹85,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India after eligibility verification and application submission.",
+
+    age: "18 years or older.",
+
+    education: "Must have graduated from an eligible top global university listed in the UK Home Office approved list within the last 5 years.",
+
+    funds: "At least £1,270 (~₹1.3 lakh) in personal bank account unless fully supported in UK.",
+
+    docs: "Valid passport, degree certificate from eligible university, official confirmation of qualification, English language ability (if required), bank statements, tuberculosis test certificate (India applicants), online application form.",
+
+    whom: "Highly educated graduates from top global universities (outside the UK) who want to live and work in the UK without a job offer.",
+
+    rules: "No job offer required. Can work in most jobs, be self-employed, or switch roles freely. Cannot extend visa beyond maximum duration.",
+
+    prosCons: "Pros: No sponsorship required, flexible work rights, fast entry to UK, good for career building. Cons: No direct PR route, strict eligibility based on university ranking, limited visa duration.",
+
+    terms: "HPI: High Potential Individual; UKVI: UK Visas and Immigration; Eligible University List: UK-approved global top universities list.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Check if university is on UK eligible list -> 
+              2. Confirm graduation within last 5 years -> 
+              3. Gather degree certificate and proof of qualification -> 
+              4. Complete online UK HPI visa application -> 
+              5. Pay visa fee (£822) -> 
+              6. Pay Immigration Health Surcharge -> 
+              7. Prepare documents (passport, bank statements, TB test) -> 
+              8. Book biometrics appointment at Visa Application Centre in India -> 
+              9. Submit fingerprints and photograph -> 
+              10. Upload supporting documents -> 
+              11. UKVI assesses eligibility and application -> 
+              12. Receive visa decision -> 
+              13. If approved, receive visa vignette -> 
+              14. Travel to UK -> 
+              15. Collect BRP after arrival -> 
+              16. Work freely in UK during visa validity -> 
+              17. Switch to another visa category (Skilled Worker, Global Talent, etc.) if eligible before expiry.`
+},
+
+"GraduateVisa": {
+    name: "Graduate Visa (UK Post-Study Work Visa)",
+
+    validity: "2 years for Bachelor’s and Master’s graduates; 3 years for PhD graduates. Non-extendable, but can switch to other visa routes (e.g., Skilled Worker).",
+
+    cost: "Visa fee: £822 (~₹85,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 2–8 weeks from India after completion of UK degree and application submission.",
+
+    age: "No strict age limit, but must have completed eligible UK degree on Student Visa.",
+
+    education: "Must have successfully completed a UK degree (Bachelor’s, Master’s, or PhD) from a licensed UK university.",
+
+    funds: "No fixed maintenance funds requirement in most cases.",
+
+    docs: "Valid passport, UK Student Visa (valid at time of application), Confirmation of completion from UK university, Biometric Residence Permit (BRP), online application form.",
+
+    whom: "International students who have completed a degree in the UK and want to stay to work or look for jobs without sponsorship.",
+
+    rules: "No job offer required. Can work in most jobs, including self-employment. Cannot extend visa beyond validity period. Cannot access public funds.",
+
+    prosCons: "Pros: No sponsorship required, full work flexibility, easy transition after studies. Cons: No direct PR route, temporary visa only, cannot extend duration.",
+
+    terms: "Graduate Route: Post-Study Work Visa; UKVI: UK Visas and Immigration; BRP: Biometric Residence Permit.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Complete eligible UK degree -> 
+              2. University confirms successful course completion to UKVI -> 
+              3. Ensure valid Student Visa at time of application -> 
+              4. Apply online for Graduate Visa -> 
+              5. Pay visa fee (£822) -> 
+              6. Pay Immigration Health Surcharge -> 
+              7. Submit biometric details (if required) -> 
+              8. UKVI verifies academic completion and eligibility -> 
+              9. Receive visa decision -> 
+              10. If approved, receive visa grant notification -> 
+              11. Switch status from Student Visa to Graduate Visa -> 
+              12. Begin full-time work or job search in UK -> 
+              13. Switch to Skilled Worker or other eligible visa before expiry if needed.`
+},
+
+"ScaleUpWorkerVisa": {
+    name: "Scale-up Worker Visa (UK High-Growth Company Visa)",
+
+    validity: "Initial visa is for 2 years; can be extended for 3 more years. Eligible for Indefinite Leave to Remain (ILR) after 5 years of qualifying residence.",
+
+    cost: "Visa fee: £822 (~₹85,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India after sponsorship and application submission.",
+
+    age: "18 years or older.",
+
+    education: "No strict degree requirement, but must meet skilled job requirements (RQF Level 6 or equivalent in most cases).",
+
+    funds: "At least £1,270 (~₹1.3 lakh) unless employer certifies maintenance support.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS) from UK scale-up employer, job offer letter, proof of English language ability, bank statements (if required), TB test certificate (India applicants), biometric data.",
+
+    whom: "Skilled professionals hired by fast-growing UK companies (scale-ups) in sectors like tech, finance, engineering, and business services.",
+
+    rules: "Must work for sponsoring scale-up employer for first 6 months. After that, can change employer or work flexibly in most skilled jobs. Must meet salary threshold (usually £34,600 or occupation rate).",
+
+    prosCons: "Pros: More flexible than standard Skilled Worker visa after initial period, no long sponsorship dependency, strong PR pathway. Cons: Limited eligible employers, must be hired by approved scale-up company initially, still salary threshold-based.",
+
+    terms: "CoS: Certificate of Sponsorship; UKVI: UK Visas and Immigration; Scale-up Company: UK government-approved fast-growing business.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Secure job offer from UK scale-up company -> 
+              2. Employer issues Certificate of Sponsorship (CoS) -> 
+              3. Prepare documents (passport, English test if required, TB test for India) -> 
+              4. Apply online for Scale-up Worker Visa -> 
+              5. Pay visa fee (£822) -> 
+              6. Pay Immigration Health Surcharge -> 
+              7. Book biometrics appointment at Visa Application Centre -> 
+              8. Submit fingerprints and photograph -> 
+              9. Upload supporting documents -> 
+              10. UKVI processes application and verifies sponsor eligibility -> 
+              11. Visa decision issued -> 
+              12. If approved, receive visa vignette/BRP -> 
+              13. Travel to UK -> 
+              14. Work for sponsoring employer for first 6 months -> 
+              15. After 6 months, switch employer or job freely (within rules) -> 
+              16. Maintain eligible employment to qualify for ILR after 5 years.`
+},
+"SeniorOrSpecialistWorkerVisa": {
+    name: "Senior or Specialist Worker Visa (Global Business Mobility – UK Intra-Company Transfer Visa)",
+
+    validity: "Up to 5 years in any 6-year period (or up to 9 years for high earners). Does not directly lead to Indefinite Leave to Remain (ILR).",
+
+    cost: "Visa fee: £719 (~₹75,000) for up to 3 years or £1,420 (~₹1.5 lakh) for more than 3 years. Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India depending on company sponsorship and processing speed.",
+
+    age: "18 years or older.",
+
+    education: "No strict degree requirement, but must be in a senior, managerial, or specialist role within the company.",
+
+    funds: "Usually no personal funds required if employer certifies maintenance support.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS) from UK branch, proof of employment with multinational company, job role details, salary details, TB test certificate (India applicants), biometric data.",
+
+    whom: "Employees of multinational companies being transferred from an overseas branch (e.g., India office) to a UK branch in a senior manager or specialist role.",
+
+    rules: "Must have worked for the company outside the UK for at least 12 months (unless high salary exemption applies). Must work only for sponsoring employer. Cannot access public funds.",
+
+    prosCons: "Pros: No job market testing, no English requirement in some cases, easy intra-company transfer. Cons: No direct PR route, tied to employer, limited flexibility compared to Skilled Worker visa.",
+
+    terms: "CoS: Certificate of Sponsorship; GBM: Global Business Mobility; UKVI: UK Visas and Immigration; Intra-company transfer: corporate relocation route.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Employer identifies eligible employee in overseas branch -> 
+              2. Employee must meet internal transfer criteria (role + experience) -> 
+              3. UK branch issues Certificate of Sponsorship (CoS) -> 
+              4. Prepare documents (passport, employment proof, salary details) -> 
+              5. Complete online visa application -> 
+              6. Pay visa fee (£719–£1,420 depending on duration) -> 
+              7. Pay Immigration Health Surcharge -> 
+              8. Book biometrics appointment at Visa Application Centre in India -> 
+              9. Submit fingerprints and photograph -> 
+              10. Upload supporting documents -> 
+              11. UKVI reviews application and verifies company transfer eligibility -> 
+              12. Decision issued -> 
+              13. Receive visa vignette/BRP if approved -> 
+              14. Travel to UK -> 
+              15. Work only for sponsoring company in assigned senior/specialist role -> 
+              16. Renew or switch visa before expiry if eligible.`
+},
+"GraduateTraineeVisa": {
+    name: "Graduate Trainee Visa (Global Business Mobility – UK Intra-Company Graduate Training Route)",
+
+    validity: "Up to 1 year only. Cannot be extended beyond 12 months. Does not lead directly to Indefinite Leave to Remain (ILR).",
+
+    cost: "Visa fee: £319 (~₹33,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India depending on employer sponsorship and application processing.",
+
+    age: "18 years or older.",
+
+    education: "Must be a recent graduate or in final stage of degree and part of structured graduate training program in a multinational company.",
+
+    funds: "Usually no personal funds required if employer certifies maintenance support.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS), proof of graduate trainee program, employment contract, company transfer letter, TB test certificate (India applicants), biometric data.",
+
+    whom: "Recent graduates employed by multinational companies who are being transferred to a UK branch as part of a structured training programme for future senior roles.",
+
+    rules: "Must have worked for employer outside UK for at least 3 months before transfer. Must be part of a structured graduate training program leading to senior/specialist roles. Cannot switch to permanent UK job freely.",
+
+    prosCons: "Pros: Good international corporate exposure, structured career development, easy corporate transfer. Cons: Very short duration, no direct PR route, limited job flexibility, strictly training-based role.",
+
+    terms: "CoS: Certificate of Sponsorship; GBM: Global Business Mobility; Intra-company Transfer: Corporate relocation scheme.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Graduate joins multinational company outside UK -> 
+              2. Employee selected for structured graduate training programme -> 
+              3. Employee completes minimum 3 months with company -> 
+              4. UK branch issues Certificate of Sponsorship (CoS) -> 
+              5. Prepare documents (passport, employment proof, training plan) -> 
+              6. Apply online for Graduate Trainee Visa -> 
+              7. Pay visa fee (£319) -> 
+              8. Pay Immigration Health Surcharge -> 
+              9. Book biometrics appointment at Visa Application Centre in India -> 
+              10. Submit fingerprints and photograph -> 
+              11. Upload supporting documents -> 
+              12. UKVI reviews application and verifies training programme -> 
+              13. Decision issued -> 
+              14. Receive visa vignette/BRP if approved -> 
+              15. Travel to UK -> 
+              16. Participate in structured training role only -> 
+              17. Leave UK after 12 months or switch to another eligible visa if applicable.`
+},
+"ServiceSupplierVisa": {
+    name: "Service Supplier Visa (Global Business Mobility – UK Contractual Service Provider Visa)",
+
+    validity: "Up to 6 or 12 months depending on the service contract (or up to 5 years in any 6-year period for contractual service suppliers under trade agreements). Cannot directly lead to Indefinite Leave to Remain (ILR).",
+
+    cost: "Visa fee: £259 (~₹27,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year) if stay exceeds 6 months.",
+
+    time: "Typically 3–8 weeks from India depending on UK sponsor and service contract approval.",
+
+    age: "18 years or older.",
+
+    education: "Must have relevant professional qualifications or 3+ years of experience in the contracted service field.",
+
+    funds: "Usually no personal funds required if employer certifies maintenance support.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS), service contract between overseas employer and UK client, proof of qualifications or work experience, TB test certificate (India applicants), biometric data.",
+
+    whom: "Employees of overseas companies or independent professionals contracted to provide services in the UK under an approved trade agreement or service contract.",
+
+    rules: "Must work only for the sponsoring employer and only in the approved service contract role. Cannot switch employers freely. Must leave UK when contract ends or visa expires.",
+
+    prosCons: "Pros: Enables short-term UK work without UK employer sponsorship, good for professionals in consulting, IT, engineering, and services. Cons: No path to permanent residency, limited duration, restricted to specific contracts.",
+
+    terms: "CoS: Certificate of Sponsorship; GBM: Global Business Mobility; UKVI: UK Visas and Immigration; Trade Agreement Services: International service contracts under UK trade deals.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), UK trade agreement frameworks.",
+
+    process: `1. Overseas employer secures service contract with UK organization -> 
+              2. Employee identified to deliver services in UK -> 
+              3. UK sponsor issues Certificate of Sponsorship (CoS) -> 
+              4. Prepare documents (passport, qualifications, experience proof) -> 
+              5. Complete online visa application -> 
+              6. Pay visa fee (£259) -> 
+              7. Pay Immigration Health Surcharge if applicable -> 
+              8. Book biometrics appointment at Visa Application Centre in India -> 
+              9. Submit fingerprints and photograph -> 
+              10. Upload supporting documents -> 
+              11. UKVI reviews service contract and eligibility -> 
+              12. Decision issued -> 
+              13. Receive visa vignette/BRP if approved -> 
+              14. Travel to UK -> 
+              15. Provide contracted services only to approved UK client -> 
+              16. Leave UK when contract ends or visa expires.`
+},
+
+"SecondmentWorkerVisa": {
+    name: "Secondment Worker Visa (Global Business Mobility – UK Secondment Route)",
+
+    validity: "Up to 1 year per stay. In some cases extendable up to the maximum allowed under Global Business Mobility rules, but cannot directly lead to Indefinite Leave to Remain (ILR).",
+
+    cost: "Visa fee: £319 (~₹33,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year) if stay exceeds 6 months.",
+
+    time: "Typically 3–8 weeks from India depending on sponsor approval and UKVI processing.",
+
+    age: "18 years or older.",
+
+    education: "No strict degree requirement, but must be employed in a role relevant to the secondment project.",
+
+    funds: "Usually no personal funds required if employer certifies maintenance support.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS), proof of overseas employment, secondment agreement between overseas employer and UK host organisation, job role details, TB test certificate (India applicants), biometric data.",
+
+    whom: "Employees of overseas businesses being temporarily seconded (sent) to a UK business for a specific project, training, or service under a formal agreement between both companies.",
+
+    rules: "Must remain employed by overseas company. Cannot permanently work for UK employer. Must only perform duties under the approved secondment arrangement. Must leave UK when secondment ends.",
+
+    prosCons: "Pros: Enables short-term UK work exposure without UK job offer, useful for project-based assignments, maintains overseas employment continuity. Cons: No PR pathway, strictly temporary, limited flexibility, tied to secondment agreement.",
+
+    terms: "CoS: Certificate of Sponsorship; GBM: Global Business Mobility; Secondment: Temporary employee transfer between companies; UKVI: UK Visas and Immigration.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), UK Global Business Mobility framework.",
+
+    process: `1. Overseas employer agrees secondment with UK organisation -> 
+              2. Employee selected for temporary UK assignment -> 
+              3. Secondment agreement signed between companies -> 
+              4. UK sponsor issues Certificate of Sponsorship (CoS) -> 
+              5. Prepare documents (passport, employment proof, secondment letter) -> 
+              6. Complete online visa application -> 
+              7. Pay visa fee (£319) -> 
+              8. Pay Immigration Health Surcharge if required -> 
+              9. Book biometrics appointment at Visa Application Centre in India -> 
+              10. Submit fingerprints and photograph -> 
+              11. Upload supporting documents -> 
+              12. UKVI verifies secondment arrangement and eligibility -> 
+              13. Decision issued -> 
+              14. Receive visa vignette/BRP if approved -> 
+              15. Travel to UK -> 
+              16. Work only on approved secondment project -> 
+              17. Return to home country when secondment ends.`
+},
+"UKExpansionWorkerVisa": {
+    name: "UK Expansion Worker Visa (Global Business Mobility – UK Business Expansion Route)",
+
+    validity: "Up to 1 year initially, can be extended up to a maximum of 2 years. Cannot directly lead to Indefinite Leave to Remain (ILR).",
+
+    cost: "Visa fee: £319 (~₹33,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India depending on sponsor approval and UKVI processing.",
+
+    age: "18 years or older.",
+
+    education: "No strict degree requirement, but must be a senior employee or specialist with experience relevant to business expansion.",
+
+    funds: "At least £1,270 (~₹1.3 lakh) unless fully certified by employer as maintenance supported.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS), proof of overseas business operations, business expansion plan in UK, proof of employment in parent company, TB test certificate (India applicants), biometric data.",
+
+    whom: "Senior managers or specialist employees of an overseas company setting up a new branch or subsidiary in the UK for the first time.",
+
+    rules: "Must be employed by overseas business. Cannot already be trading in the UK (new UK market entry only). Must work only for sponsoring employer’s UK expansion project.",
+
+    prosCons: "Pros: Enables UK market entry for foreign companies, no need for UK trading history, good for corporate expansion roles. Cons: No direct PR pathway, limited duration, cannot switch freely to permanent UK employment.",
+
+    terms: "CoS: Certificate of Sponsorship; GBM: Global Business Mobility; UKVI: UK Visas and Immigration; Expansion Worker: employee establishing UK presence for foreign company.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Overseas company plans UK expansion -> 
+              2. Company applies for UK Expansion Worker sponsor licence -> 
+              3. Eligible senior employee selected for UK setup role -> 
+              4. UK sponsor issues Certificate of Sponsorship (CoS) -> 
+              5. Prepare documents (passport, employment proof, business expansion plan) -> 
+              6. Complete online visa application -> 
+              7. Pay visa fee (£319) -> 
+              8. Pay Immigration Health Surcharge -> 
+              9. Book biometrics appointment at Visa Application Centre in India -> 
+              10. Submit fingerprints and photograph -> 
+              11. Upload supporting documents -> 
+              12. UKVI verifies business expansion eligibility -> 
+              13. Decision issued -> 
+              14. Receive visa vignette/BRP if approved -> 
+              15. Travel to UK -> 
+              16. Set up and manage UK branch operations -> 
+              17. Switch to Skilled Worker visa if business becomes established and eligible.`
+},
+"RepresentativeOfAnOverseasBusinessVisa": {
+    name: "Representative of an Overseas Business Visa (UK Sole Representative Visa)",
+
+    validity: "Initially up to 3 years, extendable. Can lead to Indefinite Leave to Remain (ILR) after 5 years of continuous residence.",
+
+    cost: "Visa fee: £719 (~₹75,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India depending on documentation and UKVI processing.",
+
+    age: "18 years or older.",
+
+    education: "No strict degree requirement, but must be a senior employee of an established overseas business.",
+
+    funds: "At least £1,270 (~₹1.3 lakh) in personal savings unless fully supported by employer.",
+
+    docs: "Valid passport, letter from overseas employer, proof of business operations, evidence of authority to act as sole representative, job role details, financial documents of company, TB test certificate (India applicants), biometric data.",
+
+    whom: "Senior employees of an overseas company being sent to the UK to establish a commercial presence (branch or subsidiary) where the company has no existing UK branch.",
+
+    rules: "Applicant must be the sole representative of the overseas company. Cannot own majority share in the company. Cannot be self-employed or work for another employer. Must establish and operate UK branch only for parent company.",
+
+    prosCons: "Pros: Direct route to ILR, no job market competition, allows setting up UK branch, family can join. Cons: Strict eligibility, only one representative allowed, cannot change employer, heavily monitored role.",
+
+    terms: "UKVI: UK Visas and Immigration; Sole Representative: Single appointed executive; ILR: Indefinite Leave to Remain.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Overseas company appoints senior employee as UK representative -> 
+              2. Ensure company has no existing UK branch/subsidiary -> 
+              3. Prepare proof of business operations and authority letter -> 
+              4. Complete online visa application -> 
+              5. Pay visa fee (£719) -> 
+              6. Pay Immigration Health Surcharge -> 
+              7. Book biometrics appointment at Visa Application Centre in India -> 
+              8. Submit fingerprints and photograph -> 
+              9. Upload supporting documents (company proof, role authority, financials) -> 
+              10. UKVI assesses business legitimacy and eligibility -> 
+              11. Possible interview or additional document request -> 
+              12. Decision issued -> 
+              13. Receive visa vignette/BRP if approved -> 
+              14. Travel to UK -> 
+              15. Establish UK branch office and represent overseas company -> 
+              16. Maintain business operations and compliance -> 
+              17. Apply for ILR after 5 years if eligibility conditions are met.`
+},
+"MinisterOfReligionVisa": {
+    name: "Minister of Religion Visa (UK Religious Worker – Senior Faith Role)",
+
+    validity: "Up to 3 years initially, extendable up to a total stay of 6 years. Can lead to Indefinite Leave to Remain (ILR) after 5 years in eligible cases.",
+
+    cost: "Visa fee: £719 (~₹75,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India depending on sponsorship and UKVI processing.",
+
+    age: "18 years or older.",
+
+    education: "No formal degree required, but must have religious training, ordination, or equivalent experience in faith leadership.",
+
+    funds: "At least £1,270 (~₹1.3 lakh) unless fully certified by sponsoring religious organisation.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS), proof of ordination or religious training, letter from religious organisation, job/role description, TB test certificate (India applicants), biometric data.",
+
+    whom: "Religious leaders such as priests, pastors, imams, monks, rabbis, or other ordained ministers coming to the UK to work for a recognised religious organisation.",
+
+    rules: "Must work only for sponsoring religious organisation. Must perform duties such as preaching, pastoral care, or religious administration. Cannot take unrelated employment.",
+
+    prosCons: "Pros: Supports religious career path, includes family members, potential route to settlement (ILR). Cons: Restricted to religious duties, employer-dependent, requires formal religious recognition.",
+
+    terms: "CoS: Certificate of Sponsorship; UKVI: UK Visas and Immigration; ILR: Indefinite Leave to Remain; Religious Organisation: UK-registered faith institution.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Receive job offer from UK-registered religious organisation -> 
+              2. Organisation verifies role as ministerial/religious duties -> 
+              3. Employer issues Certificate of Sponsorship (CoS) -> 
+              4. Prepare documents (passport, ordination proof, religious qualification) -> 
+              5. Complete online visa application -> 
+              6. Pay visa fee (£719) -> 
+              7. Pay Immigration Health Surcharge -> 
+              8. Book biometrics appointment at Visa Application Centre in India -> 
+              9. Submit fingerprints and photograph -> 
+              10. Upload supporting documents -> 
+              11. UKVI assesses religious role authenticity and eligibility -> 
+              12. Decision issued -> 
+              13. Receive visa vignette/BRP if approved -> 
+              14. Travel to UK -> 
+              15. Perform ministerial duties for sponsoring organisation -> 
+              16. Maintain compliance with visa rules -> 
+              17. Apply for ILR after eligible residence period if qualified.`
+},
+"SportspersonVisa": {
+    name: "Sportsperson Visa (UK Elite Sportsperson Route)",
+
+    validity: "Up to 3 years initially, extendable up to 6 years. Can lead to Indefinite Leave to Remain (ILR) after 5 years of continuous residence in eligible cases.",
+
+    cost: "Visa fee: £719 (~₹75,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India depending on endorsement and UKVI processing.",
+
+    age: "18 years or older.",
+
+    education: "No formal education requirement, but must have proven elite-level sporting ability.",
+
+    funds: "At least £1,270 (~₹1.3 lakh) unless fully supported by the sponsoring sports club or governing body.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS), endorsement from UK sports governing body, proof of sporting achievements (rankings, awards, contracts), contract with UK club/team, TB test certificate (India applicants), biometric data.",
+
+    whom: "Elite sportspersons and qualified coaches recognized at international level, joining UK sports clubs or national-level training programs.",
+
+    rules: "Must be endorsed by UK sport governing body as internationally established elite performer or coach. Must work only for sponsoring club or organization. Cannot change role without permission.",
+
+    prosCons: "Pros: Pathway to UK sports career, includes coaches and support staff, potential ILR route. Cons: Strict endorsement requirements, limited to elite level athletes, employer/sponsor dependent.",
+
+    terms: "CoS: Certificate of Sponsorship; UKVI: UK Visas and Immigration; Endorsement: Approval from UK sports governing body; ILR: Indefinite Leave to Remain.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), UK sports governing bodies (e.g., The FA, ECB, etc.).",
+
+    process: `1. Secure offer from UK sports club or governing body -> 
+              2. Obtain endorsement from relevant UK sports authority confirming elite status -> 
+              3. Employer issues Certificate of Sponsorship (CoS) -> 
+              4. Prepare documents (passport, sports achievements, contracts, endorsement letter) -> 
+              5. Complete online UK visa application -> 
+              6. Pay visa fee (£719) -> 
+              7. Pay Immigration Health Surcharge -> 
+              8. Book biometrics appointment at Visa Application Centre in India -> 
+              9. Submit fingerprints and photograph -> 
+              10. Upload supporting documents -> 
+              11. UKVI verifies endorsement and eligibility -> 
+              12. Decision issued -> 
+              13. Receive visa vignette/BRP if approved -> 
+              14. Travel to UK -> 
+              15. Play/train/coach for sponsoring team -> 
+              16. Maintain compliance with sport governing body rules -> 
+              17. Apply for ILR after qualifying residence period if eligible.`
+},
+
+"StudentVisa": {
+    name: "Student Visa (UK Study Visa)",
+
+    validity: "Duration of course + short additional period (usually up to 4–5 years for degree courses; longer for PhD). Can be extended for further studies.",
+
+    cost: "Visa fee: £490 (~₹50,000). Immigration Health Surcharge (IHS): £776 per year for students (~₹85,000/year approx).",
+
+    time: "Typically 3–6 weeks from India after CAS (Confirmation of Acceptance for Studies).",
+
+    age: "16 years or older (18+ for adult Student Visa route).",
+
+    education: "Must have admission offer from a UK licensed student sponsor (university/college).",
+
+    funds: "Must show tuition fee for first year + living costs (~£1,334/month in London or £1,023/month outside London for up to 9 months).",
+
+    docs: "Valid passport, CAS letter from UK university, proof of funds, academic transcripts, English test (IELTS/UKVI approved), TB test certificate (India applicants), visa application form, biometric data.",
+
+    whom: "International students admitted to UK universities, colleges, or approved education institutions for full-time study.",
+
+    rules: "Must study full-time at sponsoring institution. Limited work rights (usually 20 hours/week during term). Cannot access public funds. Must maintain attendance and academic progress.",
+
+    prosCons: "Pros: High-quality education, part-time work allowed, pathway to Graduate Visa after completion. Cons: Expensive (tuition + living costs), strict attendance rules, no direct PR route.",
+
+    terms: "CAS: Confirmation of Acceptance for Studies; UKVI: UK Visas and Immigration; IHS: Immigration Health Surcharge; BRP: Biometric Residence Permit.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Apply to UK university/college -> 
+              2. Receive offer letter -> 
+              3. Pay deposit (if required) -> 
+              4. Receive CAS (Confirmation of Acceptance for Studies) -> 
+              5. Prepare financial proof (tuition + living costs) -> 
+              6. Complete online UK Student Visa application -> 
+              7. Pay visa fee (£490) -> 
+              8. Pay Immigration Health Surcharge -> 
+              9. Book biometrics appointment at Visa Application Centre in India -> 
+              10. Submit fingerprints and photograph -> 
+              11. Upload supporting documents (CAS, funds, academics, TB test) -> 
+              12. UKVI assesses eligibility and credibility (may include interview) -> 
+              13. Receive visa decision -> 
+              14. If approved, receive visa vignette in passport -> 
+              15. Travel to UK before course start date -> 
+              16. Collect BRP after arrival -> 
+              17. Begin studies and follow attendance/work restrictions -> 
+              18. After graduation, apply for Graduate Visa or other eligible route.`
+},
+
+"ChildStudentVisa": {
+    name: "Child Student Visa (UK School Student Visa)",
+
+    validity: "Length of course (up to 6 years for younger students; usually 1–5 years depending on school level). Can be extended if continuing studies in the UK.",
+
+    cost: "Visa fee: £490 (~₹50,000). Immigration Health Surcharge (IHS): £776 per year (~₹85,000/year approx).",
+
+    time: "Typically 3–6 weeks from India after receiving CAS from UK school.",
+
+    age: "4 to 17 years old (depending on school level: independent school or private school).",
+
+    education: "Must have admission offer from a licensed UK independent school (not public/state school).",
+
+    funds: "Must show tuition fees + living costs (approx £1,560/month in London or £1,334/month outside London for up to 9 months), unless fully paid/sponsored.",
+
+    docs: "Valid passport, CAS (Confirmation of Acceptance for Studies) from UK school, proof of funds, parental consent letter, accommodation details, school fee payment proof (if required), TB test certificate (India applicants), biometric data.",
+
+    whom: "International students aged 4–17 studying in UK private schools or independent boarding schools.",
+
+    rules: "Must study only at sponsoring school. Must have proper guardian arrangements in UK if under 18. Limited work rights (very restricted for older children). Cannot access public funds.",
+
+    prosCons: "Pros: High-quality UK schooling, safe education environment, pathway to further UK education. Cons: Very expensive (tuition + boarding), strict guardianship rules, no direct PR route.",
+
+    terms: "CAS: Confirmation of Acceptance for Studies; UKVI: UK Visas and Immigration; Independent School: Private UK school; Boarding School: Residential school.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Apply to UK independent/boarding school -> 
+              2. Receive admission offer -> 
+              3. Pay school fees deposit (if required) -> 
+              4. Receive CAS from school -> 
+              5. Arrange guardian in UK (mandatory for minors) -> 
+              6. Prepare financial documents for tuition + living costs -> 
+              7. Complete online Child Student Visa application -> 
+              8. Pay visa fee (£490) -> 
+              9. Pay Immigration Health Surcharge -> 
+              10. Book biometrics appointment at Visa Application Centre in India -> 
+              11. Submit fingerprints and photograph -> 
+              12. Upload supporting documents (CAS, funds, parental consent, school details) -> 
+              13. UKVI assesses application and child welfare arrangements -> 
+              14. Possible interview or additional checks -> 
+              15. Decision issued -> 
+              16. Receive visa vignette in passport if approved -> 
+              17. Travel to UK with guardian arrangements in place -> 
+              18. Attend school and comply with visa conditions -> 
+              19. Extend visa if continuing studies in UK.`
+},
+
+"ShortTermStudyVisa": {
+    name: "Short-term Study Visa (UK Short Course Visa)",
+
+    validity: "Up to 6 months (English language courses up to 11 months). Cannot be extended or switched to another visa inside the UK.",
+
+    cost: "Visa fee: £200 (~₹21,000) for up to 6 months; £200–£200+ (~₹21,000–₹30,000) for 11-month English language course visa. No Immigration Health Surcharge required.",
+
+    time: "Typically 3–6 weeks from India after application submission.",
+
+    age: "16 years or older.",
+
+    education: "No strict academic requirement, but must be enrolled in a short-term course at an approved UK institution.",
+
+    funds: "Must show sufficient funds for course fees + living expenses + return travel (exact amount varies based on course duration and location).",
+
+    docs: "Valid passport, letter of acceptance from UK course provider, proof of payment or course fees, bank statements showing funds, accommodation details, TB test certificate (India applicants), return travel proof, visa application form.",
+
+    whom: "Students coming to the UK for short courses such as English language training, short academic programs, or training courses not exceeding 6–11 months.",
+
+    rules: "Cannot work (no employment allowed). Cannot extend stay beyond visa duration. Cannot bring dependents. Must leave UK after course completion.",
+
+    prosCons: "Pros: Simple and fast visa process, ideal for short learning programs, no IHS fee. Cons: No work rights, no extension, no direct PR or study progression pathway.",
+
+    terms: "UKVI: UK Visas and Immigration; ELT: English Language Training; Short Course Provider: Approved UK institution.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Enroll in eligible short-term UK course -> 
+              2. Receive acceptance/offer letter from UK institution -> 
+              3. Pay course fees (if required) -> 
+              4. Prepare financial proof for fees + living + return travel -> 
+              5. Complete online Short-term Study Visa application -> 
+              6. Pay visa fee (£200 approx) -> 
+              7. Book biometrics appointment at Visa Application Centre in India -> 
+              8. Submit fingerprints and photograph -> 
+              9. Upload supporting documents (offer letter, funds, TB test) -> 
+              10. UKVI assesses application -> 
+              11. Decision issued -> 
+              12. Receive visa vignette if approved -> 
+              13. Travel to UK -> 
+              14. Attend short course only -> 
+              15. Leave UK within visa validity period (no extension allowed).`
+},
+
+"SpouseVisa": {
+    name: "Spouse Visa (UK Partner Visa / Family Route)",
+
+    validity: "Initially 2 years 9 months (if applied inside UK) or 2 years 9 months (from outside UK). Extendable; leads to Indefinite Leave to Remain (ILR) after 5 years.",
+
+    cost: "Visa fee: £1,846 (~₹1.9 lakh) if applying from outside UK; £1,258 (~₹1.3 lakh) if inside UK. Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 8–12 weeks from India (priority services may reduce time).",
+
+    age: "Both partners must be 18 years or older.",
+
+    education: "No education requirement.",
+
+    funds: "Minimum income requirement: £29,000 per year (2024 rule) OR savings of £88,500+ if using savings route (or combination).",
+
+    docs: "Valid passport, marriage certificate, proof of genuine relationship (photos, chats, calls), sponsor’s UK income proof (payslips, tax returns), accommodation proof, English language test (A1/A2 level), TB test certificate (India applicants), biometric data.",
+
+    whom: "Spouses or long-term partners (including civil partners and unmarried partners) of British citizens or UK settled persons (ILR holders).",
+
+    rules: "Relationship must be genuine and subsisting. Must meet financial requirement. Must pass English requirement. Cannot access public funds. Must live together in UK.",
+
+    prosCons: "Pros: Direct route to settlement (ILR), family reunification, right to work in UK, stable long-term pathway. Cons: High financial threshold, strict documentation, lengthy approval process.",
+
+    terms: "ILR: Indefinite Leave to Remain; UKVI: UK Visas and Immigration; Appendix FM: Family Migration Rules; IHS: Immigration Health Surcharge.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Immigration Rules Appendix FM.",
+
+    process: `1. Confirm eligibility (marriage or long-term relationship) -> 
+              2. Gather relationship evidence (photos, chats, visits, joint proof) -> 
+              3. Sponsor proves income requirement (£29,000/year or savings route) -> 
+              4. Take approved English test (A1 level minimum) -> 
+              5. Prepare documents (passport, marriage certificate, TB test for India) -> 
+              6. Complete online UK Spouse Visa application -> 
+              7. Pay visa fee (£1,846 outside UK / £1,258 inside UK) -> 
+              8. Pay Immigration Health Surcharge -> 
+              9. Book biometrics appointment at Visa Application Centre in India -> 
+              10. Submit fingerprints and photograph -> 
+              11. Upload supporting documents -> 
+              12. UKVI assesses relationship authenticity and financial eligibility -> 
+              13. Possible interview for genuineness check -> 
+              14. Decision issued -> 
+              15. Receive visa vignette/BRP if approved -> 
+              16. Travel to UK -> 
+              17. Live together with spouse in UK -> 
+              18. Apply for extension after 2.5 years -> 
+              19. Apply for ILR after 5 years if eligible.`
+},
+
+"FianceVisa": {
+    name: "Fiancé(e) Visa (UK Marriage Visitor Route under Family Visa System)",
+
+    validity: "6 months only. Cannot be extended. Must switch to Spouse Visa after marriage in the UK.",
+
+    cost: "Visa fee: £1,846 (~₹1.9 lakh). Immigration Health Surcharge (IHS): Not required for Fiancé(e) Visa.",
+
+    time: "Typically 8–12 weeks from India depending on case complexity and documentation.",
+
+    age: "Both partners must be 18 years or older.",
+
+    education: "No education requirement.",
+
+    funds: "Minimum income requirement: £29,000 per year (UK sponsor) OR adequate savings to meet requirement.",
+
+    docs: "Valid passports, proof of genuine relationship (photos, chats, call records, visits), intention to marry within 6 months, UK sponsor income proof (payslips, tax returns), accommodation details in UK, TB test certificate (India applicants), biometric data.",
+
+    whom: "Engaged partners of British citizens or UK settled persons (ILR holders) who intend to marry in the UK within 6 months.",
+
+    rules: "Must marry within 6 months of arrival in the UK. Cannot work or study in most cases. Must switch to Spouse Visa after marriage. Cannot access public funds.",
+
+    prosCons: "Pros: Enables marriage in UK, pathway to long-term settlement via Spouse Visa, reunites couples quickly. Cons: Very short duration, strict financial requirements, no work rights, must switch visa after marriage.",
+
+    terms: "Appendix FM: UK Family Visa Rules; UKVI: UK Visas and Immigration; IHS: Immigration Health Surcharge; ILR: Indefinite Leave to Remain.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Immigration Rules Appendix FM.",
+
+    process: `1. Confirm eligibility (engaged to UK citizen/settled person) -> 
+              2. Gather relationship evidence (photos, chats, visits, engagement proof) -> 
+              3. UK sponsor meets income requirement (£29,000/year or savings route) -> 
+              4. Prepare marriage intention proof (plans to marry within 6 months in UK) -> 
+              5. Collect documents (passport, TB test for India, financial proof) -> 
+              6. Complete online Fiancé(e) Visa application -> 
+              7. Pay visa fee (£1,846) -> 
+              8. Book biometrics appointment at Visa Application Centre in India -> 
+              9. Submit fingerprints and photograph -> 
+              10. Upload supporting documents -> 
+              11. UKVI assesses relationship authenticity and financial eligibility -> 
+              12. Possible interview for genuineness check -> 
+              13. Decision issued -> 
+              14. Receive visa vignette if approved -> 
+              15. Travel to UK -> 
+              16. Marry within 6 months in UK -> 
+              17. Apply to switch to Spouse Visa after marriage -> 
+              18. Continue route toward ILR after qualifying period.`
+},
+
+"UnmarriedPartnerVisa": {
+    name: "Unmarried Partner Visa (UK De Facto Partner / Long-term Relationship Visa)",
+
+    validity: "2 years 9 months initially (if applying from outside UK) or 2 years 9 months (inside UK). Extendable; leads to Indefinite Leave to Remain (ILR) after 5 years.",
+
+    cost: "Visa fee: £1,846 (~₹1.9 lakh) from outside UK or £1,258 (~₹1.3 lakh) inside UK. Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 8–12 weeks from India (priority services may reduce time).",
+
+    age: "Both partners must be 18 years or older.",
+
+    education: "No education requirement.",
+
+    funds: "Minimum income requirement: £29,000 per year OR sufficient savings (or combination) as per UK spouse/partner visa financial rules.",
+
+    docs: "Valid passports, proof of living together for at least 2 years, shared bills/lease/financial documents, relationship evidence (photos, chats, travel history), UK sponsor income proof (payslips, tax returns), accommodation proof, TB test certificate (India applicants), biometric data.",
+
+    whom: "Unmarried partners in a genuine long-term relationship (at least 2 years of cohabitation) with a British citizen or UK settled person (ILR holder).",
+
+    rules: "Must prove relationship is equivalent to marriage/civil partnership (2+ years cohabitation). Must meet financial requirement. Must live together in UK. Cannot access public funds.",
+
+    prosCons: "Pros: Same long-term settlement route as spouse visa, no marriage required, allows work in UK. Cons: Strict proof of 2-year cohabitation, high financial threshold, heavy documentation burden.",
+
+    terms: "ILR: Indefinite Leave to Remain; UKVI: UK Visas and Immigration; Appendix FM: Family Migration Rules; Cohabitation: Living together continuously.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Immigration Rules Appendix FM.",
+
+    process: `1. Confirm eligibility (2+ years continuous cohabitation) -> 
+              2. Collect strong relationship proof (joint bills, tenancy, bank accounts) -> 
+              3. UK sponsor proves income requirement (£29,000/year or savings route) -> 
+              4. Gather supporting documents (passport, TB test for India, financial records) -> 
+              5. Complete online UK Unmarried Partner Visa application -> 
+              6. Pay visa fee (£1,846 outside UK / £1,258 inside UK) -> 
+              7. Pay Immigration Health Surcharge -> 
+              8. Book biometrics appointment at Visa Application Centre in India -> 
+              9. Submit fingerprints and photograph -> 
+              10. Upload supporting documents -> 
+              11. UKVI assesses relationship genuineness and cohabitation evidence -> 
+              12. Possible interview or additional checks -> 
+              13. Decision issued -> 
+              14. Receive visa vignette/BRP if approved -> 
+              15. Travel to UK -> 
+              16. Live together in UK as partners -> 
+              17. Extend visa after 2.5 years -> 
+              18. Apply for ILR after 5 years if eligible.`
+},
+"ParentVisa": {
+    name: "Parent of a British Child Visa (UK Family Route – Parent Route)",
+
+    validity: "2 years 9 months initially (if applying from outside UK) or 2 years 9 months (inside UK). Extendable; leads to Indefinite Leave to Remain (ILR) after 5 years.",
+
+    cost: "Visa fee: £1,846 (~₹1.9 lakh) from outside UK or £1,258 (~₹1.3 lakh) inside UK. Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 8–12 weeks from India depending on case complexity and documentation.",
+
+    age: "No strict age requirement for parent; child must be under 18 at time of application.",
+
+    education: "No education requirement.",
+
+    funds: "Minimum income requirement: £29,000 per year OR adequate savings (or combination) as per UK Family Visa rules.",
+
+    docs: "Valid passport, child’s birth certificate (showing parental link), proof child is British citizen or settled (ILR), proof of sole/shared parental responsibility, UK sponsor income proof (if applicable), accommodation proof, relationship evidence, TB test certificate (India applicants), biometric data.",
+
+    whom: "Non-UK parent of a British citizen child or child with settled status (ILR), where the parent has active parental responsibility.",
+
+    rules: "Applicant must show genuine and ongoing parental responsibility for the child. The child must live in the UK. Must meet financial requirement. Cannot access public funds.",
+
+    prosCons: "Pros: Allows parent to live in UK with child, pathway to ILR, supports family unity. Cons: Strict proof of parental responsibility, high financial threshold, detailed evidence required.",
+
+    terms: "ILR: Indefinite Leave to Remain; UKVI: UK Visas and Immigration; Appendix FM: Family Migration Rules; Parental Responsibility: Legal duty of care for child.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Immigration Rules Appendix FM.",
+
+    process: `1. Confirm child eligibility (British citizen or settled in UK) -> 
+              2. Prove parental responsibility (birth certificate, custody documents) -> 
+              3. Gather evidence child lives in UK or will live with parent -> 
+              4. UK sponsor (if applicable) meets income requirement (£29,000/year or savings route) -> 
+              5. Prepare documents (passport, TB test for India, financial proof) -> 
+              6. Complete online Parent Visa application -> 
+              7. Pay visa fee (£1,846 outside UK / £1,258 inside UK) -> 
+              8. Pay Immigration Health Surcharge -> 
+              9. Book biometrics appointment at Visa Application Centre in India -> 
+              10. Submit fingerprints and photograph -> 
+              11. Upload supporting documents -> 
+              12. UKVI assesses parental responsibility and eligibility -> 
+              13. Possible interview or additional checks -> 
+              14. Decision issued -> 
+              15. Receive visa vignette/BRP if approved -> 
+              16. Travel to UK -> 
+              17. Live with child in UK -> 
+              18. Extend visa after 2.5 years -> 
+              19. Apply for ILR after 5 years if eligible.`
+},
+
+"ChildDependentVisa": {
+    name: "Child Dependent Visa (UK Family Route – Dependent Child of Parent in UK)",
+
+    validity: "Same as parent’s visa (usually 2 years 9 months initially). Extendable; leads to Indefinite Leave to Remain (ILR) when parent qualifies.",
+
+    cost: "Visa fee: £1,846 (~₹1.9 lakh) from outside UK or £1,258 (~₹1.3 lakh) inside UK. Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 8–12 weeks from India depending on documentation and family case complexity.",
+
+    age: "Under 18 years old at time of application (must not be living an independent life).",
+
+    education: "No education requirement.",
+
+    funds: "Must show adequate maintenance and accommodation support by sponsoring parent (income requirement usually £29,000/year or savings route under Family Visa rules).",
+
+    docs: "Valid passport, birth certificate showing parent-child relationship, proof parent is British/settled (ILR or UK citizen), proof of child dependency, parental consent (if applicable), accommodation proof in UK, financial documents, TB test certificate (India applicants), biometric data.",
+
+    whom: "Children of a parent who is a British citizen or settled person (ILR holder) in the UK, where the child is dependent and under 18.",
+
+    rules: "Child must live with parent in UK and not be leading an independent life. Must be financially supported by sponsoring parent. Cannot access public funds. Must be under 18 at application time.",
+
+    prosCons: "Pros: Enables family reunification in UK, same visa duration as parent, pathway to ILR with family. Cons: Strict dependency proof, financial requirement applies, age restriction, detailed documentation needed.",
+
+    terms: "ILR: Indefinite Leave to Remain; UKVI: UK Visas and Immigration; Appendix FM: Family Migration Rules; Dependent Child: Minor financially and legally dependent on parent.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Immigration Rules Appendix FM.",
+
+    process: `1. Confirm parent’s UK status (citizen or settled person) -> 
+              2. Prove child relationship (birth certificate, legal documents) -> 
+              3. Show child dependency and non-independent living status -> 
+              4. UK parent meets financial requirement (£29,000/year or savings route) -> 
+              5. Arrange accommodation proof in UK -> 
+              6. Collect documents (passport, TB test for India, parental consent if required) -> 
+              7. Complete online Child Dependent Visa application -> 
+              8. Pay visa fee (£1,846 outside UK / £1,258 inside UK) -> 
+              9. Pay Immigration Health Surcharge -> 
+              10. Book biometrics appointment at Visa Application Centre in India -> 
+              11. Submit fingerprints and photograph -> 
+              12. Upload supporting documents -> 
+              13. UKVI assesses dependency and family eligibility -> 
+              14. Possible interview or additional checks -> 
+              15. Decision issued -> 
+              16. Receive visa vignette/BRP if approved -> 
+              17. Travel to UK -> 
+              18. Join parent and live in UK -> 
+              19. Extend visa with parent and apply for ILR when eligible.`
+},
+"FamilyReunionVisa": {
+    name: "Family Reunion Visa (UK Refugee Family Reunion Route)",
+
+    validity: "Usually aligned with the sponsor’s refugee or humanitarian protection status. Often leads to limited leave initially, later eligible for settlement (ILR) in line with sponsor.",
+
+    cost: "Visa fee: £0 (free). Immigration Health Surcharge (IHS): £0 (exempt).",
+
+    time: "Typically 2–12 weeks from India depending on document verification and complexity of refugee case.",
+
+    age: "No strict age limit (depends on relationship: spouse/partner/child).",
+
+    education: "No education requirement.",
+
+    funds: "No financial requirement (unlike standard family visas). Refugees are exempt from income threshold rules.",
+
+    docs: "Valid passport or travel documents (if available), proof of relationship (marriage certificate, birth certificates), proof sponsor has refugee or humanitarian protection status in UK, photos and communication records, biometric data, supporting statements, additional identity documents if passports unavailable.",
+
+    whom: "Family members of a person who has been granted refugee status or humanitarian protection in the UK (usually spouse/partner and children under 18).",
+
+    rules: "Relationship must have existed before the sponsor left home country (generally). Must be genuine family relationship. No requirement for financial maintenance. Applicants must not be inadmissible under security/criminal grounds.",
+
+    prosCons: "Pros: Free visa route, no income requirement, reunites families separated by conflict or persecution, access to UK healthcare and support. Cons: Strict relationship proof requirements, limited to pre-existing family members, complex documentation due to refugee context.",
+
+    terms: "Refugee Status: Protection granted under 1951 Refugee Convention; Humanitarian Protection: UK protection status; ILR: Indefinite Leave to Remain; UKVI: UK Visas and Immigration.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Refugee Family Reunion Policy Guidance.",
+
+    process: `1. Sponsor is granted refugee or humanitarian protection status in UK -> 
+              2. Identify eligible family members (spouse/partner/children) -> 
+              3. Gather proof of relationship (marriage certificate, birth certificates, photos) -> 
+              4. Prepare identity documents (passport or alternative documents if unavailable) -> 
+              5. Complete Family Reunion Visa application form -> 
+              6. Book biometrics appointment at Visa Application Centre in India -> 
+              7. Submit fingerprints and photograph -> 
+              8. Upload supporting documents (relationship proof, sponsor status proof) -> 
+              9. UKVI verifies refugee status and family relationship authenticity -> 
+              10. Additional checks may be conducted due to lack of documents in some cases -> 
+              11. Decision issued -> 
+              12. Receive visa vignette if approved -> 
+              13. Travel to UK -> 
+              14. Join refugee sponsor in UK -> 
+              15. Apply for extension or settlement (ILR) in line with sponsor’s protection status.`
+},
+"StandardVisitorVisa": {
+    name: "Standard Visitor Visa (UK Tourist/Short Stay Visa)",
+
+    validity: "Up to 6 months per visit. Long-term options available (2, 5, or 10 years multiple-entry), but each stay still limited to 6 months.",
+
+    cost: "6-month visa: £115 (~₹12,000). 2-year: £432 (~₹45,000). 5-year: £771 (~₹80,000). 10-year: £963 (~₹1 lakh).",
+
+    time: "Typically 3–6 weeks from India depending on appointment availability and case load.",
+
+    age: "No age restriction (minors require parental consent).",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds for travel, accommodation, and living expenses during stay in the UK.",
+
+    docs: "Valid passport, travel itinerary, accommodation details, proof of funds (bank statements), employment/business proof in India, return ticket intention evidence, invitation letter (if visiting family/friends), biometric data.",
+
+    whom: "Tourists, business visitors (meetings/conferences), short family visits, medical treatment, or short academic visits (under permitted activities).",
+
+    rules: "Cannot work or take paid employment. Cannot study long-term (only short courses up to 6 months allowed). Must leave UK before visa expires. Cannot access public funds.",
+
+    prosCons: "Pros: Easy and flexible short-term travel, multiple-entry long-term options available, simple application. Cons: No work rights, no long-term stay, strict proof of return intent required.",
+
+    terms: "UKVI: UK Visas and Immigration; Visitor Route: Short-term non-immigrant travel category.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Immigration Rules Appendix V.",
+
+    process: `1. Decide purpose of visit (tourism, family, business, medical) -> 
+              2. Complete online UK Standard Visitor Visa application -> 
+              3. Pay visa fee (£115–£963 depending on duration) -> 
+              4. Book biometrics appointment at Visa Application Centre in India -> 
+              5. Prepare documents (passport, bank statements, employment/business proof, itinerary) -> 
+              6. Submit fingerprints and photograph -> 
+              7. Upload supporting documents -> 
+              8. UKVI assesses financial stability and intent to return to India -> 
+              9. Possible interview or additional document request -> 
+              10. Decision issued -> 
+              11. Receive visa vignette in passport if approved -> 
+              12. Travel to UK -> 
+              13. Stay up to 6 months per visit under permitted activities -> 
+              14. Leave UK before visa expiry (or re-enter if multi-entry visa valid).`
+},
+
+"MarriageVisitorVisa": {
+    name: "Marriage Visitor Visa (UK Marriage/Partnership Ceremony Visa)",
+
+    validity: "Up to 6 months only. Cannot be extended or switched to another visa inside the UK.",
+
+    cost: "Visa fee: £115 (~₹12,000). Immigration Health Surcharge (IHS): Not required.",
+
+    time: "Typically 3–6 weeks from India depending on application load and document verification.",
+
+    age: "18 years or older.",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds for travel, stay, and return journey (bank statements and sponsor support if applicable).",
+
+    docs: "Valid passport, proof of intent to marry or form civil partnership in UK, booking/confirmation of marriage venue or notice, relationship evidence, travel itinerary, accommodation details, proof of funds, TB test certificate (India applicants), biometric data.",
+
+    whom: "Individuals coming to the UK to get married or register a civil partnership within 6 months without intending to settle permanently on this visa.",
+
+    rules: "Must leave UK after marriage or civil partnership ceremony. Cannot switch to Spouse Visa from within UK. Cannot work or access public funds.",
+
+    prosCons: "Pros: Simple short-term route for marriage in UK, fast processing, low cost compared to family visas. Cons: No extension, no work rights, must leave UK and apply for Spouse Visa separately if planning to settle.",
+
+    terms: "UKVI: UK Visas and Immigration; Civil Partnership: Legally recognized union similar to marriage; Visitor Route: Short-term visa category.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Immigration Rules Appendix V (Visitor Rules).",
+
+    process: `1. Confirm eligibility for marriage or civil partnership in UK -> 
+              2. Book marriage/civil partnership notice with UK registry office -> 
+              3. Gather relationship proof (photos, chats, travel history) -> 
+              4. Prepare travel documents (passport, TB test for India, financial proof) -> 
+              5. Complete online Marriage Visitor Visa application -> 
+              6. Pay visa fee (£115) -> 
+              7. Book biometrics appointment at Visa Application Centre in India -> 
+              8. Submit fingerprints and photograph -> 
+              9. Upload supporting documents (marriage intent proof, booking confirmation) -> 
+              10. UKVI reviews intent and financial stability -> 
+              11. Possible interview or additional checks -> 
+              12. Decision issued -> 
+              13. Receive visa vignette if approved -> 
+              14. Travel to UK -> 
+              15. Get married or register civil partnership within 6 months -> 
+              16. Leave UK before visa expiry -> 
+              17. Apply separately for Spouse Visa if planning long-term stay.`
+},
+
+"PermittedPaidEngagementVisa": {
+    name: "Permitted Paid Engagement Visa (UK Short-Term Paid Work Visit Visa)",
+
+    validity: "Up to 1 month only. Cannot be extended or switched to another visa inside the UK.",
+
+    cost: "Visa fee: £115 (~₹12,000). Immigration Health Surcharge (IHS): Not required.",
+
+    time: "Typically 3–6 weeks from India depending on appointment availability and UKVI processing.",
+
+    age: "18 years or older.",
+
+    education: "No strict requirement, but must be a recognised professional expert in your field.",
+
+    funds: "Must show sufficient funds to support stay in the UK and return travel (bank statements, sponsor covering costs if applicable).",
+
+    docs: "Valid passport, invitation letter from UK-based organisation or client, proof of professional expertise (CV, portfolio, awards, qualifications), travel itinerary, accommodation details, proof of funds, TB test certificate (India applicants), biometric data.",
+
+    whom: "Highly skilled professionals invited to the UK for a short paid engagement such as lectures, performances, examinations, consultancy, or academic assessment.",
+
+    rules: "Must be invited by a UK organisation or client before travel. Can only do the specific paid activity listed in the invitation. Cannot extend stay or switch visa. Cannot undertake other work or access public funds.",
+
+    prosCons: "Pros: Quick access for short professional paid work, no sponsorship required, useful for experts and consultants. Cons: Very short duration (max 1 month), strict activity limitation, no extension or settlement pathway.",
+
+    terms: "UKVI: UK Visas and Immigration; PPE: Permitted Paid Engagement; Visitor Route: Short-term UK visa category.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Immigration Rules Appendix V (Visitor Rules).",
+
+    process: `1. Receive formal invitation from UK organisation/client -> 
+              2. Confirm engagement details (dates, payment, activity type) -> 
+              3. Gather proof of professional expertise (CV, awards, qualifications) -> 
+              4. Prepare travel documents (passport, TB test for India, financial proof) -> 
+              5. Complete online Permitted Paid Engagement Visa application -> 
+              6. Pay visa fee (£115) -> 
+              7. Book biometrics appointment at Visa Application Centre in India -> 
+              8. Submit fingerprints and photograph -> 
+              9. Upload supporting documents (invitation letter, proof of expertise) -> 
+              10. UKVI assesses legitimacy of engagement and applicant credentials -> 
+              11. Possible interview or additional checks -> 
+              12. Decision issued -> 
+              13. Receive visa vignette if approved -> 
+              14. Travel to UK -> 
+              15. Carry out only the approved paid engagement within 30 days -> 
+              16. Leave UK before visa expiry.`
+},
+"TransitVisa": {
+    name: "UK Transit Visa (Direct Airside Transit Visa / Visitor in Transit Visa)",
+
+    validity: "Up to 48 hours (short stopover only). Cannot be extended or switched to another visa.",
+
+    cost: "Direct Airside Transit Visa (DATV): £35 (~₹3,500). Visitor in Transit Visa: £64 (~₹6,500).",
+
+    time: "Typically 1–3 weeks from India depending on application volume.",
+
+    age: "No age restriction (minors require parental consent).",
+
+    education: "No requirement.",
+
+    funds: "Must show proof of onward travel and ability to enter final destination country (visa/residence permit if required).",
+
+    docs: "Valid passport, confirmed onward flight tickets, visa/residence permit for final destination (if applicable), proof of funds (sometimes required), travel itinerary, biometric data.",
+
+    whom: "Passengers transiting through the UK on the way to another country, either staying in the airport (airside transit) or passing through UK border control (landside transit).",
+
+    rules: "Must be in transit only. No work, study, or long stay allowed. Must leave UK within 48 hours. Must have valid entry permission for destination country.",
+
+    prosCons: "Pros: Cheap and simple for stopovers, useful for connecting flights via UK. Cons: Very short duration, strict eligibility, cannot exit UK freely in airside transit category.",
+
+    terms: "DATV: Direct Airside Transit Visa; Visitor in Transit: Landside transit route; UKVI: UK Visas and Immigration.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Immigration Rules Appendix V (Transit rules).",
+
+    process: `1. Book confirmed onward international flight via UK -> 
+              2. Check if eligible for transit visa (depending on nationality and destination visa rules) -> 
+              3. Complete online UK Transit Visa application -> 
+              4. Choose either Direct Airside Transit Visa or Visitor in Transit Visa -> 
+              5. Pay visa fee (£35–£64) -> 
+              6. Book biometrics appointment at Visa Application Centre in India -> 
+              7. Submit fingerprints and photograph -> 
+              8. Upload supporting documents (tickets, destination visa) -> 
+              9. UKVI checks eligibility and onward travel validity -> 
+              10. Decision issued -> 
+              11. Receive visa vignette if approved -> 
+              12. Travel to UK -> 
+              13. Stay only in transit area or pass through immigration briefly -> 
+              14. Leave UK within 48 hours to reach final destination.`
+},
+
+"InnovatorFounderVisa": {
+    name: "Innovator Founder Visa (UK Business Innovation Visa)",
+
+    validity: "3 years initially. Can be extended or lead directly to Indefinite Leave to Remain (ILR) after 3 years if business meets success criteria.",
+
+    cost: "Visa fee: £1,191 (~₹1.25 lakh). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India after endorsement and application submission.",
+
+    age: "18 years or older.",
+
+    education: "No formal degree requirement, but strong business plan and entrepreneurial capability required.",
+
+    funds: "No fixed minimum investment requirement (removed old £50,000 rule), but must show enough funds to develop and run business.",
+
+    docs: "Valid passport, endorsement letter from approved UK endorsing body, detailed business plan, proof of innovation/viability/scalability, CV, financial evidence, TB test certificate (India applicants), biometric data.",
+
+    whom: "Entrepreneurs with innovative, viable, and scalable business ideas who want to establish a business in the UK.",
+
+    rules: "Must have business endorsed by approved UK body. Must actively run and develop business. Cannot take other employment outside business except limited skilled roles. Must show business progress during monitoring checks.",
+
+    prosCons: "Pros: Direct path to ILR in 3 years, no large investment requirement, flexible entrepreneurial route. Cons: Very strict endorsement process, high rejection rate, continuous business performance monitoring required.",
+
+    terms: "Endorsement: Approval from UK authorized body; ILR: Indefinite Leave to Remain; UKVI: UK Visas and Immigration; Scalability: Ability to grow business in UK market.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), approved UK endorsing bodies (e.g., Innovator endorsers).",
+
+    process: `1. Develop innovative business idea -> 
+              2. Prepare detailed business plan (innovation, viability, scalability) -> 
+              3. Apply for endorsement from approved UK endorsing body -> 
+              4. Endorser reviews business concept and interviews applicant -> 
+              5. Receive endorsement letter if approved -> 
+              6. Complete online Innovator Founder Visa application -> 
+              7. Pay visa fee (£1,191) -> 
+              8. Pay Immigration Health Surcharge -> 
+              9. Book biometrics appointment at Visa Application Centre in India -> 
+              10. Submit fingerprints and photograph -> 
+              11. Upload supporting documents (endorsement, business plan, finances) -> 
+              12. UKVI verifies endorsement validity and eligibility -> 
+              13. Decision issued -> 
+              14. Receive visa vignette/BRP if approved -> 
+              15. Travel to UK -> 
+              16. Set up and actively run business -> 
+              17. Undergo periodic endorsement reviews -> 
+              18. Apply for ILR after 3 years if business meets success criteria.`
+},
+"StartUpVisa": {
+    name: "Start-up Visa (UK Start-up Route – Closed Scheme)",
+
+    validity: "Up to 2 years. Could not be extended. Did not directly lead to ILR.",
+
+    cost: "Visa fee: £378 (~₹40,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India after endorsement and application.",
+
+    age: "18 years or older.",
+
+    education: "No degree requirement, but strong innovative business idea required.",
+
+    funds: "No fixed investment requirement, but proof of personal maintenance funds (~£1,270) required unless exempt.",
+
+    docs: "Valid passport, endorsement letter from UK approved body, innovative business idea proposal, personal financial proof, TB test certificate (India applicants), biometric data.",
+
+    whom: "Early-stage entrepreneurs (including graduates) with innovative business ideas looking to start a new business in the UK.",
+
+    rules: "Business idea must be innovative, viable, and scalable and endorsed by UK-approved body. No requirement for prior business experience. Could not be renewed or directly lead to settlement.",
+
+    prosCons: "Pros: Low-cost entry for entrepreneurs, endorsement-based approval, good for early-stage founders. Cons: No direct ILR route, limited duration (2 years), now replaced by Innovator Founder Visa.",
+
+    terms: "Endorsement: Approval from UK body; UKVI: UK Visas and Immigration; Innovative Idea: New/unproven business concept.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Develop innovative business idea -> 
+              2. Apply for endorsement from approved UK endorsing body -> 
+              3. Receive endorsement letter if approved -> 
+              4. Complete online Start-up Visa application -> 
+              5. Pay visa fee (£378) -> 
+              6. Pay Immigration Health Surcharge -> 
+              7. Book biometrics appointment at Visa Application Centre in India -> 
+              8. Submit fingerprints and photograph -> 
+              9. Upload supporting documents (endorsement, idea proposal, funds proof) -> 
+              10. UKVI assesses endorsement and eligibility -> 
+              11. Decision issued -> 
+              12. Receive visa vignette if approved -> 
+              13. Travel to UK -> 
+              14. Develop early-stage business in UK -> 
+              15. Visa cannot be extended; must switch to Innovator Founder Visa or leave UK after 2 years.`
+},
+"InvestorVisa": {
+    name: "Tier 1 Investor Visa (UK Investor Route – Closed Scheme)",
+
+    validity: "Initially 3 years + 4 months, extendable to 2 years. Could lead to Indefinite Leave to Remain (ILR) in 2–5 years depending on investment level.",
+
+    cost: "Visa fee: £1,623 (~₹1.7 lakh). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India after funds verification and application submission.",
+
+    age: "18 years or older.",
+
+    education: "No education requirement.",
+
+    funds: "Minimum £2 million investment in UK government bonds, share capital, or active UK companies.",
+
+    docs: "Valid passport, proof of investment funds (£2M+), bank statements, source of funds evidence, investment plan, TB test certificate (India applicants), biometric data.",
+
+    whom: "High-net-worth individuals willing to invest significant capital into the UK economy.",
+
+    rules: "Must invest minimum £2M in qualifying UK investments within set time. Cannot invest in property development or offshore companies. Must maintain investment for required period to qualify for ILR.",
+
+    prosCons: "Pros: Fast-track ILR option (2–5 years), no job offer required, high flexibility in UK. Cons: Very high capital requirement, strict fund tracing rules, route closed in 2022.",
+
+    terms: "ILR: Indefinite Leave to Remain; UKVI: UK Visas and Immigration; Qualifying Investments: UK government bonds and active trading companies.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Demonstrate legal source of investment funds (£2M+) -> 
+              2. Open UK investment account -> 
+              3. Prepare investment portfolio plan -> 
+              4. Complete online Tier 1 Investor Visa application -> 
+              5. Pay visa fee (£1,623) -> 
+              6. Pay Immigration Health Surcharge -> 
+              7. Book biometrics appointment at Visa Application Centre in India -> 
+              8. Submit fingerprints and photograph -> 
+              9. Upload financial evidence (source of funds, bank statements) -> 
+              10. UKVI verifies legitimacy of funds and investment eligibility -> 
+              11. Decision issued -> 
+              12. Receive visa vignette if approved -> 
+              13. Travel to UK -> 
+              14. Invest funds in approved UK assets within required timeframe -> 
+              15. Maintain investment until eligible for ILR (2–5 years depending on amount) -> 
+              16. Apply for settlement once requirements met.`
+},
+"UKExpansionWorkerVisa": {
+    name: "UK Expansion Worker Visa (Global Business Mobility Route)",
+
+    validity: "Up to 1 year initially. Can be extended to a maximum stay of 2 years in total under this route. Does not lead directly to ILR.",
+
+    cost: "Visa fee: £319 (~₹33,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India after Certificate of Sponsorship (CoS) is issued.",
+
+    age: "18 years or older.",
+
+    education: "No strict degree requirement, but must be a senior manager or specialist employee.",
+
+    funds: "At least £1,270 (~₹1.3 lakh) unless fully certified by employer for maintenance.",
+
+    docs: "Valid passport, Certificate of Sponsorship (CoS), proof of employment with overseas company, business expansion plan, company incorporation documents, TB test certificate (India applicants), biometric data.",
+
+    whom: "Senior managers or specialist employees of an overseas company entering the UK for the first time to set up a new branch or subsidiary.",
+
+    rules: "Must be employed by overseas company. Must not already be trading in the UK. Must work only for the sponsoring business expansion project. Cannot switch freely to other employers.",
+
+    prosCons: "Pros: Enables UK market entry for foreign companies, no prior UK trading required, useful for corporate expansion. Cons: No direct settlement route, limited duration, tied to expansion project and employer.",
+
+    terms: "CoS: Certificate of Sponsorship; GBM: Global Business Mobility; UKVI: UK Visas and Immigration; Expansion Worker: Employee sent to establish UK presence.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Overseas company decides to expand into UK -> 
+              2. Apply for UK sponsor licence (Expansion Worker route) -> 
+              3. Assign senior manager/specialist employee -> 
+              4. Issue Certificate of Sponsorship (CoS) -> 
+              5. Prepare documents (passport, employment proof, business plan) -> 
+              6. Complete online visa application -> 
+              7. Pay visa fee (£319) -> 
+              8. Pay Immigration Health Surcharge -> 
+              9. Book biometrics appointment in India -> 
+              10. Submit fingerprints and photograph -> 
+              11. Upload supporting documents -> 
+              12. UKVI assesses business expansion eligibility -> 
+              13. Decision issued -> 
+              14. Receive visa vignette/BRP if approved -> 
+              15. Travel to UK -> 
+              16. Establish UK branch operations -> 
+              17. Switch to Skilled Worker visa if business becomes established and eligible.`
+},
+"OverseasBusinessRepresentativeVisa": {
+    name: "Representative of an Overseas Business Visa (Sole Representative Route)",
+
+    validity: "Initially up to 3 years. Extendable for another 2 years. Can lead to Indefinite Leave to Remain (ILR) after 5 years.",
+
+    cost: "Visa fee: £719 (~₹75,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1 lakh/year).",
+
+    time: "Typically 3–8 weeks from India depending on UKVI processing and document verification.",
+
+    age: "18 years or older.",
+
+    education: "No formal education requirement, but must be a senior employee with authority to represent the company.",
+
+    funds: "At least £1,270 (~₹1.3 lakh) in personal savings unless fully supported by employer.",
+
+    docs: "Valid passport, letter from overseas employer confirming sole representative role, proof of active overseas business, financial statements of company, job role description, TB test certificate (India applicants), biometric data.",
+
+    whom: "Senior employees of an overseas company being sent to the UK to establish a commercial presence (branch or subsidiary) where the company has no existing UK branch.",
+
+    rules: "Must be the sole representative of the overseas company. Cannot be a majority owner of the company. Cannot take other employment. Must establish and operate UK branch for parent company only.",
+
+    prosCons: "Pros: Direct ILR route in 5 years, no investment required, allows full UK business setup. Cons: Only one representative allowed, strict eligibility, cannot switch employer freely.",
+
+    terms: "UKVI: UK Visas and Immigration; ILR: Indefinite Leave to Remain; Sole Representative: Single authorized executive for UK operations.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI).",
+
+    process: `1. Overseas company appoints senior employee as UK representative -> 
+              2. Ensure company has no existing UK branch/subsidiary -> 
+              3. Prepare proof of active overseas business operations -> 
+              4. Obtain official letter appointing sole representative -> 
+              5. Complete online visa application -> 
+              6. Pay visa fee (£719) -> 
+              7. Pay Immigration Health Surcharge -> 
+              8. Book biometrics appointment at Visa Application Centre in India -> 
+              9. Submit fingerprints and photograph -> 
+              10. Upload supporting documents (company proof, authority letter, finances) -> 
+              11. UKVI assesses business legitimacy and role eligibility -> 
+              12. Possible interview or additional document checks -> 
+              13. Decision issued -> 
+              14. Receive visa vignette/BRP if approved -> 
+              15. Travel to UK -> 
+              16. Establish and manage UK branch office -> 
+              17. Maintain compliance and active business operations -> 
+              18. Apply for ILR after 5 years if eligible.`
+},
+"AsylumVisa": {
+    name: "Asylum Claim (UK Refugee Protection Process)",
+
+    validity: "Not a visa. Temporary permission to stay while claim is processed. If granted, Refugee Status or Humanitarian Protection is typically valid for 5 years, after which ILR may be possible.",
+
+    cost: "Free of charge. No visa fee. No Immigration Health Surcharge.",
+
+    time: "Initial decision may take 6 months to several years depending on case backlog and complexity.",
+
+    age: "No age limit (can include minors, families, or single adults).",
+
+    education: "No requirement.",
+
+    funds: "No financial requirement. Asylum seekers may receive basic government support (accommodation and weekly allowance) if eligible.",
+
+    docs: "Passport or identity documents (if available), personal statement detailing persecution claim, evidence of persecution (documents, reports, medical records), biometric data, country situation evidence, witness statements.",
+
+    whom: "Individuals who are in the UK or arriving at the UK border and fear persecution in their home country based on race, religion, nationality, political opinion, or membership of a particular social group.",
+
+    rules: "Must apply for asylum upon arrival or as soon as fear of return arises. Cannot leave UK while claim is pending without permission. Work is generally restricted (may be allowed after 12 months under certain conditions). Must attend Home Office interviews.",
+
+    prosCons: "Pros: Protection from deportation, access to basic support, potential pathway to Refugee Status and ILR. Cons: Long processing times, uncertainty during application, restricted employment rights initially.",
+
+    terms: "Asylum Seeker: Person awaiting decision; Refugee Status: Protection under 1951 Convention; Humanitarian Protection: UK protection status; Home Office: UK immigration authority.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), 1951 Refugee Convention.",
+
+    process: `1. Arrive in UK or present at border -> 
+              2. Declare intention to claim asylum -> 
+              3. Register asylum claim with Home Office -> 
+              4. Submit biometrics (fingerprints and photo) -> 
+              5. Attend initial screening interview -> 
+              6. Receive temporary asylum seeker support (if eligible) -> 
+              7. Submit detailed asylum statement and evidence -> 
+              8. Attend substantive asylum interview -> 
+              9. Home Office reviews claim and country risk conditions -> 
+              10. Decision issued (grant Refugee Status, Humanitarian Protection, or refusal) -> 
+              11. If granted, receive 5 years leave to remain -> 
+              12. Apply for ILR after qualifying period -> 
+              13. If refused, may appeal or face removal proceedings.`
+},
+"RefugeeStatus": {
+    name: "Refugee Status (UK Protection Status)",
+
+    validity: "Granted for 5 years initially. After 5 years, eligible to apply for Indefinite Leave to Remain (ILR) if conditions are met.",
+
+    cost: "Free of charge. No visa fee and no Immigration Health Surcharge.",
+
+    time: "Granted after successful asylum claim (usually months to years depending on case processing).",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No financial requirement. Refugees may receive state support such as housing and allowance initially.",
+
+    docs: "Asylum application documents, identity documents (if available), evidence of persecution, Home Office decision letter granting refugee status.",
+
+    whom: "Individuals who have been granted protection in the UK because they have a well-founded fear of persecution in their home country.",
+
+    rules: "Must not return to home country where persecution risk exists. Must comply with UK laws and immigration reporting requirements if applicable. Can work and study freely in the UK.",
+
+    prosCons: "Pros: Full legal protection, right to work and study, access to public services, pathway to ILR and citizenship. Cons: Status dependent on protection need, restrictions on travel to home country, initial uncertainty during asylum process.",
+
+    terms: "ILR: Indefinite Leave to Remain; Refugee Convention: 1951 UN treaty; Home Office: UK immigration authority; BRP: Biometric Residence Permit.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), 1951 Refugee Convention.",
+
+    process: `1. Apply for asylum in UK -> 
+              2. Attend asylum interviews and provide evidence -> 
+              3. Home Office assesses persecution risk -> 
+              4. If approved, receive Refugee Status decision letter -> 
+              5. Granted 5 years leave to remain -> 
+              6. Receive Biometric Residence Permit (BRP) -> 
+              7. Gain right to work and access public services -> 
+              8. After 5 years, apply for ILR -> 
+              9. After ILR, may apply for British citizenship if eligible.`
+},
+"HumanitarianProtection": {
+    name: "Humanitarian Protection (UK Protection Status)",
+
+    validity: "Usually granted for 5 years. After 5 years, eligible to apply for Indefinite Leave to Remain (ILR) if requirements are met.",
+
+    cost: "Free of charge. No visa fee and no Immigration Health Surcharge.",
+
+    time: "Granted after asylum/protection assessment (processing time varies from months to years).",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No financial requirement. Eligible for basic state support (housing and allowance) if needed.",
+
+    docs: "Asylum claim records, identity documents (if available), evidence of serious harm risk, Home Office decision letter granting Humanitarian Protection.",
+
+    whom: "Individuals who do not qualify as refugees but would face serious harm (such as war, torture, or indiscriminate violence) if returned to their home country.",
+
+    rules: "Must not return to home country due to risk of serious harm. Must comply with UK law and immigration conditions. Can work and study in the UK.",
+
+    prosCons: "Pros: Legal protection from removal, right to work and study, access to healthcare and public services, pathway to ILR. Cons: Temporary status, dependent on country conditions, initially granted only after strict assessment.",
+
+    terms: "ILR: Indefinite Leave to Remain; Home Office: UK immigration authority; UKVI: UK Visas and Immigration; Serious Harm: Includes war, torture, or inhuman treatment risk.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), European Convention on Human Rights (Article 3 protection principles).",
+
+    process: `1. Apply for asylum in UK -> 
+              2. Attend screening and substantive interviews -> 
+              3. Home Office assesses refugee eligibility first -> 
+              4. If not eligible for refugee status but serious harm risk exists -> 
+              5. Consideration for Humanitarian Protection -> 
+              6. Decision issued granting 5-year stay -> 
+              7. Receive Biometric Residence Permit (BRP) -> 
+              8. Gain right to work and study -> 
+              9. Access public services and support if needed -> 
+              10. After 5 years, apply for ILR if eligible -> 
+              11. After ILR, may apply for citizenship if qualified.`
+},
+"StatelessPersonVisa": {
+    name: "Stateless Person Visa (UK Stateless Leave to Remain)",
+
+    validity: "Usually granted for 5 years initially. Can be extended and may lead to Indefinite Leave to Remain (ILR) after 5 years if eligible.",
+
+    cost: "Free of charge for application. No Immigration Health Surcharge if granted protection status.",
+
+    time: "Typically several months to over a year depending on evidence and Home Office processing time.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No financial requirement. May receive state support depending on circumstances.",
+
+    docs: "Valid identity documents (if any), proof of statelessness (or lack of nationality), personal statement, travel history, witness statements, country documentation showing lack of citizenship rights, biometric data.",
+
+    whom: "Individuals who are not considered nationals of any country under the law of any state (stateless persons) and cannot obtain protection from any country.",
+
+    rules: "Must demonstrate inability to acquire nationality from any country. Must remain in UK legally while application is processed. Must comply with Home Office reporting conditions if required.",
+
+    prosCons: "Pros: Legal right to stay in UK, right to work and access services, pathway to ILR and citizenship. Cons: Complex evidence burden, long processing times, limited travel flexibility without stateless travel documents.",
+
+    terms: "Stateless Person: A person not recognized as a national by any country; ILR: Indefinite Leave to Remain; Home Office: UK immigration authority; Stateless Leave: UK protection status.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), 1954 UN Convention Relating to the Status of Stateless Persons.",
+
+    process: `1. Apply for Stateless Person status in UK -> 
+              2. Submit detailed personal history and nationality evidence -> 
+              3. Provide documents proving lack of citizenship in any country -> 
+              4. Attend Home Office interview if requested -> 
+              5. UKVI assesses statelessness under legal definition -> 
+              6. Decision issued granting or refusing stateless status -> 
+              7. If granted, receive 5-year leave to remain -> 
+              8. Receive Biometric Residence Permit (BRP) -> 
+              9. Gain right to work and study in UK -> 
+              10. Apply for extension or ILR after 5 years if eligible -> 
+              11. Possible path to British citizenship after ILR.`
+},
+"DiscretionaryLeaveToRemain": {
+    name: "Discretionary Leave to Remain (DLR) – UK",
+
+    validity: "Usually granted for 30 months (2.5 years) or shorter periods. Can be extended and may lead to Indefinite Leave to Remain (ILR) after 10 years of continuous lawful residence (in most cases).",
+
+    cost: "No application fee in many cases (especially asylum-related grants). Immigration Health Surcharge is usually waived if granted as protection-related DLR.",
+
+    time: "Varies widely: from a few months to over a year depending on case complexity and Home Office workload.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No fixed financial requirement. May include access to public funds depending on conditions granted.",
+
+    docs: "Home Office application or refusal decision documents, identity documents (if available), medical reports (if applicable), human rights evidence, family/private life evidence, biometric data.",
+
+    whom: "Individuals who do not qualify for asylum or refugee status but are granted permission to stay in the UK on exceptional humanitarian, medical, or human rights grounds.",
+
+    rules: "Granted only at Home Office discretion in exceptional cases. Conditions vary (work rights, study rights, public fund access depend on case). Must comply with visa conditions and renew before expiry.",
+
+    prosCons: "Pros: Legal stay in UK in exceptional cases, may allow work and access to services, can lead to long-term settlement. Cons: Not a permanent status initially, unpredictable outcomes, long route to ILR, case-dependent restrictions.",
+
+    terms: "DLR: Discretionary Leave to Remain; ECHR: European Convention on Human Rights; Article 8: Right to family/private life; ILR: Indefinite Leave to Remain; UKVI: UK Visas and Immigration.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Human Rights Act 1998, European Convention on Human Rights (Articles 3 and 8).",
+
+    process: `1. Individual applies for asylum or makes human rights claim -> 
+              2. Home Office refuses asylum/refugee status but identifies exceptional grounds -> 
+              3. Case considered for discretionary leave (medical, family, humanitarian reasons) -> 
+              4. Submit supporting evidence (medical reports, family dependency, private life evidence) -> 
+              5. Home Office evaluates under human rights and discretionary policy -> 
+              6. Decision issued granting Discretionary Leave to Remain (usually 30 months) -> 
+              7. Receive Biometric Residence Permit (BRP) -> 
+              8. Gain limited or full right to work depending on conditions -> 
+              9. Renew leave before expiry if still eligible -> 
+              10. After qualifying continuous residence (often 10 years), apply for ILR -> 
+              11. May later apply for British citizenship if eligible.`
+},
+"IndefiniteLeaveToRemain": {
+    name: "Indefinite Leave to Remain (ILR) – UK Permanent Residency",
+
+    validity: "Permanent status (does not expire), but ILR card/BRP may need renewal or replacement for document validity.",
+
+    cost: "Application fee: ~£2,885 (~₹3 lakh). No Immigration Health Surcharge required.",
+
+    time: "Typically 3–6 months processing time after application (can vary).",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No fixed income requirement, but must pass financial/benefit dependency checks (no excessive reliance on public funds).",
+
+    docs: "Valid passport, BRP, proof of continuous residence in UK, visa history, Life in the UK Test certificate, English language test (B1 level or higher), biometric data, employment/tax records if applicable.",
+
+    whom: "Foreign nationals who have legally lived in the UK for a qualifying period under eligible visa routes (work, family, protection, business, etc.).",
+
+    rules: "Must not have spent excessive time outside UK (generally no more than 180 days per year). Must pass Life in the UK Test and English requirement. Must maintain lawful residence until approval.",
+
+    prosCons: "Pros: Permanent right to live, work, and study in UK without immigration restrictions; access to public services; pathway to British citizenship. Cons: Strict residency requirements; can be lost if absent from UK for long periods or serious criminal issues.",
+
+    terms: "ILR: Indefinite Leave to Remain; BRP: Biometric Residence Permit; Life in the UK Test: Citizenship knowledge test; Absence Rule: 180-day annual limit.",
+
+    legal: "UK Home Office, UK Visas and Immigration (UKVI), Immigration Rules Appendix FM and long residence rules.",
+
+    process: `1. Complete qualifying residence period (usually 5 years, sometimes 3/10 depending on route) -> 
+              2. Ensure visa category allows settlement route -> 
+              3. Pass Life in the UK Test -> 
+              4. Pass English language requirement (B1 or higher) -> 
+              5. Gather residence evidence (BRPs, passports, travel history, tax/employment records) -> 
+              6. Submit ILR application online -> 
+              7. Pay application fee (~£2,885) -> 
+              8. Book biometrics appointment -> 
+              9. Submit fingerprints and photograph -> 
+              10. Upload supporting documents -> 
+              11. UKVI reviews continuous residence and eligibility -> 
+              12. Possible additional checks or interview -> 
+              13. Decision issued -> 
+              14. Receive ILR status and updated BRP -> 
+              15. Live and work freely in UK -> 
+              16. Option to apply for British citizenship after meeting citizenship requirements.`
+},
+"EUSettlementScheme": {
+    name: "EU Settlement Scheme (Pre-Settled Status / Settled Status – UK)",
+
+    validity: "Pre-settled status: 5 years (temporary residence). Settled status: permanent residence (no expiry, but document updates may be required).",
+
+    cost: "Free of charge. No application fee and no Immigration Health Surcharge.",
+
+    time: "Typically a few weeks to several months depending on case complexity and verification checks.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No financial requirement.",
+
+    docs: "Valid passport or national ID (EU/EEA/Swiss citizens), proof of UK residence (utility bills, bank statements, employment records), digital identity verification, biometric data (if required).",
+
+    whom: "EU, EEA, and Swiss citizens (and eligible family members) who were living in the UK before the end of the Brexit transition period or have eligible family links.",
+
+    rules: "Must have started living in the UK by the eligibility deadline (generally 31 December 2020 for most applicants). Must maintain residence in UK. Absences allowed but excessive absence can affect settled status eligibility.",
+
+    prosCons: "Pros: Free and simple application, full right to work/study, access to NHS, pathway from pre-settled to settled status. Cons: Strict eligibility cutoff date, pre-settled status requires follow-up to secure permanent residence, loss of status if residence rules not met.",
+
+    terms: "EU Settlement Scheme (EUSS); Pre-settled status: Limited leave to remain; Settled status: Indefinite Leave to Remain under EU law; Home Office: UK immigration authority.",
+
+    legal: "UK Home Office, EU Withdrawal Agreement, UK Immigration Rules Appendix EU.",
+
+    process: `1. Check eligibility (EU/EEA/Swiss citizen or eligible family member) -> 
+              2. Prove residence in UK before eligibility cutoff date -> 
+              3. Download or use UK Home Office 'EU Exit: ID Document Check' app -> 
+              4. Verify identity using passport or national ID -> 
+              5. Submit proof of residence (bank statements, utility bills, work records) -> 
+              6. Complete online EU Settlement Scheme application -> 
+              7. UKVI reviews residence history and eligibility -> 
+              8. Decision issued -> 
+              9. If approved, receive pre-settled or settled status digitally (no physical visa required) -> 
+              10. Pre-settled holders must apply later for settled status after 5 years continuous residence -> 
+              11. Settled status holders can live, work, and remain in UK permanently -> 
+              12. Eligible for British citizenship after meeting additional requirements.`
+},
+"UkAncestryVisa": {
+    name: "UK Ancestry Visa",
+
+    validity: "5 years. This visa leads directly to Indefinite Leave to Remain (ILR) after the 5-year period is completed, provided the residency requirements are met.",
+
+    cost: "Application fee: £637 (~₹68,000). Immigration Health Surcharge (IHS): £1,035 per year (~₹1.1L/year). Total upfront cost for 5 years approx. ₹6.2L.",
+
+    time: "Usually processed within 3 weeks if applying from outside the UK. Priority service (5 days) is often available for an extra fee.",
+
+    age: "Must be 17 years or older at the time of arrival in the UK.",
+
+    education: "No formal education requirement; however, the applicant must demonstrate the ability and intent to work in the UK.",
+
+    funds: "Must show sufficient savings to support yourself and any dependents without relying on public funds. Recommended: £2,500 – £4,000 (~₹2.6L – ₹4.3L) in personal bank statements.",
+
+    docs: "Valid passport, full birth certificate, birth certificates of the parent and grandparent on whom the claim is based, evidence of marriage/civil partnership (if applicable), TB test results (for India), and proof of job offers or intent to seek work.",
+
+    whom: "Commonwealth citizens (including Indian citizens) who have at least one grandparent born in the UK, the Channel Islands, or the Isle of Man.",
+
+    rules: "Grandparent must have been born in the UK. You must be a Commonwealth citizen. You must intend to work or seek work in the UK. You can work in any sector and be self-employed.",
+
+    prosCons: "Pros: No employer sponsorship needed; no minimum salary threshold; full work and study rights; direct 5-year path to PR. Cons: Grandparent birth evidence can be hard to source; high IHS costs paid upfront.",
+
+    terms: "Commonwealth Citizen: Member of the 56 nations including India; ILR: Indefinite Leave to Remain; IHS: Immigration Health Surcharge; Dependent: Spouse or children under 18.",
+
+    legal: "Immigration Rules Appendix UK Ancestry.",
+
+    process: `1. Source original birth certificates for self, parent, and grandparent -> 
+              2. Confirm Commonwealth citizenship status -> 
+              3. Gather evidence of intent to work (CV, job applications) -> 
+              4. Complete online application on gov.uk -> 
+              5. Pay the application fee and the full 5-year IHS fee -> 
+              6. Book and attend biometrics at VFS Global in India -> 
+              7. Receive visa vignette in passport -> 
+              8. Move to UK and collect BRP -> 
+              9. Work for 5 years and apply for ILR.`
+},
+
+"UkDomesticWorkerVisa": {
+    name: "Domestic Worker in a Private Household Visa",
+
+    validity: "6 months. This visa is strictly for a short-term stay and cannot be extended or used as a pathway to residency.",
+
+    cost: "Application fee: £637 (~₹68,000).",
+
+    time: "Usually 3 weeks.",
+
+    whom: "Cleaners, chauffeurs, cooks, nannies, or personal care workers who have worked for their employer for at least 1 year and are traveling to the UK with them.",
+
+    rules: "Employer must be a foreign national visiting the UK or a British citizen who usually lives abroad. Worker must be paid the UK National Minimum Wage.",
+
+    process: `1. Employer prepares to visit UK -> 2. Employer provides a signed 'Statement of Terms' meeting UK labor laws -> 3. Worker applies online -> 4. Visa issued for 6 months.`
+},
+
+"UkFrontierWorkerPermit": {
+    name: "Frontier Worker Permit",
+
+    validity: "5 years (renewable).",
+
+    cost: "£0 (Free). No IHS fee required.",
+
+    whom: "People who live outside the UK but commute to the UK for work. Only applicable if you began this arrangement before 31 December 2020.",
+
+    rules: "Must be a citizen of the EU, EEA, or Switzerland. Must usually enter the UK to work at least once every 12 months.",
+
+    process: `1. Apply online with proof of employment in UK -> 2. Prove you live outside the UK -> 3. Receive digital status or physical permit.`
+},
+
+"UkAdultDependentRelativeVisa": {
+    name: "Adult Dependent Relative Visa",
+
+    validity: "Indefinite (Settlement). Aligned with the sponsor's status. If the sponsor is a British Citizen or has ILR, the relative receives immediate permanent residency.",
+
+    cost: "Application fee: £3,250 (~₹3.5L) if applying from outside the UK. Plus TB test and document fees.",
+
+    time: "High variation: 3 to 6 months. Often requires detailed manual review.",
+
+    whom: "Parents, grandparents, or adult children of a person settled in the UK, who require high-level personal care due to age, illness, or disability.",
+
+    rules: "Must prove the care needed cannot be provided or affordably obtained in the home country (India). Must prove no one else in the home country can provide that care.",
+
+    prosCons: "Pros: Permanent reunion; immediate access to NHS. Cons: Extremely high refusal rate (90%+); very difficult legal threshold to meet.",
+
+    terms: "Care Threshold: Proof that only the UK relative can provide the required assistance; Maintenance: Sponsor must prove they can fund the relative for 5 years.",
+
+    legal: "Appendix FM of the Immigration Rules.",
+
+    process: `1. Obtain detailed medical reports from home country -> 2. Prove no local care is available/affordable -> 3. Sponsor in UK completes financial guarantee -> 4. Lodge application -> 5. Decision by Home Office Specialist Unit.`
+},
+
+
+"UkElectronicTravelAuthorisationEta": {
+    name: "Electronic Travel Authorisation (ETA)",
+
+    validity: "2 years or until passport expires. Allows multiple entries for stays of up to 6 months.",
+
+    cost: "£10 (~₹1,100).",
+
+    time: "Usually approved within minutes to 3 days via the UK ETA App.",
+
+    whom: "Citizens of visa-exempt countries. (Note: Being rolled out to all non-visa countries, including Europeans, US, and Australians in 2025).",
+
+    rules: "Digital link to passport. Not for work or long-term stay. Mandatory before boarding any flight to the UK.",
+
+    process: `1. Download UK ETA App -> 2. Scan passport -> 3. Pay £10 -> 4. Receive digital approval.`
+},
+
+"UkElectronicVisaWaiverEvw": {
+    name: "Electronic Visa Waiver (EVW)",
+
+    validity: "Single entry for up to 6 months.",
+
+    cost: "£30 (~₹3,200).",
+
+    whom: "Natives of Gulf countries (Qatar, UAE, Kuwait, Oman, Bahrain) and Saudi Arabia.",
+
+    rules: "Replaces the need for a visitor visa. Must be applied for between 3 months and 48 hours before travel.",
+
+    process: `1. Register travel details online -> 2. Pay fee -> 3. Receive EVW document via email.`
+},
+
+
+"UkBnoVisa": {
+    name: "British National (Overseas) - BNO Visa",
+
+    validity: "2.5 years or 5 years. Leads to ILR after 5 years and Citizenship after 6 years.",
+
+    cost: "5-year visa: £250. IHS fee applies. Total for 5 years approx. £5,400.",
+
+    whom: "People from Hong Kong who have BNO status and their family members.",
+
+    rules: "Must be ordinarily resident in Hong Kong or the UK. No quota limits. Full work and study rights.",
+
+    process: `1. Prove BNO status -> 2. Apply via app or VFS -> 3. Move to UK.`
+},
+
+"UkRightOfAbode": {
+    name: "Right of Abode (Certificate of Entitlement)",
+
+    validity: "Indefinite. Never expires as long as the passport is valid.",
+
+    cost: "£388 (~₹41,000).",
+
+    whom: "Individuals who have a specific link to the UK (usually through a UK-born parent) and were born or married before 1 January 1983.",
+
+    rules: "You are not subject to immigration control. You do not need a visa, work permit, or sponsorship. You can live and work in the UK forever.",
+
+    terms: "Certificate of Entitlement: The sticker placed in a foreign passport to prove Right of Abode.",
+
+    legal: "British Nationality Act 1981.",
+
+    process: `1. Check historical family ties -> 2. Submit evidence of parent's birth/status -> 3. Obtain certificate in passport.`
+},
+
+
+
+"UkReturningResidentVisa": {
+    name: "Returning Resident Visa",
+
+    validity: "Indefinite (Settlement). Restores previous ILR status.",
+
+    cost: "£637 (~₹68,000).",
+
+    time: "3–8 weeks.",
+
+    whom: "People who previously held Indefinite Leave to Remain (ILR) in the UK but have been outside the country for more than 2 consecutive years.",
+
+    rules: "Must prove strong ties to the UK (family, property, previous long-term residence) and intent to settle permanently. Must explain why you were away for so long.",
+
+    prosCons: "Pros: Recovers permanent residency. Cons: High evidence burden; decision is subjective.",
+
+    legal: "Immigration Rules Paragraph 18.",
+
+    process: `1. Gather proof of previous ILR -> 2. Document 'Substantial Ties' (Property deeds, family in UK) -> 3. Lodge application abroad -> 4. Receive visa -> 5. Re-enter UK as a PR holder.`
+},
+
+
+
+"BritishCitizenship": {
+    name: "British Citizenship (Naturalisation / Registration Route)",
+
+    validity: "Permanent citizenship (lifelong status). No expiry. Can only be revoked in rare legal circumstances.",
+
+    cost: "Application fee: £1,580 (~₹1.65 lakh). Citizenship ceremony fee: ~£130 (~₹14,000).",
+
+    time: "Typically 3–6 months after application (may vary depending on checks).",
+
+    age: "18 years or older for naturalisation (children use registration route).",
+
+    education: "No formal education requirement.",
+
+    funds: "No fixed income requirement, but must show good character (no serious financial dependency on public funds or criminal issues).",
+
+    docs: "Valid passport, BRP/ILR proof, ILR status, Life in the UK Test certificate, English language proof (B1 or higher), residence history, tax/employment records, biometric data.",
+
+    whom: "Foreign nationals who have held Indefinite Leave to Remain (ILR) or settled status and meet residency and legal requirements.",
+
+    rules: "Must have lived in UK for qualifying period (usually 5 years residence + 1 year with ILR, or immediate eligibility for spouses of British citizens). Must not exceed absence limits (generally 450 days in 5 years, 90 days in last 12 months). Must be of good character.",
+
+    prosCons: "Pros: Full rights of British citizen (passport, voting rights, unrestricted travel/residence), no immigration restrictions, strong global mobility. Cons: Strict residence and character requirements, costly application, lengthy residency proof required.",
+
+    terms: "ILR: Indefinite Leave to Remain; Naturalisation: Process of becoming citizen; Registration: Route for children; Life in the UK Test: Citizenship knowledge exam; Good Character Requirement: Criminal/financial background check.",
+
+    legal: "UK Home Office, British Nationality Act 1981, UK Immigration Rules.",
+
+    process: `1. Obtain ILR or Settled Status -> 
+              2. Complete qualifying residence period (usually 5 years + 1 year ILR, or spouse route) -> 
+              3. Pass Life in the UK Test -> 
+              4. Pass English language requirement (B1 or higher) -> 
+              5. Ensure absence limits are met -> 
+              6. Gather documents (passport, ILR proof, tax/employment records) -> 
+              7. Submit online British citizenship application -> 
+              8. Pay application fee (£1,580) -> 
+              9. Book biometrics appointment -> 
+              10. Submit fingerprints and photograph -> 
+              11. UK Home Office conducts background and residency checks -> 
+              12. Decision issued -> 
+              13. Attend citizenship ceremony -> 
+              14. Receive Certificate of British Citizenship -> 
+              15. Apply for British passport -> 
+              16. Enjoy full rights of UK citizenship.`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

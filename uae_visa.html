@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* USA Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="UAE">UAE</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+        <select id="visaType">
+    <optgroup label="Tourist & Short Stay">
+        <option value="UaeTouristVisa">Tourist Visa</option>
+        <option value="UaeVisitVisa">Visit Visa</option>
+        <option value="UaeTransitVisa">Transit Visa</option>
+        <option value="UaeGccResidentVisa">GCC Resident Visa</option>
+    </optgroup>
+
+    <optgroup label="Employment & Work">
+        <option value="UaeWorkVisa">Work Visa (Employment)</option>
+        <option value="UaeMissionVisa">Mission Visa (90 Days)</option>
+        <option value="UaeTemporaryWorkVisa">Temporary Work Visa</option>
+        <option value="UaeJobSeekerVisa">Job Seeker Visa</option>
+        <option value="UaeDomesticWorkerVisa">Domestic Worker Visa</option>
+    </optgroup>
+
+    <optgroup label="Long-term Residency">
+        <option value="UaeGoldenVisa">Golden Visa (10 Years)</option>
+        <option value="UaeGreenVisa">Green Visa (5 Years)</option>
+        <option value="UaeRetirementVisa">Retirement Visa</option>
+        <option value="UaeLongTermResidenceVisa">Long-Term Residence Visa</option>
+    </optgroup>
+
+    <optgroup label="Business, Investor & Freelance">
+        <option value="UaeInvestorVisa">Investor Visa</option>
+        <option value="UaePropertyOwnerVisa">Property Owner Visa</option>
+        <option value="UaePartnerBusinessVisa">Partner / Business Visa</option>
+        <option value="UaeFreelancerVisa">Freelancer Visa</option>
+        <option value="UaeRemoteWorkVisa">Remote Work Visa</option>
+    </optgroup>
+
+    <optgroup label="Education & Family">
+        <option value="UaeStudentVisa">Student Visa</option>
+        <option value="UaeFamilyResidenceVisa">Family Residence Visa</option>
+    </optgroup>
+
+    <optgroup label="Specialized & Humanitarian">
+        <option value="UaeMedicalTreatmentVisa">Medical Treatment Visa</option>
+        <option value="UaeCulturalSpecialTalentVisa">Cultural / Special Talent Visa</option>
+        <option value="UaeSpecialEntryPermit">Special Entry Permit</option>
+        <option value="UaeHumanitarianVisa">Humanitarian Visa</option>
+    </optgroup>
+
+
+
+
+    <optgroup label="Extras">
+        <option value="UaeFiveYearMultiEntryTouristVisa">5-Year Multi entry</option>
+        <option value="UaeBlueVisaSustainability">Blue visa sustainability visa</option>
+        <option value="UaeExceptionalStudentBridgeVisa">Exceptional student residence</option>
+        <option value="UaeMedicalCompanionVisa">Medical companion visa</option>
+ <option value="UaeReentryPermitOutsideSixMonths">Re-entry permit</option>
+        <option value="UaeWorkPermitForDependents">Work permit for dependents</option>
+        <option value="UaeBusinessIncubatorVisa">Business incubator visa</option>
+        <option value="UaeDubaiVirtualWorkingProgram">Virtual working program</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF UAE MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇦🇪 VIEW GENERAL UAE VISA MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇦🇪 GENERAL UAE VISA PROCESS (2026)</h1>
+
+        <h2>🧭 1. IDENTIFY VISA TYPE</h2>
+        <p>First step is choosing the correct category:</p>
+        <ul>
+            <li>Tourist / Visit visa → travel purpose</li>
+            <li>Work visa → job offer required</li>
+            <li>Student visa → university admission required</li>
+            <li>Investor / Golden visa → investment or talent proof</li>
+            <li>Family visa → sponsor in UAE required</li>
+            <li>Freelance / Remote visa → income or license required</li>
+        </ul>
+        <p>👉 UAE visa system is <strong>purpose-based</strong>, not one single universal application.</p>
+
+        <h2>📌 2. FIND SPONSOR / ELIGIBILITY BASE</h2>
+        <p>Most UAE visas require a <strong>sponsor or eligibility base</strong>:</p>
+        <ul>
+            <li>Employer (Work Visa)</li>
+            <li>University (Student Visa)</li>
+            <li>Family member (Family Visa)</li>
+            <li>Company / Free Zone (Business Visa)</li>
+            <li>Self-eligibility (Golden Visa / Investor / Freelance / Remote Work)</li>
+            <li>Airline / hotel / agent (Tourist Visa)</li>
+        </ul>
+
+        <h2>📄 3. DOCUMENT PREPARATION</h2>
+        <p>Common documents across all visa types:</p>
+        <ul>
+            <li>Valid passport (minimum 6 months validity)</li>
+            <li>Passport-size photograph (white background)</li>
+            <li>Completed application form</li>
+            <li>Proof of purpose (job offer / admission / investment / invitation)</li>
+            <li>Financial proof (if required)</li>
+            <li>Travel insurance (for most short-term visas)</li>
+        </ul>
+
+        <h2>🏛️ 4. VISA APPLICATION SUBMISSION</h2>
+        <p>Applications are submitted through official channels:</p>
+        <ul>
+            <li>ICP Portal (Federal UAE system)</li>
+            <li>GDRFA (Dubai Immigration)</li>
+            <li>MOHRE (Work visas)</li>
+            <li>Free Zone Authorities (Dubai Media City, DIFC, etc.)</li>
+            <li>UAE Embassy / Consulate (outside UAE)</li>
+            <li>Airlines / hotels (tourist visas in some cases)</li>
+        </ul>
+
+        <h2>💳 5. PAYMENT OF FEES</h2>
+        <p>Fees depend on visa type (Tourist: low cost, Work: employer pays, Investor/Golden: higher). Additional charges may include Medical test, Emirates ID, Insurance, and Typing center fees.</p>
+
+        <h2>🧪 6. MEDICAL FITNESS TEST</h2>
+        <p>Mandatory for long-term visas (Work, Residence, Family, Student). Includes Blood test and Chest X-ray (TB screening) conducted in UAE-approved medical centers.</p>
+
+        <h2>🪪 7. EMIRATES ID APPLICATION</h2>
+        <p>After approval, biometric fingerprints, photo capture, and identity registration are required. Emirates ID is mandatory for all UAE residents.</p>
+
+        <h2>🔍 8. IMMIGRATION / SECURITY VERIFICATION</h2>
+        <p>Authorities verify passport authenticity, criminal background (home country + UAE checks), sponsor validity, and financial or employment status.</p>
+
+        <h2>✅ 9 & 10. APPROVAL, ISSUANCE & ENTRY</h2>
+        <p>If approved, an Entry Permit is issued for those outside. On arrival: immigration checkpoint verification, entry permit validation, and visa activation.</p>
+
+        <h2>🏠 11. RESIDENCE ACTIVATION (LONG-TERM VISAS)</h2>
+        <p>For resident visas: Visa stamped or e-residence issued, Emirates ID delivered, and health insurance activated (mandatory in most emirates).</p>
+
+        <h2>🔁 12. RENEWAL OR STATUS CHANGE</h2>
+        <p>Before expiry: Visa renewal application, medical test repeat, and Emirates ID renewal. Alternatively, visa conversion (e.g., Visit → Work → Residence).</p>
+
+        <h2>❌ 13. VISA CANCELLATION / EXIT RULES</h2>
+        <p>Visa ends when employer cancels, sponsor withdraws support, investment is sold, or upon expiry. Overstay leads to <strong>daily penalties + possible bans</strong>.</p>
+
+        <h2>🧠 SIMPLE FLOW SUMMARY</h2>
+        <p style="background: #eee; padding: 10px; font-weight: bold;">Choose Visa Type → Meet Eligibility (Sponsor / Job / Investment / Study) → Submit Documents → Pay Fees → Medical Test (if required) → Biometrics (Emirates ID) → Immigration Approval → Visa Issuance → Entry / Residence Activation → Renewal or Extension</p>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL UAE VISA PORTALS</h1>
+            <p><strong>1. ICP (Federal Immigration):</strong> <a href="https://icp.gov.ae" target="_blank">icp.gov.ae</a></p>
+            <p><strong>2. GDRFA Dubai:</strong> <a href="https://gdrfad.gov.ae" target="_blank">gdrfad.gov.ae</a></p>
+            <p><strong>3. MOHRE (Work Permits):</strong> <a href="https://mohre.gov.ae" target="_blank">mohre.gov.ae</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: UAE VISA SYSTEM IS SPONSOR-DRIVEN. ALWAYS VERIFY THROUGH OFFICIAL ICP/GDRFA PORTALS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "UAE": {
+    "UaeTouristVisa": {
+    name: "Tourist Visa (United Arab Emirates)",
+
+    validity: "Short-term visa. Usually issued for 30 days or 60 days, with single-entry or multiple-entry options. Can often be extended inside UAE for additional periods depending on visa type and immigration approval.",
+
+    cost: "Approx AED 250–800 (~₹5,700–₹18,000) depending on 30-day or 60-day visa, single or multiple entry. Additional extension fees apply if extended inside UAE.",
+
+    time: "Processing time usually 24–72 hours for standard applications. Express processing can be within a few hours in some cases.",
+
+    age: "No strict age limit. Minors must travel with parents/guardians or have consent documents.",
+
+    education: "No requirement.",
+
+    funds: "No fixed official requirement, but applicants are expected to show sufficient financial ability to cover travel, stay, and return expenses. Some airlines/sponsors may request proof of funds or return ticket.",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, confirmed return flight ticket, hotel booking or host details in UAE, travel insurance (recommended/required in some cases), sponsor details (if applicable), visa application form.",
+
+    whom: "Tourists, family visitors, and short-term travelers visiting UAE for leisure, tourism, or visiting relatives/friends.",
+
+    rules: "Must not engage in employment or paid work. Must exit before visa expiry unless extended. Must comply with UAE immigration laws. Overstay penalties apply per day. Must carry valid travel documents throughout stay.",
+
+    prosCons: "Pros: Fast processing, simple requirements, multiple entry options available, easy online application, flexible stay options. Cons: No work rights, short validity, must exit or extend frequently, strict overstay penalties.",
+
+    terms: "Tourist Visa: Short-term leisure entry permit; Single Entry: One-time entry allowed; Multiple Entry: Re-entry allowed within validity; Extension: In-country visa renewal option; Sponsor: Airline, hotel, or UAE resident/company.",
+
+    legal: "UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) + General Directorate of Residency and Foreigners Affairs (GDRFA) regulations.",
+
+    process: `1. Choose visa type (30-day or 60-day, single/multiple entry) ->
+              2. Apply through airline, hotel, travel agency, or UAE sponsor ->
+              3. Submit passport copy and photograph ->
+              4. Provide travel itinerary and return ticket ->
+              5. Pay visa fee ->
+              6. Application submitted to UAE immigration system ->
+              7. Background and document verification ->
+              8. Visa approval issued electronically ->
+              9. Receive e-visa copy via email ->
+              10. Print visa and travel to UAE ->
+              11. Immigration check at UAE airport ->
+              12. Entry granted ->
+              13. Stay in UAE under permitted duration ->
+              14. Apply for extension if needed before expiry ->
+              15. Exit country or change visa status if eligible.`
+},
+
+"UaeVisitVisa": {
+    name: "Visit Visa (United Arab Emirates)",
+
+    validity: "Short-term visa typically issued for 30, 60, or 90 days. Can be single-entry or multiple-entry depending on application type and sponsor. Extensions are possible in many cases from داخل UAE (inside UAE).",
+
+    cost: "Approx AED 300–1200 (~₹7,000–₹27,000) depending on duration (30/60/90 days), entry type (single/multiple), and sponsor or agency processing fees. Extension inside UAE costs additional fees per renewal cycle.",
+
+    time: "Processing time usually 24 hours to 5 working days. Express processing may be completed within hours depending on service provider and immigration approval.",
+
+    age: "No strict age limit. Minors must be accompanied by parents/guardians or have notarized consent documents.",
+
+    education: "No requirement.",
+
+    funds: "No fixed official minimum bank balance required, but applicant must show ability to support stay. Sponsors (family/resident/company) may assume financial responsibility in many cases.",
+
+    docs: "Valid passport (minimum 6 months validity), passport-size photo, sponsor details (UAE resident/family/company), invitation letter (if applicable), confirmed return ticket, proof of relationship (for family visits), accommodation details, visa application form.",
+
+    whom: "Individuals visiting UAE for family visits, friends, short business-related visits (non-employment), or short-term stay under a UAE resident or company sponsorship.",
+
+    rules: "Strictly no employment or paid work allowed. Must leave UAE before visa expiry unless extended. Must comply with UAE immigration rules. Overstay penalties apply daily. Sponsor is legally responsible in many cases for visitor compliance.",
+
+    prosCons: "Pros: Flexible short-term stay, family sponsorship possible, multiple entry options, easy online processing, extendable inside UAE. Cons: No work rights, limited duration, depends on sponsor approval, strict overstay penalties.",
+
+    terms: "Visit Visa: Short-term sponsored entry permit; Sponsor: UAE resident/family/company that applies for visa; Single Entry: One-time entry only; Multiple Entry: Re-entry allowed; Extension: In-country renewal option; GDRFA: Dubai immigration authority; ICP: Federal immigration authority.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and General Directorate of Residency and Foreigners Affairs (GDRFA – Dubai).",
+
+    process: `1. Identify sponsor (UAE resident, relative, or company) ->
+              2. Sponsor applies via ICP/GDRFA portal or authorized typing center ->
+              3. Submit passport copy, photo, and relationship proof (if family visit) ->
+              4. Pay applicable visa fees ->
+              5. Immigration review and verification of sponsor eligibility ->
+              6. Visa approval issued electronically ->
+              7. Receive e-visa copy via email ->
+              8. Print visa and travel to UAE ->
+              9. Immigration clearance at UAE port of entry ->
+              10. Entry granted and visa activated ->
+              11. Stay in UAE under permitted duration ->
+              12. Apply for extension before expiry if required ->
+              13. Exit UAE before visa expiration or switch status if eligible.`
+},
+
+"UaeTransitVisa": {
+    name: "Transit Visa (United Arab Emirates)",
+
+    validity: "Very short-term visa issued for 48 hours or 96 hours. It is non-extendable and strictly linked to onward international travel through UAE airports.",
+
+    cost: "Usually AED 50–150 (~₹1,100–₹3,500) depending on 48-hour or 96-hour option. Often free or included in airline ticket packages for certain carriers.",
+
+    time: "Fast processing, typically 4–24 hours. In many cases, it is issued directly by the airline before travel.",
+
+    age: "No strict age limit. Minors require valid travel documents and must comply with airline and immigration rules.",
+
+    education: "No requirement.",
+
+    funds: "No formal minimum funds requirement, but traveler must have confirmed onward ticket and sufficient means for transit stay.",
+
+    docs: "Valid passport (minimum 6 months validity), confirmed onward flight ticket, visa for final destination (if required), passport-size photo (sometimes required), airline booking confirmation.",
+
+    whom: "Passengers transiting through UAE airports (Dubai, Abu Dhabi, etc.) who have layovers exceeding a few hours and wish to exit the airport temporarily or require visa for connecting flights.",
+
+    rules: "Must remain within transit visa validity (48h or 96h only). Cannot be extended or converted into another visa inside UAE. Must continue onward journey. No employment allowed. Overstay is strictly penalized.",
+
+    prosCons: "Pros: Very fast processing, low cost, allows short city visit during layover, simple requirements. Cons: Extremely short duration, non-extendable, restricted to transit purpose only, no work or long stay allowed.",
+
+    terms: "Transit Visa: Short stay permit for layover passengers; 48-hour Visa: Ultra-short transit entry; 96-hour Visa: Slightly longer transit stay; Onward Ticket: Confirmed flight to next destination; Airline Sponsorship: Many transit visas processed by airlines; Layover: Stopover between connecting flights.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and airport immigration authorities under UAE federal immigration law.",
+
+    process: `1. Book international flight with UAE transit stop ->
+              2. Check eligibility with airline (Emirates, Etihad, etc.) ->
+              3. Apply for transit visa through airline or travel agent ->
+              4. Submit passport copy and onward ticket details ->
+              5. Pay visa fee (if applicable) ->
+              6. Airline forwards application to UAE immigration system ->
+              7. Fast security and background verification ->
+              8. Transit visa approval issued electronically ->
+              9. Receive visa copy via email ->
+              10. Travel to UAE and present documents at airport transit desk ->
+              11. Immigration clearance for short entry ->
+              12. Exit airport if permitted ->
+              13. Re-enter airport for onward flight within validity period ->
+              14. Must depart UAE within 48/96 hours strictly.`
+},
+
+"UaeWorkVisa": {
+    name: "Work Visa (Employment Visa – United Arab Emirates)",
+
+    validity: "Usually issued for 2 years (private sector) or 3 years (government/free zone depending on employer). Renewable as long as employment continues.",
+
+    cost: "Approx AED 3,000–7,000 (~₹70,000–₹1.6 lakh) including visa issuance, Emirates ID, medical test, and stamping. In most cases, employer bears full cost.",
+
+    time: "Processing time typically 5–15 working days after job offer and entry permit approval. Can vary based on employer and free zone.",
+
+    age: "Generally 18–60 years. Extensions beyond 60 possible in some skilled roles with approval.",
+
+    education: "Depends on job role. Skilled jobs require degree/diploma; semi-skilled roles may require basic education or experience proof.",
+
+    funds: "No personal minimum bank balance required, as employer sponsors salary and residency. Applicant must meet job salary contract terms.",
+
+    docs: "Valid passport (6+ months), passport photo, job offer letter, employment contract, entry permit, educational certificates attested, experience letters, medical fitness certificate (UAE approved), biometric data, Emirates ID application.",
+
+    whom: "Foreign nationals who have received a confirmed job offer from a UAE-licensed company, free zone entity, or government employer.",
+
+    rules: "Must work only for sponsoring employer. Cannot change job without visa transfer approval. Must complete medical fitness test in UAE. Must carry Emirates ID at all times. Visa becomes invalid upon termination unless transferred or changed. Overstay after cancellation leads to penalties.",
+
+    prosCons: "Pros: Tax-free salary, fast processing, residency benefits, family sponsorship eligibility, renewable visa, access to UAE banking and healthcare. Cons: Employer-dependent visa, job loss affects residency, strict labor compliance rules, limited job mobility without transfer.",
+
+    terms: "Employment Visa: Work-based residency permit; Sponsor: UAE employer responsible for visa; Entry Permit: Initial approval to enter UAE for job; Emirates ID: Mandatory national identity card; Medical Fitness Test: Required health screening; Free Zone Visa: Work visa issued by special economic zones; Labour Contract: Legal employment agreement.",
+
+    legal: "Regulated by UAE Ministry of Human Resources and Emiratisation (MOHRE) and Federal Authority for Identity, Citizenship, Customs & Port Security (ICP), plus free zone authorities where applicable.",
+
+    process: `1. Secure job offer from UAE employer ->
+              2. Employer applies for work permit approval (MOHRE or Free Zone Authority) ->
+              3. Entry permit issued to applicant ->
+              4. Applicant travels to UAE ->
+              5. Undergo medical fitness test in UAE-approved center ->
+              6. Apply for Emirates ID biometrics ->
+              7. Employment contract signing and labour registration ->
+              8. Visa stamping in passport ->
+              9. Receive residence visa (2–3 years validity) ->
+              10. Begin employment under sponsor ->
+              11. Employer maintains visa validity during employment ->
+              12. Visa renewal or transfer if job changes ->
+              13. Exit UAE or change status if employment ends.`
+},
+
+"UaeGreenVisa": {
+    name: "Green Visa (United Arab Emirates)",
+
+    validity: "Long-term residence visa issued for 5 years, renewable. It allows self-sponsorship without needing an employer or UAE national sponsor.",
+
+    cost: "Approx AED 2,000–5,000 (~₹45,000–₹1.1 lakh) excluding medical test, Emirates ID, and insurance. Total cost may vary based on applicant category and service charges.",
+
+    time: "Processing time usually 2–4 weeks depending on document verification and category (skilled worker, freelancer, investor).",
+
+    age: "Generally 18–55 years (flexible depending on category and eligibility).",
+
+    education: "Required for skilled worker category (minimum bachelor’s degree or equivalent). Freelancers may need proven skills/qualification or professional license.",
+
+    funds: "Proof of stable income required depending on category (typically AED 15,000+ monthly income for skilled workers or consistent freelance earnings).",
+
+    docs: "Valid passport, passport-size photo, Emirates ID application, medical fitness certificate, proof of employment or freelance license, bank statements (6 months), income proof, educational certificates (attested), UAE insurance, visa application form.",
+
+    whom: "Skilled professionals, freelancers, investors, and self-employed individuals who want long-term residency in UAE without employer sponsorship.",
+
+    rules: "Must maintain valid income or business activity. Cannot remain unemployed for long periods without meeting visa category conditions. Must comply with UAE residency laws. Family sponsorship allowed under conditions. Visa remains valid only if eligibility criteria are maintained.",
+
+    prosCons: "Pros: Long-term 5-year residency, no employer sponsorship required, flexible job switching, family sponsorship allowed, ideal for freelancers and skilled professionals. Cons: Strict income/qualification requirements, proof of financial stability needed, not suitable for low-income applicants, renewal depends on continued eligibility.",
+
+    terms: "Green Visa: Self-sponsored long-term residence permit; Self-Sponsorship: No employer required; Skilled Worker: Qualified professional category; Freelancer Permit: License for independent work; Investor Category: Business-based eligibility; Emirates ID: Mandatory UAE identity card; ICP: Federal immigration authority.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) under updated UAE residency reforms (Green Visa framework).",
+
+    process: `1. Determine eligibility category (skilled worker, freelancer, investor) ->
+              2. Obtain required license or proof of profession (if freelancer/investor) ->
+              3. Gather documents (degree, income proof, bank statements) ->
+              4. Apply online via ICP portal or authorized typing center ->
+              5. Pay application and processing fees ->
+              6. Submit biometric data and medical fitness test ->
+              7. Immigration review and verification of income/credentials ->
+              8. Receive approval notification ->
+              9. Pay final visa issuance fees ->
+              10. Green Visa issued (valid 5 years) ->
+              11. Obtain Emirates ID ->
+              12. Enter or continue residence in UAE ->
+              13. Maintain income/eligibility conditions ->
+              14. Renew visa after 5 years if criteria are still met.`
+},
+
+
+"UaeGoldenVisa": {
+    name: "Golden Visa (United Arab Emirates)",
+
+    validity: "Long-term residence visa issued for 5 years or 10 years depending on category. Renewable as long as eligibility conditions are maintained.",
+
+    cost: "Approx AED 2,800–7,000 (~₹65,000–₹1.6 lakh) excluding medical test, Emirates ID, insurance, and category-specific investment or qualification costs.",
+
+    time: "Processing time typically 2–8 weeks depending on category (investor, skilled professional, scientist, student, or special talent).",
+
+    age: "No strict age limit. Eligibility depends on category (investors, professionals, exceptional talents, students, etc.).",
+
+    education: "Required for skilled professionals, scientists, researchers, doctors, engineers, and outstanding students. No education requirement for investor category.",
+
+    funds: "Varies by category: investors must show minimum investment (e.g., AED 2 million+ in property or business). Professionals must show high salary (often AED 30,000+ monthly) or equivalent qualifications.",
+
+    docs: "Valid passport, passport-size photo, Emirates ID application, medical fitness certificate, proof of investment or property ownership (if investor), employment contract (if skilled worker), academic certificates (attested), bank statements, recommendation/approval letter from UAE authority (if applicable), visa application form.",
+
+    whom: "Investors, entrepreneurs, highly skilled professionals, scientists, doctors, engineers, exceptional students, researchers, and individuals with outstanding achievements or contributions.",
+
+    rules: "Must maintain eligibility criteria (investment, job, or talent status). Investment property/business must remain valid for investor category. Skilled workers must maintain employment or professional standing. Family sponsorship allowed. Long-term residency but subject to periodic renewal checks.",
+
+    prosCons: "Pros: 5–10 year long-term residency, self-sponsorship, strong family benefits, no need for employer sponsorship, stability and mobility in UAE, access to business opportunities. Cons: High eligibility requirements, strict financial/income thresholds, investment commitment required for investor route, competitive selection for talent categories.",
+
+    terms: "Golden Visa: Long-term UAE residency program; Investor Visa: Property/business-based eligibility; Skilled Professional: High-salary or expertise-based category; Exceptional Talent: Scientists, artists, innovators; UAE ICP: Immigration authority managing approvals; Emirates ID: Mandatory national identity card.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and Cabinet-level UAE residency reform laws under long-term visa framework.",
+
+    process: `1. Identify eligibility category (investor, skilled professional, talent, student) ->
+              2. Gather supporting documents (investment proof, degree, achievements, income evidence) ->
+              3. Apply via ICP portal or authorized government channel ->
+              4. Submit nomination/recommendation (if required for talent categories) ->
+              5. Pay application fees ->
+              6. Undergo medical fitness test and biometrics ->
+              7. Immigration review and background verification ->
+              8. Receive preliminary approval ->
+              9. Complete final visa issuance payment ->
+              10. Golden Visa issued (5 or 10 years validity) ->
+              11. Obtain Emirates ID ->
+              12. Enter or continue residence in UAE ->
+              13. Maintain eligibility (investment/job/talent status) ->
+              14. Renew visa after validity period if conditions continue to be met.`
+},
+
+"UaeInvestorVisa": {
+    name: "Investor Visa (United Arab Emirates)",
+
+    validity: "Typically 2–10 years depending on investment type and eligibility (property, business, or company shareholding). Renewable as long as investment is maintained.",
+
+    cost: "Approx AED 3,000–10,000 (~₹70,000–₹2.3 lakh) excluding investment amount. Total investment requirement usually starts from AED 750,000 to AED 2 million+ depending on category.",
+
+    time: "Processing time usually 2–6 weeks depending on documentation, property verification, and government approvals.",
+
+    age: "No strict age limit. Applicant must be legally adult (18+) and capable of making qualifying investment.",
+
+    education: "No educational requirement for property/business investors. Some business investor categories may require financial/business background proof.",
+
+    funds: `Minimum investment required depending on category:  
+    - Property investment: AED 750,000 – AED 2,000,000+  
+    - Business investment: variable depending on company setup  
+    Must show legal source of funds`,
+
+    docs: "Valid passport, passport-size photo, proof of investment (property title deed or company shareholding documents), bank statements, source of funds proof, Emirates ID application, medical fitness certificate, visa application form, trade license (if business investor), UAE insurance.",
+
+    whom: "Foreign nationals who invest in UAE property, establish a business, or hold shares in a UAE-registered company and want residency based on investment contribution.",
+
+    rules: "Investment must remain active throughout visa validity. Property or business cannot be sold or closed if it affects eligibility. Must comply with UAE financial and immigration regulations. Family sponsorship allowed under investor visa rules. Visa may be cancelled if investment conditions are not maintained.",
+
+    prosCons: "Pros: Long-term residency option, family sponsorship allowed, no employer dependency, access to UAE banking and business ecosystem, pathway to Golden Visa in some cases. Cons: High financial requirement, investment risk exposure, strict verification of funds, visa validity depends on maintaining investment.",
+
+    terms: "Investor Visa: Residency based on capital investment; Property Investor: Real estate-based residency; Business Investor: Company ownership/shareholding; Free Zone Company: Special economic zone business setup; Title Deed: Legal proof of property ownership; Emirates ID: Mandatory UAE identity card; ICP: Federal immigration authority.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and Department of Economic Development (DED) / Free Zone authorities depending on investment type.",
+
+    process: `1. Choose investment route (property or business) ->
+              2. Complete investment (buy property or register company) ->
+              3. Obtain legal proof (title deed or trade license) ->
+              4. Apply for investor visa via ICP or Free Zone authority ->
+              5. Submit passport, financial proof, and investment documents ->
+              6. Pay visa application fees ->
+              7. Undergo medical fitness test and biometrics ->
+              8. Immigration and background verification ->
+              9. Receive visa approval ->
+              10. Visa issued (2–10 years depending on category) ->
+              11. Obtain Emirates ID ->
+              12. Enter or continue residence in UAE ->
+              13. Maintain investment throughout visa validity ->
+              14. Renew visa or upgrade to Golden Visa if eligible.`
+},
+
+"UaePartnerBusinessVisa": {
+    name: "Partner / Business Visa (United Arab Emirates)",
+
+    validity: "Typically 2–3 years depending on business structure, free zone rules, or mainland company registration. Renewable as long as business partnership remains active.",
+
+    cost: "Approx AED 3,500–12,000 (~₹80,000–₹2.8 lakh) excluding business setup costs. Total business setup investment can range from AED 15,000 to AED 100,000+ depending on mainland or free zone jurisdiction.",
+
+    time: "Processing time usually 5–20 working days depending on company registration, approvals, and immigration clearance.",
+
+    age: "Generally 18+ years. No upper age limit if legally eligible to own or partner in a business.",
+
+    education: "No strict requirement, but some free zones or professional business activities may require proof of qualifications or experience.",
+
+    funds: "Must show sufficient capital contribution for business setup or partnership. Minimum investment varies widely (often AED 10,000–AED 50,000+ for free zones; higher for mainland businesses).",
+
+    docs: "Valid passport, passport-size photo, business trade license, partnership agreement or Memorandum of Association (MOA), company incorporation documents, bank statements, proof of capital investment, Emirates ID application, medical fitness certificate, visa application form.",
+
+    whom: "Foreign investors or professionals entering UAE as business partners, company shareholders, or co-owners in mainland or free zone businesses.",
+
+    rules: "Must actively maintain business ownership or partnership status. Business must remain legally registered and compliant with UAE regulations. Changes in ownership structure must be reported to authorities. Visa validity is linked to active business status. Family sponsorship allowed under eligible income/business conditions.",
+
+    prosCons: "Pros: Business ownership rights in UAE, residency without employer sponsorship, access to UAE banking and trade ecosystem, flexible income generation, potential pathway to Investor or Golden Visa. Cons: Business risk exposure, regulatory compliance burden, setup and renewal costs, visa tied to business continuity.",
+
+    terms: "Partner Visa: Residency for business shareholders/partners; Business License: Legal authorization to operate company; MOA: Memorandum of Association defining ownership structure; Free Zone: Special economic business zones; Mainland Company: UAE local market business structure; ICP: Federal immigration authority; DED: Department of Economic Development.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and Department of Economic Development (DED) or respective Free Zone Authorities.",
+
+    process: `1. Decide business structure (mainland or free zone) ->
+              2. Register company and obtain trade license ->
+              3. Draft partnership agreement (MOA) ->
+              4. Invest required capital/share in business ->
+              5. Apply for partner/business visa via ICP or licensing authority ->
+              6. Submit passport, company documents, and financial proof ->
+              7. Pay visa and registration fees ->
+              8. Undergo medical fitness test and biometrics ->
+              9. Immigration approval and background verification ->
+              10. Visa issuance (2–3 years validity) ->
+              11. Obtain Emirates ID ->
+              12. Activate residency in UAE ->
+              13. Maintain active business operations ->
+              14. Renew visa upon business license renewal.`
+},
+
+"UaeFreelancerVisa": {
+    name: "Freelancer Visa (United Arab Emirates)",
+
+    validity: "Typically 1–3 years depending on emirate (Dubai, Abu Dhabi, etc.) and free zone authority. Renewable as long as freelancer permit and income remain valid.",
+
+    cost: "Approx AED 7,500–20,000 (~₹1.7 lakh–₹4.6 lakh) including freelancer permit, visa issuance, Emirates ID, and admin fees. Optional workspace permits may cost extra.",
+
+    time: "Processing time usually 5–15 working days depending on free zone authority and document verification.",
+
+    age: "Generally 18+ years. No strict upper age limit if professional eligibility is met.",
+
+    education: "Not always mandatory, but many free zones require proof of qualification, certifications, or relevant professional experience in the freelance field.",
+
+    funds: "No fixed bank balance requirement in most cases, but applicant must show ability to sustain themselves through freelance income or contracts. Some authorities may require minimum annual income proof.",
+
+    docs: "Valid passport, passport-size photo, CV/resume, portfolio of work (for creatives), freelance permit application, proof of qualifications or experience, bank statements (sometimes), Emirates ID application, medical fitness certificate, UAE address proof, visa application form.",
+
+    whom: "Independent professionals such as designers, writers, IT specialists, consultants, media professionals, marketing experts, tutors, and digital service providers who want to work legally in UAE without employer sponsorship.",
+
+    rules: "Must operate only within approved freelance activities listed on permit. Cannot legally work outside licensed freelance scope. Must renew freelance permit annually or as required. Must maintain valid visa and Emirates ID. Income declaration may be required for renewal. Family sponsorship allowed in some cases.",
+
+    prosCons: "Pros: No employer required, flexible working rights, legal freelance status, access to UAE banking and residency, ability to work with multiple clients. Cons: Limited to approved professions, income instability risk, annual renewal costs, restricted business expansion unless upgraded to company license.",
+
+    terms: "Freelancer Permit: Legal authorization to work independently; Free Zone: Special economic zone issuing freelance licenses; Emirates ID: Mandatory identity card; Visa Residency: Legal stay permit linked to freelance license; Portfolio: Proof of professional work; ICP: Federal immigration authority.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and Free Zone authorities such as Dubai Media City, Dubai Internet City, Abu Dhabi twofour54, etc.",
+
+    process: `1. Choose freelance category (media, IT, education, consulting, etc.) ->
+              2. Apply for freelancer permit from UAE Free Zone authority ->
+              3. Submit CV, portfolio, and professional documents ->
+              4. Receive initial approval for freelance license ->
+              5. Apply for residence visa linked to freelancer permit ->
+              6. Submit passport, photo, and supporting documents ->
+              7. Pay permit + visa fees ->
+              8. Undergo medical fitness test and biometrics ->
+              9. Immigration review and background verification ->
+              10. Receive freelance residence visa (1–3 years) ->
+              11. Obtain Emirates ID ->
+              12. Begin legal freelance work in UAE ->
+              13. Renew freelancer permit annually ->
+              14. Renew visa upon expiry if eligibility continues.`
+},
+
+"UaeRemoteWorkVisa": {
+    name: "Remote Work Visa (United Arab Emirates)",
+
+    validity: "1 year residence visa, renewable annually if eligibility conditions (employment and income) continue to be met.",
+
+    cost: "Approx AED 1,000–3,000 (~₹23,000–₹70,000) excluding health insurance, Emirates ID, and medical test. Total cost may vary by service provider.",
+
+    time: "Processing time usually 3–10 working days depending on document verification and application completeness.",
+
+    age: "Generally 18+ years. No upper age limit if employment and income conditions are satisfied.",
+
+    education: "No strict requirement, but applicant must be employed in a role that supports remote work (typically skilled/white-collar jobs).",
+
+    funds: "Minimum monthly income requirement usually around USD 3,500 (~AED 12,900) or equivalent. Must show consistent earnings and financial stability.",
+
+    docs: "Valid passport (6+ months), passport-size photo, proof of employment (contract), salary certificate or bank statements, proof of remote work approval from employer, health insurance valid in UAE, Emirates ID application, visa application form.",
+
+    whom: "Foreign professionals employed outside UAE who want to live in UAE while working remotely for overseas companies or clients.",
+
+    rules: "Must maintain foreign employment or remote income source. Cannot work for UAE-based companies unless separately authorized. Must maintain minimum income requirement. Visa is valid only while remote job relationship continues. Must comply with UAE residency and tax regulations.",
+
+    prosCons: "Pros: Live in UAE without local employer, tax-friendly environment, flexible lifestyle, access to UAE residency benefits, family sponsorship allowed in some cases. Cons: Requires stable foreign job, income threshold must be maintained, no direct UAE employment rights, renewal depends on continued remote work eligibility.",
+
+    terms: "Remote Work Visa: Residency for foreign remote employees; Employer Approval: Confirmation that job allows remote work; Income Threshold: Minimum salary requirement; Health Insurance: Mandatory UAE coverage; Emirates ID: National identity card; ICP: Federal immigration authority.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) under UAE remote work residency framework and cabinet-approved visa reforms.",
+
+    process: `1. Confirm eligibility (foreign job + remote work permission) ->
+              2. Obtain employment verification letter from overseas employer ->
+              3. Gather income proof (salary slips or bank statements) ->
+              4. Apply online via ICP portal or Dubai immigration system ->
+              5. Submit passport, photo, and documents ->
+              6. Pay visa application fees ->
+              7. Purchase UAE-compliant health insurance ->
+              8. Undergo medical fitness test and biometrics ->
+              9. Immigration review and background verification ->
+              10. Receive visa approval (1-year residence) ->
+              11. Obtain Emirates ID ->
+              12. Relocate and live in UAE while working remotely ->
+              13. Maintain income and employment status ->
+              14. Renew visa annually if conditions are met.`
+},
+
+"UaeStudentVisa": {
+    name: "Student Visa (United Arab Emirates)",
+
+    validity: "Usually 1 year, renewable annually for the duration of the academic program (bachelor’s, master’s, PhD, diploma).",
+
+    cost: "Approx AED 3,000–7,000 (~₹70,000–₹1.6 lakh) excluding tuition fees, health insurance, Emirates ID, and medical test. Some universities sponsor or partially cover visa costs.",
+
+    time: "Processing time typically 5–15 working days after university admission and document submission.",
+
+    age: "Generally 17+ years. No strict upper age limit for higher education programs.",
+
+    education: "Must have admission offer from a recognized UAE university, college, or higher education institution.",
+
+    funds: "Must show sufficient funds for tuition fees and living expenses. Some universities require bank balance proof (varies widely by institution). Scholarships may reduce requirement.",
+
+    docs: "Valid passport (6+ months), passport-size photos, university admission/acceptance letter, tuition fee receipt (if paid), academic transcripts and certificates, proof of funds (bank statement/scholarship letter), Emirates ID application, medical fitness certificate, health insurance, visa application form.",
+
+    whom: "International students admitted to UAE universities, colleges, or accredited educational institutions for full-time academic programs.",
+
+    rules: "Must maintain full-time student status and attendance. Cannot engage in full-time employment without authorization (limited part-time work allowed in some cases). Must renew visa annually based on academic progress. Must comply with UAE residency and academic regulations.",
+
+    prosCons: "Pros: Study in globally recognized UAE universities, safe international education environment, opportunity for internships, possible post-study work pathways, family sponsorship allowed in some cases. Cons: High tuition costs, limited work rights, visa depends on academic performance, annual renewal required.",
+
+    terms: "Student Visa: Education-based residence permit; Sponsoring University: Institution responsible for visa; Emirates ID: Mandatory identity card; Medical Fitness Test: Required health screening; Academic Year: Annual visa renewal cycle; ICP: Federal immigration authority.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and Ministry of Education / Knowledge authorities depending on emirate (KHDA Dubai, ADEK Abu Dhabi, etc.).",
+
+    process: `1. Apply and get admission from UAE university ->
+              2. Receive official acceptance letter ->
+              3. University initiates student visa application ->
+              4. Submit passport, academic records, and photos ->
+              5. Pay visa processing fees ->
+              6. Undergo medical fitness test in UAE ->
+              7. Apply for Emirates ID biometrics ->
+              8. Immigration review and background verification ->
+              9. Receive entry permit (if outside UAE) ->
+              10. Travel to UAE and complete visa stamping ->
+              11. Obtain student residence visa (1 year) ->
+              12. Begin academic program ->
+              13. Maintain attendance and academic performance ->
+              14. Renew visa annually until course completion.`
+},
+
+"UaeFamilyResidenceVisa": {
+    name: "Family Residence Visa (United Arab Emirates)",
+
+    validity: "Usually 1–3 years depending on sponsor’s visa type (employment, investor, or Golden Visa). Renewable as long as sponsor’s residence visa remains valid.",
+
+    cost: "Approx AED 2,000–5,500 (~₹45,000–₹1.3 lakh) excluding medical test, Emirates ID, health insurance, and typing center charges. Costs vary by emirate and visa type.",
+
+    time: "Processing time typically 3–10 working days after submission of complete documents and medical clearance.",
+
+    age: "No strict age limit for dependents. Children can be sponsored until adulthood (and sometimes beyond for students/unmarried daughters under specific conditions).",
+
+    education: "No requirement.",
+
+    funds: "Sponsor must meet minimum salary requirement (usually AED 4,000–AED 10,000+ depending on emirate and accommodation conditions). Proof of stable income and housing (tenancy contract) is required.",
+
+    docs: "Sponsor passport & visa copy, Emirates ID, salary certificate, tenancy contract (Ejari or equivalent), marriage certificate (attested), birth certificates of children (attested), passport copies of dependents, medical fitness certificate (for adults), health insurance, visa application form.",
+
+    whom: "UAE residents (employees, investors, freelancers, or Golden Visa holders) who want to bring their spouse, children, or in some cases parents to live with them in UAE.",
+
+    rules: "Sponsor must maintain valid UAE residence visa and meet minimum income requirements. Dependents must live under sponsor’s responsibility. Adult dependents must pass medical fitness tests. Sponsor is legally responsible for dependents’ residency compliance. Visa becomes invalid if sponsor visa is cancelled.",
+
+    prosCons: "Pros: Family reunification, dependents can live in UAE legally, access to healthcare and education, renewable residency, flexible sponsorship for eligible income holders. Cons: Dependent on sponsor’s visa status, strict income and housing requirements, renewal linked to sponsor’s employment or residency validity.",
+
+    terms: "Sponsor: UAE resident responsible for dependents; Dependent: Family member under sponsorship; Ejari: Registered tenancy contract in UAE; Emirates ID: Mandatory identity card; Medical Fitness Test: Health screening requirement; ICP: Federal immigration authority; GDRFA: Dubai immigration authority.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and General Directorate of Residency and Foreigners Affairs (GDRFA) for Dubai residents.",
+
+    process: `1. Sponsor ensures eligibility (salary, housing, valid residence visa) ->
+              2. Collect required documents (marriage/birth certificates, passport copies) ->
+              3. Apply for entry permit via ICP or GDRFA portal ->
+              4. Pay visa application and typing fees ->
+              5. Dependents enter UAE (if outside country) ->
+              6. Undergo medical fitness test (for adults) ->
+              7. Apply for Emirates ID biometrics ->
+              8. Immigration verification and approval ->
+              9. Residence visa stamped/issued (1–3 years validity) ->
+              10. Dependents live under sponsor’s residency ->
+              11. Sponsor maintains income and housing eligibility ->
+              12. Renew visa upon expiry as long as sponsor remains eligible.`
+},
+
+"UaeRetirementVisa": {
+    name: "Retirement Visa (United Arab Emirates)",
+
+    validity: "Typically 5 years, renewable if eligibility conditions (financial stability or property ownership) continue to be met.",
+
+    cost: "Approx AED 2,500–5,000 (~₹60,000–₹1.2 lakh) excluding property investment, savings requirements, medical test, Emirates ID, and insurance.",
+
+    time: "Processing time usually 2–4 weeks depending on verification of financial or property eligibility.",
+
+    age: "Minimum 55 years (standard eligibility threshold for retirement visa).",
+
+    education: "No requirement.",
+
+    funds: `Must meet one of the financial eligibility criteria:  
+    - Savings of approx AED 1 million+, OR  
+    - Monthly income approx AED 20,000+ (~AED 15,000 in some emirates), OR  
+    - Property ownership worth AED 1 million+ (with equity conditions).`,
+
+    docs: "Valid passport, passport-size photo, proof of age, bank statements (6 months), proof of income (pension or passive income), property ownership documents (if applicable), Emirates ID application, medical fitness certificate, health insurance, visa application form.",
+
+    whom: "Foreign nationals aged 55+ who want to retire and live long-term in UAE based on financial independence, savings, pension income, or property investment.",
+
+    rules: "Must maintain financial eligibility throughout visa validity. Must have valid health insurance in UAE. Property-based applicants must retain ownership or meet equity conditions. Income-based applicants must continue meeting minimum monthly income. Family sponsorship allowed under conditions.",
+
+    prosCons: "Pros: Long-term peaceful residency, high-quality healthcare access, safe living environment, family sponsorship possible, no employment requirement. Cons: High financial eligibility requirement, strict verification of funds or property, renewal depends on maintaining financial criteria.",
+
+    terms: "Retirement Visa: Long-term residency for retirees; Passive Income: Non-employment income such as pensions or investments; Property Equity: Ownership value after mortgage deductions; Emirates ID: Mandatory identity card; ICP: Federal immigration authority; Health Insurance: Mandatory UAE coverage.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) under retirement residency framework introduced in UAE long-term visa reforms.",
+
+    process: `1. Confirm eligibility (age 55+ and financial criteria) ->
+              2. Prepare financial documents (savings, income, or property proof) ->
+              3. Apply via ICP or relevant emirate authority ->
+              4. Submit passport, photos, and supporting documents ->
+              5. Pay visa application fees ->
+              6. Undergo medical fitness test in UAE ->
+              7. Apply for Emirates ID ->
+              8. Immigration and financial verification review ->
+              9. Receive visa approval (5-year residence) ->
+              10. Obtain Emirates ID ->
+              11. Move or continue residence in UAE ->
+              12. Maintain financial eligibility during stay ->
+              13. Renew visa after 5 years if conditions are still satisfied.`
+},
+
+"UaeMedicalTreatmentVisa": {
+    name: "Medical Treatment Visa (United Arab Emirates)",
+
+    validity: "Short-term visa typically issued for 60 to 90 days. Can be extended in special medical cases based on hospital recommendation and immigration approval.",
+
+    cost: "Approx AED 500–2,000 (~₹11,000–₹45,000) excluding hospital treatment costs, medical insurance, and extension fees. Costs vary depending on sponsor hospital and visa duration.",
+
+    time: "Processing time usually 2–7 working days when sponsored by a licensed UAE hospital or medical facility.",
+
+    age: "No strict age limit. Available for all age groups including minors and elderly patients.",
+
+    education: "No requirement.",
+
+    funds: "Must show ability to pay for medical treatment and stay. In many cases, UAE hospital sponsors or guarantees expenses. Private funding or insurance coverage may be required.",
+
+    docs: "Valid passport (6+ months), passport-size photo, medical reports from home country, treatment recommendation letter from UAE hospital, proof of appointment or admission, financial proof or insurance coverage, sponsor details (hospital/relative), visa application form.",
+
+    whom: "Foreign nationals traveling to UAE specifically for medical treatment, surgery, consultation, or specialized healthcare services at UAE hospitals and clinics.",
+
+    rules: "Must stay only for medical purposes. Must not work or engage in non-medical activities. Must follow treatment plan from sponsoring hospital. Visa validity depends on medical condition and hospital recommendation. Extensions require updated medical reports.",
+
+    prosCons: "Pros: Access to world-class UAE healthcare facilities, fast visa processing, hospital sponsorship possible, flexible extension in critical cases, family accompaniment allowed in some cases. Cons: Limited to medical purpose only, dependent on hospital approval, high treatment costs, no employment rights.",
+
+    terms: "Medical Treatment Visa: Health-based short-term residency permit; Sponsoring Hospital: Licensed UAE healthcare provider responsible for visa; Medical Report: Clinical justification for treatment; Extension: Renewal based on medical necessity; ICP: Federal immigration authority; Health Insurance: Mandatory or recommended coverage.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and UAE Ministry of Health and Prevention (MOHAP) in coordination with licensed hospitals.",
+
+    process: `1. Obtain medical diagnosis in home country ->
+              2. Contact UAE hospital and submit medical reports ->
+              3. Receive treatment acceptance letter from UAE hospital ->
+              4. Hospital acts as sponsor and applies for visa via ICP ->
+              5. Submit passport, medical records, and personal documents ->
+              6. Pay visa processing fees ->
+              7. Immigration review and hospital verification ->
+              8. Receive medical entry permit (e-visa) ->
+              9. Travel to UAE for treatment ->
+              10. Hospital conducts treatment and monitors condition ->
+              11. Apply for visa extension if treatment continues ->
+              12. Exit UAE after completion of medical treatment or recovery.`
+},
+
+"UaeJobSeekerVisa": {
+    name: "Job Seeker Visa (United Arab Emirates)",
+
+    validity: "Short-term visa typically issued for 60, 90, or 120 days depending on eligibility category. Non-renewable in most cases unless re-applied.",
+
+    cost: "Approx AED 750–2,500 (~₹17,000–₹55,000) depending on duration (60/90/120 days) and service charges. Additional insurance and medical fees may apply.",
+
+    time: "Processing time usually 2–7 working days depending on document verification and visa category.",
+
+    age: "Generally 18–60 years depending on qualification level (higher-skilled applicants may have more flexibility).",
+
+    education: "Minimum requirement usually bachelor’s degree or equivalent qualification. Higher categories may require specialized degrees or experience.",
+
+    funds: "Must show proof of financial stability (bank balance or savings) to support stay during job search. No fixed universal amount, but sufficient funds for living expenses are required.",
+
+    docs: "Valid passport (6+ months), passport-size photo, educational certificates (attested), CV/resume, proof of financial means (bank statements), travel insurance, Emirates ID (if applicable), visa application form.",
+
+    whom: "Foreign professionals, graduates, and skilled workers who want to enter UAE to search for employment opportunities without having a job offer in advance.",
+
+    rules: "Strictly no employment allowed while on job seeker visa. Must secure employment before converting to work visa. Must exit UAE if no job is found within validity period. Cannot extend in most cases. Must comply with immigration regulations.",
+
+    prosCons: "Pros: Opportunity to enter UAE without job offer, access to UAE job market, time to attend interviews, pathway to employment visa. Cons: No income allowed, limited duration, must secure job quickly, no guarantee of employment, financial self-support required.",
+
+    terms: "Job Seeker Visa: Temporary entry permit for employment search; Qualification Level: Education-based eligibility tier; Visa Conversion: Transition from job seeker to work visa; ICP: Federal immigration authority; Employment Offer: Required for work visa transition.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) under updated UAE residency and employment entry regulations.",
+
+    process: `1. Check eligibility based on education/skill level ->
+              2. Prepare documents (degree certificates, CV, passport) ->
+              3. Apply online via ICP portal or authorized service center ->
+              4. Pay visa application fees ->
+              5. Submit financial proof and insurance details ->
+              6. Immigration review and background check ->
+              7. Receive job seeker entry permit ->
+              8. Travel to UAE ->
+              9. Attend interviews and job search activities ->
+              10. Secure employment offer ->
+              11. Convert visa to Employment Visa ->
+              12. Exit UAE if job not secured within validity period.`
+},
+
+"UaeDomesticWorkerVisa": {
+    name: "Domestic Worker Visa (United Arab Emirates)",
+
+    validity: "Typically 1–2 years depending on sponsorship contract. Renewable as long as employment relationship with sponsor continues.",
+
+    cost: "Approx AED 2,000–5,000 (~₹45,000–₹1.2 lakh) excluding recruitment agency charges, airfare, medical test, and insurance. In most cases, the employer (sponsor) bears most or all costs.",
+
+    time: "Processing time usually 5–15 working days depending on recruitment process, document verification, and medical clearance.",
+
+    age: "Generally 18–60 years depending on role and home country recruitment agreements.",
+
+    education: "No formal education requirement, but basic skills and prior experience in housekeeping, caregiving, cooking, or childcare may be preferred.",
+
+    funds: "No personal financial requirement. The employer/sponsor is fully responsible for salary, accommodation, food, and medical insurance.",
+
+    docs: "Valid passport (6+ months), passport-size photos, employment contract, recruitment agency approval (if applicable), medical fitness certificate, police clearance certificate (in some cases), visa application form, sponsor’s Emirates ID and salary proof.",
+
+    whom: "Foreign nationals employed in UAE households as housemaids, nannies, drivers, cooks, caregivers, gardeners, and other domestic support roles under individual or family sponsorship.",
+
+    rules: "Must work only for sponsoring employer. Cannot change employer without legal transfer process. Must reside at employer’s designated accommodation. Employer is responsible for salary, welfare, and insurance. Abuse or contract violations are strictly regulated under UAE labor laws. Visa becomes invalid if contract is terminated unless transferred.",
+
+    prosCons: "Pros: Legal employment in UAE households, employer covers major costs, steady income, accommodation provided, regulated labor protection laws. Cons: Employer-dependent visa, limited job mobility, strict contract conditions, long working hours in some cases, visa tied to employer relationship.",
+
+    terms: "Domestic Worker: Household employee under UAE law; Sponsor: Employer responsible for visa and welfare; Contract: Legal employment agreement; Recruitment Agency: Licensed overseas hiring agency; MOHRE: UAE Ministry of Human Resources and Emiratisation; ICP: Federal immigration authority; Labor Rights: Legal protections under UAE domestic labor law.",
+
+    legal: "Regulated by UAE Ministry of Human Resources and Emiratisation (MOHRE) and Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) under UAE Domestic Workers Law.",
+
+    process: `1. Employer selects domestic worker through licensed agency ->
+              2. Employment contract is drafted and signed ->
+              3. Employer applies for work permit via MOHRE ->
+              4. Entry permit issued for worker ->
+              5. Worker travels to UAE ->
+              6. Undergo medical fitness test in UAE ->
+              7. Apply for Emirates ID biometrics ->
+              8. Immigration and labor contract registration ->
+              9. Residence visa stamped (1–2 years validity) ->
+              10. Worker begins employment under sponsor ->
+              11. Employer provides salary, accommodation, and insurance ->
+              12. Visa renewed upon contract continuation ->
+              13. Transfer or cancellation if employment ends.`
+},
+
+"UaeGccResidentVisa": {
+    name: "GCC Resident Visa (United Arab Emirates)",
+
+    validity: "Short-term entry permit, usually 30 days, extendable in some cases. It is linked to the applicant’s valid GCC residency permit.",
+
+    cost: "Approx AED 100–300 (~₹2,300–₹7,000) depending on processing channel and service fees. Additional insurance or typing center charges may apply.",
+
+    time: "Processing time usually 1–3 working days, often issued quickly due to simplified GCC eligibility checks.",
+
+    age: "No strict age limit. Applicant must hold valid GCC residence status.",
+
+    education: "No requirement.",
+
+    funds: "Must show valid GCC residence permit and ability to support stay. Some cases may require proof of accommodation or return ticket.",
+
+    docs: "Valid passport (6+ months), valid GCC residence permit (UAE/KSA/Qatar/Oman/Kuwait/Bahrain), passport-size photo, GCC ID copy, return flight ticket, visa application form, proof of accommodation (if required).",
+
+    whom: "Foreign nationals residing in GCC countries (Saudi Arabia, Qatar, Oman, Kuwait, Bahrain) who wish to visit UAE for tourism, family visit, or short-term stay.",
+
+    rules: "Must hold valid GCC residency at the time of application. Must enter UAE within visa validity period. Cannot work in UAE under this visa. Must exit before expiry unless extension is granted. Must comply with UAE immigration rules.",
+
+    prosCons: "Pros: Fast processing, simplified entry for GCC residents, low cost, easy travel within Gulf region, flexible short stay. Cons: Short validity, no work rights, depends on GCC residency validity, limited extension options.",
+
+    terms: "GCC: Gulf Cooperation Council countries; GCC Resident: Foreign national with valid residency in GCC country; Entry Permit: Short-term travel authorization; ICP: Federal immigration authority; Return Ticket: Mandatory proof of exit from UAE.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) under GCC unified residency travel agreements.",
+
+    process: `1. Ensure valid GCC residence permit (any GCC country) ->
+              2. Apply online via ICP portal or approved travel agent ->
+              3. Submit passport and GCC residence ID copy ->
+              4. Provide return flight ticket and accommodation details ->
+              5. Pay visa processing fees ->
+              6. Immigration verification of GCC status ->
+              7. Receive electronic entry permit ->
+              8. Travel to UAE ->
+              9. Immigration clearance at UAE port of entry ->
+              10. Stay in UAE for permitted duration (usually 30 days) ->
+              11. Exit UAE before visa expiry or apply for extension if eligible.`
+},
+
+"UaeMissionVisa": {
+    name: "Mission Visa (United Arab Emirates)",
+
+    validity: "Short-term employment visa typically issued for 90 days, extendable up to 180 days in certain cases. It is designed for temporary project-based or mission-specific work.",
+
+    cost: "Approx AED 500–2,000 (~₹11,000–₹45,000) excluding medical test, insurance, and Emirates ID. Usually paid by sponsoring company or organization.",
+
+    time: "Processing time usually 3–10 working days depending on employer sponsorship and immigration approval.",
+
+    age: "Generally 18–60 years depending on job role and employer requirements.",
+
+    education: "Depends on job type. Skilled mission roles may require diploma or degree; technical or project roles require relevant experience/certification.",
+
+    funds: "No personal financial requirement. Sponsor (UAE company or organization) is responsible for salary, visa costs, and accommodation if applicable.",
+
+    docs: "Valid passport (6+ months), passport-size photo, mission contract or assignment letter, employer sponsorship documents, educational certificates (if required), experience letters, medical fitness certificate, Emirates ID application, visa application form.",
+
+    whom: "Foreign professionals hired for short-term projects, assignments, consultancy work, technical missions, or temporary specialized roles in UAE companies or government projects.",
+
+    rules: "Must work only for sponsoring employer and only for approved mission/project. Cannot switch employer or job role without approval. Must leave UAE or change visa status after mission completion. Visa is strictly time-bound and project-specific.",
+
+    prosCons: "Pros: Quick entry for short-term professional work, employer covers costs, ideal for project-based assignments, flexible for consultants and experts. Cons: Very limited duration, tied to specific project/employer, no long-term residency benefits, must exit or convert visa after mission ends.",
+
+    terms: "Mission Visa: Temporary work visa for specific assignment; Sponsor: UAE employer or government entity; Project-Based Work: Defined temporary job scope; Entry Permit: Authorization to enter UAE for mission work; ICP: Federal immigration authority; MOHRE: Labor regulation authority.",
+
+    legal: "Regulated by UAE Ministry of Human Resources and Emiratisation (MOHRE) and Federal Authority for Identity, Citizenship, Customs & Port Security (ICP).",
+
+    process: `1. Employer identifies need for short-term mission worker ->
+              2. Issue mission contract or assignment letter ->
+              3. Employer applies for Mission Visa via MOHRE/ICP ->
+              4. Submit passport and professional documents ->
+              5. Pay visa processing fees ->
+              6. Immigration review and approval ->
+              7. Entry permit issued ->
+              8. Worker travels to UAE ->
+              9. Undergo medical test if required ->
+              10. Begin mission/project work ->
+              11. Complete assignment within validity period ->
+              12. Exit UAE or convert visa to another category if eligible.`
+},
+
+"UaeTemporaryWorkVisa": {
+    name: "Temporary Work Visa (United Arab Emirates)",
+
+    validity: "Short-term employment visa typically issued for 1 to 6 months, depending on project duration or contract type. Can sometimes be extended once or twice with employer approval.",
+
+    cost: "Approx AED 500–2,500 (~₹11,000–₹55,000) excluding medical test, Emirates ID (if applicable), insurance, and employer processing charges. Usually paid by employer.",
+
+    time: "Processing time usually 3–10 working days depending on employer sponsorship and immigration clearance.",
+
+    age: "Generally 18–60 years depending on job type and company policy.",
+
+    education: "Depends on role. Skilled temporary roles require diploma/degree or relevant experience; semi-skilled roles may require basic qualifications.",
+
+    funds: "No personal financial requirement. Employer is responsible for salary, accommodation (if provided), and visa costs.",
+
+    docs: "Valid passport (6+ months), passport-size photo, temporary employment contract, employer sponsorship documents, experience letters (if required), educational certificates, medical fitness certificate (if required), visa application form.",
+
+    whom: "Foreign workers hired for short-duration employment such as construction projects, seasonal roles, technical assistance, consultancy work, or temporary staffing needs in UAE companies.",
+
+    rules: "Must work only for sponsoring employer and only for the specified temporary role. Cannot change job or employer without formal visa transfer. Must leave UAE after contract completion unless visa is extended or converted. Must comply with UAE labor and immigration laws.",
+
+    prosCons: "Pros: Fast entry for short-term jobs, employer-sponsored cost coverage, useful for project-based employment, opportunity to gain UAE work experience. Cons: Very short validity, no long-term residency benefits, job is strictly time-bound, dependent on employer renewal or extension.",
+
+    terms: "Temporary Work Visa: Short-duration employment permit; Sponsor: UAE employer responsible for visa; Entry Permit: Authorization to enter UAE for work; Contract Duration: Fixed employment period; MOHRE: Ministry regulating labor; ICP: Federal immigration authority.",
+
+    legal: "Regulated by UAE Ministry of Human Resources and Emiratisation (MOHRE) and Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) under UAE labor and residency laws.",
+
+    process: `1. Employer identifies short-term staffing need ->
+              2. Draft temporary employment contract ->
+              3. Employer applies for temporary work permit via MOHRE/ICP ->
+              4. Submit passport and job-related documents ->
+              5. Pay visa processing fees ->
+              6. Immigration review and approval ->
+              7. Entry permit issued ->
+              8. Worker travels to UAE ->
+              9. Undergo medical test if required ->
+              10. Begin temporary employment ->
+              11. Complete contract duration ->
+              12. Extend visa if approved or exit UAE after completion.`
+},
+
+
+"UaeLongTermResidenceVisa": {
+    name: "Long-Term Residence Visa (United Arab Emirates)",
+
+    validity: "Typically 5 to 10 years depending on category (e.g., Golden Visa framework or special long-term residency schemes). Renewable if eligibility conditions continue to be met.",
+
+    cost: "Approx AED 2,800–7,000 (~₹65,000–₹1.6 lakh) excluding investment, salary requirements, medical test, Emirates ID, and insurance. Category-based additional costs may apply.",
+
+    time: "Processing time usually 2–8 weeks depending on category (investor, skilled professional, scientist, student, or exceptional talent).",
+
+    age: "No strict age limit. Eligibility depends on category (investment, employment, talent, or special contribution).",
+
+    education: "Required for skilled professionals, scientists, doctors, engineers, researchers, and students. Not required for investor-based categories.",
+
+    funds: `Varies by category:  
+    - Investors: AED 2 million+ property/business investment (typical threshold)  
+    - Skilled professionals: high salary (often AED 30,000+ monthly)  
+    - Students/talents: academic excellence or recognition  
+    Must show financial stability and legal source of funds where applicable.`,
+
+    docs: "Valid passport, passport-size photo, Emirates ID application, medical fitness certificate, proof of investment/salary/achievement, academic certificates (attested), bank statements, recommendation letters (if required), UAE insurance, visa application form.",
+
+    whom: "High-net-worth individuals, investors, highly skilled professionals, scientists, researchers, exceptional students, and individuals contributing significantly to UAE economy, innovation, or society.",
+
+    rules: "Must maintain eligibility criteria throughout visa validity (investment, job, or talent status). Family sponsorship is allowed under conditions. Failure to maintain criteria may lead to cancellation. Must comply with UAE immigration and residency laws.",
+
+    prosCons: "Pros: Long-term 5–10 year stability, self-sponsorship in many categories, family benefits, no employer dependency (in investor/talent cases), access to UAE banking, healthcare, and business ecosystem. Cons: High eligibility threshold, strict financial or professional requirements, periodic verification of status, investment or income conditions must be maintained.",
+
+    terms: "Long-Term Residence Visa: Extended UAE residency program; Golden Visa Framework: Main long-term residency system; Self-Sponsorship: No employer required; ICP: Federal immigration authority; Emirates ID: Mandatory national identity card; Eligibility Criteria: Financial/professional qualification requirements.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) under long-term residency regulations and UAE Cabinet-approved immigration policies.",
+
+    process: `1. Determine eligibility category (investor, skilled, talent, student) ->
+              2. Collect supporting documents (income, investment, education, achievements) ->
+              3. Apply via ICP portal or authorized government channel ->
+              4. Submit passport and personal documents ->
+              5. Pay application fees ->
+              6. Undergo medical fitness test and biometrics ->
+              7. Immigration and background verification ->
+              8. Receive preliminary approval ->
+              9. Pay final issuance fees ->
+              10. Visa issued (5–10 years validity) ->
+              11. Obtain Emirates ID ->
+              12. Maintain eligibility conditions ->
+              13. Renew visa after expiry if criteria are still met.`
+},
+
+"UaeHumanitarianVisa": {
+    name: "Humanitarian Visa (United Arab Emirates)",
+
+    validity: "Case-specific short to long-term residence. Typically issued for 1–3 years and may be extended depending on humanitarian situation and authority approval.",
+
+    cost: "Usually low or waived in many cases (~AED 0–2,000 / ₹0–₹45,000). Fees may be reduced or exempted depending on humanitarian category and urgency.",
+
+    time: "Processing time varies widely: 3 days to several weeks depending on urgency, documentation, and approval from UAE authorities.",
+
+    age: "No age limit. Applicable to individuals or families in vulnerable or emergency situations.",
+
+    education: "No requirement.",
+
+    funds: "No strict financial requirement. In many cases, applicants are financially supported by sponsors, charities, UAE government, or humanitarian organizations.",
+
+    docs: "Valid passport (if available), identity documents, proof of humanitarian situation (medical reports, conflict/displacement evidence), sponsor/NGO letter (if applicable), family documents, photographs, visa application form, any supporting legal or UN documentation.",
+
+    whom: "Individuals facing urgent humanitarian situations such as conflict displacement, natural disasters, medical emergencies, stateless persons, or special humanitarian cases approved by UAE authorities.",
+
+    rules: "Must comply with UAE immigration and humanitarian authority conditions. Status is subject to review and renewal based on ongoing need. Employment rights are usually restricted unless separately authorized. Must not misuse humanitarian status for non-humanitarian purposes.",
+
+    prosCons: "Pros: Protection and safe residence in UAE, possible government or NGO support, flexible case-based approvals, family inclusion possible in many cases. Cons: Uncertain duration, case-by-case approval, limited work rights, dependent on ongoing humanitarian justification.",
+
+    terms: "Humanitarian Case: Emergency protection situation; UAE Authorities: ICP and relevant government bodies; NGO Sponsorship: Support from approved humanitarian organizations; Stateless Person: Individual without nationality; Temporary Protection: Short-term residency under humanitarian grounds.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) in coordination with UAE humanitarian and security authorities and international humanitarian guidelines.",
+
+    process: `1. Identify humanitarian situation (medical, conflict, displacement, etc.) ->
+              2. Gather supporting evidence and documentation ->
+              3. Apply via UAE authorities, embassy, or approved humanitarian channel ->
+              4. Submit passport and identity documents (if available) ->
+              5. Provide NGO or sponsor support letter (if applicable) ->
+              6. Immigration and humanitarian review ->
+              7. Security and background assessment ->
+              8. Receive temporary humanitarian approval ->
+              9. Issue residence permit (case-based duration) ->
+              10. Enter or remain in UAE under protection status ->
+              11. Access humanitarian support services if eligible ->
+              12. Renew status based on ongoing need or exit when situation stabilizes.`
+},
+"UaeSpecialEntryPermit": {
+    name: "Special Entry Permit (United Arab Emirates)",
+
+    validity: "Short-term permit typically valid for 30 to 90 days depending on purpose. Can be extended in special cases with authority approval.",
+
+    cost: "Approx AED 100–500 (~₹2,300–₹11,500) depending on category, urgency, and issuing authority. Some permits may be issued free in government or special cases.",
+
+    time: "Processing time usually 1–5 working days depending on purpose (government, emergency, or special approval cases).",
+
+    age: "No strict age limit. Depends on purpose and applicant category.",
+
+    education: "No requirement.",
+
+    funds: "Varies by purpose. Some categories require proof of financial support, while government/official permits may waive this requirement.",
+
+    docs: "Valid passport, passport-size photo, reason for entry (official invitation/emergency letter), sponsor details (if applicable), supporting documents based on purpose (medical, government, business, or family), visa application form.",
+
+    whom: "Individuals entering UAE under special circumstances such as government invitations, emergency travel, urgent family situations, official delegations, or special approvals not covered under regular visa categories.",
+
+    rules: "Must strictly follow stated purpose of entry. Cannot engage in employment unless separately authorized. Must exit or convert status before expiry. Misuse of permit leads to penalties or bans. Subject to UAE immigration and security clearance.",
+
+    prosCons: "Pros: Fast entry approval, flexible use for emergencies or official cases, can bypass standard visa procedures in special situations. Cons: Short validity, purpose-restricted, not a long-term residence option, depends heavily on authority approval.",
+
+    terms: "Special Entry Permit: Temporary authorization to enter UAE; Sponsor: Government entity, organization, or individual requesting entry; Entry Clearance: Immigration approval to enter UAE; ICP: Federal immigration authority; Purpose-Based Entry: Visa strictly linked to reason for travel.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and issued under UAE immigration discretionary powers for special cases.",
+
+    process: `1. Identify special reason for entry (official, emergency, etc.) ->
+              2. Obtain invitation or sponsorship letter from UAE entity ->
+              3. Submit application via ICP or authorized channel ->
+              4. Provide passport and supporting documents ->
+              5. Pay applicable fees (if required) ->
+              6. Immigration and security review ->
+              7. Receive approval or rejection decision ->
+              8. Issue special entry permit ->
+              9. Travel to UAE within validity period ->
+              10. Immigration clearance on arrival ->
+              11. Stay strictly within permitted purpose ->
+              12. Exit UAE or change visa status before expiry.`
+},
+
+"UaePropertyOwnerVisa": {
+    name: "Property Owner Visa (United Arab Emirates)",
+
+    validity: "Typically 2 to 5 years depending on emirate rules and property value. Renewable as long as property ownership and eligibility conditions are maintained.",
+
+    cost: "Approx AED 2,500–6,000 (~₹60,000–₹1.4 lakh) excluding property purchase cost. Additional fees include medical test, Emirates ID, insurance, and registration charges.",
+
+    time: "Processing time usually 2–4 weeks depending on property verification, title deed approval, and immigration processing.",
+
+    age: "No strict age limit. Applicant must be a legal property owner (18+).",
+
+    education: "No requirement.",
+
+    funds: "Minimum property value requirement typically starts from AED 750,000–AED 1,000,000 (varies by emirate). Some visas require full ownership or a minimum equity percentage (e.g., 50% paid property).",
+
+    docs: "Valid passport, passport-size photo, property title deed (issued by Dubai Land Department or relevant authority), proof of property value, bank statements (if required), Emirates ID application, medical fitness certificate, visa application form, insurance proof.",
+
+    whom: "Foreign nationals who own residential property in the UAE and wish to obtain residency based on real estate investment (Dubai, Abu Dhabi, etc.).",
+
+    rules: "Property must remain owned throughout visa validity. Selling or transferring property may cancel visa eligibility. Property must meet minimum value threshold set by emirate authorities. Must comply with UAE residency laws. Family sponsorship allowed in many cases.",
+
+    prosCons: "Pros: Residency without employer sponsorship, asset-based visa security, access to UAE banking and lifestyle benefits, family sponsorship possible, pathway to long-term or Golden Visa in some cases. Cons: High property investment requirement, market risk in real estate, visa depends on continued ownership, limited flexibility if property is sold.",
+
+    terms: "Property Owner Visa: Residency based on real estate ownership; Title Deed: Legal proof of property ownership; Equity Value: Paid-up portion of property value; Dubai Land Department (DLD): Property authority in Dubai; ICP: Federal immigration authority; Family Sponsorship: Ability to sponsor dependents.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) and local land departments such as Dubai Land Department (DLD) and Abu Dhabi Municipality authorities.",
+
+    process: `1. Purchase eligible property in UAE (minimum value threshold) ->
+              2. Obtain official title deed from land authority ->
+              3. Verify property eligibility for residency visa ->
+              4. Apply for Property Owner Visa via ICP or emirate authority ->
+              5. Submit passport, title deed, and financial documents ->
+              6. Pay visa processing fees ->
+              7. Undergo medical fitness test and biometrics ->
+              8. Immigration review and approval ->
+              9. Visa issued (2–5 years validity) ->
+              10. Obtain Emirates ID ->
+              11. Maintain property ownership during visa period ->
+              12. Renew visa upon continued ownership and eligibility.`
+},
+"UaeFiveYearMultiEntryTouristVisa": {
+    name: "5-Year Multi-Entry Tourist Visa (Self-Sponsored)",
+
+    validity: "5 years. Allows multiple entries into the UAE. Each stay can last up to 90 days, with an option to extend for another 90 days (max 180 days per year).",
+
+    cost: "Approx. AED 650 – AED 800 (~₹15,000 – ₹18,500) for the application and issuance. Note: This does not include the mandatory health insurance required for every entry.",
+
+    time: "Processing time: 2 to 5 working days. Approval is generally fast if the financial evidence is clear.",
+
+    age: "No strict age limit, but primary applicants must be 18+ to provide their own financial evidence.",
+
+    education: "No education requirement.",
+
+    funds: "Mandatory: Must show a bank balance of at least USD $4,000 (~₹3.35 Lakhs) or equivalent in foreign currency for the last 6 months.",
+
+    docs: "Valid passport, passport-size photo, 6-month bank statement (stamped by bank) showing $4,000 balance, proof of medical insurance for the UAE, and a round-trip ticket for the first visit.",
+
+    whom: "Frequent travelers, business consultants, and Indian families who visit the UAE often and want to avoid the hassle of applying for a new visa every trip.",
+
+    rules: "Applicant sponsors themselves (no airline/hotel/travel agent needed). Stays must not exceed 180 days in a single calendar year. Must enter the UAE at least once every 6 months to keep the visa active.",
+
+    prosCons: "Pros: No sponsor required; cost-effective for frequent flyers; long-term convenience. Cons: Requires a high maintained bank balance; requires 6 months of financial history.",
+
+    terms: "Self-Sponsorship: Applicant acts as their own guarantor; Multi-entry: Unlimited entries within 5 years; ICP: Federal Authority for Identity and Citizenship.",
+
+    legal: "Cabinet Resolution No. 65 of 2022 on Entry and Residence of Foreigners.",
+
+    process: `1. Scan passport and prepare a stamped 6-month bank statement -> 
+              2. Log in to the ICP portal or the UAE Pass app -> 
+              3. Select 'Multi-entry Tourist Visa' application -> 
+              4. Upload documents and enter financial details -> 
+              5. Pay the application and issuance fees -> 
+              6. Wait for the security and financial verification -> 
+              7. Receive the 5-year e-visa via email -> 
+              8. Purchase insurance and travel to the UAE.`
+},
+
+"UaeBlueVisaSustainability": {
+    name: "Blue Visa (10-Year Sustainability Residency)",
+
+    validity: "10 years. This is a long-term residency permit that does not require a local sponsor.",
+
+    cost: "Approx. AED 2,800 – AED 3,800 (~₹64,000 – ₹87,000) including application, medical tests, and Emirates ID issuance.",
+
+    time: "Processing: 4 to 8 weeks due to the requirement for expert committee evaluation.",
+
+    age: "No specific age limit.",
+
+    education: "Usually requires a higher degree (Master's or PhD) or specialized certifications in sustainability, environmental science, or ecology.",
+
+    funds: "No fixed investment requirement, but must demonstrate a stable high income or project funding in the sustainability sector.",
+
+    docs: "Evidence of exceptional contribution to the environment (awards, patents, research), proof of work with international sustainability organizations, professional CV, and attested degree certificates.",
+
+    whom: "Environmental advocates, sustainability researchers, circular economy experts, and those who have contributed to the UAE's 'Year of Sustainability' or COP28 initiatives.",
+
+    rules: "Granted to individuals with 'exceptional' achievements in sustainability. Must maintain professional activity in the green sector to remain eligible for renewal.",
+
+    prosCons: "Pros: 10 years of security; allows sponsoring of parents and children; self-sponsored. Cons: Extremely high bar for 'exceptional achievement'; requires government nomination or expert review.",
+
+    terms: "Sustainability Sector: Fields involving renewable energy, waste management, or climate tech; Circular Economy: Economic system aimed at eliminating waste.",
+
+    legal: "Announced by the UAE Cabinet in May 2024 to support national environmental goals.",
+
+    process: `1. Identify eligibility as a sustainability champion -> 
+              2. Submit a nomination request via the ICP 'Talent' portal -> 
+              3. Provide comprehensive evidence of environmental impact -> 
+              4. Wait for the Ministry of Environment or expert panel review -> 
+              5. Receive 'Nomination Approval' -> 
+              6. Complete medical tests and biometrics in the UAE -> 
+              7. Receive 10-year Blue Visa residency.`
+},
+
+"UaeExceptionalStudentBridgeVisa": {
+    name: "Exceptional Student Residence (2-Year Bridge Visa)",
+
+    validity: "2 years. Designed as a transition period from graduation to high-level employment.",
+
+    cost: "Approx. AED 1,200 – AED 1,800 (~₹27,000 – ₹41,000).",
+
+    education: "Mandatory: Must be a graduate of a top-tier UAE university or one of the world's top 100 universities. Requires a cumulative GPA of at least 3.5 (or equivalent).",
+
+    whom: "Top-performing graduates who want to stay in the UAE to seek high-level employment or start a technology business.",
+
+    rules: "The student must have graduated within the last 2 years. This visa allows them to stay legally while looking for a job that qualifies for a Golden Visa.",
+
+    process: `1. Graduate from a top-100 university -> 2. Attest degree and transcripts -> 3. Apply via ICP portal using 'Student Excellence' category -> 4. Receive 2-year bridge residency.`
+},
+
+"UaeMedicalCompanionVisa": {
+    name: "Medical Companion Visa",
+
+    validity: "Usually valid for 90 days. Can be extended twice for a total of up to 270 days, depending on the patient's medical needs.",
+
+    cost: "Approx. AED 600 – AED 1,200 (~₹14,000 – ₹27,000) depending on the extension needs.",
+
+    whom: "Family members or friends accompanying a patient who is traveling to the UAE for treatment under a 'Medical Treatment Visa'.",
+
+    rules: "The companion must enter the UAE with or after the patient. The stay is strictly tied to the patient's treatment progress as certified by a UAE hospital.",
+
+    process: `1. Patient receives treatment acceptance from a UAE hospital -> 2. Hospital applies for patient and companion visas together -> 3. Visas issued for 90 days -> 4. Companion enters UAE.`
+},
+
+"UaeReentryPermitOutsideSixMonths": {
+    name: "Out-of-Country Resident Permit (Re-entry Permit)",
+
+    validity: "Allows a resident to return to the UAE after being outside for more than 180 days (6 months). Once granted, the resident must enter within 30 days.",
+
+    cost: "AED 800 – AED 1,000 (~₹18,000 – ₹23,000).",
+
+    whom: "UAE residents (especially from India) who have a valid residency visa but were unable to return within the 6-month window due to medical, legal, or professional reasons.",
+
+    rules: "Must provide a valid reason for the delay (e.g., medical report or employer's letter). Approval is at the discretion of the ICP.",
+
+    process: `1. Log into the ICP portal from outside the UAE -> 2. Select 'Request to stay outside the country more than 6 months' -> 3. Upload justification (medical/employment) -> 4. Receive approval -> 5. Enter the UAE within 30 days.`
+},
+
+"UaeWorkPermitForDependents": {
+    name: "Work Permit for Family Dependents (MOHRE)",
+
+    validity: "Aligned with the existing Family Residence Visa (usually 2 or 3 years).",
+
+    cost: "Approx. AED 500 – AED 2,000 (~₹11,500 – ₹45,000) depending on the company's skill category and labor fees.",
+
+    whom: "Individuals already in the UAE on a spouse or parent's sponsorship who have received a job offer and want to work legally.",
+
+    rules: "The original sponsor (husband/father/wife) must provide a No Objection Certificate (NOC). The visa remains under the family sponsorship, but the worker gets a labor card.",
+
+    process: `1. Receive job offer in UAE -> 2. Employer applies for 'Labor Permit for Sponsored Dependents' at MOHRE -> 3. Original sponsor signs NOC -> 4. Receive Labor Card -> 5. Start work legally.`
+},
+
+"UaeBusinessIncubatorVisa": {
+    name: "Business Incubator Visa (Startup Residency)",
+
+    validity: "2 years. This is a specialized work residency for entrepreneurs.",
+
+    cost: "AED 2,000 – AED 3,500 (~₹46,000 – ₹80,000).",
+
+    whom: "Entrepreneurs and startup founders from India who have a scalable tech idea and are accepted by an approved UAE incubator (like Hub71 or Area 2071).",
+
+    rules: "Must maintain membership/participation in the incubator program. Allows for the hiring of up to 3 staff members on the same startup project.",
+
+    process: `1. Pitch idea to a UAE government-certified incubator -> 2. Receive 'Letter of Acceptance' -> 3. Apply for 2-year incubator residency -> 4. Move to UAE to build the startup.`
+},
+
+"UaeDubaiVirtualWorkingProgram": {
+    name: "Virtual Working Program (Dubai Only)",
+
+    validity: "1 year. Renewable annually.",
+
+    cost: "Total approx. USD $611 (~₹51,000) including application, processing, medicals, and Emirates ID.",
+
+    funds: "Mandatory: Minimum monthly income of USD $3,500 (~₹2.9 Lakhs).",
+
+    whom: "Global remote workers and digital nomads who work for companies outside the UAE but want to live in Dubai.",
+
+    rules: "Zero local income tax. Access to all resident services (telecom, schools, banking). No local UAE sponsor required.",
+
+    process: `1. Prove $3,500 monthly income (last 3 months pay slips) -> 2. Provide proof of employment outside UAE -> 3. Apply via Visit Dubai portal -> 4. Receive 1-year residency.`
+},
+
+"UaeCulturalSpecialTalentVisa": {
+    name: "Cultural / Special Talent Visa (United Arab Emirates)",
+
+    validity: "Typically 5 to 10 years depending on category and achievement level. Renewable as long as talent recognition or contribution status is maintained.",
+
+    cost: "Approx AED 2,800–7,000 (~₹65,000–₹1.6 lakh) excluding medical test, Emirates ID, insurance, and nomination/endorsement-related costs. Some categories may be government-supported or fee-reduced.",
+
+    time: "Processing time usually 2–8 weeks depending on nomination, review, and approval by UAE cultural or talent authorities.",
+
+    age: "No strict age limit. Eligibility depends on achievements, recognition, or contribution in the relevant field.",
+
+    education: "Not mandatory in all cases, but often required for scientists, researchers, and professionals. For artists, athletes, and creatives, proven portfolio/recognition is more important than formal education.",
+
+    funds: "No fixed income requirement for talent categories. However, applicants must show financial stability or sponsorship/endorsement by UAE government entities or recognized institutions.",
+
+    docs: "Valid passport, passport-size photo, Emirates ID application, CV/portfolio of achievements, awards or recognition certificates, recommendation letters from UAE authorities or recognized institutions, proof of work (publications, performances, patents, exhibitions), medical fitness certificate, visa application form.",
+
+    whom: "Exceptional individuals in arts, culture, sports, innovation, science, technology, research, media, and other creative or intellectual fields recognized for outstanding contributions.",
+
+    rules: "Must continue contributing in the approved field of talent. Must maintain recognition or endorsement status from relevant UAE authority. Family sponsorship allowed. Visa may be revoked if talent criteria are no longer met or if fraudulent claims are found.",
+
+    prosCons: "Pros: Long-term residency (5–10 years), self-sponsorship in many cases, strong family benefits, high prestige status, access to UAE opportunities in arts, science, and innovation sectors. Cons: Highly selective, requires official recognition or endorsement, documentation-heavy process, approval not guaranteed even with strong profile.",
+
+    terms: "Talent Visa: Residency for exceptional individuals; Cultural Contribution: Recognized impact in arts and culture; Endorsement: Approval from UAE government body; ICP: Federal immigration authority; Emirates ID: Mandatory identity card; National Talent Program: UAE initiative supporting exceptional individuals.",
+
+    legal: "Regulated by UAE Federal Authority for Identity, Citizenship, Customs & Port Security (ICP) in coordination with UAE Ministry of Culture, Sports authorities, scientific councils, and other specialized government bodies.",
+
+    process: `1. Identify talent category (arts, science, sports, innovation, etc.) ->
+              2. Prepare portfolio of achievements and evidence ->
+              3. Obtain nomination or endorsement from UAE authority or recognized institution ->
+              4. Apply via ICP or government talent platform ->
+              5. Submit passport, CV, and supporting documents ->
+              6. Pay application fees (if applicable) ->
+              7. Expert committee evaluation of achievements ->
+              8. Security and background verification ->
+              9. Receive approval for talent visa ->
+              10. Pay issuance fees and complete medical test ->
+              11. Visa issued (5–10 years validity) ->
+              12. Obtain Emirates ID ->
+              13. Continue contribution in recognized field ->
+              14. Renew visa upon maintaining talent status.`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

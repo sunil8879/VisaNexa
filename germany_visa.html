@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* Kuwait Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }  
+</style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+    <label>Select Country</label>
+    <select id="country">
+        <!-- Value must exactly match the JavaScript key "SAUDI ARABIA" -->
+        <option value="GERMANY">GERMANY</option>
+    </select>
+
+    <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+<select id="visaType">
+    <optgroup label="1. Short Stay (Schengen Type C)">
+        <option value="GermanySchengenShortStayVisaC">Schengen Short-Stay Visa (General)</option>
+        <option value="GermanyTouristVisa">Tourist Visa</option>
+        <option value="GermanyBusinessVisa">Business Visa</option>
+        <option value="GermanyVisitorVisa">Visitor Visa (Family/Friends)</option>
+        <option value="GermanyMedicalTreatmentVisa">Medical Treatment Visa</option>
+        <option value="GermanyCulturalVisa">Cultural Visa</option>
+        <option value="GermanySportsVisa">Sports Visa</option>
+        <option value="GermanyReligiousVisa">Religious Visa</option>
+        <option value="GermanyAirportTransitVisa">Airport Transit Visa</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Skilled Migration (Type D)">
+        <option value="GermanyWorkVisa">Work Visa (General Employment)</option>
+        <option value="GermanySkilledWorkerVisa">Skilled Worker Visa</option>
+        <option value="GermanyEUBlueCard">EU Blue Card</option>
+        <option value="GermanyJobSeekerVisa">Job Seeker Visa</option>
+        <option value="GermanyIntraCorporateTransferVisa">Intra-Corporate Transfer (ICT)</option>
+    </optgroup>
+
+    <optgroup label="3. Study & Training (Type D)">
+        <option value="GermanyStudentVisa">Student Visa</option>
+        <option value="GermanyLanguageCourseVisa">Language Course Visa</option>
+        <option value="GermanyVocationalTrainingVisa">Vocational Training (Ausbildung)</option>
+        <option value="GermanyInternshipVisa">Internship Visa</option>
+        <option value="GermanyAuPairVisa">Au Pair Visa</option>
+        <option value="GermanyTrainingVisa">Professional Training Visa</option>
+        <option value="GermanyResearchVisa">Research Visa</option>
+    </optgroup>
+
+    <optgroup label="4. Business & Self-Employment">
+        <option value="GermanySelfEmploymentVisa">Self-Employment Visa</option>
+        <option value="GermanyFreelanceVisa">Freelance Visa</option>
+        <option value="GermanyStartupVisa">Startup Visa</option>
+        <option value="GermanyInvestorVisa">Investor Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Family & Dependents">
+        <option value="GermanyFamilyReunionVisa">Family Reunion Visa</option>
+        <option value="GermanySpouseVisa">Spouse Visa</option>
+        <option value="GermanyChildVisa">Child Visa</option>
+        <option value="GermanyDependentVisa">Dependent Visa</option>
+    </optgroup>
+
+    <optgroup label="6. Permanent & Long-Term">
+        <option value="GermanyPermanentResidencePermit">Permanent Residence (Settlement)</option>
+        <option value="EULongTermResidencePermit">EU Long-Term Residence Permit</option>
+    </optgroup>
+
+    <optgroup label="7. Special & Humanitarian">
+        <option value="GermanyHumanitarianVisa">Humanitarian Visa</option>
+        <option value="GermanyAsylumVisa">Asylum Protection</option>
+        <option value="GermanyRefugeeStatus">Refugee Status</option>
+        <option value="GermanyVolunteerVisa">Volunteer Visa</option>
+        <option value="GermanySeafarerVisa">Seafarer Visa</option>
+        <option value="GermanyCrewVisa">Crew Visa</option>
+    </optgroup>
+
+    <optgroup label="8. Official & Diplomatic">
+        <option value="GermanyOfficialVisa">Official Visa</option>
+        <option value="GermanyDiplomaticVisa">Diplomatic Visa</option>
+    </optgroup>
+
+
+
+
+ <optgroup label="9. Extras">
+        <option value="GermanyOpportunityCardChancenkarte">Opportunity card</option>
+        <option value="GermanyITSpecialistVisaP8">IT Specialist</option>
+  <option value="GermanyRecognitionBridgeVisa16d">Recognition bridge</option>
+        <option value="GermanyFreelanceArtistVisaBerlin">Freelance artist</option>
+    </optgroup>
+</select>
+</div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF GERMANY MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇩🇪 VIEW GERMANY IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇩🇪 GERMANY IMMIGRATION – GENERAL PROCESS (2026)</h1>
+
+        <h2>🧭 1. DECIDE YOUR VISA TYPE</h2>
+        <p>First step is choosing the correct category:</p>
+        <ul>
+            <li>Work Visa (Skilled Worker / Blue Card)</li>
+            <li>Student Visa</li>
+            <li>Job Seeker Visa</li>
+            <li>Family Reunion Visa</li>
+            <li>Business / Self-Employment Visa</li>
+            <li>Training / Internship Visa</li>
+        </ul>
+        <p>👉 This decides your documents, salary requirement
+            <li>Training / Internship Visa</li>
+        </ul>
+        <p>👉 This decides your documents, salary requirement, and processing time.</p>
+
+        <h2>🔍 2. CHECK ELIGIBILITY</h2>
+        <p>Germany checks mainly:</p>
+        <ul>
+            <li>Qualification (degree / skill recognition)</li>
+            <li>Job offer (for work visas)</li>
+            <li>University admission (for student visa)</li>
+            <li>Financial proof (blocked account / sponsor)</li>
+            <li>Language requirement (A1–B2 depending on visa)</li>
+        </ul>
+
+        <h2>📄 3. PREPARE DOCUMENTS</h2>
+        <p>Common documents include: Valid passport, Visa application form (VIDEX), Biometric photos, degree certificates, CV (Europass format), job offer/admission letter, proof of funds (blocked account), and health insurance.</p>
+
+        <h2>📅 4 & 5. APPOINTMENT & SUBMISSION</h2>
+        <p>Book appointment at the German Embassy / Consulate or VFS Global India. At the appointment: Biometrics (fingerprints + photo), document submission, and occasional interview.</p>
+
+        <h2>⏳ 6. VISA PROCESSING</h2>
+        <p>Authorities verify job/admission authenticity, financial stability, security background, and qualification recognition.</p>
+        <ul>
+            <li>Work visa: 6–12 weeks</li>
+            <li>Student visa: 6–12 weeks</li>
+            <li>Blue Card: 4–10 weeks (faster)</li>
+        </ul>
+
+        <h2>✅ 7, 8 & 9. DECISION, TRAVEL & RESIDENCE PERMIT</h2>
+        <p>Upon approval, receive a visa sticker. After arrival in Germany: Register address (Anmeldung) within 14 days and apply at the Foreigners Office (Ausländerbehörde) to convert your visa into a residence permit card.</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black); margin-top: 15px;">
+            🧠 SUMMARY FLOW: Choose visa → Prepare documents → Book appointment → Submit visa → Wait decision → Travel → Register → Get residence permit
+        </div>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL GERMANY IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Main Immigration Portal:</strong> <a href="https://www.make-it-in-germany.com" target="_blank">www.make-it-in-germany.com</a></p>
+            <p><strong>2. Federal Foreign Office:</strong> <a href="https://www.auswaertiges-amt.de" target="_blank">www.auswaertiges-amt.de</a></p>
+            <p><strong>3. VFS Global India (Apply):</strong> <a href="https://visa.vfsglobal.com/ind/en/deu" target="_blank">visa.vfsglobal.com/india</a></p>
+            <p><strong>4. German Embassy India:</strong> <a href="https://india.diplo.de" target="_blank">india.diplo.de</a></p>
+            <p><strong>5. Official Job Portal:</strong> <a href="https://www.make-it-in-germany.com/en/jobs" target="_blank">make-it-in-germany.com/jobs</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: ONLY USE OFFICIAL .DE OR .GOV WEBSITES. BEWARE OF UNAUTHORIZED AGENTS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "GERMANY": {
+"GermanySchengenShortStayVisaC": {
+    name: "Schengen Short-Stay Visa (Type C – Germany)",
+
+    validity: "Up to 90 days within a 180-day period. Can be issued as single-entry, double-entry, or multiple-entry depending on travel history and embassy decision. Allows travel across all Schengen countries.",
+
+    cost: "€80 (~₹7,000–₹7,500) for adults. €40 (~₹3,500) for children aged 6–12. Some categories (students, researchers, official visits) may have reduced or waived fees.",
+
+    time: "Usually 10–15 working days. May extend to 30–60 days in peak seasons or if additional verification is required.",
+
+    age: "No strict age limit. Minors require parental consent and supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required, typically €45–€120 per day depending on stay type and accommodation.",
+
+    docs: "Valid passport (issued within last 10 years, valid 3 months beyond return date), completed application form, passport photos, travel insurance (minimum €30,000 coverage), flight reservation, hotel booking or invitation letter, bank statements (last 3–6 months), employment or sponsorship proof.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Germany or Schengen Area for tourism, short business trips, family visits, or short stays up to 90 days.",
+
+    rules: "No employment allowed. Must follow 90/180 Schengen rule. Must exit before visa expiry. Overstay leads to fines, bans, and future visa rejection.",
+
+    prosCons: "Pros: Access to 27 Schengen countries, flexible travel, multiple-entry options possible. Cons: Strict documentation, high rejection sensitivity, no work rights.",
+
+    terms: "Schengen Area: 27 European countries with common visa system; Type C Visa: Short-stay visa category; 90/180 Rule: Maximum 90 days stay in any 180 days.",
+
+    legal: "Governed by EU Schengen Visa Code and German Federal Foreign Office regulations.",
+
+    process: `1. Identify purpose of travel ->
+              2. Book appointment at German consulate/VFS Global ->
+              3. Fill visa application form ->
+              4. Prepare documents ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Embassy review and verification ->
+              8. Possible interview or document request ->
+              9. Visa decision issued ->
+              10. Passport returned with visa sticker`
+},
+
+"GermanyAirportTransitVisa": {
+    name: "Airport Transit Visa (Germany)",
+
+    validity: "Valid only for transit within the international transit area of a German airport. Usually valid for a few hours up to 24 hours depending on flight schedule. Does not allow entry into Germany or Schengen Area.",
+
+    cost: "€80 (~₹7,000–₹7,500). Some nationalities may be exempt or subject to specific bilateral agreements.",
+
+    time: "Processing time usually 5–15 working days depending on embassy workload and documentation checks.",
+
+    age: "No strict age limit. Minors require parental consent and travel documentation.",
+
+    education: "Not required.",
+
+    funds: "Generally not required, but confirmed onward flight ticket and valid travel documents for destination country are mandatory.",
+
+    docs: "Valid passport, confirmed onward flight ticket, visa for final destination country (if required), airport transit visa application form, travel itinerary, passport photos.",
+
+    whom: "Foreign travelers transiting through German airports on their way to a third country that requires them to stay in the international transit zone without entering Germany.",
+
+    rules: "Must remain inside the international transit area. Entry into Germany is not allowed. Must have confirmed onward journey. Cannot exit airport unless a separate visa is granted.",
+
+    prosCons: "Pros: Enables smooth international flight connections via Germany. Cons: Very restrictive, applies only to specific nationalities, no entry into Germany allowed.",
+
+    terms: "Transit Zone: Airport international area; Airport Transit Visa: Visa for airside transit only; Layover: Waiting period between connecting flights.",
+
+    legal: "Regulated by German Federal Foreign Office under Schengen transit visa rules.",
+
+    process: `1. Book connecting flight via Germany ->
+              2. Check if transit visa is required ->
+              3. Apply at German embassy/VFS Global ->
+              4. Submit required documents ->
+              5. Visa processing and verification ->
+              6. Approval or rejection decision ->
+              7. Travel and remain in transit zone only ->
+              8. Board onward flight`
+},
+
+"GermanyTouristVisa": {
+    name: "Tourist Visa (Germany – Schengen Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Can be issued as single-entry or multiple-entry depending on travel history and embassy decision.",
+
+    cost: "€80 (~₹7,000–₹7,500) for adults. €40 (~₹3,500) for children aged 6–12. Some applicants (students, researchers, cultural visits) may get reduced or waived fees.",
+
+    time: "Usually 10–15 working days. May extend up to 30–60 days if additional verification or peak season backlog occurs.",
+
+    age: "No strict age limit. Minors require parental consent and supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required, typically €45–€120 per day depending on accommodation, travel plan, and duration of stay.",
+
+    docs: "Valid passport (issued within last 10 years and valid at least 3 months beyond return date), completed visa application form, passport photos, travel insurance (minimum €30,000 coverage), flight reservation, hotel booking or invitation letter, bank statements (last 3–6 months), employment proof or sponsor documents.",
+
+    whom: "Foreign nationals (including Indian citizens) visiting Germany and/or Schengen countries for tourism, leisure travel, sightseeing, or short personal visits up to 90 days.",
+
+    rules: "No employment or paid activity allowed. Must comply with 90/180 Schengen rule. Must leave before visa expiry. Overstay leads to fines, entry bans, and future visa rejection.",
+
+    prosCons: "Pros: Access to 27 Schengen countries, flexible travel within Europe, multiple-entry option possible. Cons: Strict documentation requirements, financial proof needed, no work rights.",
+
+    terms: "Schengen Area: 27 European countries with unified visa policy; Type C Visa: Short-stay visa category; 90/180 Rule: Maximum 90 days stay in any 180-day period.",
+
+    legal: "Regulated under EU Schengen Visa Code and German Federal Foreign Office guidelines.",
+
+    process: `1. Determine travel purpose ->
+              2. Book appointment at German embassy or VFS Global ->
+              3. Fill visa application form ->
+              4. Prepare required documents ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Embassy review and verification ->
+              8. Possible interview or additional document request ->
+              9. Visa decision issued ->
+              10. Passport returned with visa sticker`
+},
+
+"GermanyBusinessVisa": {
+    name: "Business Visa (Germany – Schengen Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Can be issued as single-entry or multiple-entry depending on business profile and travel history.",
+
+    cost: "€80 (~₹7,000–₹7,500) for adults. Some special categories may have reduced or waived fees depending on bilateral agreements or purpose of visit.",
+
+    time: "Usually 10–15 working days. May extend up to 30 days or more if additional verification, interview, or document checks are required.",
+
+    age: "No strict age limit. Applicant must be a legitimate business traveler.",
+
+    education: "Not mandatory, but professional/business background is expected in most cases.",
+
+    funds: "Either personal financial proof or sponsoring company financial guarantee is required, along with proof of ability to cover stay expenses.",
+
+    docs: "Valid passport (issued within last 10 years and valid at least 3 months beyond return date), completed application form, passport photos, invitation letter from German company, business registration documents of inviting company, employment proof, bank statements (last 3–6 months), travel insurance (minimum €30,000 coverage), flight and hotel bookings.",
+
+    whom: "Foreign business professionals (including Indian citizens) traveling to Germany for meetings, conferences, trade fairs, negotiations, or corporate visits not exceeding 90 days.",
+
+    rules: "No employment allowed in Germany. Must strictly follow stated business purpose. Must exit before visa expiry. Overstay leads to penalties, bans, and future visa rejection.",
+
+    prosCons: "Pros: Enables fast corporate travel across Schengen region, supports business networking and meetings. Cons: Requires official invitation letter, strict scrutiny of documents.",
+
+    terms: "Schengen Area: 27 European countries with common visa system; Type C Visa: Short-stay visa category; Invitation Letter: Official business invite from German company.",
+
+    legal: "Governed under EU Schengen Visa Code and German Federal Foreign Office regulations.",
+
+    process: `1. Receive invitation from German company ->
+              2. Book visa appointment at embassy or VFS Global ->
+              3. Fill application form ->
+              4. Prepare required documents ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Embassy review and verification ->
+              8. Possible interview or additional document request ->
+              9. Visa decision issued ->
+              10. Passport returned with visa sticker`
+},
+
+"GermanyVisitorVisa": {
+    name: "Visitor Visa (Germany – Schengen Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Can be issued as single-entry or multiple-entry depending on applicant profile and sponsor invitation strength.",
+
+    cost: "€80 (~₹7,000–₹7,500) for adults. €40 (~₹3,500) for children aged 6–12. Some exemptions or reductions may apply for specific categories.",
+
+    time: "Usually 10–15 working days. May extend up to 30–60 days if additional verification, interview, or document checks are required.",
+
+    age: "No strict age limit. Minors require parental consent and supporting documents.",
+
+    education: "Not required.",
+
+    funds: "Either personal financial proof (bank statements, income proof) or sponsorship from host in Germany showing ability to support stay expenses.",
+
+    docs: "Valid passport (issued within last 10 years and valid at least 3 months beyond return date), completed visa application form, passport photos, invitation letter from host in Germany, proof of relationship (if family/friends), host residence proof, travel insurance (minimum €30,000 coverage), flight reservation, bank statements (last 3–6 months), employment or sponsor documents.",
+
+    whom: "Foreign nationals (including Indian citizens) visiting family or friends residing in Germany for short stays not exceeding 90 days.",
+
+    rules: "No employment or paid activity allowed. Must leave Germany before visa expiry. Must comply with 90/180 Schengen rule. Overstay leads to fines, bans, and future visa rejection.",
+
+    prosCons: "Pros: Allows family and friends visits, access to Schengen region, flexible short-term stay. Cons: Requires strong invitation proof, strict financial scrutiny, no work rights.",
+
+    terms: "Schengen Area: 27 European countries with unified visa policy; Type C Visa: Short-stay visa category; Invitation Letter: Formal hosting invitation from German resident.",
+
+    legal: "Regulated under EU Schengen Visa Code and German Federal Foreign Office regulations.",
+
+    process: `1. Receive invitation from host in Germany ->
+              2. Book appointment at embassy or VFS Global ->
+              3. Fill visa application form ->
+              4. Prepare required documents ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Embassy review and verification ->
+              8. Possible interview or additional document request ->
+              9. Visa decision issued ->
+              10. Passport returned with visa sticker`
+},
+"GermanyMedicalTreatmentVisa": {
+    name: "Medical Treatment Visa (Germany – Schengen Type C)",
+
+    validity: "Usually up to 90 days for short-term treatment. In complex medical cases, it may be issued for longer duration or converted into a national long-stay medical visa (Type D).",
+
+    cost: "€80 (~₹7,000–₹7,500) for adults. Fee waivers or reductions may apply in humanitarian or critical medical cases, depending on embassy discretion.",
+
+    time: "Processing time is usually 10–15 working days. Urgent medical cases may be prioritized and processed faster upon submission of strong medical documentation.",
+
+    age: "No age restriction. Applicable for infants, children, adults, and elderly patients.",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds or sponsor/insurance coverage required to cover treatment costs, hospital charges, accommodation, and living expenses.",
+
+    docs: "Valid passport, completed visa application form, passport photos, detailed medical report from home country doctor, invitation letter from German hospital/clinic, treatment plan and estimated cost from German medical institution, proof of payment/advance deposit (if required), travel insurance covering medical treatment, bank statements or sponsor guarantee, accommodation details.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Germany for medical treatment, surgery, specialized diagnosis, or advanced healthcare not available in their home country.",
+
+    rules: "Visa must be used strictly for medical purpose only. Patient must follow treatment schedule. No employment allowed. Extension may be granted if treatment continues. Overstay or misuse leads to penalties.",
+
+    prosCons: "Pros: Access to world-class healthcare system in Germany, priority processing in critical cases, possibility of extension for ongoing treatment. Cons: High financial requirements, strict documentation, dependent on hospital confirmation.",
+
+    terms: "Schengen Area: 27 European countries with common visa system; Type C Visa: Short-stay visa category; Medical Invitation Letter: Official confirmation from German hospital; Treatment Plan: Detailed medical procedure schedule.",
+
+    legal: "Regulated under EU Schengen Visa Code and German Federal Foreign Office medical visa guidelines.",
+
+    process: `1. Get diagnosis from home country doctor ->
+              2. Contact German hospital and obtain treatment invitation ->
+              3. Prepare medical documents and cost estimate ->
+              4. Book visa appointment at embassy/VFS Global ->
+              5. Fill application form ->
+              6. Submit documents ->
+              7. Attend biometric appointment ->
+              8. Embassy review and verification ->
+              9. Possible medical clarification or interview ->
+              10. Visa decision issued ->
+              11. Travel to Germany for treatment`
+},
+
+
+"GermanyCulturalVisa": {
+    name: "Cultural Visa (Germany – Schengen Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Issued for short-term cultural participation such as festivals, exhibitions, performances, or cultural exchange programs.",
+
+    cost: "€80 (~₹7,000–₹7,500) for adults. Reduced or waived fees may apply for officially sponsored cultural delegations or government-backed programs.",
+
+    time: "Usually 10–15 working days. May extend up to 30–60 days if additional verification from cultural institutions or embassies is required.",
+
+    age: "No strict age limit. Applicable to artists, performers, cultural delegates, and participants of all age groups.",
+
+    education: "Not required. However, relevant artistic, cultural, or professional background may be needed depending on the program.",
+
+    funds: "Proof of financial support required either through sponsor organization, cultural institution, or personal bank statements covering stay and travel expenses.",
+
+    docs: "Valid passport, completed visa application form, passport photos, invitation letter from German cultural organization or event host, event participation proof, program schedule, travel insurance (minimum €30,000 coverage), flight booking, accommodation details, bank statements or sponsorship proof.",
+
+    whom: "Foreign nationals (including Indian citizens) participating in cultural events, art exhibitions, music or dance performances, cultural exchange programs, or government-approved cultural activities in Germany.",
+
+    rules: "Must strictly participate only in approved cultural activity. No employment allowed. Must exit before visa expiry. Overstay or deviation from purpose leads to penalties and future visa restrictions.",
+
+    prosCons: "Pros: Enables participation in international cultural events, access to EU cultural networks, often sponsored by institutions. Cons: Limited to specific event purpose, strict documentation from organizers required.",
+
+    terms: "Schengen Area: 27 European countries with unified visa policy; Type C Visa: Short-stay visa category; Cultural Invitation Letter: Official confirmation from German cultural institution; Event Sponsorship: Financial or organizational support for participation.",
+
+    legal: "Regulated under EU Schengen Visa Code and German Federal Foreign Office cultural cooperation policies.",
+
+    process: `1. Receive invitation from German cultural institution ->
+              2. Confirm participation in cultural event ->
+              3. Collect sponsorship or invitation documents ->
+              4. Book appointment at embassy or VFS Global ->
+              5. Fill visa application form ->
+              6. Submit required documents ->
+              7. Attend biometric appointment ->
+              8. Embassy review and verification ->
+              9. Possible interview or additional clarification ->
+              10. Visa decision issued ->
+              11. Travel to Germany for cultural participation`
+},
+
+"GermanySportsVisa": {
+    name: "Sports Visa (Germany – Schengen Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Issued for short-term sports events, tournaments, training camps, or competitions held in Germany.",
+
+    cost: "€80 (~₹7,000–₹7,500) for adults. Reduced or waived fees may apply for officially recognized sports federations, Olympic committees, or government-sponsored teams.",
+
+    time: "Usually 10–15 working days. May extend to 30–60 days if additional verification from sports federations or event organizers is required.",
+
+    age: "No strict age limit. Applicable for amateur athletes, professional players, coaches, and support staff.",
+
+    education: "Not required. Sports experience or federation certification may be required depending on the event.",
+
+    funds: "Proof of financial coverage required via sports federation, event sponsor, or personal bank statements covering travel, accommodation, and participation expenses.",
+
+    docs: "Valid passport, completed visa application form, passport photos, invitation letter from German sports club/federation/event organizer, tournament or event registration proof, team selection letter (if applicable), travel insurance (minimum €30,000 coverage), flight booking, accommodation details, sponsorship or bank statements.",
+
+    whom: "Foreign nationals (including Indian citizens) participating in sports competitions, training camps, coaching programs, or official sporting events in Germany.",
+
+    rules: "Must participate only in approved sports activity. No employment allowed. Must leave before visa expiry. Overstay or misuse leads to penalties and future visa restrictions.",
+
+    prosCons: "Pros: Enables participation in international sports events, exposure to European training systems, often sponsored by federations. Cons: Strict dependency on event invitation, limited to sports purpose only.",
+
+    terms: "Schengen Area: 27 European countries with common visa system; Type C Visa: Short-stay visa category; Sports Federation: Official governing body of sport; Event Invitation Letter: Confirmation from organizer.",
+
+    legal: "Regulated under EU Schengen Visa Code and German Federal Foreign Office regulations for sports and international events.",
+
+    process: `1. Receive invitation from German sports federation or event organizer ->
+              2. Confirm participation and registration ->
+              3. Collect official event documents ->
+              4. Book appointment at embassy or VFS Global ->
+              5. Fill visa application form ->
+              6. Submit required documents ->
+              7. Attend biometric appointment ->
+              8. Embassy review and verification ->
+              9. Possible interview or clarification request ->
+              10. Visa decision issued ->
+              11. Travel to Germany for sports event`
+},
+
+"GermanyReligiousVisa": {
+    name: "Religious Visa (Germany – Schengen Type C)",
+
+    validity: "Up to 90 days within a 180-day period. Issued for short-term religious activities such as pilgrimages, conferences, missionary visits, religious gatherings, or interfaith events.",
+
+    cost: "€80 (~₹7,000–₹7,500) for adults. Fee reductions or exemptions may apply for officially invited clergy or religious delegations.",
+
+    time: "Usually 10–15 working days. May extend up to 30–60 days if additional verification from religious institutions or embassy review is required.",
+
+    age: "No strict age limit. Applicable to clergy, religious scholars, delegates, and participants of all age groups.",
+
+    education: "Not required. However, proof of religious role (priest, monk, imam, pastor, scholar, etc.) may be required.",
+
+    funds: "Proof of financial support required through sponsoring religious organization, host institution in Germany, or personal bank statements covering travel and stay expenses.",
+
+    docs: "Valid passport, completed visa application form, passport photos, invitation letter from German religious institution or organization, proof of religious affiliation/ordination, event schedule or program details, travel insurance (minimum €30,000 coverage), flight booking, accommodation details, bank statements or sponsorship proof.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Germany for religious purposes such as attending religious conferences, pilgrimages, spiritual gatherings, interfaith dialogues, or missionary work (short-term).",
+
+    rules: "Must strictly follow religious purpose stated in application. No employment allowed. Must exit before visa expiry. Overstay or misuse leads to penalties and future visa restrictions.",
+
+    prosCons: "Pros: Enables participation in international religious and interfaith events, access to global religious networks, often supported by institutions. Cons: Strict documentation required, limited to approved religious activities only.",
+
+    terms: "Schengen Area: 27 European countries with common visa system; Type C Visa: Short-stay visa category; Religious Invitation Letter: Official confirmation from religious organization; Clergy: Religious leaders or ordained members.",
+
+    legal: "Regulated under EU Schengen Visa Code and German Federal Foreign Office guidelines for cultural and religious activities.",
+
+    process: `1. Receive invitation from German religious institution ->
+              2. Confirm participation in religious event ->
+              3. Collect official invitation and supporting documents ->
+              4. Book appointment at embassy or VFS Global ->
+              5. Fill visa application form ->
+              6. Submit required documents ->
+              7. Attend biometric appointment ->
+              8. Embassy review and verification ->
+              9. Possible interview or clarification request ->
+              10. Visa decision issued ->
+              11. Travel to Germany for religious activity`
+},
+
+"GermanyNationalLongStayVisaD": {
+    name: "National Long-Stay Visa (Type D – Germany)",
+
+    validity: "Usually 90 days to 1 year initially. Can be extended after arrival and converted into a residence permit depending on purpose (work, study, family reunification, etc.).",
+
+    cost: "€75 (~₹6,500–₹7,000) standard fee. Some categories such as students, researchers, or EU-funded programs may have reduced or waived fees.",
+
+    time: "Processing time usually 2–12 weeks depending on visa category (work, study, family) and embassy workload. Complex cases may take longer.",
+
+    age: "No strict age limit. Depends on visa subtype (student, work, family, etc.).",
+
+    education: "Not required for all categories. Required for skilled work, student, and research-based visas depending on program.",
+
+    funds: "Proof of financial means required (blocked account for students, salary contract for workers, or sponsor guarantee for family visas).",
+
+    docs: "Valid passport (issued within last 10 years and valid for intended stay), completed application form, passport photos, proof of purpose (job offer, admission letter, family invitation), financial proof (blocked account/salary/sponsorship), health insurance, accommodation proof, academic or professional documents (if applicable).",
+
+    whom: "Foreign nationals (including Indian citizens) intending to stay in Germany long-term for work, study, family reunification, research, or other extended purposes exceeding 90 days.",
+
+    rules: "Must apply for residence permit after arrival in Germany. Must follow visa purpose strictly. Work rights depend on visa category. Overstay or misuse leads to legal penalties and deportation.",
+
+    prosCons: "Pros: Gateway to long-term residence in Germany, pathway to permanent residency and EU Blue Card, access to education and employment. Cons: Strict documentation, longer processing time, requires post-arrival formalities.",
+
+    terms: "Type D Visa: National long-stay visa; Residence Permit (Aufenthaltstitel): Legal stay authorization after arrival; Blocked Account: Financial requirement for students; EU Blue Card: Skilled worker pathway.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) and Federal Foreign Office visa regulations.",
+
+    process: `1. Identify long-term purpose (work, study, family, etc.) ->
+              2. Gather required documents ->
+              3. Book appointment at German embassy/VFS Global ->
+              4. Submit application form and documents ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Embassy review and verification ->
+              8. Possible interview or additional document request ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Apply for residence permit after arrival`
+},
+"GermanyWorkVisa": {
+    name: "Work Visa (Germany – National Visa Type D for Employment)",
+
+    validity: "Usually issued for 1 year initially or for the duration of the employment contract. It can be extended and converted into a residence permit (Aufenthaltstitel) after arrival in Germany.",
+
+    cost: "€75 (~₹6,500–₹7,000). Additional costs may apply for document verification, translations, and residence permit issuance after arrival.",
+
+    time: "Processing time usually 4–12 weeks depending on job type, qualifications, recognition of degree, and embassy workload.",
+
+    age: "No strict age limit, but generally issued to working-age applicants (18–60).",
+
+    education: "Required for most skilled jobs. Degree, vocational qualification, or recognized professional experience is usually mandatory.",
+
+    funds: "Employment contract usually serves as financial proof. In some cases, additional bank statements may be required before visa approval.",
+
+    docs: "Valid passport, job offer or employment contract from German employer, approval from German Federal Employment Agency (if required), academic qualifications, CV, proof of work experience, health insurance, visa application form, passport photos, accommodation proof, recognition of qualification (if applicable).",
+
+    whom: "Foreign nationals (including Indian citizens) who have secured a job offer in Germany in skilled, semi-skilled, or qualified employment categories.",
+
+    rules: "Must work only for approved employer and job role. Must register for residence permit after arrival. Job change requires approval. Overstay or unauthorized work leads to penalties and deportation.",
+
+    prosCons: "Pros: Direct pathway to German residence, high employment opportunities, possibility of EU Blue Card and permanent residency. Cons: Strict qualification checks, employer dependency, document-heavy process.",
+
+    terms: "Type D Visa: Long-stay national visa; Federal Employment Agency: Authority approving foreign employment; Residence Permit (Aufenthaltstitel): Post-arrival work authorization; Recognition of Qualifications: Validation of foreign degrees in Germany.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) and Federal Employment Migration laws.",
+
+    process: `1. Secure job offer from German employer ->
+              2. Employer applies for work approval (if required) ->
+              3. Prepare documents (degree, CV, contracts) ->
+              4. Book appointment at embassy/VFS Global ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy review and verification ->
+              9. Possible interview or document request ->
+              10. Visa decision issued ->
+              11. Travel to Germany ->
+              12. Apply for residence permit after arrival`
+},
+
+"GermanySkilledWorkerVisa": {
+    name: "Skilled Worker Visa (Germany – Skilled Employment Residence Visa)",
+
+    validity: "Usually issued for 1–4 years depending on employment contract. Can be extended and later converted into permanent residence (settlement permit) if eligibility conditions are met.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional costs may apply for qualification recognition, translation, and residence permit issuance after arrival.",
+
+    time: "Processing time usually 6–12 weeks depending on qualification recognition, employer approval, and embassy workload.",
+
+    age: "No strict age limit. Typically issued to working-age professionals (18–60).",
+
+    education: "Mandatory. Must have a recognized university degree or approved vocational qualification in Germany or equivalent recognized foreign qualification.",
+
+    funds: "Employment contract generally serves as financial proof. In some cases, proof of initial financial stability may be requested.",
+
+    docs: "Valid passport, employment contract or job offer, recognized qualification certificate (or recognition decision in Germany), CV, proof of work experience, professional license (if applicable), health insurance, visa application form, passport photos, accommodation proof, recognition statement from German authorities (if required).",
+
+    whom: "Foreign skilled professionals (including Indian citizens) with recognized qualifications and job offers in Germany in shortage occupations or skilled sectors such as IT, engineering, healthcare, and technical trades.",
+
+    rules: "Must work only in approved job role and employer. Must apply for residence permit after arrival. Job change requires approval. Must comply with German labor and immigration laws.",
+
+    prosCons: "Pros: Strong pathway to long-term residence, high demand in Germany, access to EU labor market opportunities. Cons: Qualification recognition process can be complex, employer dependency, strict documentation requirements.",
+
+    terms: "Skilled Worker Immigration Act: German law allowing qualified professionals to work in Germany; Recognition (Anerkennung): Validation of foreign qualifications; Residence Permit (Aufenthaltstitel): Legal stay authorization after arrival.",
+
+    legal: "Regulated under German Skilled Immigration Act (Fachkräfteeinwanderungsgesetz) and Residence Act (Aufenthaltsgesetz).",
+
+    process: `1. Obtain job offer in skilled profession ->
+              2. Get qualification recognition (if required) ->
+              3. Employer confirms employment contract ->
+              4. Prepare documents (degree, experience, insurance) ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Attend biometric appointment ->
+              8. Pay visa fee ->
+              9. Embassy review and verification ->
+              10. Visa decision issued ->
+              11. Travel to Germany ->
+              12. Apply for residence permit after arrival`
+},
+"GermanyEUBlueCard": {
+    name: "EU Blue Card (Germany – Skilled Residence Permit for High Professionals)",
+
+    validity: "Usually issued for up to 4 years or the duration of the employment contract plus 3 months. Can be extended and leads to permanent residence eligibility faster than standard work visas.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional fees apply for residence permit issuance after arrival in Germany.",
+
+    time: "Processing time usually 2–12 weeks depending on qualification recognition, salary verification, and embassy workload.",
+
+    age: "No strict age limit. Typically granted to highly skilled working-age professionals.",
+
+    education: "Mandatory. A recognized university degree or equivalent qualification is required. The degree must be comparable to German higher education standards.",
+
+    funds: "Minimum salary threshold required instead of savings proof. As of recent EU rules, generally around €45,300/year (lower threshold ~€41,000 for shortage occupations like IT, engineering, healthcare).",
+
+    docs: "Valid passport, job contract with German employer, proof of university degree, degree recognition (if required), CV, employment offer meeting salary threshold, health insurance, visa application form, passport photos, accommodation proof.",
+
+    whom: "Highly qualified non-EU professionals (including Indian citizens) in fields such as IT, engineering, mathematics, science, healthcare, and other high-demand skilled occupations in Germany.",
+
+    rules: "Must work in approved high-skilled job matching qualification. Job change may require approval in early period. Must apply for residence permit after arrival. Must maintain salary threshold requirements.",
+
+    prosCons: "Pros: Fast-track pathway to permanent residency, high salary opportunities, EU mobility advantages after certain period, family benefits. Cons: Strict salary requirement, requires recognized degree, limited to high-skill professions.",
+
+    terms: "EU Blue Card: EU-wide skilled migration scheme; Salary Threshold: Minimum annual income requirement; Shortage Occupation: High-demand job sectors in Germany; Residence Permit: Post-arrival legal stay document.",
+
+    legal: "Regulated under EU Blue Card Directive (EU 2021/1883) and German Residence Act (Aufenthaltsgesetz).",
+
+    process: `1. Secure high-skilled job offer in Germany ->
+              2. Ensure salary meets EU Blue Card threshold ->
+              3. Verify degree recognition (if required) ->
+              4. Book appointment at German embassy/VFS Global ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy review and salary/qualification verification ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Apply for EU Blue Card residence permit after arrival`
+},
+"GermanyJobSeekerVisa": {
+    name: "Job Seeker Visa (Germany – National Visa Type D)",
+
+    validity: "Usually 6 months (non-extendable in most cases). It allows you to stay in Germany only to search for a job, not to work during this period.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional costs may include document translation, certification, and insurance.",
+
+    time: "Processing time usually 4–12 weeks depending on embassy workload and verification of qualifications and financial proof.",
+
+    age: "No strict age limit. Typically issued to professionals aged 21–45, but depends on qualification and profile.",
+
+    education: "Mandatory. A recognized university degree or equivalent qualification is required. Some vocational qualifications may also be accepted if recognized in Germany.",
+
+    funds: "Proof of sufficient funds required, usually around €1,000–€1,200 per month of stay (often shown via blocked account for 6 months).",
+
+    docs: "Valid passport, completed application form, passport photos, recognized university degree, CV, proof of work experience, motivation letter, blocked account proof or financial proof, health insurance valid in Germany, accommodation proof (if available).",
+
+    whom: "Foreign skilled professionals (including Indian citizens) who want to enter Germany to search for employment opportunities in skilled sectors such as IT, engineering, healthcare, and technical fields.",
+
+    rules: "No employment allowed during visa period. Must find a job within validity period. Once job is secured, must convert to Work Visa or EU Blue Card. Overstay or misuse leads to penalties and future visa rejection.",
+
+    prosCons: "Pros: Allows direct entry into Germany for job search, strong pathway to skilled employment, can convert into work visa/EU Blue Card. Cons: No income allowed, limited duration, strict financial requirements.",
+
+    terms: "Blocked Account: Locked bank account showing required funds; Residence Permit Conversion: Changing visa status after job offer; Skilled Employment: Jobs requiring recognized qualifications.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) and Skilled Immigration Act (Fachkräfteeinwanderungsgesetz).",
+
+    process: `1. Check eligibility (recognized degree required) ->
+              2. Open blocked account or arrange financial proof ->
+              3. Prepare documents (degree, CV, insurance) ->
+              4. Book appointment at German embassy/VFS Global ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy review and verification ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Search for job within 6 months ->
+              12. Convert to Work Visa or EU Blue Card after job offer`
+},
+"GermanyIntraCorporateTransferVisa": {
+    name: "Intra-Corporate Transfer Visa (Germany – ICT Residence Permit)",
+
+    validity: "Usually up to 3 years for managers and specialists, and up to 1 year for trainees. Can be extended in limited cases depending on assignment and company requirements.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional residence permit fees apply after arrival in Germany.",
+
+    time: "Processing time usually 2–12 weeks depending on company documentation, role verification, and embassy workload.",
+
+    age: "No strict age limit. Typically issued to working professionals within multinational companies.",
+
+    education: "Required. Applicant must be a qualified employee (manager, specialist, or trainee) of the sending company.",
+
+    funds: "Salary is paid by the sending or host company. No personal financial proof usually required.",
+
+    docs: "Valid passport, employment contract with multinational company, assignment letter for Germany transfer, proof of at least 6–12 months prior employment in the company, role description (manager/specialist/trainee), CV, health insurance, visa application form, passport photos, accommodation proof in Germany.",
+
+    whom: "Foreign employees (including Indian citizens) working in multinational companies who are being temporarily transferred from a non-EU branch to a German branch or subsidiary.",
+
+    rules: "Must work only for assigned German entity. Cannot change employer freely. Must return or change status after transfer period ends. Must comply with German immigration and labor rules.",
+
+    prosCons: "Pros: Fast intra-company relocation, no need for job search, stable corporate pathway. Cons: Restricted to same company group, limited flexibility, temporary stay only.",
+
+    terms: "ICT Permit: Intra-Corporate Transfer authorization; Sending Company: Employer outside Germany; Host Entity: German branch/subsidiary; Specialist: Highly skilled employee role.",
+
+    legal: "Regulated under EU Intra-Corporate Transfer Directive (2014/66/EU) and German Residence Act (Aufenthaltsgesetz).",
+
+    process: `1. Company initiates transfer request ->
+              2. Assign employee to German branch ->
+              3. Prepare transfer documents and contract ->
+              4. Book embassy/VFS appointment ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy review and verification ->
+              9. Visa approval decision ->
+              10. Travel to Germany ->
+              11. Apply for residence permit (ICT card) after arrival`
+},
+
+"GermanyStudentVisa": {
+    name: "Student Visa (Germany – National Visa Type D for Studies)",
+
+    validity: "Usually issued for 3 months to 1 year initially. Must be converted into a residence permit after arrival and is renewable for the full duration of the study program.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional costs include blocked account setup, insurance, and residence permit fees after arrival.",
+
+    time: "Processing time usually 4–12 weeks depending on university admission verification, financial proof, and embassy workload.",
+
+    age: "No strict age limit. Commonly issued to students aged 17–35, but older applicants are also accepted depending on program.",
+
+    education: "Required. Must have admission to a recognized German university, college, or preparatory course (Studienkolleg).",
+
+    funds: "Proof of financial means required, usually via blocked account (~€11,208 per year or updated official threshold), scholarship, or sponsor guarantee.",
+
+    docs: "Valid passport, university admission letter (Zulassungsbescheid), completed application form, passport photos, blocked account confirmation, academic transcripts and certificates, CV, motivation letter, health insurance valid in Germany, accommodation proof (if available).",
+
+    whom: "Foreign students (including Indian citizens) admitted to German universities, language courses, or preparatory programs requiring long-term stay.",
+
+    rules: "Must study full-time at approved institution. Limited part-time work allowed (usually 120 full days or 240 half days per year). Must maintain enrollment. Must convert to residence permit after arrival.",
+
+    prosCons: "Pros: High-quality education, low or no tuition fees in many public universities, pathway to work visa and EU Blue Card. Cons: Strict financial requirements, blocked account mandatory, academic performance conditions.",
+
+    terms: "Blocked Account: Locked funds proving financial stability; Studienkolleg: Preparatory college; Residence Permit: Post-arrival stay authorization; Semester: Academic term system in Germany.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) and Federal Education and Immigration regulations.",
+
+    process: `1. Apply to German university ->
+              2. Receive admission letter ->
+              3. Open blocked account and arrange insurance ->
+              4. Book embassy/VFS appointment ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy review and verification ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Register at university ->
+              12. Apply for residence permit after arrival`
+},
+
+"GermanyLanguageCourseVisa": {
+    name: "Language Course Visa (Germany – National Visa Type D)",
+
+    validity: "Usually issued for the duration of the language course, typically 3 months to 1 year. It can sometimes be extended depending on course continuation and visa conditions.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional costs include course fees, insurance, accommodation, and blocked account if required by embassy.",
+
+    time: "Processing time usually 4–12 weeks depending on embassy workload and verification of course enrollment and financial proof.",
+
+    age: "No strict age limit. Commonly issued to applicants aged 18+, but minors may be eligible with guardianship arrangements.",
+
+    education: "Not mandatory. Basic education required to enroll in an approved German language course.",
+
+    funds: "Proof of financial means required, usually €900–€1,100 per month (or blocked account for the full duration of stay), depending on embassy requirements.",
+
+    docs: "Valid passport, completed visa application form, passport photos, confirmed language course admission letter, proof of payment for course (if applicable), blocked account or financial proof, health insurance valid in Germany, accommodation proof, motivation letter, CV (sometimes required).",
+
+    whom: "Foreign nationals (including Indian citizens) who want to learn German language in Germany through certified language institutes for cultural, academic, or future study/work preparation.",
+
+    rules: "Must attend full-time language course. No employment allowed or very limited part-time work (rarely permitted). Cannot switch directly to work visa without meeting requirements. Must maintain course enrollment.",
+
+    prosCons: "Pros: Improves German language skills, pathway to student/work visas later, cultural integration. Cons: No direct work rights, limited visa conversion flexibility, financial proof required.",
+
+    terms: "Blocked Account: Locked funds for living expenses; Sprachkurs: German language course; Language Institute: Approved training center; Residence Permit: Post-arrival stay authorization.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) and Federal Foreign Office visa regulations.",
+
+    process: `1. Enroll in certified German language course ->
+              2. Receive admission confirmation ->
+              3. Arrange blocked account or financial proof ->
+              4. Book embassy/VFS appointment ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy review and verification ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Register at local authorities if required`
+},
+"GermanyVocationalTrainingVisa": {
+    name: "Vocational Training Visa (Germany – National Visa Type D for Ausbildung)",
+
+    validity: "Usually issued for the full duration of the vocational training program (Ausbildung), typically 2–3.5 years. Can be extended if training period is extended.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional costs include insurance, accommodation, and document preparation/translation fees.",
+
+    time: "Processing time usually 6–12 weeks depending on training contract, financial proof, and embassy verification workload.",
+
+    age: "No strict upper age limit, but typically issued to applicants aged 18–35. Older applicants may be accepted if motivation and suitability are strong.",
+
+    education: "Required. Minimum school education equivalent to secondary/high school (10th or 12th grade depending on program). Some programs may require basic German language proficiency (A2–B1 level).",
+
+    funds: "Proof of financial means required if stipend is low. Usually around €900–€1,200 per month via training salary or blocked account if salary is insufficient.",
+
+    docs: "Valid passport, vocational training contract (Ausbildungsvertrag) from German employer, completed visa application form, passport photos, academic certificates, German language certificate (A2/B1 often required), CV, motivation letter, blocked account or salary proof, health insurance, accommodation proof.",
+
+    whom: "Foreign nationals (including Indian citizens) who have secured a formal vocational training position in Germany in fields like healthcare, engineering trades, IT support, hospitality, or technical professions.",
+
+    rules: "Must complete training with assigned institution/employer. Work rights are limited to training-related work. Must maintain enrollment in program. Change of training place requires approval. Must apply for residence permit after arrival.",
+
+    prosCons: "Pros: Paid training opportunity, strong pathway to skilled employment in Germany, high job placement after completion. Cons: Requires German language proficiency, strict contract-based system, limited flexibility during training.",
+
+    terms: "Ausbildung: German dual vocational training system; Training Contract: Official apprenticeship agreement; Blocked Account: Financial support account; Residence Permit: Post-arrival legal stay authorization.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) and Vocational Training Migration regulations.",
+
+    process: `1. Apply for vocational training position in Germany ->
+              2. Receive training contract (Ausbildungsvertrag) ->
+              3. Arrange financial proof or salary confirmation ->
+              4. Prepare documents (education, language certificate, CV) ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Attend biometric appointment ->
+              8. Pay visa fee ->
+              9. Embassy review and verification ->
+              10. Visa decision issued ->
+              11. Travel to Germany ->
+              12. Register and begin vocational training`
+},
+
+"GermanyResearchVisa": {
+    name: "Research Visa (Germany – National Visa Type D for Researchers)",
+
+    validity: "Usually issued for the duration of the research project or hosting agreement, typically 1–3 years. Can be extended depending on project continuation and institutional agreement.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional costs may include residence permit issuance, document translation, and insurance.",
+
+    time: "Processing time usually 4–12 weeks depending on hosting agreement verification, academic background, and embassy workload.",
+
+    age: "No strict age limit. Typically issued to postgraduate researchers, PhD candidates, and academic professionals.",
+
+    education: "Mandatory. Minimum requirement is a relevant university degree (Master’s or equivalent often required for research positions).",
+
+    funds: "Proof of financial means required via hosting agreement, scholarship, research grant, or institutional funding covering living expenses.",
+
+    docs: "Valid passport, hosting agreement or research contract with German university/research institute, completed visa application form, passport photos, academic degrees and transcripts, CV, research proposal or project description, proof of funding (grant/scholarship), health insurance valid in Germany, accommodation proof.",
+
+    whom: "Foreign researchers (including Indian citizens) invited by German universities, research institutions, or private R&D organizations to conduct scientific, academic, or technical research.",
+
+    rules: "Must work only on approved research project. Employment outside research scope is restricted. Must comply with institutional rules. Must apply for residence permit after arrival. Change of project/institution may require approval.",
+
+    prosCons: "Pros: Access to top-tier research institutions, EU mobility benefits in some cases, pathway to long-term residence. Cons: Strict academic requirements, dependent on host institution, limited flexibility outside research role.",
+
+    terms: "Hosting Agreement: Formal contract with German research institution; Research Permit: Authorization for academic work; Residence Permit: Post-arrival legal stay document; Research Institution: University or R&D center.",
+
+    legal: "Regulated under EU Directive (2016/801) on researchers and German Residence Act (Aufenthaltsgesetz).",
+
+    process: `1. Secure research position or hosting agreement ->
+              2. Obtain invitation from German research institution ->
+              3. Prepare academic and funding documents ->
+              4. Book embassy/VFS appointment ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy review and verification ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Register at local immigration office ->
+              12. Begin research project`
+},
+
+"GermanySelfEmploymentVisa": {
+    name: "Self-Employment Visa (Germany – National Visa Type D for Freelancers & Entrepreneurs)",
+
+    validity: "Usually issued for 1–3 years initially depending on business viability. Can be extended and later converted into a residence permit or permanent settlement permit if business succeeds.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional costs include business registration, legal documentation, and residence permit fees after arrival.",
+
+    time: "Processing time usually 6–12 weeks depending on business evaluation, financial proof, and approval from German authorities.",
+
+    age: "No strict age limit. Typically issued to applicants aged 21+ with viable business or freelance plan.",
+
+    education: "Not mandatory, but relevant qualifications or professional experience strongly improve approval chances.",
+
+    funds: "Proof of sufficient capital required. Usually includes investment funds for business setup and living expenses (~€10,000–€25,000+ depending on business type).",
+
+    docs: "Valid passport, completed application form, passport photos, detailed business plan, financial forecast, proof of funding, CV, professional qualifications, client contracts (if freelance), health insurance, accommodation proof, business registration documents (if applicable), market feasibility study (recommended).",
+
+    whom: "Foreign nationals (including Indian citizens) planning to start a business or work as freelancers/self-employed professionals in Germany in fields like IT, consulting, arts, media, engineering services, or startups.",
+
+    rules: "Business must be economically viable and benefit the German economy. Must register business after arrival. Must comply with tax and local business laws. Work is limited to approved self-employment activity only.",
+
+    prosCons: "Pros: Independence to run business or freelance work, pathway to permanent residency, access to EU market. Cons: Strict approval process, high scrutiny of business plan, financial risk involved.",
+
+    terms: "Freelancer (Freiberufler): Independent professional; Trade License (Gewerbeanmeldung): Business registration; Business Plan: Viability proposal; Residence Permit: Post-arrival legal stay authorization.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz), Sections related to self-employment and freelance residence permits.",
+
+    process: `1. Develop detailed business or freelance plan ->
+              2. Gather financial proof and documentation ->
+              3. Assess economic viability in Germany ->
+              4. Book embassy/VFS appointment ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy review and evaluation of business plan ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Register business with local authorities ->
+              12. Apply for residence permit after arrival`
+},
+"GermanyFreelanceVisa": {
+    name: "Freelance Visa (Germany – National Visa Type D for Freiberufler)",
+
+    validity: "Usually issued for 1–3 years initially. Can be extended if freelance activity remains stable and financially sustainable. Can later lead to long-term residence permit.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional costs include registration fees, tax registration, translation, and residence permit issuance after arrival.",
+
+    time: "Processing time usually 6–12 weeks depending on profession, client contracts, and embassy verification.",
+
+    age: "No strict age limit. Typically issued to applicants aged 21+ with professional freelance work experience.",
+
+    education: "Not mandatory, but relevant qualifications or professional expertise in the freelance field are usually required (e.g., IT, design, writing, consulting, arts).",
+
+    funds: "Proof of financial stability required. Either sufficient savings or confirmed client contracts showing expected income (typically enough to cover living costs ~€1,000–€1,500/month minimum).",
+
+    docs: "Valid passport, completed application form, passport photos, detailed CV, portfolio (if applicable), client contracts or letters of intent from German clients, proof of qualifications, financial proof or bank statements, health insurance valid in Germany, accommodation proof, freelance activity description, tax registration documents (if already available).",
+
+    whom: "Foreign nationals (including Indian citizens) working independently in Germany in approved freelance professions such as IT consulting, software development, design, writing, journalism, translation, arts, and specialized professional services.",
+
+    rules: "Must only work in declared freelance profession. Must register with local tax office after arrival. Must maintain sufficient income. Cannot switch to unrelated employment without approval. Must apply for residence permit after arrival.",
+
+    prosCons: "Pros: High flexibility, independent work, access to EU clients, pathway to long-term residence. Cons: Income instability risk, strict documentation, requires German clients in many cases.",
+
+    terms: "Freiberufler: Self-employed professional; Finanzamt: German tax office; Residence Permit: Post-arrival legal stay authorization; Tax Registration: Mandatory income declaration system.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) for self-employed and freelance professionals.",
+
+    process: `1. Prepare freelance portfolio and client contracts ->
+              2. Collect financial proof and documents ->
+              3. Verify freelance activity eligibility ->
+              4. Book embassy/VFS appointment ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy review and verification ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Register with local tax office (Finanzamt) ->
+              12. Apply for residence permit after arrival`
+},
+
+"GermanyStartupVisa": {
+    name: "Startup Visa (Germany – National Visa Type D for Entrepreneurs)",
+
+    validity: "Usually issued for 1–3 years initially depending on startup viability. Can be extended and later converted into a residence permit or permanent residency if the startup succeeds.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional costs include company registration, legal documentation, incubation fees, and residence permit charges after arrival.",
+
+    time: "Processing time usually 6–12 weeks depending on startup evaluation, funding proof, and approval from German authorities.",
+
+    age: "No strict age limit. Typically issued to entrepreneurs aged 21+ with scalable business ideas.",
+
+    education: "Not mandatory, but strong academic background or professional experience in business/technology is highly preferred.",
+
+    funds: "Proof of sufficient investment capital required. Typically includes startup funding or personal/business capital (often €25,000–€50,000+ depending on business model).",
+
+    docs: "Valid passport, completed application form, passport photos, detailed startup business plan, innovation and scalability proof, funding proof or investor letters, CV, academic/professional qualifications, market research, health insurance, accommodation proof, company incorporation plan (if available), endorsement from German business authority or incubator (recommended).",
+
+    whom: "Foreign entrepreneurs (including Indian citizens) who want to establish innovative, scalable startups in Germany in sectors like technology, fintech, AI, engineering, healthcare, and digital services.",
+
+    rules: "Business must be innovative and economically beneficial to Germany. Must actively manage startup after arrival. Must register company in Germany. Must comply with tax and corporate laws. Failure of startup may affect visa renewal.",
+
+    prosCons: "Pros: Access to EU startup ecosystem, funding opportunities, pathway to permanent residency, ability to scale business globally. Cons: High scrutiny of business idea, financial risk, strong documentation required.",
+
+    terms: "Startup Visa: Entrepreneur residence permit for new business founders; Business Plan: Detailed startup roadmap; Incubator: Startup support organization; Residence Permit: Post-arrival legal stay authorization.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) and entrepreneurship migration provisions.",
+
+    process: `1. Develop innovative startup idea ->
+              2. Prepare detailed business plan and funding strategy ->
+              3. Secure investors or financial backing (if required) ->
+              4. Obtain endorsement from German incubator or authority (recommended) ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Attend biometric appointment ->
+              8. Pay visa fee ->
+              9. Embassy evaluation of business viability ->
+              10. Visa decision issued ->
+              11. Travel to Germany ->
+              12. Register company and apply for residence permit after arrival`
+},
+"GermanyInvestorVisa": {
+    name: "Investor Visa (Germany – Entrepreneur / Investment Residence Visa)",
+
+    validity: "Usually issued for 1–3 years initially depending on investment scale and business viability. Can be extended and later converted into permanent residence (settlement permit) if conditions are met.",
+
+    cost: "€75 (~₹6,500–₹7,000) for visa application. Additional costs include company formation, legal fees, investment capital, and residence permit charges after arrival.",
+
+    time: "Processing time usually 6–12 weeks depending on business plan evaluation, investment verification, and approval from German authorities.",
+
+    age: "No strict age limit. Typically issued to investors aged 21+ with sufficient capital and business intent.",
+
+    education: "Not mandatory, but business experience or financial background is strongly preferred.",
+
+    funds: "High investment capital required. Typically €250,000+ (no fixed legal minimum, but must be sufficient to support a viable business and German economic interest).",
+
+    docs: "Valid passport, completed application form, passport photos, detailed business plan, investment proof, source of funds documentation, CV, business experience proof, company formation plan, financial statements, tax records, health insurance, accommodation proof, market feasibility study.",
+
+    whom: "Foreign investors (including Indian citizens) who intend to establish or invest in a business in Germany that benefits the local economy and creates jobs.",
+
+    rules: "Investment must be economically viable and beneficial to Germany. Must actively manage or oversee business. Must register company after arrival. Must comply with tax and corporate regulations. Failure of business may affect visa renewal.",
+
+    prosCons: "Pros: Pathway to EU residence, business expansion opportunities, access to European market, potential for permanent residency. Cons: High capital requirement, strict scrutiny of business viability, financial risk.",
+
+    terms: "Investor Visa: Residence permit for business investors; Capital Investment: Money invested in business/project; Business Plan: Economic feasibility document; Residence Permit: Post-arrival legal stay authorization.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) focusing on self-employment and economic interest provisions.",
+
+    process: `1. Prepare investment plan and business proposal ->
+              2. Secure capital and proof of funds ->
+              3. Conduct feasibility study in Germany ->
+              4. Register or plan company formation ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Attend biometric appointment ->
+              8. Pay visa fee ->
+              9. Embassy evaluates economic benefit ->
+              10. Visa decision issued ->
+              11. Travel to Germany ->
+              12. Register business and apply for residence permit after arrival`
+},
+"GermanyFamilyReunionVisa": {
+    name: "Family Reunion Visa (Germany – National Visa Type D)",
+
+    validity: "Usually issued for 1 year initially and can be extended after arrival. Leads to a residence permit for long-term stay with family in Germany.",
+
+    cost: "€75 (~₹6,500–₹7,000) for adults. Reduced or waived fees may apply in certain cases such as reunification with German/EU citizens.",
+
+    time: "Processing time usually 8–12 weeks, but may extend to 3–6 months depending on documentation, relationship verification, and embassy workload.",
+
+    age: "No strict age limit. Applicable for spouses, children, and dependent family members. Special conditions apply for minors and elderly dependents.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in Germany must demonstrate sufficient income and accommodation to support the family member without relying on public funds.",
+
+    docs: "Valid passport, completed visa application form, passport photos, marriage certificate/birth certificate (with legalization/apostille if required), proof of relationship, sponsor’s residence permit or citizenship proof, sponsor’s income proof (salary slips, employment contract), accommodation proof in Germany, health insurance, basic German language certificate (A1 often required for spouses).",
+
+    whom: "Foreign nationals (including Indian citizens) joining family members legally residing in Germany (citizens, permanent residents, or valid residence permit holders).",
+
+    rules: "Must maintain genuine family relationship. Employment rights depend on sponsor status and visa conditions. Must register after arrival and apply for residence permit. Fraudulent relationships lead to rejection and bans.",
+
+    prosCons: "Pros: Enables family unity, long-term residence in Germany, access to education and healthcare. Cons: Strict documentation, long processing time, language requirement for spouses in many cases.",
+
+    terms: "Family Reunification: Immigration based on family ties; Sponsor: Family member in Germany; A1 German Level: Basic language requirement for integration; Residence Permit: Post-arrival legal stay authorization.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz), Sections on family reunification.",
+
+    process: `1. Sponsor in Germany prepares documents ->
+              2. Gather proof of relationship (marriage/birth certificates) ->
+              3. Obtain language certificate if required ->
+              4. Book embassy/VFS appointment ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy verification of relationship and sponsor ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Register address (Anmeldung) ->
+              12. Apply for residence permit after arrival`
+},
+
+"GermanySpouseVisa": {
+    name: "Spouse Visa (Germany – Family Reunion Visa for Spouses)",
+
+    validity: "Usually issued for 1 year initially. Can be extended after arrival and converted into a residence permit for long-term stay with spouse in Germany.",
+
+    cost: "€75 (~₹6,500–₹7,000) for adults. Fee may be reduced or waived in some cases depending on sponsor status (German/EU citizen or long-term resident).",
+
+    time: "Processing time usually 8–12 weeks, but may extend up to 3–6 months depending on document verification, relationship checks, and embassy workload.",
+
+    age: "No strict age limit. Applicable only for legally married spouses. Both partners must be of legal marriage age under applicable law.",
+
+    education: "Not required. However, basic German language proficiency (usually A1 level) is commonly required for non-EU spouses.",
+
+    funds: "Sponsor in Germany must prove sufficient income and stable accommodation to support the spouse without relying on public funds.",
+
+    docs: "Valid passport, completed visa application form, passport photos, legally registered marriage certificate (apostilled/legalized if required), proof of genuine relationship (photos, communication, etc.), sponsor’s residence permit or German citizenship proof, sponsor’s income proof (salary slips, employment contract, tax records), accommodation proof in Germany, health insurance, A1 German language certificate (commonly required for non-EU spouses).",
+
+    whom: "Foreign nationals (including Indian citizens) legally married to a German citizen, EU citizen residing in Germany, or a non-EU resident with valid long-term residence permit.",
+
+    rules: "Marriage must be legally valid and genuine. Spouse must live with sponsor in Germany. Must register after arrival and apply for residence permit. Fraudulent marriages lead to rejection, deportation, and bans.",
+
+    prosCons: "Pros: Enables family life in Germany, long-term residence rights, access to work rights in many cases. Cons: Strict documentation, language requirement, long processing time, relationship verification checks.",
+
+    terms: "Family Reunification: Immigration based on marriage; Sponsor: Spouse residing in Germany; A1 Level German: Basic language requirement; Residence Permit: Post-arrival legal stay authorization.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz), family reunification provisions.",
+
+    process: `1. Register legal marriage ->
+              2. Sponsor prepares income and residence proof ->
+              3. Obtain A1 German language certificate ->
+              4. Collect relationship evidence ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Attend biometric appointment ->
+              8. Embassy verification of marriage authenticity ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Register address (Anmeldung) ->
+              12. Apply for residence permit after arrival`
+},
+
+"GermanyDependentVisa": {
+    name: "Dependent Visa (Germany – Family Reunion Visa for Dependents)",
+
+    validity: "Usually issued for 1 year initially. Can be extended after arrival and converted into a residence permit as long as the sponsor maintains legal residence in Germany.",
+
+    cost: "€75 (~₹6,500–₹7,000). Reduced or waived fees may apply for minors or specific dependent categories depending on embassy rules.",
+
+    time: "Processing time usually 8–12 weeks, but may extend up to 3–6 months depending on relationship verification, documentation, and embassy workload.",
+
+    age: "No strict age limit. Typically applies to spouses, minor children, and in some cases dependent parents or relatives.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in Germany must prove sufficient income, stable employment, and adequate accommodation to support dependents without relying on public funds.",
+
+    docs: "Valid passport, completed application form, passport photos, proof of relationship (marriage/birth/adoption certificates), sponsor’s residence permit or citizenship proof, sponsor’s income proof (salary slips, employment contract, tax records), accommodation proof in Germany, health insurance, dependency proof (if applicable).",
+
+    whom: "Foreign nationals (including Indian citizens) who are financially and legally dependent on a family member residing in Germany (citizen, PR holder, or valid residence permit holder).",
+
+    rules: "Must live with the sponsor in Germany. Relationship must be genuine and verifiable. Must register after arrival and apply for residence permit. Work rights depend on sponsor status and visa conditions.",
+
+    prosCons: "Pros: Enables family unity, access to education and healthcare, long-term residence pathway. Cons: Strict financial and relationship verification, dependency requirement, long processing time.",
+
+    terms: "Sponsor: Family member in Germany; Family Reunification: Immigration based on dependency; Residence Permit: Post-arrival legal stay authorization; Dependency Proof: Evidence of financial/relationship reliance.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz), family reunification provisions.",
+
+    process: `1. Sponsor prepares income and residence documents ->
+              2. Gather proof of dependency (marriage/birth certificates, etc.) ->
+              3. Book embassy/VFS appointment ->
+              4. Submit visa application ->
+              5. Attend biometric appointment ->
+              6. Pay visa fee ->
+              7. Embassy verification of relationship and financial stability ->
+              8. Visa decision issued ->
+              9. Travel to Germany ->
+              10. Register address (Anmeldung) ->
+              11. Apply for residence permit after arrival`
+},
+
+"GermanyChildVisa": {
+    name: "Child Visa (Germany – Family Reunion Visa for Minor Children)",
+
+    validity: "Usually issued for 1 year initially. Can be extended after arrival and converted into a residence permit for long-term stay with parents in Germany.",
+
+    cost: "€75 (~₹6,500–₹7,000). In many cases, fees for minors may be reduced or waived depending on embassy policy and sponsor status.",
+
+    time: "Processing time usually 8–12 weeks, but may extend up to 3–6 months depending on documentation, relationship verification, and embassy workload.",
+
+    age: "Applicable to biological, adopted, or legally recognized children under 18 years of age. In some dependent cases, age limit may extend slightly depending on local rules.",
+
+    education: "Not required. However, school admission documents may be needed if child will study in Germany.",
+
+    funds: "Sponsor (parent/legal guardian) must show sufficient income and accommodation in Germany to support the child without public assistance.",
+
+    docs: "Valid passport of child, completed visa application form, passport photos, birth certificate (apostilled/legalized if required), proof of parent-child relationship, sponsor’s residence permit or citizenship proof, sponsor’s income proof (salary slips, employment contract, tax records), accommodation proof in Germany, health insurance for child, school admission letter (if applicable).",
+
+    whom: "Foreign minor children (including Indian citizens) joining their parent(s) legally residing in Germany (citizen, PR holder, or valid residence permit holder).",
+
+    rules: "Child must live with parent(s) in Germany. Relationship must be genuine and legally verified. Must register after arrival and apply for residence permit. Education participation required if school-age.",
+
+    prosCons: "Pros: Enables family reunification, access to German education and healthcare, long-term residence rights. Cons: Strict documentation, financial requirement for sponsor, long processing time.",
+
+    terms: "Family Reunification: Immigration based on family ties; Sponsor: Parent/legal guardian in Germany; Residence Permit: Post-arrival legal stay authorization; Anmeldung: Local address registration.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz), family reunification provisions for minors.",
+
+    process: `1. Sponsor in Germany prepares financial and residence documents ->
+              2. Collect birth certificate and proof of relationship ->
+              3. Arrange health insurance for child ->
+              4. Book embassy/VFS appointment ->
+              5. Submit visa application ->
+              6. Attend biometric appointment ->
+              7. Pay visa fee ->
+              8. Embassy verifies relationship and sponsor eligibility ->
+              9. Visa decision issued ->
+              10. Travel to Germany ->
+              11. Register address (Anmeldung) ->
+              12. Apply for residence permit after arrival`
+},
+
+"GermanyAuPairVisa": {
+    name: "Au Pair Visa (Germany – Cultural Exchange / National Visa Type D)",
+
+    validity: "Usually issued for 6 to 12 months only. Cannot be extended beyond 12 months in most cases.",
+
+    cost: "€75 (~₹6,500–₹7,000). Additional costs include agency fees (if used), insurance, travel, and document preparation.",
+
+    time: "Processing time usually 4–12 weeks depending on embassy workload and host family verification.",
+
+    age: "Typically 18–26 years old. Applicants outside this age range are generally not eligible.",
+
+    education: "Minimum school education required (at least secondary education). Basic knowledge of German (A1–A2 level) is usually required.",
+
+    funds: "Host family provides pocket money (allowance) and accommodation. Applicant may need proof of basic savings for initial travel costs.",
+
+    docs: "Valid passport, completed application form, passport photos, Au Pair contract with host family, invitation letter from host family, proof of German language skills (A1/A2), CV, motivation letter, health insurance, proof of accommodation (host family), birth certificate (sometimes required).",
+
+    whom: "Foreign young adults (including Indian citizens) who want to live with a German host family, learn the language, and experience cultural exchange while helping with childcare and light household tasks.",
+
+    rules: "Must live with host family. Maximum working hours (usually ~30 hours/week). No full-time employment allowed. Must attend language classes. Must respect cultural exchange rules. Must leave after visa expiry.",
+
+    prosCons: "Pros: Cultural exchange experience, free accommodation, pocket money, German language improvement. Cons: Strict age limit, limited duration, no career employment rights.",
+
+    terms: "Au Pair: Cultural exchange caregiver; Host Family: German family providing accommodation; Pocket Money: Monthly allowance; Cultural Exchange Program: Non-employment stay.",
+
+    legal: "Regulated under German cultural exchange visa rules and Federal Foreign Office guidelines.",
+
+    process: `1. Find approved host family in Germany ->
+              2. Sign Au Pair contract ->
+              3. Confirm accommodation and allowance terms ->
+              4. Prepare language certificate (A1/A2) ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Attend biometric appointment ->
+              8. Pay visa fee ->
+              9. Embassy verifies host family and purpose ->
+              10. Visa decision issued ->
+              11. Travel to Germany ->
+              12. Register address (Anmeldung) after arrival`
+},
+
+"GermanyInternshipVisa": {
+    name: "Internship Visa (Germany – National Visa Type D for Internship / Praktikum)",
+
+    validity: "Usually issued for the duration of the internship, typically 3–12 months. Extensions are rare and depend on program requirements and employer approval.",
+
+    cost: "€75 (~₹6,500–₹7,000). Additional costs may include insurance, accommodation, document translation, and visa center charges.",
+
+    time: "Processing time usually 4–12 weeks depending on internship contract verification and embassy workload.",
+
+    age: "No strict age limit. Commonly issued to students and recent graduates aged 18–30, but depends on internship program.",
+
+    education: "Required. Must be enrolled in a university or have recently graduated. Some internships require specific academic background.",
+
+    funds: "Proof of financial means required if internship is unpaid or low-paid. Usually €900–€1,200 per month via savings, sponsorship, or blocked account.",
+
+    docs: "Valid passport, internship contract (Praktikumsvertrag), invitation letter from German company/organization, university enrollment certificate or graduation proof, CV, motivation letter, health insurance, blocked account or financial proof, accommodation proof, passport photos, visa application form.",
+
+    whom: "Foreign students or graduates (including Indian citizens) who are doing internships in German companies, universities, research institutes, or NGOs for practical training experience.",
+
+    rules: "Internship must match academic field or professional training. Limited or no employment outside internship allowed. Must follow internship schedule. Must register after arrival and comply with visa conditions.",
+
+    prosCons: "Pros: Hands-on international experience, improves employability, exposure to German work culture, pathway to job opportunities. Cons: Limited duration, often low or unpaid internships, strict documentation requirements.",
+
+    terms: "Praktikum: Internship in Germany; Internship Contract: Official training agreement; Blocked Account: Financial proof account; Residence Permit: Post-arrival legal stay authorization.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) and EU student/intern mobility provisions.",
+
+    process: `1. Secure internship offer from German organization ->
+              2. Obtain signed internship contract ->
+              3. Arrange financial proof or blocked account ->
+              4. Prepare academic documents ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Attend biometric appointment ->
+              8. Pay visa fee ->
+              9. Embassy verification of internship program ->
+              10. Visa decision issued ->
+              11. Travel to Germany ->
+              12. Register address and begin internship`
+},
+
+"GermanyVolunteerVisa": {
+    name: "Volunteer Visa (Germany – National Visa Type D for Voluntary Service)",
+
+    validity: "Usually issued for 6 to 12 months depending on the volunteering program. In some cases, it can be extended up to 18 months for approved long-term voluntary services.",
+
+    cost: "€75 (~₹6,500–₹7,000). Additional costs may include insurance, accommodation, travel, and program participation fees (if applicable).",
+
+    time: "Processing time usually 4–12 weeks depending on host organization approval and embassy workload.",
+
+    age: "Typically 18–30 years old for most EU-funded programs (like European Solidarity Corps). Some programs may accept older volunteers depending on organization rules.",
+
+    education: "Not mandatory, but basic education and motivation for social/service work are expected. Some programs may require specific skills or background.",
+
+    funds: "Basic financial support is usually provided by the host organization (accommodation, food, pocket money). Some cases may require proof of additional personal funds for initial expenses.",
+
+    docs: "Valid passport, completed application form, passport photos, volunteer agreement/contract with German organization, invitation letter, program details, motivation letter, CV, health insurance, accommodation details, proof of pocket money/support, background check (sometimes required).",
+
+    whom: "Foreign nationals (including Indian citizens) participating in approved volunteer programs in Germany such as NGOs, social service organizations, environmental projects, cultural exchange programs, or EU volunteering schemes.",
+
+    rules: "Must work only in approved volunteer activities. No paid employment allowed. Must follow program rules and schedule. Must leave after visa expiry unless extended or converted under special conditions.",
+
+    prosCons: "Pros: Cultural exposure, social impact experience, free or supported living costs, language improvement. Cons: No salary, limited duration, strict program dependency.",
+
+    terms: "Voluntary Service: Non-paid social work; NGO: Non-government organization; European Solidarity Corps: EU volunteer program; Host Organization: Approved German institution.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) and EU Voluntary Service frameworks.",
+
+    process: `1. Apply to approved German volunteer organization ->
+              2. Get accepted into volunteer program ->
+              3. Sign volunteer agreement ->
+              4. Receive invitation letter ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Attend biometric appointment ->
+              8. Pay visa fee ->
+              9. Embassy verifies program legitimacy ->
+              10. Visa decision issued ->
+              11. Travel to Germany ->
+              12. Register address and begin volunteering`
+},
+"GermanyTrainingVisa": {
+    name: "Training Visa (Germany – National Visa Type D for Professional Training)",
+
+    validity: "Usually issued for the duration of the training program, typically 3 months to 2 years depending on the course or company training contract. Can be extended in some structured programs.",
+
+    cost: "€75 (~₹6,500–₹7,000). Additional costs may include insurance, accommodation, training fees, and document translation/attestation.",
+
+    time: "Processing time usually 4–12 weeks depending on training institution verification, employer approval, and embassy workload.",
+
+    age: "No strict age limit. Commonly issued to applicants aged 18–35, but depends on training program requirements.",
+
+    education: "Required. Minimum qualification depends on training type—can range from secondary education to university degree for advanced training programs.",
+
+    funds: "Proof of financial means required if training is unpaid or partially paid. Typically €900–€1,200 per month via savings, sponsorship, or blocked account.",
+
+    docs: "Valid passport, completed visa application form, passport photos, training contract or admission letter, invitation from German training institution/company, CV, academic certificates, language proficiency proof (if required), blocked account or financial proof, health insurance, accommodation proof.",
+
+    whom: "Foreign nationals (including Indian citizens) participating in structured professional training programs in Germany such as company-based training, technical skill programs, or certified professional development courses.",
+
+    rules: "Must participate only in approved training program. Employment outside training is not allowed or strictly limited. Must follow training schedule. Must apply for residence permit after arrival. Non-compliance may lead to visa cancellation.",
+
+    prosCons: "Pros: Skill development in Germany, better job opportunities after completion, exposure to European work standards. Cons: Limited work rights, dependency on training provider, strict documentation requirements.",
+
+    terms: "Training Contract: Official agreement for skill training; Berufsausbildung: Vocational/professional training system; Blocked Account: Financial proof account; Residence Permit: Post-arrival stay authorization.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz) and vocational/training migration regulations.",
+
+    process: `1. Secure training admission or contract in Germany ->
+              2. Obtain official invitation or training agreement ->
+              3. Arrange financial proof or blocked account ->
+              4. Prepare academic and language documents ->
+              5. Book embassy/VFS appointment ->
+              6. Submit visa application ->
+              7. Attend biometric appointment ->
+              8. Pay visa fee ->
+              9. Embassy verifies training program ->
+              10. Visa decision issued ->
+              11. Travel to Germany ->
+              12. Register and begin training program`
+},
+
+"GermanyPermanentResidencePermit": {
+    name: "Permanent Residence Permit (Germany – Settlement Permit / Niederlassungserlaubnis)",
+
+    validity: "Indefinite (permanent). The permit itself does not expire, but the physical residence card may need renewal every 10 years.",
+
+    cost: "€113–€147 (~₹10,000–₹13,000) depending on applicant category and local immigration office (Ausländerbehörde).",
+
+    time: "Processing time usually 4–12 weeks depending on city, documentation, and immigration office workload.",
+
+    age: "No strict age limit. Generally granted to adults after meeting long-term residence conditions.",
+
+    education: "Not required as a standalone criterion, but often linked with prior skilled work, study, or integration qualifications.",
+
+    funds: "Must demonstrate stable and sufficient income to support self and family without relying on public welfare benefits.",
+
+    docs: "Valid passport, current residence permit, proof of continuous residence in Germany (usually 3–5 years), employment proof or business income, pension contributions, health insurance, rental agreement or accommodation proof, language certificate (usually B1 German), integration course certificate (if applicable), tax records.",
+
+    whom: "Foreign nationals (including Indian citizens) who have legally lived and worked in Germany for a qualifying period and meet integration, income, and residence requirements.",
+
+    rules: "Must have stable legal residence history in Germany. No serious criminal record. Must contribute to pension system (in most cases). Must demonstrate integration (language and civic knowledge).",
+
+    prosCons: "Pros: Permanent stay rights, no need to renew residence permit, strong job freedom, pathway to citizenship. Cons: Strict eligibility criteria, requires long residence period and financial stability.",
+
+    terms: "Settlement Permit (Niederlassungserlaubnis): Permanent residence status; Residence Permit: Temporary stay authorization; Integration: Language and social adaptation; Pension Insurance: Contribution requirement for eligibility.",
+
+    legal: "Regulated under German Residence Act (Aufenthaltsgesetz), Section 9 and related permanent settlement provisions.",
+
+    process: `1. Complete required years of legal residence (usually 3–5 years) ->
+              2. Maintain stable employment or income ->
+              3. Achieve required German language level (usually B1) ->
+              4. Gather residence history and tax records ->
+              5. Book appointment at local immigration office (Ausländerbehörde) ->
+              6. Submit application for settlement permit ->
+              7. Attend verification interview (if required) ->
+              8. Pay application fee ->
+              9. Immigration office reviews eligibility ->
+              10. Permit granted (if approved)`
+},
+"EULongTermResidencePermit": {
+    name: "EU Long-Term Residence Permit (EU Long-Term Resident Status)",
+
+    validity: "Permanent (indefinite residence status within the EU country that issues it). The physical residence card is usually renewable every 5–10 years, but the status itself is long-term/permanent.",
+
+    cost: "€85–€150 (~₹7,500–₹13,500) depending on the EU country and administrative fees.",
+
+    time: "Processing time usually 2–6 months depending on country, documentation completeness, and immigration office workload.",
+
+    age: "No strict age limit. Typically granted to adults who have legally resided in an EU country for several years.",
+
+    education: "Not required. However, stable employment or recognized income is essential.",
+
+    funds: "Must show stable and sufficient income (employment, business, pension, or self-employment) without reliance on social assistance.",
+
+    docs: "Valid passport, current residence permit, proof of continuous legal residence (usually 5 years), employment contract or income proof, tax records, health insurance, accommodation proof, language proficiency certificate (often A2–B1 level depending on country), integration documents (if required).",
+
+    whom: "Non-EU nationals (including Indian citizens) who have legally lived in an EU member state for at least 5 continuous years and meet income, integration, and legal residence requirements.",
+
+    rules: "Must have continuous legal stay in the same or eligible EU country. Must not have long absences exceeding permitted limits. Must have stable income and health insurance. Criminal record must be clean.",
+
+    prosCons: "Pros: Long-term security, stronger mobility rights within EU, easier access to jobs and services, pathway to citizenship. Cons: Strict 5-year requirement, must maintain stable income, not automatic across all EU countries.",
+
+    terms: "EU Long-Term Resident Status: EU-wide permanent residency framework; Continuous Residence: Uninterrupted legal stay; Integration Requirements: Language and social adaptation criteria; Mobility Rights: Limited movement/work rights in other EU states.",
+
+    legal: "Regulated under EU Directive 2003/109/EC on long-term resident status for third-country nationals.",
+
+    process: `1. Complete 5 years of continuous legal residence in an EU country ->
+              2. Maintain stable income and tax compliance ->
+              3. Ensure valid health insurance and accommodation ->
+              4. Meet language/integration requirements (if applicable) ->
+              5. Gather residence history and financial documents ->
+              6. Apply at local immigration authority ->
+              7. Submit application and biometric data ->
+              8. Pay administrative fee ->
+              9. Authorities verify eligibility ->
+              10. Grant EU Long-Term Residence Status (if approved)`
+},
+"GermanyHumanitarianVisa": {
+    name: "Humanitarian Visa (Germany – National Visa Type D / Protection-based Entry)",
+
+    validity: "Varies depending on protection status. Initially may be short-term entry, later converted into a residence permit (e.g., asylum protection, subsidiary protection, or humanitarian residence permit).",
+
+    cost: "Usually free or €0–€75 (~₹0–₹7,000) depending on case type. Many protection-based applications have fee waivers.",
+
+    time: "Processing time varies significantly: typically 2–12 weeks for entry visa assessment, but asylum/humanitarian residence decisions can take several months to over a year.",
+
+    age: "No age limit. Applicable to individuals, families, minors, and vulnerable persons.",
+
+    education: "Not required.",
+
+    funds: "No personal financial requirement in most protection cases. Basic living support is provided by German authorities after arrival if protection is granted.",
+
+    docs: "Valid passport (if available), identity documents, completed application form, evidence of risk/persecution (reports, statements, documents), police reports (if applicable), medical records (if relevant), biometric photos, supporting statements, asylum/humanitarian application forms, any proof of nationality or origin.",
+
+    whom: "Foreign nationals (including Indian citizens in rare cases) who are fleeing war, persecution, human rights violations, or serious threats to life and cannot return safely to their home country.",
+
+    rules: "Must prove genuine risk or humanitarian need. Cannot be used for employment migration. Must cooperate with German authorities during asylum/humanitarian processing. Movement may be restricted during evaluation phase.",
+
+    prosCons: "Pros: Protection from persecution, legal residence possibility, access to healthcare and basic support, family protection options. Cons: Long processing times, uncertain outcome, limited freedom initially, strict eligibility criteria.",
+
+    terms: "Asylum: Protection for refugees; Subsidiary Protection: Limited protection status; Humanitarian Grounds: Special protection due to risk; Federal Office for Migration and Refugees (BAMF): Authority handling asylum cases.",
+
+    legal: "Regulated under German Asylum Act (Asylgesetz), EU Qualification Directive (2011/95/EU), and international refugee law (Geneva Convention).",
+
+    process: `1. Enter Germany or apply at embassy (depending on case) ->
+              2. Register asylum/humanitarian claim ->
+              3. Submit identity and risk documentation ->
+              4. Attend interviews with BAMF ->
+              5. Provide biometric data ->
+              6. Authorities assess protection need ->
+              7. Decision on asylum or humanitarian status ->
+              8. If approved, residence permit granted ->
+              9. Access integration support and housing ->
+              10. Begin integration process in Germany`
+},
+
+"GermanyAsylumVisa": {
+    name: "Asylum (Refugee Protection) – Germany",
+
+    validity: "If granted, usually 3 years initial residence permit (refugee protection), renewable. In some cases, subsidiary protection is granted for 1–3 years. After long residence, may lead to permanent settlement.",
+
+    cost: "€0 (free application). Asylum applications in Germany do not require visa fees.",
+
+    time: "Initial registration is immediate on arrival. Full asylum decision typically takes 6–18 months, but can extend longer depending on case complexity and backlog.",
+
+    age: "No age limit. Applicable to individuals, families, and unaccompanied minors.",
+
+    education: "Not required.",
+
+    funds: "No financial proof required. If granted protection, basic living expenses, housing, and healthcare are provided by German state support systems.",
+
+    docs: "Valid passport (if available), identity documents, asylum application form, personal statement of persecution, evidence of risk (documents, reports, photos, witness statements), travel route details, biometric data, any supporting legal/medical documents.",
+
+    whom: "Foreign nationals (including rare cases from India) who are fleeing persecution, war, torture, political, religious, or human rights-based threats and cannot safely return to their home country.",
+
+    rules: "Must apply upon arrival in Germany or at border. Must cooperate with BAMF (Federal Office for Migration and Refugees). Cannot travel outside Germany without permission during processing. Must attend interviews and provide truthful information.",
+
+    prosCons: "Pros: Legal protection from deportation, access to housing, healthcare, education, and integration programs. Cons: Long processing times, strict eligibility, limited freedom during processing, uncertain outcome.",
+
+    terms: "Asylum: Protection for people fleeing persecution; Refugee Status: Full protection under Geneva Convention; Subsidiary Protection: Limited protection for serious harm risk; BAMF: German Federal Migration Authority.",
+
+    legal: "Regulated under German Asylum Act (Asylgesetz), EU Asylum Qualification Directive (2011/95/EU), and Geneva Refugee Convention (1951).",
+
+    process: `1. Arrive in Germany (or present at border) ->
+              2. Register at reception center ->
+              3. Submit asylum application to BAMF ->
+              4. Provide identity documents and biometrics ->
+              5. Attend asylum interview ->
+              6. Authorities review case and evidence ->
+              7. Decision on refugee or subsidiary protection ->
+              8. If approved, residence permit issued ->
+              9. Access housing, healthcare, and support ->
+              10. Begin integration program (language, work preparation)`
+},
+
+"GermanyRefugeeStatus": {
+    name: "Refugee Status (Germany – Geneva Convention Protection)",
+
+    validity: "Usually granted for 3 years initially. Can be extended if risk continues. After 3–5 years of continuous legal stay, may lead to permanent settlement permit.",
+
+    cost: "€0 (no application fee). Refugee protection applications are free of charge in Germany.",
+
+    time: "Processing time usually 6–18 months depending on case complexity, evidence, and backlog at BAMF (Federal Office for Migration and Refugees).",
+
+    age: "No age limit. Applicable to individuals, families, and unaccompanied minors.",
+
+    education: "Not required.",
+
+    funds: "No financial requirement. If refugee status is granted, the German government provides basic living support, housing, healthcare, and integration assistance.",
+
+    docs: "Valid passport (if available), asylum/refugee application, identity documents, detailed personal statement, evidence of persecution (political, religious, ethnic, or social threats), travel route information, police reports (if applicable), witness statements, medical or psychological reports (if relevant), biometric data.",
+
+    whom: "Foreign nationals (including rare cases from India) who have a well-founded fear of persecution in their home country due to race, religion, nationality, political opinion, or membership in a particular social group.",
+
+    rules: "Must apply upon arrival or at German border. Must cooperate fully with BAMF authorities. Cannot travel outside Germany without permission. Must attend interviews and provide truthful evidence of persecution.",
+
+    prosCons: "Pros: Legal protection from deportation, right to live and work in Germany, access to healthcare, education, and integration programs. Cons: Long processing time, strict evidence requirements, restricted movement during process.",
+
+    terms: "Refugee Status: Full protection under Geneva Convention; BAMF: Federal Office for Migration and Refugees; Subsidiary Protection: Lesser protection category; Asylum Procedure: Legal assessment process for protection claims.",
+
+    legal: "Regulated under Geneva Convention (1951), EU Qualification Directive (2011/95/EU), and German Asylum Act (Asylgesetz).",
+
+    process: `1. Arrive in Germany and register at reception center ->
+              2. Submit asylum/refugee application to BAMF ->
+              3. Provide identity and biometric data ->
+              4. Attend detailed asylum interview ->
+              5. Submit evidence of persecution ->
+              6. BAMF evaluates credibility and risk ->
+              7. Decision on refugee status granted or rejected ->
+              8. If approved, residence permit issued ->
+              9. Access housing, healthcare, and integration support ->
+              10. Begin language and integration programs ->
+              11. Possible transition to permanent residence after years of stay`
+},
+
+"GermanyOfficialVisa": {
+    name: "Official Visa (Germany – Government / Administrative Visa)",
+
+    validity: "Usually issued for the duration of the official assignment, typically 3 months to 1 year. Can be extended based on assignment requirements.",
+
+    cost: "€0 (often free of charge for government/official delegations). In some cases, minimal administrative fees may apply depending on diplomatic arrangements.",
+
+    time: "Processing time usually 1–4 weeks, depending on verification by German authorities and sending government institution.",
+
+    age: "No age limit. Applicable to government officials, employees, or representatives on official duty.",
+
+    education: "Not mandatory, but depends on official designation and role assigned by government authority.",
+
+    funds: "Fully sponsored by sending government or official institution. No personal financial proof required.",
+
+    docs: "Valid official passport (or diplomatic/official passport), official invitation letter from German government/agency, government authorization letter from sending country, assignment order, passport photos, travel itinerary, accommodation details, health insurance (if required), visa application form.",
+
+    whom: "Government officials, public sector employees, and authorized representatives traveling to Germany for official administrative, governmental, or inter-governmental duties.",
+
+    rules: "Must perform only assigned official duties. Cannot engage in private employment or business activities. Must follow diplomatic protocols and leave upon completion of assignment.",
+
+    prosCons: "Pros: Fast processing, fully sponsored, official diplomatic facilitation. Cons: Restricted to official duties only, no personal employment rights.",
+
+    terms: "Official Passport: Government-issued travel document; Diplomatic Mission: Government assignment abroad; Intergovernmental Assignment: Official international duty; Protocol: Diplomatic rules and procedures.",
+
+    legal: "Regulated under German diplomatic law, Vienna Convention on Diplomatic Relations (1961), and German immigration regulations for official travel.",
+
+    process: `1. Government issues official assignment order ->
+              2. Receiving German authority sends invitation ->
+              3. Prepare official documents and passport ->
+              4. Submit application via embassy or diplomatic channel ->
+              5. Verification by German authorities ->
+              6. Visa approval issued ->
+              7. Travel under official delegation ->
+              8. Entry clearance through diplomatic channels ->
+              9. Perform assigned official duties ->
+              10. Exit after completion of assignment`
+},
+
+"GermanyDiplomaticVisa": {
+    name: "Diplomatic Visa (Germany – Diplomatic Entry Visa)",
+
+    validity: "Usually issued for the duration of diplomatic posting or mission, typically 1–4 years. Can be renewed based on diplomatic assignment.",
+
+    cost: "€0 (free of charge under diplomatic arrangements and Vienna Convention provisions).",
+
+    time: "Processing time usually 1–3 weeks, depending on diplomatic clearance and coordination between sending and receiving states.",
+
+    age: "No age limit. Applicable only to accredited diplomats and their eligible family members.",
+
+    education: "Not required. Eligibility is based on diplomatic appointment, not academic qualifications.",
+
+    funds: "Fully sponsored by the sending government. No personal financial proof required.",
+
+    docs: "Valid diplomatic passport, diplomatic note (Verbal Note) from Ministry of Foreign Affairs, accreditation letter, assignment order, passport photos, travel itinerary, accommodation details, diplomatic ID card (if applicable), visa application form.",
+
+    whom: "Accredited diplomats, embassy/consulate staff, and recognized diplomatic representatives assigned to Germany, along with eligible dependent family members.",
+
+    rules: "Must follow Vienna Convention on Diplomatic Relations. Cannot engage in private employment. Must respect diplomatic immunity regulations. Must perform only assigned diplomatic functions.",
+
+    prosCons: "Pros: Full diplomatic privileges, fast-track processing, immunity under international law. Cons: Strictly limited to official diplomatic duties, no private work rights.",
+
+    terms: "Diplomatic Immunity: Legal protection under international law; Accreditation: Official recognition by host country; Verbal Note: Diplomatic communication document; Vienna Convention: International treaty governing diplomacy.",
+
+    legal: "Regulated under the Vienna Convention on Diplomatic Relations (1961) and German Foreign Service Act.",
+
+    process: `1. Sending country appoints diplomat ->
+              2. Ministry of Foreign Affairs issues diplomatic note ->
+              3. German Foreign Office grants approval ->
+              4. Submit diplomatic visa request via embassy channel ->
+              5. Fast-track verification by authorities ->
+              6. Visa issuance under diplomatic protocol ->
+              7. Entry into Germany as accredited diplomat ->
+              8. Registration with Foreign Office ->
+              9. Begin diplomatic assignment ->
+              10. Maintain status during posting period`
+},
+
+"GermanySeafarerVisa": {
+    name: "Seafarer Visa (Germany – Crew / Maritime Transit Visa Type D/C)",
+
+    validity: "Usually issued for short duration (up to 90 days for transit/crew joining). Can vary based on ship contract and port rotation schedule.",
+
+    cost: "€80 (~₹7,000–₹7,500) for short-stay Schengen type. Fees may vary depending on category (crew transit vs long assignment).",
+
+    time: "Processing time usually 7–21 days depending on shipping line documentation and port authority clearance.",
+
+    age: "No strict age limit. Typically issued to working-age maritime professionals (18+).",
+
+    education: "Not mandatory, but maritime certification and professional training (STCW certification) are required.",
+
+    funds: "Usually covered by shipping company. No personal financial proof required in most cases.",
+
+    docs: "Valid passport, seafarer’s book (Continuous Discharge Certificate), employment contract or ship assignment letter, STCW certificates, invitation from shipping company, vessel details, port entry/exit schedule, visa application form, passport photos, travel insurance, crew list (if applicable).",
+
+    whom: "Foreign seafarers (including Indian citizens) working on cargo ships, cruise ships, or marine vessels entering or transiting through German ports or joining vessels in Germany.",
+
+    rules: "Must join assigned vessel only. Cannot stay beyond contract or transit period. Must comply with maritime and port authority regulations. Must depart with vessel or as per crew schedule.",
+
+    prosCons: "Pros: Enables international maritime employment, quick processing, fully employer-sponsored. Cons: Strictly limited to vessel duty, no inland employment rights.",
+
+    terms: "Seafarer: Maritime worker; STCW: International maritime safety certification; Crew List: Official ship personnel document; Port Clearance: Authorization to enter/exit port.",
+
+    legal: "Regulated under German maritime law, Schengen visa rules (for short stay), and International Maritime Organization (IMO) standards.",
+
+    process: `1. Shipping company assigns vessel and route ->
+              2. Prepare seafarer documents and STCW certificates ->
+              3. Receive crew invitation letter ->
+              4. Submit visa application at embassy/VFS ->
+              5. Provide vessel and port details ->
+              6. Biometric verification ->
+              7. Visa fee payment ->
+              8. Embassy and port authority verification ->
+              9. Visa issuance ->
+              10. Travel to designated port ->
+              11. Join vessel as per schedule`
+},
+
+
+"GermanyOpportunityCardChancenkarte": {
+    name: "Opportunity Card (Chancenkarte – Points-Based Job Seeker)",
+
+    validity: "Initially 1 year. If the holder finds a qualifying job or a part-time role that leads to a full-time contract, it can be extended for up to 2 additional years as a 'follow-on' permit.",
+
+    cost: "Visa Fee: €75 (~₹7,000). Blocked account monthly requirement: ~€1,027. Total upfront administrative cost approx. ₹10,000 (excluding the blocked account deposit).",
+
+    time: "Processing time: 4 to 12 weeks. As this is a new system (launched June 2024), priority is given to applicants who clearly meet the point threshold.",
+
+    age: "Points are awarded for age: 2 points if under 35; 1 point if between 35 and 40.",
+
+    education: "Mandatory: Must have a degree or vocational qualification recognized by the country of origin. If the degree is fully recognized in Germany, you are 'Skilled' and don't need points. If only recognized in India, you need 6 points.",
+
+    funds: "Mandatory: Must prove financial self-sufficiency via a Blocked Account (Sperrkonto) with at least €12,324 (~₹11 Lakhs) for one year, or a formal declaration of commitment (Verpflichtungserklärung).",
+
+    docs: "Valid passport, proof of 6 points (language, age, experience), degree/diploma, B1 German or B2 English certificate, detailed CV, health insurance (Incoming-Versicherung), and blocked account confirmation.",
+
+    whom: "Indian professionals and graduates who do not have a job offer yet but want to live in Germany for a year to find a career-level position.",
+
+    rules: "Must score at least 6 points. Points are awarded for: German/English skills, work experience, age, and previous ties to Germany. While looking for a career job, you are allowed to work part-time (20 hours/week) or do 2-week trial jobs.",
+
+    prosCons: "Pros: No job offer needed to enter; part-time work allowed to cover living costs; lower language bar than standard work visas. Cons: High financial deposit required; points system is strict; competitive job market.",
+
+    terms: "Chancenkarte: Opportunity Card; Blocked Account: A German bank account where funds are released monthly; Section 20a AufenthG: The legal residence act clause.",
+
+    legal: "German Residence Act (Aufenthaltsgesetz) Section 20a and 20b.",
+
+    process: `1. Check points eligibility (Minimum 6 points required) -> 
+              2. Open a Blocked Account (e.g., Expatrio/Fintiba) and deposit ~€12,324 -> 
+              3. Get educational documents translated and verified -> 
+              4. Book appointment at VFS Global Germany or the German Embassy -> 
+              5. Submit points evidence and biometrics -> 
+              6. Receive Opportunity Card sticker -> 
+              7. Travel to Germany and register address (Anmeldung) -> 
+              8. Search for full-time employment while working part-time.`
+},
+
+
+"GermanyITSpecialistVisaP8": {
+    name: "IT Specialist Visa (P-8 Rules – Experience Based)",
+
+    validity: "Up to 4 years, or the duration of the work contract. Leads to Permanent Settlement after 3 years (if high salary) or 5 years.",
+
+    cost: "Visa Fee: €75 (~₹7,000). VFS service fees separate.",
+
+    time: "Processing: 4 to 8 weeks. Often faster than standard work visas due to the high demand for IT talent.",
+
+    age: "No strict age limit.",
+
+    education: "No university degree or diploma required. This is a unique exception for the IT sector.",
+
+    funds: "No personal funds required; must have a job offer with a high salary.",
+
+    docs: "Valid passport, employment contract with a German company, CV showing 3 years of IT experience within the last 7 years, proof of salary (Minimum €52,560 per year for 2024/25), and health insurance.",
+
+    whom: "Self-taught Indian software developers, cybersecurity experts, or system admins who have deep experience but lack a formal university degree.",
+
+    rules: "The job offer must be in the IT sector. You must prove at least 3 years of professional experience in the last 7 years. Must show English or German skills (minimum B1) unless the employer waives the requirement in the contract.",
+
+    prosCons: "Pros: No degree required; fast-track for tech experts; family can accompany. Cons: High salary threshold; limited only to IT roles.",
+
+    terms: "P-8 Regulation: The specific labor rule for non-degree tech workers; BA (Bundesagentur für Arbeit): Federal Employment Agency that must approve the salary.",
+
+    legal: "Section 19c Clause 2 of the German Residence Act (AufenthG) in conjunction with Section 6 of the Employment Regulation (BeschV).",
+
+    process: `1. Secure a job offer in Germany with a salary of €52,560+ -> 
+              2. Document 3 years of IT experience (letters from previous employers) -> 
+              3. Employer applies for pre-approval from the Federal Employment Agency (optional but faster) -> 
+              4. Apply for Type D visa at the German Embassy/VFS -> 
+              5. Receive visa and travel to Germany -> 
+              6. Convert visa to a Residence Permit at the local Ausländerbehörde.`
+},
+
+
+
+"GermanyRecognitionBridgeVisa16d": {
+    name: "Recognition Bridge Visa (Section 16d – Qualification Adjustment)",
+
+    validity: "Up to 24 months. Intended to cover the time needed to complete training or exams to get full degree recognition.",
+
+    cost: "Visa Fee: €75 (~₹7,000). Additional costs for recognition exams and courses in Germany.",
+
+    whom: "Indian doctors, nurses, or engineers whose degrees are only 'partially recognized' (Deficit Note) by German authorities.",
+
+    rules: "You must have a 'Deficit Note' (Defizitbescheid) from the German recognition body. You must enroll in a course or internship in Germany to bridge the gap. Limited work (up to 20 hours/week) is allowed, and you can work full-time in the profession you are seeking recognition for, provided it is related to the training.",
+
+    docs: "Defizitbescheid (Deficit Note), proof of enrollment in a qualification measure, B1/B2 German certificate, and proof of financial support (blocked account or salary).",
+
+    process: `1. Apply for recognition from India (Anabin/ZAB/Relevant Chamber) -> 2. Receive 'Partial Recognition' letter -> 3. Find a bridge course or hospital/firm to do the adjustment -> 4. Apply for 16d visa -> 5. Complete exams in Germany -> 6. Convert to a full Work Visa.`
+},
+
+
+
+"GermanyFreelanceArtistVisaBerlin": {
+    name: "Freelance Artist Visa (Berlin Artist Permit)",
+
+    validity: "1 to 2 years initially. Renewable. After 5 years, leads to Permanent Residency.",
+
+    cost: "Visa fee: €75 (~₹7,000). Residence permit fee in Berlin: €100.",
+
+    funds: "Mandatory: Must show a bank balance of at least €10,000 (~₹9 Lakhs) and a steady stream of projected income.",
+
+    docs: "Portfolio of work, CV, at least 2 'Letters of Intent' (LoI) from clients based in Berlin/Germany, professional insurance, and a rental contract (Wohnungsgeberbestätigung) in Berlin.",
+
+    whom: "Indian painters, musicians, writers, designers, and actors who want to live and work in the artistic hub of Berlin.",
+
+    rules: "While the law is national, Berlin has a specific streamlined process for 'Artists'. You must be able to prove your work will contribute to the cultural landscape. You cannot take a full-time salaried job; you must remain self-employed.",
+
+    prosCons: "Pros: Allows entry into the EU's creative capital; no employer needed. Cons: High administrative burden; requires being physically in Berlin to apply for the permit (usually after entering on a D-visa); income must be sustainable.",
+
+    process: `1. Enter Germany on a 'Self-Employment' D-visa or (if eligible) a visitor visa -> 2. Register your address (Anmeldung) in Berlin -> 3. Collect 2-3 Letters of Intent from German clients -> 4. Book appointment at the Berlin LEA (Landesamt für Einwanderung) -> 5. Present portfolio and financial plan -> 6. Receive the Freelance Artist Residence Permit.`
+},
+
+"GermanyCrewVisa": {
+    name: "Crew Visa (Germany – Airline / Ship / Transport Crew Visa)",
+
+    validity: "Usually short-term, up to 90 days per entry for Schengen crew movement. For regular crew rotation, multiple-entry visas may be issued for 6 months to 5 years depending on employment pattern.",
+
+    cost: "€80 (~₹7,000–₹7,500) for standard Schengen crew visa. Some categories may be covered by employer agreements.",
+
+    time: "Processing time usually 7–15 working days depending on employer verification and embassy workload.",
+
+    age: "No strict age limit. Typically issued to active transport crew members (18+).",
+
+    education: "Not mandatory, but professional certification is required depending on role (airline crew training, maritime certification, or transport licensing).",
+
+    funds: "Usually fully covered by employer (airline/shipping/transport company). No personal financial proof required in most cases.",
+
+    docs: "Valid passport, crew ID card, employment contract, airline/ship/transport operator letter, crew roster or duty schedule, STCW or aviation certification (if applicable), visa application form, passport photos, travel insurance, transport route details.",
+
+    whom: "Foreign crew members (including Indian citizens) working for airlines, shipping companies, or international transport operators entering Germany for duty, transit, or operational stops.",
+
+    rules: "Must travel only for assigned duty. Cannot engage in private employment or stay beyond duty schedule. Must follow airline/shipping operational rules and immigration conditions.",
+
+    prosCons: "Pros: Fast processing, multiple-entry options, fully employer-sponsored, supports global travel operations. Cons: Strictly limited to professional duties, no residency or settlement rights.",
+
+    terms: "Crew Member: Transport staff (pilot, cabin crew, ship crew); Crew Roster: Duty schedule list; Transit Visa: Short stay movement authorization; Airline Operator: Licensed carrier company.",
+
+    legal: "Regulated under Schengen Visa Code (EU Regulation 810/2009) and German immigration/aviation-maritime transport rules.",
+
+    process: `1. Employer assigns crew duty or rotation ->
+              2. Prepare crew documentation and certifications ->
+              3. Receive official employer/airline/ship letter ->
+              4. Submit visa application at embassy/VFS ->
+              5. Provide duty roster and route details ->
+              6. Biometric verification ->
+              7. Embassy review and security check ->
+              8. Visa fee payment (if applicable) ->
+              9. Visa issuance ->
+              10. Travel as per duty schedule ->
+              11. Perform assigned crew operations`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* USA Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="NETHERLANDS">NETHERLANDS</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+         
+<select id="visaType">
+    <optgroup label="1. Short Stay (Schengen Type C)">
+        <option value="NetherlandsShortStaySchengenVisaC">Schengen Short-Stay Visa</option>
+        <option value="NetherlandsAirportTransitVisaA">Airport Transit Visa (Type A)</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Highly Skilled (Type D / MVV)">
+        <option value="NetherlandsHighlySkilledMigrantVisa">Highly Skilled Migrant (Kennismigrant)</option>
+        <option value="NetherlandsEUBlueCard">EU Blue Card</option>
+        <option value="NetherlandsICTPermit">Intra-Company Transfer (ICT)</option>
+        <option value="NetherlandsGVVASinglePermit">Regular Paid Work (GVVA)</option>
+        <option value="NetherlandsSeasonalWorkVisa">Seasonal Work Visa</option>
+    </optgroup>
+
+    <optgroup label="3. Study & Post-Study">
+        <option value="NetherlandsResidencePermitStudy">Student Residence Permit</option>
+        <option value="NetherlandsOrientationYearVisa">Orientation Year (Job Search)</option>
+        <option value="NetherlandsResearcherVisa">Researcher Visa (EU 2016/801)</option>
+    </optgroup>
+
+    <optgroup label="4. Business & Startups">
+        <option value="NetherlandsSelfEmployedEntrepreneurVisa">Self-Employed / Entrepreneur</option>
+        <option value="NetherlandsStartupVisa">Startup Visa</option>
+    </optgroup>
+
+    <optgroup label="5. Family & Dependents">
+        <option value="NetherlandsFamilyReunionVisa">Family Reunion Visa</option>
+        <option value="NetherlandsPartnerVisa">Partner / Spouse Visa</option>
+        <option value="NetherlandsDependentChildVisa">Dependent Child Visa</option>
+    </optgroup>
+
+    <optgroup label="6. Permanent Stay & Citizenship">
+        <option value="NetherlandsPermanentResidencePermit">Permanent Residence (National)</option>
+        <option value="NetherlandsEULongTermResidencePermit">EU Long-Term Residence</option>
+        <option value="NetherlandsCitizenshipNaturalisation">Dutch Citizenship (Naturalisation)</option>
+    </optgroup>
+
+    <optgroup label="7. Special Categories">
+        <option value="NetherlandsMVVLongStayVisa">Long-Stay Entry Visa (MVV)</option>
+        <option value="NetherlandsAuPairVisa">Au Pair Visa</option>
+        <option value="NetherlandsWorkingHolidayVisa">Working Holiday (Non-Indians)</option>
+    </optgroup>
+
+    <optgroup label="8. Official & Diplomatic">
+        <option value="NetherlandsDiplomaticVisa">Diplomatic Visa</option>
+        <option value="NetherlandsOfficialVisa">Official Visa</option>
+    </optgroup>
+
+  <optgroup label="9. Extras">
+        <option value="NetherlandsDaftVisa">DAFT Visa</option>
+        <option value="NetherlandsBoardMemberDirectorPermit">Board members & Directors</option>
+ <option value="NetherlandsCrossBorderServiceProvider">Cross Border</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF NETHERLANDS MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇳🇱 VIEW NETHERLANDS IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇳🇱 GENERAL PROCESS FOR NETHERLANDS IMMIGRATION</h1>
+
+        <h2>🧭 1. CHOOSE YOUR PURPOSE OF STAY</h2>
+        <p>Decide your reason for moving: Work (Highly Skilled Migrant/Blue Card), Study (Residence Permit), Business (Startup/Freelance), or Family Reunion.</p>
+
+        <h2>🔍 2. CHECK ELIGIBILITY & VISA TYPE</h2>
+        <p>Consult the <strong>Immigration and Naturalisation Service (IND)</strong> to verify requirements like age, income, and education for your specific category.</p>
+
+        <h2>🤝 3. FIND A RECOGNIZED SPONSOR</h2>
+        <p>Most long-term visas require a sponsor (Employer, University, or Family member). Check if your sponsor is in the official IND public register.</p>
+
+        <h2>📑 4. APPLY FOR RESIDENCE PERMIT & MVV</h2>
+        <p>Applications are submitted via the IND portal. If staying over 90 days, you usually require an <strong>MVV (Long-Stay Visa / Type D)</strong> to enter the country.</p>
+
+        <h2>📅 5. BOOK APPOINTMENT (VFS GLOBAL)</h2>
+        <p>Visit <strong>VFS Global</strong> to submit biometrics (fingerprints and photo) and your passport for the MVV sticker.</p>
+
+        <h2>⏳ 6 & 7. PROCESSING & DECISION</h2>
+        <p>Standard processing takes 2 weeks to 3 months. Upon approval, receive your MVV and travel to the Netherlands within 90 days.</p>
+
+        <h2>🇳🇱 8 & 9. AFTER ARRIVAL (MANDATORY STEPS)</h2>
+        <ul>
+            <li><strong>Collect Permit:</strong> Pick up your residence permit from an IND office.</li>
+            <li><strong>Register at Municipality:</strong> Register with the <strong>Gemeente</strong> to get your <strong>BSN</strong> (Citizen Service Number).</li>
+            <li><strong>Health Insurance:</strong> Take out mandatory Dutch health insurance.</li>
+            <li><strong>TB Test:</strong> Complete a tuberculosis test if required for your nationality.</li>
+        </ul>
+
+        <h2>🔄 10, 11 & 12. STAY, RENEWAL & PERMANENT RESIDENCE</h2>
+        <p>Follow visa conditions strictly. Renew before expiry. After <strong>5 years</strong> of continuous legal residence, you can apply for PR or Dutch Citizenship.</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black); margin-top: 15px;">
+            🧠 SUMMARY FLOW: Choose Purpose → Check Eligibility → Find Sponsor → Apply (IND) → Biometrics (VFS) → Approval → Travel → Residence Permit → BSN Registration
+        </div>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL NETHERLANDS IMMIGRATION WEBSITES</h1>
+            <p><strong>1. IND (Immigration Authority):</strong> <a href="https://ind.nl" target="_blank">ind.nl</a></p>
+            <p><strong>2. Government Portal:</strong> <a href="https://www.government.nl" target="_blank">www.government.nl</a></p>
+            <p><strong>3. VFS Global India (Apply):</strong> <a href="https://visa.vfsglobal.com" target="_blank">visa.vfsglobal.com</a></p>
+            <p><strong>4. Study in NL:</strong> <a href="https://www.studyinnl.org" target="_blank">www.studyinnl.org</a></p>
+            <p><strong>5. Business & Startup Info (RVO):</strong> <a href="https://www.rvo.nl" target="_blank">www.rvo.nl</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: ONLY USE OFFICIAL .NL OR .GOVERNMENT.NL WEBSITES. AVOID UNAUTHORIZED AGENTS.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "NETHERLANDS": {
+     "NetherlandsShortStaySchengenVisaC": {
+    name: "Short-Stay Schengen Visa (Type C – Netherlands)",
+    
+    validity: "Up to 90 days within a 180-day period. Can be single-entry, double-entry, or multiple-entry depending on approval.",
+    
+    cost: "₹7,500 – ₹10,500 total. Breakdown: Visa Fee €80 (~₹7,200), VFS Service Fee ~₹1,500–₹2,000, Miscellaneous (photos, insurance, documents) ₹500–₹1,500.",
+    
+    time: "Total 15 to 45 days. Appointment wait time 1–3 weeks; processing usually 10–20 working days after biometrics.",
+    
+    age: "No official age limit. Minors require parental consent and additional documents.",
+    
+    education: "Not required.",
+    
+    funds: "Self-funded or sponsor-funded. Recommended bank balance: ₹1.5–5 lakh depending on duration. Must show proof of sufficient funds (~€55–€100 per day stay).",
+    
+    docs: "Passport (valid, 2 blank pages), Visa application form, Appointment confirmation, Passport-size photos, Travel insurance (€30,000 coverage), Flight itinerary, Hotel booking or invitation letter, Cover letter, Bank statements (6 months), ITR (2–3 years), Employment proof (salary slips/leave letter) or business proof.",
+    
+    whom: "Tourists, business visitors, family visits, short-term courses, medical visits, conferences, or cultural/sports events (non-work purposes).",
+    
+    rules: "Stay strictly limited to 90 days in 180 days. No employment allowed. Must have valid travel insurance. Must enter through the main destination country (Netherlands if primary stay). Must follow Schengen rules for movement across countries.",
+    
+    prosCons: "Pros: Access to 27 Schengen countries, relatively low cost, faster processing compared to long-term visas, multiple-entry possible. Cons: Strict documentation, no work rights, limited stay duration, high rejection risk if travel history/financials are weak.",
+    
+    terms: "Schengen Area: 27 European countries with no internal borders; Type C: Short-stay visa; VFS: Visa Facilitation Services (outsourced visa center); Travel Insurance: Mandatory coverage of €30,000; 90/180 Rule: Stay limit calculation system.",
+    
+    legal: "Government of the Netherlands (visa decision), Dutch Embassy/Consulate, VFS Global (application handling), Schengen Visa Code (EU regulation governing short-stay visas).",
+    
+    process: `1. Determine purpose of visit (tourism/business/etc.) 
+              2. Fill Schengen visa application form online/offline 
+              3. Book appointment through VFS Global (Netherlands) 
+              4. Gather required documents (passport, insurance, finances, itinerary) 
+              5. Attend VFS appointment for biometrics and document submission 
+              6. Pay visa and service fees 
+              7. Application sent to Dutch Embassy/Consulate for processing 
+              8. Wait for decision (10–20 working days typical) 
+              9. Passport returned with visa or refusal 
+              10. Travel to Schengen Area; immigration officer gives final entry approval.`
+},
+
+"NetherlandsAirportTransitVisaA": {
+    name: "Airport Transit Visa (Type A – Netherlands)",
+    
+    validity: "Valid for the duration of transit only (usually 24–48 hours). Allows stay only within the international transit area of the airport.",
+    
+    cost: "₹7,500 – ₹10,000 total. Breakdown: Visa Fee €80 (~₹7,200), VFS Service Fee ~₹1,500–₹2,000, Miscellaneous (photos, documents) ₹300–₹1,000.",
+    
+    time: "Total 15 to 30 days. Appointment wait time 1–3 weeks; processing usually 10–15 working days.",
+    
+    age: "No official age limit. Minors require parental consent and additional documents.",
+    
+    education: "Not required.",
+    
+    funds: "Not heavily required compared to other visas. Must show proof of onward journey and ability to complete travel (basic financial proof may be asked).",
+    
+    docs: "Passport (valid), Visa application form, Passport-size photos, Confirmed onward flight ticket, Valid visa for final destination country (if required), Travel itinerary, Proof of permission to enter final destination, Cover letter explaining transit.",
+    
+    whom: "Travelers transiting through a Dutch airport en route to a non-Schengen country who require a transit visa based on nationality.",
+    
+    rules: "Cannot leave the international transit area of the airport. Not allowed to enter the Netherlands or Schengen Area. Must have confirmed onward ticket. Required only for certain nationalities. If you need to leave the airport, you must apply for a Short-Stay Schengen Visa (Type C) instead.",
+    
+    prosCons: "Pros: Enables legal transit through Netherlands airports, simple purpose, relatively straightforward documentation. Cons: No entry into Netherlands, limited to airport zone only, still requires visa processing time, not required for all nationalities.",
+    
+    terms: "Type A: Airport Transit Visa; Transit Zone: International area of airport without entering country; Schengen Area: Group of European countries with common visa policy; VFS: Visa Facilitation Services.",
+    
+    legal: "Government of the Netherlands (visa decision), Dutch Embassy/Consulate, VFS Global (application processing), Schengen Visa Code (EU regulation).",
+    
+    process: `1. Check if your nationality requires Airport Transit Visa (Type A) 
+              2. Fill Schengen visa application form 
+              3. Book appointment through VFS Global (Netherlands) 
+              4. Prepare documents (passport, onward ticket, destination visa) 
+              5. Attend VFS appointment for biometrics and submission 
+              6. Pay visa and service fees 
+              7. Application processed by Dutch Embassy/Consulate 
+              8. Wait for decision (10–15 working days) 
+              9. Receive passport with visa if approved 
+              10. Travel and remain in airport transit zone until next flight.`
+},
+
+"NetherlandsMVVLongStayVisa": {
+    name: "MVV (Provisional Residence Permit – Long-Stay Entry Visa, Netherlands)",
+    
+    validity: "Valid for 90 days (single entry). Used to enter the Netherlands and collect the residence permit (VVR) after arrival.",
+    
+    cost: "₹18,000 – ₹45,000+ depending on purpose. Breakdown: MVV Fee €210–€350 (~₹19,000–₹32,000), IND Residence Permit Fee (varies €200–€1,000+ depending on category), Miscellaneous (biometrics, documents, translation, TB test) ₹2,000–₹10,000.",
+    
+    time: "Total 1 to 4 months. IND decision usually within 60–90 days; MVV sticker issued within 1–2 weeks after approval.",
+    
+    age: "No strict age limit. Some categories (like study or orientation year) have practical age expectations.",
+    
+    education: "Depends on category. Required for study, highly skilled migrant, orientation year, etc.",
+    
+    funds: "Must meet Dutch income requirements or show sufficient funds depending on category (e.g., student ~€900–€1,200/month living expenses; work visa requires employer meeting salary thresholds).",
+    
+    docs: "Passport (valid), MVV application form, IND approval letter (if sponsor applied), Employment contract or university admission letter, Proof of income/funds, Birth certificate, TB test declaration, Antecedents certificate (criminal history declaration), Health insurance (after arrival), Passport photos.",
+    
+    whom: "Individuals planning to stay in the Netherlands for more than 90 days for purposes like work, study, family reunification, research, or long-term residence.",
+    
+    rules: "Must enter the Netherlands within MVV validity (90 days). After arrival, collect residence permit (VVR) from IND. Cannot work unless residence permit allows it. Must register at municipality (BSN). TB test mandatory for some nationalities. Sponsor (employer/university/family) usually required.",
+    
+    prosCons: "Pros: Gateway to long-term stay and residence permit, leads to PR eligibility, allows legal work/study depending on permit. Cons: Longer processing time, higher cost, strict eligibility criteria, dependent on sponsor in many cases.",
+    
+    terms: "MVV: Machtiging tot Voorlopig Verblijf (long-stay entry visa); IND: Immigration and Naturalisation Service; VVR: Residence Permit; Sponsor: Employer/university/family applying on your behalf; BSN: Citizen Service Number (registration number in Netherlands).",
+    
+    legal: "IND Netherlands (decision authority), Dutch Embassy/Consulate (MVV issuance), Government of the Netherlands (immigration policy under Dutch Aliens Act).",
+    
+    process: `1. Determine purpose (work/study/family/etc.) 
+              2. Sponsor (employer/university/family) submits application to IND (or self-apply in some cases) 
+              3. Submit required documents and pay IND fees 
+              4. IND evaluates application (60–90 days) 
+              5. If approved, receive MVV approval letter 
+              6. Book appointment at Dutch Embassy/VFS in India 
+              7. Submit passport and biometrics for MVV sticker 
+              8. Receive passport with MVV visa 
+              9. Travel to Netherlands within 90 days 
+              10. Collect residence permit (VVR) from IND and register at municipality.`
+},
+
+"NetherlandsResidencePermitStudy": {
+    name: "Residence Permit for Study (Netherlands)",
+    
+    validity: "Valid for the duration of the study program (typically 1–5 years). Renewable annually based on academic progress.",
+    
+    cost: "₹18,000 – ₹35,000 total. Breakdown: IND Fee €210 (~₹19,000), University handling fees (if applicable), Miscellaneous (biometrics, documents, insurance) ₹2,000–₹10,000.",
+    
+    time: "Total 1 to 3 months. IND processing usually 2–6 weeks after complete application submission by university.",
+    
+    age: "No official age limit, but generally applicable to students meeting university admission criteria.",
+    
+    education: "Mandatory. Must have confirmed admission from a recognized Dutch educational institution (university/college).",
+    
+    funds: "Mandatory proof of sufficient funds (~€900–€1,200 per month; approx €11,000–€15,000 per year). Usually paid to university or shown via bank statement/sponsor.",
+    
+    docs: "Passport (valid), Admission letter from Dutch institution, Proof of funds, MVV (if applicable), Academic certificates, Passport-size photos, Antecedents certificate, TB test declaration, Health insurance (after arrival).",
+    
+    whom: "International students admitted to full-time courses in the Netherlands (bachelor’s, master’s, PhD, or recognized diploma programs).",
+    
+    rules: "Must maintain academic progress (minimum 50% credits per year). Work allowed up to 16 hours/week or full-time during holidays (with work permit). Must maintain valid health insurance. Must stay enrolled in institution.",
+    
+    prosCons: "Pros: Access to high-quality European education, part-time work allowed, pathway to Orientation Year Visa (job search) and PR. Cons: Strict academic requirements, financial proof needed, limited work hours, dependent on university sponsorship.",
+    
+    terms: "IND: Immigration and Naturalisation Service; MVV: Long-stay entry visa (if required); Sponsor: University acting on behalf of student; Orientation Year: Post-study job search visa; BSN: Citizen Service Number.",
+    
+    legal: "IND Netherlands (permit approval), Recognized Dutch educational institutions (official sponsors), Government of the Netherlands (immigration and education regulations).",
+    
+    process: `1. Apply and secure admission in a recognized Dutch institution 
+              2. University acts as sponsor and submits residence permit application to IND 
+              3. Submit documents (passport, academics, financial proof) 
+              4. Pay IND fee and any university handling fees 
+              5. IND processes application (2–6 weeks typical) 
+              6. If required, apply for MVV and visit embassy for biometrics 
+              7. Receive approval and travel to Netherlands 
+              8. Collect residence permit card after arrival 
+              9. Register at municipality (BSN) and arrange health insurance 
+              10. Start studies and maintain required academic progress.`
+},
+
+"NetherlandsOrientationYearVisa": {
+    name: "Orientation Year Visa (Zoekjaar / Job Search Year for Graduates – Netherlands)",
+    
+    validity: "1 year (12 months) non-extendable. Can be used once in a lifetime.",
+    
+    cost: "₹18,000 – ₹25,000 total. Breakdown: IND Fee €210 (~₹19,000), Miscellaneous (documents, biometrics, registration, insurance) ₹2,000–₹6,000.",
+    
+    time: "Total 2 to 6 weeks. IND processing usually within 2–4 weeks after complete application.",
+    
+    age: "No strict age limit, but must apply within 3 years of graduation/qualification.",
+    
+    education: "Mandatory. Must have completed a degree from a recognized Dutch institution or a top 200 global university (as per approved rankings), or specific research programs.",
+    
+    funds: "Must show sufficient funds (~€900–€1,200 per month) OR have a sponsor OR employment income after arrival.",
+    
+    docs: "Passport (valid), Degree certificate or proof of graduation, Academic transcripts, Proof of funds, Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Recent graduates who want to stay in the Netherlands to search for a job, start a business, or gain work experience.",
+    
+    rules: "Free access to labor market (no work permit required). Can work full-time or part-time. Must switch to a proper work visa (e.g., Highly Skilled Migrant) before expiry if continuing stay. Cannot extend this visa.",
+    
+    prosCons: "Pros: Full work freedom, no employer sponsorship required initially, pathway to long-term work visa and PR, flexible job search. Cons: Only 1 year validity, cannot be extended, requires strong job search effort, financial support needed if unemployed.",
+    
+    terms: "Zoekjaar: Orientation/job search year; IND: Immigration and Naturalisation Service; Highly Skilled Migrant: Sponsored work visa category; Sponsor: Employer who can later sponsor work visa; BSN: Citizen Service Number.",
+    
+    legal: "IND Netherlands (permit approval), Government of the Netherlands (immigration policy for graduates).",
+    
+    process: `1. Check eligibility (recent graduate within 3 years) 
+              2. Gather documents (degree, passport, funds proof) 
+              3. Apply directly to IND (online or via post) 
+              4. Pay application fee (€210) 
+              5. Submit biometrics if required 
+              6. IND processes application (2–4 weeks typical) 
+              7. Receive approval decision 
+              8. Collect residence permit card 
+              9. Register at municipality (BSN) 
+              10. Start job search/work freely; switch to work visa before expiry if employed.`
+},
+"NetherlandsHighlySkilledMigrantVisa": {
+    name: "Highly Skilled Migrant Visa (Kennismigrant – Netherlands)",
+    
+    validity: "Up to 5 years depending on employment contract. Renewable and can lead to permanent residence (PR).",
+    
+    cost: "₹30,000 – ₹80,000+ total. Breakdown: IND Fee €350–€405 (~₹32,000–₹37,000), Employer/sponsor costs (if any), Miscellaneous (biometrics, documents, registration, insurance) ₹3,000–₹10,000.",
+    
+    time: "Total 2 to 8 weeks. IND processing usually 2–4 weeks under fast-track scheme (recognized sponsors).",
+    
+    age: "Minimum 18 years. No upper age limit.",
+    
+    education: "Not strictly mandatory by law, but practically required (degree/diploma/skills relevant to job role).",
+    
+    funds: "No separate proof required if employed. Must meet minimum salary thresholds (approx): €3,900–€5,300/month depending on age/category (lower for graduates under 30).",
+    
+    docs: "Passport (valid), Employment contract/job offer, Sponsor (recognized employer) details, Salary proof meeting IND criteria, Degree/qualification certificates, Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Highly skilled professionals hired by a recognized Dutch employer for specialized roles (IT, engineering, finance, healthcare, etc.).",
+    
+    rules: "Must work for a recognized IND sponsor employer. Salary must meet threshold throughout stay. Free to change employer only if new employer is also a recognized sponsor. Family members can accompany. Eligible for PR after 5 years.",
+    
+    prosCons: "Pros: Fast-track processing, high approval rate, family inclusion, pathway to PR and citizenship, strong job market opportunities. Cons: Requires employer sponsorship, salary threshold must be maintained, job loss affects visa status.",
+    
+    terms: "Kennismigrant: Highly skilled migrant; IND: Immigration and Naturalisation Service; Recognized Sponsor: Employer approved by IND; Salary Threshold: Minimum income requirement; PR: Permanent Residence; BSN: Citizen Service Number.",
+    
+    legal: "IND Netherlands (approval and monitoring), Recognized Employers (sponsors), Government of the Netherlands (migration policy under Dutch Aliens Act).",
+    
+    process: `1. Secure job offer from IND-recognized Dutch employer 
+              2. Employer submits application to IND (fast-track) 
+              3. Provide documents (passport, contract, qualifications) 
+              4. Pay application fee 
+              5. IND processes application (2–4 weeks typical) 
+              6. Receive approval decision 
+              7. Apply for MVV (if required) at Dutch Embassy 
+              8. Travel to Netherlands 
+              9. Collect residence permit card 
+              10. Register at municipality (BSN) and start employment.`
+},
+
+"NetherlandsEUBlueCard": {
+    name: "EU Blue Card (Netherlands)",
+    
+    validity: "Up to 4 years (or duration of work contract + 3 months). Renewable and leads to permanent residence.",
+    
+    cost: "₹30,000 – ₹80,000+ total. Breakdown: IND Fee €350–€405 (~₹32,000–₹37,000), Miscellaneous (biometrics, documents, insurance, registration) ₹3,000–₹10,000.",
+    
+    time: "Total 1 to 3 months. IND processing usually 30–90 days.",
+    
+    age: "Minimum 18 years. No upper age limit.",
+    
+    education: "Mandatory. Must have a recognized higher education degree (minimum 3-year bachelor’s or equivalent).",
+    
+    funds: "No separate proof needed if employed. Must meet higher salary threshold (~€5,800–€6,700/month gross, varies yearly).",
+    
+    docs: "Passport (valid), Employment contract (minimum 1 year), Degree certificate (recognized), Salary proof meeting threshold, Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Highly qualified professionals who want to work in the Netherlands and have mobility options across EU member states.",
+    
+    rules: "Must meet high salary threshold. Can change employer with notification/approval. After 18 months, can move to another EU country under Blue Card scheme. Eligible for PR after required years (EU-wide benefits).",
+    
+    prosCons: "Pros: EU mobility, strong pathway to PR, high-status visa, family inclusion, flexibility across EU countries. Cons: Higher salary requirement than Highly Skilled Migrant visa, longer processing time, stricter education recognition rules.",
+    
+    terms: "EU Blue Card: Work/residence permit for highly qualified non-EU citizens; IND: Immigration and Naturalisation Service; Salary Threshold: Minimum income requirement; PR: Permanent Residence; EU Mobility: Ability to move within EU countries.",
+    
+    legal: "IND Netherlands (approval), European Union Blue Card Directive (EU law), Government of the Netherlands (implementation under national law).",
+    
+    process: `1. Secure job offer meeting EU Blue Card salary threshold 
+              2. Ensure degree is recognized in Netherlands/EU 
+              3. Employer or applicant submits application to IND 
+              4. Submit required documents (contract, degree, passport) 
+              5. Pay application fee 
+              6. IND processes application (30–90 days) 
+              7. Receive approval decision 
+              8. Apply for MVV (if required) at Dutch Embassy 
+              9. Travel to Netherlands 
+              10. Collect residence permit and start work.`
+},
+
+"NetherlandsICTPermit": {
+    name: "Intra-Company Transfer (ICT) Permit – Netherlands",
+    
+    validity: "Up to 3 years for managers/specialists and up to 1 year for trainees. Non-renewable under ICT (must switch category after expiry).",
+    
+    cost: "₹30,000 – ₹70,000+ total. Breakdown: IND Fee €350–€405 (~₹32,000–₹37,000), Miscellaneous (documents, biometrics, insurance, registration) ₹3,000–₹10,000.",
+    
+    time: "Total 2 to 8 weeks. IND processing usually 2–4 weeks (fast-track for recognized sponsors).",
+    
+    age: "Minimum 18 years. No upper age limit.",
+    
+    education: "Depends on role. Generally required for specialists/trainees; not strictly defined by law but expected in practice.",
+    
+    funds: "No separate proof required if employed. Salary must meet market standards and be sufficient for living in the Netherlands.",
+    
+    docs: "Passport (valid), Employment contract with non-EU company, Transfer letter from employer, Proof of employment (usually 3–12 months prior), Job role details (manager/specialist/trainee), Salary details, Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Employees of multinational companies being transferred from a non-EU branch to a Dutch branch as managers, specialists, or trainees.",
+    
+    rules: "Must remain employed by the same company/group. Cannot freely change employer. Limited duration (max 3 years/1 year). After ICT, must leave EU or switch to another residence permit (e.g., Highly Skilled Migrant). EU mobility allowed for short assignments in other member states.",
+    
+    prosCons: "Pros: Fast-track processing, EU mobility within company, ideal for multinational career growth, family members allowed. Cons: Temporary (non-renewable), restricted to same employer, limited flexibility compared to other work visas.",
+    
+    terms: "ICT: Intra-Company Transfer; IND: Immigration and Naturalisation Service; Specialist: Employee with specialized knowledge; Manager: Senior leadership role; Trainee: Employee undergoing training; EU Mobility: Short-term work in other EU countries under ICT rules.",
+    
+    legal: "IND Netherlands (approval), EU ICT Directive (European law), Government of the Netherlands (implementation under Dutch immigration law).",
+    
+    process: `1. Employer decides to transfer employee to Netherlands branch 
+              2. Employer (recognized sponsor) submits ICT application to IND 
+              3. Provide documents (passport, employment proof, transfer letter) 
+              4. Pay application fee 
+              5. IND processes application (2–4 weeks typical) 
+              6. Receive approval decision 
+              7. Apply for MVV (if required) at Dutch Embassy 
+              8. Travel to Netherlands 
+              9. Collect residence permit card 
+              10. Register at municipality (BSN) and start assignment.`
+},
+"NetherlandsGVVASinglePermit": {
+    name: "Regular Paid Work Permit (Single Permit / GVVA – Netherlands)",
+    
+    validity: "Up to 1–3 years depending on employment contract. Renewable.",
+    
+    cost: "₹30,000 – ₹75,000+ total. Breakdown: IND Fee €350–€405 (~₹32,000–₹37,000), Miscellaneous (documents, biometrics, insurance, registration) ₹3,000–₹10,000.",
+    
+    time: "Total 1 to 3 months. IND processing usually 60–90 days (includes UWV labor market test).",
+    
+    age: "Minimum 18 years. No upper age limit.",
+    
+    education: "Depends on job role. Not strictly mandatory by law, but qualifications/experience required as per job requirements.",
+    
+    funds: "No separate proof required if employed. Salary must meet Dutch minimum wage and job standards.",
+    
+    docs: "Passport (valid), Employment contract, Employer details, Job description, Proof of qualifications/experience, Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Foreign workers hired for regular jobs in the Netherlands where no suitable EU/EEA candidate is available.",
+    
+    rules: "Employer must prove no EU/EEA worker is available (labor market test by UWV). Work restricted to sponsoring employer. Changing jobs requires new GVVA. Must comply with Dutch labor laws and salary conditions.",
+    
+    prosCons: "Pros: Allows legal employment in a wide range of jobs, pathway to long-term stay and PR, suitable for mid-skilled roles. Cons: Slower processing, strict labor market test, employer-dependent, less flexible than Highly Skilled Migrant visa.",
+    
+    terms: "GVVA: Gecombineerde Vergunning voor Verblijf en Arbeid (Single Permit for Residence and Work); IND: Immigration and Naturalisation Service; UWV: Dutch Employee Insurance Agency (labor market test authority); Labor Market Test: Check for EU worker availability; Sponsor: Employer.",
+    
+    legal: "IND Netherlands (permit issuance), UWV Netherlands (labor market approval), Government of the Netherlands (Dutch Aliens Employment Act).",
+    
+    process: `1. Secure job offer from Dutch employer 
+              2. Employer applies for GVVA to IND 
+              3. UWV conducts labor market test (EU worker availability) 
+              4. Submit documents (contract, qualifications, passport) 
+              5. Pay application fee 
+              6. IND processes application (60–90 days typical) 
+              7. Receive approval decision 
+              8. Apply for MVV (if required) at Dutch Embassy 
+              9. Travel to Netherlands 
+              10. Collect residence permit and start employment.`
+},
+"NetherlandsSeasonalWorkVisa": {
+    name: "Seasonal Work Visa (Netherlands)",
+    
+    validity: "Up to 24 weeks (maximum 6 months) within a 12-month period. Non-renewable beyond seasonal limit.",
+    
+    cost: "₹20,000 – ₹50,000 total. Breakdown: Work Permit Fee (TWV via employer) €100–€300 (~₹9,000–₹27,000), Visa/Residence costs (if applicable), Miscellaneous (documents, biometrics, insurance) ₹2,000–₹8,000.",
+    
+    time: "Total 3 to 8 weeks. UWV work permit processing usually 2–5 weeks.",
+    
+    age: "Minimum 18 years. No upper age limit.",
+    
+    education: "Not required.",
+    
+    funds: "No major proof required if employer provides contract, accommodation, and salary. Must meet minimum wage standards.",
+    
+    docs: "Passport (valid), Employment contract (seasonal job), Employer details, Work permit (TWV) approval, Accommodation proof, Travel insurance, Passport-size photos.",
+    
+    whom: "Workers employed in seasonal sectors such as agriculture, horticulture, fruit picking, and food processing for short-term labor needs.",
+    
+    rules: "Work strictly limited to seasonal sector and employer. Maximum stay 24 weeks in a year. Cannot switch to long-term work visa directly. Must leave after contract ends. Employer must obtain TWV (work permit) from UWV.",
+    
+    prosCons: "Pros: Easy entry for low-skilled jobs, short processing time, minimal education requirement. Cons: Very short duration, no pathway to PR, limited job flexibility, physically demanding work.",
+    
+    terms: "TWV: Tewerkstellingsvergunning (work permit); UWV: Dutch Employee Insurance Agency; Seasonal Work: Temporary labor tied to specific seasons; Minimum Wage: Legal salary requirement in Netherlands.",
+    
+    legal: "UWV Netherlands (work permit approval), IND Netherlands (visa/residence if applicable), Government of the Netherlands (labor and immigration laws).",
+    
+    process: `1. Secure seasonal job offer from Dutch employer 
+              2. Employer applies for TWV (work permit) through UWV 
+              3. Submit required documents (passport, contract) 
+              4. UWV processes work permit (2–5 weeks) 
+              5. If required, apply for visa/MVV 
+              6. Receive approval 
+              7. Travel to Netherlands 
+              8. Start seasonal work with employer 
+              9. Complete contract within 24 weeks 
+              10. Leave Netherlands after work period ends.`
+},
+"NetherlandsSelfEmployedEntrepreneurVisa": {
+    name: "Self-Employed / Entrepreneur Visa (Netherlands)",
+    
+    validity: "Up to 2 years initially. Renewable and can lead to permanent residence (PR) after 5 years.",
+    
+    cost: "₹30,000 – ₹80,000+ total. Breakdown: IND Fee €350–€405 (~₹32,000–₹37,000), Business setup/registration costs, Miscellaneous (documents, translations, biometrics) ₹5,000–₹20,000.",
+    
+    time: "Total 3 to 6 months. IND processing usually 90 days or more (can be longer due to business evaluation).",
+    
+    age: "Minimum 18 years. No upper age limit.",
+    
+    education: "Not strictly mandatory, but business experience, qualifications, or entrepreneurial background strongly recommended.",
+    
+    funds: "Must show sufficient investment funds and financial stability. No fixed amount, but typically €4,500+ for startups and much higher for established businesses. Must also show sustainable income.",
+    
+    docs: "Passport (valid), Detailed business plan, Proof of funds/investment, Chamber of Commerce (KvK) registration, Contracts/clients (if any), CV and experience proof, Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Entrepreneurs, freelancers, and self-employed professionals planning to start or run a business in the Netherlands.",
+    
+    rules: "Business must serve Dutch economic interest (evaluated on points system: personal experience, business plan, added value). Must actively run the business. Renewal depends on business performance. Family members can accompany.",
+    
+    prosCons: "Pros: Freedom to run your own business, pathway to PR, flexible work structure, suitable for freelancers/startups. Cons: Strict business evaluation, longer processing time, financial risk, complex documentation.",
+    
+    terms: "IND: Immigration and Naturalisation Service; KvK: Dutch Chamber of Commerce; Points System: Evaluation based on experience, plan, and economic value; PR: Permanent Residence; ZZP: Self-employed without staff (freelancer).",
+    
+    legal: "IND Netherlands (permit approval), Netherlands Enterprise Agency – RVO (business evaluation), Government of the Netherlands (immigration and business regulations).",
+    
+    process: `1. Prepare detailed business plan (market, finances, strategy) 
+              2. Arrange funds/investment proof 
+              3. Register or plan registration with Dutch Chamber of Commerce (KvK) 
+              4. Apply for residence permit through IND 
+              5. Submit documents (plan, CV, funds, passport) 
+              6. Pay application fee 
+              7. RVO evaluates business viability (points system) 
+              8. IND makes final decision (3–6 months) 
+              9. Receive approval and (if required) apply for MVV 
+              10. Travel to Netherlands, register business, and start operations.`
+},
+
+"NetherlandsStartupVisa": {
+    name: "Startup Visa (Netherlands)",
+    
+    validity: "1 year (12 months). Non-renewable; must switch to Self-Employed/Entrepreneur Visa after 1 year.",
+    
+    cost: "₹20,000 – ₹60,000+ total. Breakdown: IND Fee €350 (~₹32,000), Facilitator/mentor costs (varies), Miscellaneous (documents, biometrics, registration) ₹3,000–₹15,000.",
+    
+    time: "Total 1 to 3 months. IND processing usually 2–6 weeks.",
+    
+    age: "Minimum 18 years. No upper age limit.",
+    
+    education: "Not mandatory, but innovation/business knowledge recommended.",
+    
+    funds: "Must show sufficient funds to live in Netherlands (~€900–€1,200 per month). No strict minimum investment required initially.",
+    
+    docs: "Passport (valid), Startup agreement with recognized facilitator (mentor), Business plan (innovative idea), Proof of funds, CV, Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Entrepreneurs with innovative startup ideas who want to build a business in the Netherlands under guidance of a recognized facilitator.",
+    
+    rules: "Must work with a recognized facilitator/mentor. Business must be innovative (product/service/process). Must register with Chamber of Commerce (KvK). After 1 year, must switch to Self-Employed Visa to continue.",
+    
+    prosCons: "Pros: Low entry barrier for startups, no heavy investment required initially, strong startup ecosystem, pathway to long-term entrepreneur visa. Cons: Only 1 year validity, mandatory facilitator, must prove innovation, requires transition to another visa.",
+    
+    terms: "IND: Immigration and Naturalisation Service; Facilitator: Approved mentor supporting startup; KvK: Dutch Chamber of Commerce; Startup: Innovative business idea; RVO: Netherlands Enterprise Agency (may assess innovation).",
+    
+    legal: "IND Netherlands (permit approval), Recognized Facilitators (mentorship), Government of the Netherlands (startup migration policy).",
+    
+    process: `1. Develop innovative startup idea and business plan 
+              2. Find and sign agreement with recognized facilitator 
+              3. Arrange proof of funds for living expenses 
+              4. Apply for residence permit through IND 
+              5. Submit documents (plan, facilitator agreement, passport) 
+              6. Pay application fee 
+              7. IND processes application (2–6 weeks typical) 
+              8. Receive approval decision 
+              9. Apply for MVV (if required) and travel to Netherlands 
+              10. Register with KvK and start building startup; switch visa after 1 year.`
+},
+"NetherlandsResearcherVisa": {
+    name: "Researcher Visa (EU Directive 2016/801 – Netherlands)",
+    
+    validity: "Up to 5 years depending on research contract. Renewable.",
+    
+    cost: "₹30,000 – ₹70,000+ total. Breakdown: IND Fee €350–€405 (~₹32,000–₹37,000), Miscellaneous (documents, biometrics, insurance, registration) ₹3,000–₹10,000.",
+    
+    time: "Total 2 to 8 weeks. IND processing usually 2–4 weeks under fast-track (recognized institutions).",
+    
+    age: "Minimum 18 years. No upper age limit.",
+    
+    education: "Mandatory. Must have a higher education qualification (usually Master’s or PhD level) relevant to research field.",
+    
+    funds: "No separate proof required if funded. Must have research salary, grant, or scholarship sufficient for living expenses.",
+    
+    docs: "Passport (valid), Hosting agreement with recognized research institution, Proof of qualifications (degree), Research project details, Funding proof (salary/grant), Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Researchers, scientists, and academic professionals conducting research at recognized Dutch institutions under EU Directive 2016/801.",
+    
+    rules: "Must work with a recognized research institution. Allowed EU mobility for research in other member states. Can teach in addition to research if permitted. Family members can accompany. Can switch to other permits (e.g., Highly Skilled Migrant) after research.",
+    
+    prosCons: "Pros: Fast-track process, EU mobility for research, strong academic opportunities, pathway to PR, family inclusion. Cons: Requires formal research position, dependent on institution sponsorship, limited outside-work flexibility.",
+    
+    terms: "IND: Immigration and Naturalisation Service; Hosting Agreement: Contract with research institution; EU Directive 2016/801: EU law for researchers/students mobility; Recognized Sponsor: Approved institution; PR: Permanent Residence.",
+    
+    legal: "IND Netherlands (permit approval), Recognized Research Institutions (sponsors), European Union Directive 2016/801 (legal framework), Government of the Netherlands.",
+    
+    process: `1. Secure research position with recognized Dutch institution 
+              2. Sign hosting agreement (research contract) 
+              3. Institution submits application to IND (fast-track) 
+              4. Submit documents (passport, degree, funding proof) 
+              5. Pay application fee 
+              6. IND processes application (2–4 weeks typical) 
+              7. Receive approval decision 
+              8. Apply for MVV (if required) at Dutch Embassy 
+              9. Travel to Netherlands 
+              10. Collect residence permit and start research work.`
+},
+
+"NetherlandsAuPairVisa": {
+    name: "Au Pair Visa (Netherlands)",
+    
+    validity: "Maximum 1 year (12 months). Non-renewable and cannot be extended.",
+    
+    cost: "₹25,000 – ₹60,000+ total. Breakdown: IND Fee €350 (~₹32,000), Au Pair agency fees (varies €500–€1,500+), Miscellaneous (documents, insurance, biometrics) ₹3,000–₹10,000.",
+    
+    time: "Total 1 to 3 months. IND processing usually 2–6 weeks after complete application.",
+    
+    age: "18 to 25 years (strict requirement).",
+    
+    education: "Not mandatory, but basic education and language skills (English/Dutch) preferred.",
+    
+    funds: "No major proof required. Host family provides accommodation, food, and monthly allowance (€300–€340).",
+    
+    docs: "Passport (valid), Au Pair agreement with host family, Application via recognized Au Pair agency, Proof of age, Motivation letter, Medical insurance, Antecedents certificate, Passport-size photos.",
+    
+    whom: "Young individuals who want to experience Dutch culture while living with a host family and helping with light household duties and childcare.",
+    
+    rules: "Must apply through a recognized Au Pair agency (sponsor). Work limited to light household tasks (max 30 hours/week). Cannot take other employment. Must live with host family. Cultural exchange is the primary purpose.",
+    
+    prosCons: "Pros: Cultural experience, low cost of living (accommodation/food covered), simple entry for young applicants, exposure to Europe. Cons: Strict age limit, no career growth, low allowance, no extension or direct PR pathway.",
+    
+    terms: "IND: Immigration and Naturalisation Service; Au Pair: Cultural exchange participant; Recognized Sponsor: Approved agency; Allowance: Monthly pocket money; Cultural Exchange: Primary objective of program.",
+    
+    legal: "IND Netherlands (permit approval), Recognized Au Pair Agencies (sponsors), Government of the Netherlands (cultural exchange policy).",
+    
+    process: `1. Find recognized Au Pair agency in Netherlands 
+              2. Get matched with host family 
+              3. Sign Au Pair agreement 
+              4. Agency submits application to IND 
+              5. Submit documents (passport, forms, motivation letter) 
+              6. Pay application and agency fees 
+              7. IND processes application (2–6 weeks typical) 
+              8. Receive approval decision 
+              9. Apply for MVV (if required) and travel to Netherlands 
+              10. Start stay with host family and follow program rules.`
+},
+"NetherlandsWorkingHolidayVisa": {
+    name: "Working Holiday Visa (Netherlands)",
+    
+    validity: "1 year (12 months). Non-extendable.",
+    
+    cost: "₹20,000 – ₹50,000 total. Breakdown: IND Fee €210–€350 (~₹19,000–₹32,000), Miscellaneous (documents, biometrics, insurance) ₹2,000–₹8,000.",
+    
+    time: "Total 2 to 8 weeks. IND processing usually 2–4 weeks.",
+    
+    age: "18 to 30 years (sometimes up to 35 depending on country agreement).",
+    
+    education: "Not required.",
+    
+    funds: "Must show sufficient funds (~€2,000–€4,500 recommended) to support initial stay.",
+    
+    docs: "Passport (valid), Application form, Proof of funds, Return ticket or additional funds, Health insurance, Passport-size photos, Antecedents certificate.",
+    
+    whom: "Young individuals from countries that have a Working Holiday agreement with the Netherlands who want to travel and work temporarily.",
+    
+    rules: "Primary purpose is holiday, work is secondary. Can do temporary/part-time jobs but not long-term employment. Usually limited to specific nationalities (India is generally NOT eligible). Cannot extend or convert directly to long-term residence.",
+    
+    prosCons: "Pros: Freedom to travel and work, cultural experience, simple process for eligible countries. Cons: Not available to all nationalities, limited duration, no direct PR pathway, restrictions on work type.",
+    
+    terms: "IND: Immigration and Naturalisation Service; Working Holiday: Cultural exchange program allowing travel + temporary work; Youth Mobility: Agreements between countries; PR: Permanent Residence.",
+    
+    legal: "IND Netherlands (permit approval), Government of the Netherlands (bilateral agreements with partner countries).",
+    
+    process: `1. Check eligibility (country must have agreement with Netherlands) 
+              2. Gather documents (passport, funds proof, insurance) 
+              3. Apply for residence permit through IND or Dutch Embassy 
+              4. Pay application fee 
+              5. Submit biometrics if required 
+              6. IND processes application (2–4 weeks typical) 
+              7. Receive approval decision 
+              8. Travel to Netherlands 
+              9. Register at municipality (BSN) 
+              10. Travel and take up temporary work during stay.`
+},
+"NetherlandsFamilyReunionVisa": {
+    name: "Family Reunion Visa (Family Reunification / Dependent Residence Permit – Netherlands)",
+    
+    validity: "Up to 5 years depending on sponsor’s residence permit. Renewable and can lead to permanent residence (PR).",
+    
+    cost: "₹18,000 – ₹50,000 total. Breakdown: IND Fee €210–€350 (~₹19,000–₹32,000), Miscellaneous (documents, translations, biometrics) ₹3,000–₹10,000.",
+    
+    time: "Total 1 to 3 months. IND processing usually 60–90 days.",
+    
+    age: "Spouse/partner: Minimum 18 years. Children: under 18 (exceptions in special cases).",
+    
+    education: "Not required.",
+    
+    funds: "Sponsor must meet income requirement (approx €1,900–€2,200/month gross, varies). Must have stable and sufficient income.",
+    
+    docs: "Passport (valid), Marriage certificate/relationship proof, Birth certificate (for children), Sponsor’s residence permit/passport, Proof of income (salary slips, contract), Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Spouses, registered partners, children, and sometimes other close family members of individuals legally residing in the Netherlands.",
+    
+    rules: "Must live with sponsor in the Netherlands. Relationship must be genuine and ongoing. Sponsor must meet income requirement. Work rights depend on sponsor’s status (often allowed). Must integrate into Dutch society (civic integration may apply).",
+    
+    prosCons: "Pros: Family unity, pathway to PR, work rights often granted, access to healthcare and education. Cons: Income requirement for sponsor, strict relationship verification, processing time, integration requirements.",
+    
+    terms: "IND: Immigration and Naturalisation Service; Sponsor: Family member residing in Netherlands; Civic Integration: Dutch language and society exam; PR: Permanent Residence; MVV: Long-stay entry visa (if required).",
+    
+    legal: "IND Netherlands (permit approval), Government of the Netherlands (family reunification policy under Dutch immigration law).",
+    
+    process: `1. Sponsor in Netherlands checks eligibility and income requirement 
+              2. Sponsor submits application to IND (or applicant applies via embassy) 
+              3. Submit documents (relationship proof, income proof, passport) 
+              4. Pay application fee 
+              5. IND processes application (60–90 days typical) 
+              6. Receive approval decision 
+              7. Apply for MVV (if required) at Dutch Embassy 
+              8. Travel to Netherlands 
+              9. Collect residence permit card 
+              10. Register at municipality (BSN) and join sponsor.`
+},
+"NetherlandsPartnerVisa": {
+    name: "Partner Visa (Spouse / Registered Partner – Netherlands)",
+    
+    validity: "Up to 5 years depending on sponsor’s residence status. Renewable and can lead to permanent residence (PR).",
+    
+    cost: "₹18,000 – ₹50,000 total. Breakdown: IND Fee €210–€350 (~₹19,000–₹32,000), Miscellaneous (documents, translations, biometrics) ₹3,000–₹10,000.",
+    
+    time: "Total 1 to 3 months. IND processing usually 60–90 days.",
+    
+    age: "Both partners must be at least 18 years old.",
+    
+    education: "Not required.",
+    
+    funds: "Sponsor must meet income requirement (~€1,900–€2,200/month gross, varies). Income must be stable and sufficient.",
+    
+    docs: "Passport (valid), Marriage certificate or registered partnership proof, Proof of genuine relationship (photos, chats, travel history), Sponsor’s residence permit/passport, Proof of income (salary slips, contract), Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Spouses or registered partners of individuals legally residing in the Netherlands (citizens or residence permit holders).",
+    
+    rules: "Must live together in the Netherlands. Relationship must be genuine and long-term. Sponsor must meet income requirement. Work rights usually allowed. Civic integration (Dutch language exam) may be required before or after arrival.",
+    
+    prosCons: "Pros: Family reunification, work rights, pathway to PR and citizenship, access to social benefits. Cons: Strict relationship checks, income requirement, possible integration exam, processing time.",
+    
+    terms: "IND: Immigration and Naturalisation Service; Sponsor: Partner residing in Netherlands; Civic Integration: Dutch language and society exam; PR: Permanent Residence; MVV: Long-stay entry visa.",
+    
+    legal: "IND Netherlands (permit approval), Government of the Netherlands (family migration policy under Dutch immigration law).",
+    
+    process: `1. Sponsor checks eligibility and income requirement 
+              2. Prepare relationship proof (marriage/partnership + evidence) 
+              3. Submit application to IND (by sponsor or applicant) 
+              4. Pay application fee 
+              5. Submit biometrics and documents 
+              6. IND processes application (60–90 days typical) 
+              7. Receive approval decision 
+              8. Apply for MVV (if required) at Dutch Embassy 
+              9. Travel to Netherlands 
+              10. Collect residence permit and register at municipality (BSN).`
+},
+"NetherlandsDependentChildVisa": {
+    name: "Dependent Child Visa (Netherlands)",
+    
+    validity: "Up to 5 years depending on parent/sponsor’s residence permit. Renewable and can lead to permanent residence (PR).",
+    
+    cost: "₹15,000 – ₹40,000 total. Breakdown: IND Fee €210–€350 (~₹19,000–₹32,000), Miscellaneous (documents, translations, biometrics) ₹2,000–₹8,000.",
+    
+    time: "Total 1 to 3 months. IND processing usually 60–90 days.",
+    
+    age: "Usually under 18 years. In some cases, children up to 21 may qualify if dependent.",
+    
+    education: "Not required.",
+    
+    funds: "Sponsor (parent) must meet income requirement (~€1,900–€2,200/month gross, varies). Must show ability to support the child.",
+    
+    docs: "Passport (valid), Birth certificate, Proof of relationship to parent, Sponsor’s residence permit/passport, Proof of income (salary slips, contract), Consent letter from other parent (if applicable), Antecedents certificate (for older minors), TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Children of individuals legally residing in the Netherlands who wish to join their parent(s).",
+    
+    rules: "Child must live with parent in Netherlands. Must be unmarried and financially dependent. Custody and consent requirements must be fulfilled. Access to education is allowed. Work rights limited based on age.",
+    
+    prosCons: "Pros: Family reunification, access to education and healthcare, pathway to PR, stable residency with parents. Cons: Strict documentation (custody/consent), income requirement for parent, processing time.",
+    
+    terms: "IND: Immigration and Naturalisation Service; Sponsor: Parent residing in Netherlands; Dependent: Financially supported child; PR: Permanent Residence; MVV: Long-stay entry visa.",
+    
+    legal: "IND Netherlands (permit approval), Government of the Netherlands (family reunification policy under immigration law).",
+    
+    process: `1. Parent (sponsor) checks eligibility and income requirement 
+              2. Gather documents (birth certificate, custody proof, passport) 
+              3. Submit application to IND 
+              4. Pay application fee 
+              5. Submit biometrics (if applicable) 
+              6. IND processes application (60–90 days typical) 
+              7. Receive approval decision 
+              8. Apply for MVV (if required) at Dutch Embassy 
+              9. Travel to Netherlands 
+              10. Collect residence permit and register at municipality (BSN).`
+},
+"NetherlandsLongStayVisaD": {
+    name: "Long-Stay Visa (Type D – Netherlands)",
+    
+    validity: "Typically 90 days (entry visa). Used to enter the Netherlands and collect a residence permit for stays longer than 90 days.",
+    
+    cost: "₹18,000 – ₹45,000+ total. Breakdown: Visa Fee €210–€350 (~₹19,000–₹32,000), IND Residence Permit Fee (varies by category), Miscellaneous (documents, biometrics, translations) ₹3,000–₹10,000.",
+    
+    time: "Total 1 to 4 months. IND decision usually 60–90 days; visa issuance within 1–2 weeks after approval.",
+    
+    age: "No general age limit (depends on visa category like study/work/family).",
+    
+    education: "Depends on purpose (required for study/research visas; not needed for family visas).",
+    
+    funds: "Depends on visa category (student, work, family, etc.). Must meet income or financial requirements set by IND.",
+    
+    docs: "Passport (valid), Visa application form, IND approval letter, Purpose-based documents (job offer/admission letter/family proof), Proof of funds or income, Antecedents certificate, TB test declaration (if applicable), Passport-size photos.",
+    
+    whom: "Individuals planning to stay in the Netherlands for more than 90 days for purposes such as work, study, family reunification, research, or long-term residence.",
+    
+    rules: "Serves as an entry visa only (similar to MVV). Must collect residence permit after arrival. Must enter within visa validity. Conditions depend on residence permit type.",
+    
+    prosCons: "Pros: Gateway to long-term stay, required for most non-EU nationals, leads to residence permit and PR pathway. Cons: Not a standalone permit, requires prior IND approval, purpose-specific conditions apply.",
+    
+    terms: "Type D Visa: Long-stay national visa; MVV: Provisional residence visa (often same concept in Netherlands); IND: Immigration and Naturalisation Service; Residence Permit: Legal stay authorization after arrival; PR: Permanent Residence.",
+    
+    legal: "IND Netherlands (approval), Dutch Embassy/Consulate (visa issuance), Government of the Netherlands (immigration law).",
+    
+    process: `1. Determine purpose (work/study/family/etc.) 
+              2. Apply for residence permit via IND (often through sponsor) 
+              3. Submit required documents and pay fees 
+              4. IND processes application (60–90 days typical) 
+              5. Receive approval decision 
+              6. Apply for Type D visa/MVV at Dutch Embassy 
+              7. Submit biometrics and passport 
+              8. Receive visa sticker 
+              9. Travel to Netherlands within validity 
+              10. Collect residence permit and register at municipality (BSN).`
+},
+"NetherlandsPermanentResidencePermit": {
+    name: "Permanent Residence Permit (Netherlands)",
+    
+    validity: "Indefinite (permanent). Residence card usually valid for 5 years and renewable.",
+    
+    cost: "₹20,000 – ₹50,000 total. Breakdown: IND Fee €210–€350 (~₹19,000–₹32,000), Miscellaneous (documents, biometrics, renewal card) ₹2,000–₹8,000.",
+    
+    time: "Total 1 to 3 months. IND processing usually 60–90 days.",
+    
+    age: "Minimum 18 years (generally for independent applicants). Children can be included under family applications.",
+    
+    education: "Not mandatory, but civic integration (Dutch language exam) is usually required.",
+    
+    funds: "Must have stable and sufficient income (meeting IND requirements). Cannot rely on public funds.",
+    
+    docs: "Passport (valid), Current residence permit, Proof of continuous legal stay (usually 5 years), Income proof (salary slips/contract), Civic integration diploma, Antecedents certificate, Passport-size photos.",
+    
+    whom: "Foreign nationals who have legally lived in the Netherlands for at least 5 continuous years and meet integration and income requirements.",
+    
+    rules: "Must maintain main residence in the Netherlands. Long absences can affect status. Free access to Dutch labor market. Must renew residence card every 5 years. Can apply for citizenship later.",
+    
+    prosCons: "Pros: Permanent stay, full work rights, social benefits access, strong stability, pathway to Dutch citizenship. Cons: Requires 5 years stay, integration exam needed, must maintain residence conditions.",
+    
+    terms: "IND: Immigration and Naturalisation Service; PR: Permanent Residence; Civic Integration: Dutch language and society exam; Continuous Stay: Legal uninterrupted residence period; Residence Card: Physical ID for PR status.",
+    
+    legal: "IND Netherlands (permit approval), Government of the Netherlands (immigration and integration laws).",
+    
+    process: `1. Complete 5 years of continuous legal stay in Netherlands 
+              2. Pass civic integration exam (if required) 
+              3. Ensure income meets IND requirements 
+              4. Gather documents (passport, residence proof, income proof) 
+              5. Apply for permanent residence through IND 
+              6. Pay application fee 
+              7. Submit biometrics 
+              8. IND processes application (60–90 days typical) 
+              9. Receive approval decision 
+              10. Collect residence card (valid 5 years, status permanent).`
+},
+"NetherlandsEULongTermResidencePermit": {
+    name: "EU Long-Term Residence Permit (Netherlands)",
+    
+    validity: "Indefinite (permanent). Residence card valid for 5 years and renewable.",
+    
+    cost: "₹20,000 – ₹50,000 total. Breakdown: IND Fee €210–€350 (~₹19,000–₹32,000), Miscellaneous (documents, biometrics, card renewal) ₹2,000–₹8,000.",
+    
+    time: "Total 1 to 3 months. IND processing usually 60–90 days.",
+    
+    age: "Minimum 18 years (for independent applicants).",
+    
+    education: "Not mandatory, but civic integration (Dutch language exam) usually required.",
+    
+    funds: "Must have stable and sufficient income meeting IND standards. Cannot rely on social assistance.",
+    
+    docs: "Passport (valid), Current residence permit, Proof of 5 years continuous legal stay in Netherlands/EU, Income proof (salary slips/contract), Civic integration diploma, Antecedents certificate, Passport-size photos.",
+    
+    whom: "Non-EU nationals who have legally resided in the Netherlands (or EU) for at least 5 continuous years and want long-term EU residency rights.",
+    
+    rules: "Must maintain main residence in the Netherlands or EU. Allows easier movement and residence in other EU countries (with conditions). Must renew residence card every 5 years. Long absences can affect status.",
+    
+    prosCons: "Pros: Permanent residence, broader EU mobility, full work rights in Netherlands, pathway to citizenship, stronger status than national PR. Cons: Requires 5 years stay, integration exam required, mobility still subject to conditions in other EU countries.",
+    
+    terms: "EU Long-Term Resident: Status under EU directive; IND: Immigration and Naturalisation Service; Civic Integration: Dutch language and society exam; Continuous Stay: Legal uninterrupted residence; PR: Permanent Residence.",
+    
+    legal: "IND Netherlands (permit approval), European Union Long-Term Residence Directive (EU law), Government of the Netherlands (implementation under national law).",
+    
+    process: `1. Complete 5 years of continuous legal residence in Netherlands/EU 
+              2. Pass civic integration exam (if required) 
+              3. Ensure stable income meets IND requirements 
+              4. Gather documents (passport, residence proof, income proof) 
+              5. Apply through IND for EU long-term residence status 
+              6. Pay application fee 
+              7. Submit biometrics 
+              8. IND processes application (60–90 days typical) 
+              9. Receive approval decision 
+              10. Collect residence card (valid 5 years, status permanent with EU benefits).`
+},
+"NetherlandsCitizenshipNaturalisation": {
+    name: "Dutch Citizenship / Naturalisation (Netherlands)",
+    
+    validity: "Permanent. Dutch citizenship is lifelong once granted (passport typically valid for 10 years and renewable).",
+    
+    cost: "₹70,000 – ₹1,20,000 total. Breakdown: Naturalisation Fee €970 (~₹87,000) single applicant, €1,200+ for couples/families, Miscellaneous (documents, translations, civic exams) ₹5,000–₹20,000.",
+    
+    time: "Total 6 to 12 months. IND decision usually within 12 months.",
+    
+    age: "Minimum 18 years (minors can be included in parent’s application).",
+    
+    education: "Not mandatory, but civic integration (Dutch language and society exam) required unless exempt.",
+    
+    funds: "No strict minimum balance, but must show stable legal residence and not rely on long-term public assistance.",
+    
+    docs: "Passport (valid), Current residence permit/PR, Birth certificate, Proof of continuous legal stay (usually 5 years), Civic integration diploma, Declaration of allegiance, Antecedents certificate, Passport-size photos.",
+    
+    whom: "Foreign nationals who have legally lived in the Netherlands for at least 5 years (or less in special cases like marriage to a Dutch citizen) and wish to become Dutch citizens.",
+    
+    rules: "Must have continuous legal residence (usually 5 years). Must pass civic integration exam. Must renounce previous citizenship in many cases (exceptions apply). Must attend naturalisation ceremony and take oath of allegiance.",
+    
+    prosCons: "Pros: Full EU citizenship rights, visa-free travel to many countries, right to vote, no immigration restrictions, strong passport. Cons: High cost, long process, possible requirement to renounce original citizenship, strict eligibility rules.",
+    
+    terms: "Naturalisation: Process of becoming a citizen; IND: Immigration and Naturalisation Service; Civic Integration: Dutch language and society exam; PR: Permanent Residence; Declaration of Allegiance: Oath to Dutch laws and values.",
+    
+    legal: "IND Netherlands (application processing), Municipality (application submission and ceremony), Government of the Netherlands (Dutch Nationality Act).",
+    
+    process: `1. Complete required residence period (usually 5 years) 
+              2. Pass civic integration exam (if required) 
+              3. Gather documents (passport, birth certificate, residence proof) 
+              4. Apply through local municipality (gemeente) 
+              5. Pay naturalisation fee 
+              6. Municipality forwards application to IND 
+              7. IND reviews application (up to 12 months) 
+              8. Receive approval decision 
+              9. Attend naturalisation ceremony 
+              10. Take oath of allegiance and receive Dutch citizenship.`
+},
+"NetherlandsDiplomaticVisa": {
+    name: "Diplomatic Visa (Netherlands)",
+    
+    validity: "Varies based on official assignment (usually short-term to long-term depending on mission duration). Multiple-entry allowed.",
+    
+    cost: "Free or nominal fee (usually waived for diplomatic/official passport holders). Miscellaneous costs ₹1,000–₹5,000.",
+    
+    time: "Fast-track: 3 days to 2 weeks depending on urgency and clearance.",
+    
+    age: "No specific age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not required. Expenses typically covered by sending government/organization.",
+    
+    docs: "Diplomatic/Official passport, Note Verbale (official request from government/embassy), Assignment letter, Travel itinerary, Passport-size photos.",
+    
+    whom: "Government officials, diplomats, and representatives traveling to the Netherlands for official duties, missions, or international assignments.",
+    
+    rules: "Must travel on official duty only. Cannot engage in private employment. Diplomatic immunity and privileges may apply under international law. Duration tied to assignment.",
+    
+    prosCons: "Pros: Fast processing, fee exemption, diplomatic privileges/immunity, simplified procedure. Cons: Strictly limited to official use, no personal or commercial activities allowed.",
+    
+    terms: "Diplomatic Visa: Visa for official government representatives; Note Verbale: Formal diplomatic communication; Diplomatic Immunity: Legal protection under international law; Official Passport: Passport issued for government duty.",
+    
+    legal: "Ministry of Foreign Affairs of the Netherlands, Dutch Embassies/Consulates, Vienna Convention on Diplomatic Relations (international law).",
+    
+    process: `1. Sending government prepares official request (Note Verbale) 
+              2. Gather required documents (passport, assignment letter) 
+              3. Submit application through diplomatic channels or embassy 
+              4. Embassy verifies credentials and purpose 
+              5. Fast-track processing initiated 
+              6. Visa approval granted 
+              7. Passport stamped with diplomatic visa 
+              8. Travel to Netherlands 
+              9. Register with relevant authorities if long-term 
+              10. Carry out official diplomatic duties.`
+},
+
+"NetherlandsDaftVisa": {
+    name: "DAFT Visa (Dutch-American Friendship Treaty)",
+
+    validity: "Initially 2 years. Renewable every 2 years indefinitely. Leads to Permanent Residency (PR) after 5 years of continuous residence.",
+
+    cost: "IND Application Fee: €380 (~₹34,000). Business registration (KvK): €80. Total administrative cost approx. ₹42,000 (excluding the mandatory investment deposit).",
+
+    time: "Processing time: 1 to 3 months. Applicants can often wait in the Netherlands while the decision is pending.",
+
+    age: "Must be 18 years or older.",
+
+    education: "No formal education or degree requirement. This is a unique benefit of the treaty.",
+
+    funds: "Mandatory: Must maintain a minimum balance of €4,500 (~₹4 Lakhs) in a Dutch business bank account at all times. Must also show sufficient funds to live until the business generates profit.",
+
+    docs: "Valid US Passport, business plan (simplified), Chamber of Commerce (KvK) registration, opening balance sheet audited by a Dutch accountant (AA or RA), and proof of the €4,500 deposit.",
+
+    whom: "United States citizens who want to live in the Netherlands to start a business, work as a freelancer (ZZP), or open a branch of a US company.",
+
+    rules: "Applicant must be a US citizen. Must register a sole proprietorship or a private limited company (BV). You are NOT allowed to take a salaried job; you must work only for your own business. The business must remain active.",
+
+    prosCons: "Pros: Bypasses the strict 'Points System' for entrepreneurs; very low investment threshold compared to other investor visas; high approval rate. Cons: Limited strictly to US citizens; requires hiring a Dutch accountant for audits.",
+
+    terms: "DAFT: Dutch-American Friendship Treaty; KvK: Kamer van Koophandel (Chamber of Commerce); ZZP: Self-employed professional without staff; IND: Immigration and Naturalisation Service.",
+
+    legal: "Treaty of Friendship, Commerce and Navigation between the Kingdom of the Netherlands and the United States of America (1956).",
+
+    process: `1. Enter the Netherlands (US citizens are visa-exempt for 90 days) -> 
+              2. Register with the local municipality (Gemeente) to get a BSN -> 
+              3. Register the business at the KvK (Chamber of Commerce) -> 
+              4. Open a Dutch business bank account and deposit €4,500 -> 
+              5. Have a Dutch accountant prepare an opening balance sheet -> 
+              6. Submit the residence permit application to the IND -> 
+              7. Receive a residence sticker allowing you to stay during processing -> 
+              8. Receive the 2-year DAFT residence card.`
+},
+
+
+"NetherlandsBoardMemberDirectorPermit": {
+    name: "Residency for Board Members & Directors",
+
+    validity: "Up to 5 years, or the duration of the appointment/contract. Renewable. Leads to PR after 5 years.",
+
+    cost: "IND Fee: €350 (~₹31,000). VFS and legalization fees separate.",
+
+    time: "Processing: 2 to 4 months. Requires high-level corporate verification.",
+
+    age: "No strict age limit.",
+
+    education: "No mandatory degree, but usually requires proof of significant executive experience.",
+
+    funds: "No personal bank balance required; however, the monthly gross salary must meet the 'Highly Skilled Migrant' threshold or higher (typically €5,331+ per month for 2024/25).",
+
+    docs: "Valid passport, official 'Resolution of Appointment' from the company board, employment contract, proof of registration in the Dutch Trade Register, and evidence of the company’s multinational status.",
+
+    whom: "Top-tier executives, CEOs, and Board Directors of multinational corporations being transferred to the Netherlands to lead Dutch operations.",
+
+    rules: "The applicant must be appointed as a statutory director or an executive board member. The company must be a 'Recognized Sponsor' with the IND in most cases. You must be involved in the high-level governance of the firm.",
+
+    prosCons: "Pros: Full work rights at the executive level; priority processing for recognized sponsors; family members get full work rights. Cons: Extremely limited to top-tier management; high salary requirements.",
+
+    terms: "Statutory Director: A director officially registered in the company bylaws; IND Register: Public list of approved corporate sponsors.",
+
+    legal: "Dutch Aliens Act (Vreemdelingenwet) Section regarding highly qualified professionals.",
+
+    process: `1. Multinational company board issues a formal resolution of appointment -> 
+              2. Company (Recognized Sponsor) submits the residence application to the IND -> 
+              3. Submit biometric data at the Dutch Embassy/Consulate (MVV process) -> 
+              4. Receive approval and travel to the Netherlands -> 
+              5. Collect the residence card from the IND office -> 
+              6. Register at the municipality and obtain a BSN.`
+},
+
+
+"NetherlandsCrossBorderServiceProvider": {
+    name: "Cross-Border Service Provider (Notification Scheme)",
+
+    validity: "Up to 90 days within a 6-month period, or for the duration of the specific project. Non-renewable as a residency permit.",
+
+    cost: "Free (€0) for the notification. No IND residence permit fee is usually required if the stay is under 90 days.",
+
+    time: "Fast-track: Notification must be done at least 2 working days before work starts. Approval is usually immediate.",
+
+    education: "Must be qualified for the specific service being provided (e.g., Engineer, IT Consultant).",
+
+    whom: "Indian or non-EU workers who are already legally employed and living in another EU country (like Germany or Poland) and are sent to the Netherlands for a short project.",
+
+    rules: "The employer must be based in the EU/EEA. The worker must have a valid residence permit in that EU country. The work in the Netherlands must be temporary. You cannot stay in the Netherlands permanently on this route.",
+
+    prosCons: "Pros: No Work Permit (TWV) or IND residence permit needed; allows companies to move teams across borders easily. Cons: Strictly short-term; no path to Dutch residency; requires already holding another EU visa.",
+
+    terms: "Vander Elst Ruling: The EU court case that allows this mobility; Notification: The 'Meldplicht' system for foreign workers.",
+
+    legal: "Based on the 'Vander Elst' principle of the European Court of Justice.",
+
+    process: `1. EU employer (e.g., German company) confirms the project in NL -> 
+              2. Employer or worker logs into the 'Meldloket' (Dutch notification portal) -> 
+              3. Enter details of the EU residence permit, duration of stay, and NL client -> 
+              4. Submit the notification -> 
+              5. Keep a copy of the notification at the Dutch worksite -> 
+              6. Complete the project and return to the primary EU country.`
+},
+"NetherlandsOfficialVisa": {
+    name: "Official Visa (Netherlands)",
+    
+    validity: "Varies based on official assignment (short-term or long-term). Usually multiple-entry for duration of mission.",
+    
+    cost: "Free or minimal fee (generally waived for official/government passport holders). Miscellaneous ₹1,000–₹5,000.",
+    
+    time: "Fast-track: 3 days to 2 weeks depending on urgency and verification.",
+    
+    age: "No specific age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Not required. Expenses typically covered by government or sponsoring organization.",
+    
+    docs: "Official/Service passport, Note Verbale (official request letter), Assignment/order letter from government, Travel itinerary, Passport-size photos.",
+    
+    whom: "Government officials, delegates, and representatives traveling to the Netherlands for official (non-diplomatic) duties such as meetings, conferences, or government assignments.",
+    
+    rules: "Must travel strictly for official purposes. Cannot engage in private employment or business. Limited privileges compared to diplomatic visa (no full diplomatic immunity). Stay duration tied to assignment.",
+    
+    prosCons: "Pros: Fast processing, low or no cost, simplified procedure, suitable for government travel. Cons: Restricted to official duties only, limited privileges compared to diplomatic visa.",
+    
+    terms: "Official Visa: Visa for government representatives on official duty; Note Verbale: Formal diplomatic communication; Service Passport: Passport issued to government officials; Assignment: Official government task.",
+    
+    legal: "Ministry of Foreign Affairs of the Netherlands, Dutch Embassies/Consulates, Government of the Netherlands (official travel regulations).",
+    
+    process: `1. Government department issues assignment/order letter 
+              2. Prepare Note Verbale through relevant authority 
+              3. Gather documents (official passport, itinerary) 
+              4. Submit application via embassy or official channel 
+              5. Embassy verifies purpose and credentials 
+              6. Fast-track processing 
+              7. Visa approval granted 
+              8. Passport stamped with official visa 
+              9. Travel to Netherlands 
+              10. Complete official assignment and return.`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

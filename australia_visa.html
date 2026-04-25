@@ -1,0 +1,3154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+/* Australia Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+/* Points System Styling */
+.points-system-details {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.points-system-summary {
+    background: var(--aqua);
+    color: var(--black);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--black);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.points-system-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.points-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.points-content h1, .points-content h2, .points-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.points-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.points-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+
+.points-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.points-table th, .points-table td {
+    border: 1px solid var(--black);
+    padding: 10px;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+}
+
+.points-table th {
+    background: var(--black);
+    color: var(--aqua);
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.calculation-box {
+    background: #f0fdf9;
+    border: 2px solid var(--black);
+    padding: 15px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="AUSTRALIA">AUSTRALIA</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+<select id="visaType">
+    <optgroup label="Visitor & Transit">
+        <option value="AustraliaVisitorVisa600">Visitor Visa (600)</option>
+        <option value="AustraliaETA601">Electronic Travel Authority (601)</option>
+        <option value="AustraliaEVisitor651">eVisitor (651)</option>
+        <option value="AustraliaTransitVisa771">Transit Visa (771)</option>
+    </optgroup>
+
+    <optgroup label="Study & Training">
+        <option value="AustraliaStudentVisa500">Student Visa (500)</option>
+        <option value="AustraliaStudentGuardianVisa590">Student Guardian (590)</option>
+        <option value="AustraliaTrainingVisa407">Training Visa (407)</option>
+        <option value="AustraliaTemporaryGraduateVisa485">Temporary Graduate (485)</option>
+    </optgroup>
+
+    <optgroup label="Skilled Migration (PR Pathways)">
+        <option value="AustraliaSkilledIndependentVisa189">Skilled Independent (189)</option>
+        <option value="AustraliaSkilledNominatedVisa190">Skilled Nominated (190)</option>
+        <option value="AustraliaSkilledWorkRegionalVisa491">Skilled Work Regional (491)</option>
+        <option value="AustraliaGlobalTalentVisa858">Global Talent (858)</option>
+    </optgroup>
+
+    <optgroup label="Employer Sponsored">
+        <option value="AustraliaEmployerNominationScheme186">Employer Nomination (186)</option>
+        <option value="AustraliaSkilledEmployerSponsoredRegionalVisa494">Regional Employer Sponsored (494)</option>
+        <option value="AustraliaTemporarySkillShortageVisa482">Temporary Skill Shortage (482)</option>
+    </optgroup>
+
+    <optgroup label="Business & Investment">
+        <option value="AustraliaBusinessInnovationInvestment888">Business Innovation (888)</option>
+    </optgroup>
+
+    <optgroup label="Work & Holiday">
+        <option value="AustraliaWorkAndHoliday462">Work and Holiday (462 - Indians)</option>
+        <option value="AustraliaWorkingHoliday417">Working Holiday (417)</option>
+    </optgroup>
+
+    <optgroup label="Family & Partner">
+        <option value="AustraliaPartnerVisa820801">Partner Onshore (820/801)</option>
+        <option value="AustraliaPartnerVisa309100">Partner Offshore (309/100)</option>
+        <option value="AustraliaProspectiveMarriageVisa300">Prospective Marriage (300)</option>
+        <option value="AustraliaChildVisa101802">Child Visa (101/802)</option>
+        <option value="AustraliaAdoptionVisa102">Adoption Visa (102)</option>
+    </optgroup>
+
+    <optgroup label="Parents & Relatives">
+        <option value="AustraliaParentVisa103">Parent Visa (103)</option>
+        <option value="AustraliaContributoryParentVisa143">Contributory Parent (143)</option>
+        <option value="AustraliaContributoryAgedParentVisa864">Contributory Aged Parent (864)</option>
+        <option value="AustraliaAgedParentVisa804">Aged Parent (804)</option>
+        <option value="AustraliaRemainingRelativeVisa115835">Remaining Relative (115/835)</option>
+        <option value="AustraliaCarerVisa116836">Carer Visa (116/836)</option>
+    </optgroup>
+
+    <optgroup label="Humanitarian & Medical">
+        <option value="AustraliaMedicalTreatmentVisa602">Medical Treatment (602)</option>
+        <option value="AustraliaRefugeeVisa200">Refugee Visa (200)</option>
+        <option value="AustraliaInCountrySpecialHumanitarianVisa201">In-country Humanitarian (201)</option>
+        <option value="AustraliaGlobalSpecialHumanitarianVisa202">Global Humanitarian (202)</option>
+        <option value="AustraliaEmergencyRescueVisa203">Emergency Rescue (203)</option>
+        <option value="AustraliaWomenAtRiskVisa204">Women At Risk (204)</option>
+        <option value="AustraliaResolutionOfStatusVisa851">Resolution of Status (851)</option>
+    </optgroup>
+
+    <optgroup label="Bridging & Special">
+        <option value="AustraliaBridgingVisaA010">Bridging Visa A (010)</option>
+        <option value="AustraliaBridgingVisaB020">Bridging Visa B (020)</option>
+        <option value="AustraliaBridgingVisaC030">Bridging Visa C (030)</option>
+        <option value="AustraliaBridgingVisaE040">Bridging Visa E (040)</option>
+        <option value="AustraliaSpecialCategoryVisa444">Special Category (444 - NZ Only)</option>
+    </optgroup>
+
+
+    <optgroup label="Extras">
+        <option value="AustraliaBusinessInnovationInvestment188">Subclass 188</option>
+        <option value="AustraliaBusinessTalent132">Subclass 132</option>
+        <option value="AustraliaSkilledRegional191">Subclass 191</option>
+        <option value="AustraliaShortStaySpecialist400">Subclass 400</option>
+        <option value="AustraliaTemporaryActivity408">Subclass 408</option>
+ <option value="AustraliaInternationalRelations403">Subclass 403</option>
+ <option value="AustraliaResidentReturn155">Subclass 155 & 157</option>
+ <option value="AustraliaFormerResident151">Subclass 151</option>
+ <option value="AustraliaSponsoredParent870">Subclass 870</option>
+ <option value="AustraliaContributoryParentTemp173">Subclass 173</option>
+ <option value="AustraliaAgedDependentRelative114">Subclass 114 & 838</option>
+ <option value="AustraliaOrphanRelative117">Subclass 117 & 837</option>
+ <option value="AustraliaDependentChild445">Subclass 445</option>
+ <option value="AustraliaProtectionVisa866">Subclass 866</option>
+ <option value="AustraliaMaritimeCrew988">Subclass 988</option>
+ <option value="AustraliaBridgingVisaD040">Subclass 040 & 041</option>
+ <option value="AustraliaBridgingVisaF060">Subclass 060</option>
+ <option value="AustraliaBridgingVisaR070">Subclass 070</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF AUSTRALIA MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇦🇺 VIEW AUSTRALIA IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇦🇺 AUSTRALIA IMMIGRATION — MASTER END-TO-END PROCESS (2026)</h1>
+
+        <h2>🟢 PHASE 1: IMMIGRATION PATHWAY SELECTION (CORE SYSTEM)</h2>
+        <p>Australia immigration is divided into 5 main streams:</p>
+        
+        <h3>1. TEMPORARY VISAS</h3>
+        <ul>
+            <li>Visitor Visa (Subclass 600)</li>
+            <li>Student Visa (Subclass 500)</li>
+            <li>Temporary Work Visas</li>
+            <li>Working Holiday Visa (417 / 462)</li>
+        </ul>
+        <p>👉 Purpose: Short-term stay</p>
+
+        <h3>2. SKILLED MIGRATION (POINTS-BASED PR SYSTEM)</h3>
+        <ul>
+            <li>Subclass 189 (Skilled Independent)</li>
+            <li>Subclass 190 (State Nominated)</li>
+            <li>Subclass 491 (Regional Skilled Work)</li>
+        </ul>
+        <p>👉 Purpose: Permanent Residency (PR)</p>
+
+        <h3>3. EMPLOYER-SPONSORED VISAS</h3>
+        <ul>
+            <li>Subclass 482 (Temporary Skill Shortage Visa)</li>
+            <li>Subclass 186 (Employer Nomination Scheme – PR)</li>
+        </ul>
+        <p>👉 Purpose: Job-based migration</p>
+
+        <h3>4. FAMILY & BUSINESS VISAS</h3>
+        <ul>
+            <li>Partner Visa (820/801, 309/100), Parent Visa, and Child Visa.</li>
+            <li>Global Talent Visa (subclass 858).</li>
+        </ul>
+
+        <h2>🟡 PHASE 2: ELIGIBILITY CHECK (AUSTRALIA CORE FILTER)</h2>
+        <p>Department of Home Affairs checks:</p>
+        <ul>
+            <li><strong>1. Identity:</strong> Valid passport and biometrics.</li>
+            <li><strong>2. Match:</strong> Purpose must match the visa category.</li>
+            <li><strong>3. Skills:</strong> Occupation must be on the SOL, MLTSSL, or Regional list.</li>
+            <li><strong>4. English:</strong> IELTS / PTE Academic minimum scores.</li>
+            <li><strong>5. Points:</strong> Based on age, education, English, experience, and partner points.</li>
+            <li><strong>6. Suitability:</strong> Medical, chest X-ray, and police clearance.</li>
+        </ul>
+
+        <h2>🟠 PHASE 3: DOCUMENT PREPARATION (CORE FILE)</h2>
+        <ul>
+            <li><strong>Identity:</strong> Passport and photos.</li>
+            <li><strong>Civil:</strong> Birth and marriage certificates.</li>
+            <li><strong>Education:</strong> Degrees, transcripts, and skills assessment (PR).</li>
+            <li><strong>Work:</strong> Employment letters, reference letters, and payslips.</li>
+            <li><strong>Immigration:</strong> EOI, invitation, or nomination approval.</li>
+        </ul>
+
+        <h2>🔵 PHASE 4 & 5: ONLINE SYSTEM & SKILLED FLOW</h2>
+        <p>1. Create ImmiAccount -> 2. Select Subclass -> 3. Fill form -> 4. Upload & Pay. For PR: Skills Assessment -> EOI (SkillSelect) -> Invitation to Apply (ITA).</p>
+
+        <h2>🟤 PHASE 6 & 7: EMPLOYER & STATE NOMINATION</h2>
+        <p>Employer Route: Sponsorship approval -> Job nomination -> Visa application. State Route: Choose State -> Check list -> Submit State EOI -> Receive Nomination.</p>
+
+        <h2>🟠 PHASE 8 & 9: ASSESSMENT & RFI</h2>
+        <p>Home Affairs verifies identity, skills, sponsorship legitimacy, points score, and health. They may request additional documents (RFI) or skills reassessments.</p>
+
+        <h2>🟢 PHASE 10 & 11: DECISION & ENTRY</h2>
+        <p>Outcomes: Granted, Refused, or Delayed. Entry: Australian Border Force (ABF) inspection and entry permission at the airport.</p>
+
+        <h2>🟣 PHASE 12 & 13: COMPLIANCE & PR PATHWAYS</h2>
+        <p>Compliance: Follow visa conditions and work in nominated occupation. PR Pathways: Points-based (189/190/491), Employer (186), Study (485 -> Skilled), or Global Talent.</p>
+
+        <h2>🟢 PHASE 14 & 15: PR & CITIZENSHIP</h2>
+        <p>PR: Permanent stay, Medicare access, and family sponsorship. Citizenship: 4 years legal stay + 1 year PR + Citizenship test + English + ceremony.</p>
+
+        <h2>⚫ MASTER FLOW (AUSTRALIA IMMIGRATION MAP)</h2>
+        <p style="background: #eee; padding: 10px; font-weight: bold;">Eligibility → Skills Assessment → EOI (SkillSelect) → Invitation → Visa Application → Medical + Police Checks → Decision → Entry into Australia → Temporary stay → PR pathway → Permanent Residency → Citizenship</p>
+
+        <div class="official-box">
+            <h1>🇦🇺 OFFICIAL AUSTRALIA IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Main Immigration Portal:</strong> <a href="https://immi.homeaffairs.gov.au" target="_blank">immi.homeaffairs.gov.au</a></p>
+            <p><strong>2. Visa Finder Tool:</strong> <a href="https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-finder" target="_blank">immi.homeaffairs.gov.au/visa-finder</a></p>
+            <p><strong>3. SkillSelect (EOI):</strong> <a href="https://immi.homeaffairs.gov.au/visas/working-in-australia/skillselect" target="_blank">immi.homeaffairs.gov.au/skillselect</a></p>
+            <p><strong>4. Citizenship Portal:</strong> <a href="https://immi.homeaffairs.gov.au/citizenship" target="_blank">immi.homeaffairs.gov.au/citizenship</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: USE ONLY OFFICIAL HOMEAFFAIRS.GOV.AU WEBSITES. BEWARE OF SCAMS.
+        </div>
+    </div>
+</details>
+
+
+
+
+
+<!-- START OF AUSTRALIA POINTS SYSTEM COLLAPSIBLE -->
+<details class="points-system-details">
+    <summary class="points-system-summary">🧮 VIEW AUSTRALIA SKILLED MIGRATION POINTS SYSTEM (2026)</summary>
+    
+    <div class="points-content">
+        <h1>🇦🇺 AUSTRALIA SKILLED MIGRATION POINTS SYSTEM (2026)</h1>
+
+        <h2>🧮 1. AGE (MAXIMUM: 30 POINTS)</h2>
+        <table class="points-table">
+            <thead><tr><th>Age Group</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>18–24 years</td><td>25</td></tr>
+                <tr><td>25–32 years</td><td><strong>30 (Maximum)</strong></td></tr>
+                <tr><td>33–39 years</td><td>25</td></tr>
+                <tr><td>40–44 years</td><td>15</td></tr>
+                <tr><td>45–49 years</td><td>0 (Not eligible for PR points visas)</td></tr>
+            </tbody>
+        </table>
+
+        <h2>🎓 2. ENGLISH LANGUAGE (MAXIMUM: 20 POINTS)</h2>
+        <table class="points-table">
+            <thead><tr><th>English Level</th><th>Test Score (IELTS)</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>Competent English</td><td>6 each band</td><td>0</td></tr>
+                <tr><td>Proficient English</td><td>7 each band</td><td>10</td></tr>
+                <tr><td>Superior English</td><td>8 each band</td><td><strong>20</strong></td></tr>
+            </tbody>
+        </table>
+
+        <h2>🎓 3. EDUCATION (MAXIMUM: 20 POINTS)</h2>
+        <table class="points-table">
+            <thead><tr><th>Qualification</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>Doctorate (PhD)</td><td><strong>20</strong></td></tr>
+                <tr><td>Bachelor / Master degree</td><td>15</td></tr>
+                <tr><td>Diploma / Trade qualification</td><td>10</td></tr>
+                <tr><td>Recognised qualification</td><td>10</td></tr>
+            </tbody>
+        </table>
+
+        <h2>💼 4. WORK EXPERIENCE (OUTSIDE AUSTRALIA)</h2>
+        <table class="points-table">
+            <thead><tr><th>Experience Duration</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>Less than 3 years</td><td>0</td></tr>
+                <tr><td>3–4 years</td><td>5</td></tr>
+                <tr><td>5–7 years</td><td>10</td></tr>
+                <tr><td>8+ years</td><td><strong>15</strong></td></tr>
+            </tbody>
+        </table>
+
+        <h2>🇦🇺 5. AUSTRALIAN WORK EXPERIENCE</h2>
+        <table class="points-table">
+            <thead><tr><th>Experience Duration</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>Less than 1 year</td><td>0</td></tr>
+                <tr><td>1–2 years</td><td>5</td></tr>
+                <tr><td>3–4 years</td><td>10</td></tr>
+                <tr><td>5–7 years</td><td>15</td></tr>
+                <tr><td>8+ years</td><td><strong>20</strong></td></tr>
+            </tbody>
+        </table>
+
+        <h2>🎯 6. NOMINATION / SPONSORSHIP</h2>
+        <table class="points-table">
+            <thead><tr><th>Category</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>State Nomination (Subclass 190)</td><td>5</td></tr>
+                <tr><td>Regional Nomination (Subclass 491)</td><td><strong>15</strong></td></tr>
+            </tbody>
+        </table>
+
+        <h2>🌏 7, 8 & 11. ADDITIONAL FACTORS</h2>
+        <table class="points-table">
+            <thead><tr><th>Condition</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>Australian Study (2+ years)</td><td>5</td></tr>
+                <tr><td>Regional Study in Australia</td><td>5</td></tr>
+                <tr><td>Professional Year (IT/Eng/Acc)</td><td>5</td></tr>
+                <tr><td>NAATI CCL Certification</td><td>5</td></tr>
+            </tbody>
+        </table>
+
+        <h2>🧑‍🤝‍🧑 9. PARTNER SKILLS</h2>
+        <table class="points-table">
+            <thead><tr><th>Partner Status</th><th>Points</th></tr></thead>
+            <tbody>
+                <tr><td>Partner with Skills + English</td><td>10</td></tr>
+                <tr><td>Single Applicant</td><td>10</td></tr>
+                <tr><td>Partner with English only</td><td>5</td></tr>
+                <tr><td>Partner not skilled</td><td>0</td></tr>
+            </tbody>
+        </table>
+
+        <div class="calculation-box">
+            <h3>🧠 TOTAL POINTS CALCULATION</h3>
+            <p>Total Score = Age + English + Education + Work Experience + Australian Experience + Study + Partner + Nomination + Extras</p>
+        </div>
+
+        <h2>🎯 MINIMUM SCORE REQUIREMENTS (2026)</h2>
+        <table class="points-table">
+            <thead><tr><th>Visa Type</th><th>Minimum Required</th><th>Realistic Competitive Score</th></tr></thead>
+            <tbody>
+                <tr><td>Subclass 189</td><td>65</td><td>85–95+</td></tr>
+                <tr><td>Subclass 190</td><td>65</td><td>75–85+</td></tr>
+                <tr><td>Subclass 491</td><td>65</td><td>70–80+</td></tr>
+            </tbody>
+        </table>
+
+        <div class="official-box">
+            <h1>🌐 OFFICIAL POINTS CALCULATOR</h1>
+            <p><strong>Check your score:</strong> <a href="https://immi.homeaffairs.gov.au/help-support/tools/points-calculator" target="_blank">immi.homeaffairs.gov.au/points-calculator</a></p>
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "AUSTRALIA": {
+    "AustraliaVisitorVisa600": {
+    name: "Visitor Visa (Subclass 600 – Australia)",
+
+    validity: "Typically 3 months, 6 months, or up to 12 months per stay depending on stream and case approval. Can be single or multiple entry.",
+
+    cost: "Application fee: AUD $190–$475 (~₹10,500–₹26,000) depending on stream (Tourist / Sponsored Family / Business Visitor). Biometrics ~AUD $20–$30 equivalent in India VAC fees.",
+
+    time: "Typically 15–45 days depending on stream, season, and documentation strength.",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds (approx AUD $1,000–$2,000 per month of stay or more depending on itinerary), plus travel and accommodation proof.",
+
+    docs: "Valid passport, visa application form, bank statements (3–6 months), income proof, travel itinerary, return flight ticket, accommodation proof, employment/business proof, invitation letter (if applicable), biometrics.",
+
+    whom: "Tourists, family visitors, business visitors, or short-term travelers from India visiting Australia temporarily.",
+
+    rules: "Must prove genuine temporary stay intention. No work allowed. Must leave before visa expiry. Must not breach visa conditions (no employment or study beyond allowed limits).",
+
+    prosCons: "Pros: Flexible short-term travel, multiple streams (tourist, sponsored, business), can be extended in some cases. Cons: Strict financial and intent checks, high refusal risk if weak ties to home country, no direct PR pathway.",
+
+    terms: "Subclass 600: Visitor visa categories; VAC: Visa Application Centre; Genuine Temporary Entrant (GTE): Requirement proving intent to return; ImmiAccount: Australia visa application portal.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Visitor Visa Subclass 600 rules).",
+
+    process: `1. Choose stream (Tourist / Sponsored Family / Business Visitor) -> 
+              2. Create ImmiAccount -> 
+              3. Fill visa application (Subclass 600) -> 
+              4. Upload documents (passport, funds, itinerary, employment proof) -> 
+              5. Pay visa fee -> 
+              6. Book biometrics at Australian VAC in India -> 
+              7. Submit fingerprints and photo -> 
+              8. Department of Home Affairs assesses Genuine Temporary Entrant (GTE) criteria -> 
+              9. Possible request for additional documents -> 
+              10. Medical check (if required) -> 
+              11. Visa decision issued -> 
+              12. Receive visa grant notice -> 
+              13. Travel to Australia -> 
+              14. Follow visa conditions (no work, limited study) -> 
+              15. Exit before expiry or apply for extension if eligible.`
+},
+
+"AustraliaETA601": {
+    name: "Electronic Travel Authority (ETA – Subclass 601)",
+
+    validity: "Valid for 12 months from grant. Allows multiple entries, usually up to 3 months stay per visit.",
+
+    cost: "AUD $20 (~₹1,100) application charge + possible app/agent service fees depending on application method.",
+
+    time: "Typically instant to 24–48 hours in most cases.",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must have sufficient funds to support stay (generally similar to visitor visa expectations).",
+
+    docs: "Valid passport (eligible countries only), ETA application via app, personal details, travel history (if asked), no extensive document upload required in most cases.",
+
+    whom: "Short-term tourists and business visitors from eligible countries traveling to Australia for holidays, family visits, or business meetings.",
+
+    rules: "Must be outside Australia when applying. Cannot work in Australia. Must not stay more than 3 months per visit. Must comply with character and health requirements.",
+
+    prosCons: "Pros: Very fast approval, simple digital process, multiple entry validity for 12 months, low cost. Cons: Only available to eligible passport holders (India is NOT eligible for ETA 601), limited stay duration, no work rights.",
+
+    terms: "ETA: Electronic Travel Authority; Subclass 601: Australian short-stay electronic visa; Department of Home Affairs: Australian immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (ETA Subclass 601 provisions).",
+
+    process: `1. Check eligibility (passport must be from eligible country) -> 
+              2. Download official ETA app or use airline/agent system -> 
+              3. Enter passport and personal details -> 
+              4. Answer health and character questions -> 
+              5. Pay ETA fee -> 
+              6. Submit application -> 
+              7. Automated security and identity check -> 
+              8. Instant or quick approval decision -> 
+              9. Visa electronically linked to passport -> 
+              10. Travel to Australia -> 
+              11. Stay up to 3 months per visit -> 
+              12. Exit and re-enter during 12-month validity if needed.`
+},
+
+"AustraliaEVisitor651": {
+    name: "eVisitor Visa (Subclass 651)",
+
+    validity: "Valid for 12 months from grant. Multiple entry allowed, usually up to 3 months per visit.",
+
+    cost: "No visa application fee (free), but service/agent charges may apply if applied via third-party assistance.",
+
+    time: "Typically instant to a few days (most cases within 1–5 days).",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds to support stay (case-by-case assessment; generally similar to visitor standards).",
+
+    docs: "Valid eligible passport (mainly EU countries), online application details, travel information, may require bank statements or additional documents if requested.",
+
+    whom: "Citizens of eligible European countries visiting Australia for tourism, family visits, or short business purposes.",
+
+    rules: "Must apply from outside Australia. No work allowed. Must not stay more than 3 months per visit. Must meet health and character requirements.",
+
+    prosCons: "Pros: Free visa, fast processing, multiple entry for 12 months. Cons: Only available to specific European passport holders (India is NOT eligible), no work rights, limited stay duration.",
+
+    terms: "Subclass 651: Free electronic visitor visa; eVisitor: EU-linked Australian visa stream; Department of Home Affairs: Australian immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (eVisitor Subclass 651 provisions).",
+
+    process: `1. Check eligibility (must hold eligible European passport) -> 
+              2. Apply online via Australian ImmiAccount -> 
+              3. Enter passport and personal details -> 
+              4. Answer health and character questions -> 
+              5. Submit application (no fee) -> 
+              6. Automated security and eligibility check -> 
+              7. Visa decision issued electronically -> 
+              8. Visa linked to passport -> 
+              9. Travel to Australia -> 
+              10. Stay up to 3 months per visit -> 
+              11. Exit/re-enter during validity period if needed.`
+},
+
+"AustraliaTransitVisa771": {
+    name: "Transit Visa (Subclass 771 – Australia)",
+
+    validity: "Usually valid for up to 72 hours (3 days) transit stay in Australia.",
+
+    cost: "No application fee (free), but biometrics or service charges may apply in rare cases.",
+
+    time: "Typically 1–10 days depending on case and documentation completeness.",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must show ability to cover transit stay expenses (usually proof of onward travel is sufficient).",
+
+    docs: "Valid passport, confirmed onward flight ticket within 72 hours, visa for final destination country (if required), travel itinerary, transit visa application form, biometrics (if requested).",
+
+    whom: "Travelers transiting through Australia en route to another country, including Indian citizens who require airport or short transit stay clearance.",
+
+    rules: "Must remain in transit only. Cannot work or study. Must leave Australia within 72 hours. Must hold confirmed onward travel booking. Must not intend to enter Australia for long stay.",
+
+    prosCons: "Pros: Free visa, enables legal transit through Australia, simple requirements. Cons: Very short stay only, strict transit purpose limitation, not usable for tourism or work.",
+
+    terms: "Subclass 771: Australian Transit Visa; Transit: Temporary stay while traveling to another country; Department of Home Affairs: Australian immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Transit Visa Subclass 771 provisions).",
+
+    process: `1. Book confirmed onward flight through Australia -> 
+              2. Check if transit visa is required -> 
+              3. Apply online via ImmiAccount -> 
+              4. Upload passport and travel itinerary -> 
+              5. Provide visa for destination country (if applicable) -> 
+              6. Submit application (no fee) -> 
+              7. Security and eligibility check -> 
+              8. Visa decision issued -> 
+              9. Receive transit visa grant notice -> 
+              10. Travel to Australia -> 
+              11. Stay in airport/transit zone or leave airport if permitted -> 
+              12. Exit within 72 hours.`
+},
+
+"AustraliaStudentVisa500": {
+    name: "Student Visa (Subclass 500 – Australia)",
+
+    validity: "Up to course duration (typically 2–5 years). Allows stay for study period plus limited post-study stay.",
+
+    cost: "Application fee: AUD $1,600 (~₹88,000) + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam + OSHC insurance (~AUD $500–$2,000/year).",
+
+    time: "Typically 4–8 weeks (can vary from 2–12 weeks depending on course and profile).",
+
+    age: "No strict age limit, but commonly 17–35 years for most international students.",
+
+    education: "Must have prior education required for chosen course (10th/12th for diploma, bachelor’s for master’s, etc.).",
+
+    funds: "Must show funds for tuition + living costs (approx AUD $24,505/year living expenses + tuition fees + travel costs).",
+
+    docs: "Valid passport, Confirmation of Enrolment (CoE), Statement of Purpose (SOP), academic transcripts, English test (IELTS/PTE), financial proof, OSHC health insurance, biometrics, medical exam.",
+
+    whom: "International students from India and other countries who want to study in Australian schools, colleges, or universities.",
+
+    rules: "Must maintain full-time study. Must have OSHC insurance. Limited work rights (generally 48 hours/fortnight during study). Must meet Genuine Student (GS) requirement.",
+
+    prosCons: "Pros: High-quality education, part-time work rights, post-study work visa pathway, strong PR pathways. Cons: High cost, strict financial proof, visa conditions must be strictly followed.",
+
+    terms: "Subclass 500: Australian Student Visa; CoE: Confirmation of Enrolment; OSHC: Overseas Student Health Cover; GS: Genuine Student requirement; Department of Home Affairs: Australian immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Student Visa Subclass 500 provisions).",
+
+    process: `1. Choose course and institution -> 
+              2. Apply and receive offer letter -> 
+              3. Pay tuition deposit and receive CoE -> 
+              4. Prepare documents (SOP, finances, academics, English test) -> 
+              5. Apply online via ImmiAccount -> 
+              6. Pay visa fee -> 
+              7. Book biometrics at VAC in India -> 
+              8. Submit fingerprints and photograph -> 
+              9. Complete medical examination -> 
+              10. Immigration assesses Genuine Student (GS) criteria -> 
+              11. Possible interview or additional document request -> 
+              12. Visa decision issued -> 
+              13. Receive visa grant notice -> 
+              14. Travel to Australia -> 
+              15. Start studies and comply with work limits -> 
+              16. Apply for Temporary Graduate Visa after course completion if eligible.`
+},
+
+
+"AustraliaStudentGuardianVisa590": {
+    name: "Student Guardian Visa (Subclass 590 – Australia)",
+
+    validity: "Aligned with the student visa duration (usually until the student turns 18 or completes study, whichever is earlier).",
+
+    cost: "Application fee: AUD $710 (~₹39,000) + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam + travel/insurance costs.",
+
+    time: "Typically 4–10 weeks depending on case complexity and documentation.",
+
+    age: "No strict age limit for guardian, but must be an adult (18+).",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds for living expenses of guardian + student (approx AUD $24,505/year for student + guardian living costs + travel + tuition if applicable).",
+
+    docs: "Valid passport, proof of relationship with student, student visa copy (Subclass 500), enrollment/CoE, financial proof, accommodation details, health insurance (OVHC), biometrics, medical exam, character documents.",
+
+    whom: "Parents, legal guardians, or close relatives of international students under 18 years studying in Australia.",
+
+    rules: "Guardian must live with student under 18. Cannot work in Australia (very limited exceptions for study up to 3 months allowed). Must maintain welfare responsibility of student.",
+
+    prosCons: "Pros: Allows parent/guardian to stay with minor student, ensures child welfare support, renewable with student visa. Cons: No work rights, high financial burden, limited independence and strict visa conditions.",
+
+    terms: "Subclass 590: Student Guardian Visa; CoE: Confirmation of Enrolment; OVHC: Overseas Visitors Health Cover; Department of Home Affairs: Australian immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Student Guardian Visa Subclass 590 provisions).",
+
+    process: `1. Student must hold Subclass 500 visa or be applying -> 
+              2. Guardian is identified (parent/relative) -> 
+              3. Prepare financial and relationship documents -> 
+              4. Apply online via ImmiAccount -> 
+              5. Pay visa fee -> 
+              6. Book biometrics at VAC in India -> 
+              7. Submit fingerprints and photo -> 
+              8. Complete medical examination -> 
+              9. Immigration assesses welfare and financial capacity -> 
+              10. Possible request for additional documents -> 
+              11. Visa decision issued -> 
+              12. Receive visa grant notice -> 
+              13. Travel to Australia -> 
+              14. Live with student and provide care -> 
+              15. Maintain visa conditions (no work, limited study) -> 
+              16. Extend visa if student continues studies.`
+},
+
+"AustraliaTrainingVisa407": {
+    name: "Training Visa (Subclass 407 – Australia)",
+
+    validity: "Up to 2 years depending on training program and sponsorship approval.",
+
+    cost: "Application fee: AUD $405 (~₹22,000) + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam + sponsor nomination fee (if applicable).",
+
+    time: "Typically 2–6 months depending on sponsor approval and documentation.",
+
+    age: "No strict age limit, but usually 18+ and working-age applicants preferred.",
+
+    education: "Must have relevant qualification or experience related to training field.",
+
+    funds: "Must show sufficient funds (approx AUD $5,000–$10,000+) to support stay unless sponsor covers costs.",
+
+    docs: "Valid passport, approved sponsor nomination, training plan, skills/qualification proof, English test (if required), financial proof, health insurance, biometrics, medical exam.",
+
+    whom: "Foreign nationals coming to Australia for workplace-based training or professional development sponsored by an approved Australian organization.",
+
+    rules: "Must have approved sponsor. Must participate only in approved training activity. Cannot work outside training scope. Must maintain health insurance and comply with visa conditions.",
+
+    prosCons: "Pros: Structured professional training in Australia, useful for career development, can support future skilled visa applications. Cons: Requires sponsorship, limited rights, not a direct PR pathway, restricted work scope.",
+
+    terms: "Subclass 407: Training Visa; Sponsor: Approved Australian organization; Nomination: Official training approval; Department of Home Affairs: Australian immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Training Visa Subclass 407 provisions).",
+
+    process: `1. Find approved Australian sponsor -> 
+              2. Sponsor submits nomination for training program -> 
+              3. Receive training invitation/approval -> 
+              4. Prepare documents (passport, qualifications, experience) -> 
+              5. Apply online via ImmiAccount -> 
+              6. Pay visa fee -> 
+              7. Book biometrics at VAC in India -> 
+              8. Submit fingerprints and photo -> 
+              9. Complete medical examination -> 
+              10. Immigration assesses training plan and eligibility -> 
+              11. Possible request for additional documents -> 
+              12. Visa decision issued -> 
+              13. Receive visa grant notice -> 
+              14. Travel to Australia -> 
+              15. Participate only in approved training -> 
+              16. Maintain visa conditions -> 
+              17. Exit Australia or switch visa if eligible.`
+},
+
+"AustraliaTemporaryGraduateVisa485": {
+    name: "Temporary Graduate Visa (Subclass 485 – Australia)",
+
+    validity: "18 months to 5 years depending on stream (Post-Vocational Education Work / Post-Higher Education Work / Replacement stream).",
+
+    cost: "Application fee: AUD $1,945 (~₹1.07 lakh) + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam + English test + OSHC/OVHC insurance.",
+
+    time: "Typically 2–6 months depending on stream and application completeness.",
+
+    age: "Must generally be under 35 years (some exceptions apply depending on passport/stream).",
+
+    education: "Must have completed eligible Australian qualification (minimum 2 years study in Australia for most applicants).",
+
+    funds: "Must show sufficient funds (approx AUD $5,000–$10,000+) for living expenses unless already working.",
+
+    docs: "Valid passport, Australian qualification (CRICOS-registered course), Confirmation of Completion, transcripts, English test (IELTS/PTE), health insurance (OSHC/OVHC), biometrics, medical exam.",
+
+    whom: "International students who have recently completed studies in Australia and want to gain work experience temporarily.",
+
+    rules: "Must apply within 6 months of course completion. Must hold eligible qualification. Must maintain health insurance. Work rights are generally unrestricted during visa validity.",
+
+    prosCons: "Pros: Full work rights, valuable Australian work experience, pathway to skilled migration and PR. Cons: Strict eligibility, limited time window to apply, no guarantee of PR.",
+
+    terms: "Subclass 485: Temporary Graduate Visa; Post-Higher Education Work Stream; Post-Vocational Education Work Stream; OSHC: Overseas Student Health Cover; Department of Home Affairs: Australian immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Temporary Graduate Visa Subclass 485 provisions).",
+
+    process: `1. Complete eligible Australian qualification -> 
+              2. Apply for graduation completion letter -> 
+              3. Take English test (IELTS/PTE) -> 
+              4. Gather documents (transcripts, passport, insurance) -> 
+              5. Apply online via ImmiAccount -> 
+              6. Pay visa fee -> 
+              7. Book biometrics at VAC in India (if applying offshore) -> 
+              8. Submit fingerprints and photograph -> 
+              9. Complete medical examination -> 
+              10. Immigration assesses qualification and eligibility -> 
+              11. Possible request for additional documents -> 
+              12. Visa decision issued -> 
+              13. Receive visa grant notice -> 
+              14. Travel or remain in Australia -> 
+              15. Work full-time under visa rights -> 
+              16. Gain experience for PR pathways (189/190/491).`
+},
+
+"AustraliaSkilledIndependentVisa189": {
+    name: "Skilled Independent Visa (Subclass 189 – Australia PR)",
+
+    validity: "Permanent Residence (PR). Indefinite stay with PR status; eligible for citizenship after residency requirement.",
+
+    cost: "Application fee: AUD $4,765 (~₹2.6 lakh) + additional applicant fees + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam + skills assessment + English test.",
+
+    time: "Typically 6–12 months after Invitation to Apply (ITA), depending on occupation and points score.",
+
+    age: "Must be under 45 years at time of invitation.",
+
+    education: "Must have relevant qualification for nominated skilled occupation (assessed by skills authority).",
+
+    funds: "No fixed minimum funds requirement, but must show ability to support initial settlement (~AUD $5,000–$10,000 recommended).",
+
+    docs: "Valid passport, Expression of Interest (EOI), Skills Assessment report, IELTS/PTE English test results, work experience proof, educational certificates, police clearance, medical exam, invitation letter.",
+
+    whom: "Highly skilled workers invited through Australia’s points-based system without employer or state sponsorship.",
+
+    rules: "Must be invited through SkillSelect system. Must score minimum points (usually 65+, but higher scores improve chances). Must nominate an occupation on Skilled Occupation List. No sponsorship required.",
+
+    prosCons: "Pros: Direct PR without employer or state sponsorship, full rights to live/work anywhere in Australia, pathway to citizenship. Cons: Very competitive, high points threshold, difficult for average profiles, long skill assessment process.",
+
+    terms: "Subclass 189: Skilled Independent Visa; EOI: Expression of Interest; SkillSelect: Australian points-based immigration system; ACS/VETASSESS: Skills assessment authorities.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Skilled Independent Visa Subclass 189 provisions).",
+
+    process: `1. Check eligible skilled occupation list -> 
+              2. Complete skills assessment with relevant authority -> 
+              3. Take English test (IELTS/PTE) -> 
+              4. Submit Expression of Interest (EOI) in SkillSelect -> 
+              5. Wait for invitation based on points ranking -> 
+              6. Receive Invitation to Apply (ITA) -> 
+              7. Submit full visa application -> 
+              8. Pay fees + biometrics -> 
+              9. Submit medical exam and police clearance -> 
+              10. Department of Home Affairs assesses eligibility -> 
+              11. Possible additional document requests -> 
+              12. Visa decision issued -> 
+              13. Receive PR grant -> 
+              14. Move to Australia as Permanent Resident -> 
+              15. Apply for PR card equivalent rights and settle -> 
+              16. Eligible for citizenship after residency requirement.`
+},
+
+
+"AustraliaSkilledNominatedVisa190": {
+    name: "Skilled Nominated Visa (Subclass 190 – Australia PR)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia with full PR rights; eligible for citizenship after residency requirement.",
+
+    cost: "Application fee: AUD $4,765 (~₹2.6 lakh) + additional applicant charges + skills assessment + English test + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam.",
+
+    time: "Typically 6–12 months after Invitation to Apply (ITA), depending on state nomination and processing time.",
+
+    age: "Must be under 45 years at time of invitation.",
+
+    education: "Must have qualification relevant to nominated skilled occupation (assessed by Australian authority).",
+
+    funds: "No strict minimum funds requirement, but recommended AUD $5,000–$10,000+ for settlement expenses.",
+
+    docs: "Valid passport, Expression of Interest (EOI), state/territory nomination, skills assessment, IELTS/PTE English test, work experience proof, education certificates, police clearance, medical exam.",
+
+    whom: "Skilled workers nominated by an Australian state or territory government to live and work in that specific region.",
+
+    rules: "Must be nominated by an Australian state/territory. Must commit to live and work in nominated state for initial period. Must meet points test (usually 65+ points minimum). Must hold occupation on skilled occupation list.",
+
+    prosCons: "Pros: Permanent residency, extra 5 points for state nomination, easier than 189 for some occupations, strong PR pathway. Cons: Must live in nominated state initially, competitive nomination process, still requires high points score.",
+
+    terms: "Subclass 190: Skilled Nominated Visa; EOI: Expression of Interest; SkillSelect: Points-based immigration system; State Nomination: Approval from Australian state/territory government.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Skilled Nominated Visa Subclass 190 provisions).",
+
+    process: `1. Check skilled occupation eligibility -> 
+              2. Get skills assessment from relevant authority -> 
+              3. Take English test (IELTS/PTE) -> 
+              4. Submit Expression of Interest (EOI) in SkillSelect -> 
+              5. Apply for state/territory nomination -> 
+              6. Receive state nomination approval -> 
+              7. Receive Invitation to Apply (ITA) -> 
+              8. Submit full visa application -> 
+              9. Pay fees + biometrics -> 
+              10. Submit medical exam and police clearance -> 
+              11. Department of Home Affairs assesses application -> 
+              12. Possible request for additional documents -> 
+              13. Visa decision issued -> 
+              14. Receive PR grant -> 
+              15. Move to Australia as Permanent Resident -> 
+              16. Live/work in nominated state initially -> 
+              17. Eligible for citizenship after residency requirement.`
+},
+
+
+"AustraliaSkilledWorkRegionalVisa491": {
+    name: "Skilled Work Regional Visa (Subclass 491 – Australia)",
+
+    validity: "Temporary residence for 5 years with pathway to Permanent Residence (Subclass 191 after eligibility).",
+
+    cost: "Application fee: AUD $4,765 (~₹2.6 lakh) + additional applicant charges + skills assessment + English test + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam.",
+
+    time: "Typically 6–12 months after Invitation to Apply (ITA), depending on points and nomination process.",
+
+    age: "Must be under 45 years at time of invitation.",
+
+    education: "Must have relevant qualification for nominated skilled occupation (assessed by Australian authority).",
+
+    funds: "Must show minimum settlement funds (approx AUD $5,000–$10,000+ recommended) for initial living expenses.",
+
+    docs: "Valid passport, Expression of Interest (EOI), skills assessment report, IELTS/PTE English test results, work experience proof, education certificates, state/territory or family sponsorship, police clearance, medical exam.",
+
+    whom: "Skilled workers willing to live and work in regional Australia, nominated by state/territory government or eligible family sponsor in regional area.",
+
+    rules: "Must live, work, and study in designated regional areas of Australia. Must be nominated or sponsored. Must meet points test (usually 65+). Must comply with regional residence conditions for at least 3 years to qualify for PR pathway.",
+
+    prosCons: "Pros: Lower competition than 189/190, additional 15 points for regional nomination/sponsorship, clear PR pathway via Subclass 191, job opportunities in regional Australia. Cons: Must live in regional areas, temporary visa first (not immediate PR), limited city access initially.",
+
+    terms: "Subclass 491: Skilled Work Regional Visa; EOI: Expression of Interest; SkillSelect: Points-based system; Regional Australia: Designated non-metropolitan areas; Subclass 191: Permanent Residence pathway visa.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Skilled Work Regional Visa Subclass 491 provisions).",
+
+    process: `1. Check skilled occupation eligibility -> 
+              2. Get skills assessment from relevant authority -> 
+              3. Take English test (IELTS/PTE) -> 
+              4. Submit Expression of Interest (EOI) in SkillSelect -> 
+              5. Apply for state/territory nomination or family sponsorship in regional area -> 
+              6. Receive nomination approval -> 
+              7. Receive Invitation to Apply (ITA) -> 
+              8. Submit full visa application -> 
+              9. Pay fees + biometrics -> 
+              10. Submit medical exam and police clearance -> 
+              11. Department of Home Affairs assesses eligibility -> 
+              12. Visa decision issued -> 
+              13. Receive 5-year visa grant -> 
+              14. Move to regional Australia -> 
+              15. Live/work in regional area for required period -> 
+              16. Apply for Subclass 191 Permanent Residence -> 
+              17. Become Australian Permanent Resident -> 
+              18. Eligible for citizenship after residency requirement.`
+},
+
+
+"AustraliaEmployerNominationScheme186": {
+    name: "Employer Nomination Scheme Visa (Subclass 186 – Australia PR)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia; eligible for citizenship after residency requirement.",
+
+    cost: "Application fee: AUD $4,770 (~₹2.6 lakh) + additional applicant charges + skills assessment (if required) + English test + biometrics ~₹1,500–₹3,000 + medical exam.",
+
+    time: "Typically 6–12 months depending on stream (Direct Entry, Temporary Residence Transition, or Labour Agreement).",
+
+    age: "Must be under 45 years at time of application (some exemptions apply).",
+
+    education: "Must have relevant qualification or equivalent work experience for nominated occupation.",
+
+    funds: "No strict minimum funds requirement, but recommended AUD $5,000–$10,000+ for initial settlement.",
+
+    docs: "Valid passport, employer nomination approval, employment contract, skills assessment (if required), IELTS/PTE English test, work experience proof, educational certificates, police clearance, medical exam.",
+
+    whom: "Skilled workers nominated by an approved Australian employer for permanent employment in Australia.",
+
+    rules: "Must be nominated by an eligible Australian employer. Must have occupation on eligible skilled occupation list. Must meet skill, English, and experience requirements. Must work for sponsoring employer (initially).",
+
+    prosCons: "Pros: Direct Permanent Residency, employer support increases approval chances, strong job security in Australia. Cons: Requires employer sponsorship, age limit (usually 45), dependent on job offer and employer nomination approval.",
+
+    terms: "Subclass 186: Employer Nomination Scheme; ENS: Employer Nomination Scheme; TRT: Temporary Residence Transition stream; DE: Direct Entry stream; LMIA equivalent in Australia is ENS nomination approval.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Employer Nomination Scheme Subclass 186 provisions).",
+
+    process: `1. Secure job offer from Australian employer -> 
+              2. Employer applies for nomination approval -> 
+              3. Check eligibility (skills, occupation, English, experience) -> 
+              4. Take English test (IELTS/PTE) -> 
+              5. Obtain skills assessment (if required) -> 
+              6. Employer nomination approved -> 
+              7. Submit visa application -> 
+              8. Pay fees + biometrics -> 
+              9. Submit medical exam and police clearance -> 
+              10. Department of Home Affairs assesses application -> 
+              11. Possible request for additional documents -> 
+              12. Visa decision issued -> 
+              13. Receive PR grant -> 
+              14. Move to Australia as Permanent Resident -> 
+              15. Work for sponsoring employer -> 
+              16. Apply for citizenship after residency requirement.`
+},
+
+"AustraliaSkilledEmployerSponsoredRegionalVisa494": {
+    name: "Skilled Employer Sponsored Regional Visa (Subclass 494 – Australia)",
+
+    validity: "Temporary residence for up to 5 years with pathway to Permanent Residence (Subclass 191 after eligibility).",
+
+    cost: "Application fee: AUD $4,770 (~₹2.6 lakh) + additional applicant charges + skills assessment + English test + biometrics ~₹1,500–₹3,000 + medical exam.",
+
+    time: "Typically 6–12 months depending on employer sponsorship and stream processing.",
+
+    age: "Must be under 45 years at time of application (limited exemptions may apply).",
+
+    education: "Must have relevant qualification or equivalent work experience for nominated occupation.",
+
+    funds: "No strict minimum funds requirement, but recommended AUD $5,000–$10,000+ for initial settlement expenses.",
+
+    docs: "Valid passport, employer sponsorship approval, nomination from regional employer, skills assessment (if required), IELTS/PTE English test, work experience proof, educational certificates, police clearance, medical exam.",
+
+    whom: "Skilled workers sponsored by an approved employer in regional Australia to work in designated regional areas.",
+
+    rules: "Must be nominated by an approved regional employer. Must work only in designated regional areas. Must have occupation on regional skilled occupation list. Must work for sponsoring employer for visa compliance.",
+
+    prosCons: "Pros: Clear PR pathway via Subclass 191, employer-backed job security, extra regional incentives, lower competition than city-based visas. Cons: Must live and work in regional areas, temporary visa first (not immediate PR), employer dependency.",
+
+    terms: "Subclass 494: Skilled Employer Sponsored Regional Visa; 191 Visa: Permanent Residence pathway; ENS equivalent regional employer sponsorship; Regional Australia: Designated non-metropolitan areas.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Skilled Employer Sponsored Regional Visa Subclass 494 provisions).",
+
+    process: `1. Secure job offer from regional Australian employer -> 
+              2. Employer obtains sponsorship approval -> 
+              3. Employer nominates occupation -> 
+              4. Obtain skills assessment (if required) -> 
+              5. Take English test (IELTS/PTE) -> 
+              6. Submit visa application -> 
+              7. Pay fees + biometrics -> 
+              8. Submit medical exam and police clearance -> 
+              9. Department of Home Affairs assesses eligibility -> 
+              10. Possible request for additional documents -> 
+              11. Visa decision issued -> 
+              12. Receive 5-year visa grant -> 
+              13. Move to regional Australia -> 
+              14. Work for sponsoring employer in regional area -> 
+              15. Maintain visa compliance for required period -> 
+              16. Apply for Subclass 191 Permanent Residence -> 
+              17. Become Australian Permanent Resident -> 
+              18. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaTemporarySkillShortageVisa482": {
+    name: "Temporary Skill Shortage Visa (Subclass 482 – Australia)",
+
+    validity: "Up to 2–4 years depending on stream (Short-term stream: up to 2 years, Medium-term stream: up to 4 years, Labour Agreement stream varies).",
+
+    cost: "Application fee: AUD $1,455–$3,115 (~₹80,000–₹1.7 lakh) depending on stream + additional applicant charges + skills assessment (if required) + English test + biometrics ~₹1,500–₹3,000 + medical exam.",
+
+    time: "Typically 2–6 months depending on employer sponsorship and stream.",
+
+    age: "No strict age limit, but commonly used by working-age professionals (18–45).",
+
+    education: "Must have relevant qualification or equivalent work experience for nominated occupation.",
+
+    funds: "No fixed minimum funds requirement, but must show ability to support initial stay (often employer supports relocation).",
+
+    docs: "Valid passport, employer sponsorship approval, nomination, employment contract, skills assessment (if required), IELTS/PTE English test, work experience proof, education certificates, police clearance, medical exam.",
+
+    whom: "Skilled workers sponsored by an approved Australian employer to fill labour shortages in Australia.",
+
+    rules: "Must be nominated by an approved employer. Must work only for sponsoring employer. Must have occupation on skilled occupation list. Must meet English and skill requirements. Some streams may lead to PR eligibility (Medium-term stream).",
+
+    prosCons: "Pros: Faster entry to Australia job market, employer-sponsored, pathway to PR (medium-term stream via 186), high demand occupations. Cons: Employer-dependent, temporary status, limited job flexibility, PR not guaranteed.",
+
+    terms: "Subclass 482: Temporary Skill Shortage Visa; TSS: Temporary Skill Shortage; Labour Market Testing (LMT): Requirement in some cases; Medium-term stream: PR pathway eligible stream.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Temporary Skill Shortage Visa Subclass 482 provisions).",
+
+    process: `1. Secure job offer from Australian employer -> 
+              2. Employer applies for sponsorship approval -> 
+              3. Employer nominates occupation -> 
+              4. Check occupation on skilled list -> 
+              5. Take English test (IELTS/PTE) -> 
+              6. Obtain skills assessment (if required) -> 
+              7. Submit visa application -> 
+              8. Pay fees + biometrics -> 
+              9. Submit medical exam and police clearance -> 
+              10. Department of Home Affairs assesses application -> 
+              11. Possible additional document requests -> 
+              12. Visa decision issued -> 
+              13. Receive visa grant notice -> 
+              14. Travel to Australia -> 
+              15. Work only for sponsoring employer -> 
+              16. Maintain visa conditions -> 
+              17. Apply for PR via Subclass 186 (if eligible medium-term stream).`
+},
+
+"AustraliaGlobalTalentVisa858": {
+    name: "Global Talent Visa (Subclass 858 – Australia PR)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia with full PR rights; eligible for citizenship after residency requirement.",
+
+    cost: "Application fee: AUD $4,770 (~₹2.6 lakh) + additional applicant charges + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam + English test (if required).",
+
+    time: "Typically 3–9 months depending on endorsement strength and processing priority.",
+
+    age: "No strict age limit, but applicants under 55 are preferred (older applicants must show exceptional benefit to Australia).",
+
+    education: "No fixed requirement, but usually requires outstanding achievements in a target sector (PhD, high-impact work, patents, leadership roles, etc.).",
+
+    funds: "No fixed minimum funds requirement, but must show ability to settle in Australia (approx AUD $5,000–$10,000+ recommended).",
+
+    docs: "Valid passport, Expression of Interest (EOI), Global Talent nomination/endorsement from approved Australian individual/organisation, CV, evidence of exceptional achievements (awards, publications, patents), income proof, references, police clearance, medical exam.",
+
+    whom: "Highly talented individuals in priority sectors such as tech, engineering, health, science, academia, digital economy, resources, and creative industries.",
+
+    rules: "Must be internationally recognised as outstanding in a target sector. Must be nominated by an eligible Australian citizen/PR/organisation. Must demonstrate ability to contribute significantly to Australia’s economy or innovation sectors.",
+
+    prosCons: "Pros: Direct PR pathway (no points test), fast processing, high priority visa, no job offer required. Cons: Very high eligibility bar, requires strong international profile, nomination required, competitive selection.",
+
+    terms: "Subclass 858: Global Talent Visa; EOI: Expression of Interest; Endorsement: Nomination by Australian entity; Priority Sectors: Target industries set by Australian government.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Global Talent Visa Subclass 858 provisions).",
+
+    process: `1. Identify target sector eligibility -> 
+              2. Build strong global achievements profile -> 
+              3. Obtain nomination/endorsement from eligible Australian individual/organisation -> 
+              4. Submit Expression of Interest (EOI) -> 
+              5. Receive invitation to apply -> 
+              6. Submit visa application -> 
+              7. Pay fees + biometrics -> 
+              8. Submit evidence of exceptional talent (awards, publications, patents, leadership) -> 
+              9. Medical exam and police clearance -> 
+              10. Department of Home Affairs assesses global talent criteria -> 
+              11. Possible request for additional documents/interview -> 
+              12. Visa decision issued -> 
+              13. Receive PR grant -> 
+              14. Move to Australia as Permanent Resident -> 
+              15. Work freely in Australia -> 
+              16. Apply for citizenship after residency requirement.`
+},
+
+"AustraliaBusinessInnovationInvestment888": {
+    name: "Business Innovation and Investment (Permanent) Visa (Subclass 888 – Australia PR)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia with full PR rights; eligible for citizenship after residency requirement.",
+
+    cost: "Application fee: AUD $3,055 (~₹1.7 lakh) + additional applicant charges + prior 188 visa costs + biometrics ~₹1,500–₹3,000 + medical exam.",
+
+    time: "Typically 6–18 months depending on stream, business performance, and compliance with 188 visa conditions.",
+
+    age: "Generally under 55 years (state/territory may waive in exceptional cases).",
+
+    education: "No strict requirement, but must demonstrate business/investment experience and success under Subclass 188 visa.",
+
+    funds: "Must maintain required business/investment activity (e.g., business turnover, assets, or investment thresholds depending on stream).",
+
+    docs: "Valid passport, Subclass 188 visa proof, business financial statements, tax records, investment evidence, net assets proof, police clearance, medical exam, business activity reports.",
+
+    whom: "Holders of Subclass 188 (Business Innovation and Investment Provisional Visa) who have successfully met business or investment requirements in Australia.",
+
+    rules: "Must have held Subclass 188 visa in eligible stream. Must meet business/investment performance requirements. Must have complied with state nomination obligations (if applicable).",
+
+    prosCons: "Pros: Direct pathway to Permanent Residency for entrepreneurs and investors, supports long-term business settlement in Australia. Cons: Requires significant investment/business success, strict compliance monitoring, high financial threshold.",
+
+    terms: "Subclass 888: Permanent Business Innovation and Investment Visa; Subclass 188: Provisional business visa; Net Assets: Required financial holdings; Business Turnover: Required revenue threshold.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Business Innovation and Investment Visa Subclass 888 provisions).",
+
+    process: `1. Obtain Subclass 188 provisional visa -> 
+              2. Establish or manage business/investment in Australia -> 
+              3. Meet required business/investment thresholds -> 
+              4. Maintain compliance with state nomination conditions -> 
+              5. Prepare financial and business performance evidence -> 
+              6. Submit Subclass 888 PR application -> 
+              7. Pay application fees -> 
+              8. Submit biometrics, medical exam, and police clearance -> 
+              9. Department of Home Affairs assesses business performance -> 
+              10. Possible request for additional documents -> 
+              11. Visa decision issued -> 
+              12. Receive PR grant -> 
+              13. Become Australian Permanent Resident -> 
+              14. Continue business/investment activity -> 
+              15. Apply for citizenship after residency requirement.`
+},
+
+"AustraliaWorkAndHoliday462": {
+    name: "Work and Holiday Visa (Subclass 462 – Australia)",
+
+    validity: "Up to 12 months initially, with possible extensions (2nd and 3rd year) if specified regional work requirements are completed.",
+
+    cost: "Application fee: AUD $635 (~₹35,000) + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam + insurance (recommended).",
+
+    time: "Typically 1–3 months depending on demand and country quota availability.",
+
+    age: "Usually 18–30 years (for India, strict upper age limit applies).",
+
+    education: "Minimum 2 years of post-secondary education required (for Indian applicants).",
+
+    funds: "Must show minimum AUD $5,000 (~₹2.7 lakh) plus return travel funds or ticket proof.",
+
+    docs: "Valid passport, education proof (minimum 2 years post-secondary), bank statements, IELTS/PTE English test (minimum score required), police clearance, health insurance, biometrics, application form.",
+
+    whom: "Young Indian citizens and other eligible nationals who want to travel and work in Australia for short-term cultural exchange and work experience.",
+
+    rules: "Must be from eligible country (India is included under quota system). Must not work more than 6 months with one employer (generally). Must complete specified regional work for visa extension eligibility.",
+
+    prosCons: "Pros: Work + travel flexibility, cultural exchange, can extend up to 3 years with regional work, entry into Australian job market. Cons: Quota-based limited slots, strict eligibility, temporary visa only, PR not direct.",
+
+    terms: "Subclass 462: Work and Holiday Visa; Regional Work: Specified employment for extension; Quota System: Annual country cap; Department of Home Affairs: Australian immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Work and Holiday Visa Subclass 462 provisions).",
+
+    process: `1. Check eligibility (India quota + education + age) -> 
+              2. Prepare documents (education, passport, funds, English test) -> 
+              3. Apply during program opening (quota system) -> 
+              4. Pay visa fee -> 
+              5. Book biometrics at VAC in India -> 
+              6. Submit fingerprints and photograph -> 
+              7. Complete medical examination if requested -> 
+              8. Department of Home Affairs assesses application -> 
+              9. Wait for visa grant under quota selection -> 
+              10. Receive visa approval -> 
+              11. Travel to Australia -> 
+              12. Work and travel for up to 12 months -> 
+              13. Complete regional work if planning extension -> 
+              14. Apply for 2nd/3rd year visa if eligible.`
+},
+
+"AustraliaWorkingHoliday417": {
+    name: "Working Holiday Visa (Subclass 417 – Australia)",
+
+    validity: "12 months initially, with possible extension to 2nd and 3rd year if specified regional work requirements are completed.",
+
+    cost: "Application fee: AUD $635 (~₹35,000) + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam (if required) + insurance (recommended).",
+
+    time: "Typically 1–3 months depending on demand and eligibility verification.",
+
+    age: "Generally 18–30 years (some countries allow up to 35, but India is NOT eligible for Subclass 417).",
+
+    education: "No formal education requirement (varies by nationality agreements; India not eligible).",
+
+    funds: "Must show minimum AUD $5,000 (~₹2.7 lakh) plus return travel funds or ticket proof.",
+
+    docs: "Valid passport (eligible countries only), proof of funds, return travel evidence, health insurance (recommended), police clearance if requested, biometrics, application form.",
+
+    whom: "Young citizens of eligible partner countries (mainly Europe, Canada, etc.) who want to holiday and work in Australia temporarily.",
+
+    rules: "Must be from eligible country (India is NOT eligible for Subclass 417). Must not work more than 6 months with one employer (generally). Must complete specified regional work to qualify for extensions.",
+
+    prosCons: "Pros: Work and travel flexibility, cultural exchange, easy entry for eligible countries, extension possible up to 3 years. Cons: Strict country eligibility (India not included), temporary visa only, no direct PR pathway.",
+
+    terms: "Subclass 417: Working Holiday Visa; Regional Work: Specified employment for extension; WHV: Working Holiday Visa program; Department of Home Affairs: Australian immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Working Holiday Visa Subclass 417 provisions).",
+
+    process: `1. Check eligibility (passport must be from participating country) -> 
+              2. Prepare documents (funds, passport, insurance) -> 
+              3. Apply online via ImmiAccount -> 
+              4. Pay visa fee -> 
+              5. Submit application -> 
+              6. Book biometrics at VAC if required -> 
+              7. Provide fingerprints and photograph -> 
+              8. Medical exam if requested -> 
+              9. Department of Home Affairs assesses eligibility -> 
+              10. Visa decision issued -> 
+              11. Receive visa grant notice -> 
+              12. Travel to Australia -> 
+              13. Work and travel for up to 12 months -> 
+              14. Complete regional work for extension eligibility -> 
+              15. Apply for 2nd/3rd year visa if eligible.`
+},
+
+"AustraliaPartnerVisa820801": {
+    name: "Partner Visa (Subclass 820/801 – Onshore Australia)",
+
+    validity: "Temporary Partner Visa (Subclass 820) initially, followed by Permanent Partner Visa (Subclass 801). 820 allows stay during processing; 801 grants permanent residence.",
+
+    cost: "Application fee: AUD $9,095 (~₹5 lakh) for main applicant (combined 820/801 application) + additional applicant charges + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam.",
+
+    time: "Typically 12–36 months total (820 temporary stage + 801 permanent stage after ~2 years).",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "No fixed minimum income requirement, but sponsor must demonstrate ability to support partner and meet relationship obligations.",
+
+    docs: "Valid passport, relationship evidence (photos, chats, joint finances), marriage certificate or de facto proof, sponsor documents (Australian citizen/PR), identity documents, police clearance, medical exam, Form 820/801 application, joint financial and social evidence.",
+
+    whom: "Spouses or de facto partners of Australian citizens, Australian permanent residents, or eligible New Zealand citizens living in Australia.",
+
+    rules: "Must be in genuine and continuing relationship. Must be onshore at time of application (for 820). Must provide strong evidence of shared life. Sponsor must meet character requirements and sponsorship obligations.",
+
+    prosCons: "Pros: Direct pathway to Permanent Residency and citizenship, allows work and study rights, strong settlement pathway in Australia. Cons: High cost, strict relationship evidence requirement, long processing time, emotional/legal scrutiny.",
+
+    terms: "Subclass 820: Temporary Partner Visa (onshore); Subclass 801: Permanent Partner Visa; De facto: Unmarried but genuine relationship; Sponsor: Australian citizen/PR partner; Department of Home Affairs: Immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Partner Visa Subclass 820/801 provisions).",
+
+    process: `1. Establish genuine relationship (marriage or de facto) -> 
+              2. Gather relationship evidence (financial, social, household) -> 
+              3. Sponsor (Australian citizen/PR) submits sponsorship -> 
+              4. Apply for Subclass 820/801 combined visa online -> 
+              5. Pay visa fee -> 
+              6. Book biometrics at VAC in India (if applicable) -> 
+              7. Submit medical exam and police clearance -> 
+              8. Department assesses relationship genuineness -> 
+              9. Temporary Partner Visa (820) granted -> 
+              10. Live in Australia with work/study rights -> 
+              11. Continue relationship evidence collection -> 
+              12. After ~2 years, apply assessment for 801 permanent visa -> 
+              13. Permanent Partner Visa (801) granted -> 
+              14. Become Australian Permanent Resident -> 
+              15. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaPartnerVisa309100": {
+    name: "Partner Visa (Subclass 309/100 – Offshore Australia)",
+
+    validity: "Temporary Partner Visa (Subclass 309) initially, followed by Permanent Partner Visa (Subclass 100). 309 allows entry and stay in Australia; 100 grants permanent residence.",
+
+    cost: "Application fee: AUD $9,095 (~₹5 lakh) for combined 309/100 application + additional applicant charges + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam.",
+
+    time: "Typically 12–36 months total (309 temporary stage + 100 permanent stage after ~2 years).",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "No fixed income requirement, but sponsor must demonstrate ability to support partner and meet sponsorship obligations.",
+
+    docs: "Valid passport, marriage certificate or de facto relationship proof, relationship evidence (photos, communication, joint travel), sponsor documents (Australian citizen/PR/eligible NZ citizen), police clearance, medical exam, Form 309/100 application, identity documents.",
+
+    whom: "Spouses or de facto partners of Australian citizens, permanent residents, or eligible New Zealand citizens who are applying from outside Australia (offshore applicants).",
+
+    rules: "Must have genuine and continuing relationship. Must be outside Australia at time of application for Subclass 309. Must provide strong evidence of shared life. Sponsor must meet character and sponsorship requirements.",
+
+    prosCons: "Pros: Direct pathway to PR and citizenship, allows entry into Australia on 309 visa, work rights after grant, strong family reunification route. Cons: High cost, long processing time, strict relationship evidence requirements, emotional and documentation-heavy process.",
+
+    terms: "Subclass 309: Temporary Partner Visa (offshore); Subclass 100: Permanent Partner Visa; De facto: Unmarried but genuine relationship; Sponsor: Australian citizen/PR partner; Department of Home Affairs: Immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Partner Visa Subclass 309/100 provisions).",
+
+    process: `1. Establish genuine relationship (marriage or de facto) -> 
+              2. Collect relationship evidence (financial, social, communication, travel) -> 
+              3. Sponsor (Australian citizen/PR) submits sponsorship application -> 
+              4. Apply for Subclass 309/100 offshore partner visa -> 
+              5. Pay application fee -> 
+              6. Submit documents online via ImmiAccount -> 
+              7. Book biometrics at VAC in India -> 
+              8. Complete medical examination and police clearance -> 
+              9. Department assesses relationship authenticity -> 
+              10. Subclass 309 Temporary Partner Visa granted -> 
+              11. Travel to Australia after approval -> 
+              12. Live and maintain relationship evidence -> 
+              13. After ~2 years, assessment for Subclass 100 begins -> 
+              14. Permanent Partner Visa (100) granted -> 
+              15. Become Australian Permanent Resident -> 
+              16. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaProspectiveMarriageVisa300": {
+    name: "Prospective Marriage Visa (Subclass 300 – Australia)",
+
+    validity: "9 to 15 months temporary visa allowing entry to Australia to marry your intended partner. Must marry before visa expiry to apply for Partner Visa.",
+
+    cost: "Application fee: AUD $9,095 (~₹5 lakh) + additional applicant charges + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam.",
+
+    time: "Typically 9–18 months depending on case complexity and relationship evidence strength.",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "No fixed minimum income requirement, but sponsor must demonstrate financial stability to support partner after arrival.",
+
+    docs: "Valid passport, intention to marry evidence, relationship proof (photos, chats, meeting history), sponsor documents (Australian citizen/PR/eligible NZ citizen), police clearance, medical exam, Form 300 application, invitation/intent-to-marry statement.",
+
+    whom: "Foreign nationals engaged to Australian citizens, permanent residents, or eligible New Zealand citizens who intend to marry in Australia.",
+
+    rules: "Must have met partner in person and intend to marry within visa validity. Must marry before visa expiry. Must be genuine relationship. After marriage, must apply for Partner Visa (820/801 or 309/100).",
+
+    prosCons: "Pros: Legal pathway to enter Australia for marriage, leads to Partner Visa and PR pathway, allows preparation time for marriage in Australia. Cons: High cost, strict relationship proof requirement, must marry within visa validity, long processing time.",
+
+    terms: "Subclass 300: Prospective Marriage Visa; Fiancé Visa: Common term; Sponsor: Australian citizen/PR partner; Department of Home Affairs: Immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Prospective Marriage Visa Subclass 300 provisions).",
+
+    process: `1. Meet partner in person and establish genuine relationship -> 
+              2. Confirm intention to marry within Australia -> 
+              3. Sponsor (Australian citizen/PR) submits sponsorship -> 
+              4. Apply for Subclass 300 visa online -> 
+              5. Pay visa fee -> 
+              6. Submit relationship evidence (photos, chats, travel history) -> 
+              7. Book biometrics at VAC in India -> 
+              8. Complete medical examination and police clearance -> 
+              9. Department assesses genuineness of relationship -> 
+              10. Visa decision issued -> 
+              11. Receive Subclass 300 visa grant -> 
+              12. Travel to Australia -> 
+              13. Get married within visa validity (9–15 months) -> 
+              14. Apply for Partner Visa (820/801 or 309/100) -> 
+              15. Transition to Temporary Partner Visa -> 
+              16. Progress to Permanent Residency.`
+},
+
+"AustraliaChildVisa101802": {
+    name: "Child Visa (Subclass 101/802 – Australia)",
+
+    validity: "Permanent Residence (PR). Subclass 101 is offshore (outside Australia), Subclass 802 is onshore (inside Australia).",
+
+    cost: "Application fee: AUD $3,110 (~₹1.7 lakh) + additional applicant charges + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam.",
+
+    time: "Typically 9–18 months depending on case complexity and location (onshore/offshore).",
+
+    age: "Child must generally be under 18 years, or up to 25 years if full-time student and financially dependent. No age limit if disabled and dependent.",
+
+    education: "No strict requirement, but dependent children aged 18–25 must be full-time students and financially dependent.",
+
+    funds: "No fixed income requirement, but sponsor (parent) must demonstrate ability to support child.",
+
+    docs: "Valid passport, birth certificate proving parent-child relationship, sponsor documents (Australian citizen/PR/eligible NZ citizen), custody documents (if applicable), adoption papers (if applicable), financial dependency proof, police clearance (if applicable), medical exam.",
+
+    whom: "Dependent children of Australian citizens, permanent residents, or eligible New Zealand citizens who wish to live permanently in Australia.",
+
+    rules: "Must be a dependent child of eligible sponsor. Must be unmarried. Must meet dependency requirements. For adopted children, legal adoption must be recognized under Australian law.",
+
+    prosCons: "Pros: Direct permanent residency, access to education and healthcare, strong family reunification pathway. Cons: Strict dependency proof required, lengthy processing time, eligibility restrictions for older dependents.",
+
+    terms: "Subclass 101: Offshore Child Visa; Subclass 802: Onshore Child Visa; Dependent Child: Financially reliant child; Sponsor: Australian citizen/PR parent; Department of Home Affairs: Immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Child Visa Subclass 101/802 provisions).",
+
+    process: `1. Confirm eligibility as dependent child -> 
+              2. Sponsor (parent) applies or supports application -> 
+              3. Gather birth certificate/adoption/custody documents -> 
+              4. Apply for Subclass 101 (offshore) or 802 (onshore) visa -> 
+              5. Pay application fee -> 
+              6. Submit documents online via ImmiAccount -> 
+              7. Book biometrics at VAC in India (if offshore) -> 
+              8. Complete medical examination -> 
+              9. Department assesses dependency and eligibility -> 
+              10. Possible request for additional documents -> 
+              11. Visa decision issued -> 
+              12. Receive PR grant -> 
+              13. Child becomes Australian Permanent Resident -> 
+              14. Access education and healthcare -> 
+              15. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaParentVisa103": {
+    name: "Parent Visa (Subclass 103 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "Application fee: AUD $4,765 (~₹2.6 lakh) + additional applicant charges + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam. (Note: total cost is low upfront but very long processing time).",
+
+    time: "Very long processing time: often 20–30+ years due to queue limits and low annual allocations.",
+
+    age: "No strict age limit, but applicant must be a parent of an eligible Australian citizen/PR/eligible NZ citizen child.",
+
+    education: "No requirement.",
+
+    funds: "Must meet Assurance of Support (AoS) requirement where sponsor provides financial guarantee for the parent after arrival.",
+
+    docs: "Valid passport, proof of parent-child relationship, sponsor documents (Australian citizen/PR/eligible NZ citizen child), financial documents, Assurance of Support (AoS), police clearance, medical exam, application forms.",
+
+    whom: "Parents of Australian citizens, permanent residents, or eligible New Zealand citizens who wish to migrate permanently to Australia.",
+
+    rules: "Must have at least one child who is an eligible Australian citizen/PR. Must meet Balance of Family Test (at least half of children living permanently in Australia). Sponsor must provide Assurance of Support. Very limited yearly intake causes extreme delays.",
+
+    prosCons: "Pros: Permanent residency in Australia, family reunification, access to healthcare and benefits after PR. Cons: Extremely long waiting time (often decades), strict eligibility rules, Assurance of Support requirement, uncertain timeline.",
+
+    terms: "Subclass 103: Parent Visa (non-contributory); Balance of Family Test: Requirement that at least half of children live in Australia; AoS: Assurance of Support; Sponsor: Eligible Australian citizen/PR child.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Parent Visa Subclass 103 provisions).",
+
+    process: `1. Confirm eligibility (must have eligible child in Australia) -> 
+              2. Pass Balance of Family Test -> 
+              3. Sponsor (child) agrees to support application -> 
+              4. Lodge Subclass 103 visa application -> 
+              5. Pay application fee -> 
+              6. Submit documents (relationship proof, identity, financials) -> 
+              7. Enter long-term processing queue -> 
+              8. Provide Assurance of Support when requested -> 
+              9. Complete medical and police checks when called -> 
+              10. Wait in queue (often decades) -> 
+              11. Visa processing eventually begins -> 
+              12. Visa decision issued -> 
+              13. Receive PR grant -> 
+              14. Move to Australia as Permanent Resident -> 
+              15. Access healthcare and residency benefits -> 
+              16. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaContributoryParentVisa143": {
+    name: "Contributory Parent Visa (Subclass 143 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "Application fee: AUD $47,770 (~₹26 lakh) per applicant + additional applicant charges + Assurance of Support bond + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam. (Very high-cost visa).",
+
+    time: "Typically 4–8 years depending on queue and processing capacity (much faster than Subclass 103).",
+
+    age: "No strict age limit, but must be parent of an eligible Australian citizen/PR/eligible NZ citizen child.",
+
+    education: "No requirement.",
+
+    funds: "Must provide Assurance of Support (AoS) financial guarantee from sponsor, plus large upfront visa contribution fee.",
+
+    docs: "Valid passport, proof of parent-child relationship, sponsor documents (Australian citizen/PR/eligible NZ citizen child), Balance of Family Test documents, Assurance of Support (AoS), financial capacity documents, police clearance, medical exam, application forms.",
+
+    whom: "Parents of Australian citizens, permanent residents, or eligible New Zealand citizens who want faster permanent migration to Australia and are able to pay higher visa costs.",
+
+    rules: "Must pass Balance of Family Test (at least half children in Australia). Must have eligible sponsor. Must provide Assurance of Support. Must pay significant contributory visa fee upfront or in stages. Subject to health and character requirements.",
+
+    prosCons: "Pros: Much faster PR compared to Subclass 103, permanent residency, family reunification, access to healthcare and benefits. Cons: Very expensive, still requires queue wait (years), strict eligibility and financial burden.",
+
+    terms: "Subclass 143: Contributory Parent Visa; AoS: Assurance of Support; Balance of Family Test: Eligibility rule; Sponsor: Australian citizen/PR child.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Contributory Parent Visa Subclass 143 provisions).",
+
+    process: `1. Confirm eligibility (eligible child in Australia) -> 
+              2. Pass Balance of Family Test -> 
+              3. Sponsor (child) agrees to support application -> 
+              4. Lodge Subclass 143 visa application -> 
+              5. Pay first instalment of visa fee -> 
+              6. Submit required documents (relationship, identity, financials) -> 
+              7. Enter processing queue -> 
+              8. Provide Assurance of Support (AoS) -> 
+              9. Complete medical examination and police clearance -> 
+              10. Pay second instalment (if required) -> 
+              11. Visa processing review -> 
+              12. Visa decision issued -> 
+              13. Receive PR grant -> 
+              14. Move to Australia as Permanent Resident -> 
+              15. Access healthcare and settlement benefits -> 
+              16. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaContributoryAgedParentVisa864": {
+    name: "Contributory Aged Parent Visa (Subclass 864 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "Application fee: AUD $47,770 (~₹26 lakh) per applicant + additional applicant charges + Assurance of Support bond + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam. (Very high-cost visa).",
+
+    time: "Typically 4–8 years depending on queue and processing demand (faster than Subclass 804/103 but still lengthy).",
+
+    age: "Must be old enough to qualify as ‘aged parent’ under Australian pension age rules (generally around 67+ years, subject to changes).",
+
+    education: "No requirement.",
+
+    funds: "Must provide Assurance of Support (AoS) financial guarantee from sponsor + pay substantial contributory visa charges.",
+
+    docs: "Valid passport, proof of parent-child relationship, sponsor documents (Australian citizen/PR/eligible NZ citizen child), Balance of Family Test proof, Assurance of Support (AoS), financial documents, police clearance, medical exam, application forms.",
+
+    whom: "Aged parents of Australian citizens, permanent residents, or eligible New Zealand citizens who are already in Australia on a valid visa and wish to obtain permanent residency.",
+
+    rules: "Must meet Balance of Family Test (at least half children in Australia). Must be in Australia at time of application (onshore visa). Must meet age requirement for ‘aged parent’. Must have eligible sponsor. Must provide AoS and meet health and character requirements.",
+
+    prosCons: "Pros: Permanent residency, faster than non-contributory aged parent visas, access to healthcare and settlement benefits. Cons: Very expensive, long queue, strict eligibility, must already be in Australia onshore.",
+
+    terms: "Subclass 864: Contributory Aged Parent Visa; Aged Parent: Pension-age parent category; AoS: Assurance of Support; Balance of Family Test: Eligibility rule; Sponsor: Australian citizen/PR child.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Contributory Aged Parent Visa Subclass 864 provisions).",
+
+    process: `1. Confirm eligibility as aged parent (pension age requirement) -> 
+              2. Ensure child is eligible sponsor (Australian citizen/PR/eligible NZ citizen) -> 
+              3. Pass Balance of Family Test -> 
+              4. Apply while in Australia (onshore requirement) -> 
+              5. Pay first instalment of visa fee -> 
+              6. Submit identity, relationship, and financial documents -> 
+              7. Enter processing queue -> 
+              8. Provide Assurance of Support (AoS) -> 
+              9. Complete medical examination and police clearance -> 
+              10. Pay second instalment (if required) -> 
+              11. Department of Home Affairs assesses application -> 
+              12. Visa decision issued -> 
+              13. Receive PR grant -> 
+              14. Remain in Australia as Permanent Resident -> 
+              15. Access healthcare and benefits -> 
+              16. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaAgedParentVisa804": {
+    name: "Aged Parent Visa (Subclass 804 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "Application fee: AUD $4,765 (~₹2.6 lakh) per applicant + additional applicant charges + Assurance of Support bond + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam.",
+
+    time: "Extremely long processing time: often 20+ years due to very limited annual quotas and long waiting queues.",
+
+    age: "Must be an ‘aged parent’ (generally pension age in Australia, around 67+ years, subject to change).",
+
+    education: "No requirement.",
+
+    funds: "Must provide Assurance of Support (AoS) financial guarantee from sponsor (child) and meet Balance of Family Test.",
+
+    docs: "Valid passport, proof of parent-child relationship, sponsor documents (Australian citizen/PR/eligible NZ citizen child), Balance of Family Test evidence, Assurance of Support (AoS), financial documents, police clearance, medical exam, application forms.",
+
+    whom: "Aged parents of Australian citizens, permanent residents, or eligible New Zealand citizens who wish to migrate permanently to Australia and already meet aged criteria.",
+
+    rules: "Must meet Balance of Family Test (at least half children in Australia). Must have eligible sponsor. Must be in Australia at time of application (onshore visa). Must satisfy age requirement for ‘aged parent’. Subject to strict health and character checks.",
+
+    prosCons: "Pros: Permanent residency, access to Medicare and benefits after PR, family reunification. Cons: Extremely long waiting time (decades), limited annual places, strict eligibility, Assurance of Support requirement.",
+
+    terms: "Subclass 804: Aged Parent Visa (non-contributory); Aged Parent: Pension-age category; AoS: Assurance of Support; Balance of Family Test: Eligibility rule; Sponsor: Australian citizen/PR child.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Aged Parent Visa Subclass 804 provisions).",
+
+    process: `1. Confirm eligibility as aged parent (pension age requirement) -> 
+              2. Ensure child is eligible sponsor (Australian citizen/PR/eligible NZ citizen) -> 
+              3. Pass Balance of Family Test -> 
+              4. Apply while in Australia (onshore requirement) -> 
+              5. Lodge Subclass 804 visa application -> 
+              6. Pay application fee -> 
+              7. Submit required documents (identity, relationship, financials) -> 
+              8. Enter long-term processing queue -> 
+              9. Provide Assurance of Support when requested -> 
+              10. Complete medical examination and police clearance when called -> 
+              11. Wait in queue (often 20+ years) -> 
+              12. Visa processing eventually begins -> 
+              13. Visa decision issued -> 
+              14. Receive PR grant -> 
+              15. Live in Australia as Permanent Resident -> 
+              16. Access healthcare and social benefits -> 
+              17. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaRemainingRelativeVisa115835": {
+    name: "Remaining Relative Visa (Subclass 115/835 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "Application fee: AUD $4,765 (~₹2.6 lakh) + additional applicant charges + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam.",
+
+    time: "Extremely long processing time: often 10–30+ years due to very limited quotas.",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must be financially supported by sponsoring relative in Australia (no fixed income threshold, but sponsor must meet eligibility and support obligations).",
+
+    docs: "Valid passport, proof of relationship with Australian relative, sponsor documents (Australian citizen/PR/eligible NZ citizen), evidence that no other close family exists outside Australia, police clearance, medical exam, application forms.",
+
+    whom: "Individuals who have no close family members living outside Australia and whose only immediate relatives (parent/sibling/child) are living in Australia as citizens or permanent residents.",
+
+    rules: "Must have all close relatives (parents/siblings/children) legally residing in Australia. Must be sponsored by an eligible relative in Australia. Very strict eligibility and limited annual intake. Must meet health and character requirements.",
+
+    prosCons: "Pros: Permanent residency, family reunification for isolated applicants, access to healthcare and settlement benefits. Cons: Extremely long waiting time (often decades), very strict eligibility rules, limited annual places, high uncertainty.",
+
+    terms: "Subclass 115: Offshore Remaining Relative Visa; Subclass 835: Onshore Remaining Relative Visa; Sponsor: Eligible Australian relative; Remaining Relative: No close family outside Australia definition.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Remaining Relative Visa Subclass 115/835 provisions).",
+
+    process: `1. Confirm eligibility (no close relatives outside Australia) -> 
+              2. Identify eligible sponsor in Australia -> 
+              3. Gather proof of family relationships -> 
+              4. Apply for Subclass 115 (offshore) or 835 (onshore) visa -> 
+              5. Pay application fee -> 
+              6. Submit documents online via ImmiAccount -> 
+              7. Enter long-term processing queue -> 
+              8. Complete medical examination and police clearance when requested -> 
+              9. Department assesses eligibility and family situation -> 
+              10. Possible request for additional documents -> 
+              11. Wait in queue (often 10–30+ years) -> 
+              12. Visa decision issued -> 
+              13. Receive PR grant -> 
+              14. Move or remain in Australia as Permanent Resident -> 
+              15. Access healthcare and settlement benefits -> 
+              16. Eligible for citizenship after residency requirement.`
+},
+
+
+"AustraliaCarerVisa116836": {
+    name: "Carer Visa (Subclass 116/836 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "Application fee: AUD $4,765 (~₹2.6 lakh) + additional applicant charges + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam.",
+
+    time: "Extremely long processing time: often 10–20+ years due to limited annual intake and priority allocation rules.",
+
+    age: "No strict age limit.",
+
+    education: "No requirement.",
+
+    funds: "No fixed income requirement, but must demonstrate genuine long-term care dependency and sponsor support capability.",
+
+    docs: "Valid passport, medical reports proving care need of Australian relative, proof of relationship, sponsor documents (Australian citizen/PR/eligible NZ citizen), supporting doctor reports, police clearance, medical exam, application forms.",
+
+    whom: "Applicants who are required to provide long-term, substantial care for a relative in Australia with a serious medical condition and no reasonable access to care options in Australia.",
+
+    rules: "Must provide substantial ongoing care to an Australian citizen/PR/eligible NZ citizen relative. Must prove care is not available from other sources in Australia. Must meet health and character requirements. Highly restrictive eligibility.",
+
+    prosCons: "Pros: Permanent residency, family support pathway, allows reunification with dependent relatives needing care. Cons: Extremely strict eligibility, very long waiting time, requires strong medical evidence, limited visa places.",
+
+    terms: "Subclass 116: Offshore Carer Visa; Subclass 836: Onshore Carer Visa; Carer Requirement: Need for substantial personal care; Sponsor: Australian citizen/PR relative.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Carer Visa Subclass 116/836 provisions).",
+
+    process: `1. Confirm eligibility (relative requires substantial long-term care) -> 
+              2. Obtain medical evidence from Australian-registered doctors -> 
+              3. Identify eligible sponsor (Australian citizen/PR/eligible NZ citizen) -> 
+              4. Gather proof of relationship and care dependency -> 
+              5. Apply for Subclass 116 (offshore) or 836 (onshore) visa -> 
+              6. Pay application fee -> 
+              7. Submit documents via ImmiAccount -> 
+              8. Enter long processing queue -> 
+              9. Department assesses medical and dependency evidence -> 
+              10. Provide additional documents if requested -> 
+              11. Complete medical examination and police clearance -> 
+              12. Wait for visa allocation (often many years) -> 
+              13. Visa decision issued -> 
+              14. Receive PR grant -> 
+              15. Move to Australia as Permanent Resident -> 
+              16. Provide ongoing care to relative -> 
+              17. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaAdoptionVisa102": {
+    name: "Adoption Visa (Subclass 102 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "Application fee: AUD $3,110 (~₹1.7 lakh) + additional applicant charges + biometrics ~₹1,500–₹3,000 (India VAC) + medical exam.",
+
+    time: "Typically 12–24 months depending on adoption approval process and documentation complexity.",
+
+    age: "Child must generally be under 18 years at time of application and adoption completion (exceptions are rare and case-specific).",
+
+    education: "No requirement.",
+
+    funds: "No fixed requirement, but adoptive parent(s) must demonstrate financial ability to support the child.",
+
+    docs: "Valid passport of child, legal adoption papers (approved under Australian intercountry adoption rules), birth certificate, identity documents, sponsor documents (Australian citizen/PR/eligible NZ citizen adoptive parent), custody/legal consent documents, police clearance, medical exam.",
+
+    whom: "Children adopted overseas or in the process of being adopted by Australian citizens, permanent residents, or eligible New Zealand citizens.",
+
+    rules: "Adoption must be legally recognised under Australian intercountry adoption laws. Adoption must generally be arranged through approved adoption authorities (not private arrangements). Must meet child welfare and immigration requirements.",
+
+    prosCons: "Pros: Direct permanent residency for adopted child, access to education and healthcare in Australia, stable family reunification pathway. Cons: Strict legal adoption process, must follow official intercountry adoption channels, lengthy processing time, complex documentation.",
+
+    terms: "Subclass 102: Adoption Visa; Intercountry Adoption: International legal adoption process; Hague Convention: International adoption treaty framework; Sponsor: Australian citizen/PR adoptive parent.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Adoption Visa Subclass 102 provisions) + Hague Convention on Intercountry Adoption (where applicable).",
+
+    process: `1. Complete legal intercountry adoption process (through authorised agencies) -> 
+              2. Ensure adoption complies with Australian law/Hague Convention -> 
+              3. Sponsor (Australian citizen/PR) prepares documents -> 
+              4. Apply for Subclass 102 visa for child -> 
+              5. Pay application fee -> 
+              6. Submit documents (adoption papers, identity, sponsorship proof) -> 
+              7. Book biometrics at VAC (India if applicable) -> 
+              8. Complete medical examination -> 
+              9. Department assesses adoption legality and eligibility -> 
+              10. Possible request for additional legal documents -> 
+              11. Visa decision issued -> 
+              12. Receive PR grant for child -> 
+              13. Child travels/moves to Australia -> 
+              14. Gains access to healthcare and education -> 
+              15. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaMedicalTreatmentVisa602": {
+    name: "Medical Treatment Visa (Subclass 602 – Australia)",
+
+    validity: "Temporary visa. Usually granted for the duration of medical treatment or up to 12 months (can be extended in special cases).",
+
+    cost: "Application fee: AUD $190 (~₹10,000) in many cases (may be nil for some medical treatment/refugee-related cases) + biometrics ~₹1,500–₹3,000 (India VAC) + medical costs in Australia (very high).",
+
+    time: "Typically 1–3 months depending on urgency and medical documentation.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "Must show sufficient funds to cover medical treatment, living expenses, and return travel OR have sponsoring/health authority covering costs.",
+
+    docs: "Valid passport, detailed medical reports from home country doctors, Australian hospital/doctor acceptance letter, treatment plan, proof of funds or sponsor guarantee, health insurance (recommended), police clearance (if required), biometrics.",
+
+    whom: "Foreign nationals (including Indians) who need medical treatment in Australia or accompanying organ donors/medical attendants.",
+
+    rules: "Must have genuine need for medical treatment unavailable or better treated in Australia. Must have confirmed acceptance from Australian medical provider. Must show ability to pay or have funding arrangement. Must not intend to use visa for permanent migration.",
+
+    prosCons: "Pros: Access to advanced medical treatment in Australia, flexible stay extension in medical cases, includes escorts/attendants in some cases. Cons: Very expensive healthcare costs, temporary only, strict medical proof required, no direct PR pathway.",
+
+    terms: "Subclass 602: Medical Treatment Visa; Attendant: Person accompanying patient; Treatment Plan: Approved Australian medical schedule; Health clearance: Medical eligibility assessment.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Medical Treatment Visa Subclass 602 provisions).",
+
+    process: `1. Obtain diagnosis and medical reports in home country -> 
+              2. Contact Australian hospital/doctor and get acceptance for treatment -> 
+              3. Prepare treatment plan and cost estimate -> 
+              4. Arrange funds or sponsorship for treatment -> 
+              5. Apply for Subclass 602 visa online -> 
+              6. Pay application fee (if applicable) -> 
+              7. Submit medical documents and hospital acceptance letter -> 
+              8. Book biometrics at VAC in India -> 
+              9. Complete additional medical/security checks if requested -> 
+              10. Department assesses medical necessity and financial capacity -> 
+              11. Visa decision issued -> 
+              12. Receive visa grant -> 
+              13. Travel to Australia -> 
+              14. Undergo medical treatment -> 
+              15. Apply for extension if required (case-based).`
+},
+
+"AustraliaRefugeeVisa200": {
+    name: "Refugee Visa (Subclass 200 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "No application fee for humanitarian/refugee protection visa applications (generally free). Biometrics ~₹1,500–₹3,000 (India VAC) + medical exam (may be covered in some cases).",
+
+    time: "Typically 6–24 months depending on referral pathway, security checks, and case complexity.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No requirement to show personal funds (as protection visa is based on humanitarian need).",
+
+    docs: "Valid passport (if available), identity documents (or alternative proof if unavailable), UNHCR referral (if applicable), refugee claim statement, evidence of persecution risk, medical examination, police clearance (if available), biometrics.",
+
+    whom: "People outside their home country who are referred as refugees and are in need of resettlement in Australia due to persecution, war, or fear of serious harm.",
+
+    rules: "Must be outside home country and meet UN Refugee Convention definition of refugee. Must be referred by UNHCR or Australian government pathways. Must demonstrate genuine fear of persecution based on race, religion, nationality, political opinion, or social group.",
+
+    prosCons: "Pros: Direct permanent residency, protection from persecution, access to healthcare and social support, pathway to citizenship. Cons: Very strict eligibility, limited places, long waiting times, depends on referral system (not self-selected migration route).",
+
+    terms: "Subclass 200: Refugee Visa; UNHCR: United Nations High Commissioner for Refugees; Protection Obligations: Australia’s legal duty under refugee law; Resettlement Program: Government refugee intake system.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Refugee Visa Subclass 200 provisions) + 1951 UN Refugee Convention obligations.",
+
+    process: `1. Register refugee claim (often through UNHCR or referral channels) -> 
+              2. Assessment of persecution risk and eligibility -> 
+              3. Security and identity checks -> 
+              4. Medical examination -> 
+              5. Referral to Australian resettlement program (if accepted) -> 
+              6. Application processed under Subclass 200 -> 
+              7. Possible interviews and additional evidence collection -> 
+              8. Department of Home Affairs assessment -> 
+              9. Visa decision issued -> 
+              10. Receive Refugee Visa grant (PR) -> 
+              11. Travel to Australia under resettlement program -> 
+              12. Settlement support services provided -> 
+              13. Access healthcare, education, and work rights -> 
+              14. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaInCountrySpecialHumanitarianVisa201": {
+    name: "In-country Special Humanitarian Visa (Subclass 201 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "No visa application fee (humanitarian visa). Biometrics ~₹1,500–₹3,000 (India VAC) + medical exam (if required).",
+
+    time: "Typically 6–24 months depending on urgency, security checks, and referral processing.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No requirement to show personal funds (based on humanitarian protection needs).",
+
+    docs: "Valid passport (if available), identity documents, protection claim statement, evidence of persecution or serious harm risk, UNHCR referral (if applicable), police clearance (if available), medical examination, biometrics.",
+
+    whom: "Individuals who are already in their home country (or country of persecution) and are facing serious human rights violations, and are proposed for resettlement in Australia under humanitarian intake.",
+
+    rules: "Must demonstrate real risk of persecution or serious harm. Must be proposed/sponsored under Australia’s humanitarian program or referred through approved channels. Must meet security and health requirements.",
+
+    prosCons: "Pros: Permanent residency, protection from persecution, access to healthcare, education, and social support, pathway to citizenship. Cons: Strict eligibility, limited annual places, long waiting times, depends on referral/sponsorship, not a standard migration route.",
+
+    terms: "Subclass 201: In-country Special Humanitarian Visa; Humanitarian Program: Australia’s refugee intake system; UNHCR: UN Refugee Agency; Protection Claims: Asylum/refugee application basis.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Special Humanitarian Visa Subclass 201 provisions) + international refugee protection obligations.",
+
+    process: `1. Identify humanitarian risk situation (persecution/serious harm) -> 
+              2. Submit protection claim or referral via UNHCR/approved sponsor -> 
+              3. Provide evidence of persecution and identity -> 
+              4. Department assesses humanitarian eligibility -> 
+              5. Security and health checks conducted -> 
+              6. Additional interviews or documentation requests -> 
+              7. Case referred under Humanitarian Program -> 
+              8. Visa application processed -> 
+              9. Decision issued by Department of Home Affairs -> 
+              10. Receive Subclass 201 visa grant (PR) -> 
+              11. Travel to Australia under resettlement arrangement -> 
+              12. Settlement support services provided -> 
+              13. Access to work, education, and healthcare -> 
+              14. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaGlobalSpecialHumanitarianVisa202": {
+    name: "Global Special Humanitarian Visa (Subclass 202 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "No visa application fee (humanitarian visa). Biometrics ~₹1,500–₹3,000 (India VAC) + medical exam (if required).",
+
+    time: "Typically 6–24 months depending on sponsorship strength, referral pathway, and security checks.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No requirement to show personal funds. Must have a proposer/sponsor in Australia who can support settlement needs.",
+
+    docs: "Valid passport (if available), identity documents, evidence of persecution or serious harm risk, proposer (sponsor) documents in Australia, Form 842 (humanitarian proposal), police clearance (if available), medical exam, biometrics, supporting affidavits.",
+
+    whom: "People outside their home country who are subject to substantial discrimination, human rights abuse, or persecution and are proposed by an eligible Australian citizen/PR or organisation.",
+
+    rules: "Must be outside Australia. Must demonstrate substantial discrimination or human rights violations. Must have an approved proposer (sponsor) in Australia. Must meet health and security requirements. Subject to limited annual humanitarian intake.",
+
+    prosCons: "Pros: Permanent residency, family/community-based humanitarian pathway, access to healthcare, education, and settlement support, pathway to citizenship. Cons: Very limited places, strong dependency on sponsor, long waiting times, strict eligibility assessment.",
+
+    terms: "Subclass 202: Global Special Humanitarian Visa; Form 842: Humanitarian Proposal Form; Proposer: Australian citizen/PR/organisation sponsor; Humanitarian Program: Australia’s refugee intake system.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Global Special Humanitarian Visa Subclass 202 provisions) + international refugee protection obligations.",
+
+    process: `1. Identify persecution or serious discrimination risk -> 
+              2. Obtain proposer/sponsor in Australia (citizen/PR/organisation) -> 
+              3. Sponsor submits Form 842 humanitarian proposal -> 
+              4. Gather identity and persecution evidence -> 
+              5. Submit Subclass 202 application -> 
+              6. Provide biometrics at VAC (India if applicable) -> 
+              7. Complete medical examination and security checks -> 
+              8. Department assesses humanitarian grounds and sponsorship -> 
+              9. Possible interview or additional document requests -> 
+              10. Case reviewed under Humanitarian Program -> 
+              11. Visa decision issued -> 
+              12. Receive Subclass 202 visa grant (PR) -> 
+              13. Travel to Australia under resettlement arrangement -> 
+              14. Settlement assistance provided -> 
+              15. Access healthcare, education, and work rights -> 
+              16. Eligible for citizenship after residency requirement.1`
+},
+
+"AustraliaEmergencyRescueVisa203": {
+    name: "Emergency Rescue Visa (Subclass 203 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "No visa application fee (humanitarian visa). Biometrics ~₹1,500–₹3,000 (India VAC) + medical exam (if required).",
+
+    time: "Very urgent processing under humanitarian priority stream; typically 3–12 months depending on security checks and case urgency.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No requirement to show personal funds. Supported under Australia’s humanitarian intake system.",
+
+    docs: "Valid passport (if available), identity documents, urgent protection/refugee claim evidence, proof of immediate life-threatening risk, UNHCR referral (if applicable), police clearance (if available), medical examination, biometrics.",
+
+    whom: "Individuals outside Australia facing immediate, life-threatening persecution or danger who require urgent resettlement under Australia’s humanitarian program.",
+
+    rules: "Must be outside home country and in immediate danger of serious harm or persecution. Must meet refugee/humanitarian eligibility criteria. Must pass security and health checks. Priority processing due to urgent protection need.",
+
+    prosCons: "Pros: Fast-tracked humanitarian protection, permanent residency, access to healthcare and settlement support, pathway to citizenship. Cons: Extremely strict eligibility, very limited places, depends on urgent risk validation, not a standard migration route.",
+
+    terms: "Subclass 203: Emergency Rescue Visa; Humanitarian Program: Australia refugee intake system; UNHCR: UN Refugee Agency; Protection Claim: Asylum basis.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Emergency Rescue Visa Subclass 203 provisions) + international refugee protection obligations.",
+
+    process: `1. Identify immediate life-threatening persecution risk -> 
+              2. Submit urgent protection claim (often via UNHCR or humanitarian channels) -> 
+              3. Provide evidence of emergency risk -> 
+              4. Security and identity verification -> 
+              5. Medical examination -> 
+              6. Fast-track assessment under humanitarian emergency category -> 
+              7. Department reviews urgency and eligibility -> 
+              8. Possible interview or additional evidence request -> 
+              9. Visa decision issued on priority basis -> 
+              10. Receive Subclass 203 visa grant (PR) -> 
+              11. Travel to Australia under emergency resettlement -> 
+              12. Settlement support services provided -> 
+              13. Access healthcare, education, and work rights -> 
+              14. Eligible for citizenship after residency requirement.`
+},
+
+
+"AustraliaWomenAtRiskVisa204": {
+    name: "Women at Risk Visa (Subclass 204 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "No visa application fee (humanitarian visa). Biometrics ~₹1,500–₹3,000 (India VAC) + medical exam (if required).",
+
+    time: "Typically 6–18 months depending on urgency, security checks, and vulnerability assessment.",
+
+    age: "No age restriction, but primarily intended for women and their dependent children.",
+
+    education: "No requirement.",
+
+    funds: "No requirement to show personal funds (supported under humanitarian resettlement program).",
+
+    docs: "Valid passport (if available), identity documents, evidence of risk (domestic violence, persecution, trafficking risk, etc.), UNHCR referral (if applicable), police clearance (if available), medical examination, biometrics, supporting statements or protection reports.",
+
+    whom: "Women outside their home country who are without effective protection and are at significant risk of violence, abuse, persecution, or exploitation, often with dependent children.",
+
+    rules: "Must be outside home country. Must be identified as being at risk without adequate protection. Must meet refugee/humanitarian criteria under Australia’s Women at Risk priority category. Must pass security and health checks. Priority given to highly vulnerable women.",
+
+    prosCons: "Pros: Priority humanitarian pathway, permanent residency, protection from violence and persecution, access to healthcare, education, and settlement services, pathway to citizenship. Cons: Strict eligibility, limited annual places, requires strong proof of vulnerability, long waiting times possible.",
+
+    terms: "Subclass 204: Women at Risk Visa; Humanitarian Program: Australia refugee intake system; UNHCR: UN Refugee Agency; Protection Assessment: Vulnerability evaluation process.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Women at Risk Visa Subclass 204 provisions) + international refugee protection obligations.",
+
+    process: `1. Identify risk situation (violence, persecution, exploitation) -> 
+              2. Submit refugee/humanitarian claim (often via UNHCR referral) -> 
+              3. Provide evidence of vulnerability and lack of protection -> 
+              4. Security and identity checks -> 
+              5. Medical examination -> 
+              6. Assessment under Women at Risk priority category -> 
+              7. Department evaluates vulnerability and eligibility -> 
+              8. Possible interview or further documentation request -> 
+              9. Visa decision issued under humanitarian intake -> 
+              10. Receive Subclass 204 visa grant (PR) -> 
+              11. Travel to Australia under resettlement program -> 
+              12. Settlement support provided (housing, healthcare, services) -> 
+              13. Access work, education, and welfare support -> 
+              14. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaResolutionOfStatusVisa851": {
+    name: "Resolution of Status Visa (Subclass 851 – Australia)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia once granted; eligible for citizenship after meeting residency requirement.",
+
+    cost: "No visa application fee (humanitarian/protection-based visa). Biometrics ~₹1,500–₹3,000 (India VAC) + medical exam (if required).",
+
+    time: "Typically 6–24 months depending on protection assessment complexity and security checks.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No requirement to show personal funds (eligibility based on protection status, not financial capacity).",
+
+    docs: "Valid passport (if available), identity documents, evidence of protection need (asylum/refugee claim documents), previous bridging visa details (if applicable), UNHCR referral (if applicable), police clearance (if available), medical examination, biometrics.",
+
+    whom: "Individuals already in Australia who are seeking permanent resolution of their immigration status after a protection claim or unresolved visa status, often former asylum seekers or people on bridging visas.",
+
+    rules: "Must be physically present in Australia. Must have unresolved immigration or protection status requiring final determination. Must meet refugee/protection obligations under Australian law. Must pass health and character requirements.",
+
+    prosCons: "Pros: Permanent residency pathway for people already in Australia, access to healthcare and work rights after grant, resolution of long-term uncertain visa status, pathway to citizenship. Cons: Limited eligibility, requires prior presence/status in Australia, strict security checks, may involve long waiting times.",
+
+    terms: "Subclass 851: Resolution of Status Visa; Bridging Visa: Temporary stay permit; Protection Visa Pathway: Asylum resolution process; Department of Home Affairs: Immigration authority.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Resolution of Status Visa Subclass 851 provisions) + refugee/protection law framework.",
+
+    process: `1. Identify unresolved immigration or protection status in Australia -> 
+              2. Lodge or transition from protection/asylum claim -> 
+              3. Provide identity and asylum history documents -> 
+              4. Submit Subclass 851 application (if eligible pathway applies) -> 
+              5. Pay no visa fee (humanitarian basis) -> 
+              6. Book biometrics at Australian VAC (if required) -> 
+              7. Complete medical examination and police clearance -> 
+              8. Department reviews protection status and eligibility -> 
+              9. Possible interview or additional evidence request -> 
+              10. Security and character assessment -> 
+              11. Visa decision issued -> 
+              12. Receive Subclass 851 Permanent Residency grant -> 
+              13. Resolve immigration status in Australia -> 
+              14. Access healthcare, work, and social benefits -> 
+              15. Eligible for citizenship after residency requirement.`
+},
+
+"AustraliaBridgingVisaA010": {
+    name: "Bridging Visa A (Subclass 010 – Australia)",
+
+    validity: "Temporary visa. Remains valid until a decision is made on your substantive visa application or until you leave Australia or another visa is granted. Does not directly lead to Permanent Residence.",
+
+    cost: "No visa application fee. Biometrics ~₹1,500–₹3,000 (India VAC, if requested) + medical examination (if required).",
+
+    time: "Usually granted automatically within days of lodging an eligible onshore visa application (e.g., student, partner, skilled visas). Processing depends on underlying visa application timeline.",
+
+    age: "No specific age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No fixed financial requirement, but must satisfy conditions of the main visa application you are waiting for.",
+
+    docs: "Valid passport, proof of lodged substantive visa application, current visa details, VEVO status, identity documents, any prior visa refusal/cancellation notices (if applicable), Form 1005 (in some cases), supporting documents linked to underlying visa application.",
+
+    whom: "Applicants in Australia who have applied for a new substantive visa while holding a valid visa, and whose current visa expires before a decision is made on their new application. Common for student, skilled, partner, or visitor visa applicants applying onshore.",
+
+    rules: "Must be in Australia when applying for the underlying visa. Must hold a valid substantive visa at time of application. Must comply with conditions attached to Bridging Visa A (such as work rights or travel restrictions). Cannot travel outside Australia on BVA—must apply for Bridging Visa B to travel. Visa becomes active only when current visa expires.",
+
+    prosCons: "Pros: Allows legal stay in Australia while waiting for visa decision, prevents unlawful status, may include work rights depending on case, maintains continuity of stay. Cons: No automatic travel rights, work rights may be restricted, does not provide permanent residency, depends entirely on underlying visa outcome.",
+
+    terms: "Subclass 010: Bridging Visa A; Substantive Visa: Main visa application under process; VEVO: Visa Entitlement Verification Online; Condition 8101/8102/8104: Work/travel restrictions depending on grant.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Bridging Visa A provisions under Subclass 010).",
+
+    process: `1. Hold a valid Australian visa -> 
+              2. Apply for a new substantive visa (onshore application) -> 
+              3. Receive acknowledgment of visa application -> 
+              4. Automatic Bridging Visa A grant issued -> 
+              5. Check Bridging Visa conditions via VEVO -> 
+              6. Wait in Australia while substantive visa is processed -> 
+              7. Comply with visa conditions (work/travel restrictions if any) -> 
+              8. If travel required, apply for Bridging Visa B -> 
+              9. Provide additional documents if requested -> 
+              10. Receive decision on substantive visa -> 
+              11. Bridging Visa A ceases when new visa is granted or application ends.`
+},
+
+"AustraliaBridgingVisaB020": {
+    name: "Bridging Visa B (Subclass 020 – Australia)",
+
+    validity: "Temporary visa. Allows you to leave and re-enter Australia while waiting for a decision on your substantive visa application. Valid until you return or until your substantive visa is decided.",
+
+    cost: "No visa application fee. Biometrics ~₹1,500–₹3,000 (India VAC, if required) + medical exam (if required).",
+
+    time: "Usually processed within a few days to a few weeks after application, depending on urgency and travel reasons.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No fixed financial requirement, but you must show genuine reason for travel and ability to return to Australia.",
+
+    docs: "Valid passport, Bridging Visa A or eligible bridging visa details, proof of lodged substantive visa application, Form 1006 (Application for Bridging Visa B), travel evidence (flight tickets/medical/family emergency/business documents), identity documents, VEVO status.",
+
+    whom: "Applicants in Australia who hold a Bridging Visa A (or certain other bridging visas) and need to travel overseas temporarily while their substantive visa application is being processed.",
+
+    rules: "Must be physically in Australia when applying. Must hold an eligible bridging visa (usually BVA or BVB). Must provide genuine reason for travel (urgent family, work, medical, etc.). Must return before expiry of travel facility. Does not extend visa validity if you overstay overseas. Conditions of original bridging visa still apply.",
+
+    prosCons: "Pros: Allows international travel without cancelling your visa status, maintains validity of underlying visa application, essential for emergencies or business travel. Cons: Must apply separately for each travel request, not guaranteed approval, travel window is limited, no guarantee of re-entry if conditions are breached.",
+
+    terms: "Subclass 020: Bridging Visa B; Substantive Visa: Main visa application under processing; Travel Facility: Permission to leave and re-enter Australia; VEVO: Visa Entitlement Verification Online.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Bridging Visa B provisions under Subclass 020).",
+
+    process: `1. Hold an eligible Bridging Visa A or equivalent -> 
+              2. Prepare genuine reason for overseas travel -> 
+              3. Complete Form 1006 application -> 
+              4. Submit travel evidence and supporting documents -> 
+              5. Apply while physically in Australia -> 
+              6. Pay no visa fee (if applicable) -> 
+              7. Department of Home Affairs assesses travel necessity -> 
+              8. Possible request for additional documents -> 
+              9. Visa decision issued -> 
+              10. Receive Bridging Visa B with travel facility dates -> 
+              11. Travel outside Australia -> 
+              12. Return before travel facility expires -> 
+              13. Continue waiting for substantive visa decision.`
+},
+
+"AustraliaBridgingVisaC030": {
+    name: "Bridging Visa C (Subclass 030 – Australia)",
+
+    validity: "Temporary visa. Allows lawful stay in Australia while a substantive visa application is being processed. Does NOT provide automatic right to return if you leave Australia.",
+
+    cost: "No visa application fee. Biometrics ~₹1,500–₹3,000 (India VAC, if required) + medical examination (if requested by authorities).",
+
+    time: "Usually granted shortly after application for a substantive visa while the applicant is in Australia without a valid substantive visa (or when transitioning from unlawful status). Processing may take a few days to a few weeks.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No fixed financial requirement, but applicant must comply with conditions attached to visa grant.",
+
+    docs: "Valid passport (if available), proof of identity, evidence of lodged or pending substantive visa application, Form 1005 (Bridging Visa application form in many cases), VEVO status, any overstay explanation documents (if applicable), supporting documents linked to main visa application.",
+
+    whom: "People in Australia who have applied for a substantive visa but are NOT holding a valid substantive visa at the time of application (for example, they overstayed a previous visa or lost visa status but then lodged a new application).",
+
+    rules: "Must be physically present in Australia at time of application. Usually applied when applicant has become unlawful or has no valid visa. Does NOT allow travel outside Australia. Leaving Australia automatically cancels the visa. Must comply with all imposed conditions such as work restrictions or reporting requirements.",
+
+    prosCons: "Pros: Restores lawful status in Australia after visa expiry or overstay, allows stay while new visa is processed, may include limited work rights in hardship cases. Cons: No travel rights, strict compliance conditions, may have work restrictions, does not directly lead to permanent residency.",
+
+    terms: "Subclass 030: Bridging Visa C; Unlawful Status: Overstayed visa situation; Substantive Visa: Main visa application under process; VEVO: Visa Entitlement Verification Online.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Bridging Visa C provisions under Subclass 030).",
+
+    process: `1. Lose valid visa status or remain in Australia after visa expiry -> 
+              2. Lodge a substantive visa application or valid visa request -> 
+              3. Apply for Bridging Visa C -> 
+              4. Provide identity and immigration history documents -> 
+              5. Submit Form 1005 or online application -> 
+              6. Department assesses eligibility and visa history -> 
+              7. Possible compliance or character checks -> 
+              8. Visa conditions determined (work rights may vary) -> 
+              9. Visa granted -> 
+              10. Applicant becomes lawful in Australia again -> 
+              11. Must remain in Australia during processing -> 
+              12. Wait for substantive visa decision -> 
+              13. If granted substantive visa, BVC ends.`
+},
+"AustraliaBridgingVisaE040": {
+    name: "Bridging Visa E (Subclass 050/051 – Australia)",
+
+    validity: "Temporary visa. Allows a person to remain lawfully in Australia for a short period while they arrange their immigration status or depart the country. It is generally short-term and does not provide long-term stay rights.",
+
+    cost: "No visa application fee. Biometrics ~₹1,500–₹3,000 (India VAC, if required) + medical examination (if requested).",
+
+    time: "Usually processed within a few days depending on urgency, compliance situation, and whether the applicant is in immigration detention or unlawful status.",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No fixed financial requirement, but applicant must demonstrate ability to support themselves or comply with departure arrangements if required.",
+
+    docs: "Valid passport (if available), identity documents, Form 1006 or online application, evidence of immigration status (overstay/unlawful status documents), reasons for stay or departure plan, VEVO details, any bridging visa cancellation or refusal notices, police/medical documents if requested.",
+
+    whom: "People who are currently unlawful in Australia (no valid visa) or those who need a short-term lawful status while they resolve immigration issues, apply for a visa, prepare to depart, or deal with immigration compliance matters. Also commonly used for people released from immigration detention.",
+
+    rules: "Must be physically in Australia. Usually granted to unlawful non-citizens or those in immigration detention. Strict conditions may apply (reporting requirements, work restrictions, or no work rights). Cannot travel outside Australia—leaving automatically ends the visa. Must comply with all immigration directions, including departure if instructed.",
+
+    prosCons: "Pros: Provides legal status to people who are unlawful or in detention, prevents immediate detention or removal, allows time to arrange visa application or departure, may include limited work rights in hardship cases. Cons: Very limited duration, strict conditions, no travel rights, does not directly lead to permanent residency, can include reporting obligations or restrictions.",
+
+    terms: "Subclass 050/051: Bridging Visa E; Unlawful Non-Citizen: Person without valid visa; Immigration Detention: Holding facility for unlawful non-citizens; VEVO: Visa Entitlement Verification Online.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Bridging Visa E provisions under Subclass 050 and 051).",
+
+    process: `1. Become unlawful in Australia OR be in immigration detention -> 
+              2. Contact Department of Home Affairs or immigration authorities -> 
+              3. Submit Bridging Visa E application (Form 1006 or equivalent) -> 
+              4. Provide identity and immigration history -> 
+              5. Explain reason for stay or intention to depart -> 
+              6. Department assesses urgency and compliance risk -> 
+              7. Possible interview or detention officer assessment -> 
+              8. Visa conditions determined (reporting, work restrictions, or travel prohibition) -> 
+              9. Bridging Visa E granted -> 
+              10. Applicant becomes temporarily lawful -> 
+              11. Must either apply for substantive visa or arrange departure -> 
+              12. Visa ends once issue is resolved or departure occurs.`
+},
+
+"AustraliaBusinessInnovationInvestment188": {
+    name: "Business Innovation and Investment (Provisional) Visa (Subclass 188)",
+
+    validity: "Up to 5 years. This is a temporary/provisional visa that serves as the mandatory first step toward the Subclass 888 Permanent Residency visa.",
+
+    cost: "Main Applicant: AUD $6,510 to AUD $14,750 (~₹3.6L – ₹8.1L) depending on the stream. Additional Applicant (18+): AUD $3,255 to AUD $7,375. Plus biometrics (~₹3,000) and medical exam costs (~₹8,000). Second installment for low English skills: AUD $9,795.",
+
+    time: "Typically 12–36 months. Innovation stream is slower (~30 months), while the Significant Investor Stream (SIV) is prioritized (often 12–18 months).",
+
+    age: "Must be under 55 years of age at the time of invitation. Some States/Territories may grant waivers for high-value investment proposals that provide exceptional economic benefit.",
+
+    education: "No mandatory degree, but points are awarded under the Innovation stream for vocational or higher education qualifications in business, science, or technology.",
+
+    funds: "Varies by stream: Business Innovation requires AUD $1.25M in net assets; Investor Stream requires AUD $2.5M; Significant Investor requires AUD $5M; Entrepreneur requires proof of funding agreement.",
+
+    docs: "Evidence of asset ownership (property/bank/business), audited company accounts, business plan, proof of source of funds, State/Territory nomination approval, health/police clearances, and English test results (IELTS/PTE).",
+
+    whom: "Experienced business owners, investors, and entrepreneurs from India and globally who want to establish or develop a business or make a large-scale complying investment in Australia.",
+
+    rules: "Must be nominated by an Australian State or Territory government. Must score at least 65 on the Points Test (for Innovation/Investor streams). Must maintain the investment or business activity for the entire provisional period.",
+
+    prosCons: "Pros: Direct pathway to Permanent Residency (888), allows family members to work and study in Australia, high flexibility for managing global wealth. Cons: Extremely high financial requirement, complex audit and document verification, long processing wait times.",
+
+    terms: "State Nomination: Approval from an Australian state government; Complying Investment: Specific government-approved assets; EOI: Expression of Interest; SkillSelect: Selection portal.",
+
+    legal: "Migration Act 1958 (Cth) + Migration Regulations 1994 (Statutory Rules for Subclass 188).",
+
+    process: `1. Prepare business plan and audit net assets -> 
+              2. Submit Expression of Interest (EOI) via SkillSelect -> 
+              3. Apply for and receive State or Territory nomination -> 
+              4. Receive formal Invitation to Apply (ITA) from Home Affairs -> 
+              5. Submit online visa application within 60 days -> 
+              6. Provide detailed evidence of assets and source of funds -> 
+              7. Undergo health and character (police) checks -> 
+              8. Receive visa grant -> 
+              9. Establish business/investment in Australia -> 
+              10. Maintain activity for 3–5 years to qualify for PR Subclass 888.`
+},
+
+"AustraliaBusinessTalent132": {
+    name: "Business Talent (Permanent) Visa (Subclass 132)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia. Note: This category is closed to new applicants, but information is relevant for pending cases and existing holders.",
+
+    cost: "Main Applicant: AUD $8,000 (~₹4.4L) + Additional Applicant (18+): AUD $4,000. Second installment for low English: AUD $9,795. Biometrics and medicals separate.",
+
+    time: "Currently processing remaining backlog; times vary by case complexity (usually 24–36 months for pending files).",
+
+    age: "Generally under 55 years, unless the nominating State/Territory granted an age waiver for exceptional economic benefit.",
+
+    education: "No mandatory academic requirement; focus is entirely on successful business history or venture capital backing.",
+
+    funds: "Net business and personal assets of at least AUD $1.5M (Significant Business History stream) or AUD $1M in venture capital funding (VC stream).",
+
+    docs: "Evidence of business ownership, turnover of at least AUD $3M (for SBH stream), venture capital funding agreement, business audits, state nomination docs, and police/health certificates.",
+
+    whom: "High-caliber business owners or venture capital-backed entrepreneurs from India who were invited to settle permanently and establish a major business in Australia.",
+
+    rules: "Must have been nominated by an Australian State/Territory. Must maintain business involvement and provide report updates to Home Affairs for at least 24 months post-entry.",
+
+    prosCons: "Pros: Direct PR on arrival with no provisional stage, full work/study rights, immediate Medicare access. Cons: Category closed to new applicants, extremely high compliance and monitoring requirements.",
+
+    terms: "Venture Capital: Funding for startups/growth; Significant Business History: Track record of high-turnover management; Monitoring: 2-year post-grant reporting.",
+
+    legal: "Migration Act 1958 (Legacy Subclass 132 provisions).",
+
+    process: `1. (Legacy Step) State nomination and EOI -> 
+              2. Formal Invitation received -> 
+              3. Visa submission via ImmiAccount -> 
+              4. Extensive business audits and background checks -> 
+              5. Visa Grant (PR) -> 
+              6. Move to Australia -> 
+              7. 24-month monitoring phase where applicant must prove business establishment.`
+},
+
+"AustraliaSkilledRegional191": {
+    name: "Permanent Residence (Skilled Regional) Visa (Subclass 191)",
+
+    validity: "Permanent Residence (PR). Indefinite stay in Australia with full rights; eligible for citizenship after residency requirement.",
+
+    cost: "Main Applicant: AUD $475 (~₹26,000). Additional Applicant (18+): AUD $240. Biometrics and medical updates (if needed) are separate.",
+
+    time: "Usually 6–12 months. Processing is streamlined as applicants have already been in Australia on provisional visas.",
+
+    age: "Not applicable (age is checked only at the 491 or 494 visa stage).",
+
+    education: "No new education requirement; must have complied with the study/work conditions of the previous regional visa.",
+
+    funds: "Must demonstrate income at or above the minimum threshold for at least three income years while on the 491/494 visa.",
+
+    docs: "ATO Notices of Assessment (for 3 years), proof of residence in regional Australia (utility bills/tenancy), pay slips, identity documents, and current 491/494 visa grant notice.",
+
+    whom: "Indian workers and families holding Subclass 491 or 494 visas who have lived and worked in regional postcodes for the required 3-year period.",
+
+    rules: "Must have held the provisional regional visa for at least 3 years. Must have complied with all regional stay and work postcodes. Must meet the income requirement (Tax assessments required).",
+
+    prosCons: "Pros: Very low cost, completes the PR journey, allows the holder to live and work anywhere in Australia after grant. Cons: Requires a mandatory 3-year stay in regional postcodes first.",
+
+    terms: "Notice of Assessment (NOA): Official tax document; Regional Australia: Designated postcodes (most of Australia outside Sydney, Melbourne, Brisbane).",
+
+    legal: "Migration Regulations 1994 (Subclass 191).",
+
+    process: `1. Hold visa 491 or 494 and live in regional Australia for 3 years -> 
+              2. File tax returns annually to get Notices of Assessment -> 
+              3. Gather residence and income proof -> 
+              4. Lodge Subclass 191 application via ImmiAccount -> 
+              5. Update medicals and character checks if expired -> 
+              6. Receive PR Grant -> 
+              7. Full residency status achieved.`
+},
+
+"AustraliaShortStaySpecialist400": {
+    name: "Temporary Work (Short Stay Specialist) Visa (Subclass 400)",
+
+    validity: "Usually up to 3 months. Can be granted for 6 months only in exceptional business cases with strong justification.",
+
+    cost: "AUD $405 (~₹22,500). Additional applicant fees apply if family is included. VFS service fees separate (~₹2,000).",
+
+    time: "Very fast: 5–20 days. Many applications are decided within 48 hours for high-priority business needs.",
+
+    age: "No age limit.",
+
+    education: "No mandatory degree, but must possess highly specialized skills, knowledge, or experience relevant to the specific project.",
+
+    funds: "Must show proof of salary from the employer or sufficient personal savings (approx ₹1L – ₹2L) to support the short stay.",
+
+    docs: "Job contract or invitation from the Australian organization, detailed CV, proof of specialized credentials, project timeline, and travel insurance.",
+
+    whom: "Specialized technicians, engineers, consultants, or entertainers (non-performance) from India coming for short-term, non-ongoing work.",
+
+    rules: "Work must be 'non-ongoing' (project-based). Cannot work in the entertainment performance industry (needs 408). Cannot study. Cannot be extended onshore.",
+
+    prosCons: "Pros: Very fast approval, no English test required, no skill assessment needed. Cons: Short duration, cannot be extended, strictly limited to the nominated project.",
+
+    terms: "Non-ongoing: Work that ends when the project is done; Specialist: Skills not readily available in the local Australian market.",
+
+    legal: "Migration Regulations 1994 (Subclass 400 provisions).",
+
+    process: `1. Obtain job contract/invitation from AU organization -> 
+              2. Lodge online application via ImmiAccount -> 
+              3. Attach proof of specialized skill (CV/Employer letter) -> 
+              4. Pay fee -> 
+              5. Visa Grant -> 
+              6. Travel to Australia to complete the project.`
+},
+
+"AustraliaTemporaryActivity408": {
+    name: "Temporary Activity Visa (Subclass 408)",
+
+    validity: "Varies by stream. Typically 3 months to 2 years (e.g., Religious work 2 years; Special events duration of event).",
+
+    cost: "AUD $405 (~₹22,500). Some streams (like government-approved events or pandemic event) may be fee-exempt.",
+
+    time: "2–8 weeks depending on the stream. Sporting and Religious streams are usually faster.",
+
+    age: "No age limit.",
+
+    education: "Varies by stream: Research stream requires a degree; Religious stream requires ordination/training; Sporting requires club endorsement.",
+
+    funds: "Must show ability to support self and dependents (approx ₹2L – ₹4L bank balance) without accessing public funds.",
+
+    docs: "Official endorsement from an Australian organization, proof of participation in the specific activity, health insurance (OVHC), and police clearances.",
+
+    whom: "Indian elite athletes, researchers, religious workers, domestic workers for foreign executives, and participants in government-approved cultural events.",
+
+    rules: "Must have an approved sponsor or endorser in Australia. Work is strictly limited to the specific activity for which the visa was granted.",
+
+    prosCons: "Pros: No points test, covers unique niches, allows family members to accompany. Cons: Temporary only, strict stay conditions, no direct PR pathway.",
+
+    terms: "Invited Participant: Person asked to attend a specific event; Sporting Stream: For players, coaches, or referees.",
+
+    legal: "Migration Regulations 1994 (Subclass 408).",
+
+    process: `1. Obtain endorsement/sponsorship from AU host -> 
+              2. Collect identity and skill documents -> 
+              3. Apply online via ImmiAccount -> 
+              4. Submit proof of health insurance -> 
+              5. Visa Grant.`
+},
+
+"AustraliaInternationalRelations403": {
+    name: "Temporary Work (International Relations) Visa (Subclass 403)",
+
+    validity: "Up to 2 years. Duration is strictly tied to the international agreement or the diplomatic term of service.",
+
+    cost: "AUD $405 (~₹22,500). Diplomatic stream is usually free.",
+
+    time: "2 weeks to 4 months depending on the stream (PALM vs. Diplomatic).",
+
+    age: "No age limit for diplomats; 18–45 for PALM/Seasonal workers.",
+
+    education: "No specific academic requirement; focus is on the bilateral agreement or diplomatic appointment.",
+
+    funds: "Usually sponsored by a foreign government (Diplomatic) or an approved Australian employer (PALM worker).",
+
+    docs: "Note Verbale (for diplomats), proof of government agreement, or a valid contract with an approved PALM/Seasonal work sponsor.",
+
+    whom: "Foreign diplomats, domestic workers for diplomats, or workers from participating nations under the PALM (Pacific Australia Labour Mobility) scheme.",
+
+    rules: "Strictly bound to the international treaty or diplomatic household. No access to the general labor market. Domestic workers must stay with the diplomat.",
+
+    prosCons: "Pros: Dedicated route for official government business and Pacific labor. Cons: No path to PR, highly restricted work rights, no job switching.",
+
+    terms: "Note Verbale: Official letter from a Ministry of Foreign Affairs; PALM: Pacific mobility scheme; Privileges & Immunities: Legal status for certain officials.",
+
+    legal: "Migration Regulations 1994 (Subclass 403).",
+
+    process: `1. Receive government appointment or employer contract -> 
+              2. Obtain official Note Verbale or sponsorship -> 
+              3. Lodge online application -> 
+              4. Undergo character checks -> 
+              5. Visa Grant.`
+},
+
+
+"AustraliaResidentReturn155": {
+    name: "Resident Return Visa (Subclass 155 & 157)",
+
+    validity: "155: Usually 5 years (if residency met) or 1 year (if ties met). 157: 3 months (for those who don't meet other criteria).",
+
+    cost: "AUD $475 (~₹26,000) for online applications. AUD $555 for paper applications.",
+
+    time: "90% processed in 1 day (automated). If residency rules aren't met, it can take 2–3 months for manual officer review.",
+
+    age: "No age limit.",
+
+    education: "Not applicable.",
+
+    funds: "Not required.",
+
+    docs: "Passport, evidence of prior Permanent Residency, and if away for long: proof of 'substantial ties' (property ownership, Australian family, or job offer).",
+
+    whom: "Current/former Australian PR holders in India who need to travel and return to Australia after their initial 5-year travel facility has expired.",
+
+    rules: "To get a 5-year grant, you must have lived in AU for 2 of the last 5 years. If not, you must prove substantial business, cultural, employment, or personal ties to Australia.",
+
+    prosCons: "Pros: Essential for keeping PR status active while living/traveling abroad. Cons: PR can be lost if one stays outside AU too long without maintaining ties.",
+
+    terms: "Travel Facility: The permission to re-enter Australia; Substantial Ties: Proof that you still belong to the Australian community.",
+
+    legal: "Migration Act 1958 (Section 30).",
+
+    process: `1. Check PR expiry on VEVO -> 
+              2. Lodge 155 application online via ImmiAccount -> 
+              3. If 2/5 years met: Instant Grant -> 
+              4. If not met: Provide evidence of ties -> 
+              5. Receive grant and travel.`
+},
+
+"AustraliaFormerResident151": {
+    name: "Former Resident Visa (Subclass 151)",
+
+    validity: "Permanent Residence (PR). Indefinite stay.",
+
+    cost: "AUD $4,435 (~₹2.4L). Additional applicant fees apply.",
+
+    time: "12–24 months.",
+
+    age: "Must be under 45 years of age at the time of application.",
+
+    education: "No requirement.",
+
+    funds: "No specific requirement, but must be able to settle in Australia.",
+
+    docs: "Proof of 9 years of residence in Australia before age 18, or proof of 3 months service in the Australian Defence Force.",
+
+    whom: "People in India who spent a long part of their childhood in Australia or served in the AU military but lost their residency.",
+
+    rules: "Must have spent a total of 9 years in Australia as a child before turning 18. Must apply before age 45.",
+
+    prosCons: "Pros: Permanent pathway for those with deep roots. Cons: Very specific eligibility, expensive, long wait times.",
+
+    terms: "Long-term resident: 9 years stay; ADF: Australian Defence Force.",
+
+    legal: "Migration Regulations 1994 (Subclass 151).",
+
+    process: `1. Collect old school records and childhood passports -> 
+              2. Lodge 151 application -> 
+              3. Undergo medical and character checks -> 
+              4. PR Visa Grant.`
+},
+
+
+
+"AustraliaSponsoredParent870": {
+    name: "Sponsored Parent (Temporary) Visa (Subclass 870)",
+
+    validity: "3 or 5 years per visa. Can be renewed for a maximum total stay of 10 years in Australia.",
+
+    cost: "Sponsorship fee: AUD $420. Visa fee: AUD $5,735 (3 years) or AUD $11,470 (5 years) (~₹3.1L – ₹6.3L).",
+
+    time: "4–6 months. Sponsorship application takes 1–2 months; Visa takes 3–4 months.",
+
+    age: "Parent of an Australian Citizen, PR, or Eligible NZ Citizen.",
+
+    education: "No requirement.",
+
+    funds: "The child (sponsor) must have a minimum taxable income of AUD $83,454.80 per year.",
+
+    docs: "Relationship proof (birth certificates), sponsor's tax assessments (NOAs), health insurance (mandatory), and police clearances.",
+
+    whom: "Indian parents of Australians who want to stay for several years but do not wish to apply for Permanent Residency.",
+
+    rules: "NO work rights allowed. No Balance of Family test (unlike other parent visas). Must leave Australia for at least 90 days between 5-year grants.",
+
+    prosCons: "Pros: No balance of family test, long duration, faster than PR. Cons: Very expensive, zero work rights, no pathway to PR or Medicare.",
+
+    terms: "Income Threshold: The amount the child must earn; Temporary Stay: Non-immigrant intent.",
+
+    legal: "Migration Regulations 1994 (Subclass 870).",
+
+    process: `1. Child applies for 'Parent Sponsor' approval -> 
+              2. Once sponsor approved, parent lodges visa -> 
+              3. Buy health insurance -> 
+              4. Visa Grant -> 
+              5. Enter Australia.`
+},
+
+"AustraliaContributoryParentTemp173": {
+    name: "Contributory Parent (Temporary) Visa (Subclass 173)",
+
+    validity: "2 years. This is a temporary 'step' visa designed to bridge to the permanent Subclass 143 visa.",
+
+    cost: "First stage: AUD $3,210 (~₹1.8L). Second stage (before grant): AUD $29,130 (~₹16L). Total ~₹18L.",
+
+    time: "Current queue: 6–12 years depending on the global cap.",
+
+    age: "No age limit.",
+
+    education: "No requirement.",
+
+    funds: "Must pass the Balance of Family test (at least half your children live in AU).",
+
+    docs: "Birth certificates, sponsorship forms, balance of family proof, and health/police checks.",
+
+    whom: "Parents who want to migrate to Australia but want to split the AUD $48,000 PR fee into two payments over two years.",
+
+    rules: "Must apply for the permanent 143 visa within 2 years of holding this 173 visa. Holder has work and study rights.",
+
+    prosCons: "Pros: Splits high costs, provides work rights. Cons: Extremely long queue, very high overall cost.",
+
+    terms: "Contributory: Paying a high government fee to access a capped queue.",
+
+    legal: "Migration Act 1958.",
+
+    process: `1. Lodge 173 -> 2. Wait in the multi-year queue -> 3. Pay high second installment -> 4. Temporary Grant -> 5. Lodge 143 within 2 years.`
+},
+
+"AustraliaAgedDependentRelative114": {
+    name: "Aged Dependent Relative Visa (Subclass 114 & 838)",
+
+    validity: "Permanent Residence (PR). Indefinite stay.",
+
+    cost: "AUD $5,125 (~₹2.8L). Plus biometrics and medicals.",
+
+    time: "Capped and Queued: Current estimated wait is 30–50 years (effectively unusable for new applicants).",
+
+    age: "Must be old enough to receive the Australian age pension (currently 67+).",
+
+    education: "No requirement.",
+
+    funds: "Must prove total financial dependency on a relative in Australia for at least 3 years prior to application.",
+
+    docs: "Proof of age, proof of single status (widowed/divorced), financial dependency evidence (bank transfers/bills), and AU relative's sponsorship.",
+
+    whom: "Indian elderly relatives who are single and rely entirely on their Australian kin for basic needs.",
+
+    rules: "Relative in Australia must be a Citizen/PR. Applicant must be single. Must meet the 'Aged' definition.",
+
+    prosCons: "Pros: Permanent residence. Cons: Effectively closed due to 50-year wait times, very strict dependency rules.",
+
+    terms: "Aged: Pension age; Dependent: Unable to survive without AU relative's money.",
+
+    legal: "Migration Act 1958.",
+
+    process: `1. Gather 3 years of financial support proof -> 2. Relative sponsors -> 3. Lodge application -> 4. Enter the lifelong queue.`
+},
+
+"AustraliaOrphanRelative117": {
+    name: "Orphan Relative Visa (Subclass 117 & 837)",
+
+    validity: "Permanent Residence (PR). Indefinite stay.",
+
+    cost: "AUD $1,995 (~₹1.1L).",
+
+    time: "12–24 months.",
+
+    age: "Child must be under 18 years of age.",
+
+    education: "No requirement.",
+
+    funds: "No specific requirement; sponsor (relative) must provide for the child.",
+
+    docs: "Proof that both parents are deceased, permanently incapacitated, or missing. Consent from local child welfare authorities in India.",
+
+    whom: "Indian children who have lost their parents and have a close relative in Australia ready to care for them.",
+
+    rules: "Sponsor must be an AU Citizen/PR and be the child's brother, sister, grandparent, aunt, or uncle.",
+
+    prosCons: "Pros: Safe haven for orphans, full residency rights. Cons: High evidence threshold for the status of the parents.",
+
+    terms: "Orphan: Legally defined as having parents who cannot provide care; 117: Offshore; 837: Onshore.",
+
+    legal: "Migration Regulations 1994.",
+
+    process: `1. Obtain legal death/medical certificates of parents -> 2. Relative sponsors child -> 3. Lodge visa -> 4. Health check -> 5. PR Grant.`
+},
+
+"AustraliaDependentChild445": {
+    name: "Dependent Child Visa (Subclass 445)",
+
+    validity: "Temporary. Valid until the parent's permanent partner visa (801 or 100) is decided.",
+
+    cost: "AUD $3,110 (~₹1.7L).",
+
+    time: "6–12 months.",
+
+    age: "Under 18, or 18–25 if a full-time student and dependent.",
+
+    education: "No requirement.",
+
+    funds: "Sponsoring parent must show support ability.",
+
+    docs: "Birth certificates, parent's current temporary partner visa grant, and identity documents.",
+
+    whom: "Children of people who hold a temporary partner visa (309 or 820) and were not included in the original application.",
+
+    rules: "The child must be added to the parent's permanent visa application after this visa is granted.",
+
+    prosCons: "Pros: Reunites children with parents already in Australia. Cons: High fee for a 'catch-up' visa.",
+
+    terms: "Add-on: Including a member after the main application was lodged.",
+
+    legal: "Migration Regulations 1994.",
+
+    process: `1. Parent holds 309/820 visa -> 2. Lodge 445 for child -> 3. Child enters AU -> 4. Add child to parent's PR application.`
+},
+
+
+"AustraliaProtectionVisa866": {
+    name: "Protection Visa (Subclass 866)",
+
+    validity: "Permanent Residence (PR). Indefinite stay.",
+
+    cost: "AUD $45 (~₹2,500).",
+
+    time: "Highly variable; 6 months to 3+ years depending on identity and security clearance.",
+
+    age: "No age limit.",
+
+    education: "No requirement.",
+
+    funds: "No requirement.",
+
+    docs: "Detailed statement of fear, evidence of persecution (legal/medical/media), and identity documents.",
+
+    whom: "People already in Australia on another visa who fear returning to their home country due to persecution.",
+
+    rules: "Must engage Australia's protection obligations under the Refugee Convention. Must pass rigorous security and character checks.",
+
+    prosCons: "Pros: Full safety and residency rights. Cons: Extremely high scrutiny, restricted travel to home country forever.",
+
+    terms: "Asylum: Seeking safety; Refugee: Person fleeing harm.",
+
+    legal: "Migration Act 1958.",
+
+    process: `1. Arrive in AU on any visa -> 2. Lodge 866 -> 3. Protection Interview -> 4. Security clearance -> 5. PR Grant.`
+},
+
+"AustraliaMaritimeCrew988": {
+    name: "Maritime Crew Visa (Subclass 988)",
+
+    validity: "3 years. Multiple entry by sea.",
+
+    cost: "Free (₹0).",
+
+    time: "1–4 days.",
+
+    age: "No age limit.",
+
+    education: "Must be a qualified crew member of a non-military vessel.",
+
+    funds: "Employer handles all financial support.",
+
+    docs: "Seafarer Identity Document (SID), employment contract, and passport.",
+
+    whom: "Crew members of commercial ships, tankers, cruise ships, or research vessels from India entering AU ports.",
+
+    rules: "Must enter by sea. Cannot work on land or join a different ship without permission.",
+
+    prosCons: "Pros: Free and very fast. Cons: Strictly sea-based; no land employment.",
+
+    terms: "Seafarer: Maritime worker; 988: Standard crew visa.",
+
+    legal: "Migration Act 1958.",
+
+    process: `1. Ship operator lodges application -> 2. Instant Grant -> 3. Arrive at port.`
+},
+
+"AustraliaBridgingVisaD040": {
+    name: "Bridging Visa D (Subclass 040/041)",
+
+    validity: "Up to 5 days only.",
+
+    cost: "Free.",
+
+    time: "Immediate.",
+
+    docs: "Evidence of an attempt to lodge a substantive visa.",
+
+    whom: "People whose visa has expired and they need a few days to prepare a new application.",
+
+    rules: "No work rights. No travel rights. Must fix status within 5 days.",
+
+    terms: "BVD: Short-term emergency bridge.",
+
+    legal: "Migration Act 1958.",
+
+    process: `1. Visa expires -> 2. Lodge BVD request -> 3. Receive 5-day window.`
+},
+
+"AustraliaBridgingVisaF060": {
+    name: "Bridging Visa F (Subclass 060)",
+
+    validity: "30 to 90 days.",
+
+    cost: "Free.",
+
+    whom: "Suspected victims of human trafficking, slavery, or forced labor.",
+
+    rules: "Allows the person to stay while police investigate the crime. Includes basic support.",
+
+    terms: "BVF: Protection for trafficking victims.",
+
+    legal: "Migration Act 1958.",
+
+    process: `1. Police identify victim -> 2. Home Affairs issues pass.`
+},
+
+"AustraliaBridgingVisaR070": {
+    name: "Bridging Visa R (Subclass 070)",
+
+    validity: "Indefinite stay until removal is possible.",
+
+    cost: "Free.",
+
+    whom: "People who have no visa but cannot be removed from Australia (e.g., no passport or home country won't take them).",
+
+    rules: "Strict reporting to police. Usually removal-pending.",
+
+    terms: "BVR: Removal pending bridge.",
+
+    legal: "Migration Act 1958.",
+
+    process: `1. Visa cancelled + deportation impossible -> 2. Issue BVR.`
+},
+
+"AustraliaSpecialCategoryVisa444": {
+    name: "Special Category Visa (Subclass 444 – New Zealand Citizens, Australia)",
+
+    validity: "Temporary but indefinite stay. Granted automatically on entry to Australia for New Zealand citizens and remains valid as long as the person remains a New Zealand citizen and meets entry requirements. Not a permanent visa, but allows long-term residence and work.",
+
+    cost: "No visa application fee (granted automatically on arrival). Biometrics ~₹1,500–₹3,000 (if requested) + medical checks only if required due to health/security concerns.",
+
+    time: "Granted automatically at the Australian border at the time of entry for eligible New Zealand citizens (no separate processing time).",
+
+    age: "No age restriction.",
+
+    education: "No requirement.",
+
+    funds: "No formal proof of funds required, but traveller must satisfy general entry requirements and character/health standards if assessed.",
+
+    docs: "Valid New Zealand passport, arrival passenger card, identity documents, and compliance with Australian entry requirements. Additional documents only if requested (health/character checks, police clearance in special cases).",
+
+    whom: "New Zealand citizens travelling to Australia who wish to live, work, or study in Australia. This visa is automatically granted to most NZ passport holders upon arrival (unless excluded due to health or character issues).",
+
+    rules: "Must be a New Zealand citizen holding a valid NZ passport. Must meet Australian character and health requirements. Can live and work indefinitely in Australia, but this visa is not a permanent residence visa. Certain serious criminal records or security concerns may lead to refusal. Not available to non-NZ citizens.",
+
+    prosCons: "Pros: Automatic grant on arrival, unlimited work and study rights, no application process, long-term residence option for NZ citizens, access to Medicare in many cases. Cons: Not permanent residency, limited pathway to Australian citizenship unless PR pathway is later obtained, can be cancelled based on character/health issues, weaker security of stay compared to PR visas.",
+
+    terms: "Subclass 444: Special Category Visa; New Zealand Citizen: Eligible nationality group; Protected SCV Holder: Long-term residents who may qualify for PR pathways; Medicare Eligibility: Healthcare access status for eligible SCV holders.",
+
+    legal: "Migration Act 1958 (Australia) + Migration Regulations 1994 (Special Category Visa provisions under Subclass 444 and Trans-Tasman Travel Arrangement).",
+
+    process: `1. Hold a valid New Zealand passport -> 
+              2. Travel to Australia -> 
+              3. Arrive at Australian border control -> 
+              4. Meet character and health entry requirements -> 
+              5. SCV (Subclass 444) granted automatically on entry -> 
+              6. Allowed to live, work, and study in Australia -> 
+              7. Maintain New Zealand citizenship status -> 
+              8. Remains valid while in Australia and eligible -> 
+              9. May apply for permanent residency later if eligible under specific pathways -> 
+              10. Visa ceases if you leave Australia and are no longer eligible on re-entry or lose NZ citizenship.`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>

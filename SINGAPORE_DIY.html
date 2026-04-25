@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singapore: DIY vs PLACEMENT AGENCIES</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --white: #ffffff;
+            --black: #000000;
+            --shadow: rgba(0, 0, 0, 0.15);
+            --intense-bevel: inset 8px 8px 15px rgba(255,255,255,0.9), inset -8px -8px 15px rgba(0,0,0,0.08);
+        }
+
+        body {
+            margin: 0; padding: 40px 0;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; background-color: var(--white);
+            font-family: 'Montserrat', sans-serif; overflow-x: hidden;
+            flex-direction: column;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 60px;
+            border-radius: 40px;
+            border: 2px solid var(--aqua);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 30px 60px var(--shadow), var(--intense-bevel);
+            max-width: 1000px;
+            width: 95%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.2) 100%);
+            pointer-events: none; border-radius: 40px;
+        }
+
+        h1 {
+            font-size: 2.8rem; font-weight: 900; color: var(--black);
+            text-transform: uppercase; letter-spacing: 4px; text-align: center;
+            margin-bottom: 50px; text-decoration: underline; text-decoration-color: var(--aqua);
+            text-underline-offset: 15px;
+        }
+
+        .section-card {
+            background: white;
+            border: 2px solid var(--black);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: var(--intense-bevel), 10px 10px 0px var(--aqua);
+        }
+
+        .section-header {
+            font-size: 1.4rem; font-weight: 900; background: var(--black);
+            color: var(--aqua); display: inline-block; padding: 10px 25px;
+            transform: skewX(-10deg); margin-bottom: 30px; text-transform: uppercase;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+        .process-box { padding: 25px; border-radius: 15px; background: #f9f9f9; border: 1px solid #eee; }
+        .process-box h3 { text-transform: uppercase; font-weight: 900; border-bottom: 3px solid var(--black); padding-bottom: 10px; margin-bottom: 20px; }
+
+        .step { margin-bottom: 25px; padding-left: 15px; border-left: 4px solid var(--aqua); }
+        .step b { display: block; text-transform: uppercase; font-size: 0.85rem; color: #555; }
+        .step span { font-weight: 700; color: var(--black); font-size: 0.95rem; display: block; margin-top: 5px; }
+        .step small { color: #ff4757; font-weight: 900; text-transform: uppercase; font-size: 0.7rem; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border-radius: 15px; overflow: hidden; }
+        th, td { padding: 15px; border: 1px solid #eee; text-align: center; font-size: 0.9rem; }
+        th { background: var(--black); color: var(--aqua); text-transform: uppercase; font-size: 0.75rem; }
+        .highlight-row { background: #f0fffb; font-weight: 900; font-size: 1.1rem; }
+
+        .conclusion-box { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .pro-con-card { padding: 25px; border-radius: 20px; }
+        .pro-bg { background: #e6fff7; border: 2px solid #00c853; }
+        .con-bg { background: #fff5f5; border: 2px solid #ff5252; }
+
+        .warning-box { background: #fff1f2; border: 2px dashed #ff4757; padding: 25px; border-radius: 20px; color: #ff4757; text-align: center; margin-bottom: 40px; }
+
+        @media (max-width: 800px) { .grid-2, .conclusion-box { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Singapore Work Pass: DIY vs AGENCY</h1>
+
+    <div class="warning-box">
+        <h2 style="margin-top:0;">🚨 THE SINGAPORE COMPASS REALITY</h2>
+        <p style="font-weight:700;">Singapore has the world's most transparent immigration system. Under the new <b>COMPASS</b> framework, your visa is decided by an algorithm based on Salary, Education, and Skills. If an agency claims they have "internal quotas" or "settings" with the Ministry of Manpower (MOM), they are 100% lying. You cannot "buy" your way into Singapore.</p>
+    </div>
+
+    <!-- SECTION 1: DETAILED PROCESS -->
+    <div class="section-card">
+        <div class="section-header">1. End-to-End Immigration Lifecycle</div>
+        
+        <div style="background:var(--black); color:var(--white); padding:20px; border-radius:15px; margin-bottom:30px; font-size:0.85rem;">
+            <b style="color:var(--aqua); text-transform:uppercase;">Technical Glossary:</b><br><br>
+            • <b>MOM:</b> Ministry of Manpower (The body that issues all Work Passes).<br>
+            • <b>EP / S Pass:</b> The two main work passes for Indian professionals.<br>
+            • <b>IPA:</b> In-Principle Approval (The digital letter that lets you fly to Singapore).<br>
+            • <b>COMPASS:</b> The points system (Complementarity Assessment Framework) for EP applicants.
+        </div>
+
+        <div class="grid-2">
+            <!-- AGENCY SIDE -->
+            <div class="process-box">
+                <h3 style="background:var(--black); color:var(--aqua); padding:10px; text-align:center;">🏢 Agency Workflow</h3>
+                <div class="step"><b>Step 1: Salary Check</b><span>Agency checks if your profile can fetch the minimum EP salary (S$5,000+).</span><small>Time: 2 Days</small></div>
+                <div class="step"><b>Step 2: CV "Branding"</b><span>They rewrite your resume to include "Singapore Tech Keywords." They charge a premium fee for this.</span><small>Time: 1 Week</small></div>
+                <div class="step"><b>Step 3: The "Placement"</b><span>They connect you to a manpower agency in Singapore who "sells" a job spot for a bribe.</span><small>Time: 1-3 Months</small></div>
+                <div class="step"><b>Step 4: Educational Verification</b><span>They handle the mandatory verification through bodies like Dataflow. Often they add a massive markup.</span><small>Time: 2-4 Weeks</small></div>
+                <div class="step"><b>Step 5: EP Online Filing</b><span>The agency/employer files via the <b>MOM</b> portal. You never see the actual application.</span><small>Time: 10 Days</small></div>
+                <div class="step"><b>Step 6: IPA Collection</b><span>They send you the IPA PDF and charge you a "Final Success Fee" before flying.</span><small>Time: 48 Hours</small></div>
+                <div class="step"><b>Step 7: EPSC Appointment</b><span>In Singapore, an agent rep takes you to the Employment Pass Service Centre for thumbprints.</span><small>Time: 1 Week</small></div>
+                <div class="step"><b>Step 8: Pass Issuance</b><span>They deliver the physical card. You are now tied to the sponsoring employer.</span><small>Time: 4 Days</small></div>
+            </div>
+
+            <!-- DIY SIDE -->
+            <div class="process-box">
+                <h3 style="background:var(--aqua); color:var(--black); padding:10px; text-align:center;">🧾 DIY Workflow</h3>
+                <div class="step"><b>Step 1: Direct Job Hunt</b><span>You apply via <a href="https://www.mycareersfuture.gov.sg" target="_blank">MyCareersFuture</a> or LinkedIn directly to SG firms.</span><small>Time: 1-4 Months</small></div>
+                <div class="step"><b>Step 2: Clean CV Prep</b><span>You create a professional, data-driven CV. No photo or personal details required for SG MNCs.</span><small>Time: 2 Days</small></div>
+                <div class="step"><b>Step 3: Direct Interview</b><span>You clear technical rounds with a real Singaporean company. The job offer is 100% legal.</span><small>Time: 2-4 Weeks</small></div>
+                <div class="step"><b>Step 4: Direct Verification</b><span>You verify your own degree via <a href="https://www.dataflowgroup.com" target="_blank">Dataflow</a> for approx S$200. No markup.</span><small>Time: 3 Weeks</small></div>
+                <div class="step"><b>Step 5: Official MOM Status</b><span>Your employer files the EP. You can check the status on the official <a href="https://www.mom.gov.sg" target="_blank">MOM</a> portal yourself.</span><small>Time: Instant</small></div>
+                <div class="step"><b>Step 6: Direct IPA Access</b><span>You receive the IPA directly from your HR. You know the REAL salary and benefits.</span><small>Time: 1 Hour</small></div>
+                <div class="step"><b>Step 7: EPSC Direct Booking</b><span>You book your own fingerprints appointment online and visit Clarke Quay EPSC yourself.</span><small>Time: 1 Day</small></div>
+                <div class="step"><b>Step 8: Self-Managed Pass</b><span>You receive your EP Card via mail. You own your professional identity in Singapore.</span><small>Time: 3 Days</small></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: FEE COMPARISON -->
+    <div class="section-card">
+        <div class="section-header">2. Financial Audit (INR)</div>
+        <div class="grid-2">
+            <div>
+                <h4 style="text-align:center;">DIY EXPENDITURE</h4>
+                <table>
+                    <tr><th>Stage</th><th>Cost</th></tr>
+                    <tr><td>Degree Verification</td><td>₹15,000</td></tr>
+                    <tr><td>Visa Fee (EP)</td><td>₹0 (Employer Pays)</td></tr>
+                    <tr><td>Flight Ticket</td><td>₹25,000</td></tr>
+                    <tr><td>PCC (India)</td><td>₹500</td></tr>
+                    <tr class="highlight-row"><td>TOTAL</td><td>~ ₹40,500</td></tr>
+                </table>
+            </div>
+            <div>
+                <h4 style="text-align:center;">AGENCY EXPENDITURE</h4>
+                <table>
+                    <tr><th>Stage</th><th>Cost</th></tr>
+                    <tr><td>"Job Package" Bribe</td><td>₹4L - ₹10L</td></tr>
+                    <tr><td>Placement Fee</td><td>1-2 Months Salary</td></tr>
+                    <tr><td>Verification Markup</td><td>₹30,000</td></tr>
+                    <tr><td>Documentation Service</td><td>₹50,000</td></tr>
+                    <tr class="highlight-row" style="background: #fff1f2; color:#ff4757;"><td>TOTAL</td><td>₹6 - ₹20 LACS</td></tr>
+                </table>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:20px; font-weight:900; font-size:1.5rem; color:#ff4757;">AGENCY OVERCHARGE: ₹15,00,000+</div>
+    </div>
+
+    <!-- SECTION 3: TIME & RISK -->
+    <div class="section-card">
+        <div class="section-header">3. Timeline & Critical Risks</div>
+        <div class="grid-2">
+            <div class="process-box">
+                <h4 style="margin:0 0 15px 0;">TIMELINE</h4>
+                <p>• <b>Job Search:</b> 2-5 months (Direct apps)</p>
+                <p>• <b>MOM Approval:</b> 10 working days (EP) / 3 weeks (S Pass)</p>
+                <p>• <b>Card Delivery:</b> 4-5 days after fingerprints</p>
+                <p><b>Note:</b> Singapore has the most efficient processing. Any agent claiming "special speed" is lying.</p>
+            </div>
+            <div class="process-box" style="border-color:#ff4757;">
+                <h4 style="margin:0 0 15px 0; color:#ff4757;">THE "REJECTION" RISKS</h4>
+                <p>• <b>MOM Blacklist:</b> If your agent submits fake verification, you are banned for life.</p>
+                <p>• <b>Salary Inflation:</b> Agency claims high salary to get EP, but you get paid less in cash.</p>
+                <p>• <b>Quota Revocation:</b> If the company's foreign-to-local ratio fails, your visa is cancelled.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: SUCCESS FACTORS -->
+    <div class="section-card">
+        <div class="section-header">4. What Actually Decides Success in SG?</div>
+        <div style="display:flex; flex-direction:column; gap:15px;">
+            <div class="step"><b>1. Salary Threshold</b><span>For EP, you must earn at least S$5,000 (S$10,500 for Finance). Agencies cannot bypass this.</span></div>
+            <div class="step"><b>2. COMPASS Score</b><span>You must score 40 points based on salary, qualifications, diversity, and local support.</span></div>
+            <div class="step"><b>3. MNC Branding</b><span>Working for top-tier companies increases your Employment Pass approval odds Masively.</span></div>
+            <div class="step"><b>4. Direct HR Reach</b><span>Singaporean HRs value LinkedIn transparency over "middleman" agencies.</span></div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: FINAL CONCLUSION -->
+    <div class="section-card">
+        <div class="section-header">5. Final Verdict</div>
+        <div class="conclusion-box">
+            <div class="pro-con-card pro-bg">
+                <h4 style="color:#00c853;">PROS of DIY</h4>
+                <p>✔ Career Growth: You land in SG with a clean reputation and no debt.</p>
+                <p>✔ Legal Security: Your EP is based on your real merit and MOM approval.</p>
+                <p>✔ Financial Freedom: You keep ₹15 Lakhs for your high SG rental costs.</p>
+            </div>
+            <div class="pro-con-card con-bg">
+                <h4 style="color:#ff5252;">CONS of AGENCY</h4>
+                <p>✖ Exploitative Debt: Starting a life in a new country with a ₹10L loan is crushing.</p>
+                <p>✖ Fraught with Fraud: Many "Desi" consultancies in SG are under MOM investigation.</p>
+                <p>✖ No Guarantee: If MOM says NO, the agent will never refund your money.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px; text-align: center; background: var(--black); color: var(--white); padding: 30px; border-radius: 20px; font-weight: 900; border: 4px solid var(--aqua);">
+            FINAL VERDICT: In Singapore, "Algorithm is King." No agent can beat the COMPASS framework. Apply directly on LinkedIn or MyCareersFuture—your skills are your only sponsorship. Don't pay for a visa that the SG government mandates to be free for the worker.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

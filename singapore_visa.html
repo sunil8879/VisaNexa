@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* USA Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="SINGAPORE">SINGAPORE</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+       <select id="visaType">
+    <optgroup label="1. Visitor & Transit">
+        <option value="SingaporeTouristVisaShortTermVisitPass">Tourist Visa (STVP)</option>
+        <option value="SingaporeBusinessVisitVisaSTVP">Business Visit Visa</option>
+        <option value="SingaporeSocialVisitVisaSTVP">Social Visit Visa</option>
+        <option value="SingaporeTransitVisaVFTF">Transit Visa (96-hour VFTF)</option>
+        <option value="SingaporeShortTermVisitPassExtension">STVP Extension</option>
+    </optgroup>
+
+    <optgroup label="2. Work Passes (Skilled & Professional)">
+        <option value="SingaporeEmploymentPassEP">Employment Pass (EP)</option>
+        <option value="SingaporeSPassMidSkilledWorkers">S Pass (Mid-Skilled)</option>
+        <option value="SingaporeOverseasNetworksExpertiseONEPass">ONE Pass (Elite Talent)</option>
+        <option value="SingaporeEntrePassStartupFounders">EntrePass (Founders)</option>
+        <option value="SingaporeMiscellaneousWorkPassShortTerm">Miscellaneous Work Pass</option>
+    </optgroup>
+
+    <optgroup label="3. Work Permits (Skilled & Semi-Skilled)">
+        <option value="SingaporeWorkPermitSemiSkilled">Work Permit (Regular)</option>
+        <option value="SingaporeWorkPermitMigrantDomesticWorker">Migrant Domestic Worker (MDW)</option>
+        <option value="SingaporeWorkPermitConfinementNanny">Confinement Nanny Permit</option>
+    </optgroup>
+
+    <optgroup label="4. Study & Training">
+        <option value="SingaporeStudentPassFullTimeStudies">Student Pass</option>
+        <option value="SingaporeTrainingEmploymentPassTEP">Training Employment Pass (TEP)</option>
+        <option value="SingaporeWorkHolidayPassYoungGraduatesStudents">Work Holiday Pass</option>
+        <option value="SingaporeInternshipIndustrialTrainingPass">Internship / Industrial Training</option>
+        <option value="SingaporeResearchAcademicVisitorPass">Research / Academic Visitor</option>
+    </optgroup>
+
+    <optgroup label="5. Family & Dependants">
+        <option value="SingaporeDependantPass">Dependant's Pass (DP)</option>
+        <option value="SingaporeLongTermVisitPassLTVP">Long-Term Visit Pass (LTVP)</option>
+        <option value="SingaporeLongTermVisitPassPlusLTVPPlus">LTVP+ (Enhanced)</option>
+        <option value="SingaporeStudentDependantVisa">Student Dependant Pass</option>
+    </optgroup>
+
+    <optgroup label="6. Permanent Residence (PR)">
+        <option value="SingaporePTS_PR_Scheme">PR - PTS Scheme (Work)</option>
+        <option value="SingaporeGlobalInvestorProgrammePRRoute">PR - Global Investor (GIP)</option>
+        <option value="SingaporeForeignArtisticTalentSchemePR">PR - Artistic Talent (FATS)</option>
+        <option value="SingaporeFamilyBasedPRScheme">PR - Family Scheme</option>
+        <option value="SingaporeReEntryPermitPR">Re-Entry Permit (REP)</option>
+    </optgroup>
+
+    <optgroup label="7. Special & Medical">
+        <option value="SingaporeMedicalTreatmentVisitVisaSTVP">Medical Treatment Visa</option>
+        <option value="SingaporeSpecialPassGovernmentApproved">Special Pass (Gov Approved)</option>
+        <option value="SingaporeImmigrationSpecialPassCaseReview">Special Pass (Case Review)</option>
+    </optgroup>
+
+
+
+    <optgroup label="8. Extras">
+        <option value="SingaporePersonalisedEmploymentPassPEP">Personalised employment pass</option>
+        <option value="SingaporeLetterOfConsentLOC">Letter of consent</option>
+        <option value="SingaporePreApprovedLOC">PLOC</option>
+     <option value="SingaporeWorkHolidayPassWHP">Work holiday pass</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF SINGAPORE MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇸🇬 VIEW SINGAPORE IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇸🇬 GENERAL PROCESS FOR SINGAPORE IMMIGRATION</h1>
+
+        <h2>🧭 STEP 1 & 2: IDENTIFY PURPOSE & CHOOSE PASS</h2>
+        <p>First decide your immigration category and match it to the correct pass:</p>
+        <ul>
+            <li><strong>Tourism:</strong> Short-Term Visit Pass (STVP).</li>
+            <li><strong>Study:</strong> Student Pass.</li>
+            <li><strong>Work:</strong> Employment Pass (EP), S Pass, or Work Permit.</li>
+            <li><strong>Business:</strong> EntrePass or ONE Pass.</li>
+            <li><strong>Investment:</strong> Global Investor Programme (GIP).</li>
+            <li><strong>Family:</strong> Dependant Pass, LTVP, or LTVP+.</li>
+            <li><strong>Permanent Residency:</strong> PR via PTS, Family, or GIP schemes.</li>
+        </ul>
+
+        <h2>📝 STEP 3: SECURE CORE REQUIREMENTS</h2>
+        <p>Depending on category, obtain your basis for entry: University admission for students, a job offer from a Singapore employer for workers, or a business plan for entrepreneurs.</p>
+
+        <h2>📑 STEP 4 & 5: ONLINE SUBMISSION & DOCUMENTS</h2>
+        <p>Applications are submitted via ICA, MOM, or EDB portals. Standard documents include: Passport, photos, offer/admission letters, financial proof, education certificates, and medical reports if requested.</p>
+
+        <h2>💳 STEP 6 & 7: FEES & PROCESSING</h2>
+        <p>Pay application fees (SGD 30–225 typical). Wait times vary: Visit visas (1–3 days), Work/Study passes (2–8 weeks), PR/Investor visas (6–12 months).</p>
+
+        <h2>🛬 STEP 8 & 9: APPROVAL, ENTRY & COLLECTION</h2>
+        <p>Receive your <strong>In-Principle Approval (IPA)</strong> or visa. Travel to Singapore, clear immigration, and complete biometrics to collect your physical pass card (Student Pass, EP, or PR confirmation).</p>
+
+        <h2>🔁 STEP 10: RENEWAL & PR CONVERSION</h2>
+        <p>Renew passes before expiry. After working or staying for the eligible number of years, you may apply for Permanent Residency (PR) through the ICA.</p>
+
+        <div style="background: #eee; padding: 10px; font-weight: bold; border-left: 5px solid var(--black);">
+            📊 SUMMARY: Choose Pass → Get Job/Admission → Apply Online → Wait Approval → Enter SG → Collect Pass → PR Option Later
+        </div>
+
+        <div class="official-box">
+            <h1>🇸🇬 OFFICIAL SINGAPORE IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Immigration & Checkpoints Authority (ICA):</strong> <a href="https://www.ica.gov.sg" target="_blank">www.ica.gov.sg</a></p>
+            <p><strong>2. Ministry of Manpower (MOM):</strong> <a href="https://www.mom.gov.sg" target="_blank">www.mom.gov.sg</a></p>
+            <p><strong>3. Economic Development Board (EDB - GIP):</strong> <a href="https://www.edb.gov.sg" target="_blank">www.edb.gov.sg</a></p>
+            <p><strong>4. Student Pass (SOLAR System):</strong> <a href="https://www.ica.gov.sg/reside/STP" target="_blank">www.ica.gov.sg/reside/STP</a></p>
+            <p><strong>5. General Government Portal:</strong> <a href="https://www.gov.sg" target="_blank">www.gov.sg</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: USE ONLY OFFICIAL .GOV.SG WEBSITES. AVOID UNAUTHORIZED THIRD-PARTY SITES.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "SINGAPORE": {
+    "SingaporeTouristVisaShortTermVisitPass": {
+    name: "Tourist Visa (Short-Term Visit Pass – Singapore)",
+
+    validity: "Usually allows stay up to 14–30 days per entry. In some cases, immigration officers may extend stay up to 90 days based on discretion and travel history.",
+
+    cost: "Approx SGD 30 (~₹1,800–₹2,000) visa fee for Indian applicants. Additional service charges may apply if applied via authorized agents.",
+
+    time: "Processing time usually 1–3 working days after submission (can extend up to 5–7 days in some cases).",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Recommended proof of sufficient funds: SGD 1,000–SGD 2,000 (~₹60,000–₹1,20,000) depending on duration of stay and travel plan.",
+
+    docs: "Valid passport (6+ months validity), completed visa application form (Form 14A), recent passport-size photo, confirmed return flight tickets, hotel booking or accommodation proof, bank statements (last 3–6 months), cover letter stating purpose of visit, employment proof (if working) or student ID (if applicable), invitation letter (if visiting family/friends in Singapore).",
+
+    whom: "Tourists, leisure travelers, and individuals visiting friends or family in Singapore for short stays (holiday, sightseeing, social visits).",
+
+    rules: "No employment or business activity allowed. Must leave Singapore before visa expiry. Must comply with immigration rules and may be required to show return ticket and financial proof at entry.",
+
+    prosCons: "Pros: Fast processing, simple documentation, high approval rate for genuine tourists, safe and well-regulated country. Cons: Very short stay duration, no work rights, strict immigration checks at entry.",
+
+    terms: "Short-Term Visit Pass (STVP): Temporary permission to stay in Singapore; ICA: Immigration & Checkpoints Authority of Singapore; Overstay: Staying beyond permitted duration (illegal); Entry Approval: Final permission granted at immigration checkpoint.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA).",
+
+    process: `1. Prepare travel plan and documents ->
+              2. Apply via ICA-approved agent or sponsor in Singapore ->
+              3. Submit application form and documents ->
+              4. Pay visa fee ->
+              5. ICA reviews application ->
+              6. Visa approval issued (if approved) ->
+              7. Travel to Singapore ->
+              8. Immigration clearance at airport ->
+              9. Short-Term Visit Pass issued at entry ->
+              10. Stay in Singapore within allowed duration ->
+              11. Exit before visa expiry`
+},
+
+"SingaporeBusinessVisitVisaSTVP": {
+    name: "Business Visit Visa (Short-Term Visit Pass – Business, Singapore)",
+
+    validity: "Usually allows stay of 14–30 days per entry. Immigration officers may grant up to 90 days in special cases depending on invitation and travel history.",
+
+    cost: "Approx SGD 30 (~₹1,800–₹2,000) visa fee. Additional service charges may apply if applied via authorized agents or sponsors.",
+
+    time: "Processing time usually 1–3 working days (may extend up to 5–7 working days depending on verification of business documents).",
+
+    age: "No strict age limit. Typically applies to working professionals and business persons (18+).",
+
+    education: "Not mandatory, but professional/business background is usually expected.",
+
+    funds: "Recommended proof of funds: SGD 1,500–SGD 3,000 (~₹90,000–₹1.8 lakh) depending on duration and business activity. Sponsor company may also cover expenses.",
+
+    docs: "Valid passport (6+ months validity), completed Form 14A, recent passport photo, official business invitation letter from Singapore company, cover letter from Indian employer or self-employment proof, company registration documents (if applicable), bank statements (last 3–6 months), confirmed return flight tickets, hotel/accommodation proof, business meeting schedule or conference details, travel insurance (recommended).",
+
+    whom: "Business professionals, entrepreneurs, company employees, investors, and consultants traveling to Singapore for meetings, conferences, negotiations, trade fairs, or corporate events.",
+
+    rules: "No employment or salary-based work allowed in Singapore. Only short-term business activities such as meetings, conferences, and negotiations are permitted. Must leave before visa expiry.",
+
+    prosCons: "Pros: Fast processing, easy access for global business hub, strong approval for genuine business travelers, multiple entry possible in some cases. Cons: Strict purpose limitation, no work rights, short stay duration.",
+
+    terms: "Short-Term Visit Pass (STVP): Temporary stay permit; ICA: Immigration & Checkpoints Authority; Invitation Letter: Official business invitation; Overstay: Illegal stay beyond permitted period; Business Activities: Meetings, conferences, negotiations only.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA).",
+
+    process: `1. Receive business invitation from Singapore company ->
+              2. Prepare business documents and financial proof ->
+              3. Apply via ICA-approved sponsor or agent ->
+              4. Submit Form 14A and supporting documents ->
+              5. Pay visa fee ->
+              6. ICA reviews application ->
+              7. Visa approval issued ->
+              8. Travel to Singapore ->
+              9. Immigration clearance at entry ->
+              10. Short-Term Visit Pass issued ->
+              11. Attend business meetings/events ->
+              12. Exit before visa expiry`
+},
+"SingaporeSocialVisitVisaSTVP": {
+    name: "Social Visit Visa (Short-Term Visit Pass – Friends/Family Visit, Singapore)",
+
+    validity: "Usually allows stay of 14–30 days per entry. In some cases, extension up to 90 days may be granted by ICA based on circumstances and sponsor support.",
+
+    cost: "Approx SGD 30 (~₹1,800–₹2,000) visa fee. Additional service charges may apply if applied via authorized sponsor or agent.",
+
+    time: "Processing time usually 1–3 working days (may extend up to 5–7 working days depending on verification and documentation).",
+
+    age: "No strict age limit. Applicable to all age groups including minors (with guardian documentation).",
+
+    education: "Not required.",
+
+    funds: "Recommended proof of funds: SGD 1,000–SGD 2,500 (~₹60,000–₹1.5 lakh) depending on duration and stay arrangements. Sponsor in Singapore may also provide financial support or guarantee of stay.",
+
+    docs: "Valid passport (6+ months validity), completed Form 14A, recent passport-size photograph, invitation letter from friend/family in Singapore, sponsor’s NRIC or Employment Pass/PR details, proof of relationship (birth/marriage/family proof if applicable), bank statements (last 3–6 months), return flight tickets, accommodation proof (host address), cover letter stating purpose of visit, travel insurance (recommended).",
+
+    whom: "Individuals visiting friends, relatives, or family members residing in Singapore for short-term stays such as holidays, personal visits, or family events.",
+
+    rules: "No employment or business activities allowed. Must stay only with approved purpose. Must leave Singapore before visa expiry. Immigration officers may verify sponsor details at entry.",
+
+    prosCons: "Pros: Simple process, fast approval, strong acceptance for genuine family visits, flexible stay extension possible. Cons: Strict dependency on sponsor, no work rights, short stay duration.",
+
+    terms: "Short-Term Visit Pass (STVP): Temporary stay authorization; ICA: Immigration & Checkpoints Authority; Sponsor: Resident/PR/citizen hosting visitor; Overstay: Illegal stay beyond permitted duration; Entry Approval: Final decision at immigration checkpoint.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA).",
+
+    process: `1. Receive invitation from friend/family in Singapore ->
+              2. Sponsor prepares invitation and supporting documents ->
+              3. Submit visa application via ICA system or authorized agent ->
+              4. Fill Form 14A and upload documents ->
+              5. Pay visa fee ->
+              6. ICA reviews application ->
+              7. Visa approval issued ->
+              8. Travel to Singapore ->
+              9. Immigration clearance at airport ->
+              10. Short-Term Visit Pass issued ->
+              11. Stay with host during visit ->
+              12. Exit before visa expiry`
+},
+
+"SingaporeTransitVisaVFTF": {
+    name: "Transit Visa (Visa-Free Transit Facility / Short Transit Stay – Singapore)",
+
+    validity: "Visa-Free Transit Facility (VFTF) allows stay up to 96 hours (4 days) in Singapore. Not a traditional visa; it is an entry facility granted on arrival if eligibility conditions are met.",
+
+    cost: "No visa fee for Visa-Free Transit Facility (VFTF). Standard airport/immigration entry procedures apply.",
+
+    time: "No prior processing required. Approval is granted at the point of entry by Immigration & Checkpoints Authority (ICA), usually within minutes during immigration clearance.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with valid travel documents and onward tickets).",
+
+    education: "Not required.",
+
+    funds: "Recommended proof of sufficient funds: SGD 100–SGD 200 per day (~₹6,000–₹12,000 per day) depending on stay duration and travel plans.",
+
+    docs: "Valid passport (6+ months validity), confirmed onward flight ticket within 96 hours, visa for destination country (if required), completed arrival card (SG Arrival Card), proof of funds (bank statements or cash/cards), hotel booking (if staying in Singapore), travel insurance (recommended).",
+
+    whom: "Transit passengers traveling through Singapore Changi Airport en route to a third country, who qualify for Visa-Free Transit Facility or require short transit stay outside airport.",
+
+    rules: "Must continue journey to a third country within 96 hours. Must hold valid onward ticket. Must meet eligibility criteria (some nationalities require valid visas like US, UK, Australia, Canada, Japan, or Schengen visas to use VFTF). No employment or long-term stay allowed.",
+
+    prosCons: "Pros: No visa application needed, quick entry process, allows short sightseeing during layover, convenient transit hub access. Cons: Very short stay limit, strict eligibility conditions, no work or long-term stay rights.",
+
+    terms: "VFTF: Visa-Free Transit Facility; ICA: Immigration & Checkpoints Authority of Singapore; Transit: Temporary stopover between flights; Onward Ticket: Confirmed flight to third country; SG Arrival Card: Mandatory digital arrival declaration.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA).",
+
+    process: `1. Book international flight with transit through Singapore ->
+              2. Check eligibility for Visa-Free Transit Facility ->
+              3. Ensure valid onward ticket within 96 hours ->
+              4. Complete SG Arrival Card before arrival ->
+              5. Arrive at Singapore Changi Airport ->
+              6. Present documents at immigration counter ->
+              7. ICA grants entry under VFTF if eligible ->
+              8. Stay in Singapore up to 96 hours ->
+              9. Exit Singapore to final destination within allowed time`
+},
+"SingaporeMedicalTreatmentVisitVisaSTVP": {
+    name: "Medical Treatment Visit Visa (Short-Term Visit Pass – Medical, Singapore)",
+
+    validity: "Usually allows stay of 14–30 days initially. Can be extended up to 90 days or more depending on treatment plan and hospital recommendation with ICA approval.",
+
+    cost: "Approx SGD 30 (~₹1,800–₹2,000) visa fee. Hospital administrative charges and medical deposit may be additional (varies widely based on treatment).",
+
+    time: "Processing time usually 1–3 working days for visa approval. Medical case evaluation and extension requests may take longer (5–10 working days or more).",
+
+    age: "No strict age limit. Applicable to all age groups including children and elderly patients.",
+
+    education: "Not required.",
+
+    funds: "Strong proof of funds required. Recommended: SGD 5,000–SGD 20,000+ (~₹3 lakh–₹12 lakh+) depending on treatment type. Hospital may require advance deposit or sponsorship guarantee letter.",
+
+    docs: "Valid passport (6+ months validity), completed Form 14A, recent passport photo, medical report from home country doctor, acceptance/appointment letter from Singapore hospital or specialist, treatment plan with estimated cost, proof of funds (bank statements last 3–6 months), sponsor letter (if any), travel insurance (recommended or sometimes required), return or onward travel ticket (if applicable), accommodation proof in Singapore.",
+
+    whom: "Patients traveling to Singapore for medical consultation, surgery, specialized treatment, or follow-up care at accredited hospitals, along with accompanying caregivers or family members.",
+
+    rules: "Must only stay for approved medical purpose. No employment or unrelated activities allowed. Extension requires hospital recommendation and ICA approval. Must leave Singapore after treatment completion unless extended legally.",
+
+    prosCons: "Pros: Access to world-class healthcare, fast treatment scheduling, strong hospital support system, family accompaniment allowed. Cons: High medical cost, strict financial proof requirements, limited stay duration, approval depends on hospital acceptance.",
+
+    terms: "STVP: Short-Term Visit Pass; ICA: Immigration & Checkpoints Authority; Medical Referral: Hospital-issued treatment acceptance; Guarantee Letter: Financial responsibility document from sponsor/hospital; Extension: Approved stay prolongation for treatment continuation.",
+
+    legal: "Regulated under Singapore Immigration Act and managed by ICA in coordination with licensed healthcare institutions.",
+
+    process: `1. Consult doctor in home country ->
+              2. Obtain medical report and referral ->
+              3. Contact Singapore hospital and get treatment acceptance ->
+              4. Receive cost estimate and treatment schedule ->
+              5. Prepare financial proof and documents ->
+              6. Apply for Short-Term Visit Pass via ICA or sponsor ->
+              7. Submit Form 14A and medical documents ->
+              8. Pay visa fee ->
+              9. ICA reviews application with hospital input ->
+              10. Visa approval issued ->
+              11. Travel to Singapore ->
+              12. Medical check-in at hospital ->
+              13. Undergo treatment ->
+              14. Apply for extension if needed ->
+              15. Exit Singapore after recovery or treatment completion`
+},
+"SingaporeEmploymentPassEP": {
+    name: "Employment Pass (EP – Professionals, Managers, Executives, Singapore)",
+
+    validity: "Usually issued for 1–2 years initially. Renewals can be up to 3 years per renewal depending on employment status and eligibility. Long-term stay possible with continued employment.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Employer typically pays all fees.",
+
+    time: "Processing time usually 3–8 weeks depending on employer, qualifications, and Ministry of Manpower (MOM) assessment.",
+
+    age: "No strict age limit, but typically applicants are 21–60 years. Younger professionals with strong qualifications have higher approval chances.",
+
+    education: "Degree from recognized university required in most cases. In some cases, strong professional experience may substitute formal education.",
+
+    funds: "No personal funds requirement. Minimum qualifying salary is required (generally SGD 5,000–SGD 5,600+ per month, higher for experienced candidates and financial sector roles).",
+
+    docs: "Valid passport, job offer from Singapore employer, employment contract, educational certificates, professional qualifications, updated CV/resume, employer’s company details, salary details, passport photo, additional verification documents if requested by MOM.",
+
+    whom: "Highly skilled professionals, managers, executives, and specialists working in IT, finance, engineering, healthcare, consulting, and corporate sectors in Singapore.",
+
+    rules: "Must work only for sponsoring employer. Changing job requires new EP application. Must meet minimum salary threshold for renewal. Cannot engage in unauthorized employment or freelance work outside EP conditions.",
+
+    prosCons: "Pros: High-paying job opportunities, strong career growth in global hub, family can join via Dependant’s Pass, pathway to PR possible. Cons: Strict approval criteria, dependent on employer, salary threshold increases with experience.",
+
+    terms: "EP: Employment Pass; MOM: Ministry of Manpower Singapore; Sponsor: Employer in Singapore; Dependant’s Pass: Visa for spouse/children; Renewal: Extension of EP validity; PR: Permanent Residency pathway.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM).",
+
+    process: `1. Secure job offer from Singapore company ->
+              2. Employer submits EP application to MOM ->
+              3. Submit educational and professional documents ->
+              4. MOM reviews salary, qualifications, and company profile ->
+              5. Approval-in-Principle (AIP) issued if eligible ->
+              6. Applicant enters Singapore (if required) ->
+              7. Final issuance of Employment Pass ->
+              8. Start employment in Singapore ->
+              9. Apply for Dependant’s Pass (if family applicable) ->
+              10. Renew EP periodically based on employment`
+},
+
+"SingaporeSPassMidSkilledWorkers": {
+    name: "S Pass (Mid-Skilled Workers, Singapore)",
+
+    validity: "Usually issued for 1–2 years initially. Renewable up to 2–3 years depending on employment status and employer compliance with quota rules.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Employer typically pays all fees.",
+
+    time: "Processing time usually 3–6 weeks depending on employer, quota availability, and Ministry of Manpower (MOM) assessment.",
+
+    age: "No strict age limit, but typically applicants are 18–50 years. Younger skilled workers have better approval chances.",
+
+    education: "Diploma or technical qualification required (minimum post-secondary education). Relevant work experience can strengthen the application.",
+
+    funds: "No personal funds requirement. Minimum qualifying salary required (generally SGD 3,150+ per month, higher for experienced or older applicants). Employers must also comply with foreign worker quota and levy rules.",
+
+    docs: "Valid passport, job offer from Singapore employer, employment contract, educational certificates (diploma/degree), work experience proof, updated CV/resume, employer company details, salary details, passport photo, additional documents if requested by MOM.",
+
+    whom: "Mid-skilled foreign workers in sectors such as manufacturing, construction, logistics, healthcare support, hospitality, and technical services in Singapore.",
+
+    rules: "Must work only for sponsoring employer. Employer must meet quota limits for S Pass holders. Job change requires new S Pass application. Cannot engage in unauthorized employment or freelance work.",
+
+    prosCons: "Pros: Access to stable jobs in Singapore, relatively lower qualification requirement than EP, possibility to bring dependents (in some cases), pathway to higher passes with experience. Cons: Strict quota limits, employer dependency, salary threshold increases with age/experience.",
+
+    terms: "S Pass: Work pass for mid-skilled workers; MOM: Ministry of Manpower Singapore; Quota: Limit on foreign workers per company; Levy: Monthly fee paid by employer; Dependant’s Pass: Family visa for eligible S Pass holders.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM).",
+
+    process: `1. Secure job offer from Singapore employer ->
+              2. Employer checks quota eligibility ->
+              3. Submit S Pass application to MOM ->
+              4. Provide education and experience documents ->
+              5. MOM evaluates salary, qualifications, and quota ->
+              6. Approval issued if eligible ->
+              7. Enter Singapore (if required) ->
+              8. Pass issuance completed ->
+              9. Begin employment ->
+              10. Renew pass before expiry if employment continues`
+},
+"SingaporeWorkPermitSemiSkilled": {
+    name: "Work Permit (WP – Semi-Skilled Foreign Workers, Singapore)",
+
+    validity: "Usually issued for 1–2 years initially. Renewable based on employer need, sector rules, and quota availability. No fixed long-term validity; tied to employment contract.",
+
+    cost: "Application fee: SGD 35 (~₹2,000). Issuance fee: SGD 35 (~₹2,000). Employer typically pays all fees including levy charges.",
+
+    time: "Processing time usually 1–3 weeks depending on employer, quota availability, and Ministry of Manpower (MOM) approval.",
+
+    age: "Typically 18–50 years depending on sector. Some industries (construction, marine shipyard) may allow slightly older workers based on demand.",
+
+    education: "No formal higher education required. Basic skills and relevant work experience in the sector (construction, manufacturing, cleaning, shipyard, etc.) are usually sufficient.",
+
+    funds: "No personal funds requirement. All salary and living arrangements are managed by employer. Workers receive monthly wages as per contract and Singapore labor rules.",
+
+    docs: "Valid passport, job offer from approved Singapore employer, employment contract, medical fitness report, passport-size photo, basic skill/experience proof (if required), employer company documents, sector-specific approvals (if applicable).",
+
+    whom: "Semi-skilled foreign workers in industries such as construction, manufacturing, marine shipyard, process sectors, cleaning services, and domestic support roles (specific permits apply).",
+
+    rules: "Must work only for the sponsoring employer. Cannot change employer freely (requires new Work Permit approval). Must follow strict sector and housing regulations. Family dependents are generally not allowed (except in limited cases).",
+
+    prosCons: "Pros: Easier entry requirement compared to EP/S Pass, high demand in labor sectors, stable employment opportunities in Singapore. Cons: No permanent residency pathway directly, strict employer control, limited family reunification rights.",
+
+    terms: "WP: Work Permit; MOM: Ministry of Manpower Singapore; Quota: Limit on foreign workers per company; Levy: Monthly employer fee per worker; Sector Restriction: Work limited to approved industry only.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and strictly controlled by the Ministry of Manpower (MOM).",
+
+    process: `1. Secure job offer from Singapore employer ->
+              2. Employer applies for Work Permit through MOM ->
+              3. Submit passport and basic worker documents ->
+              4. Employer checks quota and pays levy requirements ->
+              5. MOM reviews application ->
+              6. Approval issued if eligible ->
+              7. Worker travels to Singapore (if required) ->
+              8. Medical check-up and fingerprint registration ->
+              9. Work Permit issued ->
+              10. Begin employment under employer supervision ->
+              11. Renewal handled by employer before expiry`
+},
+"SingaporeWorkPermitMigrantDomesticWorker": {
+    name: "Work Permit for Migrant Domestic Worker (MDW, Singapore)",
+
+    validity: "Usually issued for 2 years initially and renewable. Validity is tied to the employment contract with the employer in Singapore.",
+
+    cost: "Application fee: SGD 35 (~₹2,000). Issuance fee: SGD 35 (~₹2,000). Employers also pay monthly foreign worker levy (amount varies based on policy category).",
+
+    time: "Processing time usually 1–3 weeks depending on employer documentation and Ministry of Manpower (MOM) approval process.",
+
+    age: "Typically 23–50 years for domestic workers. Minimum age is strictly enforced; some cases may allow slightly older workers based on policy updates.",
+
+    education: "No formal education required, but basic household skills, caregiving experience, and sometimes training certificates are preferred or required.",
+
+    funds: "No personal funds required. Employer provides salary, food, accommodation, and medical insurance as per Singapore regulations.",
+
+    docs: "Valid passport, employment contract with Singapore employer, Work Permit application form, passport-size photo, medical fitness report, employer’s identity documents, security bond (paid by employer), insurance coverage proof, training certificate (if required), declaration forms as per MOM rules.",
+
+    whom: "Foreign domestic workers employed in Singapore households for duties such as cleaning, cooking, childcare, elderly care, and general household support.",
+
+    rules: "Must work only for assigned employer and at registered residential address. Cannot change employer without MOM approval. Must live in employer’s residence. No family members can accompany the worker. Strict compliance with labor and welfare regulations is required.",
+
+    prosCons: "Pros: Legal employment in Singapore household sector, stable income, employer-provided accommodation and food, strong labor protection laws. Cons: No PR pathway, restricted mobility, cannot bring family, dependent on employer, strict regulations.",
+
+    terms: "MDW: Migrant Domestic Worker; MOM: Ministry of Manpower Singapore; Security Bond: Financial guarantee by employer; Levy: Monthly employer fee; Work Permit: Legal authorization for foreign domestic work.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and enforced by the Ministry of Manpower (MOM) with strict domestic worker protection guidelines.",
+
+    process: `1. Employer identifies domestic worker candidate ->
+              2. Employer applies for Work Permit via MOM ->
+              3. Submit worker documents and medical report ->
+              4. Employer pays security bond and insurance ->
+              5. MOM reviews application ->
+              6. Approval issued ->
+              7. Worker travels to Singapore ->
+              8. Medical check and onboarding training ->
+              9. Work Permit issued ->
+              10. Begin household employment ->
+              11. Renewal handled by employer before expiry`
+},
+"SingaporeWorkPermitConfinementNanny": {
+    name: "Work Permit for Confinement Nanny (Singapore)",
+
+    validity: "Usually issued for a very short duration of 1–16 weeks (about 1–4 months), strictly tied to the postnatal confinement period of the employer.",
+
+    cost: "Application fee: SGD 35 (~₹2,000). Issuance fee: SGD 35 (~₹2,000). Employer may also bear training and agency charges if used.",
+
+    time: "Processing time usually 1–2 weeks depending on documentation and Ministry of Manpower (MOM) approval.",
+
+    age: "Typically 23–50 years. Candidates are expected to have relevant newborn care or maternity support experience.",
+
+    education: "No strict formal education required, but training or experience in newborn care, nursing assistance, or midwifery is strongly preferred.",
+
+    funds: "No personal funds required. Employer provides salary, accommodation, and food for the short employment period.",
+
+    docs: "Valid passport, Work Permit application form, employment contract with Singapore employer, passport-size photo, medical fitness report, proof of childcare or confinement care experience, employer identification documents, insurance coverage (if required), MOM declaration forms.",
+
+    whom: "Foreign workers (usually experienced caregivers) hired temporarily to assist mothers and newborn babies during the confinement period after childbirth in Singapore households.",
+
+    rules: "Must work only for the specified employer and only during the confinement period. Cannot extend role beyond approved duration without new approval. Must reside at employer’s home. No family accompaniment allowed.",
+
+    prosCons: "Pros: Short-term legal employment opportunity, good demand in Singapore households, structured role with clear duties, employer-provided accommodation. Cons: Very short duration, no long-term residency pathway, strict job scope, limited mobility.",
+
+    terms: "Confinement Period: Postnatal recovery period for mother and newborn; MDW: Migrant Domestic Worker category (special case); MOM: Ministry of Manpower Singapore; Work Permit: Legal authorization for employment; Short-Term Employment: Temporary job arrangement.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM) under domestic worker and caregiving policies.",
+
+    process: `1. Employer identifies need for confinement nanny ->
+              2. Apply for Work Permit via MOM or approved agency ->
+              3. Submit nanny experience and medical documents ->
+              4. Employer completes insurance and compliance requirements ->
+              5. MOM reviews application ->
+              6. Approval granted for short-term work ->
+              7. Worker travels to Singapore ->
+              8. Medical check if required ->
+              9. Work Permit issued ->
+              10. Provide confinement care during postnatal period ->
+              11. End of contract after confinement period ends`
+},
+"SingaporeTrainingEmploymentPassTEP": {
+    name: "Training Employment Pass (TEP – Singapore)",
+
+    validity: "Usually issued for up to 3 months (short-term). Not renewable in most cases. Intended strictly for structured training programs.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Typically paid by sponsoring company or training institution.",
+
+    time: "Processing time usually 1–3 weeks depending on employer/training provider and Ministry of Manpower (MOM) approval.",
+
+    age: "No strict age limit, but generally applies to working professionals or graduates (18+).",
+
+    education: "Degree or relevant professional qualification is usually required, depending on the training field.",
+
+    funds: "No personal funds requirement in most cases. Some trainees may need to show minimal personal support (~SGD 1,000–SGD 2,000) if not fully sponsored.",
+
+    docs: "Valid passport, completed TEP application form, passport-size photo, training agreement or invitation letter from Singapore host company, detailed training plan (objectives, duration, structure), CV/resume, educational certificates, sponsor company details, proof of financial support (if applicable), return ticket, accommodation proof, insurance (recommended).",
+
+    whom: "Foreign professionals, graduates, or employees undergoing structured, practical training in Singapore companies to upgrade skills or gain industry experience.",
+
+    rules: "Must only participate in approved training activities. No full employment or paid work beyond training scope allowed. Must leave Singapore after pass expiry. Cannot extend beyond approved training period in most cases.",
+
+    prosCons: "Pros: Good exposure to Singapore work environment, skill development opportunity, gateway to Employment Pass (EP) in future, short processing time. Cons: Very short duration, no direct PR path, no full employment rights.",
+
+    terms: "TEP: Training Employment Pass; MOM: Ministry of Manpower Singapore; Training Plan: Structured learning program; Sponsor: Host company providing training; Short-Term Pass: Temporary immigration permission.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM).",
+
+    process: `1. Secure training placement in Singapore company ->
+              2. Employer submits TEP application to MOM ->
+              3. Provide training plan and academic documents ->
+              4. MOM evaluates training relevance and applicant profile ->
+              5. Approval issued if eligible ->
+              6. Travel to Singapore ->
+              7. Pass issuance completed ->
+              8. Begin structured training program ->
+              9. Complete training within approved duration ->
+              10. Exit Singapore after pass expiry`
+},
+"SingaporeWorkHolidayPassYoungGraduatesStudents": {
+    name: "Work Holiday Pass (For Young Graduates and Students, Singapore)",
+
+    validity: "Usually valid for up to 6 months or 1 year depending on the scheme (Work Holiday Pass Programme and Work Holiday Programme variants). It is non-renewable in most cases.",
+
+    cost: "Application fee: SGD 175 (~₹10,000–₹11,000). Issuance fee: SGD 175 (~₹10,000–₹11,000).",
+
+    time: "Processing time usually 3–8 weeks depending on application volume and Ministry of Manpower (MOM) evaluation.",
+
+    age: "Typically 18–25 years (Work Holiday Programme) and up to 18–30 years (for Work Holiday Pass schemes depending on eligibility and nationality agreements).",
+
+    education: "Must be a current student or recent graduate from a recognized university. Proof of enrollment or graduation within a specified time period is required.",
+
+    funds: "Recommended proof of funds: SGD 2,000–SGD 3,000 (~₹1.2 lakh–₹1.8 lakh) to support initial stay in Singapore.",
+
+    docs: "Valid passport, completed application form, passport-size photo, proof of enrollment or graduation certificate, updated CV/resume, travel insurance (recommended), bank statements (last 3–6 months), return ticket, and any additional documents requested by MOM.",
+
+    whom: "Young Indian students or recent graduates seeking short-term work experience, internships, or cultural exposure in Singapore while gaining international professional experience.",
+
+    rules: "Can only work in approved short-term employment roles. Cannot take permanent employment or long-term contracts. Must leave Singapore after pass expiry. Limited availability based on country quotas and bilateral agreements.",
+
+    prosCons: "Pros: International work experience, exposure to Singapore job market, improves global career profile, networking opportunities. Cons: Very short duration, limited quota availability, no permanent job guarantee, not renewable in most cases.",
+
+    terms: "Work Holiday Pass: Temporary work-authorized visa; Work Holiday Programme: Youth mobility scheme; MOM: Ministry of Manpower Singapore; Quota: Country-specific application limit; Short-Term Work Authorization: Limited employment rights.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM) under youth mobility agreements.",
+
+    process: `1. Check eligibility (age, nationality, student/graduate status) ->
+              2. Prepare academic and personal documents ->
+              3. Submit application to MOM online system ->
+              4. Pay application fee ->
+              5. MOM reviews eligibility and quota availability ->
+              6. Approval issued if selected ->
+              7. Travel to Singapore ->
+              8. Complete formalities at MOM (if required) ->
+              9. Begin short-term work or internship ->
+              10. Exit Singapore after pass expiry`
+},
+"SingaporeMiscellaneousWorkPassShortTerm": {
+    name: "Miscellaneous Work Pass (Short-Term Special Work, Singapore)",
+
+    validity: "Usually valid for up to 1 month per issuance, depending on the nature of work. In some cases, it may be issued for up to 60–90 days with approval from MOM.",
+
+    cost: "Application fee: SGD 175 (~₹10,000–₹11,000). Issuance fee: SGD 175 (~₹10,000–₹11,000). Employer or sponsoring organization usually pays the fees.",
+
+    time: "Processing time usually 1–7 working days, depending on urgency, document verification, and Ministry of Manpower (MOM) approval.",
+
+    age: "No strict age limit. Typically applies to working professionals or specialists (18+).",
+
+    education: "Not strictly required, but relevant professional skills or qualifications may be needed depending on the job type.",
+
+    funds: "No personal funds requirement. Sponsoring organization is responsible for salary, accommodation, and logistics during stay.",
+
+    docs: "Valid passport, completed Miscellaneous Work Pass application form, passport-size photo, invitation letter from Singapore host organization, project/event details, employer or sponsor company documents, CV/resume, proof of relevant skills or experience, travel itinerary, return ticket, and any additional documents requested by MOM.",
+
+    whom: "Foreign professionals coming to Singapore for short-term specialized work such as seminars, workshops, media coverage, installation projects, performances, or consulting assignments that do not qualify under standard Work Pass categories.",
+
+    rules: "Only allowed to perform specific approved short-term activities. Cannot engage in regular employment or long-term contracts. Must leave Singapore after pass expiry. Any extension requires fresh approval.",
+
+    prosCons: "Pros: Fast approval, flexible for short-term specialized assignments, useful for consultants, speakers, and project-based workers. Cons: Very short duration, no pathway to long-term employment or PR, strictly limited to approved activity.",
+
+    terms: "Miscellaneous Work Pass: Short-term special work authorization; MOM: Ministry of Manpower Singapore; Sponsor: Hosting organization in Singapore; Short-Term Activity: Limited project/event-based work; Non-Renewable Pass: Temporary one-time permission.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM) for special-purpose short-term employment.",
+
+    process: `1. Receive invitation from Singapore organization ->
+              2. Define scope of short-term work/project ->
+              3. Sponsor submits application to MOM ->
+              4. Provide CV, passport, and project details ->
+              5. MOM evaluates request and purpose ->
+              6. Approval issued if eligible ->
+              7. Travel to Singapore ->
+              8. Pass issued at entry or MOM office ->
+              9. Perform approved short-term work ->
+              10. Exit Singapore after completion or expiry`
+},
+"SingaporeEntrePassStartupFounders": {
+    name: "EntrePass (Entrepreneur Pass – Startup Founders & Business Owners, Singapore)",
+
+    validity: "Initially issued for 1 year. Renewals can be for 1–2 years depending on business performance, innovation, and company activity in Singapore.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Additional costs apply for business setup, office space, and compliance.",
+
+    time: "Processing time usually 8–12 weeks depending on business plan evaluation, due diligence, and Ministry of Manpower (MOM) assessment.",
+
+    age: "No strict age limit, but typically applicants are 21–50 years old with entrepreneurial or startup experience.",
+
+    education: "Not mandatory, but strong educational background (degree from recognized institution) or proven entrepreneurial experience is highly preferred.",
+
+    funds: "No fixed personal fund requirement, but applicants usually need proof of startup funding, investment capital, or business funding (commonly SGD 50,000+ or venture backing is expected).",
+
+    docs: "Valid passport, completed EntrePass application form, detailed business plan, proof of innovation or startup funding, company incorporation documents (or intent to incorporate in Singapore), CV/resume, educational certificates, pitch deck, financial projections, investor letters (if any), business model explanation, and supporting documents for innovation or intellectual property (if applicable).",
+
+    whom: "Foreign entrepreneurs, startup founders, and innovators who want to start and operate a high-growth or innovative business in Singapore (especially in tech, fintech, biotech, AI, and scalable industries).",
+
+    rules: "Business must be innovative and scalable. Must actively run and manage the business in Singapore. Must meet renewal criteria such as business spending, local hiring, and company operations. Passive investment businesses are not eligible.",
+
+    prosCons: "Pros: Gateway to Singapore startup ecosystem, access to funding and investors, ability to bring family (Dependant Pass), pathway to Permanent Residency possible. Cons: Strict approval criteria, high rejection rate for non-innovative businesses, must maintain active business operations.",
+
+    terms: "EntrePass: Entrepreneur visa for startup founders; MOM: Ministry of Manpower Singapore; Startup Ecosystem: Business innovation environment in Singapore; Renewal Criteria: Performance conditions for visa extension; Dependant Pass: Visa for spouse/children.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM) with Enterprise Singapore involvement for business evaluation.",
+
+    process: `1. Develop innovative business idea ->
+              2. Prepare detailed business plan and pitch deck ->
+              3. Incorporate or plan incorporation in Singapore ->
+              4. Submit EntrePass application to MOM ->
+              5. Provide supporting innovation/funding documents ->
+              6. MOM and Enterprise Singapore evaluate application ->
+              7. Interview or clarification if required ->
+              8. Approval issued if eligible ->
+              9. Enter Singapore and register company ->
+              10. Begin business operations ->
+              11. Apply for renewals based on performance`
+},
+"SingaporeGlobalInvestorProgrammeGIP": {
+    name: "Global Investor Programme (GIP Visa – High-Net-Worth Investors, Singapore)",
+
+    validity: "Leads directly to Permanent Residence (PR) approval upon successful investment and approval. PR status is indefinite but subject to renewal of Re-Entry Permit every 5 years.",
+
+    cost: "No visa fee itself, but minimum investment requirement is very high: typically SGD 2.5 million (~₹15–16 crore) or more depending on option. Additional advisory/legal/business setup costs may apply.",
+
+    time: "Processing time usually 6–12 months depending on investment evaluation, due diligence, and Economic Development Board (EDB) review.",
+
+    age: "No strict age limit, but typically applicants are established business owners or investors (25+ to 70 years commonly).",
+
+    education: "Not required. Focus is on business success, investment capability, and entrepreneurial track record.",
+
+    funds: "Minimum investment requirement: SGD 2.5 million (approx ₹15–16 crore) under business or fund options. Higher requirements may apply for family office route or fund-based investment.",
+
+    docs: "Valid passport, detailed investment proposal, proof of business ownership, financial statements (last 3–5 years), audited company accounts, net worth proof, business track record, investment plan in Singapore, CV/profile, source of funds documentation, tax returns, and additional due diligence documents.",
+
+    whom: "High-net-worth individuals, successful entrepreneurs, and investors who want to obtain Singapore Permanent Residency through significant economic contribution and business investment.",
+
+    rules: "Must maintain approved investment in Singapore for a specified period. Must actively manage or oversee investment/business activities. Must comply with Economic Development Board (EDB) requirements. PR status may be revoked if conditions are not met.",
+
+    prosCons: "Pros: Direct pathway to Singapore PR, access to world-class financial and business ecosystem, family included in PR application, strong global mobility benefits. Cons: Extremely high investment requirement, strict approval process, long due diligence, not suitable for average investors.",
+
+    terms: "GIP: Global Investor Programme; PR: Permanent Residence; EDB: Economic Development Board Singapore; Family Office: Wealth management structure; Re-Entry Permit: Document required to maintain PR status while traveling.",
+
+    legal: "Regulated by Singapore Economic Development Board (EDB) and Immigration & Checkpoints Authority (ICA) under Singapore PR laws.",
+
+    process: `1. Evaluate eligibility (net worth & business background) ->
+              2. Prepare investment proposal ->
+              3. Submit GIP application to EDB ->
+              4. Undergo financial and background due diligence ->
+              5. Attend interview with EDB panel ->
+              6. Receive in-principle approval (if successful) ->
+              7. Make required investment in Singapore ->
+              8. Submit proof of investment ->
+              9. Receive Singapore Permanent Residence (PR) approval ->
+              10. Apply for Re-Entry Permit for travel ->
+              11. Maintain investment to retain PR status`
+},
+"SingaporeOverseasNetworksExpertiseONEPass": {
+    name: "Overseas Networks & Expertise Pass (ONE Pass – Elite Global Talent & Investors, Singapore)",
+
+    validity: "Issued for 5 years initially. Renewable for another 5 years if eligibility criteria continue to be met. Provides long-term residence flexibility in Singapore.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Employer is not required; applicant may apply independently.",
+
+    time: "Processing time usually 4–8 weeks depending on verification of achievements, income, and Ministry of Manpower (MOM) assessment.",
+
+    age: "No strict age limit, but typically applicants are highly experienced professionals aged 25–60 years.",
+
+    education: "Not mandatory, but usually applicants have top-tier degrees or exceptional professional achievements in their field.",
+
+    funds: "Minimum fixed income requirement: at least SGD 30,000/month (~₹18–20 lakh/month) OR equivalent high-level achievements in business, research, arts, or sports. Investors may also qualify through high-value contributions.",
+
+    docs: "Valid passport, completed ONE Pass application form, CV/resume, proof of high income (salary slips, contracts, tax returns), employment history, awards or achievements, investment portfolio (if applicable), recommendation letters, company profile (if employed), proof of global recognition (if applicable), and additional supporting documents requested by MOM.",
+
+    whom: "Top global professionals, senior executives, researchers, entrepreneurs, and investors with exceptional track records in industries like technology, finance, science, arts, sports, and innovation.",
+
+    rules: "Must maintain qualifying income or achievements to renew. Can work for multiple companies or start own business in Singapore. Must comply with MOM reporting requirements. Misrepresentation can lead to cancellation.",
+
+    prosCons: "Pros: Highly flexible work rights, long validity (5 years), no employer sponsorship required, family inclusion (Dependants Pass eligible), strong pathway for elite global talent. Cons: Very high eligibility bar, extremely selective approval process, requires top-tier global achievements or income.",
+
+    terms: "ONE Pass: Elite talent visa; MOM: Ministry of Manpower Singapore; Dependant Pass: Visa for family members; Renewal Criteria: Conditions to extend pass; Global Talent: High-achieving professionals recognized internationally.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM) under elite talent migration framework.",
+
+    process: `1. Assess eligibility (income or achievements) ->
+              2. Gather proof of global expertise or earnings ->
+              3. Submit ONE Pass application to MOM ->
+              4. Provide supporting documentation (awards, contracts, income proof) ->
+              5. MOM evaluates global talent status ->
+              6. Approval issued if eligible ->
+              7. Enter Singapore (if not already resident) ->
+              8. Pass issuance completed ->
+              9. Begin employment or business activity in Singapore ->
+              10. Apply for Dependant Pass for family (if needed) ->
+              11. Renew every 5 years based on eligibility`
+},
+"SingaporeStudentPassFullTimeStudies": {
+    name: "Student Pass (Full-Time Studies – Singapore)",
+
+    validity: "Valid for the full duration of the course (typically 1–4 years depending on program). Must be renewed annually based on academic progress and institution requirements.",
+
+    cost: "Application fee: SGD 30 (~₹1,800–₹2,000). Issuance fee: SGD 60 (~₹3,500–₹4,000). Additional medical check-up and administrative fees may apply.",
+
+    time: "Processing time usually 2–6 weeks depending on educational institution, course type, and Immigration & Checkpoints Authority (ICA) assessment.",
+
+    age: "Typically 7+ years for school students and 16–35 years for higher education (college/university). No strict upper age limit for approved programs.",
+
+    education: "Must have admission offer from a recognized Singapore educational institution (school, polytechnic, university, or approved private institution).",
+
+    funds: "Proof of sufficient funds required. Recommended: SGD 10,000–SGD 25,000 (~₹6–15 lakh) per year depending on tuition fees and living expenses. Sponsor or parents may also support financially.",
+
+    docs: "Valid passport, official admission letter from Singapore school/university, completed Student Pass application (via SOLAR system), passport-size photo, academic transcripts and certificates, proof of funds (bank statements or sponsor letter), medical examination report (if required), travel insurance (recommended), birth certificate (for minors), guardian documents (if applicable).",
+
+    whom: "International students (including Indians) admitted to full-time academic programs in Singapore schools, polytechnics, private institutions, or universities.",
+
+    rules: "Must study full-time in approved institution. Work is restricted but part-time work may be allowed under specific conditions. Must maintain attendance and academic progress. Any change of institution requires ICA approval.",
+
+    prosCons: "Pros: Access to high-quality education system, globally recognized degrees, safe country, good career opportunities after graduation. Cons: High cost of living, strict attendance rules, limited work rights during studies.",
+
+    terms: "Student Pass: Study visa for Singapore; ICA: Immigration & Checkpoints Authority; SOLAR System: Online application platform; Dependant Pass: Visa for eligible family members; Part-Time Work Authorization: Limited employment permission during studies.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA) in coordination with Ministry of Education (MOE).",
+
+    process: `1. Apply and secure admission in Singapore institution ->
+              2. Receive official acceptance letter ->
+              3. Institution registers student in SOLAR system ->
+              4. Submit Student Pass application online ->
+              5. Upload required documents ->
+              6. Pay application fee ->
+              7. ICA reviews application ->
+              8. Medical check-up if required ->
+              9. Student Pass approval issued ->
+              10. Travel to Singapore ->
+              11. Complete immigration formalities ->
+              12. Receive Student Pass card ->
+              13. Begin full-time studies`
+},
+"SingaporeTrainingVisaTrainingEmploymentPass": {
+    name: "Training Visa / Training Employment Pass (Internships & Short Training Programs, Singapore)",
+
+    validity: "Usually valid for up to 3–6 months depending on the training program. Some cases may extend up to 1 year for structured professional training.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Typically paid by sponsoring company or training institution.",
+
+    time: "Processing time usually 1–3 weeks depending on employer/training provider and Ministry of Manpower (MOM) approval process.",
+
+    age: "Typically 18–30 years for internships and traineeships. No strict upper limit for professional training cases.",
+
+    education: "Usually requires enrollment in a university or recent graduation. Some professional training roles may require a degree or relevant diploma.",
+
+    funds: "No personal funds requirement if fully sponsored. Otherwise, recommended funds: SGD 1,500–SGD 3,000 (~₹90,000–₹1.8 lakh) for living expenses.",
+
+    docs: "Valid passport, completed Training Employment Pass application form, passport-size photo, training/internship agreement, detailed training plan (objectives and duration), CV/resume, educational certificates, sponsor company details, proof of enrollment or graduation, return ticket, accommodation proof, and insurance (recommended).",
+
+    whom: "Foreign students, graduates, or young professionals coming to Singapore for structured internships, industrial attachments, or skill development training in companies.",
+
+    rules: "Must only engage in approved training activities. No full-time employment outside training scope allowed. Must leave Singapore after pass expiry unless converted to another valid work pass. Extensions require approval.",
+
+    prosCons: "Pros: Valuable international work exposure, improves employability, gateway to Employment Pass (EP), exposure to Singapore industries. Cons: Short duration, no permanent job rights, limited extension options.",
+
+    terms: "TEP: Training Employment Pass; MOM: Ministry of Manpower Singapore; Internship Agreement: Training contract; Sponsor: Host company in Singapore; Short-Term Training: Skill development program.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM).",
+
+    process: `1. Secure internship or training placement in Singapore ->
+              2. Employer/training provider submits application to MOM ->
+              3. Provide training plan and academic documents ->
+              4. MOM evaluates eligibility ->
+              5. Approval issued if eligible ->
+              6. Travel to Singapore ->
+              7. Pass issuance completed ->
+              8. Begin training program ->
+              9. Complete training within approved duration ->
+              10. Exit Singapore or apply for other work pass if eligible`
+},
+"SingaporeDependantPass": {
+    name: "Dependant’s Pass (DP – Spouse & Children of EP/S Pass Holders, Singapore)",
+
+    validity: "Usually valid for 1–2 years initially, aligned with the main pass holder’s Employment Pass (EP) or S Pass. Renewable as long as the main pass remains valid.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Typically paid by the employer of the main pass holder.",
+
+    time: "Processing time usually 3–6 weeks depending on Ministry of Manpower (MOM) assessment and completeness of documents.",
+
+    age: "Spouses of EP/S Pass holders (no strict age limit). Children typically below 21 years old and unmarried are eligible.",
+
+    education: "Not required.",
+
+    funds: "No personal funds requirement if sponsored. However, the main pass holder must meet minimum salary thresholds (generally SGD 6,000+ per month for EP holders) to sponsor dependants.",
+
+    docs: "Valid passport, completed DP application form, passport-size photo, marriage certificate (for spouse), birth certificates (for children), employment pass/S pass details of sponsor, sponsor’s employment contract or salary proof, company details, proof of relationship, and any additional documents requested by MOM.",
+
+    whom: "Legally married spouses and unmarried children of Employment Pass (EP), S Pass, or eligible work pass holders working in Singapore.",
+
+    rules: "DP holders are not automatically allowed to work. They must obtain a Letter of Consent (LOC) or separate work pass to be employed. Must remain dependent on the main pass holder’s valid employment status.",
+
+    prosCons: "Pros: Family reunification in Singapore, access to long-term stay, ability to study in Singapore schools, pathway to Long-Term Visit Pass (LTVP) or PR in some cases. Cons: No automatic work rights, dependent on main pass holder’s job status, renewal linked to employer.",
+
+    terms: "DP: Dependant’s Pass; EP: Employment Pass; S Pass: Mid-skilled work pass; MOM: Ministry of Manpower Singapore; LOC: Letter of Consent for work authorization; PR: Permanent Residence pathway.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM).",
+
+    process: `1. Main pass holder (EP/S Pass) secures employment ->
+              2. Employer applies for Dependant’s Pass via MOM ->
+              3. Submit relationship proof documents (marriage/birth certificates) ->
+              4. Provide sponsor employment and salary details ->
+              5. MOM reviews eligibility ->
+              6. Approval issued if eligible ->
+              7. DP issued ->
+              8. Family travels to Singapore ->
+              9. DP card collected/issued ->
+              10. Renew DP with main pass renewal`
+},
+"SingaporeLongTermVisitPassLTVP": {
+    name: "Long-Term Visit Pass (LTVP – Parents, Partners, Extended Family, Singapore)",
+
+    validity: "Usually granted for 1–2 years initially. Renewable depending on sponsor status, relationship validity, and ICA/MOM approval. Some cases may lead to LTVP+ (longer validity and more benefits).",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Additional administrative charges may apply.",
+
+    time: "Processing time usually 3–8 weeks depending on case type (spouse, parent, or other dependent), documentation, and ICA/MOM review.",
+
+    age: "No strict age limit. Parents are typically older dependents; partners/spouses and children can be of any age depending on relationship category.",
+
+    education: "Not required.",
+
+    funds: "Sponsor must meet minimum income requirement (varies by category, generally SGD 6,000–SGD 12,000+ monthly depending on relationship type and authority rules).",
+
+    docs: "Valid passport, completed LTVP application form, passport-size photo, proof of relationship (marriage certificate, birth certificate, or partnership documents), sponsor’s Employment Pass/PR/Citizenship details, sponsor’s income proof, bank statements, address proof in Singapore, additional supporting documents if requested by ICA/MOM.",
+
+    whom: "Parents, common-law partners, stepchildren, and extended family members of Singapore citizens, Permanent Residents (PR), or eligible Employment Pass holders.",
+
+    rules: "Approval is case-based and not guaranteed. Employment is not allowed unless a separate work authorization (LOC or work pass) is granted. Must maintain valid relationship with sponsor and comply with ICA conditions.",
+
+    prosCons: "Pros: Enables long-term family stay in Singapore, access to healthcare and social benefits (in some cases), possible pathway to LTVP+ or PR, flexible renewal. Cons: Strict approval criteria, dependent on sponsor’s status, no automatic work rights.",
+
+    terms: "LTVP: Long-Term Visit Pass; LTVP+: Enhanced version with more benefits; ICA: Immigration & Checkpoints Authority; MOM: Ministry of Manpower Singapore; Sponsor: Citizen/PR/EP holder supporting applicant; LOC: Letter of Consent for work authorization.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by ICA and MOM depending on sponsor category.",
+
+    process: `1. Sponsor applies via ICA or MOM (depending on status) ->
+              2. Submit relationship proof and sponsor details ->
+              3. Provide financial and accommodation documents ->
+              4. ICA/MOM reviews eligibility ->
+              5. Additional interview or documents if required ->
+              6. Approval issued if eligible ->
+              7. Applicant travels to Singapore (if not already present) ->
+              8. Pass issuance completed ->
+              9. Family resides in Singapore under LTVP ->
+              10. Renew pass before expiry or upgrade to LTVP+ if eligible`
+},
+"SingaporeLongTermVisitPassPlusLTVPPlus": {
+    name: "Long-Term Visit Pass Plus (LTVP+ – Enhanced Long-Term Residence for Eligible Family Members, Singapore)",
+
+    validity: "Usually granted for up to 3–5 years initially. Renewable subject to continued eligibility and sponsor status. Offers more stability compared to standard LTVP.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Additional administrative fees may apply depending on ICA requirements.",
+
+    time: "Processing time usually 4–10 weeks depending on case complexity, relationship verification, and Immigration & Checkpoints Authority (ICA) review.",
+
+    age: "No strict age limit. Commonly granted to spouses and children of Singapore Citizens or Permanent Residents (PRs).",
+
+    education: "Not required.",
+
+    funds: "Sponsor (Singapore Citizen or PR) must meet minimum income requirements (typically SGD 12,000+ per month recommended, depending on family size and ICA discretion).",
+
+    docs: "Valid passport, completed LTVP+ application form, passport-size photo, proof of relationship (marriage certificate, birth certificate), sponsor’s Singapore Citizenship/PR documents, sponsor’s income proof (CPF contributions, salary slips, tax statements), bank statements, housing proof in Singapore, and additional documents if requested by ICA.",
+
+    whom: "Foreign spouses, common-law partners, and stepchildren of Singapore Citizens or Permanent Residents who are eligible for enhanced long-term residence benefits.",
+
+    rules: "More stable than standard LTVP but still dependent on sponsor relationship. Work rights may be granted through Letter of Consent (LOC) or other approvals. Must maintain valid relationship and comply with ICA rules.",
+
+    prosCons: "Pros: Longer validity (up to 5 years), stronger stability than LTVP, access to healthcare subsidies (in some cases), easier integration into Singapore society, pathway to Permanent Residency (PR). Cons: Strict eligibility criteria, approval not guaranteed, dependent on sponsor status and income.",
+
+    terms: "LTVP+: Enhanced Long-Term Visit Pass; ICA: Immigration & Checkpoints Authority; MOM: Ministry of Manpower Singapore; LOC: Letter of Consent for employment; PR: Permanent Residency pathway; Sponsor: Singapore Citizen or PR supporting applicant.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by ICA with coordination from MOM for work authorization matters.",
+
+    process: `1. Sponsor (Citizen/PR) submits LTVP+ application to ICA ->
+              2. Provide relationship and financial documents ->
+              3. Submit proof of cohabitation and family ties ->
+              4. ICA evaluates eligibility for enhanced pass ->
+              5. Additional verification or interview if required ->
+              6. Approval issued if eligible ->
+              7. Applicant receives LTVP+ approval ->
+              8. Enter or remain in Singapore ->
+              9. Pass issued and activated ->
+              10. Apply for LOC if employment is required ->
+              11. Renew every few years based on eligibility`
+},
+"SingaporeStudentDependantVisa": {
+    name: "Student Dependant Visa (Dependent of Student Pass Holder, Singapore)",
+
+    validity: "Usually aligned with the validity of the main Student Pass holder. Typically 1 year at a time, renewable as long as the student maintains valid study status.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Additional administrative or insurance costs may apply.",
+
+    time: "Processing time usually 2–6 weeks depending on ICA review, institution coordination, and document completeness.",
+
+    age: "No strict age limit. Typically applies to spouses and children of Student Pass holders (most commonly children below 21 or spouse of postgraduate students).",
+
+    education: "Not required for dependents.",
+
+    funds: "Student must show sufficient funds for self and dependents. Recommended additional funds: SGD 10,000–SGD 20,000 (~₹6–12 lakh) per year per dependent depending on living costs and accommodation.",
+
+    docs: "Valid passports of all applicants, Student Pass details of main applicant, admission letter from Singapore institution, proof of relationship (marriage certificate for spouse, birth certificates for children), proof of funds (bank statements or sponsor letter), accommodation proof in Singapore, insurance coverage (if required), completed ICA application forms.",
+
+    whom: "Spouses and children of international students studying full-time in Singapore universities or approved institutions, allowed only in specific approved cases.",
+
+    rules: "Approval is not automatic and is case-based. Dependents must not engage in employment unless separately authorized. Must comply with ICA conditions and remain dependent on valid Student Pass holder status.",
+
+    prosCons: "Pros: Allows family unity during studies in Singapore, stable stay duration linked to student course, access to local living environment. Cons: Strict eligibility, limited cases approved, no direct work rights, dependent on student visa status.",
+
+    terms: "Student Pass: Main study visa; ICA: Immigration & Checkpoints Authority; Dependent Visa: Family stay permit; Sponsor: Student Pass holder; LOC: Letter of Consent (work authorization if approved separately).",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA).",
+
+    process: `1. Student receives admission in Singapore institution ->
+              2. Apply for Student Pass ->
+              3. Submit dependent visa application via ICA ->
+              4. Provide relationship and financial documents ->
+              5. Institution supports application if required ->
+              6. ICA reviews eligibility case-by-case ->
+              7. Approval issued if eligible ->
+              8. Dependents travel to Singapore ->
+              9. Dependent pass issued ->
+              10. Stay aligned with student’s course duration ->
+              11. Renew when student pass is renewed`
+},
+"SingaporePTS_PR_Scheme": {
+    name: "Professional/Technical Personnel & Skilled Worker Scheme (PTS Scheme – Singapore Permanent Residence Pathway)",
+
+    validity: "Leads to Singapore Permanent Residency (PR) upon approval. PR status is indefinite but requires Re-Entry Permit renewal every 5 years to maintain travel rights.",
+
+    cost: "Application fee: SGD 100 (~₹6,000–₹6,500). Issuance fee: SGD 20 (~₹1,200–₹1,500). Additional costs may include document translation, medical checks, and administrative charges.",
+
+    time: "Processing time usually 6–12 months depending on profile strength, employment history, salary level, and Immigration & Checkpoints Authority (ICA) workload.",
+
+    age: "No strict age limit. Typically applied by working professionals aged 21–50, but approvals depend more on salary, qualifications, and contribution to Singapore economy.",
+
+    education: "Usually requires recognized degree, diploma, or strong technical qualifications. Higher education and specialized skills improve approval chances significantly.",
+
+    funds: "No fixed minimum personal funds requirement, but stable employment and income are critical (generally strong monthly salary and tax contributions expected).",
+
+    docs: "Valid passport, Employment Pass or S Pass details, completed PR application form (Form 4A), educational certificates, employment history, salary slips, CPF contribution records, tax documents (IRAS Notices of Assessment), employer recommendation letter, proof of residence in Singapore, and supporting documents for family members (if included).",
+
+    whom: "Foreign professionals, managers, engineers, IT specialists, healthcare workers, and skilled employees already working in Singapore under Employment Pass (EP) or S Pass who wish to become Permanent Residents.",
+
+    rules: "Must have stable employment in Singapore. Approval is selective and based on economic contribution, salary, qualifications, and integration potential. PR status requires maintaining residency commitment and Re-Entry Permit validity.",
+
+    prosCons: "Pros: Direct pathway to Singapore PR, access to healthcare subsidies, housing benefits (CPF system), long-term stability, easier job mobility. Cons: Highly competitive approval process, no guarantee of acceptance, requires continuous economic contribution to maintain PR.",
+
+    terms: "PTS Scheme: PR pathway for working professionals; PR: Permanent Resident; ICA: Immigration & Checkpoints Authority; CPF: Central Provident Fund (social security savings system); Re-Entry Permit: Travel validity document for PR holders.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA).",
+
+    process: `1. Obtain Employment Pass (EP) or S Pass ->
+              2. Work and contribute in Singapore for some time (usually 1–2 years or more) ->
+              3. Prepare PR application under PTS Scheme ->
+              4. Submit Form 4A with documents to ICA ->
+              5. Provide employment, tax, and education records ->
+              6. ICA evaluates economic contribution and integration potential ->
+              7. Application reviewed (may take several months) ->
+              8. Approval or rejection issued ->
+              9. If approved, become Singapore Permanent Resident ->
+              10. Apply for Re-Entry Permit to travel abroad ->
+              11. Maintain PR status with continued residency compliance`
+},
+"SingaporeGlobalInvestorProgrammePRRoute": {
+    name: "Global Investor Programme (GIP PR Route – Singapore Permanent Residence via Investment)",
+
+    validity: "Direct pathway to Singapore Permanent Residency (PR). PR is indefinite but requires Re-Entry Permit renewal every 5 years to maintain travel validity.",
+
+    cost: "Minimum investment requirement: typically SGD 2.5 million (~₹15–16 crore) or higher depending on investment option (business, fund, or family office). Additional legal, advisory, and structuring costs may apply.",
+
+    time: "Processing time usually 6–12 months depending on due diligence, investment assessment, and Economic Development Board (EDB) review.",
+
+    age: "No strict age limit. Typically applicants are high-net-worth individuals aged 25–70 with established business or investment background.",
+
+    education: "Not required. Focus is on financial strength, business track record, and investment capability.",
+
+    funds: "Minimum investment: SGD 2.5 million (approx ₹15–16 crore) under standard options. Higher thresholds may apply for family office or fund-based investment routes.",
+
+    docs: "Valid passport, detailed investment proposal, proof of net worth, audited financial statements (3–5 years), tax returns, source of funds documentation, business ownership records, investment plan in Singapore, CV/profile, bank statements, corporate documents (if applicable), and additional due diligence documents requested by EDB/ICA.",
+
+    whom: "High-net-worth individuals, successful entrepreneurs, business owners, and global investors seeking Singapore Permanent Residency through significant economic contribution.",
+
+    rules: "Must maintain approved investment for required period. Must comply with Singapore business or fund management requirements. PR approval is conditional on investment compliance and ongoing eligibility.",
+
+    prosCons: "Pros: Direct PR pathway, family inclusion (spouse and children eligible), access to world-class financial ecosystem, strong global mobility benefits, business expansion opportunities. Cons: Very high investment threshold, strict due diligence, long approval process, no guarantee of acceptance.",
+
+    terms: "GIP: Global Investor Programme; PR: Permanent Resident; EDB: Economic Development Board Singapore; ICA: Immigration & Checkpoints Authority; Family Office: Wealth management structure; Re-Entry Permit: Document required to maintain PR travel validity.",
+
+    legal: "Regulated by Singapore Economic Development Board (EDB) and Immigration & Checkpoints Authority (ICA) under Singapore Permanent Residence laws.",
+
+    process: `1. Assess eligibility (net worth and business background) ->
+              2. Prepare investment proposal (business, fund, or family office) ->
+              3. Submit GIP application to EDB ->
+              4. Undergo due diligence and financial verification ->
+              5. Attend interview with EDB panel ->
+              6. Receive in-principle approval (if successful) ->
+              7. Make required investment in Singapore ->
+              8. Submit proof of investment compliance ->
+              9. Receive Singapore PR approval from ICA ->
+              10. Apply for Re-Entry Permit for travel ->
+              11. Maintain investment to retain PR status`
+},
+"SingaporeForeignArtisticTalentSchemePR": {
+    name: "Foreign Artistic Talent Scheme (FATS – Arts, Culture & Sports PR Route, Singapore)",
+
+    validity: "Leads to Singapore Permanent Residency (PR) upon successful approval. PR status is indefinite but requires Re-Entry Permit renewal every 5 years for travel validity.",
+
+    cost: "Application fee: SGD 100 (~₹6,000–₹6,500). Issuance fee: SGD 20 (~₹1,200–₹1,500). Additional costs may include portfolio preparation, endorsements, and documentation support.",
+
+    time: "Processing time usually 6–12 months depending on portfolio strength, endorsements, and evaluation by Singapore authorities (ICA and related cultural agencies).",
+
+    age: "No strict age limit. Typically applies to established or rising talents in arts, culture, sports, or creative industries (often 18–55 years).",
+
+    education: "Not mandatory. Focus is on artistic achievement, recognition, awards, and contributions to arts, culture, or sports.",
+
+    funds: "No fixed minimum funds requirement. Applicants are evaluated based on talent, achievements, and potential contribution to Singapore’s cultural and sports sectors.",
+
+    docs: "Valid passport, detailed artistic/sports portfolio, awards and recognition certificates, media coverage, exhibition or performance records, recommendation letters from recognized institutions or experts, CV/profile, proof of international or regional achievements, contract or engagement letters (if any), and additional supporting documents requested by ICA or cultural agencies.",
+
+    whom: "Foreign artists, performers, musicians, dancers, writers, filmmakers, designers, athletes, and cultural professionals with proven international or regional recognition who can contribute to Singapore’s arts, culture, or sports ecosystem.",
+
+    rules: "Must actively contribute to Singapore’s arts, cultural, or sports development. PR approval is selective and based on demonstrated impact and ability to enrich Singapore’s creative landscape. Continued contribution may be considered for PR retention and renewal of Re-Entry Permit.",
+
+    prosCons: "Pros: Direct PR pathway for creative professionals, opportunity to work in Singapore’s cultural sector, access to funding and institutional support, long-term residency benefits. Cons: Highly selective, requires strong international recognition, no guarantee of approval, must maintain active contribution.",
+
+    terms: "FATS: Foreign Artistic Talent Scheme; PR: Permanent Resident; ICA: Immigration & Checkpoints Authority; Re-Entry Permit: Travel validity document for PRs; Cultural Agencies: Arts Council and related Singapore institutions; Portfolio: Collection of artistic/sports achievements.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA) in coordination with National Arts Council (NAC) and related sports/cultural bodies.",
+
+    process: `1. Build strong artistic/sports portfolio ->
+              2. Obtain recognition, awards, or endorsements ->
+              3. Prepare PR application under FATS scheme ->
+              4. Submit application to ICA with supporting documents ->
+              5. Provide references from cultural/sports institutions ->
+              6. Undergo evaluation by ICA and relevant agencies ->
+              7. Interview or additional verification if required ->
+              8. Receive PR approval if successful ->
+              9. Apply for Re-Entry Permit ->
+              10. Continue contributing to Singapore arts/culture/sports ecosystem`
+},
+"SingaporeFamilyBasedPRScheme": {
+    name: "Family-Based Permanent Residence Scheme (Singapore)",
+
+    validity: "Leads to Singapore Permanent Residency (PR) upon approval. PR status is indefinite but requires Re-Entry Permit renewal every 5 years to maintain travel validity.",
+
+    cost: "Application fee: SGD 100 (~₹6,000–₹6,500). Issuance fee: SGD 20 (~₹1,200–₹1,500). Additional administrative or document costs may apply.",
+
+    time: "Processing time usually 6–12 months depending on relationship category, sponsor status, and Immigration & Checkpoints Authority (ICA) assessment.",
+
+    age: "No strict age limit. Applicable to spouses, children, and sometimes elderly parents of Singapore Citizens or Permanent Residents (PRs).",
+
+    education: "Not required.",
+
+    funds: "No fixed minimum funds requirement for applicant, but sponsor (Singapore Citizen or PR) must show stable income and financial ability to support dependents.",
+
+    docs: "Valid passport, completed PR application form, proof of relationship (marriage certificate, birth certificate, adoption papers if applicable), sponsor’s Singapore Citizen/PR documents, sponsor’s income proof (salary slips, CPF contributions, tax notices), bank statements, housing proof in Singapore, and additional documents requested by ICA.",
+
+    whom: "Foreign spouses, children, and sometimes parents or close family members of Singapore Citizens or Permanent Residents applying for long-term settlement in Singapore.",
+
+    rules: "Approval is discretionary and based on genuineness of relationship, sponsor’s financial stability, and ability to integrate into Singapore society. PR holders must maintain residency obligations and renew Re-Entry Permit every 5 years.",
+
+    prosCons: "Pros: Direct pathway to Singapore PR through family ties, access to healthcare and social benefits, long-term stability, easier integration into society. Cons: Strict approval process, dependent on sponsor status, no guaranteed acceptance, requires ongoing compliance.",
+
+    terms: "PR: Permanent Resident; ICA: Immigration & Checkpoints Authority; Sponsor: Singapore Citizen or PR supporting applicant; Re-Entry Permit: Travel authorization for PRs; CPF: Central Provident Fund (social security system).",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA).",
+
+    process: `1. Establish eligible family relationship with Singapore Citizen/PR ->
+              2. Sponsor prepares PR application ->
+              3. Submit application to ICA (Form 4A or relevant form) ->
+              4. Provide relationship and financial documents ->
+              5. ICA evaluates genuineness and sponsor stability ->
+              6. Additional verification or interview if required ->
+              7. PR approval issued if successful ->
+              8. Applicant becomes Singapore Permanent Resident ->
+              9. Apply for Re-Entry Permit for travel ->
+              10. Maintain residency compliance and renew RE-Permit every 5 years`
+},
+"SingaporeInternshipIndustrialTrainingPass": {
+    name: "Internship / Industrial Training Pass (Singapore)",
+
+    validity: "Usually valid for 1–6 months depending on internship or industrial training program. In some structured cases, it may extend up to 12 months.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Usually paid by host company, university, or training provider.",
+
+    time: "Processing time usually 1–3 weeks depending on Ministry of Manpower (MOM) review and employer/training institution documentation.",
+
+    age: "Typically 18–30 years for students and fresh graduates. Some professional internships may accept slightly older candidates based on program requirements.",
+
+    education: "Must be enrolled in a recognized university or recently graduated. Some industrial training programs may require diploma/degree in relevant field.",
+
+    funds: "No personal funds required if fully sponsored. Otherwise recommended funds: SGD 1,500–SGD 3,000 (~₹90,000–₹1.8 lakh) for living expenses.",
+
+    docs: "Valid passport, internship offer letter or training agreement, completed application form, passport-size photo, CV/resume, academic transcripts, proof of enrollment or graduation certificate, sponsor company details, training plan (objectives and duration), return ticket, accommodation proof, and insurance (recommended).",
+
+    whom: "Foreign students and graduates (including Indians) participating in structured internships, industrial attachments, or practical training programs in Singapore companies or institutions.",
+
+    rules: "Must only engage in approved internship or training activities. No full-time employment outside program scope allowed. Must leave Singapore after pass expiry unless converted to another valid work pass.",
+
+    prosCons: "Pros: Real-world international experience, exposure to Singapore industries, improves employability, potential pathway to Employment Pass (EP). Cons: Short duration, no permanent job rights, limited extension options.",
+
+    terms: "MOM: Ministry of Manpower Singapore; Internship Agreement: Training contract; Sponsor: Host company or institution; Training Plan: Structured learning program; Short-Term Training: Skill development attachment.",
+
+    legal: "Regulated under Singapore Employment of Foreign Manpower Act and administered by the Ministry of Manpower (MOM).",
+
+    process: `1. Secure internship or industrial training offer ->
+              2. Host company prepares training agreement ->
+              3. Submit application to MOM ->
+              4. Provide academic and identity documents ->
+              5. MOM evaluates training relevance ->
+              6. Approval issued if eligible ->
+              7. Travel to Singapore ->
+              8. Pass issuance completed ->
+              9. Begin internship or training ->
+              10. Complete program within approved duration ->
+              11. Exit Singapore or apply for other pass if eligible`
+},
+"SingaporeResearchAcademicVisitorPass": {
+    name: "Research Pass / Academic Visitor Pass (Singapore)",
+
+    validity: "Usually issued for 1–12 months depending on research project or academic collaboration. Extensions may be granted based on institutional approval and project duration.",
+
+    cost: "Application fee: SGD 105 (~₹6,500). Issuance fee: SGD 225 (~₹14,000). Often sponsored by host university, research institute, or organization.",
+
+    time: "Processing time usually 2–6 weeks depending on institution sponsorship, security checks, and Ministry of Manpower (MOM) or ICA evaluation.",
+
+    age: "No strict age limit. Commonly used by postgraduate researchers, PhD scholars, visiting professors, and academic professionals (typically 21+).",
+
+    education: "Usually requires at least a bachelor’s degree for research assistants, and a master’s/PhD for advanced research roles or academic visits.",
+
+    funds: "No personal funds required if fully sponsored. Otherwise recommended funds: SGD 2,000–SGD 5,000 (~₹1.2–₹3 lakh) depending on duration and living arrangements.",
+
+    docs: "Valid passport, research invitation letter from Singapore university or research institution, detailed research proposal or academic collaboration plan, CV/resume, educational certificates (degree, master’s, PhD if applicable), funding/sponsorship letter, passport-size photo, accommodation proof, return ticket, and insurance (recommended).",
+
+    whom: "Foreign researchers, PhD scholars, postdoctoral fellows, visiting professors, and academic experts collaborating with Singapore universities or research institutions in fields like science, technology, engineering, medicine, social sciences, and humanities.",
+
+    rules: "Must only conduct approved research or academic activities. No unauthorized employment or commercial work allowed. Must comply with host institution and immigration conditions. Extensions require institutional justification and approval.",
+
+    prosCons: "Pros: Access to top global research institutions, collaboration with leading universities, enhances academic profile, potential pathway to Employment Pass or academic roles. Cons: Short-term stay, strict project limitations, no direct PR route, dependent on host institution sponsorship.",
+
+    terms: "MOM: Ministry of Manpower Singapore; ICA: Immigration & Checkpoints Authority; Academic Visitor: Short-term research collaborator; Host Institution: Singapore university or research center; Research Proposal: Document outlining study objectives.",
+
+    legal: "Regulated under Singapore Immigration Act and managed by ICA/MOM in coordination with universities and approved research institutions.",
+
+    process: `1. Secure research/academic invitation from Singapore institution ->
+              2. Prepare research proposal and academic documents ->
+              3. Host institution sponsors application ->
+              4. Submit application to MOM or ICA ->
+              5. Provide educational and funding documents ->
+              6. Immigration authorities evaluate eligibility ->
+              7. Approval issued if accepted ->
+              8. Travel to Singapore ->
+              9. Pass issued upon arrival or approval ->
+              10. Conduct research or academic visit ->
+              11. Extend pass if project continues ->
+              12. Exit Singapore after completion`
+},
+"SingaporeSpecialPassGovernmentApproved": {
+    name: "Special Pass (Unique Cases / Government-Approved Projects, Singapore)",
+
+    validity: "Highly case-specific. Usually short-term (days to several months) and granted only for the duration of investigation, appeal, project, or special administrative need. Not a standard renewable visa.",
+
+    cost: "No standard fixed fee. In many cases, no visa fee is charged, but administrative or processing charges may apply depending on case type and agency involvement.",
+
+    time: "Processing time varies widely—from a few days to several weeks—depending on urgency, government agency coordination, and case complexity.",
+
+    age: "No age restriction. Issued based on case requirement rather than applicant profile.",
+
+    education: "Not required. Eligibility is based entirely on purpose of stay and government approval.",
+
+    funds: "Usually not required from applicant. Financial responsibility may be covered by employer, government agency, or sponsoring organization depending on case type.",
+
+    docs: "Valid passport, case-specific approval letter from Singapore government agency, supporting legal or project documents, court/tribunal papers (if applicable), employer or agency sponsorship letter, identity documents, and any additional documents requested by ICA or relevant authority.",
+
+    whom: "Foreign individuals involved in special circumstances such as legal proceedings, government investigations, emergency humanitarian cases, dispute resolution, special national projects, or other exceptional approvals granted by Singapore authorities.",
+
+    rules: "Strictly limited to approved purpose only. No employment or unrelated activity allowed unless explicitly authorized. Must leave Singapore immediately after pass expiry or upon case closure. Extensions are rare and require strong justification.",
+
+    prosCons: "Pros: Enables legal stay in exceptional or emergency situations, provides structured permission for sensitive cases, government-backed authorization. Cons: Very limited scope, unpredictable approval, no long-term pathway, cannot be used for general work or residence.",
+
+    terms: "Special Pass: Temporary discretionary stay permit; ICA: Immigration & Checkpoints Authority; Government Agency: Issuing authority for case approval; Case-Based Approval: Non-standard immigration decision; Humanitarian/Legal Hold: Temporary stay during proceedings.",
+
+    legal: "Regulated under Singapore Immigration Act and issued at the discretion of the Immigration & Checkpoints Authority (ICA) or relevant government agencies.",
+
+    process: `1. Special circumstance or case arises ->
+              2. Relevant authority or agency assesses need for stay ->
+              3. Supporting documents submitted (legal, medical, or project-related) ->
+              4. Application forwarded to ICA or relevant ministry ->
+              5. Case review and verification ->
+              6. Approval or rejection issued based on discretion ->
+              7. Special Pass granted if approved ->
+              8. Stay permitted strictly under defined conditions ->
+              9. Exit Singapore upon completion or case closure`
+},
+"SingaporeShortTermVisitPassExtension": {
+    name: "Short-Term Visit Pass Extension (STVP Extension – Singapore)",
+
+    validity: "Extension is usually granted for up to 30 days per request, depending on reason and ICA approval. Total stay (including initial entry) is typically capped around 90 days in most cases.",
+
+    cost: "Extension fee: SGD 40 (~₹2,500). Additional charges may apply for service centers or documentation processing.",
+
+    time: "Processing time usually same day to 3 working days if applied online via ICA. In-person applications may take slightly longer.",
+
+    age: "No age limit. Applicable to all Short-Term Visit Pass holders including tourists, business visitors, and family visitors.",
+
+    education: "Not required.",
+
+    funds: "Must show sufficient funds for extended stay. Recommended: SGD 1,000–SGD 2,500 (~₹60,000–₹1.5 lakh) depending on duration and purpose.",
+
+    docs: "Valid passport, current Short-Term Visit Pass details, completed extension application form, reason for extension (medical, family, travel delay, etc.), proof of funds, return/onward ticket (if applicable), accommodation proof, supporting documents (medical certificates or sponsor letters if relevant).",
+
+    whom: "Foreign visitors in Singapore on Short-Term Visit Pass who need additional time due to valid reasons such as tourism extension, family stay extension, medical reasons, or travel disruptions.",
+
+    rules: "Extension is not guaranteed and is discretionary. Must apply before current STVP expires. Overstaying without approval is illegal. Repeated extensions may be denied if misuse is suspected.",
+
+    prosCons: "Pros: Flexible short-term extension, quick online process, useful for emergencies or travel changes. Cons: Not guaranteed, limited extension duration, cannot convert into long-term visa directly.",
+
+    terms: "STVP: Short-Term Visit Pass; ICA: Immigration & Checkpoints Authority; Overstay: Illegal stay beyond permitted duration; Extension Approval: Permission to extend stay; Valid Reason: Justified cause required for extension.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA).",
+
+    process: `1. Check remaining validity of STVP ->
+              2. Prepare reason for extension and documents ->
+              3. Submit extension application via ICA online portal or service centre ->
+              4. Upload supporting documents ->
+              5. Pay extension fee ->
+              6. ICA reviews application ->
+              7. Approval or rejection issued ->
+              8. If approved, new STVP validity granted ->
+              9. Must leave Singapore before extended expiry date`
+},
+"SingaporeImmigrationSpecialPassCaseReview": {
+    name: "Special Pass (Immigration Case Review Stay Permission, Singapore)",
+
+    validity: "Highly temporary and case-specific. Usually issued for a few days to several months, depending on the duration of immigration review, appeal, investigation, or administrative process. It is not a standard long-term visa.",
+
+    cost: "Usually no fixed visa fee. Administrative charges may apply depending on case handling by ICA or related authorities.",
+
+    time: "Processing is typically immediate to a few working days, depending on urgency and the nature of the immigration case under review.",
+
+    age: "No age restriction. Issued based purely on immigration case requirements.",
+
+    education: "Not required.",
+
+    funds: "Generally not required. Financial responsibility may be assessed on a case-by-case basis, sometimes covered by sponsor, employer, or legal representative.",
+
+    docs: "Valid passport, ICA case reference number or immigration file details, legal/appeal documents (if applicable), supporting identity documents, sponsor or legal representative letter (if any), previous pass details, and any additional documents requested by ICA or immigration authorities.",
+
+    whom: "Foreign nationals involved in immigration-related matters such as visa overstay reviews, appeal hearings, cancellation cases, detention review, investigation procedures, or administrative processing by Singapore Immigration & Checkpoints Authority (ICA).",
+
+    rules: "Strictly limited to immigration case purpose only. No employment or travel outside permitted scope. Must comply with ICA instructions. Must leave Singapore immediately once case is resolved or pass is revoked/expired.",
+
+    prosCons: "Pros: Legal stay during sensitive immigration proceedings, prevents unlawful overstay status during review, allows time for case resolution. Cons: Very restrictive, no work rights, no guarantee of approval or continued stay, purely temporary and case-dependent.",
+
+    terms: "ICA: Immigration & Checkpoints Authority; Special Pass: Temporary discretionary stay permit; Case Review: Immigration decision evaluation process; Overstay Review: Legal assessment of unauthorized stay; Immigration Hold: Temporary stay authorization during proceedings.",
+
+    legal: "Issued under Singapore Immigration Act at the discretion of the Immigration & Checkpoints Authority (ICA) for administrative, legal, or enforcement-related cases.",
+
+    process: `1. Immigration issue or case arises (overstay, appeal, investigation) ->
+              2. Individual is referred to ICA or enforcement unit ->
+              3. Case file is opened for review ->
+              4. Supporting documents submitted (legal or identity proof) ->
+              5. ICA assesses need for temporary stay permission ->
+              6. Special Pass issued if stay is allowed during review ->
+              7. Individual remains in Singapore under strict conditions ->
+              8. Case reviewed and final decision made ->
+              9. Individual exits Singapore or regular visa status is restored`
+},
+"SingaporePersonalisedEmploymentPassPEP": {
+    name: "Personalised Employment Pass (PEP – High Earners)",
+
+    validity: "3 years. The PEP is a one-time pass and is strictly non-renewable. After 3 years, the holder must transition to a standard Employment Pass (EP) or Permanent Residency.",
+
+    cost: "Application fee: SGD $105 (~₹6,500). Issuance fee: SGD $225 (~₹14,000). Total approx. ₹20,500. Unlike the standard EP, the applicant can apply for this independently without an employer.",
+
+    time: "Processing time: 8 weeks or more. Requires extensive verification of global salary history.",
+
+    age: "No strict limit, but targeted at senior-level professionals with significant global experience.",
+
+    education: "Mandatory: Higher education degree from a recognized institution is generally expected, though the salary threshold is the primary qualifier.",
+
+    funds: "Mandatory Salary Threshold: 1. Minimum fixed monthly salary of at least SGD $22,500 (~₹14 Lakhs) if you are an existing EP holder. 2. Minimum fixed monthly salary of at least SGD $22,500 for overseas professionals (last drawn salary).",
+
+    docs: "Valid passport, 3 months of payslips, latest tax assessment, employment contract (past or present), and educational certificates. All non-English documents must be officially translated.",
+
+    whom: "Top-tier Indian executives, high-earning tech leads, and global professionals who want the freedom to switch jobs in Singapore without re-applying for a visa.",
+
+    rules: "You cannot be unemployed for more than 6 months at a time. You must notify the Ministry of Manpower (MOM) whenever you change employers or contact details. You are NOT allowed to start your own business (must use EntrePass for that).",
+
+    prosCons: "Pros: Not tied to a specific employer; allows you to stay in Singapore for 6 months between jobs; family members (spouse/kids) qualify for Dependant Passes. Cons: One-time use only; extremely high salary bar; cannot be used for entrepreneurship.",
+
+    terms: "PEP: Personalised Employment Pass; Fixed Monthly Salary: Base pay excluding bonuses/allowances; MOM: Ministry of Manpower.",
+
+    legal: "Employment of Foreign Manpower Act (Singapore).",
+
+    process: `1. Verify you meet the SGD $22,500 monthly salary threshold -> 
+              2. Submit the PEP application online via the MOM portal independently -> 
+              3. Upload salary history and tax documents for the last 6 months -> 
+              4. Wait for the 8-week assessment period -> 
+              5. Receive the In-Principle Approval (IPA) -> 
+              6. Travel to Singapore and complete biometrics -> 
+              7. Receive the physical PEP card -> 
+              8. Start work with any employer; notify MOM of the company details within 7 days.`
+},
+
+"SingaporeLetterOfConsentLOC": {
+    name: "Letter of Consent (LOC – For Dependant Pass Business Owners)",
+
+    validity: "Aligned with the validity of the primary Dependant's Pass (DP). It is renewable as long as the DP and the business remain active.",
+
+    cost: "Application: Free ($0). However, the cost of registering a business with ACRA (approx. SGD $315) applies.",
+
+    time: "Processing: 4 to 6 weeks.",
+
+    whom: "Dependant Pass (DP) holders (spouses of EP/S Pass holders) who wish to operate their own business as a Sole Proprietor, Partner, or Director with at least 30% shareholding.",
+
+    rules: "Since 2021, DP holders can NO LONGER work as employees via an LOC (they need a regular EP/S Pass). The LOC is now reserved ONLY for those who own at least 30% of a registered Singaporean business. The business must also hire at least one local Singaporean/PR.",
+
+    docs: "Valid DP, ACRA business profile showing 30%+ ownership, and a business plan.",
+
+    prosCons: "Pros: Allows spouses to maintain professional identity by running a business; no minimum salary requirement. Cons: Cannot be used for standard employment; high local hiring requirements.",
+
+    process: `1. Register a business with ACRA in Singapore -> 2. Ensure the DP holder owns 30%+ of the company -> 3. Employer/Business submits LOC application via EP Online -> 4. Receive approval -> 5. Begin business operations.`
+},
+
+
+"SingaporePreApprovedLOC": {
+    name: "Pre-Approved Letter of Consent (PLOC)",
+
+    validity: "Aligned with the Long-Term Visit Pass (LTVP/LTVP+).",
+
+    cost: "Free ($0).",
+
+    time: "Automatic upon application for the LTVP/LTVP+.",
+
+    whom: "Foreign spouses and unmarried children (under 21) of Singapore Citizens or Permanent Residents who hold an LTVP or LTVP+ issued by ICA.",
+
+    rules: "The holder does not need a specific job offer to get the PLOC. Once they find a job, the employer does not need to apply for a work pass. They are exempt from foreign worker quotas and levies.",
+
+    prosCons: "Pros: Maximum work flexibility for family members; highly attractive to employers (no fees or quotas). Cons: Only available to family of Citizens/PRs.",
+
+    process: `1. Apply for an LTVP/LTVP+ via ICA -> 2. Opt-in for the 'Pre-approved LOC' during the application -> 3. Receive the LTVP card with the PLOC status -> 4. Show the card to any employer to start work immediately.`
+},
+
+"SingaporeWorkHolidayPassWHP": {
+    name: "Work Holiday Pass (Under the Work Holiday Programme)",
+
+    validity: "6 months only. Strictly non-renewable and one-time use only.",
+
+    cost: "Application fee: SGD $175 (~₹11,000). Issuance fee: SGD $225 (~₹14,000). Total approx. ₹25,000.",
+
+    time: "Processing: 3 to 4 weeks.",
+
+    age: "Strict limit: 18 to 25 years old.",
+
+    education: "Mandatory: Must be a student or graduate of a university ranked in the top 200 global rankings (QS, Times Higher Education, or Academic Ranking of World Universities).",
+
+    whom: "Indian students or recent graduates from top-tier global universities who want to work and travel in Singapore for a short period.",
+
+    rules: "There is a national quota of 2,000 passes at any one time. You can work in almost any sector (except restricted professions like medicine or law). You do not need a job offer before applying.",
+
+    prosCons: "Pros: No job offer needed to enter; allows total work freedom for 6 months. Cons: Extremely short duration; strictly limited to students/graduates of elite universities; no path to long-term stay.",
+
+    terms: "WHP: Work Holiday Pass; Top 200: Global university ranking requirement.",
+
+    legal: "Employment of Foreign Manpower Act.",
+
+    process: `1. Check if your university is in the Top 200 global rankings -> 2. Submit application online to MOM with transcripts -> 3. Pay the $175 fee -> 4. Receive IPA letter -> 5. Travel to Singapore -> 6. Collect card and work/travel for 6 months.`
+},
+"SingaporeReEntryPermitPR": {
+    name: "Re-Entry Permit (REP – for Permanent Residents traveling outside Singapore)",
+
+    validity: "Usually issued for 5 years for Singapore Permanent Residents (PRs). Shorter validity (1–3 years) may be given in some cases depending on residency and employment status. Must be renewed to maintain PR status while living or traveling abroad.",
+
+    cost: "Application fee: SGD 10 (~₹600–₹700). Renewal fee may vary slightly depending on submission method. Additional service charges may apply if done via agent.",
+
+    time: "Processing time usually 1–4 weeks depending on ICA workload and applicant’s residency history in Singapore.",
+
+    age: "No age limit. Applicable to all Singapore Permanent Residents including adults and dependent children.",
+
+    education: "Not required.",
+
+    funds: "No direct funds requirement. However, PR holders are expected to demonstrate economic contribution or strong ties to Singapore (employment, business, or family residence).",
+
+    docs: "Valid passport, PR status details, completed REP application form, employment details (if working), CPF contribution records, tax assessment notices (IRAS), proof of residence in Singapore, travel history, and additional documents if requested by ICA.",
+
+    whom: "Singapore Permanent Residents who plan to travel outside Singapore and wish to maintain their PR status while being away from the country.",
+
+    rules: "PR status may be revoked if REP expires while the holder is outside Singapore. Must maintain ties such as employment, business, or family residence in Singapore. Long absence without valid REP may result in loss of PR status.",
+
+    prosCons: "Pros: Allows PR holders to travel freely while retaining PR status, ensures long-term residency security, renewable every few years. Cons: Must be renewed regularly, PR can be lost if REP is not maintained, requires proof of continued ties to Singapore.",
+
+    terms: "REP: Re-Entry Permit; PR: Permanent Resident; ICA: Immigration & Checkpoints Authority; CPF: Central Provident Fund; IRAS: Inland Revenue Authority of Singapore; Residency Ties: Employment, family, or business connections in Singapore.",
+
+    legal: "Regulated under Singapore Immigration Act and administered by the Immigration & Checkpoints Authority (ICA).",
+
+    process: `1. Check PR status and REP expiry date ->
+              2. Prepare employment, tax, and residence documents ->
+              3. Submit REP application online via ICA ->
+              4. Pay application fee ->
+              5. ICA reviews residency and contribution history ->
+              6. Approval issued if eligible ->
+              7. REP granted for 1–5 years ->
+              8. Maintain Singapore ties during validity period ->
+              9. Renew REP before expiry to retain PR status`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

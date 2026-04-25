@@ -1,0 +1,2398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+
+
+
+
+/* USA Master Process Section Styling */
+.master-process-details {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.master-process-summary {
+    background: var(--black);
+    color: var(--aqua);
+    padding: 18px;
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid var(--black);
+    list-style: none;
+    text-align: center;
+    box-shadow: 5px 5px 0px var(--aqua);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.master-process-summary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.master-content {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 25px;
+    margin-top: 10px;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: var(--black);
+}
+
+.master-content h1, .master-content h2, .master-content h3 {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.master-content h1 { font-size: 1.2rem; text-decoration: underline; border: none; }
+.master-content h2 { font-size: 1rem; border-bottom: 3px solid var(--aqua); display: block; width: 100%; }
+.master-content h3 { font-size: 0.9rem; background: var(--aqua); padding: 5px 10px; color: var(--black); }
+
+.master-content p, .master-content li, .master-content td, .master-content th {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 1rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.master-content ul { padding-left: 20px; }
+
+.official-box {
+    border: 2px dashed var(--black);
+    padding: 15px;
+    margin-top: 20px;
+    background: #f9f9f9;
+}
+
+.warning-strip {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 10px;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.master-table th, .master-table td {
+    border: 1px solid var(--black);
+    padding: 8px;
+    text-align: left;
+}
+.master-table th { background: var(--aqua); }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+       
+<select id="country">
+    <option value="POLAND">POLAND</option>
+</select>
+
+<label style="margin-top: 15px; display: block;">Select Visa Type</label>
+<select id="visaType">
+    <optgroup label="1. Short Stay (Schengen Type C)">
+        <option value="PolandTouristVisaC">Tourist Visa</option>
+        <option value="PolandBusinessVisaC">Business Visa</option>
+        <option value="PolandFamilyFriendsVisitVisaC">Family/Friends Visit</option>
+        <option value="PolandAirportTransitVisaA">Airport Transit (Type A)</option>
+        <option value="PolandTransitVisaC">Schengen Transit (Type C)</option>
+        <option value="PolandMedicalTreatmentVisaC">Medical Treatment Visa</option>
+        <option value="PolandCulturalSportsEventVisaC">Cultural / Sports / Event</option>
+        <option value="PolandOfficialGovernmentDelegationVisaC">Official Gov Delegation</option>
+        <option value="PolandShortTermStudyTrainingInternshipVisaC">Short-term Study/Training</option>
+    </optgroup>
+
+    <optgroup label="2. Work & Business (National Type D)">
+        <option value="PolandWorkVisaTypeD">Work Visa (Zezwolenie)</option>
+        <option value="PolandSeasonalWorkVisaD">Seasonal Work Visa</option>
+        <option value="PolandEUBlueCardD">EU Blue Card (High Skilled)</option>
+        <option value="PolandIntraCompanyTransferVisaD">Intra-Company Transfer (ICT)</option>
+        <option value="PolandHighlyQualifiedWorkerVisaD">Highly Qualified Worker</option>
+        <option value="PolandSelfEmploymentBusinessVisaD">Business Activity Visa</option>
+        <option value="PolandEntrepreneurBusinessOwnerVisaD">Entrepreneur Visa</option>
+        <option value="PolandInvestorVisaD">Investor Visa</option>
+        <option value="PolandSelfEmployedFreelanceVisaD">Freelance Visa</option>
+    </optgroup>
+
+    <optgroup label="3. Education & Personal (National Type D)">
+        <option value="PolandStudentVisaD">Student Visa (University)</option>
+        <option value="PolandLanguageCourseVisaD">Language Course Visa</option>
+        <option value="PolandInternshipTraineeshipVisaD">Internship / Traineeship</option>
+        <option value="PolandResearcherVisaD">Researcher / PhD Visa</option>
+        <option value="PolandAuPairVisaD">Au Pair Visa</option>
+        <option value="PolandVolunteerVisaD">Volunteer Visa</option>
+        <option value="PolandCulturalExchangeVisaD">Cultural Exchange Visa</option>
+    </optgroup>
+
+    <optgroup label="4. Family & Residency (National Type D)">
+        <option value="PolandFamilyReunificationVisaD">Family Reunification</option>
+        <option value="PolandSpouseVisaD">Spouse Visa</option>
+        <option value="PolandChildDependentVisaD">Child / Dependent Visa</option>
+        <option value="PolandCohabitationPartnerVisaD">Cohabitation / Partner</option>
+        <option value="PolandTemporaryResidenceVisaD">Temporary Residence Path</option>
+        <option value="PolandPermanentResidencePathEntryVisaD">Permanent Residence Path</option>
+        <option value="PolandRepatriationVisaD">Repatriation Visa (Polish Origin)</option>
+    </optgroup>
+
+    <optgroup label="5. Specialized & Humanitarian">
+        <option value="PolandLongTermPrivateStayVisaD">Long-term Private Stay</option>
+        <option value="PolandRetirementLongTermVisitorVisaD">Retirement / non-working stay</option>
+        <option value="PolandNGOHumanitarianVisaD">NGO / Humanitarian Work</option>
+        <option value="PolandAsylumRefugeeProtection">Asylum / Refugee Protection</option>
+        <option value="PolandSubsidiaryProtection">Subsidiary Protection</option>
+        <option value="PolandHumanitarianResidencePermit">Humanitarian Residence Permit</option>
+    </optgroup>
+
+
+
+
+  <optgroup label="6. Extras">
+        <option value="PolandBusinessHarbourTechVisa">Poland business harbour</option>
+        <option value="PolandGraduateWorkExemption">Work permit waiver</option>
+        <option value="PolandKartaPolakaEntryVisa">NPole's card</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+
+
+
+
+<!-- START OF POLAND MASTER PROCESS COLLAPSIBLE -->
+<details class="master-process-details">
+    <summary class="master-process-summary">🇵🇱 VIEW POLAND IMMIGRATION MASTER PROCESS & OFFICIAL LINKS</summary>
+    
+    <div class="master-content">
+        <h1>🇵🇱 GENERAL IMMIGRATION PROCESS FOR POLAND</h1>
+
+        <h2>🎯 PHASE 1: DECIDE PURPOSE</h2>
+        <p>Identify your category: Work (Job Offer/Blue Card), Study (University), Business (Entrepreneur), or Family (Spouse/Child). This decides if you need a <strong>National Visa Type D</strong> (long stay) or <strong>Schengen Type C</strong> (short stay).</p>
+
+        <h2>📄 PHASE 2: CORE REQUIREMENTS</h2>
+        <ul>
+            <li><strong>Work Visa:</strong> Job offer + Work permit from Polish employer.</li>
+            <li><strong>Student Visa:</strong> Official University admission letter.</li>
+            <li><strong>Family Visa:</strong> Sponsor documents from a resident in Poland.</li>
+        </ul>
+
+        <h2>🧾 PHASE 3 & 4: DOCUMENTATION & APPOINTMENT</h2>
+        <p>Prepare your core file: Passport, application form, €30k insurance, and financial proof. Book your biometric appointment through <strong>VFS Global Poland</strong>.</p>
+
+        <h2>🧬 PHASE 5 & 6: BIOMETRICS & PROCESSING</h2>
+        <p>Submit fingerprints and photos at VFS. The Embassy verifies employer/university authenticity. Processing takes <strong>10–60+ working days</strong>.</p>
+
+        <h2>📩 PHASE 7 & 8: DECISION & TRAVEL</h2>
+        <p>Approval results in a visa sticker in your passport. Travel to Poland within the validity period and carry all original documents.</p>
+
+        <h2>🏠 PHASE 9 & 10: REGISTRATION & RESIDENCE CARD</h2>
+        <p><strong>Mandatory:</strong> Register your address at the local municipality and get your <strong>PESEL</strong> number. Apply for the <strong>Temporary Residence Card (Karta Pobytu)</strong> if staying beyond visa validity.</p>
+
+        <h2>🔄 PHASE 11 & 12: EXTENSION & PR PATH</h2>
+        <p>After 5 years of continuous legal stay, you become eligible for the <strong>EU Long-Term Residence Permit</strong> or Permanent Residence in Poland.</p>
+
+        <div class="official-box">
+            <h1>🇵🇱 OFFICIAL POLAND IMMIGRATION WEBSITES</h1>
+            <p><strong>1. Main Government Portal:</strong> <a href="https://www.gov.pl/web/india/visas" target="_blank">www.gov.pl/india/visas</a></p>
+            <p><strong>2. National Visa (Type D) Info:</strong> <a href="https://www.gov.pl/web/india/d-type-national-visa" target="_blank">gov.pl/national-visa</a></p>
+            <p><strong>3. VFS Global India (Apply):</strong> <a href="https://visa.vfsglobal.com/ind/en/pol" target="_blank">visa.vfsglobal.com/india</a></p>
+            <p><strong>4. Anti-Fraud Warning:</strong> <a href="https://www.gov.pl/web/india/fraud-warning-for-the-visa-applicants" target="_blank">gov.pl/fraud-warning</a></p>
+        </div>
+
+        <div class="warning-strip">
+            ⚠️ WARNING: ONLY THE EMBASSY DECIDES VISA OUTCOMES. AVOID AGENTS CLAIMING GUARANTEED APPROVAL.
+        </div>
+    </div>
+</details>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "POLAND": {
+   "PolandTouristVisaC": {
+    name: "Tourist Visa (Schengen Visa – Type C, Poland)",
+
+    validity: "Usually valid for 15 days to 90 days per visit within a 180-day period. Can be single-entry, double-entry, or multiple-entry depending on travel history and consulate decision.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. Children (6–12 years) ~€40 (~₹3,500–₹4,000). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. Can extend to 30–45 days during peak seasons or if additional verification is required.",
+
+    age: "No strict age limit. Applicable for all age groups including minors (minors require parental consent and documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required. Recommended balance: ~€50–€100 per day of stay (approx ₹5,000–₹9,000 per day), along with 3–6 months bank statements.",
+
+    docs: "Valid passport (minimum 3 months beyond return date), Schengen visa application form, recent photos, flight reservation, hotel booking or invitation letter, travel insurance (minimum €30,000 coverage mandatory), bank statements, income proof/ITR (if applicable), cover letter, employment or business proof.",
+
+    whom: "Foreign nationals (including Indian citizens) traveling to Poland for tourism, sightseeing, vacation, or visiting friends/family.",
+
+    rules: "No work or business activities allowed. Must not overstay 90/180 Schengen rule. Must enter via valid itinerary. Travel insurance is compulsory. Visa does not guarantee entry—final decision is at border control.",
+
+    prosCons: "Pros: Access to entire Schengen area, multiple country travel possible, flexible short stay. Cons: Strict documentation, high rejection rate if finances or itinerary are weak, no work rights.",
+
+    terms: "Schengen Area: 27 European countries with common visa policy; Type C Visa: Short-stay visa; VFS: Visa facilitation service center; Biometrics: Fingerprints/photo collection for visa system; Overstay: Illegal stay beyond permitted duration.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) and Schengen Agreement rules.",
+
+    process: `1. Plan travel itinerary ->
+              2. Book flight and hotel (or obtain invitation letter) ->
+              3. Fill Schengen visa application form ->
+              4. Book appointment at VFS Poland/Embassy ->
+              5. Submit documents and biometrics ->
+              6. Pay visa fee ->
+              7. Application reviewed by Polish consulate ->
+              8. Possible interview (if required) ->
+              9. Visa decision issued ->
+              10. Collect passport and travel to Poland ->
+              11. Immigration check at Schengen entry point`
+},
+
+"PolandBusinessVisaC": {
+    name: "Business Visa (Schengen Visa – Type C, Poland)",
+
+    validity: "Usually valid for 15 days to 90 days within a 180-day period. Can be issued as single-entry, double-entry, or multiple-entry depending on business profile and invitation strength.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 30 days if additional verification or embassy interview is required.",
+
+    age: "No strict age limit. Applicant must be an adult (18+) for independent business travel; minors rarely apply for business visas.",
+
+    education: "Not mandatory, but professional/business background (company role, ownership, or employment) is expected.",
+
+    funds: "Proof of sufficient funds required. Recommended balance: ~€70–€120 per day of stay (approx ₹6,000–₹11,000 per day), plus company financial backing if sponsored.",
+
+    docs: "Valid passport, Schengen visa application form, recent photos, business invitation letter from Polish company, cover letter from Indian company, employment proof or business registration, company bank statements, personal bank statements (last 3–6 months), flight reservation, hotel booking or sponsor accommodation, travel insurance (minimum €30,000 coverage), GST/tax documents (if self-employed), and business meeting itinerary.",
+
+    whom: "Business professionals, company employees, entrepreneurs, investors, and consultants traveling to Poland for meetings, conferences, trade fairs, negotiations, or corporate activities.",
+
+    rules: "No employment or salary-based work allowed in Poland. Only permitted to attend meetings, conferences, and business-related activities. Must leave before visa expiry and comply with Schengen 90/180-day rule. Invitation letter is crucial for approval.",
+
+    prosCons: "Pros: Easy access for business networking in EU, multiple-entry possible for frequent travelers, allows travel across Schengen countries. Cons: Strict documentation, strong financial and business proof required, no work rights or income generation in Poland.",
+
+    terms: "Invitation Letter: Official document from Polish company; Schengen Area: 27 European countries with common visa rules; Type C Visa: Short-stay visa category; VFS: Visa application center; Overstay: Illegal stay beyond permitted period.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) and Schengen Agreement rules governing short-stay business travel.",
+
+    process: `1. Receive business invitation from Polish company ->
+              2. Prepare company and financial documents ->
+              3. Fill Schengen business visa application form ->
+              4. Book appointment at VFS/Embassy ->
+              5. Submit documents and biometrics ->
+              6. Pay visa fee ->
+              7. Embassy reviews application ->
+              8. Attend interview if required ->
+              9. Visa decision issued ->
+              10. Collect passport ->
+              11. Travel to Poland for business activities ->
+              12. Immigration clearance at Schengen entry point`
+},
+"PolandFamilyFriendsVisitVisaC": {
+    name: "Family/Friends Visit Visa (Schengen Visa – Type C, Poland)",
+
+    validity: "Usually valid for 15 days to 90 days within a 180-day period. Can be single-entry or multiple-entry depending on invitation and applicant history.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. Children aged 6–12 years ~€40 (~₹3,500–₹4,000). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 30–45 days if additional verification or family relationship checks are required.",
+
+    age: "No strict age limit. Applicable to all age groups including minors (minors require parental consent and guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required. Recommended balance: ~€50–€100 per day of stay (approx ₹5,000–₹9,000 per day). Sponsor in Poland may also provide financial support letter.",
+
+    docs: "Valid passport, Schengen visa application form, recent photographs, invitation letter from family/friend in Poland, proof of relationship (birth/marriage certificate, photos, communication proof), sponsor’s residence permit or citizenship proof, sponsor’s financial documents (income proof, bank statements), applicant’s bank statements (last 3–6 months), travel itinerary, flight reservation, travel insurance (minimum €30,000 coverage mandatory), cover letter.",
+
+    whom: "Individuals visiting close family members or friends legally residing in Poland for short stays such as tourism, family gatherings, events, or personal visits.",
+
+    rules: "No work or employment allowed. Must return before visa expiry. Must comply with Schengen 90/180-day rule. Invitation must clearly state relationship and purpose of visit. Misrepresentation of relationship may lead to rejection or ban.",
+
+    prosCons: "Pros: Easier approval if strong family ties exist, sponsor support reduces financial burden, allows travel across Schengen countries. Cons: Strict verification of relationship, high rejection risk if documents are weak, no work rights.",
+
+    terms: "Invitation Letter: Formal sponsorship letter from host in Poland; Sponsor: Family/friend residing legally in Poland; Schengen Area: 27 European countries under common visa policy; Type C Visa: Short-stay visa; Overstay: Illegal stay beyond permitted duration.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) and Schengen Agreement rules for short-term family and private visits.",
+
+    process: `1. Receive invitation letter from family/friend in Poland ->
+              2. Collect relationship proof documents ->
+              3. Prepare financial and travel documents ->
+              4. Fill Schengen visa application form ->
+              5. Book appointment at VFS/Embassy ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies relationship and sponsor details ->
+              9. Interview may be required ->
+              10. Visa decision issued ->
+              11. Collect passport ->
+              12. Travel to Poland and present documents at immigration`
+},
+
+"PolandAirportTransitVisaA": {
+    name: "Airport Transit Visa (A-Type – Poland / Schengen)",
+
+    validity: "Valid only for transit through the international transit area of Polish airports. Usually issued for single or double transit and valid for a short period (hours up to a few days depending on itinerary).",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. Some nationalities may have reduced or exempt fees based on agreements. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 5–15 working days. Can extend up to 30 days if additional checks are required.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required in some cases, but generally minimal since stay is only in airport transit area. Recommended proof of onward travel and ability to continue journey.",
+
+    docs: "Valid passport, Schengen transit visa application form, recent photographs, confirmed onward flight ticket, valid visa for final destination (if required), travel itinerary, travel insurance (sometimes required depending on nationality), proof of legal entry into destination country if applicable.",
+
+    whom: "Travelers passing through Polish (Schengen) airports en route to another non-Schengen country, where they do not enter the Schengen territory.",
+
+    rules: "You are NOT allowed to leave the international transit zone of the airport. No entry into Poland or Schengen territory. Must have confirmed onward flight. Visa rules vary by nationality—some countries are required to obtain it, others are exempt.",
+
+    prosCons: "Pros: Quick processing, simple travel requirement, allows international transit through Poland. Cons: Extremely restricted movement, no entry into country allowed, only applicable for certain nationalities.",
+
+    terms: "A-Type Visa: Airport transit visa category; Transit Zone: International area of airport without immigration entry; Schengen Area: 27 European countries with shared visa rules; Onward Ticket: Confirmed flight to next destination; Overstay: Illegal stay beyond transit permission (not applicable inside transit visa but applies if entry is attempted).",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) and Schengen transit rules, with strict nationality-based requirements (Annex IV list countries).",
+
+    process: `1. Check if nationality requires airport transit visa ->
+              2. Book confirmed onward flight ->
+              3. Fill Schengen airport transit visa form ->
+              4. Gather travel documents and final destination visa ->
+              5. Book appointment at VFS/Embassy ->
+              6. Submit documents ->
+              7. Pay visa fee ->
+              8. Embassy review ->
+              9. Visa issued or rejected ->
+              10. Travel and remain inside airport transit zone only`
+},
+"PolandTransitVisaC": {
+    name: "Transit Visa (Schengen Visa – Type C Transit, Poland)",
+
+    validity: "Valid for short stays up to 5 days (typically 1–5 days) within the Schengen area, strictly for transit purposes. Can be single-entry or double-entry depending on itinerary.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. Children aged 6–12 years ~€40 (~₹3,500–₹4,000). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend up to 30 days during peak periods or if additional verification is needed.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with parental/guardian consent and documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds may be required depending on route. Recommended: enough to cover transit stay + onward travel expenses (approx €50–€100 per day or equivalent).",
+
+    docs: "Valid passport, Schengen visa application form, recent photographs, confirmed flight/train tickets for entry and exit, visa for final destination (if applicable), travel itinerary, proof of accommodation (if overnight transit in Schengen), travel insurance (minimum €30,000 coverage mandatory), bank statements (last 3–6 months in some cases), cover letter explaining transit purpose.",
+
+    whom: "Travelers passing through Poland (Schengen Area) en route to another country, where they may need to enter the Schengen territory briefly (airport exit or short stay before onward journey).",
+
+    rules: "Must strictly follow transit purpose only. No employment or long-term stay allowed. Must exit Schengen area within visa validity. Cannot convert into work or residence visa. Must follow declared itinerary without deviation.",
+
+    prosCons: "Pros: Allows short stopovers in Poland/Schengen during international travel, flexible for multi-leg journeys, enables land or air transit. Cons: Very limited duration, strict documentation, cannot be used for tourism or long stays.",
+
+    terms: "Transit Visa (Type C): Short-stay Schengen visa for passage through member states; Schengen Area: 27 European countries with shared visa rules; Overstay: Staying beyond permitted transit duration (illegal); Entry/Exit Points: Approved border crossings for Schengen transit.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) and Schengen border control rules governing short transit stays inside the Schengen area.",
+
+    process: `1. Confirm transit route through Schengen ->
+              2. Book onward and return tickets ->
+              3. Collect visa and travel documents ->
+              4. Fill Schengen transit visa application form ->
+              5. Book VFS/Embassy appointment ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies travel route ->
+              9. Visa decision issued ->
+              10. Travel through Poland/Schengen under transit conditions ->
+              11. Exit Schengen within permitted timeframe`
+},
+"PolandMedicalTreatmentVisaC": {
+    name: "Medical Treatment Visa (Schengen Visa – Type C, Poland)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Can be single-entry or multiple-entry depending on medical treatment duration and hospital recommendation.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. Children aged 6–12 years ~€40 (~₹3,500–₹4,000). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 30–45 days if medical verification or embassy coordination with hospital is required.",
+
+    age: "No strict age limit. Applicable for all age groups including minors (guardian documents required for minors).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required. Recommended: enough to cover treatment, stay, and emergency costs (approx €50–€150 per day or hospital estimate). Sponsor/family support or medical sponsor in Poland may also be accepted.",
+
+    docs: "Valid passport, Schengen visa application form, recent photographs, medical diagnosis report from home country doctor, invitation/acceptance letter from Polish hospital or clinic, treatment plan with estimated cost and duration, proof of payment or advance deposit (if applicable), bank statements (last 3–6 months), travel insurance (minimum €30,000 coverage mandatory, sometimes higher recommended for medical cases), accommodation proof, cover letter explaining medical purpose.",
+
+    whom: "Patients traveling to Poland for medical diagnosis, surgery, specialized treatment, rehabilitation, or follow-up care in approved hospitals or clinics.",
+
+    rules: "Visa strictly limited to medical purpose only. Must follow approved treatment plan. No employment allowed. Extension may be granted only if treatment is ongoing and certified by hospital. Must leave Schengen area after treatment completion.",
+
+    prosCons: "Pros: Access to advanced medical treatment in EU hospitals, possible fast-track medical approval, extended stay possible based on treatment needs. Cons: Strict documentation, hospital confirmation required, high financial proof requirement, no work rights.",
+
+    terms: "Medical Invitation Letter: Official document from hospital confirming treatment; Schengen Area: 27 European countries under shared visa rules; Type C Visa: Short-stay visa category; Medical Report: Diagnosis proof from home country doctor; Overstay: Illegal stay beyond approved duration.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) and Schengen rules for short-term medical treatment stays.",
+
+    process: `1. Obtain medical diagnosis in home country ->
+              2. Contact hospital/clinic in Poland ->
+              3. Receive medical acceptance and treatment plan ->
+              4. Prepare financial and insurance documents ->
+              5. Fill Schengen medical visa application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies medical necessity with hospital ->
+              10. Possible interview or additional medical proof request ->
+              11. Visa decision issued ->
+              12. Travel to Poland for treatment ->
+              13. Follow treatment plan and comply with visa conditions`
+},
+"PolandCulturalSportsEventVisaC": {
+    name: "Cultural / Sports / Event Visa (Schengen Visa – Type C, Poland)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Can be single-entry or multiple-entry depending on event duration and organizer invitation.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. Children aged 6–12 years ~€40 (~₹3,500–₹4,000). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 30–45 days if verification with event organizers or sports/cultural bodies is required.",
+
+    age: "No strict age limit. Applicable for all age groups including minors (guardian consent required for minors).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required. Recommended: ~€50–€120 per day (approx ₹5,000–₹11,000 per day) depending on event sponsorship. Sponsoring organization may also cover costs.",
+
+    docs: "Valid passport, Schengen visa application form, recent photographs, official invitation letter from event organizer (sports federation, cultural institution, or event committee), event registration proof, participation confirmation (ticket/pass/accreditation), itinerary of event schedule, proof of accommodation, travel insurance (minimum €30,000 coverage mandatory), bank statements (last 3–6 months), cover letter explaining purpose of visit, sponsor letter (if expenses covered by organizer).",
+
+    whom: "Artists, performers, athletes, coaches, cultural delegations, journalists, and participants attending sports tournaments, cultural festivals, exhibitions, conferences, or official events in Poland.",
+
+    rules: "Must participate only in approved event activities. No employment or paid work outside event scope allowed. Must leave Schengen area after event completion. Must follow organizer’s itinerary. Misuse of visa for work or tourism beyond event may lead to ban.",
+
+    prosCons: "Pros: Easier approval if invited by recognized organization, possible sponsorship of expenses, access to Schengen countries during event period. Cons: Strict invitation requirement, limited duration, no work rights outside event participation.",
+
+    terms: "Event Invitation Letter: Official document from organizer; Accreditation: Official participation pass; Schengen Area: 27 European countries under unified visa rules; Type C Visa: Short-stay visa category; Overstay: Illegal stay beyond permitted duration.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) and Schengen regulations for short-term cultural, sports, and event participation.",
+
+    process: `1. Receive official invitation from event organizer ->
+              2. Confirm participation and registration ->
+              3. Collect event documents and sponsorship letters ->
+              4. Prepare financial and insurance documents ->
+              5. Fill Schengen visa application form ->
+              6. Book appointment at VFS/Embassy ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies event authenticity ->
+              10. Possible interview if required ->
+              11. Visa decision issued ->
+              12. Travel to Poland ->
+              13. Participate in event and exit Schengen before expiry`
+},
+"PolandOfficialGovernmentDelegationVisaC": {
+    name: "Official / Government Delegation Visa (Schengen Visa – Type C, Poland)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Can be single-entry or multiple-entry depending on official mission duration and diplomatic requirements.",
+
+    cost: "Generally exempt from visa fee for official/government delegations in many cases. If applicable, approx €80 (~₹7,000–₹7,500). VFS service charges may still apply (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 5–10 working days. May be faster than standard visas due to official priority channels.",
+
+    age: "No strict age limit. Applicable to government officials, diplomats, and delegated personnel.",
+
+    education: "Not required. Eligibility depends on official designation and purpose of travel.",
+
+    funds: "Usually covered by government or sponsoring authority. Proof of official funding or diplomatic sponsorship is required instead of personal funds.",
+
+    docs: "Valid diplomatic/official passport (or regular passport with official note), Schengen visa application form (if required), official letter from government department, invitation letter from Polish government authority or institution, diplomatic note (Note Verbale), travel itinerary, accommodation arrangements (often arranged by host government), travel insurance (if required), previous travel records (if applicable), and assignment/order of duty.",
+
+    whom: "Government officials, diplomats, ministers, embassy staff, public sector representatives, and official delegations traveling to Poland for state visits, bilateral meetings, conferences, or official assignments.",
+
+    rules: "Strictly limited to official duties only. No private work or tourism activities allowed unless separately permitted. Must follow diplomatic protocol and travel itinerary. Any deviation from official purpose is not allowed.",
+
+    prosCons: "Pros: Fast-track processing, possible visa fee exemption, priority handling, official support from both governments. Cons: Restricted strictly to official duties, limited personal travel flexibility, requires formal government authorization.",
+
+    terms: "Note Verbale: Formal diplomatic communication between governments; Official Delegation: Government-approved travel group; Schengen Area: 27 European countries under unified visa system; Type C Visa: Short-stay visa category; Diplomatic Passport: Special passport for government officials.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) and diplomatic conventions such as the Vienna Convention on Diplomatic Relations.",
+
+    process: `1. Government department assigns official delegation ->
+              2. Obtain official invitation from Polish authority ->
+              3. Issue Note Verbale or official government letter ->
+              4. Prepare diplomatic/official documents ->
+              5. Fill Schengen visa application (if required) ->
+              6. Submit application via embassy/VFS diplomatic channel ->
+              7. Fast-track verification by embassy ->
+              8. Approval coordination between governments ->
+              9. Visa issued (often expedited) ->
+              10. Travel under official mission ->
+              11. Complete assignment and return as per schedule`
+},
+"PolandShortTermStudyTrainingInternshipVisaC": {
+    name: "Short-term Study / Training / Internship Visa (Schengen Visa – Type C, Poland)",
+
+    validity: "Usually valid up to 90 days within a 180-day period. Can be single-entry or multiple-entry depending on course, internship, or training duration.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. Students or interns in some programs may get fee exemptions or reductions. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend up to 30–45 days if academic verification or institution checks are required.",
+
+    age: "No strict age limit. Typically applies to students (16+), university students, interns, trainees, and professionals attending short courses.",
+
+    education: "Required depending on program (school certificate, diploma, degree, or enrollment proof from institution).",
+
+    funds: "Proof of sufficient funds required. Recommended: ~€50–€100 per day (approx ₹5,000–₹9,000 per day). Sponsorship from institution or host organization may reduce personal fund requirement.",
+
+    docs: "Valid passport, Schengen visa application form, recent photographs, admission/invitation letter from Polish university/institution/company, internship/training agreement, course details and duration, proof of enrollment (if student), financial proof (bank statements last 3–6 months), accommodation proof, travel insurance (minimum €30,000 coverage mandatory), cover letter explaining purpose of study/training, academic certificates, sponsor letter (if applicable).",
+
+    whom: "Students, interns, trainees, researchers, and professionals attending short-term academic courses, vocational training, workshops, exchange programs, or internships in Poland.",
+
+    rules: "Must strictly follow approved study/training/internship program. No employment outside authorized activity allowed. Must not overstay beyond visa validity. Must maintain attendance and institutional compliance. Visa cannot be used for long-term study or work conversion without separate approval.",
+
+    prosCons: "Pros: Opportunity to study or gain international training exposure in EU, possible institutional sponsorship, enhances academic/career profile. Cons: Strict documentation, limited duration, no full-time work rights, high rejection risk if program not well documented.",
+
+    terms: "Admission Letter: Official acceptance from institution; Internship Agreement: Contract for training placement; Schengen Area: 27 European countries with common visa rules; Type C Visa: Short-stay visa category; Overstay: Illegal stay beyond permitted duration.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) and Schengen rules for short-term academic, training, and internship stays.",
+
+    process: `1. Apply and receive admission/internship offer ->
+              2. Obtain official invitation/acceptance letter ->
+              3. Prepare academic and financial documents ->
+              4. Fill Schengen visa application form ->
+              5. Book appointment at VFS/Embassy ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies institution and purpose ->
+              9. Interview if required ->
+              10. Visa decision issued ->
+              11. Travel to Poland ->
+              12. Attend study/training/internship program ->
+              13. Exit Schengen before visa expiry`
+},
+
+"PolandWorkVisaTypeD": {
+    name: "Work Visa (National Visa – Type D, Poland based on Work Permit)",
+
+    validity: "Usually issued for up to 1 year initially. Can be extended and later converted into a Temporary Residence Permit for longer stay and continued employment in Poland.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for visa fee. Additional work permit fees paid by employer (~€25–€100 depending on permit type). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–30 working days after submission. Work permit approval before visa may take 1–8 weeks depending on employer and region.",
+
+    age: "Generally 18–60 years (practically working-age adults). No strict legal upper limit, but job suitability is assessed.",
+
+    education: "Depends on job role. Skilled jobs require relevant qualifications (degree/diploma). Low-skilled jobs may not require higher education but need employer justification.",
+
+    funds: "Employer sponsorship is usually required. Applicant should still show basic financial stability (~€2,000–€5,000 recommended or equivalent savings) until salary begins.",
+
+    docs: "Valid passport, national visa application form, recent photographs, official work permit (Zezwolenie na pracę) issued by Polish authorities, employment contract or job offer letter, employer invitation letter, company registration documents, proof of accommodation in Poland, travel insurance (minimum €30,000 coverage), CV/resume, educational certificates, experience letters (if required), bank statements (last 3–6 months), cover letter explaining job role.",
+
+    whom: "Foreign workers (including Indians) who have secured a job offer from a Polish employer and obtained a valid work permit for employment in Poland.",
+
+    rules: "You can only work for the sponsoring employer and in the approved job role. Changing employer requires new permit. Must comply with Polish labor laws. No unauthorized work allowed. Must convert to residence permit for long-term stay beyond visa validity.",
+
+    prosCons: "Pros: Legal employment in Poland, pathway to EU residence, employer-sponsored stability, potential long-term settlement options. Cons: Employer dependency, strict work restrictions, paperwork-heavy process, limited flexibility in job change.",
+
+    terms: "Work Permit (Zezwolenie na pracę): Authorization to work in Poland; Type D Visa: National long-stay visa; Residence Permit: Long-term stay authorization; Employer Sponsorship: Job support required for visa; EU Blue Card: Alternative high-skilled work permit option.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU immigration rules governing national long-stay employment visas.",
+
+    process: `1. Employer in Poland offers job ->
+              2. Employer applies for work permit ->
+              3. Work permit approved by Polish authorities ->
+              4. Receive employment contract and permit ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies employer and permit ->
+              10. Possible interview ->
+              11. Visa decision issued ->
+              12. Travel to Poland ->
+              13. Register address and start employment ->
+              14. Apply for residence permit if staying long-term`
+},
+"PolandSeasonalWorkVisaD": {
+    name: "Seasonal Work Visa (National Visa – Type D, Poland)",
+
+    validity: "Usually issued for up to 9 months within a calendar year (in agriculture, horticulture, tourism, or hospitality sectors). Not intended for year-round employment.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Work permit for seasonal work is usually issued by employer (~€20–€50). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–30 working days after submission. Seasonal work permit approval may take 7–30 days depending on employer and labor office workload.",
+
+    age: "Generally 18–60 years. Must be physically fit for seasonal/manual work requirements.",
+
+    education: "Not strictly required. Basic literacy and job-specific skills may be preferred depending on role (farm work, harvesting, tourism services, etc.).",
+
+    funds: "Employer sponsorship is standard. Applicant may need minimal personal funds (~€500–€2,000 recommended) for initial expenses before salary starts.",
+
+    docs: "Valid passport, national visa application form, recent photographs, seasonal work permit issued by Polish labor office, job offer letter from employer, employment contract, employer registration documents, accommodation proof (often provided by employer), travel insurance (minimum €30,000 coverage), bank statements (last 3–6 months if required), cover letter explaining job role.",
+
+    whom: "Foreign workers (including Indians) hired for seasonal jobs in Poland such as agriculture (fruit picking, farming), horticulture, food processing, tourism, and hospitality services.",
+
+    rules: "Work is strictly limited to seasonal job and approved employer. Maximum stay is 9 months per year. No switching employers without new permit. No permanent employment rights under this visa. Must leave or change status after season ends.",
+
+    prosCons: "Pros: Easier to obtain than full work visa, high demand in agriculture/tourism sectors, employer usually provides accommodation and support. Cons: Temporary only, physically demanding jobs, limited rights, no long-term settlement pathway directly.",
+
+    terms: "Seasonal Work Permit: Authorization for temporary agricultural/tourism work; Type D Visa: National long-stay visa; Labor Office: Authority issuing seasonal permits; Employer Sponsorship: Required job support; Overstay: Illegal stay beyond permitted 9-month limit.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU Seasonal Workers Directive (2014/36/EU).",
+
+    process: `1. Employer in Poland offers seasonal job ->
+              2. Employer applies for seasonal work permit ->
+              3. Permit issued by Polish labor office ->
+              4. Worker receives job contract and permit ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies employer and permit ->
+              10. Visa decision issued ->
+              11. Travel to Poland ->
+              12. Start seasonal work under employer supervision ->
+              13. Leave Poland or renew permit within legal limit`
+},
+"PolandEUBlueCardD": {
+    name: "EU Blue Card (Highly Skilled Professionals – National Visa Type D, Poland)",
+
+    validity: "Initially issued for 1 to 3 years depending on employment contract. Renewable. Can lead to long-term residence and EU mobility rights after meeting conditions.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Additional residence card fee in Poland (~€100–€150). VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–60 working days depending on qualification verification, employer approval, and local immigration workload.",
+
+    age: "No strict age limit, but typically issued to working-age professionals (usually 21–55 years).",
+
+    education: "Mandatory higher education qualification (university degree or equivalent). In some cases, 5+ years of relevant professional experience may substitute.",
+
+    funds: "Must meet minimum salary threshold set by Poland (typically at least ~150% of average gross salary in Poland). Personal funds are usually not required due to employer sponsorship.",
+
+    docs: "Valid passport, national visa application form, recent photographs, university degree certificates, employment contract with high salary meeting Blue Card threshold, employer invitation letter, proof of professional experience, CV/resume, company registration documents, health insurance coverage (€30,000+ or employer-provided), accommodation proof, bank statements (if requested), cover letter.",
+
+    whom: "Highly skilled professionals such as IT specialists, engineers, doctors, researchers, finance experts, and other qualified workers with a high-paying job offer in Poland.",
+
+    rules: "Must work only in the approved high-skilled job role. Changing employer requires notification or new approval. Salary must remain above threshold. Must comply with EU Blue Card conditions for residence and employment. Can lead to long-term EU residence after required period.",
+
+    prosCons: "Pros: High salary job access in EU, faster route to permanent residency, mobility across EU after conditions met, family reunification allowed. Cons: Strict qualification and salary requirements, employer dependency initially, complex documentation process.",
+
+    terms: "EU Blue Card: EU-wide work and residence permit for skilled workers; Salary Threshold: Minimum income requirement; Residence Permit: Long-term stay authorization; Employer Sponsorship: Job offer required; Mobility Rights: Ability to move within EU after conditions are met.",
+
+    legal: "Regulated under EU Blue Card Directive (Directive 2009/50/EC, updated by Directive (EU) 2021/1883) and Polish Act on Foreigners.",
+
+    process: `1. Secure high-skilled job offer in Poland ->
+              2. Employer confirms salary meets Blue Card threshold ->
+              3. Gather educational and experience documents ->
+              4. Employer initiates Blue Card application process ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book appointment at VFS/Embassy ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Immigration authority verifies qualification and salary ->
+              10. Possible interview or credential verification ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Apply for Blue Card residence permit ->
+              14. Work and live in Poland with EU mobility benefits`
+},
+"PolandIntraCompanyTransferVisaD": {
+    name: "Intra-Company Transfer Visa (ICT – National Visa Type D, Poland)",
+
+    validity: "Usually issued for 1 to 3 years depending on assignment duration. Can be extended depending on company transfer policy and project needs.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence permit card after arrival may cost ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–45 working days depending on employer documentation, corporate verification, and immigration workload.",
+
+    age: "No strict legal age limit, but typically applicable to working professionals (usually 21–60 years).",
+
+    education: "Not strictly mandatory, but usually requires relevant qualification or professional experience in the company role being transferred.",
+
+    funds: "Usually fully employer-sponsored. Applicant generally does not need to show personal funds, but basic financial stability proof (~€2,000–€5,000) may sometimes be requested.",
+
+    docs: "Valid passport, national visa application form, recent photographs, intra-company transfer letter, employment contract from parent company, assignment letter from Polish branch, proof of prior employment (usually 6–12 months minimum in the company), company group structure documents, host company registration in Poland, job description, salary details, accommodation proof, travel insurance (€30,000+ coverage), CV/resume, bank statements (if requested), cover letter.",
+
+    whom: "Employees of multinational companies being transferred from an overseas branch (e.g., India) to a Polish branch or subsidiary for managerial, specialist, or trainee roles.",
+
+    rules: "Applicant must remain employed by the same company group. Job role and assignment must match approved transfer. Cannot switch employer freely. Must comply with Polish labor and immigration regulations. Family members may apply for dependent visas separately.",
+
+    prosCons: "Pros: No job search required, stable internal transfer, often faster than external work visa, family reunification possible. Cons: Strict eligibility (must be existing employee), limited flexibility, tied to company duration and assignment only.",
+
+    terms: "ICT (Intra-Company Transfer): Internal corporate relocation; Parent Company: Original employer; Host Company: Polish branch/subsidiary; National Visa Type D: Long-stay visa; Residence Permit: Long-term stay authorization after arrival.",
+
+    legal: "Regulated under EU Intra-Corporate Transferee Directive (2014/66/EU) and Polish Act on Foreigners.",
+
+    process: `1. Employee is selected for transfer by multinational company ->
+              2. Parent company issues transfer assignment letter ->
+              3. Polish branch submits ICT work authorization ->
+              4. Immigration authorities verify company structure ->
+              5. Collect employment and corporate documents ->
+              6. Fill National Visa (Type D) application form ->
+              7. Book VFS/Embassy appointment ->
+              8. Submit documents and biometrics ->
+              9. Pay visa fee ->
+              10. Embassy verifies corporate transfer validity ->
+              11. Visa decision issued ->
+              12. Travel to Poland ->
+              13. Apply for residence permit ICT card ->
+              14. Continue assignment under company transfer program`
+},
+"PolandHighlyQualifiedWorkerVisaD": {
+    name: "Highly Qualified Worker Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for 1 year initially and can be extended. Often linked to EU Blue Card pathway or skilled residence permit depending on contract type.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence permit issuance after arrival may cost ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–60 working days depending on job verification, qualification checks, and immigration workload.",
+
+    age: "No strict legal limit, but typically applies to professionals aged 21–55 years in skilled occupations.",
+
+    education: "Mandatory higher education (university degree or equivalent qualification) OR exceptionally strong professional experience in a highly skilled field (IT, engineering, healthcare, finance, etc.).",
+
+    funds: "Usually employer-sponsored. Salary must meet Polish skilled-worker threshold (often close to or above national average wage). Personal funds (~€2,000–€5,000) may be requested in some cases.",
+
+    docs: "Valid passport, national visa application form, recent photographs, employment contract or job offer, employer invitation letter, proof of qualifications (degree/diploma certificates), work experience letters, CV/resume, company registration documents, salary details, proof of accommodation in Poland, travel insurance (€30,000+ coverage), bank statements (last 3–6 months if required), cover letter explaining role and skills.",
+
+    whom: "Highly skilled professionals such as IT specialists, software engineers, doctors, researchers, architects, financial analysts, and other advanced technical or managerial professionals hired by Polish employers.",
+
+    rules: "Must work only in the approved job role and employer. Any job change requires approval or new permit. Must comply with Polish labor laws and immigration conditions. Cannot engage in unauthorized work or freelance activity outside contract.",
+
+    prosCons: "Pros: High-demand skilled job opportunities in EU, pathway to long-term residence, possible transition to EU Blue Card or permanent residency, family reunification allowed. Cons: Strict qualification requirements, employer dependency, documentation-heavy process, limited flexibility in early stages.",
+
+    terms: "Highly Qualified Worker: Skilled professional meeting education/salary standards; Work Permit: Authorization to work in Poland; National Visa Type D: Long-term visa; Residence Permit: Long-stay legal status; EU Blue Card: Alternative skilled migration pathway.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU skilled migration frameworks including EU Blue Card Directive (where applicable).",
+
+    process: `1. Secure skilled job offer in Poland ->
+              2. Employer verifies qualification and salary level ->
+              3. Collect academic and professional documents ->
+              4. Employer applies for work authorization ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Immigration authority verifies employer and qualification ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Apply for residence permit ->
+              14. Continue employment under skilled worker category`
+},
+"PolandICTVisaD": {
+    name: "ICT Visa (Intra-Corporate Transfer – National Visa Type D, Poland)",
+
+    validity: "Usually issued for 1 to 3 years depending on the assignment. Can be extended within legal limits of ICT regulations and company requirements.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence permit card after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–45 working days. May extend if corporate verification or inter-company documentation checks are required.",
+
+    age: "No strict legal age limit, but typically applicable to working professionals aged 21–60 years.",
+
+    education: "Not strictly mandatory, but usually requires relevant qualifications or proven professional experience in the same company group role.",
+
+    funds: "Usually fully employer-sponsored. Applicant generally does not need personal funds, though some consulates may request proof of minimal financial stability (~€2,000–€5,000).",
+
+    docs: "Valid passport, national visa application form, recent photographs, ICT assignment letter from employer, employment contract with parent company, proof of employment history (usually 6–12 months minimum in company group), host company (Poland) registration documents, company group structure proof, job description, salary details, accommodation proof, travel insurance (€30,000+ coverage), CV/resume, bank statements (if requested), cover letter.",
+
+    whom: "Employees of multinational companies being transferred to a Polish branch/subsidiary for managerial, specialist, or trainee roles under internal corporate transfer arrangements.",
+
+    rules: "Must remain employed within the same corporate group. Cannot change employer independently. Must follow assigned role and duration. Any extension or modification requires company and immigration approval. Family members can apply for dependent visas separately.",
+
+    prosCons: "Pros: No job searching required, stable corporate transfer, easier approval for multinational employees, family reunification possible. Cons: Strict eligibility (must already be employed in company), limited flexibility, tied to employer duration and assignment only.",
+
+    terms: "ICT (Intra-Corporate Transfer): Internal company relocation; Parent Company: Original employer; Host Entity: Polish branch/subsidiary; National Visa Type D: Long-stay visa; Residence Permit: Legal stay after arrival; EU ICT Directive: EU regulation governing corporate transfers.",
+
+    legal: "Regulated under EU Directive 2014/66/EU on Intra-Corporate Transferees and Polish Act on Foreigners.",
+
+    process: `1. Employee selected for internal transfer ->
+              2. Parent company issues ICT assignment letter ->
+              3. Polish branch submits transfer approval request ->
+              4. Authorities verify corporate structure and role ->
+              5. Collect employment and company documents ->
+              6. Fill National Visa (Type D) application form ->
+              7. Book VFS/Embassy appointment ->
+              8. Submit documents and biometrics ->
+              9. Pay visa fee ->
+              10. Embassy verifies ICT eligibility ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Apply for ICT residence permit card ->
+              14. Work in assigned corporate role in Poland`
+},
+"PolandSelfEmploymentBusinessVisaD": {
+    name: "Self-Employment / Business Activity Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for 1 year initially. Can be extended and later converted into a Temporary Residence Permit for business activity in Poland.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Business registration and residence permit costs in Poland may add ~€100–€300. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–60 working days depending on business plan verification, financial proof, and immigration workload.",
+
+    age: "No strict age limit, but typically applies to adults (18+) with active business intent (commonly 21–60 years).",
+
+    education: "Not mandatory, but relevant business experience, skills, or professional background is strongly preferred.",
+
+    funds: "Strong financial proof required. Recommended minimum: ~€10,000–€20,000+ (₹9–18 lakh approx) depending on business type, plus funds to sustain living and initial setup costs.",
+
+    docs: "Valid passport, national visa application form, recent photographs, detailed business plan, proof of funds, bank statements (last 6–12 months), business registration documents (if already registered), tax records (if applicable), CV/resume, proof of qualifications or experience, accommodation proof in Poland, travel insurance (€30,000+ coverage), cover letter explaining business activity, lease agreement or office setup proof (if available).",
+
+    whom: "Entrepreneurs, freelancers, consultants, and individuals planning to start or run a business activity in Poland (trading, services, IT consultancy, import-export, startups, etc.).",
+
+    rules: "Business must be legally registered in Poland. Applicant must actively run the business. No passive investment-only status unless approved under separate investor category. Must comply with Polish tax and commercial laws. Business failure may affect visa renewal.",
+
+    prosCons: "Pros: Pathway to long-term residence, ability to run own business in EU, access to European market, family reunification possible. Cons: High documentation requirements, strong financial proof needed, business risk involved, strict compliance with Polish regulations.",
+
+    terms: "Self-Employment: Running own business independently; Business Activity: Legal commercial operations in Poland; National Visa Type D: Long-stay visa; Residence Permit: Extended legal stay; KRS: Polish business registry system.",
+
+    legal: "Regulated under Polish Act on Foreigners and Polish Commercial Law governing business establishment by foreign nationals.",
+
+    process: `1. Prepare business idea or plan ->
+              2. Check feasibility in Poland ->
+              3. Prepare financial proof and documents ->
+              4. Register or plan company setup (optional initial step) ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies business viability ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Register business officially ->
+              14. Apply for residence permit for business activity ->
+              15. Operate and maintain business legally`
+},
+
+"PolandStudentVisaD": {
+    name: "Student Visa (National Visa Type D – University Studies, Poland)",
+
+    validity: "Usually issued for 3 months to 1 year initially. Can be extended or converted into a Temporary Residence Permit for the full duration of studies (Bachelor’s, Master’s, PhD).",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence card after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–45 working days depending on university verification and embassy workload.",
+
+    age: "No strict age limit. Typically 17–35 years for undergraduate/postgraduate studies, but mature students are also eligible.",
+
+    education: "Required: previous academic qualification (12th for bachelor’s, bachelor’s for master’s, master’s for PhD) plus admission letter from a recognized Polish university.",
+
+    funds: "Proof of sufficient funds required. Recommended: ~€8,000–€12,000 per year (₹7–11 lakh approx) for tuition + living expenses, or sponsor bank statements/education loan.",
+
+    docs: "Valid passport, national visa application form, recent photographs, university admission/acceptance letter, proof of tuition payment (if required), academic certificates, IELTS/English proficiency proof (if applicable), bank statements (last 3–6 months), blocked account or financial guarantee, accommodation proof, travel insurance (€30,000+ coverage), cover letter, visa fee receipt.",
+
+    whom: "International students (including Indian students) admitted to Polish universities for bachelor’s, master’s, PhD, or exchange programs.",
+
+    rules: "Must study full-time in approved institution. Limited part-time work allowed under Polish law (typically up to 20 hours/week during studies and full-time during holidays, subject to conditions). Must maintain attendance and academic progress. Visa cannot be used for full-time employment.",
+
+    prosCons: "Pros: Affordable education in EU, pathway to residence permit, part-time work allowed, access to Schengen travel. Cons: Strict admission requirements, financial proof needed, must maintain academic performance, limited work rights during study.",
+
+    terms: "Type D Visa: Long-stay national visa; Residence Permit: Legal stay after arrival; Blocked Account: Proof of financial funds for study; Admission Letter: University acceptance document; Schengen Area: 27 European countries with free movement.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU student mobility rules for long-term study visas.",
+
+    process: `1. Apply to Polish university ->
+              2. Receive admission letter ->
+              3. Arrange financial proof or education loan ->
+              4. Prepare academic documents ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies admission and funds ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Apply for residence permit for studies ->
+              14. Begin academic program in Poland`
+},
+
+"PolandLanguageCourseVisaD": {
+    name: "Language Course Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for the duration of the language course, commonly 3 to 12 months. Can be extended if enrolled in a longer program or converted into a residence permit.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. VFS service charges extra (~₹1,500–₹2,500). Residence permit card after arrival ~€100–€150 if extended stay is needed.",
+
+    time: "Processing time usually 10–30 working days depending on course verification and embassy workload.",
+
+    age: "No strict age limit. Commonly 16+ for independent applicants; younger applicants require guardian documents.",
+
+    education: "Not mandatory. Basic education proof may be required depending on course level and institution requirements.",
+
+    funds: "Proof of sufficient funds required. Recommended: ~€6,000–€10,000 per year (₹5–9 lakh approx) covering tuition + living expenses, or sponsor/education loan documents.",
+
+    docs: "Valid passport, national visa application form, recent photographs, language school admission letter, course details (duration, fees, schedule), proof of tuition payment (if required), bank statements (last 3–6 months), sponsor letter or education loan proof (if applicable), accommodation proof, travel insurance (€30,000+ coverage mandatory), cover letter explaining purpose of language study.",
+
+    whom: "Foreign students (including Indians) enrolling in Polish language schools or certified institutions for learning Polish or other languages for education, work, or integration purposes.",
+
+    rules: "Must attend the enrolled language course regularly. No full-time employment allowed (only limited part-time work may be permitted under specific conditions). Must not overstay beyond visa validity. Cannot use visa for unrelated study or work.",
+
+    prosCons: "Pros: Good pathway to learn Polish for higher studies or work, easier than university admission, cultural integration support. Cons: Limited duration, no direct work rights, must show financial stability, extension depends on continued enrollment.",
+
+    terms: "Language Course: Structured language learning program; Type D Visa: Long-stay national visa; Residence Permit: Extended stay authorization; Admission Letter: Proof of enrollment; Schengen Area: 27 European countries with common visa rules.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU long-stay study visa regulations for non-degree education programs.",
+
+    process: `1. Select language school in Poland ->
+              2. Apply and receive admission letter ->
+              3. Arrange financial proof or sponsor documents ->
+              4. Prepare visa application documents ->
+              5. Fill National Visa (Type D) form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies course authenticity ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Join language course ->
+              14. Apply for extension or residence permit if needed`
+},
+
+"PolandInternshipTraineeshipVisaD": {
+    name: "Internship / Traineeship Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for the duration of the internship or traineeship program, commonly 3 to 12 months. Can be extended only if the program is officially extended or converted into a residence permit.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. VFS service charges extra (~₹1,500–₹2,500). Residence permit card after arrival ~€100–€150 if stay is extended.",
+
+    time: "Processing time usually 10–30 working days depending on internship verification, host organization, and embassy workload.",
+
+    age: "No strict age limit. Commonly 18–30 years for internships, but traineeships can also include early-career professionals.",
+
+    education: "Usually required: enrollment in university (for internship) or recent graduate status. Some traineeships may require diploma/degree depending on field.",
+
+    funds: "Proof of sufficient funds required. Recommended: ~€6,000–€10,000 per year (₹5–9 lakh approx) OR stipend/sponsorship letter from host organization.",
+
+    docs: "Valid passport, national visa application form, recent photographs, internship/traineeship agreement, invitation letter from Polish host organization/company, proof of enrollment (if student) or graduation certificate, training plan with duration and tasks, stipend/salary details (if applicable), bank statements (last 3–6 months), accommodation proof, travel insurance (€30,000+ coverage mandatory), cover letter explaining purpose of internship, CV/resume.",
+
+    whom: "Students, graduates, and early-career professionals participating in structured internships or traineeships in Poland in companies, NGOs, universities, or training institutions.",
+
+    rules: "Must strictly follow internship/traineeship program. No unauthorized employment allowed. Work is limited to agreed training scope. Must leave or change status after completion. Extensions only allowed if program is officially extended.",
+
+    prosCons: "Pros: International work experience in EU, improves career prospects, possible stipend or sponsorship, pathway to job opportunities later. Cons: Limited duration, strict eligibility, no full employment rights, dependent on host organization.",
+
+    terms: "Internship Agreement: Formal training contract; Traineeship: Structured professional training program; Type D Visa: Long-stay national visa; Residence Permit: Extended legal stay; Host Organization: Company or institution providing training.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU directives related to trainees and interns (EU Mobility Framework where applicable).",
+
+    process: `1. Apply for internship/traineeship in Poland ->
+              2. Receive acceptance/invitation letter ->
+              3. Sign internship/traineeship agreement ->
+              4. Prepare academic and financial documents ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies host organization ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Begin internship/traineeship ->
+              14. Apply for extension or residence permit if applicable`
+},
+"PolandResearcherVisaD": {
+    name: "Researcher Visa (National Visa Type D – Academic / PhD Research, Poland)",
+
+    validity: "Usually issued for the duration of the research project or PhD program, typically 1 to 3 years. Can be extended or converted into a residence permit for continued research or academic stay.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence permit card after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–45 working days depending on university/research institute verification and embassy workload.",
+
+    age: "No strict age limit. Commonly 22–45 years for PhD/research applicants, but open to all qualified researchers.",
+
+    education: "Mandatory higher education qualification (minimum Bachelor’s for research support roles; Master’s for PhD/research positions). PhD admission or formal research acceptance is usually required.",
+
+    funds: "Proof of sufficient funds required. Recommended: ~€10,000–€15,000 per year (₹9–14 lakh approx) OR fully funded scholarship/research grant from institution.",
+
+    docs: "Valid passport, national visa application form, recent photographs, hosting agreement or research contract from Polish university/institute, PhD admission letter (if applicable), research proposal/title, academic certificates (Bachelor’s/Master’s/PhD as applicable), CV with publications (if any), proof of funding or scholarship/grant letter, bank statements (last 3–6 months if self-funded), accommodation proof, travel insurance (€30,000+ coverage mandatory), cover letter explaining research purpose.",
+
+    whom: "International researchers, PhD students, postdoctoral fellows, and academic scholars conducting scientific research or higher education studies in Polish universities or research institutions.",
+
+    rules: "Must work only on approved research project or academic program. No unauthorized employment allowed outside research scope. Must maintain academic/research progress. Extensions depend on project continuation and institutional approval.",
+
+    prosCons: "Pros: Access to EU-level research facilities, scholarship opportunities, pathway to academic career in Europe, possible long-term residence options. Cons: Highly competitive admission, strict documentation, funding dependency, limited non-academic work rights.",
+
+    terms: "Hosting Agreement: Formal research contract with institution; PhD Program: Doctoral academic program; Research Permit: Authorization to conduct academic work; Type D Visa: Long-stay national visa; Residence Permit: Extended legal stay in Poland.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU Directive 2016/801 on researchers and students mobility.",
+
+    process: `1. Apply to Polish university or research institute ->
+              2. Receive admission or hosting agreement ->
+              3. Prepare research proposal and academic documents ->
+              4. Secure funding or scholarship (if required) ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies institution and research purpose ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Begin research or PhD program ->
+              14. Apply for residence permit for continued stay`
+},
+
+"PolandFamilyReunificationVisaD": {
+    name: "Family Reunification Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for 1 year initially, linked to the sponsor’s residence/work permit in Poland. Can be extended and later converted into a Temporary Residence Permit for long-term stay.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence card after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–60 working days depending on relationship verification, sponsor status, and immigration workload.",
+
+    age: "No strict age limit. Applicable for spouses, children, and dependent family members (minors require guardian documentation).",
+
+    education: "Not required.",
+
+    funds: "Sponsor in Poland must show stable income and housing. Recommended minimum sponsor income is usually around Polish minimum wage or higher (varies by family size). Applicant may also need basic funds (~€2,000–€5,000) in some cases.",
+
+    docs: "Valid passport, national visa application form, recent photographs, proof of family relationship (marriage certificate, birth certificate, legal adoption documents), sponsor’s residence permit/work permit in Poland, sponsor’s income proof (salary slips, tax returns, employment contract), sponsor’s accommodation proof, bank statements (if required), health insurance (€30,000+ coverage), cover letter explaining relationship and purpose of stay.",
+
+    whom: "Spouses, minor children, and dependent family members of foreigners legally residing in Poland (work permit holders, EU Blue Card holders, students, or permanent residents).",
+
+    rules: "Must maintain genuine family relationship. Sponsor must support applicant financially and provide accommodation. No employment allowed initially unless separate work authorization is granted. Must comply with Polish immigration laws and residence conditions.",
+
+    prosCons: "Pros: Legal family unity in Poland, pathway to long-term residence, access to education and healthcare, possible work rights after residence permit conversion. Cons: Strict documentation, dependency on sponsor status, processing delays due to verification, initial restrictions on employment.",
+
+    terms: "Sponsor: Family member legally residing in Poland; Residence Permit: Long-term stay authorization; Type D Visa: National long-stay visa; Family Reunification: Immigration process for joining relatives; Legalization: Official residence approval process.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU Family Reunification Directive (2003/86/EC).",
+
+    process: `1. Sponsor applies or confirms legal stay in Poland ->
+              2. Gather family relationship documents ->
+              3. Sponsor prepares income and housing proof ->
+              4. Fill National Visa (Type D) application form ->
+              5. Book VFS/Embassy appointment ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies relationship and sponsor status ->
+              9. Interview may be required ->
+              10. Visa decision issued ->
+              11. Travel to Poland ->
+              12. Apply for residence permit after arrival ->
+              13. Live with family under legal residence status`
+},
+"PolandSpouseVisaD": {
+    name: "Spouse Visa (National Visa Type D – Married to Polish/EU Citizen, Poland)",
+
+    validity: "Usually issued for up to 1 year initially. Can be extended and later converted into a Temporary Residence Permit or long-term EU residence depending on marital status and residency conditions.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence card after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–60 working days depending on verification of marriage authenticity and sponsor status.",
+
+    age: "No strict legal limit. Applicants are typically 18+ as marriage must be legally valid.",
+
+    education: "Not required.",
+
+    funds: "Sponsor (Polish/EU spouse) must show stable income and ability to support family. Recommended income should meet local living standards (often around minimum wage or higher). Applicant may also be asked to show minimal personal funds (~€2,000–€5,000).",
+
+    docs: "Valid passport, national visa application form, recent photographs, legal marriage certificate (apostilled/legalized and translated if required), proof of genuine relationship (photos, communication history, joint records), spouse’s Polish/EU citizenship or residence proof, spouse’s income proof (salary slips, employment contract, tax documents), accommodation proof in Poland, health insurance (€30,000+ coverage), bank statements (if required), cover letter explaining relationship history.",
+
+    whom: "Legally married spouses of Polish citizens or EU citizens residing in Poland who wish to live together in Poland.",
+
+    rules: "Marriage must be legally valid and recognized in Poland. Authorities may verify authenticity to prevent sham marriages. Applicant must comply with residence conditions. Employment may require additional residence/work permit depending on status after arrival.",
+
+    prosCons: "Pros: Strong pathway to long-term residence and EU settlement, family unity, access to healthcare and education, potential work rights after residence permit. Cons: Strict verification of marriage authenticity, documentation-heavy process, dependency on spouse’s legal status.",
+
+    terms: "Spouse: Legally married partner; EU Citizen: Citizen of European Union country; Residence Permit: Long-term stay authorization; Legalization: Validation of foreign marriage documents; Family Reunification: Immigration process for joining spouse.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU Free Movement Directive (2004/38/EC) for EU citizens and family members.",
+
+    process: `1. Ensure marriage is legally registered and recognized ->
+              2. Gather marriage and relationship proof documents ->
+              3. Spouse prepares income and residence documents ->
+              4. Fill National Visa (Type D) application form ->
+              5. Book VFS/Embassy appointment ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies marriage authenticity and sponsor status ->
+              9. Interview may be required ->
+              10. Visa decision issued ->
+              11. Travel to Poland ->
+              12. Apply for residence permit after arrival ->
+              13. Live with spouse under legal residence status`
+},
+"PolandChildDependentVisaD": {
+    name: "Child / Dependent Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for 1 year initially or aligned with the sponsor’s residence permit validity. Can be extended and later converted into a Temporary Residence Permit for long-term stay.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. In many cases, minors may have reduced or waived fees depending on category. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–60 working days depending on sponsor verification, relationship checks, and embassy workload.",
+
+    age: "Applicable for minors (0–17 years). In some cases, young adults may be considered dependents if financially and legally supported.",
+
+    education: "Not required for visa eligibility. School admission in Poland may be required after arrival for school-going children.",
+
+    funds: "Sponsor (parent/guardian in Poland) must show stable income and housing. No separate funds required for child in most cases, but sponsor must meet living cost requirements for entire family.",
+
+    docs: "Valid passport of child, national visa application form, recent photographs, birth certificate (legalized/apostilled and translated if required), proof of parental relationship, sponsor’s residence permit/work/study permit in Poland, sponsor’s income proof (salary slips, employment contract, tax documents), accommodation proof in Poland, health insurance (€30,000+ coverage), consent letter from non-accompanying parent (if applicable), cover letter explaining family dependency.",
+
+    whom: "Minor children or legally dependent family members of foreign nationals legally residing in Poland (workers, students, EU Blue Card holders, or permanent residents).",
+
+    rules: "Child must be financially and legally dependent on sponsor. Both parents’ consent may be required in custody cases. Must comply with Polish residence laws. School attendance is mandatory for school-age children. Employment is not allowed for minors.",
+
+    prosCons: "Pros: Family unity, access to Polish education system, healthcare benefits, pathway to long-term residence with family. Cons: Strong documentation requirements, dependency on sponsor’s legal status, possible delays due to custody or verification checks.",
+
+    terms: "Dependent: Family member supported by sponsor; Sponsor: Parent/guardian legally residing in Poland; Residence Permit: Long-term stay authorization; Legalization: Verification of documents; Family Reunification: Immigration process for joining family.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU Family Reunification Directive (2003/86/EC).",
+
+    process: `1. Sponsor obtains legal residence in Poland ->
+              2. Prepare child dependency documents (birth certificate, custody proof) ->
+              3. Gather sponsor income and housing proof ->
+              4. Fill National Visa (Type D) application form ->
+              5. Book VFS/Embassy appointment ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee (if applicable) ->
+              8. Embassy verifies dependency and sponsor status ->
+              9. Interview may be required ->
+              10. Visa decision issued ->
+              11. Travel to Poland ->
+              12. Apply for residence permit after arrival ->
+              13. Child lives in Poland under dependent status with family`
+},
+"PolandLongTermPrivateStayVisaD": {
+    name: "Long-term Stay for Private Reasons (National Visa Type D, Poland)",
+
+    validity: "Usually issued for up to 1 year initially. Can be extended or converted into a Temporary Residence Permit depending on justification and continued eligibility.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence permit card after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–60 working days depending on case complexity, background verification, and embassy workload.",
+
+    age: "No strict age limit. Applicable to adults (18+) with valid private reasons for long-term stay.",
+
+    education: "Not required.",
+
+    funds: "Strong financial proof required. Recommended: ~€10,000–€15,000+ (₹9–14 lakh approx) depending on length of stay. Must prove ability to support living expenses without employment.",
+
+    docs: "Valid passport, national visa application form, recent photographs, detailed explanation letter (private reasons for stay), bank statements (last 6–12 months), proof of stable income or savings, accommodation proof in Poland, health insurance (€30,000+ coverage mandatory), background documents supporting reason for stay (e.g., medical, personal, family circumstances), cover letter, travel history if available.",
+
+    whom: "Foreign nationals (including Indians) who wish to stay in Poland for personal, non-work, non-study reasons such as long-term residence with family, lifestyle relocation, private circumstances, or personal commitments not covered under other visa categories.",
+
+    rules: "No employment allowed unless separately authorized. Must maintain valid financial independence. Authorities may require strong justification for stay. Must not violate Schengen or national immigration conditions. Extensions depend on continued validity of private reason.",
+
+    prosCons: "Pros: Flexible category for unique personal situations, possible pathway to residence permit, allows long-term stay in Poland. Cons: High scrutiny, unclear approval criteria, strong financial requirement, no automatic work rights.",
+
+    terms: "Private Reasons: Non-standard personal justification for stay; National Visa Type D: Long-stay visa; Residence Permit: Legal extended stay authorization; Legalization: Immigration approval process; Overstay: Illegal stay beyond visa validity.",
+
+    legal: "Regulated under Polish Act on Foreigners, allowing discretionary long-stay visas based on individual circumstances assessed by authorities.",
+
+    process: `1. Prepare detailed explanation of private reason ->
+              2. Gather financial and accommodation proof ->
+              3. Collect supporting personal documents ->
+              4. Fill National Visa (Type D) application form ->
+              5. Book VFS/Embassy appointment ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy evaluates personal justification ->
+              9. Possible interview or additional document request ->
+              10. Visa decision issued ->
+              11. Travel to Poland ->
+              12. Apply for residence permit if staying long-term ->
+              13. Maintain compliance with private stay conditions`
+},
+"PolandCohabitationPartnerVisaD": {
+    name: "Cohabitation / Partner Visa (National Visa Type D – Case-Based Approval, Poland)",
+
+    validity: "Usually issued for 1 year initially. Can be extended and later converted into a Temporary Residence Permit based on continued relationship proof and cohabitation status.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence permit card after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 30–90 working days depending on strength of relationship proof, verification checks, and immigration workload. Case-based approval may take longer than standard visas.",
+
+    age: "No strict legal limit. Applicants are typically 18+ as it involves adult partnership/cohabitation relationships.",
+
+    education: "Not required.",
+
+    funds: "Sponsor in Poland must show stable income and ability to support partner. Recommended income should meet or exceed minimum living standards in Poland. Applicant may also be asked to show personal funds (~€2,000–€5,000).",
+
+    docs: "Valid passport, national visa application form, recent photographs, proof of relationship (photos, chats, call records, travel history), proof of cohabitation or long-term partnership (shared lease, joint bills, address proof), sponsor’s residence permit/citizenship proof, sponsor’s income proof (salary slips, tax returns, employment contract), accommodation proof, travel insurance (€30,000+ coverage), cover letter explaining relationship timeline, affidavits or declarations of partnership (if required), bank statements (last 3–6 months).",
+
+    whom: "Unmarried partners or long-term cohabiting couples of individuals legally residing in Poland (Polish citizens, EU citizens, or foreign residents with valid residence permits).",
+
+    rules: "Relationship must be genuine and continuous. Authorities may conduct detailed verification or interviews. No employment allowed initially unless separately authorized after residence permit. Must maintain cohabitation proof for extension or residence conversion.",
+
+    prosCons: "Pros: Allows long-term stay with partner, pathway to residence permit, family unity without marriage requirement, access to Schengen travel after residence. Cons: Strict scrutiny of relationship authenticity, case-by-case approval, high documentation burden, processing delays.",
+
+    terms: "Cohabitation: Living together in a long-term relationship without marriage; Sponsor: Partner legally residing in Poland; Residence Permit: Long-term stay authorization; Legalization: Verification of documents and relationship; Case-Based Approval: Discretionary decision by immigration authority.",
+
+    legal: "Regulated under Polish Act on Foreigners with discretionary provisions for family-like relationships and cohabitation cases; not strictly standardized like marriage-based visas.",
+
+    process: `1. Establish and document long-term relationship ->
+              2. Gather cohabitation and relationship evidence ->
+              3. Sponsor prepares income and housing proof ->
+              4. Prepare supporting affidavits and declarations ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy conducts detailed relationship verification ->
+              10. Interview for both partners may be required ->
+              11. Visa decision issued (case-based approval) ->
+              12. Travel to Poland ->
+              13. Apply for residence permit after arrival ->
+              14. Maintain cohabitation proof for continued legal stay`
+},
+"PolandBusinessVisaShortTermC": {
+    name: "Business Visa (Short-Term, Schengen Visa Type C, Poland)",
+
+    validity: "Usually valid for 15 to 90 days within a 180-day period. Can be single-entry, double-entry, or multiple-entry depending on business invitation and travel history.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 10–15 working days. May extend to 30 days if additional verification of invitation or company details is required.",
+
+    age: "No strict age limit. Typically applies to adults (18+) engaged in business activities.",
+
+    education: "Not mandatory, but professional/business background is expected (employment, company ownership, or relevant experience).",
+
+    funds: "Proof of sufficient funds required. Recommended: ~€70–€120 per day (₹6,000–₹11,000 per day). Sponsoring company in Poland may also cover expenses via invitation letter.",
+
+    docs: "Valid passport, Schengen visa application form, recent photographs, official business invitation letter from Polish company, cover letter from Indian employer (or self-employment proof), company registration documents, bank statements (last 3–6 months), flight reservation, hotel booking or sponsor accommodation, travel insurance (€30,000+ coverage mandatory), meeting schedule or conference details, GST/tax documents (if self-employed).",
+
+    whom: "Business professionals, entrepreneurs, company employees, investors, and consultants traveling to Poland for meetings, conferences, negotiations, trade fairs, or corporate events for a short duration.",
+
+    rules: "No employment or salary-based work allowed in Poland. Only business-related activities permitted. Must follow itinerary stated in invitation. Must exit before visa expiry. Cannot switch to work visa while in Poland without proper procedure.",
+
+    prosCons: "Pros: Easy access for business networking in EU, multiple-entry option possible, short processing time, Schengen mobility during validity. Cons: Strict documentation, no work rights, strong invitation requirement, limited duration.",
+
+    terms: "Schengen Visa Type C: Short-stay visa for business/tourism; Invitation Letter: Official document from Polish company; Overstay: Illegal stay beyond permitted period; VFS: Visa facilitation service center; Schengen Area: 27 European countries with common visa rules.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) governing short-term business travel within the Schengen Area.",
+
+    process: `1. Receive business invitation from Polish company ->
+              2. Prepare company and financial documents ->
+              3. Fill Schengen visa application form ->
+              4. Book VFS/Embassy appointment ->
+              5. Submit documents and biometrics ->
+              6. Pay visa fee ->
+              7. Embassy verifies invitation and company details ->
+              8. Interview if required ->
+              9. Visa decision issued ->
+              10. Travel to Poland ->
+              11. Attend business meetings/events ->
+              12. Exit Schengen before visa expiry`
+},
+
+"PolandEntrepreneurBusinessOwnerVisaD": {
+    name: "Entrepreneur / Business Owner Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for 1 year initially. Can be extended and later converted into a Temporary Residence Permit for business activity in Poland.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Business registration and residence permit costs in Poland may add ~€100–€300. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 30–90 working days depending on business plan evaluation, financial verification, and immigration workload.",
+
+    age: "No strict age limit. Typically applies to adults (18+) with active entrepreneurial intent (commonly 21–60 years).",
+
+    education: "Not mandatory, but relevant business experience, skills, or entrepreneurial background is strongly preferred.",
+
+    funds: "Strong financial proof required. Recommended: ~€10,000–€25,000+ (₹9–22 lakh approx) depending on business type, scale, and startup requirements, plus funds for living expenses.",
+
+    docs: "Valid passport, national visa application form, recent photographs, detailed business plan, proof of sufficient funds (bank statements 6–12 months), CV/resume, proof of business experience (if any), company registration documents (if already incorporated), tax records (if applicable), market analysis/business feasibility plan, accommodation proof in Poland, travel insurance (€30,000+ coverage mandatory), cover letter explaining business intent, lease/office setup plan (if available).",
+
+    whom: "Entrepreneurs, startup founders, business owners, and investors planning to establish and actively manage a business in Poland (trading, IT services, consulting, import-export, manufacturing, startups, etc.).",
+
+    rules: "Business must be legally registered and actively operated in Poland. Passive investment alone is generally not sufficient unless covered under separate investor pathways. Must comply with Polish tax, labor, and commercial laws. Business performance may affect visa renewal or residence permit approval.",
+
+    prosCons: "Pros: Pathway to long-term residence, access to EU market, ability to run own company, potential family reunification. Cons: High documentation burden, strong financial requirement, business risk involved, strict compliance with Polish regulations.",
+
+    terms: "Entrepreneur: Individual starting and managing a business; Business Plan: Document outlining commercial strategy; National Visa Type D: Long-stay visa; Residence Permit: Extended legal stay authorization; KRS: Polish National Court Register for companies.",
+
+    legal: "Regulated under Polish Act on Foreigners and Polish Commercial Code governing foreign business establishment and operation.",
+
+    process: `1. Develop business idea and feasibility plan ->
+              2. Research Polish market requirements ->
+              3. Prepare financial proof and documentation ->
+              4. Register or prepare company setup plan ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy evaluates business viability ->
+              10. Interview may be required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Register business officially in Poland ->
+              14. Apply for residence permit for business activity ->
+              15. Operate and maintain active business for renewal`
+},
+"PolandInvestorVisaD": {
+    name: "Investor Visa (National Visa Type D – Company Formation / Capital Investment, Poland)",
+
+    validity: "Usually issued for 1 year initially. Can be extended and later converted into a Temporary Residence Permit or long-term residence based on business performance and investment continuity.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Company registration and legal setup costs in Poland may range from €100–€1,000+. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 30–120 working days depending on investment verification, business plan evaluation, and immigration authority review.",
+
+    age: "No strict age limit. Typically applies to adults (18+) with investment capacity (commonly 25–65 years).",
+
+    education: "Not mandatory. However, strong business background, financial experience, or entrepreneurial track record is highly preferred.",
+
+    funds: "High financial requirement. Recommended minimum: ~€50,000–€150,000+ (₹45 lakh–₹1.3 crore approx) depending on business scale, industry, and investment structure. Funds must be legally sourced and documented.",
+
+    docs: "Valid passport, national visa application form, recent photographs, detailed investment/business plan, proof of capital funds (bank statements 6–12 months), source of funds documentation, company incorporation documents (or pre-incorporation plan), tax records, CV/resume, business experience proof, Polish market feasibility study, accommodation proof, travel insurance (€30,000+ coverage mandatory), cover letter explaining investment intent, legal/financial advisory documents (if available).",
+
+    whom: "Foreign investors (including high-net-worth individuals) planning to establish or invest significant capital in Polish companies, startups, or business ventures such as manufacturing, IT, real estate, trade, or services.",
+
+    rules: "Investment must be legal, traceable, and actively deployed in Poland. Passive investment alone may not guarantee approval unless it leads to economic benefit or job creation. Business must comply with Polish tax and corporate laws. Continued investment/business activity is required for renewal.",
+
+    prosCons: "Pros: Pathway to long-term residence and possible EU mobility, business ownership in EU market, potential tax advantages depending on structure, family reunification possible. Cons: Very high capital requirement, strict scrutiny of funds, complex legal procedures, business risk involved.",
+
+    terms: "Investor: Individual providing capital investment; Company Formation: Legal registration of business in Poland; Capital Investment: Funds injected into business activity; National Visa Type D: Long-stay visa; Residence Permit: Extended legal stay authorization; KRS: Polish company registry.",
+
+    legal: "Regulated under Polish Act on Foreigners and Polish Commercial Law, with additional compliance under EU anti-money laundering (AML) and investment transparency regulations.",
+
+    process: `1. Prepare investment strategy and business plan ->
+              2. Verify legal source of funds ->
+              3. Conduct market and legal feasibility study in Poland ->
+              4. Register or prepare company formation documents ->
+              5. Arrange investment capital transfer plan ->
+              6. Fill National Visa (Type D) application form ->
+              7. Book VFS/Embassy appointment ->
+              8. Submit documents and biometrics ->
+              9. Pay visa fee ->
+              10. Embassy verifies funds and business legitimacy ->
+              11. Interview may be required ->
+              12. Visa approval issued ->
+              13. Travel to Poland ->
+              14. Register company and deploy investment ->
+              15. Apply for residence permit based on investment activity ->
+              16. Maintain business/investment for renewal and long-term stay eligibility`
+},
+"PolandSelfEmployedFreelanceVisaD": {
+    name: "Self-employed / Freelance Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for 1 year initially. Can be extended and later converted into a Temporary Residence Permit for self-employment or freelance activity in Poland.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Business registration and residence permit after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 30–90 working days depending on documentation strength, financial proof, and verification of freelance activity or business plan.",
+
+    age: "No strict age limit. Typically applies to adults (18+) with independent professional activity (commonly 21–60 years).",
+
+    education: "Not mandatory, but relevant professional qualifications, certifications, or strong freelance portfolio are highly preferred.",
+
+    funds: "Strong financial proof required. Recommended: ~€8,000–€20,000+ (₹7–18 lakh approx) depending on living costs and business setup. Must show ability to sustain self without employment contract.",
+
+    docs: "Valid passport, national visa application form, recent photographs, detailed freelance/business activity plan, proof of skills/portfolio (clients, contracts, work samples), bank statements (last 6–12 months), proof of funds, tax returns (if applicable), CV/resume, accommodation proof in Poland, travel insurance (€30,000+ coverage mandatory), cover letter explaining freelance activity, potential client contracts or service agreements (if available).",
+
+    whom: "Independent professionals such as freelancers, consultants, digital nomads, IT professionals, designers, writers, artists, and self-employed individuals planning to work legally in Poland without a fixed employer.",
+
+    rules: "Must operate legally registered freelance/self-employment activity in Poland. Income must be declared and taxed under Polish law. Cannot engage in unauthorized employment outside declared activity. Must maintain sufficient income to support stay. Renewal depends on continued business activity.",
+
+    prosCons: "Pros: Flexibility to work independently, access to EU market, pathway to residence permit, potential long-term settlement. Cons: Strict financial and documentation requirements, income stability must be proven, no guaranteed job security, tax compliance required.",
+
+    terms: "Freelance Activity: Independent professional work; Self-employment: Running own legal work activity; National Visa Type D: Long-stay visa; Residence Permit: Extended legal stay authorization; Tax Residency: Legal obligation to declare income in Poland.",
+
+    legal: "Regulated under Polish Act on Foreigners and Polish tax/commercial law governing self-employment and independent professional activity.",
+
+    process: `1. Prepare freelance portfolio and activity plan ->
+              2. Secure proof of clients or potential work ->
+              3. Gather financial and tax documents ->
+              4. Prepare accommodation and insurance documents ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies financial independence and activity ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Register freelance/self-employment activity ->
+              14. Apply for residence permit for self-employed persons ->
+              15. Continue legal freelance operations in Poland`
+},
+"PolandReligiousWorkerVisaD": {
+    name: "Religious Worker Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for 1 year initially. Can be extended and later converted into a Temporary Residence Permit depending on assignment duration and religious organization approval.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence permit card after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–60 working days depending on verification of religious institution and background checks.",
+
+    age: "No strict age limit. Typically applies to adults (18+) serving in religious or missionary roles.",
+
+    education: "Not strictly required, but theological training, religious certification, or ordination documents are usually expected.",
+
+    funds: "Usually sponsored by religious organization. Applicant may need minimal personal funds (~€2,000–€5,000) depending on embassy requirements.",
+
+    docs: "Valid passport, national visa application form, recent photographs, official invitation letter from registered religious organization in Poland, proof of ordination or religious appointment, assignment letter describing duties, sponsor organization registration documents, accommodation proof, financial sponsorship letter, bank statements (if required), travel insurance (€30,000+ coverage mandatory), cover letter explaining religious purpose.",
+
+    whom: "Religious workers such as priests, pastors, monks, missionaries, imams, nuns, or other faith-based representatives officially invited by registered religious institutions in Poland.",
+
+    rules: "Must work only within approved religious duties and assigned institution. No secular employment allowed. Must respect Polish laws and regulations. Extension depends on continued assignment from religious organization.",
+
+    prosCons: "Pros: Legal stay for religious service, sponsored support often provided, possible long-term residence options, community-based living. Cons: Strict approval process, limited work rights outside religious duties, dependent on sponsoring institution.",
+
+    terms: "Religious Organization: Registered faith-based institution in Poland; Ordination: Formal religious appointment; National Visa Type D: Long-stay visa; Residence Permit: Extended stay authorization; Sponsorship: Financial and organizational support by institution.",
+
+    legal: "Regulated under Polish Act on Foreigners and Polish regulations governing foreign religious workers and nonprofit religious organizations.",
+
+    process: `1. Receive invitation from registered religious organization ->
+              2. Obtain official assignment/ordination documents ->
+              3. Prepare personal and religious certification documents ->
+              4. Secure sponsorship letter from institution ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies religious organization authenticity ->
+              10. Interview may be required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Join assigned religious institution ->
+              14. Apply for residence permit if staying long-term`
+},
+"PolandVolunteerVisaD": {
+    name: "Volunteer Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for the duration of the volunteer program, commonly 3 to 12 months. Can be extended if the program is officially prolonged or converted into a residence permit in some cases.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. VFS service charges extra (~₹1,500–₹2,500). In many EU volunteer programs (e.g., ESC), visa fee may be waived or reimbursed.",
+
+    time: "Processing time usually 10–30 working days depending on host organization verification and embassy workload.",
+
+    age: "Commonly 18–30 years for structured volunteer programs (especially EU-funded schemes). Some programs may allow older applicants depending on project type.",
+
+    education: "Not mandatory. Basic education may be required depending on program, but most volunteering schemes focus on motivation and eligibility rather than formal qualifications.",
+
+    funds: "Often covered by host organization (accommodation, food, stipend). If not fully funded, applicant should show ~€2,000–€5,000 for support. EU programs may include pocket money allowance.",
+
+    docs: "Valid passport, national visa application form, recent photographs, official volunteer placement agreement, invitation letter from Polish NGO/host organization, program description (tasks, duration, conditions), proof of accommodation (often provided by host), funding details or stipend agreement, travel insurance (€30,000+ coverage mandatory), CV/resume, cover letter explaining motivation for volunteering.",
+
+    whom: "Individuals participating in structured volunteer programs in Poland such as NGO work, community service, environmental projects, social work, youth programs, or EU-funded initiatives like the European Solidarity Corps.",
+
+    rules: "Must work only within assigned volunteer program. No paid employment allowed unless explicitly permitted by program rules. Must follow host organization guidelines. Must leave or extend status only through official program continuation.",
+
+    prosCons: "Pros: Low-cost or fully funded stay, cultural exchange experience, accommodation often provided, pathway to EU experience. Cons: No or very limited income, strict program limitations, temporary nature, dependent on host organization.",
+
+    terms: "Volunteer Program: Structured unpaid service activity; NGO: Non-governmental organization hosting volunteers; National Visa Type D: Long-stay visa; ESC: European Solidarity Corps program; Stipend: Small allowance provided in some programs.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU volunteer mobility frameworks (especially European Solidarity Corps regulations).",
+
+    process: `1. Apply for volunteer program in Poland ->
+              2. Receive acceptance from NGO/host organization ->
+              3. Sign volunteer agreement ->
+              4. Prepare personal documents ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee (or request exemption if applicable) ->
+              9. Embassy verifies host organization ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Begin volunteer assignment ->
+              14. Complete program or extend through official channels`
+},
+"PolandAuPairVisaD": {
+    name: "Au Pair Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for 6 to 12 months. Can sometimes be extended up to 24 months depending on host family agreement and immigration approval.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. VFS service charges extra (~₹1,500–₹2,500). Host family usually covers accommodation and food.",
+
+    time: "Processing time usually 10–30 working days depending on host family verification and embassy workload.",
+
+    age: "Typically 18–30 years (most common eligibility range). Some programs may allow up to 35 years depending on agreement.",
+
+    education: "Minimum secondary education required. Basic childcare knowledge or experience is preferred. Polish or English language basics may be required.",
+
+    funds: "Host family provides accommodation, meals, and monthly pocket money (commonly €200–€500/month). Applicant may need minimal savings (~€1,000–€3,000) for initial expenses.",
+
+    docs: "Valid passport, national visa application form, recent photographs, au pair agreement with host family, invitation letter from host family, details of childcare duties, proof of accommodation (host family residence), proof of pocket money/stipend arrangement, travel insurance (€30,000+ coverage mandatory), background check (if required), CV/resume, motivation letter explaining childcare interest, bank statements (last 3–6 months).",
+
+    whom: "Young individuals (often students or gap-year candidates) who wish to live with a Polish host family while assisting with childcare and light household duties in exchange for accommodation and cultural exchange experience.",
+
+    rules: "Must live with host family. Work is limited to childcare and light household duties only. No full-time employment or external job allowed. Must respect host family agreement. Visa is strictly cultural exchange, not employment-based.",
+
+    prosCons: "Pros: Low-cost living (food + accommodation provided), cultural exchange, language learning opportunity, safe structured environment. Cons: Limited income, strict role restrictions, dependent on host family, temporary stay only.",
+
+    terms: "Au Pair: Cultural exchange childcare participant; Host Family: Family providing accommodation and support; Pocket Money: Monthly allowance; National Visa Type D: Long-stay visa; Cultural Exchange: Non-employment learning program.",
+
+    legal: "Regulated under Polish Act on Foreigners and cultural exchange visa frameworks; not classified as employment under Polish labor law.",
+
+    process: `1. Find approved host family in Poland ->
+              2. Sign au pair agreement ->
+              3. Define childcare and household duties ->
+              4. Prepare personal documents and insurance ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee ->
+              9. Embassy verifies host family arrangement ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Live with host family and perform duties ->
+              14. Complete cultural exchange program`
+},
+"PolandCulturalExchangeVisaD": {
+    name: "Cultural Exchange Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for 3 to 12 months depending on the cultural program duration. Can sometimes be extended if the program is officially prolonged or renewed.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. VFS service charges extra (~₹1,500–₹2,500). Some government or EU-funded programs may waive or reimburse the visa fee.",
+
+    time: "Processing time usually 10–30 working days depending on program verification and embassy workload.",
+
+    age: "Typically 18–35 years, but can vary depending on specific cultural exchange programs or bilateral agreements.",
+
+    education: "Not strictly required. Some programs may require basic education or relevant cultural/arts background depending on activity.",
+
+    funds: "Often partially or fully covered by sponsoring organization. If not funded, applicant should show ~€2,000–€5,000 (~₹2–4.5 lakh) for initial support. Some programs provide stipend and accommodation.",
+
+    docs: "Valid passport, national visa application form, recent photographs, official cultural exchange invitation letter, program agreement from Polish host organization, details of cultural activities (events, workshops, performances, etc.), proof of accommodation (often provided by host), funding/stipend details, travel insurance (€30,000+ coverage mandatory), CV/resume, motivation letter, bank statements (last 3–6 months if self-funded).",
+
+    whom: "Artists, performers, students, interns, and participants in cultural programs such as arts festivals, heritage exchanges, language immersion programs, or bilateral cultural cooperation initiatives.",
+
+    rules: "Must participate only in approved cultural exchange activities. No employment allowed unless explicitly permitted under program terms. Must follow host organization guidelines. Must leave or extend stay only through official program channels.",
+
+    prosCons: "Pros: Cultural exposure, networking opportunities, often subsidized or funded stay, EU experience, skill development in arts/culture. Cons: Limited duration, no stable income, strict program restrictions, dependent on host institution.",
+
+    terms: "Cultural Exchange: Mutual learning program between countries; Host Organization: Approved cultural institution in Poland; Stipend: Small allowance provided in some programs; National Visa Type D: Long-stay visa; Mobility Program: Structured international exchange framework.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU cultural mobility/exchange frameworks where applicable.",
+
+    process: `1. Apply to cultural exchange program ->
+              2. Receive official invitation from Polish host organization ->
+              3. Sign cultural exchange agreement ->
+              4. Prepare personal and supporting documents ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee (if not exempted) ->
+              9. Embassy verifies program authenticity ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Participate in cultural activities ->
+              14. Complete program or extend via official approval`
+},
+"PolandNGOHumanitarianVisaD": {
+    name: "NGO / Humanitarian Work Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for 6 to 12 months initially. Can be extended depending on project duration and NGO sponsorship. May later be converted into a Temporary Residence Permit in some cases.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. VFS service charges extra (~₹1,500–₹2,500). Some humanitarian/aid programs may waive fees depending on organization and case.",
+
+    time: "Processing time usually 15–45 working days depending on NGO verification, project urgency, and embassy workload. Humanitarian cases may be prioritized.",
+
+    age: "No strict age limit. Typically 18+ for NGO workers and humanitarian volunteers. Some roles may prefer experienced professionals.",
+
+    education: "Not mandatory for volunteer roles. For paid NGO roles, relevant qualifications in social work, development studies, healthcare, or related fields may be required.",
+
+    funds: "Often covered by NGO (salary, stipend, accommodation). If self-funded participation, applicant should show ~€2,000–€5,000 for initial support. Humanitarian workers may receive full sponsorship.",
+
+    docs: "Valid passport, national visa application form, recent photographs, official invitation letter from registered NGO/humanitarian organization in Poland, project description (humanitarian mission details), employment contract or volunteer agreement, proof of accommodation, funding or salary details, NGO registration documents, travel insurance (€30,000+ coverage mandatory), CV/resume, cover letter explaining humanitarian role, bank statements (if required).",
+
+    whom: "NGO employees, humanitarian aid workers, social workers, development project staff, disaster relief personnel, and volunteers working with registered non-governmental or international aid organizations in Poland.",
+
+    rules: "Must work only within assigned NGO/humanitarian project. No unauthorized employment allowed. Must follow project rules and reporting structure. Visa validity strictly tied to project duration and sponsor organization.",
+
+    prosCons: "Pros: Opportunity to work in humanitarian and social impact projects, often sponsored stay, meaningful international experience, possible EU residence pathway. Cons: Project-based and temporary, strict role limitations, dependent on NGO funding and approval.",
+
+    terms: "NGO: Non-Governmental Organization; Humanitarian Work: Aid and relief-based service; National Visa Type D: Long-stay visa; Sponsor Organization: NGO providing support; Temporary Residence Permit: Extended legal stay option.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU rules governing NGO workers, humanitarian aid staff, and nonprofit sector mobility.",
+
+    process: `1. Apply or be selected for NGO/humanitarian project ->
+              2. Receive official invitation from registered NGO ->
+              3. Sign employment or volunteer agreement ->
+              4. Prepare personal and professional documents ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee (or request exemption if applicable) ->
+              9. Embassy verifies NGO and project authenticity ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Join humanitarian/NGO project ->
+              14. Apply for residence permit if long-term work continues`
+},
+"PolandRetirementLongTermVisitorVisaD": {
+    name: "Retirement / Long-term Visitor Visa (National Visa Type D, Poland)",
+
+    validity: "Usually issued for up to 1 year initially. Can be extended or converted into a Temporary Residence Permit for long-term non-working stay based on financial stability and purpose of residence.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence permit card after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–60 working days depending on financial verification, background checks, and embassy workload.",
+
+    age: "No strict age limit. Commonly applied by retirees (55+) or individuals seeking long-term non-working residence.",
+
+    education: "Not required.",
+
+    funds: "Strong financial proof required. Recommended: pension or savings of ~€1,000–€2,000 per month (~₹90,000–₹1.8 lakh/month equivalent) OR substantial savings of ~€20,000–€50,000+ depending on stay duration.",
+
+    docs: "Valid passport, national visa application form, recent photographs, proof of pension income or retirement benefits (if applicable), bank statements (last 6–12 months), proof of sufficient savings, accommodation proof in Poland (rent agreement or property), travel insurance (€30,000+ coverage mandatory), cover letter explaining purpose of long-term stay, proof of ties to home country (optional), medical documents (if required).",
+
+    whom: "Retired individuals or foreign nationals (including Indians) who wish to live in Poland long-term without employment, relying on pension, savings, or passive income sources.",
+
+    rules: "No employment or business activity allowed. Must maintain sufficient financial means throughout stay. Must comply with Polish residence rules. Any income-generating activity requires separate authorization or visa change.",
+
+    prosCons: "Pros: Peaceful long-term stay in EU, access to healthcare system (with insurance), stable living environment, possibility of residence permit extension. Cons: Strict financial requirements, no work rights, dependency on savings/pension, limited flexibility.",
+
+    terms: "Long-term Visitor: Non-working resident status; Pension Income: Regular retirement income; National Visa Type D: Long-stay visa; Residence Permit: Extended legal stay authorization; Passive Income: Non-employment income source.",
+
+    legal: "Regulated under Polish Act on Foreigners governing long-term stays based on private means of subsistence without employment.",
+
+    process: `1. Prepare proof of pension or financial independence ->
+              2. Secure accommodation in Poland ->
+              3. Arrange health insurance coverage ->
+              4. Fill National Visa (Type D) application form ->
+              5. Book VFS/Embassy appointment ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies financial independence ->
+              9. Interview may be required ->
+              10. Visa approval issued ->
+              11. Travel to Poland ->
+              12. Apply for residence permit for long-term stay ->
+              13. Continue residence without employment`
+},
+"PolandAsylumRefugeeProtection": {
+    name: "Asylum / Refugee Protection (International Protection – Poland)",
+
+    validity: "Not a standard visa. If granted, initial protection is typically temporary (often 1–3 years), followed by refugee status or subsidiary protection, which can lead to long-term or permanent residence depending on case outcome.",
+
+    cost: "No visa application fee. Asylum applications in Poland are free of charge. Basic administrative costs are covered by the state.",
+
+    time: "Processing time varies widely: usually several months up to 6–18 months or longer depending on case complexity, interviews, and security verification.",
+
+    age: "No age limit. Applicable to individuals and families, including minors accompanied by guardians.",
+
+    education: "Not required.",
+
+    funds: "No personal funds required during application stage. Applicants may receive state assistance such as shelter, food, basic allowance, and healthcare support during the procedure.",
+
+    docs: "Valid passport (if available), identity documents, asylum application form submitted in Poland, personal statement explaining reasons for seeking protection, evidence of persecution or risk (documents, reports, witness statements), fingerprints and biometrics, any supporting medical or police records (if applicable), translation of documents if required.",
+
+    whom: "Individuals who are in Poland or at the border and are fleeing persecution, war, violence, political oppression, or serious human rights violations in their home country.",
+
+    rules: "Applicant must be physically present in Poland to apply. Cannot leave Poland during processing without permission. Must cooperate with authorities during interviews and verification. False claims may result in rejection or deportation. Work rights may be restricted initially but can be granted after certain period under protection status.",
+
+    prosCons: "Pros: Legal protection from deportation, access to shelter, healthcare, and basic support, potential pathway to long-term residence or citizenship if approved. Cons: Long processing time, uncertain outcome, restrictions on movement and employment initially, strict eligibility criteria.",
+
+    terms: "Asylum: Protection granted to individuals fleeing persecution; Refugee Status: Legal protection under international law; Subsidiary Protection: Alternative protection when refugee status is not granted; International Protection: Legal umbrella category; Dublin Regulation: EU rule determining responsible country for asylum claims.",
+
+    legal: "Regulated under EU Asylum Procedures Directive and Polish Act on Granting Protection to Foreigners, aligned with the 1951 Refugee Convention and EU asylum law framework.",
+
+    process: `1. Enter Poland and declare intention to seek asylum ->
+              2. Submit asylum application to Border Guard or immigration authority ->
+              3. Provide fingerprints and biometric data ->
+              4. Receive temporary protection accommodation/support ->
+              5. Attend personal interview and submit asylum statement ->
+              6. Authorities review case and verify evidence ->
+              7. Security and background checks conducted ->
+              8. Decision issued (refugee status / subsidiary protection / rejection) ->
+              9. If approved, receive residence permit and rights ->
+              10. If rejected, possible appeal process or return procedure`
+},
+"PolandSubsidiaryProtection": {
+    name: "Subsidiary Protection (International Protection – Poland)",
+
+    validity: "Typically granted for 2 years initially and can be extended. After continuous legal stay, it may lead to long-term residence and eventually permanent residence eligibility.",
+
+    cost: "No application fee. Subsidiary protection is part of Poland’s international protection system and is free of charge.",
+
+    time: "Processing time usually 6–18 months depending on asylum case complexity, security assessment, and administrative workload.",
+
+    age: "No age limit. Applicable to individuals and families, including minors and dependents.",
+
+    education: "Not required.",
+
+    funds: "No personal funds required. Beneficiaries may receive state support including accommodation, healthcare access, and basic financial assistance during initial stages.",
+
+    docs: "Asylum application file (initially required), identity documents if available, personal statement explaining risk of serious harm, evidence such as country reports, medical or police records, witness statements, biometric data (fingerprints), interview transcripts, and any supporting humanitarian documentation.",
+
+    whom: "Foreign nationals who do not qualify as refugees but face real risk of serious harm in their home country, such as war, torture, death penalty, or indiscriminate violence (e.g., armed conflict situations).",
+
+    rules: "Applicant must remain in Poland during assessment. Must cooperate with authorities and attend interviews. Travel outside Poland is restricted unless permitted. Work rights may be granted after recognition. Must comply with residence obligations.",
+
+    prosCons: "Pros: Legal protection from deportation, access to healthcare, education, and social support, pathway to residence permit and long-term settlement. Cons: Long processing time, uncertainty during application phase, restricted mobility initially, dependent on state support early on.",
+
+    terms: "Subsidiary Protection: EU humanitarian protection status; International Protection: Umbrella category covering asylum and subsidiary protection; Non-refoulement: Principle preventing forced return to danger; Residence Permit: Legal stay authorization after approval; Temporary Protection: Short-term emergency status in crisis situations.",
+
+    legal: "Regulated under EU Qualification Directive (2011/95/EU) and Polish Act on Granting Protection to Foreigners.",
+
+    process: `1. Apply for international protection in Poland ->
+              2. Submit personal statement and evidence of risk ->
+              3. Provide biometric data (fingerprints, photo) ->
+              4. Attend asylum interview ->
+              5. Authorities assess refugee status first ->
+              6. If refugee status not granted, subsidiary protection considered ->
+              7. Security and country risk analysis conducted ->
+              8. Decision issued (subsidiary protection granted or rejected) ->
+              9. If approved, residence permit issued ->
+              10. Access to social services and limited work rights ->
+              11. Possible extension or transition to long-term residence`
+},
+"PolandHumanitarianResidencePermit": {
+    name: "Humanitarian Residence Permit (Poland – Humanitarian Protection Stay)",
+
+    validity: "Usually granted for 1 to 2 years initially. Can be extended depending on humanitarian situation, personal circumstances, or continued protection need.",
+
+    cost: "Application fee is generally €0–€80 (~₹0–₹7,500) depending on case category. VFS service charges may apply (~₹1,500–₹2,500). In many humanitarian cases, fees may be reduced or waived.",
+
+    time: "Processing time usually 3–12 months depending on case urgency, documentation, and authority workload.",
+
+    age: "No age limit. Applicable to individuals and families, including minors and vulnerable persons.",
+
+    education: "Not required.",
+
+    funds: "No personal funds required in many humanitarian cases. Applicant may receive state support such as housing, basic living assistance, healthcare, and social aid if needed.",
+
+    docs: "Valid passport or identity document (if available), application for humanitarian stay, personal statement explaining humanitarian grounds, evidence of risk or hardship (medical records, threat evidence, war/conflict documentation, family situation proof), biometric data, police or court documents (if applicable), supporting letters from NGOs or institutions (if available), translation of documents if required.",
+
+    whom: "Foreign nationals who cannot be returned safely to their home country due to humanitarian reasons such as serious health conditions, risk of human rights violations, statelessness, family protection needs, or other exceptional compassionate circumstances.",
+
+    rules: "Must remain in Poland during application process. Must comply with immigration authority requirements and attend interviews if requested. Employment may be restricted initially but can be allowed depending on permit type. Must inform authorities of any change in circumstances.",
+
+    prosCons: "Pros: Legal stay on humanitarian grounds, protection from deportation, access to healthcare and basic support, possible pathway to long-term residence. Cons: Case-by-case approval, uncertain outcome, documentation-heavy, limited initial mobility or work rights.",
+
+    terms: "Humanitarian Stay: Residence based on compassion/exceptional grounds; Non-refoulement: Protection against forced return; Residence Permit: Legal long-term stay authorization; Vulnerable Person: Individual requiring special protection; International Protection: Umbrella legal category under EU law.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU human rights and asylum protection frameworks, including the European Convention on Human Rights principles.",
+
+    process: `1. Submit humanitarian residence application in Poland ->
+              2. Provide personal statement and supporting evidence ->
+              3. Submit biometric data ->
+              4. Authorities assess humanitarian grounds ->
+              5. Interview or additional document request if needed ->
+              6. Security and background checks ->
+              7. Decision issued (approval or rejection) ->
+              8. If approved, residence permit issued ->
+              9. Access to basic rights and services ->
+              10. Renewal possible based on continued humanitarian need`
+},
+"PolandAirportTransitVisaA": {
+    name: "Airport Transit Visa (Type A – Schengen, Poland)",
+
+    validity: "Valid only for transit through the international transit area of Polish/Schengen airports. Usually issued for single or multiple short transits, depending on travel itinerary.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. VFS service charges extra (~₹1,500–₹2,500). Some nationalities may have different fee rules or exemptions.",
+
+    time: "Processing time usually 5–15 working days depending on embassy workload and document verification.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with guardian documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of onward travel and sufficient funds for transit may be required (typically ~€500–€1,000 recommended depending on route and duration).",
+
+    docs: "Valid passport, Schengen Type A visa application form, recent photographs, confirmed onward flight tickets, valid visa for destination country (if required), travel itinerary, proof of transit through Poland/Schengen airport, travel insurance (sometimes required depending on embassy rules), bank statements (last 3–6 months if requested).",
+
+    whom: "Travelers passing through Polish airports while en route to a non-Schengen country, especially when changing flights without entering the Schengen area.",
+
+    rules: "Passenger must remain in the international transit zone of the airport. Entry into Schengen territory is not allowed under Type A visa. Must continue journey on confirmed onward flight. Overstaying or leaving transit area is strictly prohibited.",
+
+    prosCons: "Pros: Simple short-term visa for connecting flights, enables smooth transit through EU airports, minimal stay requirements. Cons: Very restricted (airport-only), no entry into Poland/Schengen territory, limited validity and use cases.",
+
+    terms: "Type A Visa: Airport transit visa; Schengen Area: 27 European countries with common visa rules; Transit Zone: Airport international area; Onward Ticket: Confirmed flight to next destination; Stopover: Short layover during international travel.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) governing airport transit visas within the Schengen Area.",
+
+    process: `1. Book international flight with layover in Poland ->
+              2. Check if Airport Transit Visa is required ->
+              3. Prepare travel and visa documents ->
+              4. Fill Schengen Type A visa application form ->
+              5. Book VFS/Embassy appointment ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies onward travel documents ->
+              9. Visa decision issued ->
+              10. Travel via Polish airport ->
+              11. Stay in transit zone only ->
+              12. Continue journey to final destination`
+},
+"PolandShortTransitVisaC": {
+    name: "Short Transit Visa (Schengen Type C – Transit through Poland)",
+
+    validity: "Usually valid for up to 90 days within a 180-day period. Can be single-entry, double-entry, or multiple-entry depending on travel itinerary and visa approval.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) for adults. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 5–15 working days, but may extend up to 30 days if additional verification is required.",
+
+    age: "No strict age limit. Applicable to all travelers including minors (with guardian consent and documents).",
+
+    education: "Not required.",
+
+    funds: "Proof of sufficient funds required. Recommended: ~€70–€120 per day (~₹6,000–₹11,000/day) depending on transit duration and accommodation needs.",
+
+    docs: "Valid passport, Schengen visa application form (Type C), recent photographs, confirmed onward and return flight tickets, visa for final destination (if required), travel itinerary, proof of accommodation during transit (if staying outside airport), travel insurance (€30,000+ coverage mandatory), bank statements (last 3–6 months), employment or sponsor letter (if applicable).",
+
+    whom: "Travelers passing through Poland/Schengen area en route to another country, where airport-only transit (Type A) is not sufficient because they may need to enter Schengen territory (e.g., changing airports, overnight layovers, or collecting baggage).",
+
+    rules: "Must follow declared transit itinerary. Short stay only within allowed period. No employment or business activity allowed. Must exit Schengen area before visa expiry. Cannot overstay or misuse visa for long-term stay.",
+
+    prosCons: "Pros: Allows entry into Schengen territory during transit, flexible for complex flight routes, useful for long layovers or airport changes. Cons: Strict time limits, no work rights, requires full documentation, not meant for tourism or long stay.",
+
+    terms: "Type C Visa: Short-stay Schengen visa; Transit: Temporary passage through a country; Schengen Area: 27 European countries with unified visa policy; Layover: Waiting period between connecting flights; Overstay: Illegal stay beyond permitted duration.",
+
+    legal: "Regulated under EU Visa Code (Regulation (EC) No 810/2009) governing short-stay and transit visas within the Schengen Area.",
+
+    process: `1. Confirm travel route requiring Schengen transit ->
+              2. Check visa requirement for Poland transit ->
+              3. Prepare travel documents ->
+              4. Fill Schengen Type C visa application form ->
+              5. Book VFS/Embassy appointment ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies travel itinerary and documents ->
+              9. Visa decision issued ->
+              10. Travel through Poland/Schengen area ->
+              11. Complete transit within allowed time ->
+              12. Exit Schengen before visa expiry`
+},
+"PolandRepatriationVisaD": {
+    name: "Repatriation Visa (National Visa Type D – Polish Origin Return, Poland)",
+
+    validity: "Initially issued as a long-stay visa allowing entry to Poland, usually followed by immediate eligibility for permanent residence or citizenship upon completion of repatriation formalities.",
+
+    cost: "Visa is generally free or heavily subsidized for eligible persons of Polish origin. Some administrative or document costs may apply (~€0–€80 / ₹0–₹7,500). VFS service charges (~₹1,500–₹2,500) may still apply.",
+
+    time: "Processing time usually 30–90 working days depending on verification of Polish origin, documentation, and regional authority approval.",
+
+    age: "No age limit. Applicable to individuals and entire families of Polish descent.",
+
+    education: "Not required.",
+
+    funds: "Often supported by Polish government or local authorities in Poland (housing assistance, relocation support, and integration aid may be provided). Applicant may still need to show basic settlement funds (~€2,000–€5,000) depending on case.",
+
+    docs: "Valid passport, national visa application form, proof of Polish origin (family records, church records, ancestry documents, Polish citizenship of ancestors), birth certificates linking lineage, marriage certificates (if applicable), invitation from Polish authorities (repatriation consent), accommodation confirmation in Poland (often provided by municipality), medical insurance, background clearance certificate, translated and legalized documents, cover letter explaining ancestry and intent to return.",
+
+    whom: "Foreign nationals of confirmed Polish descent (often from countries with historical Polish diaspora) who wish to permanently return and settle in Poland under repatriation laws.",
+
+    rules: "Must prove Polish ancestry through legal documentation. Must settle in Poland after arrival. Cannot use visa for temporary stay or work abroad purposes. Must comply with integration and registration requirements set by Polish authorities.",
+
+    prosCons: "Pros: Pathway to permanent residence or citizenship, government support for relocation, housing assistance in some cases, strong legal status upon approval. Cons: Strict proof of ancestry required, documentation-heavy process, limited to eligible ethnic origin groups only.",
+
+    terms: "Repatriation: Return of persons of Polish origin to Poland; Polish Origin: Ancestral connection to Poland; National Visa Type D: Long-stay visa; Permanent Residence: Indefinite legal stay status; Municipality Support: Local government assistance for settlement.",
+
+    legal: "Regulated under the Polish Repatriation Act and Polish citizenship/immigration laws supporting return of persons of Polish origin.",
+
+    process: `1. Gather proof of Polish ancestry ->
+              2. Obtain confirmation of eligibility from Polish authorities ->
+              3. Secure invitation from municipality or repatriation program ->
+              4. Prepare legal and family documents ->
+              5. Fill National Visa (Type D) application form ->
+              6. Book VFS/Embassy appointment ->
+              7. Submit documents and biometrics ->
+              8. Pay visa fee (if applicable) ->
+              9. Embassy verifies Polish origin and eligibility ->
+              10. Interview if required ->
+              11. Visa approval issued ->
+              12. Travel to Poland ->
+              13. Complete repatriation formalities ->
+              14. Apply for permanent residence or citizenship if eligible`
+},
+"PolandTemporaryResidenceVisaD": {
+    name: "Temporary Residence Visa (National Visa Type D – Work, Study, or Family, Poland)",
+
+    validity: "Usually issued for up to 1 year initially. Can be extended and later converted into a Temporary Residence Permit card valid for up to 3 years depending on purpose (work, study, or family).",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Residence permit card after arrival ~€100–€150. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 15–60 working days depending on purpose (work/study/family), documentation, and immigration workload.",
+
+    age: "No strict age limit. Depends on category: students (typically 17–35), workers (21–60), family members (all ages).",
+
+    education: "Depends on purpose: required for study/work categories, not required for family reunification cases.",
+
+    funds: "Varies by category. Students: ~€8,000–€12,000/year. Workers: employer-sponsored salary. Family: sponsor must show stable income meeting household needs. Additional personal funds (~€2,000–€5,000) may be required in some cases.",
+
+    docs: "Valid passport, national visa application form, recent photographs, supporting documents based on purpose (work contract / university admission / family proof), sponsor documents (if applicable), bank statements (last 3–6 months), accommodation proof in Poland, travel insurance (€30,000+ coverage mandatory), cover letter explaining purpose of stay, employment/study/family certificates as applicable.",
+
+    whom: "Foreign nationals (including Indians) who intend to stay in Poland for more than 90 days for work, study, or family reunification under a temporary legal residence arrangement.",
+
+    rules: "Must strictly follow approved purpose (work, study, or family). Changing category requires new application or approval. Must register residence after arrival. Work rights depend on permit type. Overstay or misuse leads to penalties or cancellation.",
+
+    prosCons: "Pros: Flexible category covering major stay purposes, pathway to long-term residence, access to Schengen travel after permit issuance, family reunification possible. Cons: Documentation-heavy, purpose-bound restrictions, processing delays possible, must renew periodically.",
+
+    terms: "Temporary Residence Permit: Legal stay for limited duration; National Visa Type D: Long-stay entry visa; Work Permit: Authorization to work; Study Permit: Academic stay authorization; Family Reunification: Joining family members legally in Poland.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU residence directives covering work, study, and family migration pathways.",
+
+    process: `1. Determine purpose of stay (work, study, or family) ->
+              2. Gather required supporting documents ->
+              3. Secure sponsor/job/university/family proof ->
+              4. Fill National Visa (Type D) application form ->
+              5. Book VFS/Embassy appointment ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy verifies eligibility and purpose ->
+              9. Interview if required ->
+              10. Visa approval issued ->
+              11. Travel to Poland ->
+              12. Apply for Temporary Residence Permit card ->
+              13. Maintain legal status and renew when required`
+},
+
+"PolandBusinessHarbourTechVisa": {
+    name: "Poland.Business Harbour (PBH – IT Specialist & Startup Pass)",
+
+    validity: "1 year (National Visa Type D). This visa allows for immediate employment without a work permit. It is renewable via a Temporary Residence Permit (Karta Pobytu) once in Poland.",
+
+    cost: "Visa Fee: €80 (~₹7,000 – ₹7,500). VFS service charges separate (~₹2,500). Note: Many PBH applicants from specific countries (like Belarus) receive fee waivers, but standard fees apply to global tech talent.",
+
+    time: "Fast-track processing: 2 to 4 weeks. This is significantly faster than the standard 'Zezwolenie' work visa which can take months.",
+
+    age: "No strict age limit, but aimed at working professionals.",
+
+    education: "Mandatory: A technical degree (STEM) OR at least one year of documented experience in the IT industry.",
+
+    funds: "No high investment requirement. Must show sufficient funds for initial settlement (~₹2L – ₹4L) if not already receiving a salary from a Polish firm.",
+
+    docs: "Valid passport, a 'Recommendation' from a Polish partner company (list available on PAIH website) or the Polish Investment and Trade Agency, evidence of IT qualifications or 1 year of experience, and travel insurance.",
+
+    whom: "Indian software developers, data scientists, cybersecurity experts, and tech startups who want to relocate to Poland’s thriving tech hubs (Kraków, Warsaw, Wrocław).",
+
+    rules: "The applicant is exempt from the obligation to have a work permit. This means they can change employers within the IT sector more easily than standard work visa holders. The visa also allows the holder to set up a sole proprietorship (B2B contract) in Poland.",
+
+    prosCons: "Pros: No work permit needed; fastest route to the Polish labor market; allows B2B freelancing; family members can join on the same terms. Cons: Currently under high scrutiny/policy review in 2024/25; limited to the tech/IT sector.",
+
+    terms: "PBH: Poland.Business Harbour; PAIH: Polish Investment and Trade Agency; B2B: Business-to-Business contract (common for IT in Poland).",
+
+    legal: "Act on Foreigners + Government Program 'Poland.Business Harbour'.",
+
+    process: `1. Secure a job offer or a 'Recommendation' from an authorized Polish tech partner -> 
+              2. Gather evidence of 1 year of IT experience or a STEM degree -> 
+              3. Complete the National Visa (Type D) form mentioning 'PBH' -> 
+              4. Book a 'PBH' specific slot at VFS Global India -> 
+              5. Submit documents and biometrics -> 
+              6. Receive the PBH visa sticker -> 
+              7. Travel to Poland and start work immediately without waiting for a work permit.`
+},
+
+"PolandGraduateWorkExemption": {
+    name: "Graduate of Polish Higher Education (Work Permit Waiver Status)",
+
+    validity: "Indefinite. This is a permanent legal status granted to graduates, allowing them to work for any employer in Poland forever without a work permit.",
+
+    cost: "Free (€0) for the status itself. Standard fees apply for the accompanying Residence Permit (Karta Pobytu): ~440 PLN (~₹9,500).",
+
+    time: "The exemption is automatic upon graduation. The residence permit to stay in Poland as a graduate takes 3–6 months to process.",
+
+    age: "No limit.",
+
+    education: "Mandatory: Must have graduated from a full-time (stationary) program at a Polish university (Bachelor’s, Master’s, or PhD) or a Polish doctoral school.",
+
+    whom: "Indian students who have completed their degrees in Poland and wish to stay and work without being tied to a specific sponsor.",
+
+    rules: "The exemption ONLY applies to 'Full-time' (stacjonarne) graduates. Part-time or 'extramural' students are NOT exempt. The graduate can work in any field, not just what they studied.",
+
+    prosCons: "Pros: Total labor market freedom; no 'Labor Market Test' needed by the employer; huge competitive advantage for jobs. Cons: Does not apply to part-time students; requires proof of 'full-time' status from the university.",
+
+    terms: "Stacjonarne: Full-time studies; Zezwolenie: Work permit (which these graduates DON'T need); Starosta: The local labor office.",
+
+    legal: "Act of 20 April 2004 on Employment Promotion and Labour Market Institutions.",
+
+    process: `1. Successfully complete a full-time degree in Poland -> 
+              2. Obtain the final diploma or a university certificate of graduation -> 
+              3. Show the diploma to any potential Polish employer -> 
+              4. The employer hires you directly (bypassing the Work Permit office) -> 
+              5. Apply for a 'Temporary Residence Permit for Graduate' at the Voivodeship office to keep your stay legal.`
+},
+
+"PolandKartaPolakaEntryVisa": {
+    name: "Karta Polaka (Pole’s Card) Entry Visa",
+
+    validity: "1 year (National Visa Type D, category D-18). This visa is designed to allow the holder to move to Poland and settle permanently.",
+
+    cost: "Visa Fee: €0 (Free). National Visas based on the Karta Polaka are exempt from all consular fees.",
+
+    time: "Processing: 1 to 2 weeks. Priority is given to Karta Polaka holders.",
+
+    age: "No age limit.",
+
+    education: "No requirement.",
+
+    funds: "No personal funds required for the visa. Once in Poland, the government provides a monthly financial grant for the first 9 months to help with settlement.",
+
+    docs: "Original Karta Polaka (Pole's Card), valid passport, and visa application form.",
+
+    whom: "Indian nationals or individuals of Polish descent who have already obtained the 'Karta Polaka' by proving their Polish roots and language skills.",
+
+    rules: "Must hold a valid Karta Polaka. The visa allows the holder to work, study, and live in Poland on the same terms as Polish citizens. It grants the right to apply for Permanent Residence immediately upon arrival.",
+
+    prosCons: "Pros: Free visa; immediate work rights; fast-track to Permanent Residency (within 1 year); financial aid provided. Cons: Only for those who can prove Polish ancestry.",
+
+    terms: "Karta Polaka: Pole’s Card; Karta Stałego Pobytu: Permanent Residence Card; Repatriation: Returning to one's homeland.",
+
+    legal: "Act on the Pole’s Card of 7 September 2007.",
+
+    process: `1. (Prerequisite) Obtain the Karta Polaka from a Polish Consulate (requires proof of ancestry and a Polish interview) -> 
+              2. Apply for the D-18 National Visa at the Polish Embassy/Consulate -> 
+              3. Receive the free visa -> 
+              4. Travel to Poland -> 
+              5. Apply for a 'Permanent Residence Permit' at the local Voivodeship office (free of charge) -> 
+              6. Apply for the 9-month financial settlement grant.`
+},
+"PolandPermanentResidencePathEntryVisaD": {
+    name: "Permanent Residence Path Entry Visa (National Visa Type D – Case-Based, Poland)",
+
+    validity: "Usually issued for 1 year or less as an entry visa. It does NOT directly grant permanent residence; instead, it allows entry to complete formalities for Permanent Residence (PR) or EU Long-Term Residence application in Poland.",
+
+    cost: "Approx €80 (~₹7,000–₹7,500) visa fee. Permanent residence card application after arrival ~€140–€200. VFS service charges extra (~₹1,500–₹2,500).",
+
+    time: "Processing time usually 30–120 working days depending on eligibility category, documentation strength, and verification by immigration authorities.",
+
+    age: "No strict age limit. Typically applies to long-term residents, spouses, workers, or individuals already qualifying for PR pathways.",
+
+    education: "Not required. However, employment or integration history in Poland is often considered.",
+
+    funds: "Must show stable financial situation or long-term income history. Recommended: proof of stable income (~€800–€1,500/month or equivalent savings ~€10,000–€25,000+ depending on case).",
+
+    docs: "Valid passport, national visa application form, recent photographs, proof of long-term legal stay history (work/study/family permits), employment history or tax records in Poland, proof of continuous residence, accommodation proof, integration evidence (language skills, social ties), bank statements, health insurance, cover letter explaining PR eligibility basis, any previous residence permits.",
+
+    whom: "Foreign nationals who are already eligible or close to eligibility for Permanent Residence or EU Long-Term Residence in Poland, such as long-term workers, spouses of citizens, continuous residents, or highly integrated individuals.",
+
+    rules: "Visa is strictly case-based and does not guarantee PR approval. Applicant must already qualify under Polish PR law. Must complete all formal PR procedures after entry. Misrepresentation leads to rejection or cancellation.",
+
+    prosCons: "Pros: Facilitates entry for final PR application steps, pathway to indefinite residence and EU long-term status, strong legal stability once approved. Cons: Rare and discretionary approval, strict eligibility requirements, does not itself grant PR, requires strong documentation and residence history.",
+
+    terms: "Permanent Residence (PR): Indefinite legal stay status; EU Long-Term Residence: EU-wide long-term status after 5+ years; Case-Based Approval: Discretionary immigration decision; Integration: Language and social settlement requirements; Residence Continuity: Proof of long-term stay in Poland.",
+
+    legal: "Regulated under Polish Act on Foreigners and EU Long-Term Residence Directive (2003/109/EC), applied only in qualified or transitional cases.",
+
+    process: `1. Confirm eligibility for Permanent Residence pathway ->
+              2. Gather long-term residence proof (work/study/family history) ->
+              3. Compile financial and integration documents ->
+              4. Fill National Visa (Type D) application form ->
+              5. Book VFS/Embassy appointment ->
+              6. Submit documents and biometrics ->
+              7. Pay visa fee ->
+              8. Embassy evaluates PR eligibility case-by-case ->
+              9. Interview or additional checks if required ->
+              10. Visa issued for entry purpose ->
+              11. Travel to Poland ->
+              12. Submit Permanent Residence application in-country ->
+              13. Await PR decision ->
+              14. If approved, receive PR card (indefinite stay)`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

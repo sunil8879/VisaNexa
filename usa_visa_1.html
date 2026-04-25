@@ -1,0 +1,2755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa Information Portal</title>
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --black: #000000;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            background-color: var(--white);
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(160,100%,95%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(160,100%,95%,1) 0, transparent 50%);
+            font-family: 'Britannica Bold', 'Impact', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Side Image Provisions */
+        .side-image-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 400px;
+            border: 2px solid var(--black);
+            background: var(--aqua);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--black);
+            z-index: 5;
+        }
+
+        .left-image { left: 30px; }
+        .right-image { right: 30px; }
+
+        .side-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: var(--black);
+            font-family: 'Impact';
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* --- THE NARROW CENTERED CONTAINER --- */
+        .container {
+            text-align: center;
+            background: var(--glass);
+            padding: 40px 25px;
+            border-radius: 30px;
+            border: 2px solid var(--black);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 50px var(--shadow), 15px 15px 0px var(--aqua);
+            max-width: 420px !important; 
+            width: 90%;
+            margin: 40px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-200%) translateY(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--black);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: shine 4s infinite linear;
+        }
+
+        .bevel-box {
+            background: var(--white);
+            border: 1px solid var(--black);
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(127, 255, 212, 0.2);
+            text-align: left;
+        }
+
+        .bevel-box::after {
+            content: "";
+            position: absolute;
+            top: -100%; left: -100%;
+            width: 50%; height: 300%;
+            background: linear-gradient(to right, transparent, rgba(127, 255, 212, 0.4), transparent);
+            transform: rotate(25deg);
+            animation: verticalShine 5s infinite;
+        }
+
+        @keyframes verticalShine {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+     h1, h2, h3, .item-title, button { font-family: 'Arial Black', 'Arial Bold', sans-serif !important; } body, p, li, label, select, .item-content, .value-text, .placeholder-text { font-family: 'Times New Roman', Times, serif !important; }
+
+        p, li, label {
+            font-size: 0.9rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            font-family: 'Impact', sans-serif;
+            text-transform: uppercase;
+            border: 2px solid var(--black);
+            margin-top: 10px;
+            cursor: pointer;
+            background: var(--white);
+        }
+
+        button {
+            background: var(--black);
+            color: var(--aqua);
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 5px 5px 0px var(--aqua);
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .result-area {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .item-title {
+            color: var(--black);
+            font-family: 'Impact';
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: block;
+            border-left: 5px solid var(--aqua);
+            padding-left: 10px;
+        }
+
+ 
+
+        @media (max-width: 1100px) {
+            .side-image-container { display: none; }
+        }
+
+
+
+
+
+.side-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This crops the image to fill the box perfectly */
+    display: block;
+}
+
+
+
+
+
+.left-image { left: 100px !important; } .right-image { right: 100px !important; }
+    </style>
+</head>
+<body>
+
+<!-- Left Side Image -->
+<div class="side-image-container left-image">
+    <img src="1.jpg" alt="Visa Left">
+</div>
+
+<!-- Right Side Image -->
+<div class="side-image-container right-image">
+    <img src="2.jpg" alt="Visa Right">
+</div>
+
+
+    <div class="container">
+        <h1>Visa Finder</h1>
+        
+        <div class="glass-card">
+            <label>Select Country</label>
+            <select id="country">
+                <option value="USA">USA</option>
+            </select>
+
+            <label style="margin-top: 15px; display: block;">Select Visa Type</label>
+          <select id="visaType">
+    <optgroup label="B - Visitor">
+        <option value="B1">B1 Visa (Business)</option>
+        <option value="B2">B2 Visa (Tourist)</option>
+    </optgroup>
+    <optgroup label="C/D - Transit & Crew">
+        <option value="C1">C1 Visa (Transit)</option>
+        <option value="C2">C2 Visa (UN Transit)</option>
+        <option value="C3">C3 Visa (Diplomatic Transit)</option>
+        <option value="D">D Visa (Crew Member)</option>
+        <option value="C1D">C1/D Visa (Combined Crew)</option>
+    </optgroup>
+    <optgroup label="F/M - Students">
+        <option value="F1">F1 Visa (Academic Student)</option>
+        <option value="F2">F2 Visa (Student Dependent)</option>
+        <option value="F3">F3 Visa (Commuter Student)</option>
+        <option value="M1">M1 Visa (Vocational)</option>
+        <option value="M2">M2 Visa (M1 Dependent)</option>
+        <option value="M3">M3 Visa (Vocational Commuter)</option>
+    </optgroup>
+    <optgroup label="J - Exchange">
+        <option value="J1">J1 Visa (Exchange Visitor)</option>
+        <option value="J2">J2 Visa (J1 Dependent)</option>
+    </optgroup>
+    <optgroup label="H - Temporary Work">
+        <option value="H1B">H1B Visa (Specialty Occupation)</option>
+        <option value="H1B1">H1B1 Visa (Chile/Singapore Only)</option>
+        <option value="H2A">H2A Visa (Agri-Worker)</option>
+        <option value="H2B">H2B Visa (Non-Agri Worker)</option>
+        <option value="H3">H3 Visa (Trainee)</option>
+        <option value="H4">H4 Visa (H-Dependent)</option>
+    </optgroup>
+    <optgroup label="L - Intra-Company">
+        <option value="L1A">L1A Visa (Manager/Exec)</option>
+        <option value="L1B">L1B Visa (Specialized Knowledge)</option>
+        <option value="L2">L2 Visa (L-Dependent)</option>
+    </optgroup>
+    <optgroup label="O - Extraordinary">
+        <option value="O1A">O1A Visa (Science/Business)</option>
+        <option value="O1B">O1B Visa (Arts/TV)</option>
+        <option value="O2">O2 Visa (O1 Support Staff)</option>
+        <option value="O3">O3 Visa (O-Dependent)</option>
+    </optgroup>
+    <optgroup label="P - Sports & Arts">
+        <option value="P1">P1 Visa (Athletes/Teams)</option>
+        <option value="P2">P2 Visa (Exchange Artists)</option>
+        <option value="P3">P3 Visa (Cultural Performance)</option>
+        <option value="P4">P4 Visa (P-Dependent)</option>
+    </optgroup>
+    <optgroup label="Q/R - Cultural & Religious">
+        <option value="Q1">Q1 Visa (Cultural Exchange)</option>
+        <option value="R1">R1 Visa (Religious Worker)</option>
+        <option value="R2">R2 Visa (R1 Dependent)</option>
+    </optgroup>
+    <optgroup label="E - Treaty (Indirect for Indians)">
+        <option value="E1">E1 Visa (Treaty Trader)</option>
+        <option value="E2">E2 Visa (Treaty Investor)</option>
+        <option value="E3">E3 Visa (Australian Specialty)</option>
+    </optgroup>
+    <optgroup label="K/V - Fiancé & Family">
+        <option value="K1">K1 Visa (Fiancé)</option>
+        <option value="K2">K2 Visa (K1 Children)</option>
+        <option value="K3">K3 Visa (Spouse of Citizen)</option>
+        <option value="K4">K4 Visa (K3 Children)</option>
+        <option value="V">V Visa (Family Reunification)</option>
+    </optgroup>
+    <optgroup label="U/T/S - Humanitarian">
+        <option value="U1">U1 Visa (Crime Victim)</option>
+        <option value="U2">U2 Visa (U Spouse)</option>
+        <option value="T1">T1 Visa (Trafficking Victim)</option>
+        <option value="S5">S5 Visa (Criminal Informant)</option>
+        <option value="S6">S6 Visa (Terrorism Informant)</option>
+    </optgroup>
+    <optgroup label="A/G - Diplomatic">
+        <option value="A1">A1 Visa (Top Diplomat)</option>
+        <option value="A2">A2 Visa (Gov Official)</option>
+        <option value="G1">G1 Visa (Intl Org Rep)</option>
+        <option value="G4">G4 Visa (UN/Intl Staff)</option>
+    </optgroup>
+    <optgroup label="NATO">
+        <option value="NATO1">NATO-1 to 7 Visa (Military Staff)</option>
+    </optgroup>
+    <optgroup label="Immigrant - Green Card">
+        <option value="EB1">EB1 (Priority Workers)</option>
+        <option value="EB2">EB2 (Advanced Degree)</option>
+        <option value="EB3">EB3 (Skilled/Other)</option>
+        <option value="EB4">EB4 (Special Immigrants)</option>
+        <option value="EB5">EB5 (Investors)</option>
+        <option value="IR1">IR1 (Spouse of US Citizen)</option>
+        <option value="IR5">IR5 (Parent of US Citizen)</option>
+        <option value="F4">F4 (Siblings of US Citizen)</option>
+    </optgroup>
+</select>
+        </div>
+
+        <button onclick="generateVisaDetails()">Submit</button>
+
+        <div id="resultArea" class="result-area">
+            <!-- Details will be injected here -->
+        </div>
+    </div>
+
+    <script>
+       const visaDatabase = {
+    "USA": {
+      "B1": {
+    name: "B1 Visa (Business Visitor Visa)",
+    
+    validity: "Up to 10 years multiple-entry (for Indians). Each visit allows a stay of up to 6 months (can be extended in special cases).",
+    
+    cost: "₹35,000 – ₹40,000 total. Breakdown: MRV Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous (photos, travel, documents) ₹1,000–₹3,000.",
+    
+    time: "Total 2 weeks to 6 months. Appointment wait time varies (1–4 months common), processing after interview usually 7–15 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Self-funded or company-sponsored. Recommended bank balance: ₹3–10 lakh. Must show financial stability and ability to return to India.",
+    
+    docs: "Passport (valid), DS-160 confirmation page, Appointment confirmation, Passport-size photos, Invitation letter from US company (if applicable), Company documents (ID card, offer letter, business proof), Bank statements (6 months), ITR (2–3 years), Travel itinerary.",
+    
+    whom: "Business professionals traveling for meetings, conferences, negotiations, training programs, or short-term business activities (non-employment).",
+    
+    rules: "No employment allowed in USA. Cannot receive salary from US company (except reimbursements). Must not engage in productive work. Must leave before authorized stay ends. Must prove strong ties to India (job, business, family).",
+    
+    prosCons: "Pros: Long validity (10 years), multiple entry, relatively simple process, useful for networking and business expansion. Cons: No work allowed, high rejection risk under 214(b) if profile weak, cannot easily convert to work visa.",
+    
+    terms: "B1: Business Visitor Visa; DS-160: Online Non-Immigrant Visa Application Form; MRV: Machine Readable Visa Fee; VAC: Visa Application Center; 214(b): Section used for rejection due to immigrant intent.",
+    
+    legal: "US Department of State (visa issuance), US Embassy/Consulate (interview and approval), Customs and Border Protection (final entry at airport).",
+    
+    process: `1. Determine purpose of visit (business) 
+              2. Fill DS-160 form online 
+              3. Pay visa fee (MRV) 
+              4. Create profile and schedule VAC + embassy appointments 
+              5. Visit VAC for biometrics (fingerprints, photo) 
+              6. Attend interview at US Embassy/Consulate  
+              7. Answer questions about purpose, job, finances 
+              8. Visa approval or rejection  
+              9. Passport returned with visa if approved 
+              10. Travel to USA; final entry decided by immigration officer at airport.`
+},
+       "B2": {
+    name: "B2 Visa (Tourist / Visitor Visa)",
+    
+    validity: "Up to 10 years multiple-entry (for Indians). Each visit allows a stay of up to 6 months. Extension possible in special cases through USCIS.",
+    
+    cost: "₹35,000 – ₹40,000 total. Breakdown: MRV Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous (photos, travel, documentation) ₹1,000–₹3,000.",
+    
+    time: "Total 2 weeks to 6+ months depending on city. Appointment wait time varies (1–6 months common in India), processing after interview usually 7–15 days.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Recommended ₹5–10 lakh minimum. Must show sufficient funds for travel, accommodation, and return. Strong financial proof increases approval chances.",
+    
+    docs: "Valid passport, DS-160 confirmation page, Appointment confirmation, Passport-size photos, Bank statements (6 months), ITR (2–3 years), Salary slips or business proof, Travel itinerary (hotel bookings, return ticket plan), Invitation letter (if visiting family), Proof of ties to India (job letter, property, family details).",
+    
+    whom: "Tourists, individuals visiting family/friends, people traveling for medical treatment, short recreational or personal visits.",
+    
+    rules: "No employment allowed in USA. Cannot enroll in long-term study programs. Must leave before authorized stay expires. Must prove strong ties to India and non-immigrant intent.",
+    
+    prosCons: "Pros: Long validity (10 years), multiple entries, useful for tourism and family visits. Cons: Approval is subjective, high rejection rate under 214(b) if financials or ties are weak, no work or long-term stay allowed.",
+    
+    terms: "B2: Tourist Visitor Visa; DS-160: Online Non-Immigrant Visa Form; MRV: Machine Readable Visa Fee; VAC: Visa Application Center; 214(b): Rejection clause for immigrant intent.",
+    
+    legal: "US Department of State (visa processing), US Embassy/Consulate (interview), Customs and Border Protection (final entry approval at airport).",
+    
+    process: `1. Decide travel purpose (tourism/family visit) -> 
+              2. Fill DS-160 form online -> 
+              3. Pay visa fee (MRV) -> 
+              4. Create profile and schedule VAC + embassy appointments -> 
+              5. Visit VAC for biometrics (fingerprints, photo) -> 
+              6. Attend visa interview at US Embassy/Consulate -> 
+              7. Answer questions about travel plan, finances, and ties to India -> 
+              8. Visa approved or rejected -> 
+              9. Passport returned with visa if approved -> 
+              10. Travel to USA; final entry decision made by immigration officer at airport.`
+},
+      "C1": {
+    name: "C1 Visa (Transit Visa)",
+    
+    validity: "Valid for a very short duration, usually up to 29 days or less. Stay is strictly limited to the time required for transit through the United States.",
+    
+    cost: "₹35,000 – ₹40,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous ₹1,000–₹3,000.",
+    
+    time: "Total 1–4 weeks. Appointment and processing are generally faster than other visas.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Must show proof of onward travel and sufficient funds to complete journey. No large bank balance required, but must demonstrate ability to continue travel.",
+    
+    docs: "Valid passport, DS-160 confirmation, Appointment confirmation, Confirmed flight tickets (transit itinerary), Visa for final destination country (VERY IMPORTANT), Proof of travel purpose, Basic financial proof.",
+    
+    whom: "Travelers passing through the USA en route to another country (layover or connecting flight).",
+    
+    rules: "Cannot stay beyond authorized transit period. Cannot work or study. Cannot leave transit purpose or engage in tourism. Must have confirmed onward journey. Entry is strictly controlled and monitored.",
+    
+    prosCons: "Pros: Fast processing, simple documentation, useful for international transit routes. Cons: Very limited stay, cannot explore USA, requires confirmed onward visa and tickets.",
+    
+    terms: "C1: Transit Visa; DS-160: Online Visa Application Form; Transit: Passing through a country to another destination; CBP: Customs and Border Protection (final entry authority).",
+    
+    legal: "US Department of State (visa issuance), US Embassy/Consulate (interview), Customs and Border Protection (CBP) (final decision at port of entry).",
+    
+    process: `1. Confirm travel route via USA -> 
+              2. Ensure visa for final destination country -> 
+              3. Fill DS-160 form -> 
+              4. Pay visa fee -> 
+              5. Book interview appointment -> 
+              6. Attend interview and show transit proof -> 
+              7. Visa approval -> 
+              8. Travel via USA -> 
+              9. Pass through immigration/transit area -> 
+              10. Continue journey to final destination.`
+},
+       "C2": {
+    name: "C2 Visa (United Nations Transit Visa)",
+    
+    validity: "Valid only for the duration required to travel to and from the United Nations Headquarters (UNHQ) in New York. Stay is strictly limited to the official purpose and duration of UN-related activities.",
+    
+    cost: "Usually fee exempt for official UN or government business. In rare cases, standard visa fees may apply depending on circumstances.",
+    
+    time: "Total 2–4 weeks. Processing may be faster due to official nature of travel.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Generally sponsored by United Nations or government authority. Personal funds usually not required.",
+    
+    docs: "Valid passport, Official UN invitation or authorization letter, Government nomination/official orders, DS-160 confirmation (if applicable), Travel itinerary, Supporting identity and employment documents.",
+    
+    whom: "Individuals traveling to the United Nations Headquarters in New York for official duties, including diplomats, government representatives, or UN-related personnel.",
+    
+    rules: "Strictly limited to UN-related travel. Must remain within a 25-mile radius of UN Headquarters (New York). Cannot travel freely within the USA. Cannot work outside official duties. Stay duration is tightly controlled.",
+    
+    prosCons: "Pros: Fee exemption in most cases, fast processing, direct access to UN-related activities. Cons: Highly restricted movement, limited stay, not usable for general travel or employment.",
+    
+    terms: "C2: UN Transit Visa; UNHQ: United Nations Headquarters (New York); DS-160: Online Visa Application Form; Official Orders: Government authorization for travel.",
+    
+    legal: "US Department of State (visa issuance), United Nations (sponsorship and authorization), US Embassy/Consulate (processing), Customs and Border Protection (final entry decision).",
+    
+    process: `1. Receive official invitation/authorization from United Nations or government -> 
+              2. Prepare required documents and travel authorization -> 
+              3. Complete DS-160 (if required) -> 
+              4. Submit application through embassy/official channel -> 
+              5. Attend interview (if applicable) -> 
+              6. Visa approval -> 
+              7. Travel to USA (New York) -> 
+              8. Stay restricted to UN Headquarters area -> 
+              9. Complete official duties -> 
+              10. Exit USA after completion.`
+},
+        "C3": {
+    name: "C3 Visa (Diplomatic Transit Visa)",
+    
+    validity: "Valid only for the duration required to transit through the United States. Stay is limited strictly to the time necessary for official transit.",
+    
+    cost: "Generally fee exempt for government officials traveling on official duty.",
+    
+    time: "Total 1–3 weeks. Processing is usually faster due to official diplomatic handling.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    funds: "Fully funded by government. Personal financial proof is not required.",
+    
+    docs: "Valid diplomatic or official passport, Note Verbale (official diplomatic request letter), Travel itinerary, Government authorization/order, Supporting official identification documents.",
+    
+    whom: "Government officials, diplomats, or representatives transiting through the United States while traveling for official government work.",
+    
+    rules: "Strictly for official transit purposes only. Cannot engage in any non-official activity. Must continue journey to final destination without delay. Cannot work or stay beyond transit requirement.",
+    
+    prosCons: "Pros: Fast processing, no visa fee, simplified documentation due to diplomatic status. Cons: Highly restricted usage, cannot be used for personal travel or extended stay.",
+    
+    terms: "C3: Diplomatic Transit Visa; Note Verbale: Official diplomatic communication issued by a government; Diplomatic Passport: Passport issued to government officials; Transit: Passing through a country en route to another destination.",
+    
+    legal: "US Department of State (primary authority), US Embassy/Consulate (processing), Customs and Border Protection (CBP) (final entry control).",
+    
+    process: `1. Government issues official travel order -> 
+              2. Note Verbale prepared by sending country -> 
+              3. Submit application through embassy/diplomatic channel -> 
+              4. Embassy processes request (usually expedited) -> 
+              5. Visa issued -> 
+              6. Travel to USA for transit -> 
+              7. Pass through immigration under diplomatic status -> 
+              8. Continue journey to final destination.`
+},
+      "D": {
+    name: "D Visa (Crew Member Visa)",
+    
+    validity: "Up to 5 years (multiple-entry) depending on nationality and employer. However, each stay in the USA is very short (usually up to 29 days or duration of duty).",
+    
+    cost: "₹35,000 – ₹40,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous ₹1,000–₹3,000.",
+    
+    time: "Total 2–4 weeks. Processing is generally faster for crew members with valid employment proof.",
+    
+    age: "Minimum 18 years (practical requirement).",
+    
+    education: "Not strictly required, but professional training/certification required depending on job (e.g., pilot license, maritime training, aviation certification).",
+    
+    funds: "Not required personally. Salary and expenses covered by employer (airline/shipping company).",
+    
+    docs: "Valid passport, DS-160 confirmation page, Seaman’s book (for ship crew), Employment contract, Company letter confirming crew status, Travel itinerary, Previous visa records (if any), Identity and qualification certificates.",
+    
+    whom: "Airline crew members (pilots, cabin crew) and ship crew members (sailors, engineers, staff) traveling to the USA as part of their job duties.",
+    
+    rules: "Must enter USA only as part of assigned duty. Must leave the USA on the same vessel/aircraft or next scheduled departure. Cannot stay beyond authorized period. Cannot take up any other job or activity in the USA.",
+    
+    prosCons: "Pros: Essential for international crew jobs, multiple-entry visa, relatively faster approval. Cons: Strictly job-based, cannot switch to another visa easily, very limited stay duration.",
+    
+    terms: "D Visa: Crew Member Visa; Seaman’s Book: Official record of maritime employment; CBP: Customs and Border Protection; USCG: United States Coast Guard (maritime authority).",
+    
+    legal: "US Department of State (visa issuance), US Embassy/Consulate (interview), Customs and Border Protection (CBP) (entry control), US Coast Guard (for maritime compliance).",
+    
+    process: `1. Secure employment with airline/shipping company -> 
+              2. Obtain necessary training/certifications -> 
+              3. Fill DS-160 visa application -> 
+              4. Pay visa fee -> 
+              5. Schedule and attend embassy interview -> 
+              6. Provide employment and crew documents -> 
+              7. Visa approval -> 
+              8. Travel to USA as crew member -> 
+              9. Perform duties -> 
+              10. Depart USA with vessel/flight as required.`
+},
+        "C1D": {
+    name: "C1/D Visa (Combined Transit and Crew Member Visa)",
+    
+    validity: "Up to 5 years (multiple-entry), depending on nationality and employer. However, each stay in the USA is limited to a maximum of 29 days.",
+    
+    cost: "₹35,000 – ₹40,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous ₹1,000–₹3,000.",
+    
+    time: "Total 2–4 weeks. Processing is usually standard and similar to other non-immigrant visas.",
+    
+    age: "Minimum 18 years (practical requirement for crew employment).",
+    
+    education: "Not mandatory academically, but professional certification required (e.g., maritime training, aviation certification, crew license).",
+    
+    funds: "Not required personally. Employer (shipping company/airline) provides salary and guarantees travel expenses.",
+    
+    docs: "Valid passport, DS-160 confirmation page, Seaman’s book/Continuous Discharge Certificate (CDC), Employment contract, Company letter confirming joining details, Airline/ship ID, Travel itinerary showing joining port in USA.",
+    
+    whom: "Crew members (sailors, cruise staff, airline crew) traveling to the USA to join a vessel or aircraft and then depart as part of their duty.",
+    
+    rules: "Must join assigned ship/aircraft and leave the USA within 29 days. Cannot work outside assigned crew duties. Cannot stay beyond permitted time. Must have confirmed onward assignment.",
+    
+    prosCons: "Pros: Most commonly used visa for international sailors and crew, multiple-entry, essential for maritime careers. Cons: Strictly job-specific, no flexibility to change work, limited stay, cannot convert easily to another visa.",
+    
+    terms: "C1/D: Combined Transit and Crew Visa; CDC: Continuous Discharge Certificate (seafarer ID); DS-160: Online Visa Application; Transit: Passing through USA to join vessel; Crew: Working member of ship/aircraft.",
+    
+    legal: "US Department of State (visa issuance), US Embassy/Consulate (interview), Customs and Border Protection (CBP) (entry control), US Coast Guard (for maritime compliance).",
+    
+    process: `1. Secure job with shipping company/airline -> 
+              2. Receive contract and joining instructions -> 
+              3. Fill DS-160 form -> 
+              4. Pay visa fee -> 
+              5. Schedule and attend embassy interview -> 
+              6. Submit crew-related documents -> 
+              7. Visa approval and stamping -> 
+              8. Travel to USA to join ship/flight -> 
+              9. Join vessel and perform duties -> 
+              10. Leave USA within allowed 29 days.`
+},
+    "F1": {
+    name: "F1 Visa (Academic Student Visa)",
+    
+    validity: "Valid for the duration of the academic program (as mentioned on I-20) plus grace period (usually 60 days). Includes Optional Practical Training (OPT) of 12 months, extendable by 24 months for STEM courses (total up to 36 months).",
+    
+    cost: "₹60,000 – ₹75,000 (visa-related fees only). Breakdown: Visa Fee $185 (~₹15,500), SEVIS Fee $350 (~₹29,000), Visa Integrity Fee $250 (~₹21,000). Excludes tuition and living expenses.",
+    
+    time: "Total 1–6 months. Admission process takes longest. Visa interview slots may take weeks. Processing after interview usually 7–15 days.",
+    
+    age: "No official limit, but typically 18–35 for most applicants.",
+    
+    education: "Must have admission from SEVP-approved institution (college/university/language school). Must meet academic requirements (12th pass for UG, Bachelor's for Master's, etc.).",
+    
+    funds: "₹30–60 lakh (or more depending on course). Must show proof of funds for at least 1 year (tuition + living expenses). Sponsors allowed (parents/relatives).",
+    
+    docs: "Valid passport, DS-160 confirmation, I-20 form (VERY IMPORTANT), SEVIS fee receipt, Admission letter, Academic transcripts, GRE/GMAT/SAT scores (if required), TOEFL/IELTS score, Bank statements, Sponsor affidavit, Financial proof.",
+    
+    whom: "Students enrolling in full-time academic programs such as Bachelor's, Master's, PhD, language courses, or other approved education programs in the USA.",
+    
+    rules: "Must maintain full-time student status. Can work only on-campus (20 hours/week). Off-campus work allowed only through CPT (Curricular Practical Training) or OPT. Cannot stay after course ends without valid status. Must follow SEVIS rules.",
+    
+    prosCons: "Pros: Access to world-class education, OPT work opportunity (up to 3 years for STEM), pathway to H1B and Green Card. Cons: High tuition and living costs, visa interview is strict, no guarantee of job after study.",
+    
+    terms: "F1: Student Visa; I-20: Certificate of Eligibility issued by university; SEVIS: Student and Exchange Visitor Information System; OPT: Optional Practical Training; CPT: Curricular Practical Training; STEM: Science, Technology, Engineering, Mathematics.",
+    
+    legal: "US Department of State (visa issuance), SEVP (Student and Exchange Visitor Program), USCIS (immigration benefits like OPT), US Embassy/Consulate (interview).",
+    
+    process: `1. Apply to US universities -> 
+              2. Receive admission offer -> 
+              3. Get I-20 form from university -> 
+              4. Pay SEVIS fee -> 
+              5. Fill DS-160 form -> 
+              6. Pay visa fee -> 
+              7. Schedule VAC and embassy interview -> 
+              8. Attend biometrics appointment -> 
+              9. Attend visa interview -> 
+              10. Visa approval and stamping -> 
+              11. Travel to USA (max 30 days before course start) -> 
+              12. Begin studies and maintain status -> 
+              13. Apply for OPT/CPT during or after studies.`
+},
+     "F2": {
+    name: "F2 Visa (Dependent Visa of F1 Student)",
+    
+    validity: "Same as F1 visa holder’s duration. Valid as long as the primary F1 student maintains status (course duration + grace period).",
+    
+    cost: "₹35,000 – ₹40,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous ₹1,000–₹3,000.",
+    
+    time: "Total 1–3 months depending on appointment availability and processing time.",
+    
+    age: "Spouse of F1 student (no age limit) OR unmarried children under 21 years.",
+    
+    education: "Not required.",
+    
+    funds: "No separate funds required, but F1 student must show sufficient financial proof to support dependents (additional ₹5–15 lakh recommended depending on family size).",
+    
+    docs: "Valid passport, DS-160 confirmation page, Appointment confirmation, Copy of F1 student’s visa and passport, I-20 forms for dependents (issued by university), Marriage certificate (for spouse), Birth certificate (for children), Financial proof, SEVIS details of F1 student.",
+    
+    whom: "Spouse and minor children of F1 visa holders who want to live with the student in the USA during their study period.",
+    
+    rules: "Cannot work under any condition. Spouse cannot take full-time employment. Children can attend school. Limited study allowed (part-time or recreational courses for spouse; full-time school allowed for children). Must maintain dependent status linked to F1 holder.",
+    
+    prosCons: "Pros: Allows family to stay together, children can study in US schools, relatively simple process. Cons: No work authorization, financial dependency on F1 student, limited personal opportunities for spouse.",
+    
+    terms: "F2: Dependent Visa; F1: Primary Student Visa; I-20: Certificate of Eligibility; SEVIS: Student tracking system; Dependent: Family member relying on primary visa holder.",
+    
+    legal: "US Department of State (visa issuance), SEVP (student tracking), USCIS (status management), US Embassy/Consulate (interview).",
+    
+    process: `1. F1 student gets admission and I-20 -> 
+              2. Request dependent I-20 from university -> 
+              3. Prepare relationship documents (marriage/birth certificates) -> 
+              4. Fill DS-160 form for each dependent -> 
+              5. Pay visa fee -> 
+              6. Schedule VAC and embassy appointments -> 
+              7. Attend biometrics -> 
+              8. Attend visa interview -> 
+              9. Visa approval and stamping -> 
+              10. Travel to USA with or after F1 student -> 
+              11. Maintain dependent status during stay.`
+},
+       "F3": {
+    name: "F3 Visa (Border Commuter Student Visa)",
+    
+    validity: "Issued for duration of academic program but typically used on a semester-by-semester basis. No continuous stay in the USA; entry allowed only for study periods.",
+    
+    cost: "₹35,000 – ₹40,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous ₹1,000–₹3,000.",
+    
+    time: "Total 2–6 weeks. Processing is usually quicker due to limited applicant pool.",
+    
+    age: "Typically 18+ (must be eligible for college/university enrollment).",
+    
+    education: "Must be admitted to a SEVP-approved school located near US border. Must meet academic requirements for the course.",
+    
+    funds: "Moderate financial proof required. Must show ability to pay tuition and commute expenses. Lower requirement compared to F1 since no long-term stay.",
+    
+    docs: "Valid passport, DS-160 confirmation, I-20 form (issued for commuter student), Proof of residence in neighboring country (Canada/Mexico), Admission letter, Financial proof, Travel/commute plan.",
+    
+    whom: "Students who live in Canada or Mexico but commute regularly to the USA for studies. Practically NOT applicable for Indians unless they hold residency in those countries.",
+    
+    rules: "Must maintain permanent residence outside the USA. Cannot stay in the USA full-time. Must commute across the border for classes. No on-campus residence allowed. Work restrictions similar to F1 but less commonly applicable.",
+    
+    prosCons: "Pros: Lower living cost (no need to stay in USA), flexible cross-border study. Cons: Extremely limited to border residents, not practical for Indians, no full US student experience.",
+    
+    terms: "F3: Commuter Student Visa; I-20: Certificate of Eligibility; SEVIS: Student tracking system; Commuter: Person traveling daily/regularly across border for study.",
+    
+    legal: "US Department of State (visa issuance), SEVP (student tracking), USCIS (status compliance), US Embassy/Consulate (processing), CBP (border entry control).",
+    
+    process: `1. Secure admission in US border-based institution -> 
+              2. Obtain commuter I-20 form -> 
+              3. Fill DS-160 visa application -> 
+              4. Pay visa fee -> 
+              5. Schedule interview appointment -> 
+              6. Attend visa interview -> 
+              7. Visa approval -> 
+              8. Commute regularly from home country to US for classes -> 
+              9. Maintain residence outside USA while studying.`
+},
+       "M1": {
+    name: "M1 Visa (Vocational / Non-Academic Student Visa)",
+    
+    validity: "Valid for the duration of the vocational course (usually up to 1 year initially). Can be extended in limited cases up to a maximum of 3 years including training period.",
+    
+    cost: "₹60,000 – ₹75,000 (visa-related fees). Breakdown: Visa Fee $185 (~₹15,500), SEVIS Fee $350 (~₹29,000), Visa Integrity Fee $250 (~₹21,000). Excludes tuition and living costs.",
+    
+    time: "Total 1–3 months. Admission + visa process combined.",
+    
+    age: "Typically 18+.",
+    
+    education: "Must have admission to SEVP-approved vocational or technical school (e.g., aviation, mechanical, culinary, technical trades). Academic degree not mandatory but basic qualification required.",
+    
+    funds: "Must show full proof of funds for entire course (VERY IMPORTANT). Unlike F1, full course cost must be shown upfront. Usually ₹10–30 lakh depending on course.",
+    
+    docs: "Valid passport, DS-160 confirmation, I-20 (M1 category), SEVIS fee receipt, Admission letter, Academic records (basic), Financial proof (bank statements, sponsor affidavit), Course details.",
+    
+    whom: "Students enrolling in vocational or technical training programs such as pilot training, mechanical courses, hotel management training, beauty/fashion institutes, or other skill-based education.",
+    
+    rules: "No employment allowed during study. Limited practical training allowed only after course completion. Cannot change course or institution easily. Must complete program as per I-20. No dual intent (must return to home country).",
+    
+    prosCons: "Pros: Focus on practical, skill-based learning, shorter duration courses, suitable for technical careers. Cons: No work during study, very strict rules, limited pathway to H1B or Green Card compared to F1.",
+    
+    terms: "M1: Vocational Student Visa; I-20: Certificate of Eligibility; SEVIS: Student tracking system; Practical Training: Limited post-study training allowed; Non-Academic: Skill-based education.",
+    
+    legal: "US Department of State (visa issuance), SEVP (school authorization), USCIS (status and extensions), US Embassy/Consulate (interview).",
+    
+    process: `1. Apply to vocational/technical school in USA -> 
+              2. Receive admission offer -> 
+              3. Get I-20 (M1) form -> 
+              4. Pay SEVIS fee -> 
+              5. Fill DS-160 form -> 
+              6. Pay visa fee -> 
+              7. Schedule VAC and embassy interview -> 
+              8. Attend biometrics appointment -> 
+              9. Attend visa interview -> 
+              10. Visa approval and stamping -> 
+              11. Travel to USA and start training -> 
+              12. Complete course and (if eligible) apply for practical training.`
+},
+       "M2": {
+    name: "M2 Visa (Dependent Visa of M1 Vocational Student)",
+    
+    validity: "Same as M1 visa holder’s duration. Valid as long as the primary M1 student maintains status (course duration + any approved extensions).",
+    
+    cost: "₹35,000 – ₹40,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous ₹1,000–₹3,000.",
+    
+    time: "Total 1–2 months depending on appointment availability and processing speed.",
+    
+    age: "Spouse of M1 student (no age limit) OR unmarried children under 21 years.",
+    
+    education: "Not required.",
+    
+    whom: "Family members (spouse and minor children) of M1 vocational students who wish to accompany or join them in the USA.",
+    
+    funds: "No separate funds required, but M1 student must show sufficient financial proof to support dependents (additional ₹5–15 lakh recommended depending on family size).",
+    
+    docs: "Valid passport, DS-160 confirmation page, Appointment confirmation, Copy of M1 student’s visa and passport, I-20 forms for dependents (issued by school), Marriage certificate (for spouse), Birth certificate (for children), Financial proof, SEVIS details of M1 student.",
+    
+    rules: "No employment allowed under any condition. Spouse cannot work. Children can attend school (elementary/secondary). Spouse cannot pursue full-time academic programs (only limited recreational or part-time study). Must remain dependent on M1 status.",
+    
+    prosCons: "Pros: Allows family to stay together during vocational training, children can study in US schools. Cons: No work authorization, complete financial dependency, limited study options for spouse.",
+    
+    terms: "M2: Dependent Visa; M1: Vocational Student Visa; I-20: Certificate of Eligibility; SEVIS: Student tracking system; Dependent: Family member linked to primary visa holder.",
+    
+    legal: "US Department of State (visa issuance), SEVP (student tracking), USCIS (status compliance), US Embassy/Consulate (interview).",
+    
+    process: `1. M1 student receives admission and I-20 -> 
+              2. Request dependent I-20 for family members -> 
+              3. Prepare relationship documents (marriage/birth certificates) -> 
+              4. Fill DS-160 for each dependent -> 
+              5. Pay visa fee -> 
+              6. Schedule VAC and embassy appointments -> 
+              7. Attend biometrics -> 
+              8. Attend visa interview -> 
+              9. Visa approval and stamping -> 
+              10. Travel to USA with or after M1 student -> 
+              11. Maintain dependent status during stay.`
+},
+       "M3": {
+    name: "M3 Visa (Border Commuter Vocational Student Visa)",
+    
+    validity: "Issued for duration of vocational program but used on a short-term/semester basis. No continuous stay allowed in the USA; entry only for attending classes.",
+    
+    cost: "₹35,000 – ₹40,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous ₹1,000–₹3,000.",
+    
+    time: "Total 2–6 weeks depending on processing and appointment availability.",
+    
+    age: "Typically 18+.",
+    
+    education: "Must be admitted to a SEVP-approved vocational or technical school located near the US border.",
+    
+    whom: "Vocational/technical students residing in Canada or Mexico who commute regularly to the USA for training. Practically not applicable for Indians unless they have residency in those countries.",
+    
+    funds: "Moderate financial proof required. Must show ability to pay tuition and commuting expenses. Lower requirement than M1 since no long-term stay in USA.",
+    
+    docs: "Valid passport, DS-160 confirmation, I-20 (M3 commuter category), Admission letter from vocational school, Proof of residence in neighboring country (Canada/Mexico), Financial proof, Travel/commuting plan.",
+    
+    rules: "Must maintain permanent residence outside the USA. Cannot live in the USA. Must commute regularly for classes. No employment allowed. Must follow strict SEVIS and attendance rules.",
+    
+    prosCons: "Pros: Lower cost due to no US accommodation, useful for border residents. Cons: Not applicable for Indians, no full-time stay, no work allowed, very limited flexibility.",
+    
+    terms: "M3: Commuter Vocational Visa; I-20: Certificate of Eligibility; SEVIS: Student tracking system; Commuter: Person traveling across border regularly for study.",
+    
+    legal: "US Department of State (visa issuance), SEVP (school authorization), USCIS (status compliance), US Embassy/Consulate (processing), CBP (border entry control).",
+    
+    process: `1. Secure admission in US border-based vocational school -> 
+              2. Obtain commuter I-20 (M3) form -> 
+              3. Fill DS-160 visa application -> 
+              4. Pay visa fee -> 
+              5. Schedule and attend visa interview -> 
+              6. Visa approval -> 
+              7. Commute regularly from home country to USA for classes -> 
+              8. Maintain residence outside USA while studying.`
+},
+      "J1": {
+    name: "J1 Visa (Exchange Visitor Visa)",
+    
+    validity: "Varies by category. Intern: up to 12 months, Trainee: up to 18 months, Research Scholar/Professor: up to 5 years, Au Pair: typically 12 months (extendable).",
+    
+    cost: "₹1 lakh – ₹3 lakh total. Breakdown: Visa Fee $185 (~₹15,500), SEVIS Fee $220 (~₹18,000), Visa Integrity Fee $250 (~₹21,000), Sponsor/Program Fee ₹50,000–₹2 lakh+, Miscellaneous ₹5,000–₹20,000.",
+    
+    time: "Total 1–4 months depending on sponsor processing and interview availability.",
+    
+    age: "Typically 18–35 for interns/trainees (varies by category; no strict upper limit for research/professional roles).",
+    
+    education: "Intern: Must be currently studying or recently graduated. Trainee: Degree + 1 year experience OR 5 years work experience. Other categories require relevant qualifications.",
+    
+    funds: "Must show financial support through stipend, sponsor funding, or personal funds (₹2–5 lakh minimum recommended).",
+    
+    docs: "Valid passport, DS-160 confirmation, DS-2019 form (VERY IMPORTANT), SEVIS fee receipt, Offer letter or program agreement, Resume, Academic certificates, Financial proof, Sponsor documents.",
+    
+    whom: "Exchange visitors such as interns, trainees, students, professors, researchers, teachers, au pairs, and participants in cultural exchange programs.",
+    
+    rules: "Must participate only in approved exchange program. Cannot switch jobs freely. Some applicants are subject to 2-year home residency rule (212e), meaning they must return to home country before applying for H1B or Green Card. Must maintain program status.",
+    
+    prosCons: "Pros: Easier than H1B, no lottery, faster processing, good for gaining US experience. Cons: Temporary visa, limited flexibility, possible 2-year home residency requirement, not a direct path to permanent residency.",
+    
+    terms: "J1: Exchange Visitor Visa; DS-2019: Certificate of Eligibility issued by sponsor; SEVIS: Student and Exchange Visitor Information System; Sponsor: Authorized organization managing program; 212(e): Two-year home residency rule.",
+    
+    legal: "US Department of State (primary authority), SEVP/SEVIS (tracking system), Designated Sponsor Organizations (program management), US Embassy/Consulate (visa issuance).",
+    
+    process: `1. Choose exchange program (intern/trainee/etc.) -> 
+              2. Secure offer from US host company/institution -> 
+              3. Apply through authorized sponsor organization -> 
+              4. Sponsor issues DS-2019 form -> 
+              5. Pay SEVIS fee -> 
+              6. Fill DS-160 form -> 
+              7. Pay visa fee -> 
+              8. Schedule VAC and embassy interview -> 
+              9. Attend biometrics appointment -> 
+              10. Attend visa interview -> 
+              11. Visa approval and stamping -> 
+              12. Travel to USA and begin program -> 
+              13. Complete exchange program -> 
+              14. Return to home country (if required under 212e rule).`
+},
+       "J2": {
+    name: "J2 Visa (Dependent Visa of J1 Exchange Visitor)",
+    
+    validity: "Same as J1 visa holder’s duration. Valid as long as the primary J1 holder maintains status in the exchange program.",
+    
+    cost: "₹35,000 – ₹40,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous ₹1,000–₹3,000.",
+    
+    time: "Total 1–2 months depending on appointment availability and processing speed.",
+    
+    age: "Spouse of J1 visa holder (no age limit) OR unmarried children under 21 years.",
+    
+    education: "Not required.",
+    
+    whom: "Family members (spouse and children) of J1 visa holders who want to accompany or join them in the USA.",
+    
+    funds: "No separate funds required, but J1 holder must show sufficient financial support for dependents (additional ₹5–15 lakh recommended depending on family size).",
+    
+    docs: "Valid passport, DS-160 confirmation page, Appointment confirmation, Copy of J1 visa and passport, DS-2019 forms for dependents, Marriage certificate (for spouse), Birth certificate (for children), Financial proof, SEVIS details of J1 holder.",
+    
+    rules: "Can apply for work authorization (EAD) after arriving in the USA. Cannot work until EAD is approved. Must remain dependent on J1 status. If J1 is subject to 2-year home residency rule (212e), J2 is also subject to it.",
+    
+    prosCons: "Pros: Spouse can legally work in the USA with EAD, children can study, allows family unity. Cons: Work requires separate approval (EAD), fully dependent on J1 status, subject to same restrictions (like 212e rule).",
+    
+    terms: "J2: Dependent Visa; J1: Exchange Visitor Visa; EAD: Employment Authorization Document (work permit); DS-2019: Certificate of Eligibility; SEVIS: Tracking system; 212(e): Two-year home residency rule.",
+    
+    legal: "US Department of State (visa issuance), USCIS (EAD/work authorization), SEVP/SEVIS (tracking), US Embassy/Consulate (interview).",
+    
+    process: `1. J1 applicant secures program and gets DS-2019 -> 
+              2. Request dependent DS-2019 forms from sponsor -> 
+              3. Prepare relationship documents (marriage/birth certificates) -> 
+              4. Fill DS-160 for each dependent -> 
+              5. Pay visa fee -> 
+              6. Schedule VAC and embassy appointments -> 
+              7. Attend biometrics -> 
+              8. Attend visa interview -> 
+              9. Visa approval and stamping -> 
+              10. Travel to USA with or after J1 holder -> 
+              11. Apply for EAD (Form I-765) if spouse wants to work -> 
+              12. Receive EAD and start employment legally.`
+},
+     "H1B": {
+    name: "H1B Visa (Specialty Occupation Work Visa)",
+    
+    validity: "Initial 3 years + extension of 3 years (maximum 6 years total). Can be extended beyond 6 years if Green Card process is ongoing.",
+    
+    cost: "₹1.5L – ₹4L+ (mostly paid by employer). Breakdown: Registration $215, Filing $780, Fraud Fee $500, ACWIA $750–$1500, Premium Processing $2805 (optional), Visa Fee $205, Integrity Fee $250.",
+    
+    time: "Total 3–8 months. Lottery in March–April, processing 3–6 months (15 days if premium).",
+    
+    age: "No official age limit.",
+    
+    education: "Minimum Bachelor's Degree (or equivalent). Degree must match job field. In some cases, experience can substitute (3 years experience ≈ 1 year degree).",
+    
+    funds: "No personal funds required. Employer must pay salary as per US wage standards.",
+    
+    docs: "Passport, Degree Certificates, Mark Sheets, Resume, Job Offer Letter, Experience Letters, LCA approval, Employer documents.",
+    
+    whom: "Skilled professionals such as Software Engineers, IT professionals, Doctors, Accountants, Analysts, Engineers, Financial experts.",
+    
+    rules: "Lottery-based selection. Must work only for sponsoring employer. Cannot freelance. Must be paid prevailing wage. Job must qualify as 'specialty occupation'. Transfer possible via new employer filing.",
+    
+    prosCons: "Pros: Pathway to Green Card (EB2/EB3), high salary, spouse (H4) can accompany, global career growth. Cons: Lottery uncertainty (~15–25% chance), employer dependency, long Green Card wait for Indians.",
+    
+    terms: "USCIS: United States Citizenship and Immigration Services; LCA: Labor Condition Application; H4: Dependent Visa; OPT: Optional Practical Training; PERM: Labor certification for Green Card; I-129: Petition form.",
+    
+    legal: "USCIS (Immigration authority), US Department of Labor (for LCA), US Embassy/Consulate (visa stamping), Department of State.",
+    
+    process: `1. Get job offer from US employer -> 
+              2. Employer files LCA with Department of Labor -> 
+              3. Employer registers you in H1B lottery (March) -> 
+              4. If selected, employer files I-129 petition -> 
+              5. USCIS reviews and approves (I-797) -> 
+              6. Fill DS-160 and pay visa fee -> 
+              7. Attend biometrics + embassy interview -> 
+              8. Visa stamping in passport -> 
+              9. Travel to USA and start work -> 
+              10. Optional: Employer files Green Card (EB2/EB3).`
+},
+      "H1B1": {
+    name: "H1B1 Visa (Free Trade Agreement Work Visa – Chile & Singapore Only)",
+    
+    validity: "1 year initially, renewable annually with no strict maximum limit as long as eligibility is maintained.",
+    
+    cost: "Similar to H1B visa fees (approx. $160–$460 embassy fees + employer legal filing costs ₹50,000–₹2 lakh+). However, costs are usually borne by the employer, not the applicant.",
+    
+    time: "Typically 1–2 months depending on embassy processing and employer documentation readiness.",
+    
+    age: "No official age limit. Applicants must qualify as skilled professionals.",
+    
+    education: "Bachelor’s degree or higher in a specialty occupation (same standard as H1B classification).",
+    
+    whom: "Citizens of Chile and Singapore who have job offers in the United States in specialty occupations such as IT, engineering, finance, healthcare, and scientific roles.",
+    
+    rules: "No lottery system (unlike H1B). Applicant must have a valid US job offer. Visa is tied to employer. Must work only in approved specialty occupation role.",
+    
+    prosCons: "Pros: No lottery system, faster and predictable approval, similar benefits to H1B. Cons: Not available to Indians, limited only to Chile and Singapore nationals, employer-dependent visa.",
+    
+    terms: "H1B1: Free Trade Agreement Work Visa; Specialty Occupation: Skilled professional role requiring degree; Non-Immigrant Visa: Temporary work visa category.",
+    
+    legal: "USCIS (classification rules), US Department of State (visa issuance), US Embassy/Consulate (application processing), Free Trade Agreement regulations between US–Chile and US–Singapore.",
+    
+    process: `1. Applicant receives US job offer in specialty occupation -> 
+              2. Employer provides supporting documents and job contract -> 
+              3. Applicant submits visa application directly (no lottery required) -> 
+              4. DS-160 form completed -> 
+              5. Attend US Embassy interview -> 
+              6. Submit proof of qualifications and employment -> 
+              7. Visa approval issued -> 
+              8. Travel to USA and begin employment -> 
+              9. Renewal processed annually if employment continues.`
+},
+       
+       "H2A": {
+    name: "H2A Visa (Temporary Agricultural Worker Visa)",
+    
+    validity: "Up to 1 year initially. Can be extended in increments, with a maximum stay of up to 3 years. After that, worker must leave the USA for a period before reapplying.",
+    
+    cost: "Very low for worker. Mostly paid by employer. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Petition and recruitment costs paid by employer. Travel and accommodation often covered.",
+    
+    time: "Total 1–3 months depending on employer petition and embassy processing.",
+    
+    age: "No official age limit (practically 18+ required for work).",
+    
+    education: "No formal education required.",
+    
+    funds: "No personal funds required. Employer must provide job, wages, housing, and sometimes food/transport.",
+    
+    docs: "Valid passport, DS-160 confirmation, Job offer from US employer, Approved petition (Form I-129), Work contract, Basic identity documents.",
+    
+    whom: "Foreign workers hired for temporary or seasonal agricultural work such as farming, harvesting crops, planting, and livestock-related work.",
+    
+    rules: "Work must be temporary/seasonal (e.g., harvest season). Must work only for sponsoring employer. Cannot switch jobs freely. Must leave USA after job ends. Employer must prove no US workers are available.",
+    
+    prosCons: "Pros: Low entry barrier, employer pays most costs, guaranteed job, accommodation often provided. Cons: Physically demanding work, temporary stay, no direct pathway to Green Card, limited job flexibility.",
+    
+    terms: "H2A: Agricultural Worker Visa; I-129: Petition filed by employer; Seasonal Work: Temporary work tied to specific time of year; Employer Sponsorship: Company must sponsor worker.",
+    
+    legal: "US Department of Labor (job certification), USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), CBP (entry control).",
+    
+    process: `1. US employer applies for labor certification from Department of Labor -> 
+              2. Employer files Form I-129 petition with USCIS -> 
+              3. Petition gets approved -> 
+              4. Worker receives job offer and documentation -> 
+              5. Fill DS-160 visa application -> 
+              6. Pay visa fee -> 
+              7. Schedule embassy interview -> 
+              8. Attend interview with job documents -> 
+              9. Visa approval and stamping -> 
+              10. Travel to USA and start agricultural work -> 
+              11. Complete seasonal work -> 
+              12. Return to home country after contract ends.`
+},
+        "H2B": {
+    name: "H2B Visa (Temporary Non-Agricultural Worker Visa)",
+    
+    validity: "Up to 1 year initially. Can be extended in increments, with a maximum stay of up to 3 years. After that, the worker must leave the USA before reapplying.",
+    
+    cost: "Very low for worker. Mostly paid by employer. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Petition and recruitment costs covered by employer. Travel/accommodation may also be provided.",
+    
+    time: "Total 3–5 months depending on employer petition, quota availability, and embassy processing.",
+    
+    age: "No official age limit (practically 18+ required).",
+    
+    education: "No formal degree required. Basic skills or experience preferred depending on job.",
+    
+    whom: "Workers in temporary non-agricultural sectors such as hospitality (hotels, resorts), construction, landscaping, housekeeping, seafood processing, amusement parks, and similar industries.",
+    
+    funds: "No personal funds required. Employer provides wages and sometimes housing/transport.",
+    
+    docs: "Valid passport, DS-160 confirmation, Job offer letter, Approved petition (Form I-129), Work contract, Basic identity documents, Any relevant experience proof.",
+    
+    rules: "Work must be temporary (seasonal, peak load, one-time, or intermittent need). Cannot work outside sponsoring employer. Annual visa cap applies (limited slots each year). Must leave USA after job ends.",
+    
+    prosCons: "Pros: No degree required, employer-sponsored, opportunity to work in USA, suitable for entry-level jobs. Cons: Limited annual quota, physically demanding jobs, temporary stay, no direct path to Green Card.",
+    
+    terms: "H2B: Non-Agricultural Worker Visa; I-129: Petition filed by employer; Temporary Work: Seasonal or short-term employment; Cap: Annual limit on number of visas issued.",
+    
+    legal: "US Department of Labor (labor certification), USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), CBP (entry control).",
+    
+    process: `1. US employer applies for labor certification from Department of Labor -> 
+              2. Employer files Form I-129 petition with USCIS -> 
+              3. Petition gets approved (subject to annual cap) -> 
+              4. Worker receives job offer and documents -> 
+              5. Fill DS-160 visa application -> 
+              6. Pay visa fee -> 
+              7. Schedule embassy interview -> 
+              8. Attend interview with job proof -> 
+              9. Visa approval and stamping -> 
+              10. Travel to USA and start work -> 
+              11. Complete temporary job -> 
+              12. Return to home country after contract ends.`
+},
+"H3": {
+    name: "H3 Visa (Trainee / Special Education Exchange Visitor Visa)",
+    
+    validity: "Up to 2 years for trainees. For special education exchange programs, validity may vary (typically up to 18 months). Cannot be extended beyond maximum limit.",
+    
+    cost: "₹35,000 – ₹60,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Petition costs (Form I-129) usually paid by employer/sponsor, Miscellaneous ₹2,000–₹10,000.",
+    
+    time: "Total 3–6 months depending on employer petition approval and visa processing.",
+    
+    age: "No official age limit.",
+    
+    education: "No strict requirement, but must demonstrate background or need for training. Typically requires relevant education or work experience related to training field.",
+    
+    whom: "Individuals coming to the USA for training programs that are NOT available in their home country (e.g., advanced technical training, management programs, specialized skills). Also includes special education exchange visitors.",
+    
+    funds: "Usually sponsored by employer or training organization. Some personal financial proof may be required if stipend is low.",
+    
+    docs: "Valid passport, DS-160 confirmation, Approved petition (Form I-129), Training program details (VERY IMPORTANT), Sponsor letter, Resume, Educational/experience certificates, Financial proof.",
+    
+    rules: "Training must not be for productive employment. Cannot replace US workers. Cannot engage in regular employment. Must follow structured training plan. Must leave USA after program completion.",
+    
+    prosCons: "Pros: Opportunity to gain specialized training not available in India, no lottery system, useful for niche skill development. Cons: Cannot work as regular employee, no direct pathway to Green Card, strict training-only purpose.",
+    
+    terms: "H3: Trainee Visa; I-129: Petition filed by sponsor; Training Program: Structured learning plan; Special Education Exchange: Program for training in educating children with disabilities.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), Department of Labor (compliance in some cases).",
+    
+    process: `1. Secure training opportunity with US organization -> 
+              2. Employer/sponsor prepares structured training program -> 
+              3. Sponsor files Form I-129 petition with USCIS -> 
+              4. USCIS approves petition -> 
+              5. Receive approval notice -> 
+              6. Fill DS-160 visa application -> 
+              7. Pay visa fee -> 
+              8. Schedule embassy interview -> 
+              9. Attend interview with training documents -> 
+              10. Visa approval and stamping -> 
+              11. Travel to USA and begin training -> 
+              12. Complete training and return to home country.`
+},
+      "H4": {
+    name: "H4 Visa (Dependent Visa of H1B / H2A / H2B / H3 Workers)",
+    
+    validity: "Same as primary H visa holder (H1B/H2/H3). Valid as long as the main visa holder maintains status. Extensions depend on extension of primary visa.",
+    
+    cost: "₹35,000 – ₹45,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Biometrics & miscellaneous ₹2,000–₹5,000.",
+    
+    time: "Total 1–4 months depending on appointment availability and processing speed.",
+    
+    age: "Spouse (no age limit) OR unmarried children under 21 years of the H visa holder.",
+    
+    education: "Not required.",
+    
+    whom: "Family members (spouse and children) of H1B, H2A, H2B, or H3 visa holders who want to live in the USA with them.",
+    
+    funds: "No separate funds required, but primary H visa holder must show sufficient income/salary to support dependents.",
+    
+    docs: "Valid passport, DS-160 confirmation, Appointment confirmation, Copy of H1B/H2 visa holder’s passport and visa, I-797 approval notice of primary visa holder, Marriage certificate (for spouse), Birth certificate (for children), Financial proof, Employment proof of H1B holder.",
+    
+    rules: "Cannot work by default. H4 spouse can work ONLY if H1B holder has approved I-140 (Green Card process started) and obtains H4 EAD. Children cannot work. Must remain dependent on H visa holder’s status.",
+    
+    prosCons: "Pros: Allows family to stay together in USA, children can attend school, spouse can work if eligible for H4 EAD. Cons: Work restrictions for most applicants, dependency on primary visa holder, limited independence.",
+    
+    terms: "H4: Dependent Visa; H1B: Specialty Occupation Visa; I-140: Immigrant Petition for Green Card; EAD: Employment Authorization Document (work permit); I-797: Approval Notice.",
+    
+    legal: "US Department of State (visa issuance), USCIS (status, EAD approval), US Embassy/Consulate (interview).",
+    
+    process: `1. H1B/H2/H3 visa holder obtains visa and approval (I-797) -> 
+              2. Request necessary documents from primary visa holder -> 
+              3. Fill DS-160 for each dependent -> 
+              4. Pay visa fee -> 
+              5. Schedule VAC and embassy appointments -> 
+              6. Attend biometrics -> 
+              7. Attend visa interview -> 
+              8. Visa approval and stamping -> 
+              9. Travel to USA with or after primary visa holder -> 
+              10. (Optional) Apply for H4 EAD (Form I-765) if eligible -> 
+              11. Maintain dependent status during stay.`
+},
+      "L1A": {
+    name: "L1A Visa (Intra-Company Transfer – Manager / Executive)",
+    
+    validity: "Initial 1–3 years (depending on new/existing office). Can be extended up to a maximum of 7 years total.",
+    
+    cost: "₹2 lakh – ₹8 lakh+ total (mostly paid by employer). Breakdown: USCIS Filing Fee $780 (~₹65,000), Fraud Prevention Fee $500 (~₹42,000), ACWIA Fee (if applicable) $750–$1,500 (~₹60,000–₹1.2 lakh), Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Premium Processing (optional) $2,805 (~₹2.3 lakh). Legal fees extra.",
+    
+    time: "Total 2–5 months. With premium processing: 15 days for petition decision.",
+    
+    age: "No official age limit.",
+    
+    education: "No strict degree requirement, but must hold a managerial/executive role in a multinational company. Experience and position are more important than academic qualification.",
+    
+    whom: "Managers or executives working in an Indian company who are being transferred to the US branch, subsidiary, affiliate, or parent company.",
+    
+    funds: "No personal funds required. Employer handles salary and relocation costs.",
+    
+    docs: "Valid passport, DS-160 confirmation, I-797 approval notice, Employer support letter, Proof of employment (minimum 1 year in last 3 years), Company documents (India + US entity), Organizational charts, Salary proof, Resume.",
+    
+    rules: "Must have worked for the company outside the USA for at least 1 continuous year in the last 3 years. Must be transferred to managerial/executive role. Can only work for sponsoring company. No lottery system.",
+    
+    prosCons: "Pros: No lottery, faster than H1B, strong pathway to Green Card under EB1C (priority category), can bring family (L2), relatively flexible for executives. Cons: Must remain with same employer, strict role definition (manager/executive), heavy documentation.",
+    
+    terms: "L1A: Intra-company Manager/Executive Visa; I-129: Petition filed by employer; I-797: Approval Notice; EB1C: Employment-Based Green Card for multinational managers; Premium Processing: Fast-track petition decision.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), Department of Homeland Security (overall immigration control).",
+    
+    process: `1. Work in Indian company (minimum 1 year in managerial/executive role) -> 
+              2. Company decides to transfer you to US branch -> 
+              3. Employer files Form I-129 petition with USCIS -> 
+              4. USCIS approves petition (I-797 issued) -> 
+              5. Fill DS-160 visa application -> 
+              6. Pay visa fee -> 
+              7. Schedule VAC and embassy interview -> 
+              8. Attend biometrics appointment -> 
+              9. Attend visa interview -> 
+              10. Visa approval and stamping -> 
+              11. Travel to USA and join US office -> 
+              12. (Optional) Employer files Green Card under EB1C category.`
+},
+      "L1B": {
+    name: "L1B Visa (Intra-Company Transfer – Specialized Knowledge Employee)",
+    
+    validity: "Initial 1–3 years (depending on case). Can be extended up to a maximum of 5 years total.",
+    
+    cost: "₹2 lakh – ₹8 lakh+ total (mostly paid by employer). Breakdown: USCIS Filing Fee $780 (~₹65,000), Fraud Prevention Fee $500 (~₹42,000), ACWIA Fee (if applicable) $750–$1,500 (~₹60,000–₹1.2 lakh), Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Premium Processing (optional) $2,805 (~₹2.3 lakh). Legal fees extra.",
+    
+    time: "Total 2–5 months. With premium processing: around 15 days for petition decision.",
+    
+    age: "No official age limit.",
+    
+    education: "No strict degree requirement, but relevant education or technical expertise is usually expected depending on job role.",
+    
+    whom: "Employees of multinational companies who possess specialized knowledge about company products, processes, systems, or proprietary technology and are being transferred to the US office.",
+    
+    funds: "No personal funds required. Employer pays salary and relocation expenses.",
+    
+    docs: "Valid passport, DS-160 confirmation, I-797 approval notice, Employer support letter, Proof of employment (minimum 1 year in last 3 years), Detailed explanation of specialized knowledge, Company documents (India + US), Resume, Salary proof.",
+    
+    rules: "Must have worked for the company outside the USA for at least 1 continuous year in the last 3 years. Must prove ‘specialized knowledge’ (company-specific expertise). Can work only for sponsoring employer. No lottery system.",
+    
+    prosCons: "Pros: No lottery, faster than H1B, easier intra-company transfer, good for IT and technical roles. Cons: ‘Specialized knowledge’ definition is subjective and strictly evaluated, weaker Green Card pathway compared to L1A, employer-dependent.",
+    
+    terms: "L1B: Specialized Knowledge Visa; I-129: Petition filed by employer; I-797: Approval Notice; Specialized Knowledge: Unique expertise about company operations/products; Premium Processing: Fast-track decision.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), Department of Homeland Security (immigration control).",
+    
+    process: `1. Work in Indian branch of company (minimum 1 year) -> 
+              2. Company identifies you for transfer based on specialized knowledge -> 
+              3. Employer files Form I-129 petition with USCIS -> 
+              4. USCIS reviews and approves petition -> 
+              5. Receive I-797 approval notice -> 
+              6. Fill DS-160 visa application -> 
+              7. Pay visa fee -> 
+              8. Schedule VAC and embassy interview -> 
+              9. Attend biometrics appointment -> 
+              10. Attend visa interview -> 
+              11. Visa approval and stamping -> 
+              12. Travel to USA and join US office.`
+},
+       "L2": {
+    name: "L2 Visa (Dependent Visa of L1A / L1B Visa Holder)",
+    
+    validity: "Same as L1 visa holder’s duration. Valid as long as the primary L1 visa holder maintains status (up to 5 years for L1B, 7 years for L1A).",
+    
+    cost: "₹35,000 – ₹45,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous/biometrics ₹2,000–₹5,000.",
+    
+    time: "Total 1–3 months depending on appointment availability and processing speed.",
+    
+    age: "Spouse (no age limit) OR unmarried children under 21 years of L1 visa holder.",
+    
+    education: "Not required.",
+    
+    whom: "Family members (spouse and children) of L1A or L1B visa holders who want to live in the USA with them.",
+    
+    funds: "No separate funds required. Primary L1 visa holder’s salary is considered sufficient to support dependents.",
+    
+    docs: "Valid passport, DS-160 confirmation, Appointment confirmation, Copy of L1 visa holder’s passport and visa, I-797 approval notice, Marriage certificate (for spouse), Birth certificate (for children), Employment proof of L1 holder.",
+    
+    rules: "Spouse (L2S category) is automatically authorized to work in the USA without needing separate EAD (work permit). Children cannot work. Must remain dependent on L1 status.",
+    
+    prosCons: "Pros: Spouse can work immediately without applying for EAD, children can study, allows family to stay together, flexible compared to H4. Cons: Children cannot work, fully dependent on L1 visa holder’s status.",
+    
+    terms: "L2: Dependent Visa; L2S: Spouse category with automatic work authorization; L1A/L1B: Primary work visas; I-797: Approval Notice; Incidental to Status: Work allowed automatically without separate permit.",
+    
+    legal: "US Department of State (visa issuance), USCIS (status management), US Embassy/Consulate (interview).",
+    
+    process: `1. L1 visa holder gets approval (I-797) -> 
+              2. Collect required documents from L1 holder -> 
+              3. Fill DS-160 for each dependent -> 
+              4. Pay visa fee -> 
+              5. Schedule VAC and embassy appointments -> 
+              6. Attend biometrics -> 
+              7. Attend visa interview -> 
+              8. Visa approval and stamping -> 
+              9. Travel to USA with or after L1 holder -> 
+              10. Spouse can start working immediately upon arrival (no EAD required) -> 
+              11. Maintain dependent status during stay.`
+},
+       "O1A": {
+    name: "O1A Visa (Extraordinary Ability – Science, Education, Business, Athletics)",
+    
+    validity: "Initially granted for up to 3 years. Can be extended indefinitely in 1-year increments as long as the work/project continues.",
+    
+    cost: "₹1 lakh – ₹5 lakh+ total. Breakdown: USCIS Filing Fee $460–$780 (~₹40,000–₹65,000), Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Premium Processing (optional) $2,805 (~₹2.3 lakh), Legal/agent fees ₹50,000–₹3 lakh+.",
+    
+    time: "Total 2–4 months. With premium processing: around 15 days for petition decision.",
+    
+    age: "No official age limit.",
+    
+    education: "No fixed requirement, but strong achievements, recognition, and expertise in the field are mandatory.",
+    
+    whom: "Individuals with extraordinary ability (top 1%) in science, education, business, or athletics. Examples: top IT professionals, startup founders, researchers, athletes, industry leaders.",
+    
+    funds: "No personal funds required. Must have US sponsor/employer or agent offering work/project.",
+    
+    docs: "Valid passport, DS-160 confirmation, Approved petition (Form I-129), Evidence of extraordinary ability (awards, publications, media coverage, patents, high salary proof, recommendation letters), Contract or job offer, Resume.",
+    
+    rules: "Must prove extraordinary ability through strong evidence (national/international awards, publications, media recognition, etc.). Must work only in field of expertise. Requires sponsor or agent. No lottery system.",
+    
+    prosCons: "Pros: No lottery, high approval flexibility for top talent, renewable indefinitely, strong pathway to Green Card (EB1A). Cons: Very high documentation and proof requirement, expensive legal process, difficult for average applicants.",
+    
+    terms: "O1A: Extraordinary Ability Visa; I-129: Petition filed by employer/agent; EB1A: Green Card category for extraordinary ability; Premium Processing: Fast-track decision; Extraordinary Ability: Top-level recognition in field.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), Peer advisory groups (in some cases for evaluation).",
+    
+    process: `1. Build strong profile (awards, experience, recognition) -> 
+              2. Secure US sponsor/employer/agent -> 
+              3. Prepare documentation proving extraordinary ability -> 
+              4. File Form I-129 petition with USCIS -> 
+              5. USCIS reviews and approves petition -> 
+              6. Receive approval notice (I-797) -> 
+              7. Fill DS-160 visa application -> 
+              8. Pay visa fee -> 
+              9. Schedule VAC and embassy interview -> 
+              10. Attend biometrics appointment -> 
+              11. Attend visa interview -> 
+              12. Visa approval and stamping -> 
+              13. Travel to USA and begin work in field of expertise.`
+},
+     "O1B": {
+    name: "O1B Visa (Extraordinary Ability – Arts, Motion Picture & Television Industry)",
+    
+    validity: "Initially granted for up to 3 years. Can be extended in 1-year increments depending on ongoing projects or assignments.",
+    
+    cost: "₹1 lakh – ₹5 lakh+ total. Breakdown: USCIS Filing Fee $460–$780 (~₹40,000–₹65,000), Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Premium Processing (optional) $2,805 (~₹2.3 lakh), Legal/agent fees ₹50,000–₹3 lakh+.",
+    
+    time: "Total 2–4 months. With premium processing: around 15 days for petition decision.",
+    
+    age: "No official age limit.",
+    
+    education: "No formal degree required. Strong portfolio and achievements in arts/entertainment industry are essential.",
+    
+    whom: "Individuals with extraordinary ability or distinction in arts, motion picture, or television industry such as actors, directors, musicians, dancers, models, filmmakers, content creators, and other creative professionals.",
+    
+    funds: "No personal funds required. Must have US sponsor, employer, or agent offering projects/work.",
+    
+    docs: "Valid passport, DS-160 confirmation, Approved petition (Form I-129), Portfolio of work (VERY IMPORTANT), Awards, media coverage, contracts or project offers, recommendation letters from industry experts, Resume.",
+    
+    rules: "Must prove ‘distinction’ (high level of achievement in arts field). Must work only in approved projects. Requires sponsor or agent. No lottery system. Evidence standards slightly more flexible than O1A but still strict.",
+    
+    prosCons: "Pros: No lottery, flexible for artists and entertainers, renewable, strong pathway to Green Card (EB1A/EB1B in some cases). Cons: Requires strong portfolio and recognition, legal process can be expensive, approval depends on quality of evidence.",
+    
+    terms: "O1B: Extraordinary Ability in Arts Visa; I-129: Petition filed by employer/agent; Portfolio: Collection of artistic work; Distinction: High level of recognition in arts; Premium Processing: Fast-track petition decision.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), Peer advisory groups/unions (consultation required in many cases).",
+    
+    process: `1. Build strong portfolio (projects, media, awards) -> 
+              2. Secure US sponsor/agent/employer -> 
+              3. Collect evidence of distinction in arts -> 
+              4. File Form I-129 petition with USCIS -> 
+              5. USCIS reviews and approves petition -> 
+              6. Receive I-797 approval notice -> 
+              7. Fill DS-160 visa application -> 
+              8. Pay visa fee -> 
+              9. Schedule VAC and embassy interview -> 
+              10. Attend biometrics appointment -> 
+              11. Attend visa interview -> 
+              12. Visa approval and stamping -> 
+              13. Travel to USA and begin artistic/entertainment work.`
+},
+      "O2": {
+    name: "O2 Visa (Support Personnel for O1 Visa Holder)",
+    
+    validity: "Same as O1 visa holder’s duration. Initially up to 3 years, with extensions allowed in 1-year increments based on project requirements.",
+    
+    cost: "₹35,000 – ₹60,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Petition filing (Form I-129) included with O1 case, Miscellaneous ₹2,000–₹10,000.",
+    
+    time: "Total 2–4 months. Usually processed along with O1 petition.",
+    
+    age: "No official age limit.",
+    
+    education: "Not mandatory, but must have relevant skills, experience, or technical expertise required to support O1 visa holder.",
+    
+    whom: "Essential support staff accompanying an O1 visa holder. Examples: technical crew, assistants, trainers, stage staff, production team members, or specialists required for performance or project.",
+    
+    funds: "No personal funds required. Employer/sponsor provides salary and covers expenses.",
+    
+    docs: "Valid passport, DS-160 confirmation, Approved O1 petition (Form I-129), Proof of relationship with O1 project, Evidence of essential skills (experience letters, certificates), Employment contract, Sponsor letter.",
+    
+    rules: "Must prove that skills are essential and not easily available in the US. Can work only with O1 visa holder and for same project. Cannot work independently. Status fully dependent on O1 visa holder.",
+    
+    prosCons: "Pros: Allows key support staff to work in USA alongside O1 talent, no lottery, straightforward if O1 is strong. Cons: Fully dependent on O1 visa holder, cannot change employer easily, limited flexibility.",
+    
+    terms: "O2: Support Visa; O1: Extraordinary Ability Visa; I-129: Petition filed by employer/agent; Essential Support: Unique skills required for O1’s work/project.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview).",
+    
+    process: `1. O1 visa holder secures project and sponsor -> 
+              2. Employer identifies required support personnel -> 
+              3. Employer files Form I-129 including O2 applicants -> 
+              4. USCIS reviews and approves petition -> 
+              5. Receive I-797 approval notice -> 
+              6. Fill DS-160 visa application -> 
+              7. Pay visa fee -> 
+              8. Schedule VAC and embassy interview -> 
+              9. Attend biometrics appointment -> 
+              10. Attend visa interview -> 
+              11. Visa approval and stamping -> 
+              12. Travel to USA and work alongside O1 visa holder.`
+},
+       "O3": {
+    name: "O3 Visa (Dependent Visa of O1 / O2 Visa Holder)",
+    
+    validity: "Same as O1/O2 visa holder’s duration. Initially up to 3 years, with extensions allowed as long as the primary visa holder maintains status.",
+    
+    cost: "₹35,000 – ₹45,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous/biometrics ₹2,000–₹5,000.",
+    
+    time: "Total 1–3 months depending on appointment availability and processing time.",
+    
+    age: "Spouse (no age limit) OR unmarried children under 21 years of O1/O2 visa holder.",
+    
+    education: "Not required.",
+    
+    whom: "Family members (spouse and children) of O1 (extraordinary ability) or O2 (support staff) visa holders who want to accompany or join them in the USA.",
+    
+    funds: "No separate funds required. Primary O1/O2 visa holder must show sufficient income to support dependents.",
+    
+    docs: "Valid passport, DS-160 confirmation, Appointment confirmation, Copy of O1/O2 visa holder’s passport and visa, I-797 approval notice, Marriage certificate (for spouse), Birth certificate (for children), Financial proof.",
+    
+    rules: "No employment allowed under any condition. Can study (full-time or part-time). Must remain dependent on O1/O2 visa holder’s status.",
+    
+    prosCons: "Pros: Allows family to live together in USA, children can attend school, relatively simple process. Cons: No work authorization, financial dependency, limited independence.",
+    
+    terms: "O3: Dependent Visa; O1: Extraordinary Ability Visa; O2: Support Personnel Visa; I-797: Approval Notice; Dependent: Family member linked to primary visa holder.",
+    
+    legal: "US Department of State (visa issuance), USCIS (status management), US Embassy/Consulate (interview).",
+    
+    process: `1. O1/O2 visa holder gets approval (I-797) -> 
+              2. Collect required documents from primary visa holder -> 
+              3. Fill DS-160 for each dependent -> 
+              4. Pay visa fee -> 
+              5. Schedule VAC and embassy appointments -> 
+              6. Attend biometrics -> 
+              7. Attend visa interview -> 
+              8. Visa approval and stamping -> 
+              9. Travel to USA with or after primary visa holder -> 
+              10. Maintain dependent status during stay.`
+},
+       "P1": {
+    name: "P1 Visa (Internationally Recognized Athletes / Athletic Teams & Entertainment Groups)",
+    
+    validity: "For athletes: up to 5 years initially (extendable up to total 10 years). For teams/groups: usually duration of event or tour (up to 1 year, extendable).",
+    
+    cost: "₹50,000 – ₹2 lakh+ total. Breakdown: USCIS Filing Fee $460–$780 (~₹40,000–₹65,000), Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Premium Processing (optional) $2,805 (~₹2.3 lakh), Legal/agent fees extra.",
+    
+    time: "Total 2–4 months. With premium processing: around 15 days for petition decision.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    whom: "Internationally recognized athletes (individuals or teams) and members of internationally recognized entertainment groups coming to the USA to perform or compete in specific events.",
+    
+    funds: "No personal funds required. Sponsored by team, organization, or event organizer.",
+    
+    docs: "Valid passport, DS-160 confirmation, Approved petition (Form I-129), Invitation letter from US organization, Evidence of international recognition (rankings, awards, media coverage), Contracts, Event details, Resume.",
+    
+    rules: "Must participate only in specific events/competitions. Must prove international recognition (not just national level). Cannot work outside approved events. Requires US sponsor or agent.",
+    
+    prosCons: "Pros: No lottery, long validity for athletes, allows participation in major US events, renewable. Cons: Limited to specific field/events, strong proof of recognition required, no direct Green Card pathway.",
+    
+    terms: "P1: Athlete/Entertainment Visa; I-129: Petition filed by sponsor; International Recognition: High level of achievement in sport/group performance; Event-Based Entry: Visa tied to specific competitions or tours.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), Relevant sports/entertainment advisory bodies (consultation).",
+    
+    process: `1. Receive invitation from US team/event organizer -> 
+              2. Sponsor/agent prepares documentation -> 
+              3. File Form I-129 petition with USCIS -> 
+              4. USCIS reviews and approves petition -> 
+              5. Receive I-797 approval notice -> 
+              6. Fill DS-160 visa application -> 
+              7. Pay visa fee -> 
+              8. Schedule VAC and embassy interview -> 
+              9. Attend biometrics appointment -> 
+              10. Attend visa interview -> 
+              11. Visa approval and stamping -> 
+              12. Travel to USA and participate in event/competition.`
+},
+       "P2": {
+    name: "P2 Visa (Reciprocal Exchange Artist / Entertainer Visa)",
+    
+    validity: "Valid for the duration of the approved exchange program or event (usually up to 1 year). Can be extended if the exchange program continues.",
+    
+    cost: "₹50,000 – ₹2 lakh+ total. Breakdown: USCIS Filing Fee $460–$780 (~₹40,000–₹65,000), Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Premium Processing (optional) $2,805 (~₹2.3 lakh), Legal/agent fees extra.",
+    
+    time: "Total 2–4 months. With premium processing: around 15 days for petition decision.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    whom: "Artists and entertainers participating in a reciprocal exchange program between a US organization and an organization in another country (including India).",
+    
+    funds: "No personal funds required. Sponsored by program organizer, employer, or exchange institution.",
+    
+    docs: "Valid passport, DS-160 confirmation, Approved petition (Form I-129), Exchange program agreement (VERY IMPORTANT), Invitation letter, Evidence of artist/entertainer background, Contracts, Resume.",
+    
+    rules: "Must be part of a government-recognized or officially approved reciprocal exchange program. Work limited to activities under the exchange. Cannot take up outside employment.",
+    
+    prosCons: "Pros: No lottery, good for cultural/artistic exchange, relatively easier than O visas, renewable. Cons: Limited to specific exchange programs, not widely used, no direct Green Card pathway.",
+    
+    terms: "P2: Exchange Artist Visa; I-129: Petition filed by sponsor; Reciprocal Exchange: Mutual exchange of artists between countries; Program Agreement: Official agreement between organizations.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), Relevant labor/arts organizations (consultation required).",
+    
+    process: `1. Join approved reciprocal exchange program -> 
+              2. US sponsor/organization prepares petition -> 
+              3. File Form I-129 with USCIS -> 
+              4. USCIS reviews and approves petition -> 
+              5. Receive I-797 approval notice -> 
+              6. Fill DS-160 visa application -> 
+              7. Pay visa fee -> 
+              8. Schedule VAC and embassy interview -> 
+              9. Attend biometrics appointment -> 
+              10. Attend visa interview -> 
+              11. Visa approval and stamping -> 
+              12. Travel to USA and participate in exchange program.`
+},
+       "P3": {
+    name: "P3 Visa (Culturally Unique Artist or Entertainer Visa)",
+    
+    validity: "Valid for the duration of the event, program, or performance (usually up to 1 year). Can be extended in increments if the cultural program continues.",
+    
+    cost: "₹50,000 – ₹2 lakh+ total. Breakdown: USCIS Filing Fee $460–$780 (~₹40,000–₹65,000), Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Premium Processing (optional) $2,805 (~₹2.3 lakh), Legal/agent fees extra.",
+    
+    time: "Total 2–4 months. With premium processing: around 15 days for petition decision.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required.",
+    
+    whom: "Artists and performers involved in culturally unique programs such as classical dancers, folk artists, musicians, theatre performers, yoga gurus, or cultural trainers representing traditional or ethnic art forms.",
+    
+    funds: "No personal funds required. Sponsored by US organization, cultural institution, or event organizer.",
+    
+    docs: "Valid passport, DS-160 confirmation, Approved petition (Form I-129), Invitation letter, Proof of cultural uniqueness (VERY IMPORTANT), Performance contracts, Event details, Portfolio of work, Recommendation letters.",
+    
+    rules: "Must demonstrate that the performance/art form is culturally unique (traditional, ethnic, or heritage-based). Work must be limited to performances, teaching, or coaching related to that culture. Cannot take unrelated jobs.",
+    
+    prosCons: "Pros: No lottery, good for showcasing Indian culture abroad, suitable for artists without formal degrees, renewable for ongoing programs. Cons: Temporary visa, limited to cultural field, no direct Green Card pathway.",
+    
+    terms: "P3: Cultural Performer Visa; I-129: Petition filed by sponsor; Culturally Unique: Traditional or ethnic art form; Event-Based: Visa tied to specific program or performance.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), Relevant cultural/labor organizations (consultation required).",
+    
+    process: `1. Receive invitation from US cultural organization -> 
+              2. Sponsor prepares documentation proving cultural uniqueness -> 
+              3. File Form I-129 petition with USCIS -> 
+              4. USCIS reviews and approves petition -> 
+              5. Receive I-797 approval notice -> 
+              6. Fill DS-160 visa application -> 
+              7. Pay visa fee -> 
+              8. Schedule VAC and embassy interview -> 
+              9. Attend biometrics appointment -> 
+              10. Attend visa interview -> 
+              11. Visa approval and stamping -> 
+              12. Travel to USA and perform/teach cultural program.`
+},
+       "P4": {
+    name: "P4 Visa (Dependent Visa of P1 / P2 / P3 Visa Holders)",
+    
+    validity: "Same as primary P visa holder’s duration. Valid as long as the P1/P2/P3 visa holder maintains status in the USA.",
+    
+    cost: "₹35,000 – ₹45,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Miscellaneous/biometrics ₹2,000–₹5,000.",
+    
+    time: "Total 1–3 months depending on appointment availability and processing time.",
+    
+    age: "Spouse (no age limit) OR unmarried children under 21 years of P visa holder.",
+    
+    education: "Not required.",
+    
+    whom: "Family members (spouse and children) of P1 (athletes), P2 (exchange artists), or P3 (cultural performers) visa holders who want to accompany or join them in the USA.",
+    
+    funds: "No separate funds required. Primary P visa holder must show sufficient income or sponsorship to support dependents.",
+    
+    docs: "Valid passport, DS-160 confirmation, Appointment confirmation, Copy of P visa holder’s passport and visa, I-797 approval notice, Marriage certificate (for spouse), Birth certificate (for children), Financial proof.",
+    
+    rules: "No employment allowed under any condition. Can study (full-time or part-time). Must remain dependent on P visa holder’s status.",
+    
+    prosCons: "Pros: Allows family to stay together in USA, children can attend school, simple process. Cons: No work authorization, full dependency on primary visa holder, limited independence.",
+    
+    terms: "P4: Dependent Visa; P1/P2/P3: Primary visas; I-797: Approval Notice; Dependent: Family member linked to main visa holder.",
+    
+    legal: "US Department of State (visa issuance), USCIS (status management), US Embassy/Consulate (interview).",
+    
+    process: `1. P visa holder gets approval (I-797) -> 
+              2. Collect required documents from primary visa holder -> 
+              3. Fill DS-160 for each dependent -> 
+              4. Pay visa fee -> 
+              5. Schedule VAC and embassy appointments -> 
+              6. Attend biometrics -> 
+              7. Attend visa interview -> 
+              8. Visa approval and stamping -> 
+              9. Travel to USA with or after primary visa holder -> 
+              10. Maintain dependent status during stay.`
+},
+    "Q1": {
+    name: "Q1 Visa (International Cultural Exchange Visitor Visa)",
+    
+    validity: "Up to 15 months maximum. No extension beyond the initial authorized stay. After completion, the applicant must leave the USA.",
+    
+    cost: "₹50,000 – ₹1.5 lakh+ total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), USCIS Petition Fee (Form I-129) ~$460–$780 (~₹40,000–₹65,000), Program/sponsor fees usually paid by employer or cultural organization.",
+    
+    time: "Total 2–4 months depending on sponsor approval and embassy processing time.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required, but candidate must have knowledge/skills related to cultural program or be capable of demonstrating home-country culture.",
+    
+    whom: "Individuals participating in structured international cultural exchange programs in the USA. These programs are designed to share culture, traditions, history, and training from the applicant’s home country (e.g., India) with US audiences or communities.",
+    
+    funds: "No personal funds required. Must be fully sponsored by US organization or cultural exchange program provider.",
+    
+    docs: "Valid passport, DS-160 confirmation, Approved petition (Form I-129), Official program acceptance letter, Detailed cultural exchange program plan, Proof of cultural background/skills, Sponsor documents, Resume or profile.",
+    
+    rules: "Must actively participate in cultural exchange activities (teaching, demonstrations, presentations). Must represent home country culture authentically. Cannot take unrelated employment. Strictly limited to approved program activities.",
+    
+    prosCons: "Pros: Direct cultural exposure in USA, fully sponsored, no lottery system, structured program experience. Cons: Strict time limit (max 15 months), no extension, no direct path to Green Card, limited to cultural activities only.",
+    
+    terms: "Q1: Cultural Exchange Visa; I-129: Petition filed by sponsor; Cultural Exchange Program: Structured cultural training/teaching initiative; Sponsor: Approved US organization.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), Program sponsors (certification and monitoring).",
+    
+    process: `1. Applicant is selected by US cultural exchange sponsor -> 
+              2. Sponsor designs and approves structured cultural program -> 
+              3. Sponsor files Form I-129 petition with USCIS -> 
+              4. USCIS reviews and approves petition -> 
+              5. Receive I-797 approval notice -> 
+              6. Fill DS-160 visa application -> 
+              7. Pay visa fee -> 
+              8. Schedule VAC and embassy interview -> 
+              9. Attend biometrics appointment -> 
+              10. Attend visa interview -> 
+              11. Visa approval and stamping -> 
+              12. Travel to USA and begin cultural exchange program -> 
+              13. Complete program within 15 months and return to home country.`
+},
+      "R1": {
+    name: "R1 Visa (Temporary Non-Immigrant Religious Worker Visa)",
+    
+    validity: "Initially granted for up to 30 months (2.5 years). Can be extended, with a maximum total stay of 5 years in the USA.",
+    
+    cost: "₹50,000 – ₹1.5 lakh+ total. Breakdown: USCIS Filing Fee $460–$780 (~₹40,000–₹65,000), Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), additional legal/sponsor fees ₹20,000–₹80,000+ depending on organization.",
+    
+    time: "Total 2–4 months depending on petition approval and embassy processing time.",
+    
+    age: "No official age limit.",
+    
+    education: "No formal academic requirement, but must be qualified for religious role (training, ordination, or religious experience required depending on faith organization).",
+    
+    whom: "Religious workers such as priests, monks, pastors, missionaries, nuns, imams, or other religious professionals coming to the USA to work for a recognized non-profit religious organization.",
+    
+    funds: "No personal funds required. Must be sponsored by a US-based non-profit religious organization that provides salary or stipend.",
+    
+    docs: "Valid passport, DS-160 confirmation, Approved petition (Form I-129), Proof of membership in religious denomination for at least 2 years, Letter from religious organization, Job/role description, Proof of qualifications or ordination, Financial/sponsorship documents.",
+    
+    rules: "Must work only for the sponsoring religious organization. Must be part of a legitimate non-profit religious group in the USA. Cannot take secular employment. Must perform religious duties only.",
+    
+    prosCons: "Pros: Allows long-term religious service in USA, family accompaniment possible (R2), no lottery system, stable structured role. Cons: No outside employment allowed, strict documentation of religious affiliation, no direct Green Card path.",
+    
+    terms: "R1: Religious Worker Visa; R2: Dependent Visa; I-129: Petition filed by employer; Non-profit religious organization: Registered tax-exempt religious institution in USA.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), US IRS (non-profit verification for sponsor organizations).",
+    
+    process: `1. Religious organization in USA offers job/role -> 
+              2. Verify eligibility and membership in religious denomination (at least 2 years) -> 
+              3. Employer files Form I-129 petition with USCIS -> 
+              4. USCIS reviews and approves petition -> 
+              5. Receive I-797 approval notice -> 
+              6. Fill DS-160 visa application -> 
+              7. Pay visa fee -> 
+              8. Schedule VAC and embassy interview -> 
+              9. Attend biometrics appointment -> 
+              10. Attend visa interview with religious documentation -> 
+              11. Visa approval and stamping -> 
+              12. Travel to USA and begin religious duties -> 
+              13. Extend stay if eligible up to 5 years.`
+},
+        "R2": {
+    name: "R2 Visa (Dependent Visa of R1 Religious Worker Visa Holder)",
+    
+    validity: "Same as R1 visa holder’s duration. Valid as long as the primary R1 visa holder maintains status (up to a maximum of 5 years total stay for R1).",
+    
+    cost: "₹35,000 – ₹45,000 total. Breakdown: Visa Fee $185 (~₹15,500), Visa Integrity Fee $250 (~₹21,000), Biometrics and miscellaneous ₹2,000–₹5,000.",
+    
+    time: "Total 1–3 months depending on embassy appointment availability and processing time.",
+    
+    age: "Spouse (no age limit) OR unmarried children under 21 years of R1 visa holder.",
+    
+    education: "Not required.",
+    
+    whom: "Family members (spouse and children) of R1 religious worker visa holders who want to accompany them in the USA.",
+    
+    funds: "No separate funds required. Primary R1 visa holder or sponsoring religious organization must show sufficient financial support.",
+    
+    docs: "Valid passport, DS-160 confirmation, Appointment confirmation, Copy of R1 visa holder’s passport and visa, I-797 approval notice, Marriage certificate (for spouse), Birth certificate (for children), Financial proof from sponsor/religious organization.",
+    
+    rules: "No employment allowed under any condition. R2 visa holders can study (full-time or part-time) in the USA. Must remain fully dependent on R1 visa holder’s status.",
+    
+    prosCons: "Pros: Allows family unity in USA, children can attend school, simple dependent process. Cons: No work authorization, financial dependency, limited independence.",
+    
+    terms: "R2: Dependent Visa; R1: Religious Worker Visa; I-797: Approval Notice; Dependent: Family member of primary visa holder.",
+    
+    legal: "US Department of State (visa issuance), USCIS (status management), US Embassy/Consulate (interview).",
+    
+    process: `1. R1 visa holder receives approved petition (I-797) -> 
+              2. Collect dependent documentation from R1 holder -> 
+              3. Fill DS-160 form for each dependent -> 
+              4. Pay visa fee -> 
+              5. Schedule VAC and embassy appointments -> 
+              6. Attend biometrics appointment -> 
+              7. Attend visa interview -> 
+              8. Visa approval and stamping -> 
+              9. Travel to USA with or after R1 visa holder -> 
+              10. Maintain dependent status during stay.`
+},
+      "E1": {
+    name: "E1 Visa (Treaty Trader Visa)",
+    
+    validity: "Initially granted for 2 to 5 years depending on country reciprocity. Can be renewed indefinitely in 2–5 year increments as long as trade continues and eligibility is maintained.",
+    
+    cost: "₹3 lakh – ₹25 lakh+ total (high variation due to business setup + citizenship route). Breakdown: Visa Fee $315 (~₹26,000), Visa Integrity Fee $250 (~₹21,000), Legal/consultant fees ₹2–10 lakh+, business/trade setup costs ₹1–15 lakh+, possible second citizenship cost (very high).",
+    
+    time: "Total 2–6 months for visa processing AFTER eligibility is met. However, obtaining eligibility (treaty country citizenship or qualifying business structure) can take 6 months to several years.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required. Business experience or trading activity is more important than formal education.",
+    
+    whom: "Citizens of treaty countries who engage in substantial trade between their country and the United States. India is NOT a treaty country for E1, so Indians cannot directly apply unless they obtain citizenship of a qualifying treaty nation.",
+    
+    funds: "Must show substantial investment or ongoing international trade (goods/services). Typically requires ₹25 lakh to several crores depending on business scale.",
+    
+    docs: "Valid passport (treaty country), DS-160 confirmation, Proof of treaty country citizenship, Business registration documents, Trade contracts/invoices, Financial statements, Proof of substantial trade, Organizational structure, Employer/business ownership documents.",
+    
+    rules: "Trade must be “substantial” (continuous flow of goods/services). At least 50% of trade must be between US and treaty country. Applicant must be owner/executive or key employee of trading company. Cannot work outside approved trade activities.",
+    
+    prosCons: "Pros: No lottery system, renewable indefinitely, allows business expansion in USA, family can accompany on E2/E1 dependent visas. Cons: Not available to Indians directly, requires treaty citizenship or restructuring, high setup cost, complex compliance requirements.",
+    
+    terms: "E1: Treaty Trader Visa; Treaty Country: Nation with US trade agreement; Substantial Trade: Continuous import/export of goods/services; DS-160: Visa application form; Reciprocity: Visa rules based on country agreements.",
+    
+    legal: "US Department of State (visa issuance), US Embassy/Consulate (interview), US Customs & Border Protection (entry), US trade regulations authorities.",
+    
+    process: `1. Ensure eligibility (citizenship of treaty country required) -> 
+              2. Set up or prove international trade business -> 
+              3. Gather trade documentation (invoices, contracts, financial records) -> 
+              4. Complete DS-160 visa application -> 
+              5. Pay visa fee -> 
+              6. Schedule VAC and embassy interview -> 
+              7. Attend biometrics appointment -> 
+              8. Attend visa interview with trade proof -> 
+              9. Visa approval and stamping -> 
+              10. Travel to USA and manage/expand trade business -> 
+              11. Renew visa as long as trade continues.`
+},
+     "E2": {
+    name: "E2 Visa (Treaty Investor Visa)",
+    
+    validity: "Initially issued for 2 to 5 years depending on reciprocity with the treaty country. Can be renewed indefinitely in 2–5 year increments as long as the business remains active and meets requirements.",
+    
+    cost: "₹5 lakh – ₹50 lakh+ total (can be much higher depending on investment). Breakdown: Visa Fee $315 (~₹26,000), Visa Integrity Fee $250 (~₹21,000), Legal/consultant fees ₹2–15 lakh+, Business setup and investment typically ₹50 lakh to several crores depending on scale.",
+    
+    time: "Total 2–6 months for visa processing after investment and documentation. Business setup may take additional time depending on industry.",
+    
+    age: "No official age limit.",
+    
+    education: "Not required. Business experience and investment capability are more important.",
+    
+    whom: "Foreign investors from treaty countries who invest a substantial amount of capital into a real and active US business. Indians are NOT directly eligible unless they acquire citizenship of a treaty country (e.g., Grenada, Turkey).",
+    
+    funds: "Must make a “substantial investment” in a US business. No fixed minimum, but typically starts from $100,000 (~₹80 lakh) and can go much higher depending on business type.",
+    
+    docs: "Valid passport (treaty country), DS-160 confirmation, Proof of treaty citizenship, Business plan (VERY IMPORTANT), Proof of investment funds, Bank statements, Business registration documents, Ownership proof, Financial projections, Lease agreements (if applicable).",
+    
+    rules: "Investment must be “at risk” (real business risk, not passive investment). Business must be active and generating economic impact. Investor must control or develop business. Cannot be a marginal or passive investment. Must maintain ongoing business operations.",
+    
+    prosCons: "Pros: No lottery, renewable indefinitely, allows entrepreneurship in USA, spouse can work (E2 dependent EAD eligible), children can study. Cons: Not directly available for Indians, requires treaty citizenship, investment risk, strict business compliance.",
+    
+    terms: "E2: Treaty Investor Visa; Treaty Country: Country with US investment agreement; Substantial Investment: Significant capital placed at risk; At-Risk Capital: Investment must be actively used in business; DS-160: Visa application form.",
+    
+    legal: "US Department of State (visa issuance), US Embassy/Consulate (interview), USCIS (status extensions in US), US immigration law compliance authorities.",
+    
+    process: `1. Obtain citizenship of treaty country (if not already eligible) -> 
+              2. Identify or create a US business -> 
+              3. Invest substantial capital into the business -> 
+              4. Prepare detailed business plan and financial projections -> 
+              5. Register business in the USA -> 
+              6. Gather investment proof and legal documents -> 
+              7. Complete DS-160 visa application -> 
+              8. Pay visa fee -> 
+              9. Schedule VAC and embassy interview -> 
+              10. Attend biometrics appointment -> 
+              11. Attend visa interview with business proof -> 
+              12. Visa approval and stamping -> 
+              13. Travel to USA and actively manage business -> 
+              14. Renew visa indefinitely as long as business remains active and compliant.`
+},
+        "E3": {
+    name: "E3 Visa (Australian Specialty Occupation Visa)",
+    
+    validity: "Initially granted for 2 years. Can be renewed indefinitely in 2-year increments as long as eligibility is maintained and job continues.",
+    
+    cost: "₹35,000 – ₹60,000 total. Breakdown: Visa Fee $315 (~₹26,000), Visa Integrity Fee $250 (~₹21,000), Additional biometrics/admin ₹2,000–₹5,000, Employer/legal fees may vary (₹50,000–₹2 lakh+).",
+    
+    time: "Total 2–6 weeks (faster than H1B as there is no lottery system). In some cases, can be processed within 1–2 months depending on embassy appointment availability.",
+    
+    age: "No official age limit.",
+    
+    education: "Minimum Bachelor’s degree (or equivalent experience) in a relevant specialty occupation field such as IT, engineering, finance, medicine, architecture, or management.",
+    
+    whom: "ONLY Australian citizens working in specialty occupations in the USA. Indians are NOT eligible unless they hold Australian citizenship.",
+    
+    funds: "No personal funds required. Employer must offer job and pay prevailing US wage as per Labor Condition requirements.",
+    
+    docs: "Valid Australian passport, DS-160 confirmation, Job offer letter from US employer, Proof of Australian citizenship, Degree certificates, Resume, Labor Condition Application (LCA), Employer documents, Experience letters.",
+    
+    rules: "Must have a valid job offer before applying. Must work only for sponsoring employer. No lottery system. Must meet specialty occupation criteria. Dual intent is not strictly required, making it flexible for long-term stay.",
+    
+    prosCons: "Pros: No lottery, fast processing, renewable indefinitely, simpler than H1B, spouse can work in USA (E3D EAD eligible). Cons: Not available to Indians, limited to Australian citizens only, employer-dependent visa.",
+    
+    terms: "E3: Australian Specialty Occupation Visa; LCA: Labor Condition Application; DS-160: Visa application form; Specialty Occupation: Job requiring bachelor’s degree or higher; E3D: Dependent visa category.",
+    
+    legal: "US Department of State (visa issuance), US Department of Labor (LCA approval), US Embassy/Consulate (interview), USCIS (extensions if applicable).",
+    
+    process: `1. Secure job offer from US employer -> 
+              2. Employer files Labor Condition Application (LCA) -> 
+              3. Gather educational and work documents -> 
+              4. Complete DS-160 visa application -> 
+              5. Pay visa fee -> 
+              6. Schedule embassy interview -> 
+              7. Attend biometrics appointment -> 
+              8. Attend visa interview with job and qualification proof -> 
+              9. Visa approval and stamping -> 
+              10. Travel to USA and begin employment -> 
+              11. Renew visa every 2 years if job continues.`
+},
+       "K1": {
+    name: "K1 Visa (Fiancé(e) Visa for US Citizen)",
+    
+    validity: "Single entry visa valid for 90 days only. Within this period, the couple must get married in the United States. No extensions allowed.",
+    
+    cost: "₹2.5 lakh – ₹4 lakh+ total. Breakdown: USCIS Filing Fee for I-129F $675 (~₹55,000), Visa Fee $265 (~₹22,000), Medical examination ₹15,000–₹30,000, Biometrics ₹2,000–₹5,000, Travel + documentation + translation costs ₹50,000–₹1.5 lakh+.",
+    
+    time: "Total 8–14 months on average (can vary depending on USCIS backlog, embassy scheduling, and case complexity).",
+    
+    age: "No official age limit, but both partners must be legally eligible to marry (18+ typically).",
+    
+    education: "Not required.",
+    
+    whom: "Foreign fiancé(e) of a US citizen who intends to marry and live permanently in the United States after marriage.",
+    
+    funds: "US citizen sponsor must meet minimum income requirements (generally 100%–125% of US Federal Poverty Guidelines). Proof of financial support required (Form I-134).",
+    
+    docs: "Valid passport, Form I-129F approval, Proof of relationship (photos, chats, calls, visits), Intent to marry statements, Birth certificates, Divorce/death certificates (if applicable), Police clearance certificate, Medical exam report, DS-160 confirmation.",
+    
+    rules: "Must marry the US citizen within 90 days of entering the USA. Cannot marry anyone else. Cannot extend visa beyond 90 days. Must adjust status after marriage (apply for Green Card). Fraudulent relationships can lead to deportation and bans.",
+    
+    prosCons: "Pros: Faster than marriage-based immigration, allows fiancé to enter USA legally, leads to Green Card after marriage. Cons: Very strict timeline (90 days), high documentation scrutiny, relationship must be proven genuine, no employment until EAD is approved after marriage.",
+    
+    terms: "K1: Fiancé Visa; I-129F: Petition for Alien Fiancé; I-134: Affidavit of Support; Adjustment of Status (AOS): Green Card application after marriage; USCIS: Immigration authority.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), US Customs and Border Protection (entry).",
+    
+    process: `1. US citizen files Form I-129F petition -> 
+              2. USCIS reviews and approves petition -> 
+              3. Case sent to National Visa Center (NVC) -> 
+              4. Embassy interview scheduled -> 
+              5. Applicant completes DS-160 form -> 
+              6. Medical examination and police clearance -> 
+              7. Attend visa interview at US Embassy -> 
+              8. Visa approval and stamping -> 
+              9. Travel to USA within visa validity -> 
+              10. Marry US citizen within 90 days -> 
+              11. File Adjustment of Status (Green Card application).`
+},
+      "K2": {
+    name: "K2 Visa (Dependent Visa for Children of K1 Fiancé(e) Visa Holder)",
+    
+    validity: "Same as K1 visa validity (90 days from entry into the USA). Must be used within K1 visa validity period. No extension allowed.",
+    
+    cost: "₹50,000 – ₹1.5 lakh+ (combined/indirect costs). Breakdown: Visa Fee $265 (~₹22,000) per applicant, Medical exam ₹10,000–₹20,000, Biometrics ₹2,000–₹5,000, Travel and documentation costs vary. Usually processed together with K1 petition.",
+    
+    time: "Same timeline as K1 visa (typically 8–14 months total processing time including petition and embassy steps).",
+    
+    age: "Unmarried children under 21 years of the K1 visa applicant.",
+    
+    education: "Not required.",
+    
+    whom: "Children of a K1 fiancé(e) visa applicant who are accompanying their parent to the United States for family reunification before marriage with a US citizen.",
+    
+    funds: "US citizen sponsor must show sufficient financial ability (Form I-134 support covers both K1 and K2 dependents). No separate income requirement per child.",
+    
+    docs: "Valid passport, Birth certificate (proving parent-child relationship), K1 visa petition approval (I-129F), DS-160 confirmation, Medical examination report, Police clearance (if required based on age), Passport photos, Financial support affidavit (I-134 of US citizen sponsor).",
+    
+    rules: "K2 children must enter the USA with or after the K1 parent. They must remain unmarried and under 21 years. After the parent marries the US citizen, K2 children must apply for Green Card (Adjustment of Status) along with or after K1 parent.",
+    
+    prosCons: "Pros: Keeps family together during immigration process, children can legally enter USA, leads to Green Card eligibility after marriage. Cons: Strict dependency on K1 timeline, must act within 90 days after entry, no independent immigration path.",
+    
+    terms: "K2: Dependent Visa for K1 Children; K1: Fiancé Visa; I-129F: Petition form; I-134: Affidavit of Support; Adjustment of Status (AOS): Green Card application process.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa issuance), US Embassy/Consulate (interview), US Customs and Border Protection (entry).",
+    
+    process: `1. US citizen files Form I-129F for K1 fiancé -> 
+              2. Include dependent children details in petition -> 
+              3. USCIS approves petition -> 
+              4. Case sent to National Visa Center (NVC) -> 
+              5. DS-160 form completed for K2 children -> 
+              6. Medical examination and police clearance (if applicable) -> 
+              7. Embassy interview along with K1 applicant -> 
+              8. Visa approval and stamping -> 
+              9. Travel to USA with or after K1 parent -> 
+              10. Parent marries US citizen within 90 days -> 
+              11. File Adjustment of Status (Green Card) for K1 and K2 together.`
+},
+       "K3": {
+    name: "K3 Visa (Spouse of US Citizen – Non-Immigrant Spouse Visa)",
+    
+    validity: "Initially up to 2 years. It is renewable in limited cases, but in practice it expires once the Green Card (IR1/CR1) process is completed or denied.",
+    
+    cost: "₹2.5 lakh – ₹4 lakh+ total. Breakdown: USCIS Filing Fee for I-130 $675 (~₹55,000), I-129F Filing Fee $675 (~₹55,000), Visa Fee $265 (~₹22,000), Medical exam ₹15,000–₹30,000, Biometrics ₹2,000–₹5,000, additional legal/travel/document costs ₹50,000–₹1.5 lakh+.",
+    
+    time: "Total 6–12 months (faster entry than traditional immigrant visa, but often overtaken by faster IR1/CR1 processing today).",
+    
+    age: "No official age limit. Both spouses must be legally married and eligible under US marriage laws.",
+    
+    education: "Not required.",
+    
+    whom: "Foreign spouse of a US citizen who has already filed an immigrant petition (I-130) and is waiting for Green Card processing. The K3 allows the spouse to enter the USA earlier while waiting.",
+    
+    funds: "US citizen spouse must meet income requirement (100%–125% of Federal Poverty Guidelines) and file Affidavit of Support (Form I-864 for Green Card stage, I-134 may be used initially).",
+    
+    docs: "Valid passport, Marriage certificate, I-130 receipt notice, I-129F approval, DS-160 confirmation, Police clearance certificate, Medical examination report, Proof of relationship (photos, chats, visits), Financial documents, Birth/divorce certificates (if applicable).",
+    
+    rules: "Must already be legally married to a US citizen. Cannot work immediately upon arrival unless separate work authorization (EAD) is obtained. Must pursue Adjustment of Status (Green Card) after entering the USA. Visa becomes irrelevant once Green Card is approved.",
+    
+    prosCons: "Pros: Allows spouse to enter USA faster than immigrant visa process, enables family reunification sooner, temporary stay while waiting for Green Card. Cons: Often unnecessary due to faster IR1/CR1 processing, extra paperwork (I-129F in addition to I-130), no direct permanent residency, may expire before Green Card approval.",
+    
+    terms: "K3: Non-Immigrant Spouse Visa; I-130: Immigrant Petition for Alien Relative; I-129F: Petition for Alien Fiancé/Spouse; I-864: Affidavit of Support; NVC: National Visa Center; IR1/CR1: Immigrant spouse visa categories.",
+    
+    legal: "USCIS (petition processing), National Visa Center (case transfer), US Department of State (visa issuance), US Embassy/Consulate (interview), US Customs and Border Protection (entry).",
+    
+    process: `1. US citizen files Form I-130 (spouse petition) -> 
+              2. After receipt, files Form I-129F for K3 visa -> 
+              3. USCIS processes both petitions -> 
+              4. Approval sent to National Visa Center (NVC) -> 
+              5. DS-160 visa application completed -> 
+              6. Medical examination and police clearance -> 
+              7. Attend embassy interview -> 
+              8. Visa approval and stamping -> 
+              9. Travel to USA as K3 spouse -> 
+              10. File Adjustment of Status (Green Card) after arrival -> 
+              11. K3 status ends once Green Card is approved.`
+},
+       "K4": {
+    name: "K4 Visa (Dependent Visa for Children of K3 Spouse Visa Holder)",
+    
+    validity: "Same as K3 visa validity (typically up to 2 years). Valid only while the K3 parent maintains valid status or until Green Card (IR1/CR1) is completed.",
+    
+    cost: "₹50,000 – ₹1.5 lakh+ (combined/indirect per child). Breakdown: Visa Fee $265 (~₹22,000) per applicant, Medical examination ₹10,000–₹20,000, Biometrics ₹2,000–₹5,000, Travel and documentation costs vary. Usually processed with K3 case.",
+    
+    time: "Same as K3 visa timeline (generally 6–12 months total depending on USCIS and embassy processing).",
+    
+    age: "Unmarried children under 21 years of the K3 visa holder.",
+    
+    education: "Not required.",
+    
+    whom: "Children of a K3 visa applicant (foreign spouse of a US citizen) who are accompanying or joining their parent in the USA while Green Card processing is ongoing.",
+    
+    funds: "US citizen sponsor must meet financial requirements for the household (Form I-134/I-864). No separate income requirement per child.",
+    
+    docs: "Valid passport, Birth certificate (proof of parent-child relationship), K3 visa petition documents (I-130 receipt, I-129F approval), DS-160 confirmation, Medical examination report, Police clearance (if applicable), Financial support documents (I-134/I-864), Passport photos.",
+    
+    rules: "K4 children must be unmarried and under 21 years. They must travel with or after the K3 parent. They are required to apply for Adjustment of Status (Green Card) once in the USA along with the K3 parent. Cannot have independent immigration status separate from K3 parent.",
+    
+    prosCons: "Pros: Keeps family together during immigration process, allows children to legally enter USA earlier than immigrant visa processing, leads to Green Card eligibility. Cons: Fully dependent on K3 status, no independent immigration path, must complete Green Card process for long-term stay.",
+    
+    terms: "K4: Dependent Child Visa; K3: Non-immigrant Spouse Visa; I-130: Immigrant Petition; I-129F: Spouse/Fiancé Petition; I-864: Affidavit of Support; Adjustment of Status (AOS): Green Card process.",
+    
+    legal: "USCIS (petition approval), National Visa Center (case processing), US Department of State (visa issuance), US Embassy/Consulate (interview), CBP (entry into USA).",
+    
+    process: `1. US citizen files I-130 for spouse (K3 parent) -> 
+              2. I-129F filed for K3 visa -> 
+              3. Include dependent children details in application -> 
+              4. USCIS approves petitions -> 
+              5. Case transferred to NVC -> 
+              6. DS-160 completed for each K4 child -> 
+              7. Medical examination and police clearance (if applicable) -> 
+              8. Embassy interview with K3 parent -> 
+              9. Visa approval and stamping -> 
+              10. Travel to USA with or after K3 parent -> 
+              11. File Adjustment of Status (Green Card) for K3 and K4 together.`
+},
+      "V": {
+    name: "V Visa (Family Reunification Visa for Green Card Holders’ Families)",
+    
+    validity: "Valid until completion of Green Card (immigrant visa) processing of the principal applicant. It is a temporary visa and typically allows stays of up to 2–3 years, but is only valid while immigration petition is pending and priority dates remain eligible.",
+    
+    cost: "₹1.5 lakh – ₹3 lakh+ total. Breakdown: Visa Fee $265 (~₹22,000), Medical examination ₹10,000–₹25,000, Biometrics ₹2,000–₹5,000, USCIS filing fees for underlying petition (I-130) $675 (~₹55,000), additional legal/documentation costs ₹50,000–₹1 lakh+.",
+    
+    time: "Varies widely (6 months to several years). Depends on visa bulletin priority dates and USCIS processing backlog.",
+    
+    age: "No strict age limit. Applies to spouses and unmarried children under 21 years of US lawful permanent residents (Green Card holders).",
+    
+    education: "Not required.",
+    
+    whom: "Spouse and unmarried minor children of US Green Card holders (Lawful Permanent Residents) who are waiting for immigrant visa processing under Form I-130 backlog system.",
+    
+    funds: "US Green Card holder must file Affidavit of Support (Form I-864) and meet minimum income requirements (100%–125% of Federal Poverty Guidelines).",
+    
+    docs: "Valid passport, Form I-130 receipt notice, Marriage certificate (for spouse), Birth certificates (for children), DS-160 confirmation, Police clearance certificate, Medical examination report, Financial support documents (I-864), Proof of relationship.",
+    
+    rules: "Only applies when immigrant visa backlog exists (priority date system). Applicant must maintain eligibility as spouse or unmarried child under 21. Cannot overstay visa conditions. Must proceed to Green Card once priority date becomes current.",
+    
+    prosCons: "Pros: Family reunification during long immigration wait times, legal stay in USA while waiting, allows family unity. Cons: Very limited eligibility, only for specific backlog categories, complex priority date system, gradually replaced by faster immigrant visa processing.",
+    
+    terms: "V Visa: Family Reunification Visa; I-130: Immigrant Petition for Relative; I-864: Affidavit of Support; Priority Date: Place in visa queue system; Visa Bulletin: Monthly government immigration queue update.",
+    
+    legal: "USCIS (petition processing), US Department of State (visa bulletin & issuance), National Visa Center (case management), US Embassy/Consulate (interview), CBP (entry).",
+    
+    process: `1. US Green Card holder files Form I-130 for spouse/children -> 
+              2. USCIS approves petition -> 
+              3. Priority date is assigned -> 
+              4. Applicant waits for visa bulletin to become current -> 
+              5. Once eligible, apply for V visa if applicable -> 
+              6. Complete DS-160 application -> 
+              7. Medical examination and police clearance -> 
+              8. Attend embassy interview -> 
+              9. Visa approval and stamping -> 
+              10. Travel to USA and reside legally while awaiting Green Card processing -> 
+              11. Adjust status to permanent residency when eligible.`
+},
+       "U1": {
+    name: "U1 Visa (U Nonimmigrant Visa – Crime Victim Visa)",
+    
+    validity: "Initially granted for up to 4 years. Extensions may be granted in limited cases if law enforcement cooperation or case processing requires additional time.",
+    
+    cost: "Generally fee waived for primary petition. Some costs may apply: Biometrics ₹2,000–₹5,000, attorney/legal fees ₹50,000–₹2 lakh+, optional Form I-765 (work permit) fees may be waived depending on eligibility.",
+    
+    time: "Total 2–5 years or more (very long backlog in many cases). Initial review may take months, but visa approval often depends on annual cap limits and waiting list.",
+    
+    age: "No official age limit. Both adults and minors can qualify as victims.",
+    
+    education: "Not required.",
+    
+    whom: "Foreign nationals (including Indians) who are victims of certain serious crimes in the United States such as domestic violence, assault, trafficking, sexual abuse, or other qualifying criminal activities, and who have suffered physical or mental harm.",
+    
+    funds: "No personal funds required. Applicant may receive work authorization and support benefits after approval.",
+    
+    docs: "Valid passport, Form I-918 (U visa petition), Law enforcement certification (Form I-918B), Police reports, Medical records, Proof of victimization, Affidavits or statements, Evidence of cooperation with authorities, Identity documents.",
+    
+    rules: "Must be a victim of a qualifying criminal activity in the USA. Must have suffered substantial physical or mental abuse. Must be willing to assist law enforcement in investigation or prosecution. Must not have committed serious crimes themselves.",
+    
+    prosCons: "Pros: Strong protection for victims, leads to Green Card eligibility after 3 years, allows work authorization, helps legal stay in USA. Cons: Very long waiting period due to annual cap limits, strict evidence requirements, dependent on law enforcement certification.",
+    
+    terms: "U1: Principal U Visa; U Nonimmigrant Status: Protection for crime victims; Form I-918: U visa petition; Form I-918B: Law enforcement certification; EAD: Employment Authorization Document; Derivative U visas: U2, U3, U4 for family members.",
+    
+    legal: "USCIS (petition processing), US Department of Homeland Security (program oversight), Law enforcement agencies (certification requirement), US Department of State (visa issuance), US Embassy/Consulate (interview).",
+    
+    process: `1. Victim reports crime to US law enforcement -> 
+              2. Cooperate fully with investigation/prosecution -> 
+              3. Obtain law enforcement certification (Form I-918B) -> 
+              4. File Form I-918 petition with USCIS -> 
+              5. USCIS reviews and places applicant on waiting list due to annual cap -> 
+              6. Wait for visa availability -> 
+              7. Complete biometrics and background checks -> 
+              8. Receive U visa approval -> 
+              9. Apply for visa stamping at US Embassy (if outside USA) -> 
+              10. Travel to USA and receive work authorization -> 
+              11. After 3 years, apply for Green Card (adjustment of status).`
+},
+      "U2": {
+    name: "U2 Visa (Derivative Visa for Spouse of U1 Crime Victim Visa Holder)",
+    
+    validity: "Same as U1 visa holder’s validity (generally up to 4 years). Can be extended in line with the principal U1 visa status and remains valid until Green Card eligibility is processed.",
+    
+    cost: "₹35,000 – ₹60,000 total (mostly indirect). Breakdown: Visa Fee $265 (~₹22,000), Biometrics ₹2,000–₹5,000, Medical examination ₹10,000–₹25,000, legal/documentation costs ₹20,000–₹1 lakh+ depending on case complexity.",
+    
+    time: "Total 2–5 years including U1 processing time (depends heavily on backlog and visa cap limitations).",
+    
+    age: "No age limit for spouse. Must be legally married to U1 visa holder.",
+    
+    education: "Not required.",
+    
+    whom: "Spouse of a U1 visa holder (crime victim in the USA) who is eligible for derivative protection and wishes to stay in the United States with the principal applicant.",
+    
+    funds: "No separate funds required. The U1 principal applicant’s eligibility and case approval cover dependents.",
+    
+    docs: "Valid passport, Marriage certificate (proof of relationship), U1 approval notice (Form I-797), Form I-918A (derivative application), DS-160 confirmation, Medical examination report, Police clearance (if applicable), Proof of relationship continuity.",
+    
+    rules: "Must be legally married to U1 principal applicant. Cannot apply independently without U1 approval. Must maintain dependency on U1 status. May receive work authorization if USCIS approves EAD.",
+    
+    prosCons: "Pros: Allows family unity in USA, eligible for work authorization (EAD), leads to Green Card eligibility after 3 years. Cons: Fully dependent on U1 case, long processing delays, annual cap restrictions may delay approval.",
+    
+    terms: "U2: Spouse of U1 visa holder; U1: Principal crime victim visa; Form I-918A: Derivative petition form; EAD: Work authorization; Derivative Visa: Dependent immigration category.",
+    
+    legal: "USCIS (petition processing), US Department of Homeland Security (program oversight), US Department of State (visa issuance), US Embassy/Consulate (interview process if outside USA).",
+    
+    process:`1. U1 principal applicant files Form I-918 -> 
+              2. USCIS approves or places case on waiting list -> 
+              3. File Form I-918A for spouse (U2 derivative) -> 
+              4. USCIS reviews derivative eligibility -> 
+              5. Background checks and biometrics -> 
+              6. Visa approval once cap availability is reached -> 
+              7. Complete DS-160 (if outside USA) -> 
+              8. Attend embassy interview if required -> 
+              9. Visa stamping and approval -> 
+              10. Travel to USA and join U1 applicant -> 
+              11. Apply for work authorization (if eligible) -> 
+              12. After 3 years, apply for Green Card together with U1.`
+},
+       "T1": {
+    name: "T1 Visa (T Nonimmigrant Visa – Human Trafficking Victim Visa)",
+    
+    validity: "Initially granted for up to 4 years. Extensions may be granted in special cases if required for law enforcement assistance or ongoing humanitarian needs.",
+    
+    cost: "Mostly fee exempt. USCIS filing fees are typically waived for Form I-914. Optional costs may include biometrics ₹2,000–₹5,000, legal assistance ₹50,000–₹2 lakh+, and documentation/translation expenses.",
+    
+    time: "Total 2–5 years depending on backlog and case complexity. Initial processing may take several months, but approval can be delayed due to annual cap and verification requirements.",
+    
+    age: "No official age limit. Applies to both adults and minors.",
+    
+    education: "Not required.",
+    
+    whom: "Foreign nationals (including Indians) who are victims of severe forms of human trafficking (sex trafficking or labor trafficking) and are present in the United States as a result of trafficking.",
+    
+    funds: "No personal funds required. Applicants may receive access to work authorization (EAD) and federal/state support services after approval.",
+    
+    docs: "Valid passport, Form I-914 (T visa application), Personal statement describing trafficking situation, Evidence of trafficking (police reports, court records, NGO support letters), Medical and psychological reports, Proof of physical presence in USA due to trafficking, Identity documents.",
+    
+    rules: "Must be a victim of severe human trafficking. Must be physically present in the USA due to trafficking. Must comply with reasonable requests from law enforcement unless unable due to trauma or age. Must demonstrate extreme hardship if removed from the USA.",
+    
+    prosCons: "Pros: Strong humanitarian protection, provides legal status, allows work authorization, leads to Green Card eligibility after 3 years, access to victim support services. Cons: Emotionally and legally complex, strict evidence requirements, limited awareness and long processing times.",
+    
+    terms: "T1: Principal Trafficking Victim Visa; T Nonimmigrant Status: Human trafficking protection category; Form I-914: T visa application; EAD: Employment Authorization Document; Derivative T visas: T2, T3, T4, T5 for eligible family members.",
+    
+    legal: "USCIS (petition processing), US Department of Homeland Security (program oversight), Law enforcement agencies (certification support if available), US Department of State (visa issuance), NGOs and victim support organizations (documentation assistance).",
+    
+    process: `1. Victim escapes trafficking situation or is identified by authorities/NGOs -> 
+              2. Gather evidence of trafficking and hardship -> 
+              3. File Form I-914 with USCIS -> 
+              4. Include supporting affidavits and documentation -> 
+              5. USCIS reviews case and may grant bona fide determination (temporary protection) -> 
+              6. Background checks and biometrics -> 
+              7. Final T visa approval -> 
+              8. Apply for work authorization (EAD) -> 
+              9. Receive visa stamping if outside USA -> 
+              10. Travel or remain in USA legally -> 
+              11. After 3 years, apply for Green Card (adjustment of status).`
+},
+        "S5": {
+    name: "S5 Visa (Criminal Informant Visa – Law Enforcement Witness Visa)",
+    
+    validity: "Initially granted for up to 3 years. In some cases, extensions may be granted if continued cooperation with law enforcement or protection needs exist.",
+    
+    cost: "No standard filing fee for the visa itself (often government-sponsored). However, indirect costs may include biometrics ₹2,000–₹5,000, legal assistance ₹50,000–₹2 lakh+, and documentation/relocation expenses.",
+    
+    time: "Highly variable. Typically 6 months to 2+ years depending on law enforcement certification, investigation status, and security clearance procedures.",
+    
+    age: "No official age limit. Can apply to adults or minors involved in major criminal cases.",
+    
+    education: "Not required.",
+    
+    whom: "Foreign nationals who possess critical information about serious criminal activity (such as organized crime, terrorism, drug trafficking, or major federal crimes) and agree to cooperate with US law enforcement agencies.",
+    
+    funds: "No personal funds required. Applicants are usually supported by US law enforcement agencies for relocation, security, and living assistance.",
+    
+    docs: "Valid passport, Law enforcement certification (mandatory DOJ/agency request), Identity documents, Evidence of criminal knowledge or testimony value, Personal affidavit, Background verification documents, Any protective custody agreements.",
+    
+    rules: "Must provide substantial and reliable information about criminal activity. Must cooperate fully with US law enforcement and testify if required. Must maintain confidentiality and follow government protection rules. Visa status is strictly tied to ongoing cooperation.",
+    
+    prosCons: "Pros: Legal protection in USA, safety from retaliation, possible pathway to permanent residency (Green Card), government support and relocation assistance. Cons: High risk role, strict surveillance and restrictions, limited personal freedom, long and uncertain processing timelines.",
+    
+    terms: "S5: Criminal Informant Visa; DOJ: Department of Justice; S Visa Category: Informant/witness protection visa group; Law Enforcement Certification: Mandatory approval by US authorities; Witness Protection: Protective relocation program.",
+    
+    legal: "US Department of Justice (primary sponsor and certification authority), USCIS (visa processing), US Department of State (visa issuance), Federal law enforcement agencies (FBI, DEA, etc.).",
+    
+    process: `1. Individual provides critical information to US law enforcement -> 
+              2. Law enforcement evaluates usefulness of testimony/information -> 
+              3. DOJ issues formal certification request -> 
+              4. Petition submitted to USCIS by law enforcement agency -> 
+              5. USCIS reviews and approves S visa eligibility -> 
+              6. Background security clearance conducted -> 
+              7. Visa approval granted under protection program -> 
+              8. Relocation and security arrangements provided -> 
+              9. Informant enters USA or adjusts status if already present -> 
+              10. Must continue cooperation with law enforcement -> 
+              11. Eligible for Green Card after meeting cooperation requirements.`
+},
+      "S6": {
+    name: "S6 Visa (T Nonimmigrant – Terrorism Informant / National Security Witness Visa)",
+    
+    validity: "Initially granted for up to 3 years. Extensions may be granted in exceptional cases where ongoing cooperation with US law enforcement or national security agencies is required.",
+    
+    cost: "No standard filing fee (government-sponsored visa). Indirect costs may include biometrics ₹2,000–₹5,000, legal assistance ₹50,000–₹2 lakh+, relocation and documentation expenses if applicable.",
+    
+    time: "Highly variable. Typically 6 months to 2+ years depending on investigation urgency, security clearance, and agency coordination (FBI/DOJ).",
+    
+    age: "No official age limit. Can apply to adults or minors with critical intelligence.",
+    
+    education: "Not required.",
+    
+    whom: "Foreign nationals who possess verified and critical information related to terrorism, terrorist organizations, or national security threats and are willing to cooperate with US federal authorities (FBI/DOJ).",
+    
+    funds: "No personal funds required. US government agencies typically provide protection, relocation support, and living assistance under witness/informant protection protocols.",
+    
+    docs: "Valid passport, Law enforcement certification (FBI/DOJ authorization mandatory), Identity documents, Evidence or testimony related to terrorism case, Personal affidavit, Security clearance documentation, Any protective custody agreements.",
+    
+    rules: "Must provide substantial and credible information regarding terrorism-related activity. Must fully cooperate with US law enforcement agencies. Must comply with strict confidentiality and security protocols. Participation is closely monitored under national security laws.",
+    
+    prosCons: "Pros: Strong legal protection, safety from retaliation, government-supported relocation, potential pathway to permanent residency, direct involvement in national security protection programs. Cons: Extremely high-risk category, very rare approval, strict surveillance, limited personal freedom, uncertain long-term outcomes.",
+    
+    terms: "S6: Terrorism Informant Visa; FBI: Federal Bureau of Investigation; DOJ: Department of Justice; National Security Witness Program: Protection framework; Law Enforcement Certification: Mandatory approval from federal agency.",
+    
+    legal: "US Department of Justice (primary authority), FBI (counterterrorism coordination), USCIS (visa processing), US Department of State (visa issuance), Federal security agencies (case validation and monitoring).",
+    
+    process: `1. Individual provides credible intelligence related to terrorism -> 
+              2. FBI/DOJ verifies and evaluates threat importance -> 
+              3. Law enforcement issues official sponsorship/certification -> 
+              4. Petition submitted to USCIS by federal agency -> 
+              5. USCIS conducts background and security checks -> 
+              6. Approval granted under S6 protected informant category -> 
+              7. Security and relocation arrangements activated -> 
+              8. Visa issued and informant enters or remains in USA -> 
+              9. Continuous cooperation with federal authorities required -> 
+              10. Eligible for permanent residency after fulfilling cooperation terms.`
+},
+        "A1": {
+    name: "A1 Visa (Diplomatic Visa for Foreign Heads of State / Senior Government Officials)",
+    
+    validity: "Valid for the duration of official assignment or tenure in office. There is no fixed expiry date as long as the individual continues to serve in their diplomatic or governmental role.",
+    
+    cost: "Fully exempt. No visa fee is charged for A1 diplomatic visa applicants. Certain administrative or travel-related costs may be covered by the sending government.",
+    
+    time: "Typically 1–4 weeks depending on diplomatic coordination between the foreign government and US Department of State.",
+    
+    age: "No official age limit. Applicable only to appointed or elected government officials.",
+    
+    education: "Not required. Eligibility is based on diplomatic rank or government position, not academic qualification.",
+    
+    whom: "Foreign Heads of State, Ambassadors, Ministers, Senior diplomats, and high-ranking government officials traveling to the United States on official state business or diplomatic assignment.",
+    
+    funds: "No personal funds required. All expenses are usually covered by the sending government or diplomatic mission.",
+    
+    docs: "Diplomatic passport, Note Verbale (official diplomatic communication from foreign government), Assignment letter or government nomination, Diplomatic credentials, Travel orders, Security clearance documents if required.",
+    
+    rules: "Must be traveling for official government or diplomatic purposes only. Granted diplomatic immunity under international law (Vienna Convention). Cannot engage in personal employment or commercial activity in the USA.",
+    
+    prosCons: "Pros: Highest level of diplomatic privilege, diplomatic immunity, priority processing, full government recognition. Cons: Strictly limited to official duties, no personal employment, must comply with diplomatic restrictions and protocols.",
+    
+    terms: "A1: Diplomatic Visa Category; Note Verbale: Official diplomatic communication; Diplomatic Immunity: Legal protection under international law; Vienna Convention: International treaty governing diplomatic relations.",
+    
+    legal: "US Department of State (primary authority), US Embassy/Consulate (visa issuance), Foreign Ministry of applicant’s country (sponsorship), International law under Vienna Convention on Diplomatic Relations.",
+    
+    process: `1. Foreign government nominates or assigns official to diplomatic post -> 
+              2. Ministry of Foreign Affairs issues Note Verbale -> 
+              3. Submission of diplomatic request to US Embassy/Department of State -> 
+              4. Verification of diplomatic status by US authorities -> 
+              5. Security clearance and background checks (if required) -> 
+              6. Visa approval granted under A1 category -> 
+              7. Diplomatic passport endorsement issued -> 
+              8. Entry into USA with diplomatic privileges -> 
+              9. Maintain status while serving in official capacity -> 
+              10. Visa remains valid until end of diplomatic assignment.`
+},
+        "A2": {
+    name: "A2 Visa (Foreign Government Official / Military Personnel Visa)",
+    
+    validity: "Valid for the duration of the official assignment or posting in the United States. It ends when the official duty or assignment is completed.",
+    
+    cost: "Fully exempt. No visa fee is charged. In most cases, travel, accommodation, and related expenses are covered by the sending government or military organization.",
+    
+    time: "Typically 1–4 weeks depending on diplomatic coordination between the foreign government and the US Department of State or Embassy.",
+    
+    age: "No official age limit. Applicable only to eligible government or military personnel.",
+    
+    education: "Not required. Eligibility depends on official government or military designation.",
+    
+    whom: "Foreign government employees, military personnel, administrative staff, or technical support personnel traveling to the USA for official duties on behalf of their government or military organization.",
+    
+    funds: "No personal funds required. All expenses are typically paid by the sending government or official institution.",
+    
+    docs: "Valid diplomatic/official passport, Note Verbale (official government communication), Assignment letter or travel orders, Government identification, Military orders (if applicable), Security clearance documents if required.",
+    
+    rules: "Must travel only for official government duties. Cannot engage in private employment or business in the USA. Must comply with US laws while respecting limited diplomatic privileges (less than A1 category).",
+    
+    prosCons: "Pros: Official recognition in the USA, visa fee exemption, simplified diplomatic processing, ability to accompany government missions. Cons: Strict limitation to official duties only, no personal employment or commercial activity, fully dependent on government assignment.",
+    
+    terms: "A2: Foreign Government Official Visa; Note Verbale: Official diplomatic communication; Official Assignment: Government-authorized duty; Diplomatic Channel: Government-to-government visa process.",
+    
+    legal: "US Department of State (visa issuance authority), US Embassy/Consulate (processing and stamping), Foreign Ministry or Defense Ministry of sending country (sponsorship), International diplomatic protocols.",
+    
+    process: `1. Foreign government assigns official duty to employee or military personnel -> 
+              2. Issuance of official travel orders or assignment letter -> 
+              3. Submission of Note Verbale to US Embassy or Department of State -> 
+              4. Verification of official status by US authorities -> 
+              5. Security clearance (if required) -> 
+              6. Visa approval under A2 category -> 
+              7. Diplomatic/official passport endorsement -> 
+              8. Entry into USA for official assignment -> 
+              9. Perform assigned government duties -> 
+              10. Exit USA upon completion of assignment.`
+},
+       "G1": {
+    name: "G1 Visa (Representative of Recognized Foreign Government to International Organizations)",
+    
+    validity: "Valid for the duration of official assignment with an international organization (such as the United Nations or related agencies). It remains valid only while the individual continues in the designated official role.",
+    
+    cost: "Fully exempt. No visa fee is charged for G1 visa applicants. All travel and official expenses are typically covered by the sending government or international organization.",
+    
+    time: "Usually 1–4 weeks depending on verification between the foreign government, international organization, and US Department of State.",
+    
+    age: "No official age limit. Applicable only to designated government representatives.",
+    
+    education: "Not required. Eligibility is based on official diplomatic or governmental appointment.",
+    
+    whom: "Foreign government representatives assigned to major international organizations such as the United Nations (UN), International Monetary Fund (IMF), World Bank, or similar recognized international bodies in the United States.",
+    
+    funds: "No personal funds required. All expenses are funded by the sending government or international organization.",
+    
+    docs: "Valid diplomatic/official passport, Note Verbale (official government communication), Assignment letter from international organization, Proof of accreditation to organization (UN/IMF/World Bank), Government identification, Security clearance documents if required.",
+    
+    rules: "Must be traveling strictly for official duties related to international organization work. Cannot engage in private employment or business activities. Must comply with diplomatic and international organization protocols.",
+    
+    prosCons: "Pros: Diplomatic recognition, visa fee exemption, priority processing, ability to represent country in global organizations. Cons: Strictly limited to official duties, no personal employment rights, fully dependent on government/organization assignment.",
+    
+    terms: "G1: Government Representative Visa; International Organization: UN, IMF, World Bank etc.; Note Verbale: Official diplomatic communication; Accreditation: Official recognition by international body.",
+    
+    legal: "US Department of State (visa issuance authority), US Embassy/Consulate (processing and stamping), International Organization Headquarters (accreditation), Foreign Ministry of applicant’s country (sponsorship).",
+    
+    process: `1. Foreign government assigns representative to international organization -> 
+              2. Organization issues accreditation or confirmation -> 
+              3. Government sends Note Verbale to US authorities -> 
+              4. Verification of official role by US Department of State -> 
+              5. Security clearance if required -> 
+              6. Visa approval under G1 category -> 
+              7. Diplomatic/official passport endorsement -> 
+              8. Entry into USA to serve in international organization -> 
+              9. Perform official duties -> 
+              10. Visa remains valid until assignment ends.`
+},
+        "G4": {
+    name: "G4 Visa (International Organization Employee Visa)",
+    
+    validity: "Valid for the duration of employment or assignment with the international organization. It remains valid as long as the individual continues working for the eligible organization (such as UN, WHO, IMF, World Bank, etc.).",
+    
+    cost: "Fully exempt. No visa fee is charged. Most expenses (relocation, travel, and sometimes housing support) are provided by the international organization or employer.",
+    
+    time: "Typically 1–4 weeks depending on verification of employment and coordination between the international organization and the US Department of State.",
+    
+    age: "No official age limit. Applicable only to employed international organization staff.",
+    
+    education: "Not required as a rule, but most roles require relevant qualifications depending on the job position (administration, research, technical, or diplomatic roles).",
+    
+    whom: "Employees, officers, and staff members of recognized international organizations such as the United Nations (UN), World Health Organization (WHO), International Monetary Fund (IMF), World Bank, and similar bodies working in the United States.",
+    
+    funds: "No personal funds required. Salary and benefits are provided by the international organization employing the applicant.",
+    
+    docs: "Valid passport, Job offer/appointment letter from international organization, Employment contract, Note Verbale or official certification from organization, Identity documents, Security clearance documents (if required), Proof of eligibility under international organization charter.",
+    
+    rules: "Must work only for the sponsoring international organization. Cannot engage in private employment or business in the USA. Must comply with host country laws and organizational regulations. Visa status ends when employment ends.",
+    
+    prosCons: "Pros: Diplomatic privileges and immunities (in many cases), tax advantages in certain situations, stable international career, global exposure. Cons: Completely tied to job status, no independent employment rights outside organization, visa ends with contract termination.",
+    
+    terms: "G4: International Organization Staff Visa; UN: United Nations; WHO: World Health Organization; IMF: International Monetary Fund; Note Verbale: Official diplomatic communication; International Organization Act: Legal framework governing eligibility.",
+    
+    legal: "US Department of State (visa issuance), International Organization Headquarters (employment authority), US Embassy/Consulate (processing), Relevant international treaties and agreements under the International Organizations Immunities Act.",
+    
+    process: `1. Candidate receives job offer from recognized international organization -> 
+              2. Organization issues official employment contract -> 
+              3. Organization provides certification/Note Verbale to US authorities -> 
+              4. Verification of eligibility by US Department of State -> 
+              5. Security clearance checks (if required) -> 
+              6. Visa approval under G4 category -> 
+              7. Entry into USA with diplomatic-style privileges -> 
+              8. Begin employment with international organization -> 
+              9. Maintain visa only while employment continues -> 
+              10. Exit or change status when job ends.`
+},
+      "NATO1": {
+    name: "NATO-1 to NATO-7 Visa (NATO Member Country Military and Staff Visa Categories)",
+    
+    validity: "Valid for the duration of official assignment or posting under NATO orders. It remains valid only while the individual continues serving in the assigned NATO role.",
+    
+    cost: "Fully exempt. No visa fee is charged. All travel, accommodation, and mission-related expenses are typically covered by NATO or the sending government.",
+    
+    time: "Typically 1–4 weeks depending on coordination between NATO authorities, the sending country, and the US Department of State.",
+    
+    age: "No official age limit. Applicable only to authorized NATO personnel and their dependents.",
+    
+    education: "Not required. Eligibility depends on military rank, diplomatic assignment, or NATO-approved role.",
+    
+    whom: "Military personnel, civilian staff, administrative employees, and dependents of NATO member countries assigned to official duties in the United States under NATO treaties and agreements.",
+    
+    funds: "No personal funds required. All expenses are covered by NATO or the sending government.",
+    
+    docs: "Valid passport (official/diplomatic/service), NATO travel orders, Assignment letter or official NATO orders, Note Verbale (if applicable), Identity verification documents, Security clearance documentation, Proof of NATO affiliation.",
+    
+    rules: "Must travel strictly under NATO orders. Cannot engage in private employment or business in the USA. Must comply with NATO operational protocols and US laws. Each subcategory (NATO-1 to NATO-7) depends on role and rank.",
+    
+    prosCons: "Pros: Full diplomatic/military privileges under NATO agreement, visa fee exemption, priority processing, strong legal protections. Cons: Strictly limited to official NATO duties, no private employment, status ends with assignment.",
+    
+    terms: "NATO: North Atlantic Treaty Organization; NATO-1 to NATO-7: Classification levels for personnel; Note Verbale: Official diplomatic communication; SOFA: Status of Forces Agreement governing NATO personnel rights.",
+    
+    legal: "US Department of State (visa issuance), NATO Headquarters (assignment authority), US Embassy/Consulate (processing), SOFA agreements between NATO member states and USA.",
+    
+    process: `1. NATO assigns official duty or posting to personnel -> 
+              2. Issuance of NATO travel orders and authorization -> 
+              3. Submission of Note Verbale or official NATO communication to US authorities -> 
+              4. Verification of NATO status by US Department of State -> 
+              5. Security clearance checks (if required) -> 
+              6. Visa approval under appropriate NATO category (1–7) -> 
+              7. Entry into USA under NATO assignment -> 
+              8. Perform assigned duties under NATO mission -> 
+              9. Maintain visa only while assignment is active -> 
+              10. Exit USA or change status after completion of NATO duty.`
+},
+       "EB1": {
+    name: "EB1 Visa (Employment-Based First Preference – Priority Workers Green Card)",
+    
+    validity: "Permanent Residency (Green Card). EB1 grants lawful permanent resident status in the United States, meaning indefinite stay with renewal of the physical card every 10 years.",
+    
+    cost: "₹2 lakh – ₹6 lakh+ total. Breakdown: I-140 filing fee $700 (~₹58,000), Adjustment of Status (I-485) $1,225 (~₹1 lakh), medical exam ₹10,000–₹25,000, biometrics ₹2,000–₹5,000, premium processing (optional) $2,805 (~₹2.3 lakh), legal fees ₹50,000–₹3 lakh+.",
+    
+    time: "Typically 1–3 years. For Indians, EB1 is usually faster than other EB categories due to minimal or no backlog in most cases.",
+    
+    age: "No official age limit. Selection is based on talent, achievements, or managerial role, not age.",
+    
+    education: "Not mandatory by rule, but most applicants have advanced degrees or exceptional achievements (PhD, awards, research, leadership roles).",
+    
+    whom: "Foreign nationals with extraordinary ability in science, arts, education, business, or athletics (EB1A), outstanding professors/researchers (EB1B), or multinational executives/managers (EB1C).",
+    
+    rules: "Must demonstrate exceptional qualifications (awards, publications, leadership, global recognition) OR senior managerial role in multinational company. Self-petition allowed for EB1A. No labor certification (PERM) required.",
+    
+    prosCons: "Pros: Fastest Green Card category for skilled immigrants, no labor certification, premium processing available, high priority. Cons: Very strict eligibility criteria, strong evidence required, competition is high for EB1A, not everyone qualifies.",
+    
+    terms: "EB1: Employment-Based First Preference; EB1A: Extraordinary Ability; EB1B: Outstanding Professors/Researchers; EB1C: Multinational Managers; I-140: Immigrant Petition; Green Card: Permanent Residency.",
+    
+    legal: "USCIS (primary processing authority), US Department of Labor (not required for EB1), US Department of State (visa issuance if outside USA), National Visa Center (case handling for consular processing).",
+    
+    process: `1. Determine eligibility category (EB1A / EB1B / EB1C) -> 
+              2. Collect strong evidence (awards, publications, leadership proof, company transfer docs) -> 
+              3. File Form I-140 with USCIS -> 
+              4. Premium processing (optional for faster decision) -> 
+              5. Wait for I-140 approval -> 
+              6. Check visa bulletin (usually current for EB1) -> 
+              7. File Adjustment of Status (I-485) if in USA OR go for consular processing if outside USA -> 
+              8. Biometrics and medical examination -> 
+              9. Final approval of Green Card -> 
+              10. Receive Permanent Residency card -> 
+              11. Maintain residency conditions for citizenship eligibility later.`
+},
+       "EB2": {
+    name: "EB2 Visa (Employment-Based Second Preference – Advanced Degree / Exceptional Ability / National Interest Waiver)",
+    
+    validity: "Permanent Residency (Green Card). EB2 grants lawful permanent resident status in the USA, requiring renewal of physical Green Card every 10 years.",
+    
+    cost: "₹2 lakh – ₹8 lakh+ total. Breakdown: PERM labor certification (employer-paid, $2,000–$5,000), I-140 filing fee $700 (~₹58,000), I-485 Adjustment of Status $1,225 (~₹1 lakh), medical exam ₹10,000–₹25,000, biometrics ₹2,000–₹5,000, premium processing (optional for I-140) $2,805 (~₹2.3 lakh), legal fees ₹1 lakh–₹5 lakh+.",
+    
+    time: "Processing time is 2–3 years for approval, but for Indian applicants the total wait time can exceed 15–20+ years due to visa bulletin backlog and country quota limits.",
+    
+    age: "No official age limit. However, most applicants are working professionals with 5–15+ years experience.",
+    
+    education: "Master’s degree OR Bachelor’s degree + minimum 5 years progressive work experience in the field. Equivalent professional experience may also qualify under NIW.",
+    
+    whom: "Skilled professionals such as engineers, IT professionals, doctors, scientists, researchers, architects, and other advanced degree holders or individuals with exceptional ability in sciences, arts, or business.",
+    
+    rules: "Most EB2 cases require PERM Labor Certification (employer proving no qualified US worker is available). National Interest Waiver (NIW) is exempt from PERM if applicant proves work benefits the USA. Employer sponsorship is usually required except NIW.",
+    
+    prosCons: "Pros: Strong and stable Green Card pathway, widely used by professionals, NIW allows self-petition without employer, long-term stability. Cons: Extremely long backlog for Indians, PERM process is lengthy, job dependency in most cases, uncertainty due to visa bulletin delays.",
+    
+    terms: "EB2: Employment-Based Second Preference; PERM: Program Electronic Review Management (Labor Certification); I-140: Immigrant Petition; NIW: National Interest Waiver; Visa Bulletin: Monthly quota system for Green Cards.",
+    
+    legal: "USCIS (petition approval), US Department of Labor (PERM certification), US Department of State (visa issuance), National Visa Center (case processing for consular applicants).",
+    
+    process: `1. Employer applies for PERM Labor Certification (proving no US worker available) -> 
+              2. PERM approval from Department of Labor -> 
+              3. Employer files Form I-140 with USCIS -> 
+              4. USCIS processes and approves petition -> 
+              5. Check Visa Bulletin (priority date wait for India often very long) -> 
+              6. When date becomes current, file Adjustment of Status (I-485) in USA OR go for consular processing -> 
+              7. Biometrics and medical examination -> 
+              8. Final Green Card approval -> 
+              9. Receive Permanent Residency card -> 
+              10. Maintain residency conditions for future citizenship eligibility.`
+},
+       "EB3": {
+    name: "EB3 Visa (Employment-Based Third Preference – Skilled Workers, Professionals, and Other Workers Green Card)",
+    
+    validity: "Permanent Residency (Green Card). EB3 grants lawful permanent resident status in the USA with 10-year renewable Green Card cards.",
+    
+    cost: "₹2 lakh – ₹8 lakh+ total. Breakdown: PERM Labor Certification $2,000–$5,000 (usually employer-paid), I-140 filing fee $700 (~₹58,000), I-485 Adjustment of Status $1,225 (~₹1 lakh), medical exam ₹10,000–₹25,000, biometrics ₹2,000–₹5,000, legal fees ₹1 lakh–₹4 lakh+.",
+    
+    time: "Typically 2–3 years processing for approval, but for Indian applicants the total waiting time can exceed 15–20+ years due to severe visa bulletin backlog and annual country caps.",
+    
+    age: "No official age limit. Most applicants are working adults across skilled, professional, or labor categories.",
+    
+    education: "Depends on category: Skilled Workers require at least 2 years training/experience, Professionals require a Bachelor’s degree, and Other Workers require minimal or no formal education but must perform unskilled labor.",
+    
+    whom: "Foreign workers in three subcategories: Skilled Workers (2+ years experience), Professionals (Bachelor’s degree holders), and Other Workers (unskilled labor positions requiring less than 2 years training).",
+    
+    rules: "Employer sponsorship is mandatory in most EB3 cases. PERM Labor Certification required to prove no qualified US worker is available. Job offer must be permanent and full-time. Strict quotas apply causing long delays.",
+    
+    prosCons: "Pros: More accessible than EB1/EB2, wider eligibility including semi-skilled and unskilled workers, stable immigration pathway. Cons: Extremely long backlog for Indians, job dependency, PERM process is lengthy, very slow Green Card movement.",
+    
+    terms: "EB3: Employment-Based Third Preference; PERM: Labor Certification system; I-140: Immigrant Petition; Visa Bulletin: Monthly quota tracking system; Adjustment of Status (AOS): Green Card application process.",
+    
+    legal: "USCIS (petition approval), US Department of Labor (PERM certification), US Department of State (visa issuance), National Visa Center (case processing for consular cases).",
+    
+    process: `1. Employer identifies job vacancy and offers permanent position -> 
+              2. Employer files PERM Labor Certification with Department of Labor -> 
+              3. PERM approval confirming no qualified US worker is available -> 
+              4. Employer files Form I-140 with USCIS -> 
+              5. USCIS processes and approves immigrant petition -> 
+              6. Wait for priority date to become current (often very long for India) -> 
+              7. File Adjustment of Status (I-485) if in USA OR consular processing if outside USA -> 
+              8. Biometrics and medical examination -> 
+              9. Final Green Card approval -> 
+              10. Receive Permanent Residency card -> 
+              11. Maintain residency requirements for citizenship eligibility later.`
+},
+       "EB4": {
+    name: "EB4 Visa (Employment-Based Fourth Preference – Special Immigrants Green Card Category)",
+    
+    validity: "Permanent Residency (Green Card). EB4 grants lawful permanent resident status in the USA with a renewable 10-year Green Card card.",
+    
+    cost: "₹1.5 lakh – ₹6 lakh+ total. Breakdown: Form I-360 filing fee (varies by subcategory, often $0–$700), Adjustment of Status (I-485) $1,225 (~₹1 lakh), medical exam ₹10,000–₹25,000, biometrics ₹2,000–₹5,000, legal fees ₹50,000–₹3 lakh+ depending on case complexity.",
+    
+    time: "Typically 1–3 years for approval, but can vary widely depending on subcategory and country quotas. Some EB4 categories have backlogs, though generally less severe than EB2/EB3 for Indians.",
+    
+    age: "No fixed age limit. Depends on category (religious worker, special immigrant, etc.).",
+    
+    education: "Not strictly required. Depends on subcategory; some roles may require specific religious training, military service, or government service background.",
+    
+    whom: "Special immigrant categories including: religious workers (priests, monks, missionaries), certain US government employees abroad, international organization employees, Afghan/Iraqi translators and interpreters, and other special humanitarian or government-related cases.",
+    
+    rules: "Must qualify under a specific EB4 subcategory. Most cases require employer, religious institution, or government sponsorship. Strict documentation required to prove eligibility. Some subcategories have annual caps.",
+    
+    prosCons: "Pros: Direct path to Green Card, covers unique humanitarian and religious categories, no labor certification (PERM) required. Cons: Very niche eligibility, strict documentation, some categories have long backlogs, limited availability depending on subcategory.",
+    
+    terms: "EB4: Employment-Based Fourth Preference; I-360: Petition for Special Immigrant; Religious Worker Visa: Common EB4 subcategory; SI/SQ: Special Immigrant categories for translators; Green Card: Permanent Residency.",
+    
+    legal: "USCIS (primary processing authority), US Department of State (visa issuance for consular processing), US Department of Labor (not required in EB4), sponsoring religious or government organizations.",
+    
+    process: `1. Determine eligibility under EB4 subcategory (religious worker, special immigrant, etc.) -> 
+              2. Sponsoring organization or employer files Form I-360 with USCIS -> 
+              3. USCIS reviews supporting documents and verifies eligibility -> 
+              4. Approval of I-360 petition -> 
+              5. Wait for visa availability if subject to quota -> 
+              6. File Adjustment of Status (I-485) if inside USA OR consular processing if outside USA -> 
+              7. Biometrics and medical examination -> 
+              8. Final Green Card approval -> 
+              9. Receive Permanent Residency card -> 
+              10. Maintain residency conditions for future citizenship eligibility.`
+},
+       "EB5": {
+    name: "EB5 Visa (Employment-Based Fifth Preference – Immigrant Investor Program)",
+    
+    validity: "Permanent Residency (Green Card). EB5 grants lawful permanent resident status in the USA, leading to citizenship eligibility after meeting residency requirements.",
+    
+    cost: "₹7 crore – ₹10 crore+ (approximately $800,000 – $1,050,000). Breakdown: Minimum investment in Targeted Employment Area (TEA) $800,000 (~₹7 crore) or standard investment $1,050,000 (~₹9–10 crore), USCIS filing fees $11,000+ (~₹9 lakh), legal fees ₹10 lakh–₹25 lakh+, project/admin fees vary.",
+    
+    time: "Typically 2–4 years for Green Card approval depending on country backlog, project processing, and USCIS workload. Faster in reserved TEA/urban/rural set-aside categories.",
+    
+    age: "No official age limit. Applicant must be legally capable of investing funds.",
+    
+    education: "Not required.",
+    
+    whom: "High-net-worth individuals and investors who want to obtain US Permanent Residency by investing capital in a US business that creates jobs.",
+    
+    funds: "Minimum lawful investment capital required: ₹7 crore–₹10 crore. Funds must be legally sourced and fully documented (income, business, property sale, inheritance, etc.).",
+    
+    docs: "Valid passport, Proof of funds and source of funds documentation, Investment agreement, Business plan, Form I-526E petition, Financial statements, Tax returns, Bank records, Project documents (TEA certification if applicable).",
+    
+    rules: "Must invest in a qualifying US commercial enterprise. Must create or preserve at least 10 full-time US jobs. Investment must be “at risk” (no guaranteed return). Funds must be lawfully obtained and traceable.",
+    
+    prosCons: "Pros: Direct path to Green Card for investor and family, no job offer required, flexible residency, pathway to US citizenship. Cons: Very high capital requirement, investment risk (not guaranteed return), long processing times, strict documentation and compliance rules.",
+    
+    terms: "EB5: Immigrant Investor Visa; TEA: Targeted Employment Area (low unemployment/rural area); I-526E: Immigrant petition for investor; I-829: Petition to remove conditions; At-Risk Investment: Required EB5 rule; Green Card: Permanent Residency.",
+    
+    legal: "USCIS (primary processing authority), US Department of Homeland Security, US Department of State (visa issuance), Regional Centers (approved investment intermediaries), Securities and financial compliance regulators.",
+    
+    process: `1. Choose EB5 investment project (direct or regional center) -> 
+              2. Verify legality and TEA qualification (if applicable) -> 
+              3. Transfer required investment capital ($800K–$1.05M) -> 
+              4. File Form I-526E petition with USCIS -> 
+              5. USCIS reviews source of funds and business plan -> 
+              6. Receive conditional approval -> 
+              7. Apply for immigrant visa or Adjustment of Status (I-485) -> 
+              8. Obtain Conditional Green Card (valid for 2 years) -> 
+              9. Create required 10 jobs and maintain investment -> 
+              10. File Form I-829 to remove conditions -> 
+              11. Receive Permanent Green Card -> 
+              12. Eligible for US citizenship after residency requirement.`
+},
+       "IR1": {
+    name: "IR1 Visa (Immediate Relative – Spouse of US Citizen – Permanent Resident Visa)",
+    
+    validity: "Permanent Residency (Green Card). IR1 grants unconditional permanent resident status. Green Card is valid for 10 years and renewable.",
+    
+    cost: "₹1.5 lakh – ₹3 lakh+ total. Breakdown: I-130 filing fee $675 (~₹55,000), NVC processing fees $325 (~₹27,000), Affidavit of Support fee $120 (~₹10,000), visa fee $265 (~₹22,000), medical exam ₹10,000–₹25,000, biometrics ₹2,000–₹5,000, additional legal/document costs ₹50,000–₹1 lakh+.",
+    
+    time: "Typically 12–24 months (1–2 years). IR1 is faster than family preference categories because it is not subject to annual visa caps.",
+    
+    age: "No official age limit. Spouse must be legally married to a US citizen.",
+    
+    education: "Not required.",
+    
+    whom: "Foreign spouse of a US citizen where the marriage has existed for at least 2 years at the time of Green Card approval.",
+    
+    rules: "Marriage must be legally valid and genuine. Applicant must prove bona fide relationship (photos, communication, joint finances, etc.). Must pass medical and background checks. Fraudulent marriages lead to visa denial and legal penalties.",
+    
+    prosCons: "Pros: Direct and fastest Green Card route for spouses, no long backlog, immediate permanent residency upon entry, strong immigration pathway. Cons: Strict scrutiny of marriage authenticity, heavy documentation required, interview can be detailed and stressful.",
+    
+    terms: "IR1: Immediate Relative Visa (Spouse >2 years marriage); I-130: Immigrant Petition for Relative; NVC: National Visa Center; DS-260: Immigrant Visa Application; Affidavit of Support (I-864): Financial sponsorship document.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa processing), National Visa Center (case handling), US Embassy/Consulate (interview), US Customs and Border Protection (entry into USA).",
+    
+    process: `1. US citizen files Form I-130 for spouse -> 
+              2. USCIS reviews and approves petition -> 
+              3. Case transferred to National Visa Center (NVC) -> 
+              4. Submit DS-260 online immigrant visa application -> 
+              5. Submit financial documents (I-864 Affidavit of Support) -> 
+              6. Complete medical examination and police clearance -> 
+              7. Attend visa interview at US Embassy/Consulate -> 
+              8. Visa approval and stamping (IR1 immigrant visa) -> 
+              9. Travel to USA and enter as permanent resident -> 
+              10. Receive Green Card by mail -> 
+              11. Maintain residency for future citizenship eligibility.`
+},
+       "IR5": {
+    name: "IR5 Visa (Immediate Relative – Parent of US Citizen Visa)",
+    
+    validity: "Permanent Residency (Green Card). IR5 grants unconditional permanent resident status in the USA. Green Card is valid for 10 years and renewable.",
+    
+    time: "Typically 12–24 months (1–2 years), depending on USCIS processing speed and embassy interview scheduling.",
+    
+    whom: "Biological or legally adopted parents of a US citizen who is at least 21 years old.",
+    
+    rules: "US citizen petitioner must be 21+ years old. Must prove genuine parent-child relationship through birth certificates or legal adoption records. No annual quota or visa bulletin backlog applies, making it faster than preference-based categories.",
+    
+    prosCons: "Pros: Direct Green Card, no quota limits, no long waiting line, stable immigration path for parents. Cons: Only available if child is a US citizen aged 21 or older, strict documentation required to prove relationship.",
+    
+    terms: "IR5: Immediate Relative Parent Category; I-130: Petition for Alien Relative; NVC: National Visa Center; DS-260: Immigrant Visa Application; Affidavit of Support (I-864): Financial sponsorship form.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa processing), National Visa Center (case handling), US Embassy/Consulate (interview), US Customs and Border Protection (entry approval).",
+    
+    process: `1. US citizen (age 21+) files Form I-130 for parent -> 
+              2. USCIS reviews and approves petition -> 
+              3. Case transferred to National Visa Center (NVC) -> 
+              4. Submit DS-260 immigrant visa application -> 
+              5. Submit financial sponsorship documents (I-864 Affidavit of Support) -> 
+              6. Complete medical examination and police clearance -> 
+              7. Attend visa interview at US Embassy/Consulate -> 
+              8. Visa approval and issuance (IR5 immigrant visa) -> 
+              9. Parent travels to USA -> 
+              10. Entry as permanent resident -> 
+              11. Green Card delivered by mail -> 
+              12. Maintain residency for future citizenship eligibility.`
+},
+      "F4": {
+    name: "F4 Visa (Family Preference – Siblings of US Citizen Visa)",
+    
+    validity: "Permanent Residency (Green Card). F4 leads to lawful permanent resident status in the USA once approved and processed through the visa queue system.",
+    
+    time: "Typically 15–20+ years for Indian applicants due to severe visa bulletin backlog and annual country quota limits.",
+    
+    whom: "Brothers and sisters of a US citizen who is at least 21 years old, including their spouse and unmarried children under 21.",
+    
+    rules: "US citizen petitioner must be 21+ years old. Relationship must be proven through birth certificates or legal documentation. Subject to annual visa caps, making wait times extremely long (especially for India).",
+    
+    prosCons: "Pros: Allows family reunification for extended family members, includes spouse and children of beneficiary. Cons: Extremely long waiting time, unpredictable backlog movement, strict annual quotas.",
+    
+    terms: "F4: Family Fourth Preference Category; I-130: Immigrant Petition for Relative; Visa Bulletin: Monthly quota chart; Priority Date: Queue position in immigration process; NVC: National Visa Center.",
+    
+    legal: "USCIS (petition approval), US Department of State (visa allocation via visa bulletin), National Visa Center (case processing), US Embassy/Consulate (interview and visa issuance).",
+    
+    process: `1. US citizen (21+) files Form I-130 for sibling -> 
+              2. USCIS approves petition -> 
+              3. Priority date is assigned -> 
+              4. Case enters visa bulletin queue (wait 15–20+ years) -> 
+              5. When priority date becomes current, case moves to NVC -> 
+              6. Submit DS-260 immigrant visa application -> 
+              7. Submit financial sponsorship documents (I-864 Affidavit of Support) -> 
+              8. Complete medical examination and police clearance -> 
+              9. Attend visa interview at US Embassy/Consulate -> 
+              10. Visa approval and issuance -> 
+              11. Travel to USA and enter as permanent resident -> 
+              12. Receive Green Card -> 
+              13. Maintain residency for citizenship eligibility.`
+}
+    }
+};
+
+        function generateVisaDetails() {
+            const country = document.getElementById("country").value;
+            const type = document.getElementById("visaType").value;
+            const resultArea = document.getElementById("resultArea");
+            
+            const data = visaDatabase[country][type];
+
+            if (!data) return;
+
+            let html = `
+                <div class="bevel-box shine-panel">
+                    <h2>${data.name}</h2>
+                </div>
+                
+                <div class="glass-card">
+                    <span class="item-title">1. Name of Visa</span>
+                    <span class="item-content">${data.name}</span>
+
+                    <span class="item-title">2. Validity</span>
+                    <span class="item-content">${data.validity}</span>
+
+                    <span class="item-title">3. Total Cost (with bifurcation)</span>
+                    <span class="item-content">${data.cost}</span>
+
+                    <span class="item-title">4. Time Required</span>
+                    <span class="item-content">${data.time}</span>
+
+                    <span class="item-title">5. Age Limit</span>
+                    <span class="item-content">${data.age}</span>
+
+                    <span class="item-title">6. Education Required</span>
+                    <span class="item-content">${data.education}</span>
+
+                    <span class="item-title">7. Funds Required</span>
+                    <span class="item-content">${data.funds}</span>
+
+                    <span class="item-title">8. Documents Required</span>
+                    <span class="item-content">${data.docs}</span>
+
+                    <span class="item-title">9. For Whom the Visa is</span>
+                    <span class="item-content">${data.whom}</span>
+
+                    <span class="item-title">10. Rules for the Visa</span>
+                    <span class="item-content">${data.rules}</span>
+
+                    <span class="item-title">11. Pros and Cons</span>
+                    <span class="item-content">${data.prosCons}</span>
+
+                    <span class="item-title">12. Key Terminologies</span>
+                    <span class="item-content">${data.terms}</span>
+
+                    <span class="item-title">13. Legal Bodies Involved</span>
+                    <span class="item-content">${data.legal}</span>
+
+                    <span class="item-title">14. Detailed Process</span>
+                    <span class="item-content">${data.process}</span>
+                </div>
+
+                <div class="summary-footer">
+                    <h2>Summary Checklist</h2>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Verified 2026 Regulations</span>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" checked disabled>
+                        <span>Indian Applicant Friendly</span>
+                    </div>
+                </div>
+            `;
+
+            resultArea.innerHTML = html;
+            resultArea.style.display = "block";
+            
+            // Scroll to top of results
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

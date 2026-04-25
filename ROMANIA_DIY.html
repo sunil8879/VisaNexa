@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romania: DIY vs PLACEMENT AGENCIES</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --aqua: #7FFFD4;
+            --white: #ffffff;
+            --black: #000000;
+            --shadow: rgba(0, 0, 0, 0.15);
+            --intense-bevel: inset 8px 8px 15px rgba(255,255,255,0.9), inset -8px -8px 15px rgba(0,0,0,0.08);
+        }
+
+        body {
+            margin: 0; padding: 40px 0;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; background-color: var(--white);
+            font-family: 'Montserrat', sans-serif; overflow-x: hidden;
+            flex-direction: column;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 60px;
+            border-radius: 40px;
+            border: 2px solid var(--aqua);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 30px 60px var(--shadow), var(--intense-bevel);
+            max-width: 1000px;
+            width: 95%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.2) 100%);
+            pointer-events: none; border-radius: 40px;
+        }
+
+        h1 {
+            font-size: 2.8rem; font-weight: 900; color: var(--black);
+            text-transform: uppercase; letter-spacing: 4px; text-align: center;
+            margin-bottom: 50px; text-decoration: underline; text-decoration-color: var(--aqua);
+            text-underline-offset: 15px;
+        }
+
+        .section-card {
+            background: white;
+            border: 2px solid var(--black);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: var(--intense-bevel), 10px 10px 0px var(--aqua);
+        }
+
+        .section-header {
+            font-size: 1.4rem; font-weight: 900; background: var(--black);
+            color: var(--aqua); display: inline-block; padding: 10px 25px;
+            transform: skewX(-10deg); margin-bottom: 30px; text-transform: uppercase;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+        .process-box { padding: 25px; border-radius: 15px; background: #f9f9f9; border: 1px solid #eee; }
+        .process-box h3 { text-transform: uppercase; font-weight: 900; border-bottom: 3px solid var(--black); padding-bottom: 10px; margin-bottom: 20px; }
+
+        .step { margin-bottom: 25px; padding-left: 15px; border-left: 4px solid var(--aqua); }
+        .step b { display: block; text-transform: uppercase; font-size: 0.85rem; color: #555; }
+        .step span { font-weight: 700; color: var(--black); font-size: 0.95rem; display: block; margin-top: 5px; }
+        .step small { color: #ff4757; font-weight: 900; text-transform: uppercase; font-size: 0.7rem; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border-radius: 15px; overflow: hidden; }
+        th, td { padding: 15px; border: 1px solid #eee; text-align: center; font-size: 0.9rem; }
+        th { background: var(--black); color: var(--aqua); text-transform: uppercase; font-size: 0.75rem; }
+        .highlight-row { background: #f0fffb; font-weight: 900; font-size: 1.1rem; }
+
+        .conclusion-box { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .pro-con-card { padding: 25px; border-radius: 20px; }
+        .pro-bg { background: #e6fff7; border: 2px solid #00c853; }
+        .con-bg { background: #fff5f5; border: 2px solid #ff5252; }
+
+        .warning-box { background: #fff1f2; border: 2px dashed #ff4757; padding: 25px; border-radius: 20px; color: #ff4757; text-align: center; margin-bottom: 40px; }
+
+        @media (max-width: 800px) { .grid-2, .conclusion-box { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Romania Work Visa: DIY vs AGENCY TRUTH</h1>
+
+    <div class="warning-box">
+        <h2 style="margin-top:0;">🚨 THE ROMANIAN WORK PERMIT REALITY</h2>
+        <p style="font-weight:700;">In Romania, a Work Permit (Aviz de angajare) costs the employer only €100. Agencies in India often charge ₹4 Lakhs to ₹10 Lakhs for "Romania Job Packages." Most of these are for manual labor, construction, or factory roles where the "Job Spot" is being sold illegally. If you pay an agent, you are often paying for a "fake" sponsorship that leads to visa cancellation at the border.</p>
+    </div>
+
+    <!-- SECTION 1: DETAILED PROCESS -->
+    <div class="section-card">
+        <div class="section-header">1. End-to-End Immigration Lifecycle</div>
+        
+        <div style="background:var(--black); color:var(--white); padding:20px; border-radius:15px; margin-bottom:30px; font-size:0.85rem;">
+            <b style="color:var(--aqua); text-transform:uppercase;">Technical Glossary:</b><br><br>
+            • <b>IGI:</b> General Inspectorate for Immigration (The body that approves the work permit).<br>
+            • <b>Aviz de angajare:</b> The official Work Permit document issued to the employer.<br>
+            • <b>Type D/AM Visa:</b> The long-stay visa required to enter Romania for employment.<br>
+            • <b>Permis de ședere:</b> The mandatory Residence Permit card applied for after arrival.
+        </div>
+
+        <div class="grid-2">
+            <!-- AGENCY SIDE -->
+            <div class="process-box">
+                <h3 style="background:var(--black); color:var(--aqua); padding:10px; text-align:center;">🏢 Agency Workflow</h3>
+                <div class="step"><b>Step 1: Trade Evaluation</b><span>Agency checks your health and age, claiming they have "Factory Quotas" for Indian workers.</span><small>Time: 2 Days</small></div>
+                <div class="step"><b>Step 2: Resume "Standardization"</b><span>They rewrite your CV to meet Romanian Ministry of Labor filters. They charge a "Branding Fee."</span><small>Time: 1 Week</small></div>
+                <div class="step"><b>Step 3: Job Procurement</b><span>They claim to have "Direct Links" with Romanian farms/factories. In reality, they bribe middle-men for an offer letter.</span><small>Time: 1-3 Months</small></div>
+                <div class="step"><b>Step 4: IGI Filing</b><span>The agency handles the application at the <b>IGI</b> office in Bucharest. You pay lakhs for a €100 document.</span><small>Time: 4-12 Weeks</small></div>
+                <div class="step"><b>Step 5: Work Permit Issuance</b><span>They send you a scan of the permit and collect the bulk of your "Service Fee."</span><small>Time: 1 Week</small></div>
+                <div class="step"><b>Step 6: VFS Stamping</b><span>They take your passport to the Romanian Embassy. They markup the official €120 ($130) visa fee.</span><small>Time: 2-4 Weeks</small></div>
+                <div class="step"><b>Step 7: Flight & Departure</b><span>They book a bulk flight and charge you a "Settlement Package" price.</span><small>Time: 1 Week</small></div>
+                <div class="step"><b>Step 8: ID Card Stamping</b><span>In Romania, an agent rep meets you to handle the biometric registration. You are now "bound" to that factory.</span><small>Time: 3-6 Months Post-arrival</small></div>
+            </div>
+
+            <!-- DIY SIDE -->
+            <div class="process-box">
+                <h3 style="background:var(--aqua); color:var(--black); padding:10px; text-align:center;">🧾 DIY Workflow</h3>
+                <div class="step"><b>Step 1: Direct Job Hunt</b><span>You apply via <a href="https://www.bestjobs.eu/en/jobs/romania" target="_blank">BestJobs</a>, <a href="https://www.ejobs.ro" target="_blank">eJobs</a>, or LinkedIn.</span><small>Time: 1-4 Months</small></div>
+                <div class="step"><b>Step 2: DIY Europass CV</b><span>You create a professional CV using free tools. You ensure your skills match the "Shortage List" for RO.</span><small>Time: 1 Day</small></div>
+                <div class="step"><b>Step 3: Direct Interview</b><span>You clear technical rounds with a real Romanian company HR. The job offer is 100% genuine and free.</span><small>Time: 2-4 Weeks</small></div>
+                <div class="step"><b>Step 4: Official IGI Process</b><span>Your employer files for the permit at the local <b>IGI</b> office. Legally, they pay the state fee.</span><small>Time: 4-12 Weeks</small></div>
+                <div class="step"><b>Step 5: Direct Permit Receipt</b><span>Your HR sends you the original Work Permit via courier. You pay ₹0 to receive this.</span><small>Time: Instant</small></div>
+                <div class="step"><b>Step 6: Direct VFS Filing</b><span>You book your own appointment at <a href="https://www.vfsglobal.com" target="_blank">VFS Global</a> India. You pay only the official fee (~₹10,500).</span><small>Time: 2 Weeks</small></div>
+                <div class="step"><b>Step 7: Travel Booking</b><span>You choose your airline and travel to Bucharest or Cluj. You are a free professional.</span><small>Time: 1 Week</small></div>
+                <div class="step"><b>Step 8: Self-Managed Permit</b><span>You apply for your <b>Temporary Residence Permit</b> at the local IGI office yourself after landing.</span><small>Time: 3-6 Months</small></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: FEE COMPARISON -->
+    <div class="section-card">
+        <div class="section-header">2. Financial Comparison (INR)</div>
+        <div class="grid-2">
+            <div>
+                <h4 style="text-align:center;">DIY EXPENDITURE</h4>
+                <table>
+                    <tr><th>Stage</th><th>Cost</th></tr>
+                    <tr><td>Visa Fee (€120)</td><td>₹10,800</td></tr>
+                    <tr><td>VFS Service Fee</td><td>₹2,500</td></tr>
+                    <tr><td>PCC & Apostille</td><td>₹8,000</td></tr>
+                    <tr><td>Flight Ticket</td><td>₹45,000</td></tr>
+                    <tr class="highlight-row"><td>TOTAL</td><td>~ ₹66,300</td></tr>
+                </table>
+            </div>
+            <div>
+                <h4 style="text-align:center;">AGENCY EXPENDITURE</h4>
+                <table>
+                    <tr><th>Stage</th><th>Cost</th></tr>
+                    <tr><td>"Job Search" Bribe</td><td>₹2L - ₹6L</td></tr>
+                    <tr><td>Agency Service Fee</td><td>₹1.5 Lacs</td></tr>
+                    <tr><td>Markup on Govt Fees</td><td>₹30,000</td></tr>
+                    <tr><td>Visa & Flight Surcharge</td><td>₹25,000</td></tr>
+                    <tr class="highlight-row" style="background: #fff1f2; color:#ff4757;"><td>TOTAL</td><td>₹4 - ₹9 LACS</td></tr>
+                </table>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:20px; font-weight:900; font-size:1.5rem; color:#ff4757;">MONEY LOST TO AGENT: ₹5,50,000+</div>
+    </div>
+
+    <!-- SECTION 3: TIME & RISK -->
+    <div class="section-card">
+        <div class="section-header">3. Timeline & Critical Risks</div>
+        <div class="grid-2">
+            <div class="process-box">
+                <h4 style="margin:0 0 15px 0;">TIMELINE</h4>
+                <p>• <b>Job Hunting:</b> 2-5 months (Direct apps)</p>
+                <p>• <b>IGI Work Permit:</b> 3 months (Standard)</p>
+                <p>• <b>Visa Stamping:</b> 15 working days</p>
+                <p><b>Note:</b> Romania has joined Schengen for air/sea. This means security checks are now 10x stricter. Any agent promising a "100% guarantee" is ignoring the new EU-wide security protocols.</p>
+            </div>
+            <div class="process-box" style="border-color:#ff4757;">
+                <h4 style="margin:0 0 15px 0; color:#ff4757;">CRITICAL RISKS</h4>
+                <p>• <b>The "Schengen Lie":</b> Agents saying you can work in Germany on a Romanian visa. This is 100% ILLEGAL.</p>
+                <p>• <b>Labour Scams:</b> Paying ₹5 Lakhs for a job that pays only ₹40,000/month in Romania.</p>
+                <p>• <b>Container Housing:</b> Being forced to live in poor, crowded accommodation provided by the "Visa Supplier."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: SUCCESS FACTORS -->
+    <div class="section-card">
+        <div class="section-header">4. What Actually Decides Success?</div>
+        <div style="display:flex; flex-direction:column; gap:15px;">
+            <div class="step"><b>1. Technical Vocation</b><span>Automotive mechanics, welders, and skilled cooks are the most sponsored roles in Romania.</span></div>
+            <div class="step"><b>2. English Proficiency</b><span>While not legally required like Australia, basic English is needed to clear technical interviews with HR.</span></div>
+            <div class="step"><b>3. Clean Legal Record</b><span>A clean PCC (Police Clearance) is non-negotiable for IGI approval.</span></div>
+            <div class="step"><b>4. Direct Recruitment</b><span>Real Romanian firms in Timișoara or Cluj prefer direct hiring to avoid the legal liability of third-party agents.</span></div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: FINAL CONCLUSION -->
+    <div class="section-card">
+        <div class="section-header">5. Final Verdict</div>
+        <div class="conclusion-box">
+            <div class="pro-con-card pro-bg">
+                <h4 style="color:#00c853;">PROS of DIY</h4>
+                <p>✔ Absolute Safety: You follow the clean legal path with the IGI.</p>
+                <p>✔ Financial Freedom: You land in Europe with zero debt.</p>
+                <p>✔ Mobility: You own your papers and can legally change jobs after 1 year.</p>
+            </div>
+            <div class="pro-con-card con-bg">
+                <h4 style="color:#ff5252;">CONS of AGENCY</h4>
+                <p>✖ High Debt: Spending years of salary just to pay the agent's commission.</p>
+                <p>✖ Fraud Risk: High risk of being banned from the entire Schengen area for forgery.</p>
+                <p>✖ Bonded Labour: You are forced to stay with an abusive employer to pay off your loan.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px; text-align: center; background: var(--black); color: var(--white); padding: 30px; border-radius: 20px; font-weight: 900; border: 4px solid var(--aqua);">
+            FINAL VERDICT: Romania is an entry point to the European Union. Do not enter with a lie. A real Romanian work permit costs less than ₹10,000 total. Save your lakhs for your future travel across Europe, not for an agent's pocket.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
