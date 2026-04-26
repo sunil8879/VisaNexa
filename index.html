@@ -727,6 +727,7 @@
             <thead>
                 <tr>
                     <th style="width: 25%;">Document Name</th>
+ <th style="width: 15%;">Action By</th> <!-- NEW COLUMN -->
                     <th style="width: 25%;">Full Form / Description</th>
                     <th style="width: 25%;">Stage of Use</th>
                     <th style="width: 25%;">Internal Fee (Approx)</th>
@@ -6383,157 +6384,6 @@ $(document).ready(function() {
 
 
 const docDatabase = {
-usa: {
-
-    tourist: [
-        {
-            name: "DS-160",
-            full: "Online Nonimmigrant Visa Application Form (DS-160) – US Department of State https://ceac.state.gov/CEAC",
-            applied_by: "Applicant",
-            stage: "Main visa application submission",
-            fee: "USD 185"
-        },
-        {
-            name: "Passport",
-            full: "Valid Passport issued by home country government passport authority",
-            applied_by: "Applicant",
-            stage: "Identity document",
-            fee: "Passport issuance cost (home country)"
-        },
-        {
-            name: "Visa Interview Appointment",
-            full: "Appointment booking via US Visa Scheduling system https://www.ustraveldocs.com",
-            applied_by: "Applicant",
-            stage: "Interview scheduling",
-            fee: "Included in visa fee"
-        },
-        {
-            name: "Financial Proof",
-            full: "Bank statements / income proof / tax returns",
-            applied_by: "Applicant",
-            stage: "Proof of financial capability",
-            fee: "NIL"
-        },
-        {
-            name: "Travel Itinerary",
-            full: "Planned trip schedule and accommodation details",
-            applied_by: "Applicant",
-            stage: "Travel intent proof",
-            fee: "NIL"
-        }
-    ],
-
-    business: [
-        {
-            name: "DS-160",
-            full: "Nonimmigrant Business Visa Form (B1) https://ceac.state.gov/CEAC",
-            applied_by: "Applicant",
-            stage: "Main application",
-            fee: "USD 185"
-        },
-        {
-            name: "Invitation Letter",
-            full: "Business invitation from US company (USCIS-related verification https://www.uscis.gov)",
-            applied_by: "US Company",
-            stage: "Purpose verification",
-            fee: "NIL"
-        },
-        {
-            name: "Company Proof",
-            full: "US company registration / EIN verification https://www.irs.gov",
-            applied_by: "US Company",
-            stage: "Host legitimacy",
-            fee: "NIL"
-        }
-    ],
-
-    work: [
-        {
-            name: "Petition (I-129)",
-            full: "H-1B / Work visa petition filed with USCIS https://www.uscis.gov/i-129",
-            applied_by: "US Employer",
-            stage: "Primary work authorization",
-            fee: "USD 460–780+"
-        },
-        {
-            name: "Labor Condition Application (LCA)",
-            full: "Filed with US Department of Labor https://flag.dol.gov",
-            applied_by: "US Employer",
-            stage: "Wage & labor compliance",
-            fee: "NIL"
-        },
-        {
-            name: "DS-160",
-            full: "Visa application form https://ceac.state.gov/CEAC",
-            applied_by: "Applicant",
-            stage: "Embassy application",
-            fee: "USD 185"
-        },
-        {
-            name: "Job Offer Letter",
-            full: "Employment contract from US company",
-            applied_by: "US Employer",
-            stage: "Employment proof",
-            fee: "NIL"
-        }
-    ],
-
-    study: [
-        {
-            name: "DS-160",
-            full: "Student Visa Application Form (F-1) https://ceac.state.gov/CEAC",
-            applied_by: "Applicant",
-            stage: "Visa application",
-            fee: "USD 185"
-        },
-        {
-            name: "I-20 Form",
-            full: "Certificate of Eligibility issued by US university https://www.ice.gov/sevis",
-            applied_by: "US University",
-            stage: "Admission proof",
-            fee: "NIL"
-        },
-        {
-            name: "SEVIS Fee",
-            full: "Student Exchange Visitor Information System fee https://fmjfee.com",
-            applied_by: "Applicant",
-            stage: "Mandatory student fee",
-            fee: "USD 350"
-        },
-        {
-            name: "Financial Proof",
-            full: "Bank statement / sponsor letter",
-            applied_by: "Applicant",
-            stage: "Funding proof",
-            fee: "NIL"
-        }
-    ],
-
-    investor: [
-        {
-            name: "E-2 Visa Application",
-            full: "Investor visa application via US Embassy https://travel.state.gov",
-            applied_by: "Applicant",
-            stage: "Investor visa filing",
-            fee: "USD 205"
-        },
-        {
-            name: "Business Plan",
-            full: "Investment and operational business plan",
-            applied_by: "Applicant",
-            stage: "Investment justification",
-            fee: "NIL"
-        },
-        {
-            name: "Investment Proof",
-            full: "Bank statements showing capital investment",
-            applied_by: "Applicant",
-            stage: "Capital verification",
-            fee: "NIL"
-        }
-    ]
-},
-
 uk: {
 
     tourist: [
@@ -11767,23 +11617,57 @@ luxembourg: {
 };
 
 // --- LOGIC TO POPULATE THE OUTPUT TABLE ---
+// --- UPDATED LOGIC TO MAKE LINKS CLICKABLE ---
 function generateDocChecklist() {
     const country = $('#docCountry').val();
     const visa = $('#docVisaType').val();
     const $container = $('#docOutputContainer');
     const $body = $('#docResultBody');
     
+    // Helper to turn URL strings into clickable buttons
+    const linkify = (text) => {
+        if (!text) return "";
+        const urlPattern = /(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+        return text.replace(urlPattern, '<a href="$1" target="_blank" style="color: #00b894; text-decoration: underline; font-weight: 900;">[CLICK HERE]</a>');
+    };
+
     $body.empty();
     
     if (docDatabase[country] && docDatabase[country][visa]) {
         const docs = docDatabase[country][visa];
         docs.forEach(d => {
+            // 1. INITIALIZE ACTION BY
+            let actionBy = d.applied_by || d.issued_by || d.filledBy || d.filled_by || d.appliedBy || "-";
+            let rawDescription = d.full || "";
+
+            // 2. PATTERN A: Handle Parentheses (USA Style: "(Filed by: Applicant)")
+            const bracketRegex = /\((?:Filed|Booked|Owned|Generated|Issued|Provided)\s*by:\s*([^)]+)\)/i;
+            const bracketMatch = rawDescription.match(bracketRegex);
+            
+            if (bracketMatch) {
+                actionBy = bracketMatch[1].trim(); // Extract name (e.g. Applicant)
+                rawDescription = rawDescription.replace(bracketMatch[0], "").trim(); // Remove bracket from desc
+            }
+
+            // 3. PATTERN B: Handle Pipes (Australia/UAE/NZ Style: "| Filed by: Applicant")
+            if (rawDescription.includes('|')) {
+                const parts = rawDescription.split('|');
+                rawDescription = parts[0].trim();
+                if (parts[1] && parts[1].toLowerCase().includes('by:')) {
+                    actionBy = parts[1].split(':')[1].trim();
+                }
+            }
+
+            // 4. CLEANUP AND RENDER
+            const cleanDescription = linkify(rawDescription.replace(/\s+/g, ' '));
+
             $body.append(`
                 <tr>
                     <td style="color: var(--black); font-weight: 900; text-align: left; padding: 15px; border-bottom: 1px solid #eee;">${d.name}</td>
-                    <td style="text-align: left; padding: 15px; font-style: italic; border-bottom: 1px solid #eee;">${d.full}</td>
-                    <td style="color: #555; padding: 15px; border-bottom: 1px solid #eee;">${d.stage}</td>
-                    <td style="color: #e67e22; font-weight: 900; padding: 15px; border-bottom: 1px solid #eee;">${d.fee}</td>
+                    <td style="color: #444; font-weight: 800; border-bottom: 1px solid #eee; text-transform: uppercase; font-size: 0.75rem;">${actionBy}</td>
+                    <td style="text-align: left; padding: 15px; font-style: italic; border-bottom: 1px solid #eee; line-height: 1.4;">${cleanDescription}</td>
+                    <td style="color: #555; border-bottom: 1px solid #eee;">${d.stage}</td>
+                    <td style="color: #e67e22; font-weight: 900; border-bottom: 1px solid #eee;">${d.fee}</td>
                 </tr>
             `);
         });
@@ -11792,7 +11676,6 @@ function generateDocChecklist() {
         alert("Checklist for this category is currently being synchronized. Please try 'Work' or 'Study'.");
     }
 }
-
 // INITIALIZATION: Populate the My Documents country dropdown separately to avoid duplicates
 $(document).ready(function() {
     const $docDrop = $('#docCountry');
