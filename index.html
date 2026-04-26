@@ -524,6 +524,17 @@
     .section-card { padding: 15px !important; }
     .res-line { grid-template-columns: 1fr !important; gap: 5px; } /* Stack Label/Value */
 }
+
+
+
+.s-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 900;
+    margin-top: 12px;
+    color: #888;
+    text-transform: uppercase;
+}
     </style>
 </head>
 <body>
@@ -677,6 +688,41 @@
 
 
 
+
+<!-- SECTION 8: PROBABILISTIC PROFILE SCORER -->
+<div class="section-card" id="profile-scorer">
+    <div class="section-title">8. What's my profile score?</div>
+    
+    <div class="comp-wrapper" style="text-align: left; gap: 25px;">
+        <!-- INPUT SIDE -->
+        <div class="engine-block">
+            <label style="font-size: 0.7rem; font-weight: 900; color: #666;">SELECT TARGET COUNTRY</label>
+            <select id="scoreCountry" onchange="renderProfileInputs()"></select>
+
+            <label style="font-size: 0.7rem; font-weight: 900; color: #666;">VISA TYPE</label>
+            <select id="visaType" onchange="renderProfileInputs()">
+                <option value="study">STUDY VISA</option>
+                <option value="work">WORK VISA</option>
+            </select>
+
+            <div id="dynamicInputs" style="margin-top: 15px;"></div>
+
+            <button class="cv-btn" style="margin-top: 20px; background: var(--black); color: var(--aqua);" onclick="calculateProfileScore()">Analyze Probabilities</button>
+        </div>
+
+        <!-- RESULT SIDE -->
+        <div class="result-panel" id="scoreResultPanel" style="display: block; border-left: 10px solid var(--black); text-align: center; padding: 40px 20px;">
+            <div id="scoreCircle" style="font-size: 4.5rem; font-weight: 900; color: var(--black); line-height: 1;">0%</div>
+            <div id="scoreLabel" style="font-size: 1.1rem; font-weight: 900; text-transform: uppercase; margin-top: 10px; color: #888;">Enter details to begin</div>
+            
+            <div id="scoreDesc" style="font-size: 0.85rem; color: #444; margin-top: 15px; line-height: 1.5; background: #f9f9f9; padding: 15px; border-radius: 12px; border: 1px solid #eee; display:none;"></div>
+            
+            <div style="margin-top: 20px; font-size: 0.6rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px;">
+                Decision Entropy Index: <span id="riskValueDisplay">-</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- THE TRANSPARENCY PORTAL -->
@@ -6301,6 +6347,151 @@ $(document).ready(function() {
         $taxDrop.append(`<option value="${k}">${k.toUpperCase()}</option>`);
     });
     $taxDrop.val('usa').trigger('change');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+// 1. GRANULAR DATA REPOSITORY
+const riskIndex = {
+    usa: 0.85, uk: 0.75, canada: 0.70, australia: 0.65, germany: 0.60, netherlands: 0.60, france: 0.60, 
+    italy: 0.55, japan: 0.60, southkorea: 0.55, newzealand: 0.55, poland: 0.45, romania: 0.40, 
+    malaysia: 0.35, china: 0.50, singapore: 0.30, southafrica: 0.35, russia: 0.45, luxembourg: 0.55,
+    uae: 0.20, saudiarabia: 0.20, qatar: 0.20, kuwait: 0.15, bahrain: 0.15, oman: 0.15
+};
+
+const gulfRegion = ['uae', 'saudiarabia', 'qatar', 'kuwait', 'bahrain', 'oman'];
+
+function renderProfileInputs() {
+    const type = $('#visaType').val();
+    const isGulf = gulfRegion.includes($('#scoreCountry').val());
+    let html = '';
+
+    // Reusable IELTS Logic
+    const ieltsBlock = isGulf ? '' : `
+        <label class="s-label">ENGLISH PROFICIENCY (IELTS/PTE)</label>
+        <select id="p_ielts">
+            <option value="1.0">7.5+ Bands</option><option value="0.85">7.0 Bands</option>
+            <option value="0.65">6.5 Bands</option><option value="0.4">6.0 Bands</option>
+            <option value="0">Below 5.5</option>
+        </select>`;
+
+    // Reusable Education Logic (Granular Tiers)
+    const eduBlock = `
+        <label class="s-label">HIGHEST EDUCATION LEVEL</label>
+        <select id="p_edu">
+            <option value="1.0">PhD / Doctorate</option><option value="0.95">Masters / PG</option>
+            <option value="0.85">Bachelors / Graduation</option><option value="0.6">Diploma / 3yr Vocational</option>
+            <option value="0.3">HSC / 12th Standard</option>
+        </select>`;
+
+    if (type === 'study') {
+        html = `
+            <label class="s-label">AGE RANGE</label>
+            <select id="p_age"><option value="1.0">18-25</option><option value="0.9">26-30</option><option value="0.7">31-35</option><option value="0.4">36-40</option><option value="0.2">40+</option></select>
+            ${ieltsBlock} ${eduBlock}
+            <label class="s-label">DOCUMENT READINESS (CHECKLIST)</label>
+            <select id="p_docs"><option value="1.0">All 7 Mandatory Ready</option><option value="0.5">4-6 Documents</option><option value="0">Incomplete</option></select>
+            <label class="s-label">PROVED FUNDS (LIQUID ASSETS)</label>
+            <select id="p_funds"><option value="1.0">15 Lacs+</option><option value="0.6">10 Lacs</option><option value="0.1">5 Lacs</option></select>
+            <label class="s-label">INTENT FACTOR (SOP/INTERVIEW)</label>
+            <select id="p_intent"><option value="1.0">Strong Ties to India</option><option value="0.5">Moderate</option><option value="0.1">Weak / Undetermined</option></select>
+        `;
+    } else {
+        html = `
+            ${ieltsBlock} ${eduBlock}
+            <label class="s-label">WORK EXPERIENCE</label>
+            <select id="p_exp"><option value="1.0">5+ Years</option><option value="0.7">4 Years</option><option value="0.3">Below 3 Years</option></select>
+            <label class="s-label">DOCUMENTATION (OFFER/EXP LETTERS)</label>
+            <select id="p_docs"><option value="1.0">Fully Documented</option><option value="0.5">Missing Experience Letters</option><option value="0">Incomplete</option></select>
+            <label class="s-label">ANNUAL SALARY PROOF (INR)</label>
+            <select id="p_salary"><option value="1.0">40L+</option><option value="0.8">20L-40L</option><option value="0.6">10L-20L</option><option value="0.4">5L-10L</option><option value="0.2">Below 5L</option></select>
+            <label class="s-label">INTENT FACTOR</label>
+            <select id="p_intent"><option value="1.0">Strong Intent</option><option value="0.5">Moderate</option><option value="0.2">Weak</option></select>
+        `;
+    }
+    $('#dynamicInputs').html(html);
+}
+
+function calculateProfileScore() {
+    const type = $('#visaType').val();
+    const country = $('#scoreCountry').val();
+    const isGulf = gulfRegion.includes(country);
+    
+    let baseProbability = 0;
+    let weights = {};
+
+    // 1. DYNAMIC WEIGHTING (Sum always equals 100)
+    if (type === 'study') {
+        // Standard: Age(5), IELTS(15), Docs(20), Edu(10), Funds(25), Intent(25)
+        weights = { age: 5, ielts: isGulf ? 0 : 15, docs: 20, edu: 10, funds: isGulf ? 30 : 25, intent: isGulf ? 35 : 25 };
+        
+        baseProbability += (parseFloat($('#p_age').val()) || 0) * weights.age;
+        if(!isGulf) baseProbability += (parseFloat($('#p_ielts').val()) || 0) * weights.ielts;
+        baseProbability += (parseFloat($('#p_docs').val()) || 0) * weights.docs;
+        baseProbability += (parseFloat($('#p_edu').val()) || 0) * weights.edu;
+        baseProbability += (parseFloat($('#p_funds').val()) || 0) * weights.funds;
+        baseProbability += (parseFloat($('#p_intent').val()) || 0) * weights.intent;
+    } else {
+        // Standard: IELTS(10), Docs(20), Exp(30), Edu(15), Salary(15), Intent(10)
+        weights = { ielts: isGulf ? 0 : 10, docs: 20, exp: isGulf ? 35 : 30, edu: 15, salary: isGulf ? 20 : 15, intent: 10 };
+        
+        if(!isGulf) baseProbability += (parseFloat($('#p_ielts').val()) || 0) * weights.ielts;
+        baseProbability += (parseFloat($('#p_docs').val()) || 0) * weights.docs;
+        baseProbability += (parseFloat($('#p_exp').val()) || 0) * weights.exp;
+        baseProbability += (parseFloat($('#p_edu').val()) || 0) * weights.edu;
+        baseProbability += (parseFloat($('#p_salary').val()) || 0) * weights.salary;
+        baseProbability += (parseFloat($('#p_intent').val()) || 0) * weights.intent;
+    }
+
+    // 2. THE SCIENTIFIC FIX: "GAP PENALTY" MODEL
+    // Instead of multiplying the whole score, we only punish the MISSING points based on risk.
+    // If baseProbability is 100, gap is 0, penalty is 0. Result = 100%.
+    const risk = riskIndex[country] || 0.5;
+    const gap = 100 - baseProbability;
+    const penalty = gap * risk; 
+    const finalScore = baseProbability - (penalty * 0.5); // 0.5 dampener to keep it realistic
+
+    displayClassification(finalScore, risk);
+}
+
+function displayClassification(score, risk) {
+    // Force round up and clamp between 0-100
+    const s = Math.min(100, Math.max(0, Math.ceil(score)));
+    
+    $('#scoreCircle').text(s + '%');
+    $('#riskValueDisplay').text(risk.toFixed(2));
+    $('#scoreDesc').show();
+    
+    // UI Feedback based on your 80/50/0 model
+    if (s >= 80) {
+        $('#scoreCircle').css('color', '#2ed573');
+        $('#scoreLabel').text('🔥 STRONG PROFILE').css('color', '#2ed573');
+        $('#scoreDesc').text('High approval probability. Your profile is robust enough to mitigate the inherent risks of the target country.');
+    } else if (s >= 50) {
+        $('#scoreCircle').css('color', '#ffa502');
+        $('#scoreLabel').text('⚖️ AVERAGE PROFILE').css('color', '#ffa502');
+        $('#scoreDesc').text('Success depends on documentation quality. A moderate risk exists due to specific country strictness.');
+    } else {
+        $('#scoreCircle').css('color', '#ff4757');
+        $('#scoreLabel').text('⚠️ WEAK PROFILE').css('color', '#ff4757');
+        $('#scoreDesc').text('High rejection risk. You must improve your core metrics (Funds/Experience) to meet the country threshold.');
+    }
+}
+
+$(document).ready(function() {
+    const $drop = $('#scoreCountry');
+    Object.keys(riskIndex).sort().forEach(k => $drop.append(`<option value="${k}">${k.toUpperCase()}</option>`));
+    $drop.val('usa');
+    renderProfileInputs();
 });
 </script>
 
