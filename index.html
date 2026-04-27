@@ -815,7 +815,7 @@
 
 
 
-<!-- SECTION 9: MY DOCUMENTS ENGINE -->
+<!-- SECTION 8: DOCUMENTATION ENGINE -->
 <div class="section-card" id="documents-module">
     <div class="section-title">8. Visa + Generic Documents Check list</div>
     
@@ -873,7 +873,7 @@
 
 
 
-<!-- SECTION 10: JOB OFFER AUTHENTICITY ENGINE -->
+<!-- SECTION 9: JOB OFFER AUTHENTICITY ENGINE -->
 <div class="section-card" id="authenticity-checker">
     <div class="section-title">9. Job Offer Authenticity Checker</div>
     
@@ -906,7 +906,7 @@
 
 
 
-<!-- SECTION 11: MY PROFILE ANALYSIS -->
+<!-- SECTION 10: MY PROFILE ANALYSIS -->
 <div class="section-card" id="my-profile-module">
     <div class="section-title">10. My Profile Analysis</div>
     
@@ -958,10 +958,12 @@
                     <div id="officerStatus" style="color: #2ed573; font-size: 0.7rem; font-weight: 900;">● READY</div>
                 </div>
             </div>
-            <div style="font-weight: 900; font-size: 0.7rem; color: #aaa;">Question <span id="qNum">1</span> / 50</div>
+            <div style="font-weight: 900; font-size: 0.7rem; color: #aaa;">Question <span id="qNum">1</span> / 20</div>
         </div>
 
         <div id="questionText" style="font-size: 1.25rem; font-weight: 700; color: var(--black); min-height: 70px; margin-bottom: 20px;"></div>
+
+<div id="instructionZone" style="margin-bottom: 20px;"></div> <!-- ADD THIS LINE -->
         
         <div style="background: #f9f9f9; padding: 20px; border-radius: 15px;">
             <textarea id="userAnswer" placeholder="Type or use mic..." style="width: 100%; height: 100px; border: 2px solid #ddd; border-radius: 12px; padding: 15px; font-family: inherit; font-weight: 600; outline: none; margin-bottom: 15px;"></textarea>
@@ -992,7 +994,7 @@
 
 
 
-<!-- THE TRANSPARENCY PORTAL -->
+<!-- 12. THE TRANSPARENCY PORTAL -->
 <details class="transparency-details">
     <summary class="transparency-summary">⚠ 12. UNCOVER THE MIGRATION GREY MARKET: TRUTH REPORT ⚠</summary>
     
@@ -1108,7 +1110,7 @@
     </div>
 </details>
 
-<!-- THE IMMIGRATION ENCYCLOPEDIA -->
+<!--13.  THE IMMIGRATION ENCYCLOPEDIA -->
 <details class="glossary-details">
     <summary class="glossary-summary">📖 13. IMMIGRATION ENCYCLOPEDIA: 50 KEY TERMS DECODED</summary>
     
@@ -1444,7 +1446,7 @@
 
 
 
-<!-- THE IMMIGRATION GLOSSARY -->
+<!-- 14. THE IMMIGRATION GLOSSARY -->
 <details class="glossary-details">
     <summary class="glossary-summary">📚 14. MASTER THE TERMINOLOGY: DECODING VISA JARGON</summary>
     
@@ -1559,7 +1561,7 @@
 
 
 
- <!-- STRATEGIC DISCLOSURE -->
+ <!--15.  STRATEGIC DISCLOSURE -->
 <div class="disclosure-card">
     <div style="font-weight:900; text-transform:uppercase; margin-bottom:12px; letter-spacing:2px; color:var(--black); text-align: center;text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 8px;">Strategic Disclosure</div>
     <div style="font-size: 0.9rem; line-height: 1.6; color: #333; text-align: left;">
@@ -1576,7 +1578,7 @@
 
 
 
-<!-- FOOTER BUTTONS -->
+<!-- 16. FOOTER BUTTONS -->
 <div class="footer-nav">
     <button class="footer-btn" onclick="openNexaModal('privacy')">Privacy Statement</button>
     <button class="footer-btn" onclick="openNexaModal('disclaimer')">Disclaimer</button>
@@ -12368,122 +12370,1415 @@ $(document).ready(() => { toggleProfileMode(); });
 
 
 
+// --- INTERVIEW ENGINE WITH VOICE RECOGNITION ---
+// --- SECTION 11 MASTER DATA: 25 COUNTRIES (Questions + Weights) ---
+
+const countryTone = {
+    usa: "detailed", uk: "academic", canada: "balanced", australia: "career_focused", "new zealand": "intent_focused",
+    uae: "direct", "saudi arabia": "very_short", qatar: "very_short", kuwait: "very_short", bahrain: "very_short", oman: "very_short",
+    singapore: "short", malaysia: "short", china: "formal", russia: "formal", japan: "structured", "south korea": "structured",
+    germany: "technical", france: "academic", italy: "balanced", netherlands: "analytical", luxembourg: "precise", poland: "documented", romania: "simple"
+};
+
+const toneRules = {
+    very_short: { maxSentences: 1, info: "Officers here value extreme brevity. Answer in exactly 1 sentence." },
+    short: { maxSentences: 2, info: "Officers prefer quick, efficient responses. 2 sentences maximum." },
+    direct: { maxSentences: 2, noFluff: true, info: "Business-like environment. No storytelling, stick to facts." },
+    detailed: { minSentences: 2, maxSentences: 4, info: "Comprehensive answers required. Explain your intent fully." },
+    academic: { requireLogic: true, info: "Academic rigor is key. Link your past study to this course." },
+    technical: { requireLogic: true, info: "Technical alignment is vital. Focus on specific skills and modules." },
+    structured: { info: "Discipline matters. Provide a highly organized, clear answer." },
+    formal: { info: "Formal diplomatic tone required. Avoid casual phrasing." },
+    career_focused: { info: "Focus on the future. How does this lead to a specific job in India?" },
+    intent_focused: { info: "Return intent is priority. Focus on your ties to home." },
+    balanced: { info: "Standard interview tone. Balance facts with logical intent." },
+    analytical: { info: "Comparison expected. Why this specifically over other options?" },
+    precise: { info: "High-precision required. Use exact dates and figures." },
+    documented: { info: "Focus on papers. Your answer must match your documents perfectly." },
+    simple: { info: "Clear, simple, and honest communication preferred." }
+};
+
+
+
+
+
 
 // --- INTERVIEW ENGINE WITH VOICE RECOGNITION ---
-const intQuestions = {
-    student: [
-        "Why did you choose this specific university instead of others in your home country?",
-        "Explain how this course connects to your previous education and future career path.",
-        "How will you support yourself financially during your stay? Who is your sponsor?",
-        "What are your specific plans after you complete your degree? Will you return home?",
-        "How can you convince me that you are a genuine student and not a migration risk?",
-        "What is the total cost of your tuition and living expenses for the entire duration?",
-        "Can you name three specific modules from your curriculum that interest you most?",
-        "Why did you choose this country over other popular destinations like the USA or UK?",
-        "What was your most recent GPA or percentage, and does it meet the university criteria?",
-        "How many backlogs did you have during your graduation, and what was the reason?",
-        "Who is your sponsor, and what is their annual income and profession?",
-        "Do you have any relatives or friends currently residing in the target country?",
-        "What is the location of your university and why did you choose that specific city?",
-        "What will you do if your visa is rejected today?",
-        "Can you name the President or Dean of the university you are going to?",
-        "How did you find out about this university? Was it through an agency?",
-        "What is the starting salary you expect to earn back in India after this degree?",
-        "If I offer you a high-paying job in this country after graduation, will you accept it?",
-        "What are your parents' occupations and how long have they been working there?",
-        "Why not study this same course at an IIT or a top-tier Indian institution?",
-        "How will this degree specifically help you in the Indian job market?",
-        "What are your GRE/GMAT or English proficiency test scores?",
-        "Where will you stay during your first month in the country?",
-        "Have you ever traveled to any other foreign country before?",
-        "What is the ranking of your university globally and within the country?",
-        "Tell me about the projects or internships you completed during your previous studies.",
-        "How much money is currently available in your sponsor's bank account?",
-        "Is your funding based on a bank loan? If yes, how do you plan to repay it?",
-        "What assets or properties does your family own in India?",
-        "Will your spouse or children be joining you at a later stage?",
-        "Do you plan to work part-time while studying? How many hours are allowed?",
-        "What specific research or innovation is your chosen university known for?",
-        "How many universities did you apply to, and how many admits did you receive?",
-        "What was the reason for any previous visa rejections you may have had?",
-        "What are the career opportunities for someone with this degree in India?",
-        "How do you plan to adapt to the different climate and culture of this destination?",
-        "Can you explain any significant gaps in your academic or professional history?",
-        "What is the importance of this specialization in the current global economy?",
-        "Who are the top recruiters for this course in your home country?",
-        "What are your long-term career goals ten years from now?",
-        "Do your parents have any other dependents apart from you?",
-        "How will you manage your living expenses if your sponsor stops supporting you?",
-        "What subjects did you study in your previous degree that are relevant now?",
-        "Are you currently working? If so, why are you leaving your job for further studies?",
-        "What is the duration of your course and the total number of credits required?",
-        "What specific technical skills do you hope to acquire from this program?",
-        "Tell me about the city where your university is located. What is its main industry?",
-        "What makes this university better than the other ones you were considering?",
-        "Do you have a travel insurance policy for the duration of your flight and stay?",
-        "Why should I grant you this visa over hundreds of other applicants?"
-    ],
-    work: [
-        "What makes you uniquely qualified for this role compared to a local citizen?",
-        "Describe your daily responsibilities and how they align with your visa category.",
-        "What is your current salary in India and how does the new offer compare?",
-        "Do you have any family members currently residing in the target country?",
-        "How long do you intend to stay, and what is your plan once your permit expires?",
-        "How did you find this job? Was it through a recruitment portal or a headhunter?",
-        "How many rounds of interviews did you clear before receiving this offer?",
-        "Can you explain the core business of your sponsoring company?",
-        "Who will you be reporting to, and what is their designation in the company?",
-        "What is the prevailing wage for your role in the city where you will work?",
-        "Do you have an I-129 petition or a Certificate of Sponsorship (CoS) reference?",
-        "What specific technical skills do you possess that are currently in shortage abroad?",
-        "Have you ever worked for an international client or in a multicultural team?",
-        "Will you be working at the employer's office or at a third-party client site?",
-        "What is the total revenue and employee strength of your sponsoring company?",
-        "Do you have any previous visa rejections from any other country?",
-        "Will your family be traveling with you on a dependent visa?",
-        "How do you plan to handle the significantly higher cost of living in the destination?",
-        "Can you show me your tax returns (ITR) for the last three years from India?",
-        "What was your role in your most recent project in your Indian company?",
-        "Why did you choose to leave your current organization at this stage of your career?",
-        "How long have you been working in this specific industry?",
-        "What are the specialized tools or softwares you use in your daily work?",
-        "What will happen to your job if the company faces a financial downturn?",
-        "Do you have any specialized certifications relevant to this foreign role?",
-        "Is your employer providing your accommodation or a relocation allowance?",
-        "What are your plans regarding your properties and assets in India?",
-        "How will your move benefit the economy of the host country?",
-        "Do you know the laws regarding your rights as a foreign worker in that country?",
-        "How do you plan to manage your social security and pension contributions?",
-        "Can you explain any career gaps exceeding six months in your resume?",
-        "Have you ever been involved in any legal or criminal proceedings in any country?",
-        "What is the contract duration mentioned in your employment agreement?",
-        "What will you do if your employment is terminated unexpectedly?",
-        "How often do you plan to visit your family back in India?",
-        "What is the primary language spoken at your new workplace?",
-        "Do you have a letter from your current employer stating your years of service?",
-        "What makes this specific company better than other competitors in the market?",
-        "Will you be managing a team, or is this an individual contributor role?",
-        "What is the address of your new office and how will you commute?",
-        "How does this international role fit into your 10-year professional vision?",
-        "Can you describe a major professional challenge you solved in your career?",
-        "Who are the main competitors of your new employer in the target country?",
-        "What is the notice period in your new contract?",
-        "Do you have your updated bank statements to prove initial survival funds?",
-        "Was the job advertised locally before it was offered to you?",
-        "Do you intend to apply for permanent residency if given the opportunity?",
-        "How will you contribute to the technical growth of your new team?",
-        "What was your salary in your very first job compared to now?",
-        "Why should I believe that you will not overstay your work permit?"
-    ]
+// --- SECTION 11 MASTER DATA: 25 COUNTRIES (Questions + Weights) ---
+
+const countryProfiles = {
+    usa: {
+        study: { ev: 0.25, int: 0.40, rel: 0.10, log: 0.15, dir: 0.10 },
+        work:  { ev: 0.50, int: 0.15, rel: 0.15, log: 0.10, dir: 0.10 },
+        focus: "Return Intent vs. Petition Validity"
+    },
+    uk: {
+        study: { ev: 0.40, int: 0.15, rel: 0.10, log: 0.25, dir: 0.10 },
+        work:  { ev: 0.60, int: 0.05, rel: 0.20, log: 0.05, dir: 0.10 },
+        focus: "Academic Logic vs. CoS Credibility"
+    },
+    canada: {
+        study: { ev: 0.30, int: 0.35, rel: 0.10, log: 0.20, dir: 0.05 },
+        work:  { ev: 0.55, int: 0.10, rel: 0.20, log: 0.10, dir: 0.05 },
+        focus: "SOP Logic vs. LMIA Authenticity"
+    },
+    uae: {
+        study: { ev: 0.40, int: 0.10, rel: 0.20, log: 0.10, dir: 0.20 },
+        work:  { ev: 0.65, int: 0.00, rel: 0.15, log: 0.05, dir: 0.15 },
+        focus: "Sponsor Legitimacy"
+    },
+    australia: {
+        study: { ev: 0.25, int: 0.35, rel: 0.15, log: 0.20, dir: 0.05 },
+        work:  { ev: 0.45, int: 0.10, rel: 0.30, log: 0.10, dir: 0.05 },
+        focus: "Genuine Student Test vs. Skill Match"
+    },
+    "new zealand": {
+        study: { ev: 0.30, int: 0.30, rel: 0.15, log: 0.20, dir: 0.05 },
+        work:  { ev: 0.50, int: 0.10, rel: 0.25, log: 0.10, dir: 0.05 },
+        focus: "Return Ties vs. Job Check Approval"
+    },
+    "saudi arabia": {
+        study: { ev: 0.50, int: 0.10, rel: 0.15, log: 0.10, dir: 0.15 },
+        work:  { ev: 0.70, int: 0.00, rel: 0.15, log: 0.05, dir: 0.10 },
+        focus: "Employer Control & Contract Match"
+    },
+    qatar: {
+        study: { ev: 0.50, int: 0.10, rel: 0.15, log: 0.10, dir: 0.15 },
+        work:  { ev: 0.65, int: 0.00, rel: 0.20, log: 0.05, dir: 0.10 },
+        focus: "Work Authorization Details"
+    },
+    kuwait: {
+        study: { ev: 0.55, int: 0.10, rel: 0.10, log: 0.10, dir: 0.15 },
+        work:  { ev: 0.75, int: 0.00, rel: 0.15, log: 0.00, dir: 0.10 },
+        focus: "Labor Department Approval"
+    },
+    bahrain: {
+        study: { ev: 0.50, int: 0.10, rel: 0.15, log: 0.10, dir: 0.15 },
+        work:  { ev: 0.70, int: 0.00, rel: 0.20, log: 0.05, dir: 0.05 },
+        focus: "Sponsorship Authenticity"
+    },
+    oman: {
+        study: { ev: 0.50, int: 0.10, rel: 0.15, log: 0.10, dir: 0.15 },
+        work:  { ev: 0.70, int: 0.00, rel: 0.20, log: 0.05, dir: 0.05 },
+        focus: "Visa Clearance Accuracy"
+    },
+    china: {
+        study: { ev: 0.40, int: 0.20, rel: 0.15, log: 0.15, dir: 0.10 },
+        work:  { ev: 0.55, int: 0.05, rel: 0.20, log: 0.10, dir: 0.10 },
+        focus: "JW201/2 Form vs. Work Permit Match"
+    },
+    russia: {
+        study: { ev: 0.45, int: 0.15, rel: 0.15, log: 0.10, dir: 0.15 },
+        work:  { ev: 0.60, int: 0.05, rel: 0.20, log: 0.05, dir: 0.10 },
+        focus: "Invitation Letter Consistency"
+    },
+    "south africa": {
+        study: { ev: 0.35, int: 0.25, rel: 0.15, log: 0.15, dir: 0.10 },
+        work:  { ev: 0.50, int: 0.10, rel: 0.25, log: 0.10, dir: 0.05 },
+        focus: "Financial Capability vs. Critical Skills"
+    },
+    japan: {
+        study: { ev: 0.35, int: 0.15, rel: 0.15, log: 0.25, dir: 0.10 },
+        work:  { ev: 0.50, int: 0.05, rel: 0.25, log: 0.10, dir: 0.10 },
+        focus: "COE Data & Purpose Clarity"
+    },
+    "south korea": {
+        study: { ev: 0.35, int: 0.15, rel: 0.15, log: 0.25, dir: 0.10 },
+        work:  { ev: 0.50, int: 0.05, rel: 0.25, log: 0.10, dir: 0.10 },
+        focus: "Admission Letter vs. VIC Approval"
+    },
+    singapore: {
+        study: { ev: 0.45, int: 0.10, rel: 0.20, log: 0.15, dir: 0.10 },
+        work:  { ev: 0.60, int: 0.00, rel: 0.25, log: 0.05, dir: 0.10 },
+        focus: "MOM/ICA Data Synchronization"
+    },
+    malaysia: {
+        study: { ev: 0.50, int: 0.15, rel: 0.15, log: 0.10, dir: 0.10 },
+        work:  { ev: 0.65, int: 0.05, rel: 0.20, log: 0.05, dir: 0.05 },
+        focus: "EMGS/ESD Approval Verification"
+    },
+    germany: {
+        study: { ev: 0.30, int: 0.15, rel: 0.15, log: 0.35, dir: 0.05 },
+        work:  { ev: 0.50, int: 0.05, rel: 0.30, log: 0.10, dir: 0.05 },
+        focus: "Academic Merit vs. Technical Expertise"
+    },
+    france: {
+        study: { ev: 0.35, int: 0.20, rel: 0.15, log: 0.25, dir: 0.05 },
+        work:  { ev: 0.50, int: 0.10, rel: 0.25, log: 0.10, dir: 0.05 },
+        focus: "Campus France vs. Talent Passport Logic"
+    },
+    italy: {
+        study: { ev: 0.40, int: 0.20, rel: 0.15, log: 0.20, dir: 0.05 },
+        work:  { ev: 0.55, int: 0.10, rel: 0.20, log: 0.10, dir: 0.05 },
+        focus: "Universitaly Match vs. Nulla Osta"
+    },
+    netherlands: {
+        study: { ev: 0.35, int: 0.15, rel: 0.20, log: 0.25, dir: 0.05 },
+        work:  { ev: 0.50, int: 0.05, rel: 0.30, log: 0.10, dir: 0.05 },
+        focus: "Knowledge-Based Entry vs. Skill Demand"
+    },
+    luxembourg: {
+        study: { ev: 0.45, int: 0.15, rel: 0.15, log: 0.20, dir: 0.05 },
+        work:  { ev: 0.60, int: 0.05, rel: 0.25, log: 0.05, dir: 0.05 },
+        focus: "Financial Stability & Technical Role"
+    },
+    poland: {
+        study: { ev: 0.40, int: 0.20, rel: 0.15, log: 0.20, dir: 0.05 },
+        work:  { ev: 0.55, int: 0.05, rel: 0.25, log: 0.10, dir: 0.05 },
+        focus: "Document Authenticity & Work Permit"
+    },
+    romania: {
+        study: { ev: 0.45, int: 0.15, rel: 0.15, log: 0.15, dir: 0.10 },
+        work:  { ev: 0.60, int: 0.05, rel: 0.20, log: 0.10, dir: 0.05 },
+        focus: "IGI Approval Consistency"
+    }
 };
+const intQuestions = {
+   usa: {
+        study: [
+            "Why did you choose this university in the USA?",
+            "Why not study this course in India?",
+            "What is your major and why did you select it?",
+            "Which other universities did you apply to?",
+            "What is the total cost of your education in the USA?",
+            "Who is sponsoring your education?",
+            "What does your sponsor do and what is their annual income?",
+            "How will you pay for your second year?",
+            "What is your GRE/IELTS/TOEFL score?",
+            "When did you complete your last degree? What have you been doing since then?",
+            "Can you explain your academic background?",
+            "What are your plans after completing your degree?",
+            "Do you plan to return to India after your studies?",
+            "Do you have any relatives in the USA?",
+            "Have you ever been to the USA before?",
+            "What does your university specialize in?",
+            "Where is your university located?",
+            "What is the duration of your course?",
+            "What are your career plans after returning to India?",
+            "Why should I grant you this visa?"
+        ],
+        work: [
+            "What is your job role in the USA?",
+            "Who is your employer?",
+            "What does your company do?",
+            "How did you get this job offer?",
+            "What are your job responsibilities?",
+            "What is your salary in the USA?",
+            "What was your salary in India?",
+            "Why are you being hired instead of a US citizen?",
+            "What special skills do you have?",
+            "Where will you work (location/address)?",
+            "Who will you report to?",
+            "What is your highest qualification?",
+            "Do you have experience in this field? How many years?",
+            "Have you worked with international clients before?",
+            "Do you have your petition approval (I-129)?",
+            "Is this a client-side role or direct employment?",
+            "How long is your contract?",
+            "Will your family accompany you?",
+            "What will you do after your work permit ends?",
+            "Do you plan to settle permanently in the USA?"
+        ]
+    },
+   uk: {
+        study: [
+            "Why did you choose this university in the UK?",
+            "Why did you choose this course specifically?",
+            "How does this course relate to your previous studies?",
+            "Why not study this course in India?",
+            "What are your plans after completing your studies?",
+            "Do you intend to return to India after your course?",
+            "Who is sponsoring your education?",
+            "What is your sponsor’s occupation and annual income?",
+            "What is the total cost of your tuition fees?",
+            "How will you manage your living expenses in the UK?",
+            "Do you have a CAS (Confirmation of Acceptance for Studies)?",
+            "What is the duration of your course?",
+            "Where is your university located?",
+            "What modules will you study in this course?",
+            "What are your English test scores (IELTS/PTE)?",
+            "Have you ever traveled abroad before?",
+            "Do you have any relatives in the UK?",
+            "What will you do if your visa is refused?",
+            "What career opportunities will this course give you in India?",
+            "Why should we grant you a UK student visa?"
+        ],
+        work: [
+            "What is your job role in the UK?",
+            "Who is your sponsoring employer?",
+            "What does your company do?",
+            "How did you get this job offer?",
+            "Do you have a Certificate of Sponsorship (CoS)?",
+            "What is your salary in the UK?",
+            "What are your job responsibilities?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have?",
+            "Why were you selected instead of a UK resident?",
+            "Where will you be working (location)?",
+            "Who will you report to?",
+            "What is the duration of your contract?",
+            "Will your family accompany you?",
+            "What will you do after your visa expires?",
+            "Do you plan to settle permanently in the UK?",
+            "What is your current salary in India?",
+            "How will you manage your living expenses initially?",
+            "Are you aware of your rights as a worker in the UK?",
+            "Why do you want to work in the UK?"
+        ]
+    },
+
+canada: {
+        study: [
+            "Why did you choose this course in Canada?",
+            "Why did you choose this specific college/university?",
+            "How does this course relate to your previous education or work experience?",
+            "Why not study this course in India?",
+            "What are your plans after completing your studies?",
+            "Do you plan to return to India after your course?",
+            "Who is sponsoring your education?",
+            "What is your sponsor’s occupation and annual income?",
+            "What is the total cost of your tuition and living expenses?",
+            "How will you fund your entire stay in Canada?",
+            "Have you paid your tuition fees? How much?",
+            "Have you purchased a GIC (Guaranteed Investment Certificate)?",
+            "What is the duration of your course?",
+            "Where is your college/university located?",
+            "What are the key subjects/modules in your course?",
+            "What English test have you taken and what is your score (IELTS/PTE)?",
+            "Do you have any study gaps? If yes, explain them.",
+            "Do you have any relatives in Canada?",
+            "Have you applied to any other countries?",
+            "Why should we approve your study permit?"
+        ],
+        work: [
+            "What is your job role in Canada?",
+            "Who is your employer?",
+            "What does your company do?",
+            "How did you receive this job offer?",
+            "Do you have an LMIA (Labour Market Impact Assessment)?",
+            "What are your job responsibilities?",
+            "What is your salary in Canada?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have?",
+            "Why were you selected instead of a Canadian worker?",
+            "Where will you be working (city/location)?",
+            "What is the duration of your work permit?",
+            "Will your family accompany you?",
+            "How will you manage your initial living expenses?",
+            "What is your current salary in India?",
+            "Have you worked with international clients before?",
+            "What will you do after your work permit expires?",
+            "Do you plan to apply for permanent residency (PR)?",
+            "Are you aware of Canadian work laws and conditions?",
+            "Why do you want to work in Canada?"
+        ]
+    },
+
+uae: {
+        study: [
+            "Why did you choose to study in the UAE?",
+            "Why did you select this university/college?",
+            "What course have you chosen and why?",
+            "How does this course relate to your previous education?",
+            "Who is sponsoring your education?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your course?",
+            "Where will you stay in the UAE?",
+            "Do you have any relatives in the UAE?",
+            "What are your plans after completing your studies?",
+            "Do you intend to return to India after your course?",
+            "Have you traveled abroad before?",
+            "What is the duration of your course?",
+            "What are the main subjects/modules in your course?",
+            "How will this course help your career?",
+            "Why not study this course in India?",
+            "Do you plan to work part-time while studying?",
+            "What do your parents do?",
+            "How did you find this university?",
+            "Why should we grant you a UAE student visa?"
+        ],
+        work: [
+            "What job have you been offered in the UAE?",
+            "Who is your employer?",
+            "What does your company do?",
+            "How did you get this job?",
+            "What is your salary in the UAE?",
+            "What are your job responsibilities?",
+            "What is your qualification for this role?",
+            "How many years of experience do you have?",
+            "Where will you be working (city/company location)?",
+            "Do you have an employment contract?",
+            "Who is sponsoring your visa?",
+            "Will your company provide accommodation?",
+            "Will your family accompany you?",
+            "What is your current salary in India?",
+            "Have you worked abroad before?",
+            "What will you do if you lose your job?",
+            "Do you plan to stay long-term in the UAE?",
+            "How will you manage your expenses initially?",
+            "Are you aware of UAE work laws?",
+            "Why do you want to work in the UAE?"
+        ]
+    },
+
+australia: {
+        study: [
+            "Why did you choose to study in Australia?",
+            "Why did you choose this specific university/college?",
+            "Why did you select this course?",
+            "How does this course relate to your previous studies or work experience?",
+            "Why not study this course in India?",
+            "What are your plans after completing your studies?",
+            "Do you intend to return to India after your course?",
+            "How will this course help your career in India?",
+            "Who is sponsoring your education?",
+            "What is your sponsor’s occupation and annual income?",
+            "What is the total cost of your tuition and living expenses?",
+            "How will you fund your studies in Australia?",
+            "Where will you stay in Australia?",
+            "What is the duration of your course?",
+            "What subjects/modules will you study?",
+            "Do you have any study gaps? Explain them.",
+            "Have you applied to other countries?",
+            "Do you have any relatives in Australia?",
+            "What English test have you taken and what is your score (IELTS/PTE)?",
+            "Why should we grant you an Australian student visa?"
+        ],
+        work: [
+            "What job role have you been offered in Australia?",
+            "Who is your employer?",
+            "What does your company do?",
+            "How did you get this job?",
+            "What are your job responsibilities?",
+            "What is your salary in Australia?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have?",
+            "Why were you selected instead of a local worker?",
+            "Where will you be working (city/location)?",
+            "What type of visa are you applying for?",
+            "What is the duration of your contract?",
+            "Will your family accompany you?",
+            "What is your current salary in India?",
+            "How will you manage your initial living expenses?",
+            "Are you aware of Australian workplace laws?",
+            "Have you worked with international clients before?",
+            "What will you do after your visa expires?",
+            "Do you plan to apply for permanent residency (PR)?",
+            "Why do you want to work in Australia?"
+        ]
+    },
+
+"new zealand": {
+        study: [
+            "Why did you choose to study in New Zealand?",
+            "Why did you select this university/college?",
+            "Why did you choose this course?",
+            "How does this course relate to your previous education or work experience?",
+            "Why not study this course in India?",
+            "What are your plans after completing your studies?",
+            "Do you intend to return to India after your course?",
+            "How will this course help your career in India?",
+            "Who is sponsoring your education?",
+            "What is your sponsor’s occupation and annual income?",
+            "What is the total cost of your tuition and living expenses?",
+            "How will you fund your studies in New Zealand?",
+            "Where will you stay in New Zealand?",
+            "What is the duration of your course?",
+            "What subjects/modules will you study?",
+            "Do you have any study gaps? Explain them.",
+            "Have you applied to other countries?",
+            "Do you have any relatives in New Zealand?",
+            "What English test have you taken and what is your score (IELTS/PTE)?",
+            "Why should we grant you a New Zealand student visa?"
+        ],
+        work: [
+            "What job role have you been offered in New Zealand?",
+            "Who is your employer?",
+            "What does your company do?",
+            "How did you get this job?",
+            "What are your job responsibilities?",
+            "What is your salary in New Zealand?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have?",
+            "Why were you selected instead of a local worker?",
+            "Where will you be working (city/location)?",
+            "What type of visa are you applying for?",
+            "What is the duration of your contract?",
+            "Will your family accompany you?",
+            "What is your current salary in India?",
+            "How will you manage your initial living expenses?",
+            "Are you aware of New Zealand work laws?",
+            "Have you worked with international clients before?",
+            "What will you do after your visa expires?",
+            "Do you plan to apply for residency in the future?",
+            "Why do you want to work in New Zealand?"
+        ]
+    },
+
+"saudi arabia": {
+        study: [
+            "Why did you choose to study in Saudi Arabia?",
+            "Which university or institution have you been admitted to?",
+            "What course have you selected?",
+            "How is this course related to your previous education?",
+            "Who is sponsoring your education?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your studies?",
+            "Where will you stay in Saudi Arabia?",
+            "Do you have any relatives in Saudi Arabia?",
+            "What are your plans after completing your studies?",
+            "Do you intend to return to India after your course?",
+            "What is the duration of your course?",
+            "What subjects/modules will you study?",
+            "Have you traveled abroad before?",
+            "What do your parents do?",
+            "How did you find out about this university?",
+            "Why not study this course in India?",
+            "Do you plan to work while studying?",
+            "Are you aware of the laws and culture in Saudi Arabia?",
+            "Why should we grant you a Saudi student visa?"
+        ],
+        work: [
+            "What job have you been offered in Saudi Arabia?",
+            "Who is your employer/sponsor?",
+            "What does your company do?",
+            "How did you get this job?",
+            "Do you have an employment contract registered with Qiwa?",
+            "What is your salary in Saudi Arabia?",
+            "What are your job responsibilities?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have?",
+            "Where will you be working (city/location)?",
+            "Who is sponsoring your visa?",
+            "Will your employer provide accommodation?",
+            "What benefits are included in your contract?",
+            "Will your family accompany you?",
+            "What is your current salary in India?",
+            "Have you worked abroad before?",
+            "Are you aware of Saudi labor laws?",
+            "What will you do if your contract ends?",
+            "Do you plan to stay long-term in Saudi Arabia?",
+            "Why do you want to work in Saudi Arabia?"
+        ]
+    },
+
+qatar: {
+        study: [
+            "Why did you choose to study in Qatar?",
+            "Which university or institution have you been admitted to?",
+            "What course have you selected?",
+            "How does this course relate to your previous education?",
+            "Who is sponsoring your education?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your studies?",
+            "Where will you stay in Qatar?",
+            "Do you have any relatives in Qatar?",
+            "What are your plans after completing your studies?",
+            "Do you intend to return to India after your course?",
+            "What is the duration of your course?",
+            "What subjects/modules will you study?",
+            "Have you traveled abroad before?",
+            "What do your parents do?",
+            "How did you find this university?",
+            "Why not study this course in India?",
+            "Do you plan to work while studying?",
+            "Are you aware of Qatar’s laws and culture?",
+            "Why should we grant you a Qatar student visa?"
+        ],
+        work: [
+            "What job have you been offered in Qatar?",
+            "Who is your employer/sponsor?",
+            "What does your company do?",
+            "How did you get this job?",
+            "Do you have an official employment contract?",
+            "What is your salary in Qatar?",
+            "What are your job responsibilities?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have?",
+            "Where will you be working (city/location)?",
+            "Who is sponsoring your visa?",
+            "Will your employer provide accommodation?",
+            "What benefits are included in your contract?",
+            "Will your family accompany you?",
+            "What is your current salary in India?",
+            "Have you worked abroad before?",
+            "Are you aware of Qatar labor laws?",
+            "What will you do if your contract ends?",
+            "Do you plan to stay long-term in Qatar?",
+            "Why do you want to work in Qatar?"
+        ]
+    },
+
+kuwait: {
+        study: [
+            "Why did you choose to study in Kuwait?",
+            "Which university or institution have you been admitted to?",
+            "What course have you selected?",
+            "How does this course relate to your previous education?",
+            "Who is sponsoring your education?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your studies?",
+            "Where will you stay in Kuwait?",
+            "Do you have any relatives in Kuwait?",
+            "What are your plans after completing your studies?",
+            "Do you intend to return to India after your course?",
+            "What is the duration of your course?",
+            "What subjects/modules will you study?",
+            "Have you traveled abroad before?",
+            "What do your parents do?",
+            "How did you find this university?",
+            "Why not study this course in India?",
+            "Do you plan to work while studying?",
+            "Are you aware of Kuwait’s laws and culture?",
+            "Why should we grant you a Kuwait student visa?"
+        ],
+        work: [
+            "What job have you been offered in Kuwait?",
+            "Who is your employer/sponsor?",
+            "What does your company do?",
+            "How did you get this job?",
+            "Do you have an employment contract?",
+            "What is your salary in Kuwait?",
+            "What are your job responsibilities?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have?",
+            "Where will you be working (city/location)?",
+            "Who is sponsoring your visa?",
+            "Will your employer provide accommodation?",
+            "What benefits are included in your contract?",
+            "Will your family accompany you?",
+            "What is your current salary in India?",
+            "Have you worked abroad before?",
+            "Are you aware of Kuwait labor laws?",
+            "What will you do if your contract ends?",
+            "Do you plan to stay long-term in Kuwait?",
+            "Why do you want to work in Kuwait?"
+        ]
+    },
+
+bahrain: {
+        study: [
+            "Why did you choose Bahrain for your higher education?",
+            "Which university have you applied to and where is it located?",
+            "Why did you select this specific course?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in Bahrain?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in Bahrain?",
+            "Do you have any relatives or contacts in Bahrain?",
+            "What do you know about the education system in Bahrain?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Have you applied to any other countries? Why choose Bahrain over them?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you plan to work part-time while studying?",
+            "How will you manage your expenses if costs increase?",
+            "Have you ever traveled abroad before?",
+            "Why not study this course in India?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in Bahrain?",
+            "What is the name and business of your employer?",
+            "How did you get this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary in India and offered salary in Bahrain?",
+            "Why did you choose to work in Bahrain?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have in this field?",
+            "Do you have a signed employment contract?",
+            "What is the duration of your contract?",
+            "Will your employer provide accommodation or allowances?",
+            "Do you know the labor laws and work conditions in Bahrain?",
+            "Do you have any relatives or friends in Bahrain?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adjust to the culture and lifestyle in Bahrain?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable compared to other candidates?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+oman: {
+        study: [
+            "Why did you choose Oman for your higher education?",
+            "Which university have you applied to in Oman?",
+            "Why did you select this particular course?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in Oman?",
+            "What is your sponsor’s occupation and annual income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay in Oman during your studies?",
+            "Do you have any relatives or contacts in Oman?",
+            "What do you know about the education system in Oman?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you not choose India for this course?",
+            "Have you applied to other countries as well?",
+            "What is your academic background and recent GPA/percentage?",
+            "Do you plan to work part-time while studying?",
+            "How will you manage your expenses if costs increase?",
+            "Have you traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in Oman?",
+            "What is the name and business of your employer?",
+            "How did you find this job opportunity?",
+            "What are your job responsibilities?",
+            "What is your current salary and offered salary in Oman?",
+            "Why did you choose to work in Oman?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you have a valid employment contract?",
+            "What is the duration of your contract?",
+            "Will your employer provide accommodation or allowances?",
+            "Do you understand the labor laws in Oman?",
+            "Do you have any relatives or friends in Oman?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to the lifestyle and culture in Oman?",
+            "Do you have any previous visa rejections?",
+            "What makes you suitable for this job?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+china: {
+        study: [
+            "Why did you choose China for your higher education?",
+            "Which university have you been admitted to in China?",
+            "Why did you select this particular course?",
+            "Is your course taught in English or Chinese? Do you know the language?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in China?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in China?",
+            "Do you have any relatives or contacts in China?",
+            "What do you know about the education system in China?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose China over countries like the USA or UK?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you have any knowledge of Chinese culture?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in China?",
+            "What is the name and nature of your employer’s business?",
+            "How did you get this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in China?",
+            "Why did you choose to work in China?",
+            "Do you have a valid work permit notification letter?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you know the language required for your job (Mandarin/English)?",
+            "Will your employer provide accommodation or allowances?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in China?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to Chinese culture and lifestyle?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+russia: {
+        study: [
+            "Why did you choose Russia for your higher education?",
+            "Which university have you been admitted to in Russia?",
+            "Why did you select this particular course?",
+            "Is your course taught in English or Russian? Do you know the language?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in Russia?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in Russia?",
+            "Do you have any relatives or contacts in Russia?",
+            "What do you know about the education system in Russia?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose Russia over countries like the USA or UK?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "How will you adapt to the cold climate in Russia?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in Russia?",
+            "What is the name and nature of your employer’s business?",
+            "How did you get this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in Russia?",
+            "Why did you choose to work in Russia?",
+            "Do you have a valid work invitation or permit?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you know the language required for your job (Russian/English)?",
+            "Will your employer provide accommodation or allowances?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in Russia?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to Russian culture and lifestyle?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+"south africa": {
+        study: [
+            "Why did you choose South Africa for your higher education?",
+            "Which university have you been admitted to in South Africa?",
+            "Why did you select this particular course?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in South Africa?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in South Africa?",
+            "Do you have any relatives or contacts in South Africa?",
+            "What do you know about the education system in South Africa?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose South Africa over other countries?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you know about the safety and lifestyle conditions in South Africa?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "How will you adapt to the culture in South Africa?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in South Africa?",
+            "What is the name and nature of your employer’s business?",
+            "How did you get this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in South Africa?",
+            "Why did you choose to work in South Africa?",
+            "Do you have a valid work visa approval or critical skills permit?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Is your occupation listed under South Africa’s critical skills list?",
+            "Will your employer provide accommodation or allowances?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in South Africa?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to the working environment in South Africa?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+japan: {
+        study: [
+            "Why did you choose Japan for your higher education?",
+            "Which university or institute have you been admitted to in Japan?",
+            "Why did you select this particular course?",
+            "Is your course taught in English or Japanese? Do you know the language?",
+            "How is this course related to your previous education?",
+            "Who is sponsoring your education in Japan?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in Japan?",
+            "Do you have any relatives or contacts in Japan?",
+            "What do you know about Japanese culture and lifestyle?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose Japan over countries like the USA or UK?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you have any knowledge of the Japanese language (JLPT level, if any)?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in Japan?",
+            "What is the name and nature of your employer’s business?",
+            "How did you find this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in Japan?",
+            "Why did you choose to work in Japan?",
+            "Do you have a Certificate of Eligibility (COE)?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you know the Japanese language? What is your proficiency level?",
+            "Will your employer provide accommodation or relocation support?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in Japan?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to Japanese work culture?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+"south korea": {
+        study: [
+            "Why did you choose South Korea for your higher education?",
+            "Which university have you been admitted to in South Korea?",
+            "Why did you select this particular course?",
+            "Is your course taught in English or Korean? Do you know the language?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in South Korea?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in South Korea?",
+            "Do you have any relatives or contacts in South Korea?",
+            "What do you know about Korean culture and lifestyle?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose South Korea over countries like the USA or UK?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you have any knowledge of the Korean language (TOPIK level, if any)?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in South Korea?",
+            "What is the name and nature of your employer’s business?",
+            "How did you find this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in South Korea?",
+            "Why did you choose to work in South Korea?",
+            "Do you have a valid visa issuance confirmation or work permit?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you know the Korean language? What is your proficiency level?",
+            "Will your employer provide accommodation or relocation support?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in South Korea?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to Korean work culture?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+singapore: {
+        study: [
+            "Why did you choose Singapore for your studies?",
+            "Why did you select this particular institution in Singapore?",
+            "What course have you applied for and why?",
+            "How is this course related to your previous education?",
+            "What are your career plans after completing your studies?",
+            "Do you intend to return to your home country after graduation?",
+            "Who is sponsoring your education and what is their income?",
+            "What is the total cost of your tuition and living expenses?",
+            "How will you manage your living expenses in Singapore?",
+            "Where will you stay during your studies?",
+            "Do you have any relatives or friends in Singapore?",
+            "Have you ever traveled abroad before?",
+            "Why didn’t you choose to study this course in your home country?",
+            "What do you know about Singapore as a country?",
+            "What is the duration of your course?",
+            "Do you plan to work part-time while studying?",
+            "What are the job opportunities in your home country after this course?",
+            "In which language will your course be taught?",
+            "What will you do if your visa is rejected?",
+            "Why should we grant you a Singapore student visa?"
+        ],
+        work: [
+            "What job have you been offered in Singapore?",
+            "What is the name and business of your employer?",
+            "How did you find this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your salary package?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have in this field?",
+            "Do you have an official work pass approval?",
+            "Where will you be working in Singapore?",
+            "Will your employer provide accommodation or relocation support?",
+            "What is the duration of your employment contract?",
+            "What will you do after your contract ends?",
+            "Do you plan to stay long-term in Singapore?",
+            "Do you have any relatives or contacts in Singapore?",
+            "How will you manage your cost of living in Singapore?",
+            "Have you worked abroad before?",
+            "What skills make you suitable for this job?",
+            "Why did the company hire you instead of a local candidate?",
+            "Do you understand Singapore’s work culture and laws?",
+            "Why should we approve your work visa?"
+        ]
+    },
+
+malaysia: {
+        study: [
+            "Why did you choose Malaysia for your higher education?",
+            "Which university or institute have you been admitted to in Malaysia?",
+            "Why did you select this particular course?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in Malaysia?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in Malaysia?",
+            "Do you have any relatives or contacts in Malaysia?",
+            "What do you know about the education system in Malaysia?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose Malaysia over other countries?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you know about the rules for international students in Malaysia?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "How will you adapt to the culture and environment in Malaysia?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in Malaysia?",
+            "What is the name and nature of your employer’s business?",
+            "How did you get this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in Malaysia?",
+            "Why did you choose to work in Malaysia?",
+            "What type of work permit are you applying for?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you know the working laws and conditions in Malaysia?",
+            "Will your employer provide accommodation or allowances?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in Malaysia?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to Malaysia’s work culture?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+germany: {
+        study: [
+            "Why did you choose Germany for your higher education?",
+            "Which university have you been admitted to in Germany?",
+            "Why did you select this particular course?",
+            "Is your course taught in English or German? Do you know the language?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in Germany?",
+            "Do you have a blocked account? How much amount is deposited?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in Germany?",
+            "Do you have any relatives or contacts in Germany?",
+            "What do you know about the German education system?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose Germany over countries like the USA or UK?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you have German language proficiency (Goethe/TestDaF)?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in Germany?",
+            "What is the name and nature of your employer’s business?",
+            "How did you get this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in Germany?",
+            "Why did you choose to work in Germany?",
+            "Are you applying for an EU Blue Card or a standard work visa?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you know the German language? What is your proficiency level?",
+            "Will your employer provide accommodation or relocation support?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in Germany?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to German work culture?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+france: {
+        study: [
+            "Why did you choose France for your higher education?",
+            "Which university or institution have you been admitted to in France?",
+            "Why did you select this particular course?",
+            "Is your course taught in English or French? Do you know the language?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in France?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in France?",
+            "Do you have any relatives or contacts in France?",
+            "What do you know about the French education system?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose France over countries like the USA or UK?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you have French language proficiency (DELF/DALF)?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in France?",
+            "What is the name and nature of your employer’s business?",
+            "How did you get this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in France?",
+            "Why did you choose to work in France?",
+            "Are you applying for a work visa or a Talent Passport?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you know the French language? What is your proficiency level?",
+            "Will your employer provide accommodation or relocation support?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in France?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to French work culture?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+italy: {
+        study: [
+            "Why did you choose Italy for your higher education?",
+            "Which university or institution have you been admitted to in Italy?",
+            "Why did you select this particular course?",
+            "Is your course taught in English or Italian? Do you know the language?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in Italy?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in Italy?",
+            "Do you have any relatives or contacts in Italy?",
+            "What do you know about the Italian education system?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose Italy over countries like the USA or UK?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you have Italian language proficiency?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in Italy?",
+            "What is the name and nature of your employer’s business?",
+            "How did you get this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in Italy?",
+            "Why did you choose to work in Italy?",
+            "Are you applying under the Decreto Flussi quota?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you know the Italian language? What is your proficiency level?",
+            "Will your employer provide accommodation or relocation support?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in Italy?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to Italian work culture?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+netherlands: {
+        study: [
+            "Why did you choose the Netherlands for your higher education?",
+            "Which university have you been admitted to in the Netherlands?",
+            "Why did you select this particular course?",
+            "Is your course taught in English or Dutch? Do you know the language?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in the Netherlands?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in the Netherlands?",
+            "Do you have any relatives or contacts in the Netherlands?",
+            "What do you know about the Dutch education system?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose the Netherlands over countries like the USA or UK?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you know about the orientation year (zoekjaar) in the Netherlands?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in the Netherlands?",
+            "What is the name and nature of your employer’s business?",
+            "How did you get this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in the Netherlands?",
+            "Why did you choose to work in the Netherlands?",
+            "Are you applying as a highly skilled migrant (Kennismigrant)?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you know the Dutch language? What is your proficiency level?",
+            "Will your employer provide accommodation or relocation support?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in the Netherlands?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to Dutch work culture?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+luxembourg: {
+        study: [
+            "Why did you choose Luxembourg for your higher education?",
+            "Which university or institution have you been admitted to in Luxembourg?",
+            "Why did you select this particular course?",
+            "Is your course taught in English, French, or German? Do you know the language?",
+            "How is this course related to your previous studies?",
+            "Who is sponsoring your education in Luxembourg?",
+            "What is your sponsor’s occupation and income?",
+            "What is the total cost of your tuition and living expenses?",
+            "Where will you stay during your studies in Luxembourg?",
+            "Do you have any relatives or contacts in Luxembourg?",
+            "What do you know about the education system in Luxembourg?",
+            "What are your plans after completing your course?",
+            "Will you return to India after your studies?",
+            "Why did you choose Luxembourg over other European countries?",
+            "Have you applied to any other countries?",
+            "What is your academic background and recent percentage/GPA?",
+            "Do you have language proficiency in French or German?",
+            "Have you ever traveled abroad before?",
+            "What skills do you expect to gain from this program?",
+            "Why should your student visa be approved?"
+        ],
+        work: [
+            "What job have you been offered in Luxembourg?",
+            "What is the name and nature of your employer’s business?",
+            "How did you get this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your current salary and offered salary in Luxembourg?",
+            "Why did you choose to work in Luxembourg?",
+            "Are you applying for a work permit or EU Blue Card?",
+            "What qualifications and experience do you have for this role?",
+            "How many years of experience do you have?",
+            "Do you know any of the official languages (French/German/Luxembourgish)?",
+            "Will your employer provide accommodation or relocation support?",
+            "What is the duration of your employment contract?",
+            "Do you have any relatives or friends in Luxembourg?",
+            "What will you do after your contract ends?",
+            "Will you return to India after your employment?",
+            "Have you worked abroad before?",
+            "How will you adapt to the work culture in Luxembourg?",
+            "Do you have any previous visa rejections?",
+            "What skills make you suitable for this role?",
+            "Why should your work visa be approved?"
+        ]
+    },
+
+poland: {
+        study: [
+            "Why did you choose Poland for your higher education?",
+            "Why did you select this specific university in Poland?",
+            "What course have you applied for and why?",
+            "How is this course related to your previous education?",
+            "What are your career plans after completing your studies?",
+            "Do you plan to return to your home country after graduation?",
+            "Who is sponsoring your education and what is their income?",
+            "What is the total cost of your tuition and living expenses?",
+            "How will you manage your living expenses in Poland?",
+            "Where will you stay during your studies?",
+            "Do you have any relatives or friends in Poland?",
+            "Have you ever traveled abroad before?",
+            "Why didn’t you choose to study this course in your home country?",
+            "What do you know about the city where your university is located?",
+            "What is the duration of your course?",
+            "Do you plan to work part-time while studying?",
+            "What are the job opportunities in your home country after this course?",
+            "What language will your course be taught in? Are you comfortable with it?",
+            "What will you do if your visa is rejected?",
+            "Why should we grant you a Polish student visa?"
+        ],
+        work: [
+            "What job have you been offered in Poland?",
+            "What is the name and nature of your employer’s company?",
+            "How did you find this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your salary and how does it compare to your current salary?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have in this field?",
+            "Do you have an official work permit from Poland?",
+            "Where will you be working in Poland?",
+            "Will your employer provide accommodation or support?",
+            "Do you know about Polish labor laws and working conditions?",
+            "What is the duration of your employment contract?",
+            "What will you do after your contract ends?",
+            "Do you plan to settle permanently in Poland?",
+            "Do you have any relatives or contacts in Poland?",
+            "How will you manage your expenses in Poland?",
+            "Have you worked abroad before?",
+            "What skills do you bring that are valuable to this job?",
+            "Why did the company hire you instead of a local candidate?",
+            "Why should we approve your work visa for Poland?"
+        ]
+    },
+
+romania: {
+        study: [
+            "Why did you choose Romania for your higher education?",
+            "Why did you select this particular university in Romania?",
+            "What course have you applied for and why?",
+            "How is this course related to your previous studies?",
+            "What are your plans after completing your studies?",
+            "Do you intend to return to your home country after graduation?",
+            "Who is sponsoring your education and what is their income?",
+            "What is the total cost of your tuition and living expenses?",
+            "How will you manage your expenses in Romania?",
+            "Where will you stay during your studies?",
+            "Do you have any relatives or contacts in Romania?",
+            "Have you ever traveled abroad before?",
+            "Why didn’t you choose to study this course in your home country?",
+            "What do you know about the city where your university is located?",
+            "What is the duration of your course?",
+            "Will you work part-time during your studies?",
+            "What are the job opportunities in your home country after this course?",
+            "In which language will your course be taught?",
+            "What will you do if your visa is rejected?",
+            "Why should we grant you a Romanian student visa?"
+        ],
+        work: [
+            "What job have you been offered in Romania?",
+            "What is the name and business of your employer?",
+            "How did you find this job opportunity?",
+            "What are your main job responsibilities?",
+            "What is your salary and how does it compare to your current salary?",
+            "What qualifications do you have for this role?",
+            "How many years of experience do you have in this field?",
+            "Do you have a valid work permit for Romania?",
+            "Where will you be working in Romania?",
+            "Will your employer provide accommodation or relocation support?",
+            "What is the duration of your employment contract?",
+            "What will you do after your contract ends?",
+            "Do you plan to stay long-term in Romania?",
+            "Do you have any relatives or contacts in Romania?",
+            "How will you manage your living expenses in Romania?",
+            "Have you worked abroad before?",
+            "What skills make you suitable for this job?",
+            "Why did the company hire you instead of a local candidate?",
+            "Do you understand the working conditions in Romania?",
+            "Why should we approve your work visa?"
+        ]
+    }
+};
+  
+const perfectBlueprints = {
+    WHY_COUNTRY: "I chose [Country] because of its world-class education system and safety. This environment results in a better learning experience than current options in India.",
+    WHY_UNI: "I selected [Institution] because of its industry-standard facilities and the reputation of its [Subject] department. This results in me gaining highly marketable skills.",
+    WHY_COURSE: "I applied for this course because it offers specialized training in [Module] which is not available at this depth in my home country.",
+    COURSE_RELATION: "This course is the logical next step after my Bachelor's in India. It adds advanced technical value to my previous academic background.",
+    FUTURE_PLANS: "My plan is to return to India and apply these global standards as a [Role]. This results in a significant career boost in the Indian market.",
+    RETURN_INTENT: "I will return to India in [Year] to join my family and manage our properties. My long-term professional and personal goals are entirely based in India.",
+    WHO_SPONSOR: "My education is sponsored by my [Sponsor Name], who has fully committed the required funds for my tuition and stay.",
+    SPONSOR_DETAILS: "My sponsor is a [Profession] earning [Amount] per year. We have maintained the liquid balance in our account at [Bank] since [Year].",
+    TUITION_COST: "The total tuition fee is [Amount]. I have already paid [Amount] and the receipt is included in my documentation.",
+    LIVING_EXPENSES: "I have secured [Amount] for my living expenses. This budget results in a comfortable and focused stay for the duration of my course.",
+    ADMISSION_DOC: "Yes, I have my official [CAS/I-20/Admission Letter] from the institution, which confirms my eligibility for this specific intake.",
+    DURATION: "The course duration is [Number] months. This timeline results in a comprehensive understanding of the subjects required for my career.",
+    LOCATION: "The university is located in [City]. I chose this location because it is a hub for the [Industry Name] sector.",
+    MODULES: "I will study modules like [Module 1] and [Module 2]. These specific subjects result in the technical expertise I need for my future role.",
+    ENGLISH_SCORE: "I achieved a score of [Score] in my [IELTS/PTE/TOEFL]. This proves my proficiency and ability to succeed in an English-speaking environment.",
+    TRAVEL_HISTORY: "Yes, I have traveled to [Countries] in [Year]. I have always complied with visa regulations and returned to India as per the required timeline.",
+    RELATIVES: "I have [No/Specific] relatives there. My primary focus is my education, and my entire immediate family remains in India.",
+    REFUSAL_PLAN: "If refused, I will review the officer's feedback, correct any gaps in my profile, and continue pursuing my career goals in India.",
+    HOME_OPPORTUNITIES: "In India, there is a 25% annual growth in the [Industry] sector. This degree results in me being a preferred candidate for top Indian firms.",
+    VISA_GRANT: "I should be granted this visa because I am a genuine student with a verifiable academic path and the required financial stability.",
+    JOB_ROLE: "My offered role is [Role Name]. This position results in me applying my [Years] of experience to the company's current projects.",
+    EMPLOYER_NAME: "My employer is [Company Name]. I chose to work with them because they are leaders in the [Industry] sector.",
+    COMPANY_ACTIVITY: "The company specializes in [Product/Service]. My role directly supports their objective to expand their technical operations.",
+    JOB_SOURCE: "I secured this offer through [Portal/Referral] in [Year] after clearing [Number] rounds of technical interviews.",
+    JOB_DUTIES: "My main responsibilities include [Duty 1] and [Duty 2]. These tasks result in the efficient delivery of the company’s services.",
+    SALARY: "My offered salary is [Amount]. This compensation aligns with the prevailing wage for my role in that specific city.",
+    PREV_SALARY: "In India, my salary was [Amount]. This move represents a logical career progression and an increase in my professional value.",
+    LOCAL_WORKER: "I was selected because of my unique expertise in [Skill]. This specific technical skill is currently in shortage within the local labor market.",
+    SPECIAL_SKILLS: "I possess specialized skills in [Tool/Technology]. I have used these for [Years] to deliver complex projects in India.",
+    WORK_LOCATION: "I will be working at [Address/City]. This location is the company’s primary hub for my specific department.",
+    MANAGER: "I will report to [Name/Designation]. This reporting structure results in a clear line of accountability for my professional tasks.",
+    QUALIFICATION: "My highest qualification is [Degree]. This academic background provides the foundation required for my responsibilities in this role.",
+    EXPERIENCE: "I have [Number] years of experience in this field. I have previously worked at [Company Name] in India where I managed similar tasks.",
+    INTL_CLIENTS: "Yes, I have worked with clients from [Countries]. This experience results in my ability to work effectively in a multicultural environment.",
+    WORK_PERMIT_DOC: "Yes, I have my [Petition/CoS/LMIA] approval with reference number [Number], which confirms my legal authorization to work.",
+    CONTRACT_LEN: "My contract is for [Number] years. This duration results in the successful completion of the projects I am being hired for.",
+    FAMILY_ACCOMPANY: "My family [Will/Will Not] be accompanying me. They will be on [Visa Type] and our stay is fully supported by my salary.",
+    POST_WORK_PLANS: "After my permit ends, I will return to India to utilize my international experience for senior roles in the Indian industry.",
+    PR_INTENT: "My focus is currently on the specific contract duration. I plan to return to my home country to be with my family after the assignment.",
+    WHY_WORK_COUNTRY: "I want to work there because of the advanced technical environment, which results in me gaining global skills to bring back to India.",
+ ACADEMIC_PERFORMANCE: "I maintained a GPA of [Score] throughout my Bachelor's. My strongest modules were [Subject 1] and [Subject 2], which form the technical foundation for this advanced course.",
+    FAILURE_EXPLANATION: "I had [Number] backlogs during my [Year] due to [Medical/Personal] reasons. However, I cleared them in the first attempt thereafter, proving my academic resilience and dedication.",
+    LANGUAGE_PROFICIENCY: "I have studied [Language] for [Number] months and achieved [Level, e.g., JLPT N2/Goethe B2]. This results in my ability to integrate seamlessly into the local society and professional environment.",
+    FUNDING_SOURCE: "My funding is sourced from [Personal Savings/Educational Loan]. We have held these liquid funds for [Number] months to ensure there is no financial interruption during my tenure.",
+    ACCOMMODATION: "I have secured housing at [Residence Name/City]. I have budgeted [Amount] per month for rent, which is well within my sponsored living allowance and documented funds.",
+    UNIVERSITY_RANKING: "This university is ranked [Number] globally for [Specific Subject]. This reputation results in a degree that is highly respected by top-tier MNCs in the Indian market.",
+    WORK_LIMITS: "I am fully aware that I can work [Number] hours per week under this visa. However, my primary focus remains my full-time study, as my education is already fully funded.",
+    CONTRACT_BENEFITS: "My employment contract includes [Health Insurance/Housing/Relocation]. These provisions result in a stable environment for me to focus entirely on my technical deliverables.",
+    LABOR_RIGHTS: "I am aware of my rights regarding [Minimum Wage/Safety/Leave]. I know the protocol to contact the [Local Labor Authority] should any contractual discrepancy arise.",
+    SKILL_SHORTAGE_REASON: "My expertise in [Specific Skill] is currently listed on the [Country] Skilled Occupation List. This results in me filling a critical talent gap in the local labor market.",
+    CLIENT_ENGAGEMENT: "I am employed by [Employer Name], but I will be working at the site of their client [Client Name]. This results in me providing direct technical solutions for their [Project Name].",
+    TECHNICAL_PROJECT: "I will be working on [Project Name], which involves [Technology]. My specific role results in the optimization of the company's [Specific System or Process].",
+    ADAPTABILITY: "I have thoroughly researched the climate and culture of [City]. I am prepared for the [Weather/Lifestyle] and have already networked with current residents to ensure a smooth transition.",
+    ASSET_TIES: "In addition to liquid cash, my family owns property and business assets valued at [Amount] in India. This results in deep-rooted economic ties and a clear requirement for my return.",
+    GAP_JUSTIFICATION: "The gap in my profile between [Year] and [Year] was used to [Action: Freelance/Certifications/Family care]. This results in a more mature and diversified professional profile today.",
+    COMPARATIVE_RESEARCH: "I researched several institutions including [University B] and [University C]. I chose this one because its curriculum offers a more practical approach to [Specific Technical Topic].",
+    REJECTION_HISTORY: "My previous refusal in [Year] was due to [Reason]. Since then, I have corrected my [Financials/SOP] and added [Experience/Test Score] to address the officer's previous concerns.",
+    SECTOR_GROWTH_INDIA: "The [Industry] sector in India is projected to grow by [Percentage] by [Year]. This results in an immediate demand for professionals with the specific global training I will receive.",
+    SAFETY_KNOWLEDGE: "I have chosen [City] because of its high safety index and reputation for being a supportive hub for international residents. This environment results in a focused and secure stay.",
+    NETWORKING_GOALS: "I plan to join the university’s [Industry Body] chapter. This results in me building a global professional network that will be invaluable when I return to the Indian corporate sector."
+};
+// --- SECTION 11: FULL AI INTERVIEW ENGINE WITH UI RENDERER ---
 
 let sessionQuestions = [];
 let currentQIdx = 0;
 let interviewScore = 0;
-let recognition;
 let isListening = false;
+let recognition;
 
-// 1. Initialize Webkit Speech API
+// 1. Voice Recognition Init
 if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SpeechRecognition();
@@ -12495,7 +13790,7 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     };
     recognition.onend = () => {
         isListening = false;
-        $('#micBtn').css('background', '#fff').css('color', '#000');
+        $('#micBtn').css({'background': '#fff', 'color': '#000'});
         $('#micText').text('Start Speaking');
         $('#officerStatus').text('● READY').css('color', '#2ed573');
     };
@@ -12504,115 +13799,339 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
 window.toggleMic = function() {
     if (!recognition) return alert("Mic not supported");
     if (isListening) { recognition.stop(); } 
-    else { recognition.start(); isListening = true; $('#micBtn').css('background', '#ff4757').css('color', '#fff'); $('#micText').text('Recording...'); $('#officerStatus').text('● LISTENING'); }
+    else { recognition.start(); isListening = true; $('#micBtn').css({'background': '#ff4757', 'color': '#fff'}); $('#micText').text('Recording...'); $('#officerStatus').text('● LISTENING'); }
 };
 
 window.startInterview = function() {
-    const type = $('#intType').val();
-    sessionQuestions = [...intQuestions[type]].sort(() => 0.5 - Math.random()); // SHUFFLE 50
-    currentQIdx = 0; interviewScore = 0;
-    $('#setupInterview').hide(); $('#interviewZone').fadeIn();
+    const country = $('#intCountry').val(); // e.g., 'usa'
+    const type = $('#intType').val(); // 'student' or 'work'
+    const mode = (type === 'student') ? 'study' : 'work'; // Matches your data keys
+
+    // Safety check to prevent the 'undefined' error
+    if (!intQuestions[country] || !intQuestions[country][mode]) {
+        alert("Interview data for this country is currently being synchronized.");
+        return;
+    }
+
+    // Correctly access: intQuestions['usa']['study']
+    sessionQuestions = [...intQuestions[country][mode]].sort(() => 0.5 - Math.random());
+    
+    currentQIdx = 0; 
+    interviewScore = 0;
+    $('#setupInterview').hide(); 
+    $('#interviewZone').fadeIn();
     loadNewQuestion();
 };
 
 window.loadNewQuestion = function() {
+$('#feedbackBox').remove();
+$('#instructionZone').show();
+    const country = $('#intCountry').val();
+    const toneKey = countryTone[country] || "balanced";
+    const rules = toneRules[toneKey];
+    const toneDisp = toneKey.replace('_', ' ').toUpperCase();
+
+    // 1. Reset UI
     $('#questionText').text(sessionQuestions[currentQIdx]);
     $('#userAnswer').val('').prop('disabled', false).focus();
     $('#qNum').text(currentQIdx + 1);
     $('#instantFeedback').hide();
     $('#submitAnsBtn, #micBtn').show();
+
+    // 2. Inject Instructions BEFORE user answers
+    const prepGuide = `
+        <div style="background: #000; color: #7FFFD4; padding: 15px; border-radius: 12px; border: 2px solid var(--aqua); margin-bottom: 15px;">
+            <div style="font-size:0.65rem; font-weight:900; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px;">Officer Protocol: [${toneDisp}]</div>
+            <div style="font-size:0.9rem; font-weight:700; line-height:1.4;">"${rules.info}"</div>
+        </div>
+        <details style="cursor:pointer; background:#f0fffb; border:1px dashed #00b894; padding:10px; border-radius:10px;">
+            <summary style="font-size:0.7rem; font-weight:900; color:#006644;">VIEW EVALUATION PILLARS & RULES (Read before answering)</summary>
+            ${userEducationGuide}
+        </details>
+    `;
+    $('#instructionZone').html(prepGuide);
 };
 
+
+const userEducationGuide = `
+    <div style="margin-top:20px; border-top:2px solid #7FFFD4; padding-top:15px; text-align:left;">
+        <b style="font-size:0.7rem; color:#000; text-transform:uppercase; letter-spacing:1px;">Core Evaluation Pillars:</b>
+        <div style="font-size:0.65rem; color:#666; line-height:1.5; margin-top:5px;">
+            • <b>DIRECTNESS:</b> Did you answer the question immediately, or did you use "fillers"?<br>
+            • <b>RELEVANCE:</b> Did your response use keywords that match the specific question topic?<br>
+            • <b>LOGIC:</b> Did you explain the "Reason" and the "Result"? (Ex: "I chose X *because* it leads to Y")<br>
+            • <b>EVIDENCE:</b> Did you provide verifiable data? (Ex: Specific dates, years, or company names)<br>
+            • <b>INTENT:</b> Did you clearly demonstrate your plan to return to India?
+        </div>
+
+        <b style="font-size:0.7rem; color:#000; text-transform:uppercase; letter-spacing:1px; display:block; margin-top:15px;">How the Officer Evaluates You:</b>
+        <div style="font-size:0.65rem; color:#666; line-height:1.5; margin-top:5px;">
+            1. <b>The Dynamic Lens:</b> The focus shifts based on your visa. <b>Students</b> are judged mostly on their "Intent to Return," while <b>Workers</b> are judged strictly on "Evidence" of their job and skills.<br>
+            2. <b>The Claim Cap:</b> Vague claims (Ex: "I am a good student") without specific <b>Dates</b> or <b>Names</b> are automatically capped at a lower grade.<br>
+            3. <b>The Kill Switch:</b> Any mention of "Settling," "Permanent Residency," or "Looking for a better life" will result in an immediate <b>Needs Improvement</b> verdict.<br>
+            4. <b>Verification Bonus:</b> Officers favor candidates who link a specific date (Ex: 2024) to a specific institution in their first sentence.
+        </div>
+    </div>
+`;
+
+// 2. THE MISSING UI RENDERER FUNCTION
+
+// --- HELPER: SEMANTIC TOKEN SIMILARITY ---
+function getInferenceSim(q, a) {
+    const stopWords = ['the', 'is', 'at', 'which', 'on', 'any', 'your', 'my', 'in', 'of', 'and', 'was', 'to', 'for', 'with', 'from'];
+    const qTokens = q.toLowerCase().split(/\W+/).filter(t => t.length > 3 && !stopWords.includes(t));
+    const aTokens = a.toLowerCase().split(/\W+/);
+    if (qTokens.length === 0) return 0;
+    const overlap = qTokens.filter(t => aTokens.includes(t)).length;
+    return (overlap / qTokens.length) * 100;
+}
+
+
+// --- 2. THE CORE EVALUATION ENGINE ---
 window.nextQuestion = function() {
     if (isListening) recognition.stop();
-    const ans = $('#userAnswer').val().trim().toLowerCase();
-    let stepScore = 0; let reasons = [];
+    const ans = $('#userAnswer').val().trim();
+    const ansLower = ans.toLowerCase();
+    const currentQ = sessionQuestions[currentQIdx].toLowerCase();
+    const selectedCountry = $('#intCountry').val();
     
- const contextKeywords = [
-    'india', 'return', 'home', 'back', 'family', 'parents', 'father', 'mother', 'siblings', 'property', 
-    'assets', 'savings', 'bank', 'statement', 'income', 'funds', 'money', 'loan', 'scholarship', 'sponsor', 
-    'supporting', 'finance', 'tuition', 'expenses', 'living', 'stay', 'duration', 'intake', 'semester', 'credits', 
-    'modules', 'research', 'campus', 'university', 'college', 'institution', 'education', 'study', 'degree', 'diploma', 
-    'bachelor', 'master', 'phd', 'academic', 'gpa', 'marks', 'backlogs', 'projects', 'internship', 'thesis', 
-    'specialization', 'engineering', 'technology', 'computer', 'science', 'software', 'management', 'professional', 'job', 'role', 
-    'designation', 'salary', 'offer', 'contract', 'employer', 'company', 'office', 'experience', 'skills', 'technical', 
-    'expertise', 'career', 'goals', 'future', 'objective', 'growth', 'vision', 'industry', 'sector', 'development', 
-    'leadership', 'exposure', 'multicultural', 'global', 'standards', 'innovation', 'unique', 'qualified', 'admitted', 'enrolled', 
-    'pursuing', 'applying', 'visa', 'embassy', 'documents', 'verification', 'interview', 'character', 'history', 'travel', 'obligation',
-'investment', 'valuation', 'portfolio', 'equity', 'shares', 'fixed', 'deposit', 'fdr', 'collateral', 'valuation', 
-    'tax', 'itr', 'returns', 'audit', 'networth', 'liquidity', 'premium', 'dividend', 'mortgage', 'lease'];
-    
-const extraKeywords = [
-    // --- FINANCIAL & ASSETS ---
-    'investment', 'valuation', 'portfolio', 'equity', 'shares', 'fixed', 'deposit', 'fdr', 'collateral', 'valuation', 
-    'tax', 'itr', 'returns', 'audit', 'networth', 'liquidity', 'premium', 'dividend', 'mortgage', 'lease',
-    
-    // --- PROFESSIONAL & CORPORATE ---
-    'startup', 'multinational', 'client', 'consulting', 'architecture', 'operations', 'hr', 'marketing', 'strategy', 'optimization',
-    'coding', 'development', 'stack', 'database', 'cybersecurity', 'cloud', 'deployment', 'leadership', 'stakeholder', 'vendor',
-    'payroll', 'payslip', 'designation', 'promoted', 'tenure', 'achievement', 'appraisal', 'performance', 'workflow', 'management',
-    
-    // --- ACADEMIC & UNIVERSITY LIFE ---
-    'curriculum', 'syllabus', 'credits', 'assignment', 'transcript', 'alumni', 'faculty', 'professor', 'dean', 'lectures',
-    'seminar', 'workshop', 'laboratory', 'practical', 'accredited', 'ranking', 'reputation', 'orientation', 'campus', 'dorm',
-    'extracurricular', 'intern', 'scholar', 'publication', 'journal', 'dissertation', 'viva', 'subjects', 'major', 'minor',
+    const toneKey = countryTone[selectedCountry] || "balanced";
+    const rules = toneRules[toneKey];
+    const profile = countryProfiles[selectedCountry];
 
-    // --- HOME TIES & EMOTIONAL CONTEXT ---
-    'heritage', 'legacy', 'responsibility', 'care', 'grandparents', 'estate', 'tradition', 'culture', 'values', 'ethics',
-    'contribution', 'economy', 'market', 'potential', 'ambition', 'perspective', 'networking', 'collaboration', 'community', 'society',
+    if (ans.length < 5) return alert("Response required.");
 
-    // --- IMMIGRATION & LOGISTICS ---
-    'stamping', 'biometrics', 'authorization', 'validity', 'expiry', 'extension', 'policy', 'regulation', 'compliance', 'genuine',
-    'itinerary', 'accommodation', 'transit', 'flight', 'arrival', 'departure', 'checkpoint', 'stamping', 'visa', 'consulate'
-];
+    // -------------------------------
+    // STEP 1: CATEGORIZATION
+    // -------------------------------
+// ---------------------------------------------------------
+    // STEP 1: CATEGORIZATION (40-QUESTION HIGH-PRECISION REGEX)
+    // ---------------------------------------------------------
+    let qType = "WHY_UNI"; // Default fallback
 
-// Combine with your existing list
-const finalContextKeywords = [...contextKeywords, ...extraKeywords];
- // --- IMPROVED VARIETY-BASED SCORING ---
+    // --- UNIVERSITY & ADMISSION ---
+    if (/\b(university located|location|where is|which city|where will you be working)\b/i.test(currentQ)) 
+        qType = "LOCATION";
+    else if (/\b(have a cas|petition approval|i-129|cos|lmia|certificate of sponsorship|visa issuance confirmation|coe|i-20|admission letter| VIC )\b/i.test(currentQ)) 
+        qType = "ADMISSION_DOC";
+    else if (/\b(why did you choose this university|why this university|find out about this university|select this particular institution)\b/i.test(currentQ)) 
+        qType = "WHY_UNI";
 
-// 1. Calculate how many UNIQUE keywords from the 200-word list are in the answer
-let matchedWords = finalContextKeywords.filter(word => ans.includes(word));
-let uniqueMatches = [...new Set(matchedWords)].length; // Remove duplicates
+    // --- COURSE & ACADEMICS ---
+    else if (/\b(why did you select this course|why this course|select this particular course|chosen this course)\b/i.test(currentQ)) 
+        qType = "WHY_COURSE";
+    else if (/\b(relate to your previous|course related to|relation to your studies)\b/i.test(currentQ)) 
+        qType = "COURSE_RELATION";
+    else if (/\b(duration of your course|how long is your course|how long is your contract)\b/i.test(currentQ)) 
+        qType = "DURATION";
+    else if (/\b(modules|subjects|key subjects)\b/i.test(currentQ)) 
+        qType = "MODULES";
+    else if (/\b(english test|ielts|pte|gre|toefl|scores|proficiency|language will your course)\b/i.test(currentQ)) 
+        qType = "ENGLISH_SCORE";
+    else if (/\b(highest qualification|what qualifications|academic background)\b/i.test(currentQ)) 
+        qType = "QUALIFICATION";
+    else if (/\b(study gaps|doing since then|explain them)\b/i.test(currentQ)) 
+        qType = "HISTORY";
 
-// 2. Points based on Variety (Technical Depth)
-// 0 words = 0 pts | 1-2 words = 5 pts | 3-5 words = 8 pts | 6+ words = 10 pts
-if (uniqueMatches >= 6) stepScore += 10;
-else if (uniqueMatches >= 3) stepScore += 8;
-else if (uniqueMatches >= 1) stepScore += 5;
-else stepScore += 0;
+    // --- COUNTRY & INTENT ---
+    else if (/\b(why not study this course in india|study this course in india|why choose .* over countries|why study in .*)\b/i.test(currentQ)) 
+        qType = "WHY_COUNTRY";
+    else if (/\b(why do you want to work there|choose to work in .*)\b/i.test(currentQ)) 
+        qType = "WHY_WORK_COUNTRY";
+    else if (/\b(after completing|after graduation|after your studies|plans after)\b/i.test(currentQ)) 
+        qType = "FUTURE_PLANS";
+    else if (/\b(return to india|return home|return to your home country)\b/i.test(currentQ)) 
+        qType = "RETURN_INTENT";
+    else if (/\b(settle permanently|permanent residency|apply for pr|apply for residency|stay long-term)\b/i.test(currentQ)) 
+        qType = "PR_INTENT";
+    else if (/\b(career opportunities in india|help your career in india|job opportunities in your home country)\b/i.test(currentQ)) 
+        qType = "HOME_OPPORTUNITIES";
 
-// 3. Points based on Sentence Length (Effort)
-// 0-30 chars = 2 pts | 31-100 chars = 6 pts | 100+ chars = 10 pts
-if (ans.length > 100) stepScore += 10;
-else if (ans.length > 30) stepScore += 6;
-else stepScore += 2;
+    // --- FINANCIALS & SPONSORS ---
+    else if (/\b(who is sponsoring|sponsoring your)\b/i.test(currentQ)) 
+        qType = "WHO_SPONSOR";
+    else if (/\b(sponsor’s occupation|sponsor's occupation|sponsor do|parents do|what is their income)\b/i.test(currentQ)) 
+        qType = "SPONSOR_DETAILS";
+    else if (/\b(tuition fees|cost of your education|total cost of your studies|total cost of your education)\b/i.test(currentQ)) 
+        qType = "TUITION_COST";
+    else if (/\b(living expenses|manage your expenses|fund your stay|fund your studies)\b/i.test(currentQ)) 
+        qType = "LIVING_EXPENSES";
+    else if (/\b(salary in india|current salary)\b/i.test(currentQ)) 
+        qType = "PREV_SALARY";
+    else if (/\b(salary in .*|salary package|offered salary)\b/i.test(currentQ)) 
+        qType = "SALARY";
 
-// 4. THE GIBBERISH OVERRIDE (The "Anti-Sunil" Mash Filter)
-// If they have 0 unique keywords AND it's just short/weird text
-if (uniqueMatches === 0 && ans.length < 50) {
-    stepScore = 0; 
-    reasons.push("❌ <b>Irrelevant Answer:</b> The officer didn't hear any keywords related to your visa, finances, or career.");
-}
-    if (ans.includes('settle') || ans.includes(' pr ')) { stepScore = Math.max(0, stepScore - 10); reasons.push("🚨 <b>Risk Flag:</b> Don't mention PR/Permanent stay."); }
+    // --- JOB & WORK EXPERIENCE ---
+    else if (/\b(job role|offered role|job have you been offered|responsibilities)\b/i.test(currentQ)) 
+        qType = "JOB_ROLE";
+    else if (/\b(who is your employer|sponsoring employer|name and business of your employer|name and nature of your employer)\b/i.test(currentQ)) 
+        qType = "EMPLOYER_NAME";
+    else if (/\b(company do|business of your employer|nature of your employer's business)\b/i.test(currentQ)) 
+        qType = "COMPANY_ACTIVITY";
+    else if (/\b(how did you get this job|find this job|how did you find this)\b/i.test(currentQ)) 
+        qType = "JOB_SOURCE";
+    else if (/\b(selected instead of a local|canadian worker|us citizen|local candidate|local worker)\b/i.test(currentQ)) 
+        qType = "LOCAL_WORKER";
+    else if (/\b(special skills|what skills|unique expertise)\b/i.test(currentQ)) 
+        qType = "SPECIAL_SKILLS";
+    else if (/\b(report to|reporting manager)\b/i.test(currentQ)) 
+        qType = "MANAGER";
+    else if (/\b(years of experience|experience in this field)\b/i.test(currentQ)) 
+        qType = "EXPERIENCE";
+    else if (/\b(international clients|worked abroad before)\b/i.test(currentQ)) 
+        qType = "INTL_CLIENTS";
 
-    interviewScore += stepScore;
-    $('#stepScore').text(`Score: ${Math.ceil(stepScore)}/20`);
-    $('#stepReasons').html(reasons.map(r => `<div>${r}</div>`).join(''));
-    $('#stepVerdict').text(stepScore >= 12 ? "Strong" : "Weak").css('color', stepScore >= 12 ? '#2ed573' : '#ff4757');
-    $('#instantFeedback').show();
-    $('#submitAnsBtn, #micBtn').hide();
+    // --- GENERAL & LOGISTICS ---
+    else if (/\b(traveled abroad|traveled to any other|visited any other)\b/i.test(currentQ)) 
+        qType = "TRAVEL_HISTORY";
+    else if (/\b(relatives|contacts|friends in)\b/i.test(currentQ)) 
+        qType = "RELATIVES";
+    else if (/\b(visa is refused|visa is rejected|visa be refused|visa be rejected)\b/i.test(currentQ)) 
+        qType = "REFUSAL_PLAN";
+    else if (/\b(visa be approved|grant you this visa|should we approve|grant you a .* student visa)\b/i.test(currentQ)) 
+        qType = "VISA_GRANT";
+
+else if (/\b(GPA|percentage|marks|academic performance)\b/i.test(currentQ)) 
+        qType = "ACADEMIC_PERFORMANCE";
+    else if (/\b(backlogs|failures|failed|repeats)\b/i.test(currentQ)) 
+        qType = "FAILURE_EXPLANATION";
+    else if (/\b(language|JLPT|TOPIK|proficiency|German|French)\b/i.test(currentQ)) 
+        qType = "LANGUAGE_PROFICIENCY";
+    else if (/\b(savings|loan|source of funds|liquid)\b/i.test(currentQ)) 
+        qType = "FUNDING_SOURCE";
+    else if (/\b(stay|accommodation|housing|apartment|rent)\b/i.test(currentQ)) 
+        qType = "ACCOMMODATION";
+    else if (/\b(ranking|reputation|prestige)\b/i.test(currentQ)) 
+        qType = "UNIVERSITY_RANKING";
+    else if (/\b(part-time|work while studying|work hours)\b/i.test(currentQ)) 
+        qType = "WORK_LIMITS";
+    else if (/\b(benefits|insurance|allowances|perks)\b/i.test(currentQ)) 
+        qType = "CONTRACT_BENEFITS";
+    else if (/\b(labor laws|rights|minimum wage)\b/i.test(currentQ)) 
+        qType = "LABOR_RIGHTS";
+    else if (/\b(shortage|demand|why hire you)\b/i.test(currentQ)) 
+        qType = "SKILL_SHORTAGE_REASON";
+    else if (/\b(client|assignment|onsite)\b/i.test(currentQ)) 
+        qType = "CLIENT_ENGAGEMENT";
+    else if (/\b(project details|process|optimization)\b/i.test(currentQ)) 
+        qType = "TECHNICAL_PROJECT";
+    else if (/\b(climate|weather|cold|culture|lifestyle)\b/i.test(currentQ)) 
+        qType = "ADAPTABILITY";
+    else if (/\b(assets|property|family business|land)\b/i.test(currentQ)) 
+        qType = "ASSET_TIES";
+    else if (/\b(gaps|explain the gap|break)\b/i.test(currentQ)) 
+        qType = "GAP_JUSTIFICATION";
+    else if (/\b(applied to any other|comparison|choice)\b/i.test(currentQ)) 
+        qType = "COMPARATIVE_RESEARCH";
+    else if (/\b(previous refusal|rejection|old visa)\b/i.test(currentQ)) 
+        qType = "REJECTION_HISTORY";
+    else if (/\b(sector growth|market demand|indian industry)\b/i.test(currentQ)) 
+        qType = "SECTOR_GROWTH_INDIA";
+    else if (/\b(safety|secure|crime index)\b/i.test(currentQ)) 
+        qType = "SAFETY_KNOWLEDGE";
+    else if (/\b(network|alumni|chapters)\b/i.test(currentQ)) 
+        qType = "NETWORKING_GOALS";
+
+    // -------------------------------
+    // STEP 2: BLENDED WEIGHTS (b)
+    // -------------------------------
+    let qW = { ev: 0.2, int: 0.2, log: 0.2, rel: 0.2, dir: 0.2 };
+    if (/\b(cost|salary|tuition|income|sponsor|funds|bank|GPA|score)\b/i.test(currentQ)) 
+        qW = { ev: 0.50, dir: 0.15, rel: 0.15, log: 0.20, int: 0.00 };
+    else if (/\b(return|stay|india|settle|home|future|graduation)\b/i.test(currentQ)) 
+        qW = { int: 0.50, log: 0.20, dir: 0.15, rel: 0.15, ev: 0.00 };
+
+    const mode = $('#intType').val() === 'student' ? 'study' : 'work'; 
+    const countryWeights = profile[mode];
+
+    const b = { 
+        ev: (qW.ev + countryWeights.ev)/2, int: (qW.int + countryWeights.int)/2, 
+        log: (qW.log + countryWeights.log)/2, rel: (qW.rel + countryWeights.rel)/2, dir: (qW.dir + countryWeights.dir)/2 
+    };
+
+    // -------------------------------
+    // STEP 3: PERFORMANCE (m)
+    // -------------------------------
+    let m = { dir: 0, rel: 0, log: 0, ev: 0, int: 0 };
+    const sentences = ans.split(/[.!?]+/).filter(s => s.trim().length > 0);
+
+    let pDir = 100;
+    if (rules.maxSentences && sentences.length > rules.maxSentences) pDir -= 40;
+    if (rules.minSentences && sentences.length < rules.minSentences) pDir -= 40;
+    if (!/\b(because|since|reason|i chose|my|yes|no)\b/.test(sentences[0]?.toLowerCase())) pDir -= 20;
+    m.dir = Math.max(0, pDir);
+
+    m.rel = Math.min(100, (getInferenceSim(currentQ, ans) * 2.0));
+
+    const hasLog = /\b(because|since|due to|result in|therefore|so that|leads to|aim to)\b/i.test(ansLower);
+    m.log = hasLog ? 100 : (ans.length > 50 ? 50 : 0);
+
+    const hasDate = (/\b(19|20)\d{2}\b/.test(ans)); 
+    const hasMoney = /\b(\d+\s?(lakh|lac|million|usd|inr|dollar|rs|eur|gbp|k|thousand))\b/i.test(ansLower);
+    const hasInst = (/\b(university|college|ltd|pvt|corp|bank|inc|hospital|school|firm|office)\b/i.test(ansLower));
+    m.ev = (hasDate ? 34 : 0) + (hasMoney ? 33 : 0) + (hasInst ? 33 : 0);
+
+    const returnHome = (/\b(return|india|home|back|family|manage|property|ties|assets)\b/i.test(ansLower));
+    m.int = returnHome ? 100 : (/\b(settle|stay|permanent)\b/.test(ansLower) ? 0 : 40);
+
+    // -------------------------------
+    // STEP 4: STRICT SUM CALCULATION (SUM = TOTAL)
+    // Formula: (Performance * Weight) which gives 0-100 total.
+    // Display per bar: contribution / (Total Possible / 5)? No.
+    // To make each bar out of 20, we simply show (Performance * Weight)
+    // -------------------------------
+    const finalScores = {
+        dir: m.dir * b.dir,
+        rel: m.rel * b.rel,
+        log: m.log * b.log,
+        ev:  m.ev  * b.ev,
+        int: m.int * b.int
+    };
+
+    const finalTotal = Math.round(finalScores.dir + finalScores.rel + finalScores.log + finalScores.ev + finalScores.int);
+    const blueprint = perfectBlueprints[qType] || "Please state specific dates, institution names, and verifiable return ties.";
+
+    renderFinalUI(finalTotal, [], blueprint, finalScores, toneKey, rules);
+    interviewScore += finalTotal;
 };
+
+function renderFinalUI(score, issues, blueprint, earned, toneKey, rules) {
+    // 1. Calculate qualitative verdict
+    const verdict = score <= 50 ? "❌ Needs improvement" : score <= 75 ? "⚠️ Acceptable but weak" : "✅ Strong response";
+    
+    // 2. Hide instructions to focus on feedback
+    $('#instructionZone').hide(); 
+
+    // 3. Show Result
+    $('#stepScore').html(`<div style="font-size:1.1rem; font-weight:900;">OFFICER VERDICT: ${verdict}</div>`);
+    $('#stepVerdict, #stepReasons').hide(); 
+
+    const feedbackHtml = `
+        <div id="feedbackBox" style="text-align: left; background: #fff; border: 2px solid #000; padding: 20px; border-radius: 15px; margin-top:15px; box-shadow: 6px 6px 0px var(--aqua);">
+            <b style="color:#000; text-transform:uppercase; font-size:0.75rem; display:block; margin-bottom:10px;">The Correct Answer Path:</b>
+            <div style="padding:15px; background:#f9f9f9; border-left:5px solid #00b894; border-radius:8px;">
+                <p style="font-size:0.95rem; color:#333; margin:0; font-style: italic; line-height:1.6;">"${blueprint}"</p>
+            </div>
+            <p style="font-size:0.7rem; color:#666; margin-top:15px;">* Review the blueprint above to see how a successful candidate would structure this specific point.</p>
+        </div>
+    `;
+
+    $('#stepReasons').after(feedbackHtml);
+    $('#instantFeedback').show(); 
+    $('#submitAnsBtn, #micBtn').hide(); 
+    $('#userAnswer').prop('disabled', true);
+}
 
 window.proceedToNext = function() {
     currentQIdx++;
-    if (currentQIdx < 50) loadNewQuestion(); else showFinalVerdict();
+    if (currentQIdx < 10) loadNewQuestion(); else showFinalVerdict();
 };
 
 window.showFinalVerdict = function() {
     $('#interviewZone').hide(); $('#interviewResult').fadeIn();
-    const final = Math.min(100, Math.ceil((interviewScore / 1000) * 100));
-    $('#finalScore').text(final + "%");
-    $('#officerFeedback').text(final >= 70 ? "HIGH PROBABILITY" : "LOW PROBABILITY / NEEDS PRACTICE");
+    const finalPct = Math.ceil((interviewScore / (currentQIdx * 100)) * 100);
+    $('#finalScore').text(finalPct + "%");
+    $('#officerFeedback').html(finalPct >= 80 ? "<b style='color:#2ed573;'>STATUS: ADMISSIBLE</b>" : "<b style='color:#ff4757;'>STATUS: INADMISSIBLE</b>");
 };
 </script>
 
