@@ -1159,11 +1159,48 @@
 
 
 
+<!-- SECTION 13: THE CULTURE SHOCK DECRYPTER -->
+<div class="section-card" id="culture-shock">
+    <div class="section-title">13. The Culture Shock Decrypter</div>
+    
+    <div style="max-width: 500px; margin: 0 auto 30px auto;">
+        <p style="font-size: 0.85rem; font-weight: 700; color: #666; margin-bottom: 15px;">
+            Select your destination to reveal the unspoken social rules.
+        </p>
+        <select id="cultureCountry" class="country-drop" onchange="renderCultureRules()"></select>
+    </div>
+
+    <div id="cultureDisplay" style="display: none;">
+        <div class="comp-wrapper">
+            <!-- DOS PANEL -->
+            <div class="result-panel" style="display: block; border-top: 10px solid #2ed573; background: #f0fffb;">
+                <h3 style="text-align: center; color: #27ae60; font-weight: 900; margin-bottom: 20px;">✅ THE GREEN ZONE (DOs)</h3>
+                <div id="dosList" style="display: flex; flex-direction: column; gap: 12px;"></div>
+            </div>
+
+            <!-- DON'TS PANEL -->
+            <div class="result-panel" style="display: block; border-top: 10px solid #ff4757; background: #fff5f5;">
+                <h3 style="text-align: center; color: #c0392b; font-weight: 900; margin-bottom: 20px;">❌ THE RED ZONE (DON'Ts)</h3>
+                <div id="dontsList" style="display: flex; flex-direction: column; gap: 12px;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: var(--black); color: var(--aqua); border-radius: 15px; text-align: center;">
+            <div id="cultureVibe" style="font-size: 0.9rem; font-weight: 700; font-style: italic;"></div>
+        </div>
+    </div>
+</div>
 
 
-<!-- 12. THE TRANSPARENCY PORTAL -->
+
+
+
+
+
+
+<!-- 14. THE TRANSPARENCY PORTAL -->
 <details class="transparency-details">
-    <summary class="transparency-summary">⚠ 12. UNCOVER THE MIGRATION GREY MARKET: TRUTH REPORT ⚠</summary>
+    <summary class="transparency-summary">⚠ 14. UNCOVER THE MIGRATION GREY MARKET: TRUTH REPORT ⚠</summary>
     
     <div class="transparency-content">
         <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase; border-bottom: 8px solid var(--aqua);">THE ₹25 LAKH ILLUSION</h2>
@@ -1277,9 +1314,9 @@
     </div>
 </details>
 
-<!--13.  THE IMMIGRATION ENCYCLOPEDIA -->
+<!--15.  THE IMMIGRATION ENCYCLOPEDIA -->
 <details class="glossary-details">
-    <summary class="glossary-summary">📖 13. IMMIGRATION ENCYCLOPEDIA: 50 KEY TERMS DECODED</summary>
+    <summary class="glossary-summary">📖 15. IMMIGRATION ENCYCLOPEDIA: 50 KEY TERMS DECODED</summary>
     
     <div class="transparency-content">
         <input type="text" id="termSearch" class="glossary-search" placeholder="🔍 SEARCH FOR A TERM (e.g. 'Green Card', 'Sponsor', 'PCC')...">
@@ -1613,9 +1650,9 @@
 
 
 
-<!-- 14. THE IMMIGRATION GLOSSARY -->
+<!-- 16. THE IMMIGRATION GLOSSARY -->
 <details class="glossary-details">
-    <summary class="glossary-summary">📚 14. MASTER THE TERMINOLOGY: DECODING VISA JARGON</summary>
+    <summary class="glossary-summary">📚 16. MASTER THE TERMINOLOGY: DECODING VISA JARGON</summary>
     
     <div class="glossary-content">
         <!-- Term 1 -->
@@ -1728,7 +1765,7 @@
 
 
 
- <!--15.  STRATEGIC DISCLOSURE -->
+ <!--17.  STRATEGIC DISCLOSURE -->
 <div class="disclosure-card">
     <div style="font-weight:900; text-transform:uppercase; margin-bottom:12px; letter-spacing:2px; color:var(--black); text-align: center;text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 8px;">Strategic Disclosure</div>
     <div style="font-size: 0.9rem; line-height: 1.6; color: #333; text-align: left;">
@@ -1745,7 +1782,7 @@
 
 
 
-<!-- 16. FOOTER BUTTONS -->
+<!-- 18. FOOTER BUTTONS -->
 <div class="footer-nav">
     <button class="footer-btn" onclick="openNexaModal('privacy')">Privacy Statement</button>
     <button class="footer-btn" onclick="openNexaModal('disclaimer')">Disclaimer</button>
@@ -14499,6 +14536,184 @@ $(document).ready(function() {
     const $roiDrop = $('#roiCurrency');
     Object.keys(roiFX).sort().forEach(c => {
         $roiDrop.append(`<option value="${c}">${c.toUpperCase()}</option>`);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+const cultureDb = {
+    usa: {
+        vibe: "Focus on individualism, punctuality, and the 'Tipping Economy'.",
+        dos: ["Tip 18-25% at restaurants.", "Respect personal space (arm's length).", "Be exactly on time for meetings.", "Use 'Please' and 'Thank you' constantly.", "Small talk with cashiers is normal.", "Keep to the right on escalators.", "Address people by first names if invited.", "Always RSVP to invitations.", "Follow traffic rules strictly as a pedestrian.", "Wait for your turn to speak in groups."],
+        donts: ["Don't discuss religion or politics.", "Don't ask about someone's salary.", "Don't stare at people in public.", "Don't cut in line (queuing is sacred).", "Don't smoke in non-designated areas.", "Don't touch children you don't know.", "Don't ignore sirens (move over).", "Don't haggle over prices in retail stores.", "Don't visit someone without calling first.", "Don't use 'honking' unless for emergencies."]
+    },
+    uk: {
+        vibe: "Valuing politeness, subtlety, and the art of the 'Orderly Queue'.",
+        dos: ["Apologize if someone bumps into YOU.", "Master the art of queuing patiently.", "Discuss the weather to break the ice.", "Say 'Cheers' instead of thank you.", "Hold doors open for people behind you.", "Buy a 'round' of drinks if in a pub group.", "Keep your voice low in public transport.", "Use formal titles (Mr/Ms) initially.", "Punctuality is expected for dinner.", "Pay for your plastic bags at stores."],
+        donts: ["Don't complain loudly in restaurants.", "Don't ask personal questions about family.", "Don't jump the queue (it's a social crime).", "Don't use 'bloody' in formal settings.", "Don't brag about wealth or money.", "Don't stare at people on the Tube/Train.", "Don't be late for a scheduled appointment.", "Don't block the left side of escalators.", "Don't assume 'Tea' is just a drink (can be a meal).", "Don't speak loudly on your mobile in public."]
+    },
+    japan: {
+        vibe: "Extreme respect, silence in public, and strict social etiquette.",
+        dos: ["Bow when greeting others.", "Take off shoes before entering homes.", "Handle business cards with both hands.", "Slurp your noodles (shows it's tasty).", "Carry your trash home (no public bins).", "Keep your phone on silent in public.", "Wait for the green man to cross streets.", "Use two hands to give/receive items.", "Learn basic greetings (Arigato).", "Shower before entering an Onsen."],
+        donts: ["Don't tip (it can be seen as an insult).", "Don't talk on the phone in trains.", "Don't eat or drink while walking.", "Don't point at people or things.", "Don't blow your nose loudly in public.", "Don't pour your own drink (pour for others).", "Don't cross your chopsticks on the bowl.", "Don't pass food from chopstick to chopstick.", "Don't be loud in residential areas.", "Don't enter a bathtub with soap on you."]
+    },
+    uae: {
+        vibe: "A mix of modern luxury and strict Islamic traditional values.",
+        dos: ["Dress modestly in public places.", "Stand up when a high-ranking person enters.", "Accept Arabic coffee when offered.", "Use your right hand for everything social.", "Respect prayer times and mosque calls.", "Ask permission before taking photos of locals.", "Carry a valid ID at all times.", "Greet the eldest person in a room first.", "Address locals as 'Sayyidi' (Sir) / 'Sayyidati' (Ma'am).", "Be generous with hospitality."],
+        donts: ["Don't show public affection (PDA).", "Don't drink alcohol in non-licensed areas.", "Don't swear or make rude gestures (legal risk).", "Don't eat/drink in public during Ramadan.", "Don't take photos of government buildings.", "Don't point your shoe soles at anyone.", "Don't live with the opposite sex (unless married).", "Don't spread rumors on social media (illegal).", "Don't cross legs in front of an elder.", "Don't ignore local dress codes in malls."]
+    },
+    germany: {
+        vibe: "Direct communication, efficiency, and rules-based living.",
+        dos: ["Follow every rule (even if no one is watching).", "Make direct eye contact while speaking.", "Separate your trash into 4+ bins.", "Be 5 minutes early to everything.", "Address people as Herr/Frau [Surname].", "Shake hands firmly upon meeting.", "Keep quiet hours (10pm-6am) strictly.", "Carry cash (many places don't take cards).", "Wait for the 'Walk' signal at every road.", "Wish 'Mahlzeit' at lunch time."],
+        donts: ["Don't call anyone after 8:00 PM.", "Don't walk in the bicycle lanes.", "Don't use 'Nazi' jokes or symbols (illegal).", "Don't be late (even by 2 minutes).", "Don't hug people unless you are close.", "Don't waste water or energy.", "Don't stare at people (it's seen as curious, not rude).", "Don't use the 'Du' form unless invited.", "Don't shop on Sundays (everything is closed).", "Don't expect small talk from strangers."]
+    },
+    australia: {
+        vibe: "Relaxed 'Fair Go' culture with a focus on mateship.",
+        dos: ["Say 'G'day' or 'How ya goin?'.", "Sit in the front seat of a taxi (if alone).", "Bring a plate of food to a BBQ (Barbie).", "Respect the 'First come, first served' rule.", "Always wear sunscreen and a hat.", "Be humble (avoid 'tall poppy' syndrome).", "Address people by their first names.", "Shorten words (Breakfast = Brekkie).", "Say thank you to the bus driver.", "Swim only between the red and yellow flags."],
+        donts: ["Don't brag about your achievements.", "Don't complain about the heat or flies.", "Don't tip unless the service was exceptional.", "Don't mention the 'Emus' or 'War' jokes.", "Don't litter (huge fines apply).", "Don't touch wild animals (Kangaroos/Koalas).", "Don't be formal (it makes people uneasy).", "Don't take yourself too seriously.", "Don't light fires in the bush during summer.", "Don't ignore local water restrictions."]
+    },
+    canada: {
+        vibe: "Multiculturalism, kindness, and apologizing for everything.",
+        dos: ["Say 'Sorry' if someone bumps into YOU.", "Hold the door for the person behind you.", "Tipping 15-20% is expected.", "Always be on time for social visits.", "Respect the 2-meter bubble of personal space.", "Be inclusive of all cultures and genders.", "Wait for people to exit the elevator first.", "Small talk about hockey is a winner.", "Carry valid photo ID for age verification.", "Dress in layers for the extreme weather."],
+        donts: ["Don't assume someone's background.", "Don't be loud or aggressive in public.", "Don't compare Canada to the USA.", "Don't smoke near building entrances.", "Don't ignore 'Please' and 'Thank you'.", "Don't discuss personal income or rent.", "Don't enter a home with your shoes on.", "Don't be late for work or class.", "Don't argue with transit officers.", "Don't use offensive slang or jokes."]
+    },
+    singapore: {
+        vibe: "High-speed efficiency with very strict legal penalties.",
+        dos: ["Use a tissue pack to 'chope' (reserve) a seat.", "Clear your tray at hawker centers.", "Stand on the left side of escalators.", "Be punctual for business and social events.", "Carry an umbrella (it rains suddenly).", "Follow 'No Durian' signs in public transport.", "Use 'Uncles' and 'Aunties' for elders politely.", "Lower your volume in the MRT (train).", "Keep your environment clean.", "Respect all religious sites and customs."],
+        donts: ["Don't chew gum (selling it is illegal).", "Don't litter (heavy fines and CWO).", "Don't smoke in public areas (only yellow boxes).", "Don't drink or eat in the MRT stations.", "Don't forget to flush public toilets (it's a law).", "Don't use public Wi-Fi without permission.", "Don't feed pigeons or monkeys.", "Don't jaywalk (use overhead bridges).", "Don't haggle in shopping malls.", "Don't discuss sensitive race/religion topics."]
+    },
+    // Adding Bahrain per your previous context
+    bahrain: {
+        vibe: "Open-minded Gulf culture with strong traditional roots.",
+        dos: ["Dress respectfully in public areas.", "Remove shoes when entering a Majlis.", "Stand when someone enters the room.", "Use your right hand for eating and greetings.", "Accept tea/coffee when visiting a home.", "Learn 'Salam Alaikom' as a greeting.", "Be patient (the pace of life is slower).", "Haggle politely at the Bab Al Bahrain souq.", "Always greet the host of any gathering.", "Carry a copy of your CPR card."],
+        donts: ["Don't display public affection (PDA).", "Don't eat in public during Ramadan hours.", "Don't take photos of women without permission.", "Don't use your left hand for passing items.", "Don't point your feet toward anyone.", "Don't drink alcohol in public spaces.", "Don't discuss local politics or the Royal family.", "Don't ignore the calls to prayer.", "Don't be aggressive while driving.", "Don't wear swimwear away from the beach."]
+    },
+    // Placeholder logic for remaining: We will fill common themes for the rest
+    france: {
+        vibe: "Formal social structure and the importance of 'Bonjour'.",
+        dos: ["Say 'Bonjour' before any interaction.", "Keep your hands on the table at dinner.", "Dress smartly even for casual outings.", "Ask 'Parlez-vous anglais?' before speaking English.", "Try to use basic French phrases.", "Respect the 2-hour lunch break.", "Bring a small gift if invited to a home.", "Buy bread at a Boulangerie, not a supermarket.", "Wait for 'Bon Appétit' before eating.", "Be subtle with your perfume/cologne."],
+        donts: ["Don't speak loudly in public.", "Don't rush your meal in a restaurant.", "Don't ask for a 'to-go' bag for food.", "Don't use 'Tu' with strangers; use 'Vous'.", "Don't snack while walking on the street.", "Don't assume everyone speaks English.", "Don't put bread on your plate (put it on the table).", "Don't ask for extra salt/ketchup in fine dining.", "Don't be late for dinner parties.", "Don't talk about money or wealth."]
+    },
+    italy: {
+        vibe: "Focus on family, fashion, and 'La Bella Figura' (good image).",
+        dos: ["Dress well (even for the grocery store).", "Order your coffee at the bar standing up.", "Say 'Ciao' or 'Buongiorno' politely.", "Keep your elbows off the table.", "Eat with a fork and knife, even for pizza.", "Respect the afternoon 'Riposo' (nap time).", "Compliment the food to the host.", "Validate your train ticket before boarding.", "Learn the difference between various pastas.", "Be expressive with your hands."],
+        donts: ["Don't order a Cappuccino after 11:00 AM.", "Don't put pineapple on your pizza.", "Don't put parmesan cheese on seafood pasta.", "Don't wear flip-flops outside the beach.", "Don't expect fast service (meals are slow).", "Don't get drunk in public (shameful).", "Don't cross your fork and knife on the plate.", "Don't use a spoon for spaghetti.", "Don't touch produce with bare hands in markets.", "Don't be loud in churches."]
+    },
+    netherlands: {
+        vibe: "Direct honesty, cycling culture, and 'Gezellig' (coziness).",
+        dos: ["Be direct and honest (not seen as rude).", "Look both ways for BIKES, not cars.", "Be exactly on time for appointments.", "Buy a good bike lock.", "Split the bill exactly (Going Dutch).", "Greet people when entering small shops.", "Respect everyone's privacy.", "Schedule a 'Coffee date' weeks in advance.", "Maintain eye contact.", "Keep your curtains open (tradition of transparency)."],
+        donts: ["Don't walk in the red-colored bike lanes.", "Don't show off your wealth or status.", "Don't be late for a meeting.", "Don't drop by someone's house unannounced.", "Don't skip the queue at the supermarket.", "Don't assume the 'Coffee Shop' sells coffee.", "Don't complain about the wind or rain.", "Don't ignore the 'Quiet Zone' on trains.", "Don't be offended by blunt feedback.", "Don't haggle at retail stores."]
+    },
+    luxembourg: {
+        vibe: "Multilingualism, discretion, and high professional standards.",
+        dos: ["Learn basic French or German greetings.", "Dress conservatively and formally.", "Respect the 12pm-2pm quiet hours.", "Be punctual for all business meetings.", "Carry cash for small transactions.", "Shake hands with everyone in a group.", "Be discreet with your wealth.", "Lower your voice in public areas.", "Follow traffic laws strictly.", "Use 'Monsieur' or 'Madame' for elders."],
+        donts: ["Don't be loud or boisterous in public.", "Don't ignore local languages (Lëtzebuergesch).", "Don't assume everyone is a banker.", "Don't discuss personal finances.", "Don't be late for social or work events.", "Don't take photos of private properties.", "Don't throw trash in the wrong recycling bin.", "Don't be flashy with jewelry or cars.", "Don't ignore the Sunday quiet rules.", "Don't speak English without asking first."]
+    },
+    poland: {
+        vibe: "Honesty, hospitality, and respect for tradition.",
+        dos: ["Bring flowers if invited (odd number only).", "Give up your seat for elders on buses.", "Remove your shoes when entering a home.", "Dress up for theater or dinners.", "Wish people 'Smacznego' before eating.", "Be prepared for direct, honest talk.", "Shake hands firmly.", "Wait for the host to start eating.", "Learn basic Polish (Dzień dobry).", "Respect religious symbols and churches."],
+        donts: ["Don't bring an even number of flowers.", "Don't leave your shoes on in a house.", "Don't whistle indoors (seen as bad luck).", "Don't drink alcohol in public parks.", "Don't discuss politics or history easily.", "Don't mention 'Eastern Europe' (say Central).", "Don't cross your legs when sitting with elders.", "Don't be loud on public transport.", "Don't reject an offer of food from a host.", "Don't wear a hat indoors."]
+    },
+    romania: {
+        vibe: "Warm hospitality, superstition, and respect for elders.",
+        dos: ["Bring a small gift (chocolate/wine) to hosts.", "Give up your seat to the elderly.", "Expect long, food-heavy social visits.", "Remove shoes unless the host says no.", "Say 'Poftă bună' before a meal.", "Dress modestly for church visits.", "Keep eye contact when toasting.", "Be polite to officials and elders.", "Carry small change for tips.", "Learn basic Romanian (Bună ziua)."],
+        donts: ["Don't give an even number of flowers.", "Don't sit at the corner of a table (superstition).", "Don't refuse food or a second helping.", "Don't discuss sensitive history topics.", "Don't whistle inside the house.", "Don't put your bag on the floor (bad luck).", "Don't leave a toast half-finished.", "Don't assume everyone speaks English.", "Don't be late for social gatherings.", "Don't talk loudly in public places."]
+    },
+    china: {
+        vibe: "Collectivism, 'Face' (saving reputation), and strict hierarchy.",
+        dos: ["Accept gifts with both hands.", "Finish all the food on your plate.", "Burp slightly to show you are full.", "Dress conservatively for work.", "Address people by their titles.", "Be early for business meetings.", "Learn to use chopsticks correctly.", "Respect the hierarchy in a room.", "Nod while others are speaking.", "Bring a gift when visiting someone."],
+        donts: ["Don't tap your chopsticks on the bowl.", "Don't leave chopsticks sticking upright in rice.", "Don't point with your index finger.", "Don't make someone 'Lose Face' (shame them).", "Don't discuss the '3 Ts' (Tibet, Taiwan, Tiananmen).", "Don't touch someone's head.", "Don't write names in red ink.", "Don't finish your drink before pouring for others.", "Don't give clocks or umbrellas as gifts.", "Don't be late for anything."]
+    },
+    russia: {
+        vibe: "Seriousness in public, warmth in private, and strict superstition.",
+        dos: ["Remove your coat and shoes when entering a home.", "Dress up for almost every outing.", "Bring a gift (sweets/flowers) to a host.", "Toast before every round of drinks.", "Be prepared for deep, late-night talks.", "Carry your internal passport at all times.", "Stand up for women and the elderly.", "Keep your hands out of your pockets.", "Whistle only outdoors.", "Give up your seat on the Metro."],
+        donts: ["Don't smile at strangers (seen as suspicious).", "Don't shake hands over a threshold/doorway.", "Don't bring yellow flowers (symbol of breakups).", "Don't leave an empty bottle on the table.", "Don't wear your coat inside a building.", "Don't talk loudly in public spaces.", "Don't show the soles of your shoes.", "Don't sit on the ground (seen as dirty/unhealthy).", "Don't turn down an offer of Vodka (unless for health).", "Don't use 'How are you' as a casual greeting."]
+    },
+    southafrica: {
+        vibe: "The 'Rainbow Nation' mix of casualness and diverse traditions.",
+        dos: ["Say 'Howzit' or 'Sawubona' to locals.", "Respect the 2-meter personal space.", "Attend a Braai (BBQ) if invited.", "Tip 10-15% at all restaurants.", "Be aware of your surroundings (safety).", "Learn about the different cultures (Zulu/Xhosa).", "Call elders 'Uncle' or 'Auntie' politely.", "Stay patient with 'Africa time' (delays).", "Support the local Springboks (Rugby).", "Use the left hand to support the right when giving."],
+        donts: ["Don't use the 'K-word' (highly illegal/offensive).", "Don't walk alone in deserted areas at night.", "Don't flash your expensive gadgets in public.", "Don't assume everyone speaks the same language.", "Don't ignore the car guards (give a small tip).", "Don't talk about 'Apartheid' unless invited.", "Don't be flashy with your wealth.", "Don't leave your car unlocked.", "Don't rush a social conversation.", "Don't forget to lock your doors at home."]
+    },
+    malaysia: {
+        vibe: "A multicultural blend of Malay, Chinese, and Indian values.",
+        dos: ["Dress modestly, especially near mosques.", "Remove shoes before entering a home.", "Use your right hand to eat or pass items.", "Use your thumb (not index finger) to point.", "Accept food/drink offered by a host.", "Address elders as 'Encik' or 'Puan'.", "Be patient with traffic and humidity.", "Learn basic Malay (Terima Kasih).", "Respect the call to prayer.", "Nod politely when passing people."],
+        donts: ["Don't touch anyone's head.", "Don't point with your index finger.", "Don't display public affection (PDA).", "Don't wear shoes inside a place of worship.", "Don't discuss sensitive ethnic topics.", "Don't eat in front of Muslims during Ramadan.", "Don't use your left hand for social interactions.", "Don't walk over food being served on the floor.", "Don't criticize the local monarchy.", "Don't assume 'Yes' always means agreement."]
+    },
+    southkorea: {
+        vibe: "Hierarchy, respect for elders, and high-speed digital life.",
+        dos: ["Bow to elders and superiors.", "Use two hands to give/receive anything.", "Remove shoes before entering a house/temple.", "Pour drinks for others (don't pour your own).", "Turn your head away when drinking with elders.", "Wait for the eldest to start eating.", "Be punctual for work and social events.", "Keep your voice low on public transport.", "Stand in line for the subway.", "Learn basic Korean (Annyeong-haseyo)."],
+        donts: ["Don't write names in red ink (symbolizes death).", "Don't leave chopsticks in your rice bowl.", "Don't talk loudly in restaurants or trains.", "Don't blow your nose at the dinner table.", "Don't cross your legs in front of an elder.", "Don't use one hand for greetings/transactions.", "Don't wear revealing tops (shoulders/cleavage).", "Don't refuse a drink from an elder (unless medical).", "Don't be late for work (early is on time).", "Don't point with your fingers."]
+    },
+    qatar: {
+        vibe: "Ultra-modern wealth with deeply conservative Islamic values.",
+        dos: ["Dress modestly in malls and public places.", "Remove shoes when entering a Majlis.", "Stand when an elder or official enters.", "Accept dates and coffee when offered.", "Use your right hand for all social tasks.", "Observe silence during the call to prayer.", "Ask permission before taking photos of locals.", "Stay hydrated in the extreme heat.", "Be patient with bureaucratic processes.", "Always carry a valid ID."],
+        donts: ["Don't display public affection (PDA).", "Don't drink or be drunk in public.", "Don't eat or drink in public during Ramadan.", "Don't take photos of military or police.", "Don't wear shorts or tank tops in public areas.", "Don't swear or make rude gestures.", "Don't point your feet at anyone.", "Don't cross legs in a formal setting.", "Don't ignore the local customs for women.", "Don't criticize the government or religion."]
+    },
+    saudiarabia: {
+        vibe: "The heart of Islamic tradition with rapid modernization.",
+        dos: ["Follow the dress code (modesty is key).", "Remove shoes before entering homes.", "Greet the oldest person first.", "Use only the right hand for eating/shaking hands.", "Respect the prayer break (everything closes).", "Accept hospitality (coffee/dates).", "Stand when others enter the room.", "Ask before photographing local men.", "Learn basic Arabic greetings.", "Remain calm and polite with authorities."],
+        donts: ["Don't display public affection (PDA).", "Don't bring or drink alcohol (illegal).", "Don't eat/drink in public during Ramadan.", "Don't take photos of women.", "Don't discuss religion or the Monarchy.", "Don't play loud music in public.", "Don't use your left hand for passing items.", "Don't point at people.", "Don't enter Mecca/Medina unless Muslim.", "Don't wear symbols of other religions."]
+    },
+    kuwait: {
+        vibe: "Conservative, family-oriented, and high respect for elders.",
+        dos: ["Dress conservatively in all public places.", "Stand up for elders and superiors.", "Accept food/drink with your right hand.", "Observe the Ramadan rules strictly.", "Greet with 'Assalamu Alaikum'.", "Maintain a polite and humble attitude.", "Remove shoes before entering a carpeted area.", "Carry your Civil ID at all times.", "Ask before taking photos of people.", "Be early for business meetings."],
+        donts: ["Don't show public affection (PDA).", "Don't drink alcohol (strictly forbidden).", "Don't eat in public during Ramadan hours.", "Don't make rude gestures (legal risk).", "Don't criticize the Emir or government.", "Don't walk in front of a person praying.", "Don't sit with your back to someone.", "Don't wear revealing clothing.", "Don't take photos of refineries or palaces.", "Don't be loud in residential neighborhoods."]
+    },
+    oman: {
+        vibe: "Quiet, peaceful, and traditionally hospitable.",
+        dos: ["Dress modestly and respectfully.", "Stand when a guest or elder enters.", "Always accept Omani coffee and dates.", "Use the right hand for eating.", "Remove shoes before entering homes.", "Learn 'Marhaba' as a greeting.", "Ask for permission before photography.", "Drive carefully and follow rules.", "Be respectful during prayer times.", "Support local businesses."],
+        donts: ["Don't display public affection (PDA).", "Don't drink alcohol in public.", "Don't eat/drink in public during Ramadan.", "Don't shout or be aggressive.", "Don't wear beachwear away from the beach.", "Don't photograph government or military sites.", "Don't insult or mock local traditions.", "Don't sit with your feet facing anyone.", "Don't discuss sensitive political issues.", "Don't ignore the peace and quiet of the desert."]
+    },
+    bahrain: {
+        vibe: "Friendly, relatively liberal, but culturally grounded.",
+        dos: ["Dress modestly in malls and villages.", "Remove shoes before entering a home.", "Use the right hand for shaking/eating.", "Stand up when elders enter.", "Accept food/drink offered by hosts.", "Address people by their proper titles.", "Be patient with local customs.", "Learn basic Arabic phrases.", "Observe Ramadan hours respectfully.", "Nod politely to security/police."],
+        donts: ["Don't display public affection (PDA).", "Don't drink alcohol outside licensed areas.", "Don't eat in public during Ramadan.", "Don't photograph women or government sites.", "Don't use rude language or gestures.", "Don't criticize religion or the Monarchy.", "Don't be late for work meetings.", "Don't wear revealing clothes in markets.", "Don't ignore the call to prayer.", "Don't point your feet at anyone."]
+    }
+};
+
+function renderCultureRules() {
+    const country = $('#cultureCountry').val();
+    if (!country) return;
+
+    const data = cultureDb[country];
+    const $dos = $('#dosList').empty();
+    const $donts = $('#dontsList').empty();
+    
+    $('#cultureVibe').text(`COUNTRY VIBE: ${data.vibe}`);
+
+    data.dos.forEach(rule => {
+        $dos.append(`
+            <div style="padding:10px; border-bottom:1px solid rgba(46, 213, 115, 0.2); font-size:0.8rem; font-weight:700;">
+                <span style="color:#2ed573; margin-right:8px;">●</span> ${rule}
+            </div>
+        `);
+    });
+
+    data.donts.forEach(rule => {
+        $donts.append(`
+            <div style="padding:10px; border-bottom:1px solid rgba(255, 71, 87, 0.2); font-size:0.8rem; font-weight:700;">
+                <span style="color:#ff4757; margin-right:8px;">●</span> ${rule}
+            </div>
+        `);
+    });
+
+    $('#cultureDisplay').fadeIn();
+}
+
+// Ensure the Culture Shock country dropdown is populated correctly
+$(document).ready(function() {
+    const $cultureDrop = $('#cultureCountry');
+    $cultureDrop.empty().append('<option value="">-- Select Country --</option>');
+    Object.keys(cultureDb).sort().forEach(c => {
+        $cultureDrop.append(`<option value="${c}">${c.toUpperCase()}</option>`);
     });
 });
 </script>
