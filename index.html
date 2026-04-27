@@ -1089,6 +1089,78 @@
 
 
 
+
+
+
+
+
+
+<!-- SECTION 12: EDUCATION LOAN ROI FORECASTER -->
+<div class="section-card" id="roi-forecaster">
+    <div class="section-title">12. Education Loan ROI Forecaster</div>
+    
+    <div class="comp-wrapper" style="text-align: left; gap: 25px;">
+        <!-- INPUT COLUMN -->
+        <div class="engine-block">
+            <label class="s-label">1. Loan Principal (Amount Disbursed)</label>
+            <input type="number" id="roiPrincipal" class="wide-input" placeholder="e.g. 2000000" value="2000000">
+
+            <label class="s-label">2. Annual Interest Rate (%)</label>
+            <input type="number" id="roiRate" class="wide-input" placeholder="e.g. 10.5" value="10.5">
+
+            <div style="display: flex; gap: 15px;">
+                <div style="flex: 1;">
+                    <label class="s-label">3. Repayment Tenure (Yrs)</label>
+                    <input type="number" id="roiTenure" class="wide-input" value="10">
+                </div>
+                <div style="flex: 1;">
+                    <label class="s-label">4. Moratorium (Yrs)</label>
+                    <input type="number" id="roiMora" class="wide-input" value="2.5" step="0.5">
+                </div>
+            </div>
+
+            <label class="s-label">5. Target Country (For FX Rate)</label>
+            <select id="roiCurrency" class="country-drop"></select>
+
+            <label class="s-label">6. Monthly Foreign Salary (Take-home)</label>
+            <input type="number" id="roiSalary" class="wide-input" placeholder="Enter Foreign Amount">
+            
+            <button class="cv-btn" style="margin-top: 20px; background: var(--black); color: var(--aqua);" onclick="calculateROI()">Calculate Break-Even</button>
+        </div>
+
+        <!-- OUTPUT COLUMN -->
+        <div id="roiResultPanel" class="result-panel" style="display: block; border-left: 10px solid var(--black); background: #fcfcfc;">
+            <div id="roiInitialMsg" style="text-align: center; color: #999; padding: 40px 0;">
+                Enter your loan and salary details to see your financial timeline.
+            </div>
+            
+            <div id="roiStats" style="display: none;">
+                <div class="res-line"><b>Effective Principal</b><span id="resEffP" style="color: #ff4757;">-</span></div>
+                <div class="res-line"><b>Estimated Monthly EMI</b><span id="resEMI" style="font-weight: 900;">-</span></div>
+                <div class="res-line"><b>Monthly Income (INR)</b><span id="resSalaryINR" style="color: #2ed573;">-</span></div>
+                
+                <div style="margin-top: 25px; background: var(--black); color: var(--white); padding: 20px; border-radius: 15px; text-align: center;">
+                    <div style="color: var(--aqua); font-size: 0.65rem; text-transform: uppercase; font-weight: 900; letter-spacing: 1px;">Projected Debt-Free In</div>
+                    <div id="resMonths" style="font-size: 2.2rem; font-weight: 900;">-</div>
+                    <div id="resDate" style="font-size: 0.8rem; font-weight: 700; opacity: 0.8;">-</div>
+                </div>
+                
+                <p style="font-size: 0.55rem; color: #999; margin-top: 15px; font-style: italic; line-height: 1.4;">
+                    *Interest accumulates during the moratorium and is added to the principal. Assumes 50% of your take-home salary is dedicated to loan repayment.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
 <!-- 12. THE TRANSPARENCY PORTAL -->
 <details class="transparency-details">
     <summary class="transparency-summary">⚠ 12. UNCOVER THE MIGRATION GREY MARKET: TRUTH REPORT ⚠</summary>
@@ -14329,6 +14401,106 @@ window.showFinalVerdict = function() {
     $('#finalScore').text(finalPct + "%");
     $('#officerFeedback').html(finalPct >= 80 ? "<b style='color:#2ed573;'>STATUS: ADMISSIBLE</b>" : "<b style='color:#ff4757;'>STATUS: INADMISSIBLE</b>");
 };
+
+
+
+
+
+
+
+
+
+
+
+
+const roiFX = {
+    usa: 94, uk: 127, uae: 25.7, canada: 69, australia: 65, "new zealand": 59,
+    "saudi arabia": 25.1, qatar: 25.8, kuwait: 305, oman: 245, china: 13.7,
+    russia: 1.1, "south africa": 5.0, japan: 0.60, "south korea": 0.070,
+    singapore: 73, malaysia: 18.8, germany: 110, france: 110, italy: 110,
+    netherlands: 110, luxembourg: 110, poland: 25, romania: 22, bahrain: 238
+};
+
+function calculateROI() {
+    const P = parseFloat($('#roiPrincipal').val());
+    const annualRate = parseFloat($('#roiRate').val());
+    const tenureYears = parseFloat($('#roiTenure').val());
+    const moraYears = parseFloat($('#roiMora').val());
+    const foreignSalary = parseFloat($('#roiSalary').val());
+    const country = $('#roiCurrency').val();
+
+    if (!P || !annualRate || !foreignSalary) return alert("Please fill all loan and salary fields.");
+
+    // 1. Calculate Effective Principal (Interest accumulation during moratorium)
+    // Formula: P_eff = P * (1 + r)^n
+    const moraMonths = moraYears * 12;
+    const monthlyRate = annualRate / (12 * 100);
+    const Peffective = P * Math.pow((1 + monthlyRate), moraMonths);
+
+    // 2. Calculate EMI on Effective Principal
+    const n = tenureYears * 12;
+    const EMI = (Peffective * monthlyRate * Math.pow(1 + monthlyRate, n)) / (Math.pow(1 + monthlyRate, n) - 1);
+
+    // 3. Convert Salary to INR
+    const salaryINR = foreignSalary * roiFX[country];
+
+// 4. Actual Payoff Simulation (Amortization Method)
+// 4. ROI Simulation (Strict Amortization & Negative Amortization Protection)
+    const monthlyCapacity = salaryINR * 0.5; // User's monthly repayment power
+    let monthsToPayoff = 0;
+
+    // FEASIBILITY CHECK: If 50% salary is less than Bank EMI, the loan is defaulted immediately.
+    if (monthlyCapacity < EMI) {
+        monthsToPayoff = "Never (Salary too low for Bank EMI)";
+    } else {
+        let balance = Peffective;
+        let months = 0;
+
+        while (balance > 0.01 && months < 600) { // 50-year safety cap
+            const monthlyInterest = balance * monthlyRate;
+
+            // NEGATIVE AMORTIZATION PROTECTION:
+            // If interest alone is greater than or equal to the payment, balance will never drop.
+            if (monthlyCapacity <= monthlyInterest) {
+                months = -1;
+                break;
+            }
+
+            const principalContribution = monthlyCapacity - monthlyInterest;
+            balance -= principalContribution;
+            months++;
+        }
+
+        if (months === -1) {
+            monthsToPayoff = "Never (Interest exceeds repayment capacity)";
+        } else {
+            monthsToPayoff = months;
+        }
+    }
+    // 5. Render UI
+    $('#roiInitialMsg').hide();
+    $('#roiStats').fadeIn();
+    $('#resEffP').text("₹ " + Math.round(Peffective).toLocaleString('en-IN'));
+    $('#resEMI').text("₹ " + Math.round(EMI).toLocaleString('en-IN'));
+    $('#resSalaryINR').text("₹ " + Math.round(salaryINR).toLocaleString('en-IN'));
+    
+    if (typeof monthsToPayoff === 'string') {
+        $('#resMonths').text("ERR").css('color', '#ff4757');
+        $('#resDate').text(monthsToPayoff);
+    } else {
+        $('#resMonths').text(monthsToPayoff + " MONTHS").css('color', 'var(--aqua)');
+        const years = (monthsToPayoff / 12).toFixed(1);
+        $('#resDate').text(`Approximately ${years} years from the start of repayment.`);
+    }
+}
+
+// Populate ROI Currency dropdown
+$(document).ready(function() {
+    const $roiDrop = $('#roiCurrency');
+    Object.keys(roiFX).sort().forEach(c => {
+        $roiDrop.append(`<option value="${c}">${c.toUpperCase()}</option>`);
+    });
+});
 </script>
 
 
